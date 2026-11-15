@@ -8,3 +8,4 @@
 - [0002 検査タスクとExcelによる共同作業](0002-tasks-and-excel.md)
 - [0003 利用目的ごとのスキルと観察範囲の設定](0003-modular-skills-and-inspection-profiles.md)
 - [0004 人向けの達成基準チェックシート](0004-human-checksheet.md)
+- [0005 1ページの機械検査と状態探索を先行させる](0005-machine-first-page-workflow.md)

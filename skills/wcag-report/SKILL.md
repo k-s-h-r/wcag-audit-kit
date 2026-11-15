@@ -2,12 +2,14 @@
 name: wcag-report
 description: 保存済みのWCAG検証台帳をHTML・JSON・Excelへまとめる。単独ページにもサイト全体にも使う。判定・証拠の対応を確認し、未実施、未探索、観察の省略、人への確認を保持する。報告だけの依頼では再訪問・再検査を始めない。
 metadata:
-  version: "0.5.0"
+  version: "0.6.0"
 ---
 
 # 保存済みの結果を報告する
 
 入力は正本のrunと出力形式。ページ担当者の結果は同じrunへ保存してから集計する。独立したrun、異なるビルド、設定、基準版を暗黙に合算しない。
+
+1ページの報告には`python3 scripts/audit.py page-report --run <run> --page-exact <URL>`を使う。HTML・JSON・Excelの概要・件数・票をそのページへそろえる。機械ルールと実入力の結果を達成基準全体の判定と区別し、残る探索も表示する。
 
 ## 実行ルート
 

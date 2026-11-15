@@ -76,6 +76,10 @@ def scope_gaps(result, criterion, filters, manifest):
     if not page_filtered:
         if not result['collection_complete']:gaps.append('収集が未完了。未収集の範囲を確認する。')
         if result['declared_states_without_page']:gaps.append('対象ページがない宣言済み状態を確認する。')
+    exploration=result.get('exploration',{}).get('remaining',[])
+    if result.get('report_scope')=='page' and exploration:
+        gaps.append(f'操作・探索の追加確認 {len(exploration)}項目。自動探索・機械検査の表を参照。')
+    else:gaps+=exploration
     return gaps
 
 
@@ -83,6 +87,7 @@ def build(result, catalog, *, cases=None, filters=None, manifest=None):
     """No writes, inferred passes, or changes to the machine interchange schema."""
     cases=result['cases'] if cases is None else cases
     filters=filters or {};manifest=manifest or {}
+    if result.get('report_scope')=='page':filters=dict(page_exact=result['url'],**{k:v for k,v in filters.items() if k!='page_exact'})
     restricted=bool(filters.get('task') or filters.get('owner') is not None or filters.get('pending'))
     ids={c['criterion'] for c in cases}
     criteria=[c for c in result['criteria'] if (not filters.get('criterion') or c['id']==filters['criterion'])
@@ -114,10 +119,14 @@ def build(result, catalog, *, cases=None, filters=None, manifest=None):
         remaining=[]
         for case in pending:
             a=case['assessment_data'] or {}
+            if result.get('report_scope')=='page' and not a:continue
             reasons=a.get('remaining',[]) or [
                 '未実施。対象を列挙し、条件・例外・必要な観察方法を検査する。' if not a else
                 '判断・対象の網羅又は必要な観察が未完了。判定記録を確認する。']
             remaining.extend(context(case)+'：'+reason for reason in reasons)
+        not_run=sum(c['assessment_data'] is None for c in pending)
+        if result.get('report_scope')=='page' and not_run:
+            remaining.insert(0,f'達成基準の判定が未記録 {not_run}票。状態・環境別の検査票で追加検査する。')
         if not selected and state!='out_of_target_level':remaining.append('この基準の検査票・判定がありません。')
         remaining+=gaps
         evidence=unique(c['assessment'] for c in selected)
@@ -149,11 +158,23 @@ def build(result, catalog, *, cases=None, filters=None, manifest=None):
             note=f'記録した対象 {len(entries)}件の内訳。\n'+observations
             remainder='同じ基準に未確認あり。基準全体の行を参照。' if remaining else ''
             rows.append(row(point,status,values,locations,note,remainder,related,'checkpoint'))
+        checks=[m for m in result.get('machine_checks',[]) if m['criterion']==sc]
+        points=unique(m['checkpoint'] for m in checks)
+        points.sort(key=lambda p:min({'failed':0,'cant_tell':1,'passed':2,'inapplicable':3}[m['outcome']] for m in checks if m['checkpoint']==p))
+        for point in points:
+            entries=[m for m in checks if m['checkpoint']==point];values=[m['outcome'] for m in entries]
+            status=verdict(values);proof=unique(m['evidence'] for m in entries)
+            item=row('機械検査 / '+entries[0]['expected'],status,values,[],point+'\n'+preview([m.get('state_label',m['capture'])+' / '+m['environment']+' / '+m['target']+'：'+m['observed'] for m in entries]),
+                'この機械ルール以外の条件・対象は基準全体の行を参照。',proof,'checkpoint')
+            item['judgment']={'passed':'○ 通過（機械）','failed':'× 問題あり（機械）','inapplicable':'— 対象なし（機械）','unverified':'未確定（機械）'}[status]
+            item['locations']=preview([m.get('state_label',m['capture'])+' / '+m['environment']+' / '+m['target'] for m in entries if m['outcome'] in {'failed','cant_tell'}],destination='自動検出した問題')
+            rows.append(item)
     labels={'task':'タスク','owner':'担当','page':'URLに含む文字','page_exact':'対象URL','criterion':'対象基準'}
     selections=[f'{labels[k]}：{v}' for k,v in filters.items() if k in labels and v is not None]
     if filters.get('pending'):selections.append('未完了票のみ')
     scope=('選択した検査票のみ' if restricted else '選択したページの全状態・環境' if filters.get('page') or filters.get('page_exact') else 'run全体')
     scope+=f' / 目標 WCAG 2.2 {result["level"]} / {len(cases)}票'
+    if result.get('report_scope')=='page':scope='1ページ / '+result['url']+scope[scope.index(' / 目標'):]
     if selections:scope+=' / '+', '.join(selections)
     notices=[]
     if not result['scope_confirmed']:notices.append('run全体のページ・状態・適合要件の範囲は未確認です。')

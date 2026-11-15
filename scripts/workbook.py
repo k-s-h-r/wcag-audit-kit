@@ -178,7 +178,7 @@ def human_sheets(book, model):
     book.active=0
 
 
-def export(run, out, *, mode='report', task=None, owner=None, page=None, page_exact=None, criterion=None, pending=False):
+def export(run, out, *, mode='report', task=None, owner=None, page=None, page_exact=None, criterion=None, pending=False, page_view=False):
     import audit
     from openpyxl import Workbook
     from openpyxl.worksheet.datavalidation import DataValidation
@@ -187,9 +187,16 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
     out.parent.mkdir(parents=True,exist_ok=True)
     with run_lock(run):
         result=audit.outcomes(run);plan=audit.run_plan(run);meta,catalog=audit.run_catalog(run)
+        if page_view:
+            if not page_exact or mode!='report':raise ValueError('ページ帳票にはreportとpage_exactが必要')
+            from page_workflow import page_result
+            result=page_result(run,page_exact,result)
         cases=queue.select(result['cases'],plan,task=task,owner=owner,page=page,page_exact=page_exact,criterion=criterion,pending=pending)
         if not cases:raise ValueError('条件に合う検査票がない')
         if len(cases)>MAX_CASES:raise ValueError('1万票を超える。--task、--page、--criterion等で分割して出力する')
+        selected_criteria=({r['criterion'] for r in cases} if criterion or task or owner is not None or pending else
+                           {c['id'] for c in result['criteria']})
+        result['machine_checks']=[c for c in result['machine_checks'] if c['criterion'] in selected_criteria and c['environment'] in {r['environment'] for r in cases}]
         export_id=uuid.uuid4().hex
         if mode=='work':
             audit.run_catalog(run,for_write=True);queue.work(plan,create=True)
@@ -208,6 +215,13 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
             filters=dict(task=task,owner=owner,page=page,page_exact=page_exact,criterion=criterion,pending=pending),
             manifest=audit.load(run/'capture-manifest.json'))
         human_sheets(book,model)
+        from page_workflow import grouped_machine_issues
+        sheet(book,'自動検出した問題',[(k,v) for k,v in [('criterion','達成基準'),('expected','機械で確認した条件'),('target','対象要素・位置'),
+              ('outcome','機械の結果'),('observed','観察'),('count','状態・経路の記録数'),('states','確認した状態・環境'),('evidence','全記録の証拠'),('note','判定範囲')]],
+              grouped_machine_issues(result['machine_checks']),True)
+        sheet(book,'機械検査',[(k,v) for k,v in [('criterion','達成基準'),('checkpoint','検査'),('expected','期待結果'),
+              ('outcome','機械ルールの判定'),('environment','環境'),('capture','状態・経路'),('target','対象'),('observed','観察'),('evidence','証拠'),('note','判定範囲')]],
+              result['machine_checks'],True)
         summary=[['出力モード',mode],['サイト',result['url']],['全検査票',len(result['cases'])],['このファイルの票数',len(cases)],
                  ['検証完了',result['audit_complete']],['範囲確認',result['scope_confirmed']],
                  ['人の確認待ち',len(result['human_review_cases'])],['未訪問URL',len(result['unvisited'])]]

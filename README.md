@@ -34,10 +34,12 @@ python3 scripts/install_skills.py --destination /project/ai-skills --skills wcag
 ## 1ページから始める
 
 ```sh
-python3 scripts/audit.py page --url https://example.com/contact --out /project/run-contact --profile standard
+python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-contact --profile standard
 ```
 
-この入口は指定URLだけを収集します。CLIは証拠と未実施の検査票を作り、その後にwcag-pageが画像を実際に見て操作・状態を調べ、基準ごとの判定を記録します。収集成功だけで検証完了にはなりません。
+この入口は指定URLだけで開閉・選択・入れ子などの状態を探索し、実クリック・キー操作と各状態のaxeを実行します。探索・機械検査・ページ別HTML・JSON・Excelの出力にAIサービスやAPIキーは必要ありません。途中で止めたキューは再開できます。[1ページの実行手順](references/page-audit.md)を参照してください。
+
+機械結果と、達成基準全体の適否は区別します。自動ルールで決まらない意味や目的、未探索の内容、必要な実SR等は追加検査に残します。`page-next`で次の票と機械結果・手順を取得し、利用できる道具から確認を進めます。`page-report`でそのページだけの結果を更新できます。既存の`page`は事前設定の状態を収集する入口として保持します。
 
 画像と実SRは[観察設定](references/inspection-profiles.md)で選べます。quickは画像・実SRを省いた予備確認、standardは状態の画像を中心とする確認、thoroughは途中の画像と実SRも求める確認です。省略・上限・未探索は結果へ残し、トークン数や料金を保証する設定とは区別します。
 

@@ -1,0 +1,6 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Native dialog fixture</title>
+<body><main><h1>Native browser dialog</h1><button type="button" onclick="alert('Owned fixture message')">Show information</button>
+<button type="button" onclick="fetch('/write',{method:'POST',body:'must be blocked'})">Preview</button>
+<div id="property-control">Open extra information</div><p id="property-panel" hidden>Extra information is visible.</p>
+<script>document.querySelector('#property-control').onclick=()=>{document.querySelector('#property-panel').hidden=false}</script>
+</main></body></html>

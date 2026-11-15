@@ -1,0 +1,137 @@
+"""Page-scoped work packets and deterministic checks, independent of an LLM."""
+from collections import Counter
+from copy import deepcopy
+from pathlib import Path
+import uuid
+
+
+def grouped_machine_issues(checks):
+    groups={}
+    for check in checks:
+        if check['outcome'] not in {'failed','cant_tell'}:continue
+        key=tuple(check[k] for k in ['criterion','checkpoint','target','observed','outcome'])
+        group=groups.setdefault(key,dict(check,states=[],proof=[],capture_ids=[]))
+        group['states'].append(check.get('state_label',check['capture'])+' / '+check['environment'])
+        group['capture_ids'].append(check['capture'])
+        if check['evidence'] not in group['proof']:group['proof'].append(check['evidence'])
+    return [dict(g,count=len(g['states']),states='\n'.join(g['states']),evidence='\n'.join(g['proof']),
+        outcome='問題あり（機械）' if g['outcome']=='failed' else '機械判定不能') for g in groups.values()]
+
+
+def machine_checks(run):
+    import audit
+    from page_explorer import status
+    graph=status(run);_,catalog=audit.run_catalog(run)
+    labels={c['selector']:c['label'] for n in graph.get('nodes',[]) for c in n.get('controls',[])}
+    def scene(route):
+        if not route:return '初期表示'
+        names={'click':'クリック','hover':'ホバー','key':'キー','press':'キー','fill':'入力','scroll':'スクロール'}
+        return ' → '.join(names[a['type']]+' '+labels.get(a.get('selector'),a.get('selector',''))+
+                          (' / '+a['key'] if a.get('key') else '') for a in route)
+    tags={'wcag'+c['id'].replace('.',''):c['id'] for c in catalog['criteria']}
+    rows=[]
+    for node in graph.get('nodes',[]):
+        path=Path(node['evidence_dir'])/'axe.json'
+        if not (run/path).exists():continue
+        axe=audit.load(run/path)
+        for group,outcome in [('violations','failed'),('passes','passed'),('incomplete','cant_tell'),('inapplicable','inapplicable')]:
+            for rule in axe.get(group,[]):
+                for criterion in sorted({tags[t] for t in rule.get('tags',[]) if t in tags}):
+                    affected=rule.get('nodes',[])
+                    rows.append(dict(criterion=criterion,checkpoint='axe / '+rule['id'],expected=rule['help'],
+                        outcome=outcome,environment=node['environment'],capture=node['capture'],state_label=scene(node['route']),
+                        target='\n'.join(str(n['target']) for n in affected),
+                        observed='\n'.join(n.get('failureSummary') or n.get('html','') for n in affected),
+                        evidence=path.as_posix(),source=rule.get('helpUrl',''),
+                        note='機械ルールの結果。達成基準全体の適否とは区別する。'))
+    for index,edge in enumerate(graph.get('edges',[])):
+        if not edge['route']:continue
+        action=edge['route'][-1]
+        if action['type'] not in {'key','press','click'}:continue
+        rows.append(dict(criterion='2.1.1',checkpoint='実入力 / '+action.get('key',action['type']),
+            expected='指定した対象へ実入力で到達し、操作を送出できる',
+            outcome='cant_tell' if edge.get('blocked_requests') or edge.get('native_events') else 'failed' if edge.get('error') else 'passed',
+            environment=edge['environment'],capture=f'操作経路 {index+1}',state_label=scene(edge['route']),target=action.get('selector',''),
+            observed=edge.get('error') or '実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。',
+            evidence=edge['evidence_dir']+'/transition.json',source='',
+            note='この入力経路の実行結果。キーボード操作の達成基準全体の判定ではない。'))
+    return rows
+
+
+def page_result(run, url, original=None):
+    import audit
+    from browser_capture import normalize
+    from checksheet import build
+    from work_queue import unfinished
+    original=original or audit.outcomes(run)
+    rows=[c for c in original['cases'] if normalize(c['page_url'])==normalize(url)]
+    if not rows:raise ValueError('指定ページの検査票がありません')
+    _,catalog=audit.run_catalog(run)
+    model=build(original,catalog,cases=rows,filters={'page_exact':url},manifest=audit.load(run/'capture-manifest.json'))
+    statuses={r['criterion']:r['status'] for r in model['rows'] if r['kind']=='criterion'}
+    result=deepcopy(original);result.update(url=url,report_scope='page',cases=rows,counts=dict(Counter(c['outcome'] for c in rows)))
+    for c in result['criteria']:
+        c['counts']=dict(Counter(r['outcome'] for r in rows if r['criterion']==c['id']))
+        c['status']={'passed':'passed_checks'}.get(statuses[c['id']],statuses[c['id']])
+    ids={c['case_id'] for c in rows};pids={c['page_id'] for c in rows}
+    result['recorded_cases']=sum(c['assessment_data'] is not None for c in rows)
+    for key in ['human_review_cases','unassigned_remaining_cases']:result[key]=[i for i in result[key] if i in ids]
+    for key in ['missing_captures','unvisited']:
+        result[key]=[r for r in result[key] if normalize(r['url'] if isinstance(r,dict) else r)==normalize(url)]
+    page_captures=[c for c in audit.load(run/'capture-manifest.json')['captures'] if c['page_id'] in pids]
+    captures={c['key'] for c in page_captures}
+    result['missing_cases']=[i for i in result['missing_cases'] if i.rsplit('--',1)[0] in captures]
+    result['collection_complete']=bool(page_captures) and not result['missing_captures'] and all(c.get('collection_state','finished')=='finished' for c in page_captures)
+    result['collector_status']='completed' if result['collection_complete'] else 'interrupted'
+    result['declared_states_without_page']=[]
+    result['observation_usage']['screenshots']=[i for i in result['observation_usage'].get('screenshots',[]) if i.get('page_id') in pids]
+    review=result['interaction_review'];review['pages']={k:v for k,v in review['pages'].items() if k in pids}
+    review['remaining']=[item for p in review['pages'].values() for item in p.get('remaining',[])]
+    if review['required']:review['remaining']+=sorted(pids-set(review['pages']))
+    review['complete']=all(p['complete'] for p in review['pages'].values()) if review['pages'] else not review['required']
+    review['status']='reviewed' if review['complete'] and review['pages'] else 'partial' if review['pages'] else 'not_recorded'
+    result['audit_complete']=(all(c['status'] not in {'unverified'} for c in result['criteria']) and
+        not any(unfinished(c) for c in rows) and not result['missing_captures'] and not result['missing_cases'] and
+        not result['unvisited'] and original['scope_confirmed'] and review['complete'] and result.get('exploration',{}).get('complete',True))
+    result['conformance_claim']='この1ページの記録範囲の結果です。ページ間の一貫性や手続き全体の確認は別に示します。'
+    return result
+
+
+def next_work(run, url, limit=5):
+    import audit
+    from page_explorer import status
+    result=page_result(run,url);graph=status(run);_,catalog=audit.run_catalog(run)
+    pending=[c for c in result['cases'] if c['outcome'] in {'not_run','cant_tell'} or
+             (c['assessment_data'] or {}).get('remaining') or (c['assessment_data'] or {}).get('coverage_complete') is not True]
+    by_id={c['id']:c for c in catalog['criteria']}
+    checks=machine_checks(run)
+    return {'page':url,'audit_complete':result['audit_complete'],
+        'exploration':{'graph_digest':graph.get('graph_digest'),'pending_routes':len(graph.get('queue',[])),'remaining':graph['remaining'],
+                       'next':'page-audit --resume' if graph.get('queue') else '残る範囲の追加検査'},
+        'machine_checks':dict(Counter(c['outcome'] for c in checks)),
+        'remaining_cases':len(pending),'next_cases':[dict(c,definition=by_id[c['criterion']],
+             machine_results=[m for m in checks if m['criterion']==c['criterion'] and m['capture']==c['capture']])
+             for c in pending[:max(1,limit)]],
+        'policy':'機械ルールを先に実行する。実行可能な追加検査を進め、意味・目的などの未確定部分だけを判断する。環境不足だけで人待ちにせず代替手段を調べる。'}
+
+
+def resolve(run, value):
+    """Evidence-backed resolution of explicit gaps, tied to this exact graph."""
+    import audit
+    from page_explorer import status
+    from ledger_lock import run_lock
+    with run_lock(run):
+        raw=audit.load(run/'exploration.json');graph=status(run)
+        if value.get('graph_digest')!=audit.digest(raw):raise ValueError('探索が更新済み。最新のgraph_digestを使う')
+        items=value.get('resolutions',[])
+        if not isinstance(items,list):raise ValueError('resolutionsは一覧')
+        names=[i.get('item') for i in items]
+        if len(names)!=len(set(names)) or not set(names).issubset(raw.get('remaining',[])):raise ValueError('解消する未確認の項目が不正')
+        proof=[]
+        for item in items:
+            if len(item.get('observed','').strip())<10 or not item.get('evidence'):raise ValueError('追加検査の具体的な観察と証拠が必要')
+            proof.extend(audit.evidence_item(run,p) for p in item['evidence'])
+        saved=dict(value,verified_evidence=proof)
+        path=run/'exploration-reviews'/(uuid.uuid4().hex+'.json');audit.save(path,saved)
+        plan=audit.run_plan(run);plan['exploration_review']=str(path.relative_to(run));audit.save(run/'plan.json',plan)
+        return {'file':str(path),'resolved':len(items)}

@@ -414,6 +414,11 @@ def outcomes(run):
     from inspection import review_status,policy
     interactions=review_status(run)
     complete=complete and interactions['complete']
+    from page_explorer import status as exploration_status
+    exploration=exploration_status(run)
+    complete=complete and exploration['complete']
+    from page_workflow import machine_checks
+    automated=machine_checks(run) if exploration['required'] else []
     return {'level':meta['config']['level'],'url':meta['config']['url'],'audit_complete':complete,
             'conformance_claim':'この結果は記録した検査範囲についての報告です。未実施・判断保留は適合と判定していません。',
             'scope_confirmed':inventory_ok,'scope_review':scope,'unvisited':manifest['unvisited'],
@@ -427,15 +432,23 @@ def outcomes(run):
             'unassigned_remaining_cases':unassigned,
             'inspection_policy':policy(meta['config'].get('inspection')),'interaction_review':interactions,
             'observation_usage':manifest.get('inspection',{}),
-            'counts':dict(stats),'criteria':per_criterion,'cases':rows}
+            'exploration':{k:exploration[k] for k in ['required','complete','remaining']},
+            'machine_checks':automated,'counts':dict(stats),'criteria':per_criterion,'cases':rows}
 
 
 @locked
-def report(run):
-    result=outcomes(run);save(run/'report.json',result)
+def report(run, *, page_url=None):
+    result=outcomes(run)
+    prefix=''
+    if page_url:
+        from page_workflow import page_result
+        from browser_capture import page_id
+        result=page_result(run,page_url,result);prefix='page-'+page_id(page_url)+'-'
+    save(run/(prefix+'report.json'),result)
     import checksheet
     _,catalog=run_catalog(run)
-    human_report=checksheet.render_html(checksheet.build(result,catalog,manifest=load(run/'capture-manifest.json')))
+    human_model=checksheet.build(result,catalog,manifest=load(run/'capture-manifest.json'))
+    human_report=checksheet.render_html(human_model)
     labels={'passed':'検査通過','failed':'不適合','inapplicable':'対象外','cant_tell':'判断保留','not_run':'未実施'}
     rows=[]
     for c in result['cases']:
@@ -490,7 +503,7 @@ def report(run):
     readers=', '.join(sorted({p['screen_reader']['status'] for p in result['interaction_review'].get('pages',{}).values()})) or 'not_recorded'
     page=f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>WCAG検証結果 — {escape(result['url'])}</title><style>body{{font:1rem/1.7 system-ui;margin:2rem;max-width:100rem;color:#202020;background:#fff}}table{{border-collapse:collapse;min-width:64rem}}td,th{{border:1px solid #666;padding:.6rem;vertical-align:top;text-align:left;overflow-wrap:anywhere}}a{{color:#00529b}}:focus-visible{{outline:3px solid #000;outline-offset:3px}}.scroll{{overflow:auto;max-width:100%}}pre{{white-space:pre-wrap}}caption{{text-align:left}}.criterion{{font-weight:bold;background:#eef3f6}}.failed td:nth-child(6){{background:#fce4d6}}.unverified td:nth-child(6){{background:#fff2cc}}.passed td:nth-child(6){{background:#e2f0d9}}@media(max-width:40rem){{body{{margin:1rem}}}}@media print{{@page{{size:A3 landscape;margin:12mm}}.scroll{{overflow:visible}}table{{min-width:0;width:100%!important;font-size:8pt}}.checksheet-table col{{width:auto!important}}thead{{display:table-header-group}}tr{{break-inside:avoid}}}}</style></head><body>
-<main><h1>WCAG {result['level']} 検証結果</h1><p>対象：{escape(result['url'])}</p><nav aria-label="レポート内の移動"><a href="#checksheet">達成基準チェックシート</a> / <a href="#failures">不適合箇所</a></nav><p>{escape(summary)}</p>
+<main><h1>WCAG {result['level']} 検証結果</h1><p>対象：{escape(result['url'])}</p><nav aria-label="レポート内の移動"><a href="#machine-results">機械で検出した問題</a> / <a href="#checksheet">達成基準チェックシート</a> / <a href="#failures">不適合箇所</a></nav><p>{escape(summary)}</p>
 <p>予定範囲の検査完了：{'はい' if result['audit_complete'] else 'いいえ'}</p><p>サイト・状態・適合要件の範囲確認：{escape(inventory)}</p>
 <p>判定・引き継ぎの記録：{result['recorded_cases']} / {len(result['cases'])}。人による確認待ち：{len(result['human_review_cases'])}。<a href="human-review.md">対象と具体的な確認手順</a>。引き継ぎ先が未整理の判断保留・未網羅：{len(result['unassigned_remaining_cases'])}。</p>
 <p>観察設定：画像 {escape(result['inspection_policy']['screenshots'])}、実スクリーンリーダー {escape(result['inspection_policy']['screen_reader'])}。操作・状態の調査：{escape(result['interaction_review']['status'])}。必要な調査の完了：{result['interaction_review']['complete']}。画像保存は実際に観察した証明ではありません。</p>
@@ -505,7 +518,27 @@ def report(run):
 <details><summary>ページ・状態・環境・基準ごとの検査票</summary><div class="scroll" tabindex="0" role="region" aria-label="検査結果の表"><table><caption>具体的な観察結果と証拠。未実施は通過数に含めません。</caption>
 <thead><tr><th scope="col">基準</th><th scope="col">対象</th><th scope="col">結果</th><th scope="col">観察・残る確認</th><th scope="col">証拠</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div></details>
 <p>修正担当向け：<a href="issues.md">不適合の再現と期待結果</a>。機械処理用：<a href="report.json">report.json</a>。元の収集記録：<a href="capture-manifest.json">capture-manifest.json</a>。</p></main></body></html>'''
-    (run/'report.html').write_text(page)
+    machine_rows=[]
+    from page_workflow import grouped_machine_issues
+    for check in grouped_machine_issues(result['machine_checks']):
+        machine_rows.append('<tr>'+''.join('<td>'+escape(str(check[k])).replace('\n','<br>')+'</td>' for k in
+            ['criterion','expected','states','target','observed','outcome'])+
+            '<td>'+''.join('<a href="'+escape(path,quote=True)+'">証拠 '+str(i+1)+'</a><br>' for i,path in enumerate(check['proof']))+'</td></tr>')
+    exploration_notice=('<h2 id="machine-results">自動探索・機械検査</h2><p>機械検査 '+str(len(result['machine_checks']))+'件。未確認の探索・操作 '+str(len(result['exploration']['remaining']))+'件。</p>'+
+        '<p>以下は機械ルールと実入力で検出した結果です。達成基準全体の適否とは区別しています。</p><ul>'+''.join('<li>'+escape(r)+'</li>' for r in result['exploration']['remaining'])+'</ul>'+
+        ('<details open>' if page_url else '<details>')+'<summary>自動検出した問題 '+str(len(machine_rows))+'種類（同じ問題の状態別記録を集約）</summary><div class="scroll" tabindex="0" role="region" aria-label="自動検出した問題"><table><caption>追加確認が必要な機械検査の結果</caption><thead><tr>'+''.join('<th scope="col">'+s+'</th>' for s in
+        ['基準','検査','状態・経路','対象','観察','機械結果','証拠'])+'</tr></thead><tbody>'+''.join(machine_rows)+'</tbody></table></div></details>')
+    page=page.replace('<h2 id="checksheet">',exploration_notice+'<h2 id="checksheet">')
+    if page_url:
+        machine_counts=Counter(c['outcome'] for c in result['machine_checks'])
+        criterion_counts=Counter(c['judgment'] for c in human_model['rows'] if c['kind']=='criterion')
+        overview=('<section aria-label="ページ検証の概要"><h2>このページの結果</h2><p>確認した状態・環境 '+str(len({c['capture'] for c in result['cases']}))+'。'
+            '機械検査 '+str(len(result['machine_checks']))+'件（ルール・経路の延べ件数）。問題あり '+str(machine_counts['failed'])+'、機械判定不能 '+str(machine_counts['cant_tell'])+'。</p>'
+            '<p>達成基準全体の判定：'+escape('、'.join(k+' '+str(v) for k,v in criterion_counts.items()))+'。</p></section>')
+        page=page.replace('</nav>','</nav>'+overview,1)
+    for filename in ['report.json','issues.md','human-review.md','interaction-review.md']:
+        page=page.replace('href="'+filename+'"','href="'+prefix+filename+'"')
+    (run/(prefix+'report.html')).write_text(page)
     issues=['# 修正担当向けの不適合記録','', 'この記録は検証結果です。製品コードの変更は行っていません。','',
             '予定範囲の検査完了: '+('はい' if result['audit_complete'] else 'いいえ'),
             '結果: '+summary,
@@ -521,8 +554,10 @@ def report(run):
                        '証拠: '+', '.join(t['evidence']), '']
         source=next(x['normative_url'] for x in result['criteria'] if x['id']==c['criterion'])
         issues += ['原典: '+source,'このcaseの未確認: '+(', '.join(a.get('remaining',[])) or 'なし'), '']
-    (run/'issues.md').write_text('\n'.join(issues).rstrip()+'\n')
-    (run/'human-review.md').write_text(handoff_markdown([c for c in result['cases']
+    issue_text='\n'.join(issues).rstrip()+'\n'
+    for name in ['report.html','report.json']:issue_text=issue_text.replace(']('+name+')',']('+prefix+name+')')
+    (run/(prefix+'issues.md')).write_text(issue_text)
+    (run/(prefix+'human-review.md')).write_text(handoff_markdown([c for c in result['cases']
         if c['assessment_data'] and c['assessment_data'].get('human_handoff')]))
     notes=['# 画面・操作の調査と残る確認','',
            '調査状態: '+result['interaction_review']['status'],
@@ -533,9 +568,35 @@ def report(run):
                   '画像: '+o['visual']+' / 操作: '+o['status']+' / 実SR: '+o['screen_reader'],
                   o['observed'],'実施した操作: '+o['steps'],'残る確認: '+o['remaining'],
                   '元の調査票: '+o['source_review'],'']
-    (run/'interaction-review.md').write_text('\n'.join(line.rstrip() for line in notes).rstrip()+'\n')
+    (run/(prefix+'interaction-review.md')).write_text('\n'.join(line.rstrip() for line in notes).rstrip()+'\n')
     print(json.dumps({k:result[k] for k in ['audit_complete','scope_confirmed','counts']},ensure_ascii=False))
     return result
+
+
+def write_page_reports(run,url):
+    import workbook
+    from browser_capture import page_id
+    from page_workflow import machine_checks
+    report(run,page_url=url)
+    stem='page-'+page_id(url)
+    path=run/(stem+'-report.xlsx')
+    if path.exists():path=run/(stem+'-report-'+uuid.uuid4().hex[:8]+'.xlsx')
+    workbook.export(run,path,page_exact=url,page_view=True)
+    return {'html':str(run/(stem+'-report.html')),'json':str(run/(stem+'-report.json')),'excel':str(path)}
+
+
+def run_page_audit(run,args):
+    from page_explorer import explore
+    from shlex import join
+    if run_meta(run)['config'].get('states'):
+        raise ValueError('事前設定statesの収集にはpageを使う。page-auditは自動探索、追加シナリオはprobeで検査する')
+    value=asyncio.run(explore(run,max_states=args.max_states,max_steps=args.max_steps,max_depth=args.max_depth))
+    if not run_plan(run)['cases']:
+        print(json.dumps({'exploration':value['remaining'],'error':'収集に成功した状態がありません'},ensure_ascii=False));return 2
+    files=write_page_reports(run,args.url)
+    print(json.dumps(dict(files,explored_states=len(value['nodes']),pending_routes=len(value['queue']),
+                         next_command=join(['python3','scripts/audit.py','page-next','--run',str(run),'--page-exact',args.url])),ensure_ascii=False))
+    return 0
 
 
 def main(argv=None):
@@ -549,10 +610,14 @@ def main(argv=None):
     p=sub.add_parser('rule');p.add_argument('--id',required=True)
     p=sub.add_parser('start');p.add_argument('--config',required=True);p.add_argument('--out',required=True)
     p=sub.add_parser('pages');p.add_argument('--config',required=True);p.add_argument('--out',required=True)
-    p=sub.add_parser('page');p.add_argument('--url',required=True);p.add_argument('--out',required=True);p.add_argument('--config')
-    p.add_argument('--level',choices=list(LEVELS));p.add_argument('--profile',choices=['quick','standard','thorough'])
-    p.add_argument('--screenshots',choices=['off','states','all']);p.add_argument('--screen-reader',choices=['off','optional','required'])
-    p.add_argument('--max-images',type=int)
+    for name in ['page','page-audit']:
+        p=sub.add_parser(name);p.add_argument('--url',required=True);p.add_argument('--out',required=True);p.add_argument('--config')
+        p.add_argument('--level',choices=list(LEVELS));p.add_argument('--profile',choices=['quick','standard','thorough'])
+        p.add_argument('--screenshots',choices=['off','states','all']);p.add_argument('--screen-reader',choices=['off','optional','required'])
+        p.add_argument('--max-images',type=int)
+        if name=='page-audit':
+            p.add_argument('--resume',action='store_true')
+            p.add_argument('--max-states',type=int,default=64);p.add_argument('--max-steps',type=int,default=512);p.add_argument('--max-depth',type=int,default=8)
     p=sub.add_parser('tasks');actions=p.add_subparsers(dest='task_action',required=True)
     for action in ['create','list','claim']:
         q=actions.add_parser(action);q.add_argument('--run',required=True)
@@ -570,8 +635,10 @@ def main(argv=None):
             q.add_argument('--task');q.add_argument('--owner');q.add_argument('--page');q.add_argument('--page-exact');q.add_argument('--criterion')
             q.add_argument('--pending-only',action='store_true')
         else:q.add_argument('--file',required=True);q.add_argument('--check',action='store_true')
-    for name in ['pending','case','record','report','attach','scope-review','recover','probe','snapshot','review-interactions']:
+    for name in ['pending','case','record','report','attach','scope-review','recover','probe','snapshot','review-interactions','page-next','page-report','resolve-exploration']:
         p=sub.add_parser(name);p.add_argument('--run',required=True)
+        if name in {'page-next','page-report'}:p.add_argument('--page-exact',required=True)
+        if name=='resolve-exploration':p.add_argument('--file',required=True)
         if name=='case':p.add_argument('--id',required=True)
         if name=='pending':
             p.add_argument('--criterion');p.add_argument('--page');p.add_argument('--limit',type=int,default=20)
@@ -606,9 +673,9 @@ def main(argv=None):
             from inspection import policy
             config=init_config(args.url);config['inspection']=policy({'profile':args.profile})
             save(p,config);print(p);return 0
-        if args.command in {'start','pages','page'}:
+        if args.command in {'start','pages','page','page-audit'}:
             from page_catalog import read_config,select_pages
-            if args.command=='page':
+            if args.command in {'page','page-audit'}:
                 from inspection import policy
                 config=read_config(args.config) if args.config else init_config(args.url)
                 if (urlsplit(config['url']).scheme,urlsplit(config['url']).netloc)!=(urlsplit(args.url).scheme,urlsplit(args.url).netloc):
@@ -630,14 +697,32 @@ def main(argv=None):
                 value=asyncio.run(select_pages(config));save(out,value)
                 print(json.dumps({'file':str(out),'mode':value['mode'],'pages':len(value['pages']),'unvisited':len(value['unvisited']),'errors':len(value['errors']),'wcag_inspection_executed':False},ensure_ascii=False));return 0
             run=Path(args.out)
+            if args.command=='page-audit' and args.resume:
+                meta=run_meta(run)
+                if meta['config']['scope']['pages']!=[args.url]:raise ValueError('再開先のページURLが異なる')
+                if args.config and digest(config)!=meta['config_digest']:raise ValueError('再開では設定を変更しない。変更した検査は新しいrunへ保存する')
+                for option in ['screenshots','screen_reader','max_images','profile']:
+                    requested=getattr(args,option)
+                    if requested is not None and requested!=meta['config']['inspection'][option]:
+                        raise ValueError('再開では観察設定を変更しない。新しいrunを作る')
+                return run_page_audit(run,args)
             if run.exists() and any(run.iterdir()):raise ValueError('出力先は空にする。既存結果はpending/reportで再開する')
             run.mkdir(parents=True,exist_ok=True)
             save(run/'run.json',{'created_at':datetime.now(timezone.utc).isoformat(),'config':config,
                                  'config_digest':digest(config),'catalog_digest':digest(CATALOG)})
             snapshot_catalog(run)
+            if args.command=='page-audit':
+                make_plan(run,{'captures':[]});return run_page_audit(run,args)
             from browser_capture import collect
             manifest=asyncio.run(collect(config,run));make_plan(run,manifest);report(run);return 0
         run=Path(args.run)
+        if args.command in {'page-next','page-report','resolve-exploration'}:
+            from page_workflow import next_work,resolve
+            if args.command=='resolve-exploration':value=resolve(run,load(args.file))
+            elif args.command=='page-next':value=next_work(run,args.page_exact)
+            else:
+                value=write_page_reports(run,args.page_exact)
+            print(json.dumps(value,ensure_ascii=False,indent=2));return 0
         if args.command=='review-interactions':
             print(json.dumps(record_interactions(run,load(args.file)),ensure_ascii=False,indent=2));return 0
         if args.command=='tasks':
@@ -720,6 +805,8 @@ def main(argv=None):
             save(dest/'probe-config.json',config)
             save(dest/'probe-origin.json',{'parent_case_id':case['case_id'],'parent_config_digest':meta['config_digest'],
                 'catalog_digest':meta['catalog_digest'],'request_digest':digest(value),'replayed_state':case['state']})
+            if args.command=='page-audit':
+                make_plan(run,{'captures':[]});return run_page_audit(run,args)
             from browser_capture import collect
             asyncio.run(collect(config,dest));print(dest.relative_to(run));return 0
         if args.command=='scope-review':
