@@ -6,3 +6,4 @@
 
 - [0001 PRとADRによる変更管理](0001-pr-and-adr.md)
 - [0002 検査タスクとExcelによる共同作業](0002-tasks-and-excel.md)
+- [0003 利用目的ごとのスキルと観察範囲の設定](0003-modular-skills-and-inspection-profiles.md)

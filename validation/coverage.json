@@ -9753,9 +9753,10 @@
       "level": "A",
       "procedure_version": "1",
       "procedure_documented": true,
-      "demonstration": "pass_example",
+      "demonstration": "both_examples",
       "current_procedure_counts": {
-        "passed": 43
+        "passed": 43,
+        "failed": 1
       },
       "human_handoff_cases": 0,
       "older_procedure_cases": 0,
@@ -9806,6 +9807,16 @@
           "outcome": "passed",
           "execution": "completed",
           "coverage_complete": true,
+          "current_procedure": true,
+          "human_handoff": false
+        },
+        {
+          "run": "validation/modular/standard",
+          "case_id": "43aa9d581c3c--initial--desktop--2.1.1",
+          "assessment": "validation/modular/standard/assessments/43aa9d581c3c--initial--desktop--2.1.1--59dda7cc9853.json",
+          "outcome": "failed",
+          "execution": "completed",
+          "coverage_complete": false,
           "current_procedure": true,
           "human_handoff": false
         },
@@ -27284,6 +27295,28 @@
       "counts": {
         "not_run": 54,
         "cant_tell": 1
+      },
+      "audit_complete": false
+    },
+    {
+      "path": "validation/modular/quick",
+      "counts": {
+        "not_run": 55
+      },
+      "audit_complete": false
+    },
+    {
+      "path": "validation/modular/standard",
+      "counts": {
+        "not_run": 219,
+        "failed": 1
+      },
+      "audit_complete": false
+    },
+    {
+      "path": "validation/modular/thorough",
+      "counts": {
+        "not_run": 55
       },
       "audit_complete": false
     },

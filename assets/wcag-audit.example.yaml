@@ -3,6 +3,8 @@ schema_version: "1"
 url: "http://127.0.0.1:4317"
 level: AA
 scope:
+  mode: discover
+  pages: []
   include: ["/**"]
   exclude: []
   seeds: ["/"]
@@ -25,3 +27,8 @@ states:
       - selector: "#email[aria-invalid=true]"
         visible: true
 keyboard_steps: 30
+inspection:
+  profile: standard
+  screenshots: states
+  screen_reader: optional
+  max_images: 12

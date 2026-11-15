@@ -1,0 +1,46 @@
+{
+  "case_id": "43aa9d581c3c--initial--desktop--2.1.1",
+  "base_assessment": null,
+  "config_digest": "8e7601fbd418dfa668f858e60a29d047def7e54f770c5cb477c13eb1680cbf9b",
+  "normative_sha256": "ba1639b46087cfe52fa09be54d6111501e88d454192246c016df2f626c9185a5",
+  "outcome": "failed",
+  "execution": "completed",
+  "observed": "画面上のOpen preferencesはポインターでPreferencesを開くが、実装はroleなし・tabIndex=-1のdivでTab経路から到達できない。固定した試験ページの全文でも、キーによる起動経路や同等機能は存在しない。単なるダイアログ起動であり、移動の経路そのものに依存する機能ではない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": false,
+  "steps_executed": [
+    "実画像から操作候補を列挙した",
+    "Tab移動と実DOMを照合した",
+    "ポインターで起動しEscapeで終了した",
+    "固定した試験用実装の全体と代替起動経路を確認した"
+  ],
+  "tests_applied": [
+    "2.1.1-keyboard-functionality"
+  ],
+  "evidence": [
+    "evidence/43aa9d581c3c--initial--desktop/page.png",
+    "evidence/43aa9d581c3c--initial--desktop/inventory.json",
+    "evidence/43aa9d581c3c--initial--desktop/keyboard.json",
+    "evidence/43aa9d581c3c--preferences--desktop/actions.json",
+    "evidence/methods/visual-controls.html"
+  ],
+  "targets": [
+    {
+      "target": "画面左のOpen preferences / #preferences-trigger",
+      "outcome": "failed",
+      "expected": "Preferencesを開く機能がキーボードインターフェースでも利用できる。",
+      "observed": "ポインターでは開くが、Tabで到達できず、キーによる起動経路・同等機能が固定試験ページに存在しない。",
+      "evidence": [
+        "evidence/43aa9d581c3c--initial--desktop/page.png",
+        "evidence/43aa9d581c3c--initial--desktop/inventory.json",
+        "evidence/43aa9d581c3c--initial--desktop/keyboard.json",
+        "evidence/43aa9d581c3c--preferences--desktop/actions.json",
+        "evidence/methods/visual-controls.html"
+      ]
+    }
+  ],
+  "remaining": [
+    "他の操作と状態の全機能は、この基準の判定では未検証。"
+  ]
+}

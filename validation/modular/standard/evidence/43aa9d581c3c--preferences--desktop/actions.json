@@ -1,0 +1,122 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "click",
+      "selector": "#preferences-trigger"
+    },
+    "url": "http://127.0.0.1:34897/visual-controls.html",
+    "focus": {
+      "tag": "input",
+      "id": "name",
+      "documentHasFocus": true,
+      "text": "",
+      "name": null,
+      "rect": {
+        "x": 500,
+        "y": 447.59375,
+        "width": 280,
+        "height": 48.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "input",
+          "id": "name"
+        },
+        {
+          "tag": "dialog",
+          "id": "preferences"
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T10:57:06.661595+00:00",
+    "observed_at": "2026-11-15T10:57:06.834301+00:00",
+    "observations": []
+  },
+  {
+    "index": 2,
+    "action": {
+      "type": "press",
+      "key": "Escape",
+      "assert": [
+        {
+          "selector": "#preferences",
+          "visible": false
+        }
+      ]
+    },
+    "url": "http://127.0.0.1:34897/visual-controls.html",
+    "focus": {
+      "tag": "body",
+      "id": "",
+      "documentHasFocus": true,
+      "text": "Preferences and help\n\nThis owned fixture contains a visible control without keyboard support.\n\nOpen preferences Open help\n\nRelated page",
+      "name": null,
+      "rect": {
+        "x": 40,
+        "y": 40,
+        "width": 800,
+        "height": 248.09375
+      },
+      "centerHitStack": [
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T10:57:06.837558+00:00",
+    "observed_at": "2026-11-15T10:57:06.944397+00:00",
+    "observations": [],
+    "action_asserted": true
+  },
+  {
+    "index": 3,
+    "action": {
+      "type": "click",
+      "selector": "#preferences-trigger"
+    },
+    "url": "http://127.0.0.1:34897/visual-controls.html",
+    "focus": {
+      "tag": "input",
+      "id": "name",
+      "documentHasFocus": true,
+      "text": "",
+      "name": null,
+      "rect": {
+        "x": 500,
+        "y": 447.59375,
+        "width": 280,
+        "height": 48.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "input",
+          "id": "name"
+        },
+        {
+          "tag": "dialog",
+          "id": "preferences"
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T10:57:06.949420+00:00",
+    "observed_at": "2026-11-15T10:57:07.070903+00:00",
+    "observations": []
+  }
+]

@@ -1,0 +1,34 @@
+import asyncio,functools,json
+from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
+from pathlib import Path
+import shutil,threading
+from playwright.async_api import async_playwright
+root=Path('/tmp/wcag-modular-browser-001/standard');out=root.parent/'report-ui';out.mkdir()
+class Handler(SimpleHTTPRequestHandler):
+ def log_message(self,*args):pass
+server=ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Handler,directory=str(root)))
+thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+async def main():
+ results=[]
+ async with async_playwright() as pw:
+  browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=['--no-sandbox'])
+  try:
+   for width in [1280,320]:
+    page=await browser.new_page(viewport={'width':width,'height':1000})
+    await page.goto('http://127.0.0.1:'+str(server.server_port)+'/report.html')
+    await page.get_by_text('画面から調べた操作・状態',exact=True).click()
+    assert await page.get_by_role('region',name='操作調査の表').get_by_text('Open preferences',exact=True).count()==1
+    assert await page.get_by_text('予定範囲の検査完了：いいえ',exact=True).count()==1
+    assert await page.get_by_text('実SRの実施記録：skipped',exact=False).count()==1
+    document_width=await page.evaluate('document.documentElement.scrollWidth');assert document_width==width
+    await page.screenshot(path=str(out/f'summary-{width}.png'))
+    await page.add_script_tag(path='/workspace/wcag-audit-kit-github/vendor/axe.min.js')
+    axe=await page.evaluate('async()=>await axe.run(document,{resultTypes:["violations"]})')
+    (out/f'axe-{width}.json').write_text(json.dumps(axe['violations'],indent=2))
+    assert not axe['violations'],[(v['id'],v['help']) for v in axe['violations']]
+    results.append({'width':width,'document_width':document_width,'operation_rows':await page.get_by_role('region',name='操作調査の表').locator('tbody tr').count(),'axe_violations':0})
+    await page.close()
+  finally:await browser.close()
+ (out/'results.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results))
+try:asyncio.run(main())
+finally:server.shutdown();server.server_close();thread.join(timeout=5)

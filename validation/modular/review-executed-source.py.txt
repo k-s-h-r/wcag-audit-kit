@@ -1,0 +1,76 @@
+from pathlib import Path
+import json,shutil,sys
+root=Path('/workspace/wcag-audit-kit-github');sys.path.insert(0,str(root/'scripts'))
+import audit,workbook
+base=Path('/tmp/wcag-modular-browser-001');run=base/'standard'
+meta=audit.run_meta(run);manifest=audit.load(run/'capture-manifest.json');pid=manifest['pages'][0]['id']
+by_state={c['state']:c for c in manifest['captures']}
+def evidence(state,name='page.png'):return by_state[state]['evidence_dir']+'/'+name
+def control(ident,label,location,status,observed,states,steps=None,remaining=None):
+ return {'id':ident,'label':label,'location':location,'status':status,'observed':observed,'steps':steps or [],
+         'evidence':states,'remaining':remaining or []}
+controls={
+ 'initial':[
+  control('preferences','Open preferences','画面左上、見出し下の左側の青い矩形。対応先は#preferences-trigger。','tested',
+          '画面上は青いボタン状。DOMではdivでroleなし・tabIndex=-1。4回のTab経路には現れず、ポインターではPreferencesが開き、Escapeで閉じた。',
+          [evidence('initial'),evidence('initial','keyboard.json'),evidence('preferences','actions.json')],
+          ['画面で操作候補を列挙した','Tab移動を照合した','ポインターで開きEscapeで閉じる操作を照合した']),
+  control('help','Open help','Open preferencesの右にある青いボタン。','tested',
+          'ポインターでHelpを開き、Escapeで閉じると#help-triggerへフォーカスが戻った。続くEnterで再びHelpが開いた。',
+          [evidence('initial'),evidence('help'),evidence('help','actions.json')],['開く・Escape・Enterでの再開を実行した']),
+  control('related','Related page','青い矩形の下、左側にある下線付きのリンク。','unverified',
+          '画像上のリンクを候補に含めた。単独ページの収集はこのリンク先へ巡回していない。',
+          [evidence('initial')],remaining=['リンクの開始・遷移後の状態は、この確認では実行していない'])],
+ 'preferences':[
+  control('name','Display name','画面中央のPreferences内、Demoと表示された入力欄。','unverified',
+          '画像では入力欄にフォーカス枠があり、名前と初期値を確認した。値の編集は実行していない。',
+          [evidence('preferences')],remaining=['実キーで値を編集し、その後の機能を確認する']),
+  control('close-preferences','Close preferences','入力欄の下にある青いボタン。','unverified',
+          'Escapeによる終了は操作ログで確認したが、この閉じるボタン自体のキー操作は未実施。',
+          [evidence('preferences'),evidence('preferences','actions.json')],remaining=['閉じるボタン自体をキーで操作する'])],
+ 'help':[
+  control('more','More options','Helpダイアログの下側、左の青いボタン。','tested',
+          '画像上でMore optionsを確認し、ポインターとSpaceで入れ子の状態が開いた。Escapeで#moreへ戻る動作も記録した。',
+          [evidence('help'),evidence('nested','actions.json')],['More optionsを押す','Escapeで閉じる','Spaceで再度開く']),
+  control('close-help','Close help','Help内、More optionsの右の青いボタン。','unverified',
+          'HelpのEscape終了と起点への復帰は確認したが、Close helpボタンの実行は未確認。',
+          [evidence('help'),evidence('help','actions.json')],remaining=['この閉じるボタン自体の実行を確認する'])],
+ 'nested':[]}
+observed={
+ 'initial':'実際の画像で、Open preferencesとOpen helpの青い領域、Related pageの下線付きリンクを確認した。',
+ 'preferences':'実際の画像でPreferences、Display nameの入力、Close preferencesを確認した。背景は暗くなっている。',
+ 'help':'実際の画像でHelp、More options、Close helpを確認した。More optionsにフォーカス枠がある。',
+ 'nested':'状態のassertとキー入力は記録したが、画像上限3枚のためこの状態の画像は取得せず、実画面を確認していない。'}
+entries=[]
+for state,capture in by_state.items():
+ entries.append({'key':capture['key'],'visual':{'status':'skipped' if state=='nested' else 'reviewed',
+  'observed':observed[state],'evidence':[] if state=='nested' else [evidence(state)]},
+  'controls':controls[state],'states_complete':False,
+  'remaining':['入れ子の画面と未操作の対象を追加確認する。今回の予算では全状態の網羅を確認していない。']})
+review={'config_digest':meta['config_digest'],'page_id':pid,'base_review':None,'captures':entries,
+        'screen_reader':{'status':'skipped','observed':'この実行ではscreen_reader=offを指定したため、実スクリーンリーダー確認は実施していない。','evidence':[]}}
+audit.save(base/'interaction-review.json',review)
+audit.record_interactions(run,review)
+source=run/'evidence/methods/visual-controls.html';source.parent.mkdir(parents=True);shutil.copyfile(root/'tests/fixtures/visual-controls.html',source)
+case=next(c for c in audit.run_plan(run)['cases'] if c['criterion']=='2.1.1' and c['state']=='initial')
+proof=[evidence('initial'),evidence('initial','inventory.json'),evidence('initial','keyboard.json'),evidence('preferences','actions.json'),'evidence/methods/visual-controls.html']
+judgment={'case_id':case['case_id'],'base_assessment':None,'config_digest':meta['config_digest'],
+ 'normative_sha256':audit.CRITERIA['2.1.1']['normative_sha256'],'outcome':'failed','execution':'completed',
+ 'observed':'画面上のOpen preferencesはポインターでPreferencesを開くが、実装はroleなし・tabIndex=-1のdivでTab経路から到達できない。固定した試験ページの全文でも、キーによる起動経路や同等機能は存在しない。単なるダイアログ起動であり、移動の経路そのものに依存する機能ではない。',
+ 'conditions_reviewed':True,'exceptions_reviewed':True,'coverage_complete':False,
+ 'steps_executed':['実画像から操作候補を列挙した','Tab移動と実DOMを照合した','ポインターで起動しEscapeで終了した','固定した試験用実装の全体と代替起動経路を確認した'],
+ 'tests_applied':['2.1.1-keyboard-functionality'],'evidence':proof,
+ 'targets':[{'target':'画面左のOpen preferences / #preferences-trigger','outcome':'failed',
+             'expected':'Preferencesを開く機能がキーボードインターフェースでも利用できる。',
+             'observed':'ポインターでは開くが、Tabで到達できず、キーによる起動経路・同等機能が固定試験ページに存在しない。','evidence':proof}],
+ 'remaining':['他の操作と状態の全機能は、この基準の判定では未検証。']}
+audit.save(base/'keyboard-judgment.json',judgment);audit.record(run,judgment)
+result=audit.report(run)
+assert result['counts']=={'failed':1,'not_run':219} or result['counts']=={'not_run':219,'failed':1}
+assert result['interaction_review']['status']=='partial' and not result['audit_complete']
+book=Path('/workspace/wcag-page-example-0.5.0.xlsx');workbook.export(run,book)
+shutil.copyfile(__file__,base/'review-executed-source.py.txt')
+audit.save(base/'review-result.json',{'actual_images_viewed':['initial','preferences','help'],'unseen_image':'nested',
+    'counts':result['counts'],'audit_complete':False,'interaction_status':result['interaction_review']['status'],
+    'xlsx':str(book),'note':'Known owned fixture; not an independent accuracy evaluation or a full WCAG audit.'})
+print(json.dumps(audit.load(base/'review-result.json'),ensure_ascii=False,indent=2))

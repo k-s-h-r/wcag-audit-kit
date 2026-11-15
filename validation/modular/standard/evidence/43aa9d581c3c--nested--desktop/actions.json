@@ -1,0 +1,165 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "click",
+      "selector": "#help-trigger"
+    },
+    "url": "http://127.0.0.1:34897/visual-controls.html",
+    "focus": {
+      "tag": "button",
+      "id": "more",
+      "documentHasFocus": true,
+      "text": "More options",
+      "name": null,
+      "rect": {
+        "x": 487.890625,
+        "y": 489,
+        "width": 152.859375,
+        "height": 56.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "more"
+        },
+        {
+          "tag": "dialog",
+          "id": "help"
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T10:57:08.749459+00:00",
+    "observed_at": "2026-11-15T10:57:08.911074+00:00",
+    "observations": []
+  },
+  {
+    "index": 2,
+    "action": {
+      "type": "click",
+      "selector": "#more"
+    },
+    "url": "http://127.0.0.1:34897/visual-controls.html",
+    "focus": {
+      "tag": "button",
+      "id": "nested-close",
+      "documentHasFocus": true,
+      "text": "Close options",
+      "name": null,
+      "rect": {
+        "x": 495.234375,
+        "y": 489,
+        "width": 154.109375,
+        "height": 56.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "nested-close"
+        },
+        {
+          "tag": "dialog",
+          "id": "nested"
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T10:57:08.914121+00:00",
+    "observed_at": "2026-11-15T10:57:09.033612+00:00",
+    "observations": []
+  },
+  {
+    "index": 3,
+    "action": {
+      "type": "press",
+      "key": "Escape",
+      "assert": [
+        {
+          "selector": "#nested",
+          "visible": false
+        }
+      ]
+    },
+    "url": "http://127.0.0.1:34897/visual-controls.html",
+    "focus": {
+      "tag": "button",
+      "id": "more",
+      "documentHasFocus": true,
+      "text": "More options",
+      "name": null,
+      "rect": {
+        "x": 487.890625,
+        "y": 489,
+        "width": 152.859375,
+        "height": 56.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "more"
+        },
+        {
+          "tag": "dialog",
+          "id": "help"
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T10:57:09.036937+00:00",
+    "observed_at": "2026-11-15T10:57:09.143719+00:00",
+    "observations": [],
+    "action_asserted": true
+  },
+  {
+    "index": 4,
+    "action": {
+      "type": "press",
+      "key": "Space"
+    },
+    "url": "http://127.0.0.1:34897/visual-controls.html",
+    "focus": {
+      "tag": "button",
+      "id": "nested-close",
+      "documentHasFocus": true,
+      "text": "Close options",
+      "name": null,
+      "rect": {
+        "x": 495.234375,
+        "y": 489,
+        "width": 154.109375,
+        "height": 56.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "nested-close"
+        },
+        {
+          "tag": "dialog",
+          "id": "nested"
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T10:57:09.148890+00:00",
+    "observed_at": "2026-11-15T10:57:09.254889+00:00",
+    "observations": []
+  }
+]

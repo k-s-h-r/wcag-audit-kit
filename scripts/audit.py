@@ -95,6 +95,17 @@ def validate_config(c):
     c.setdefault('scope',{})
     s=c['scope'];s.setdefault('include',['/**']);s.setdefault('exclude',[])
     s.setdefault('seeds',['/']);s.setdefault('known_pages',[]);s.setdefault('max_pages',100)
+    s.setdefault('mode','discover');s.setdefault('pages',[])
+    if s['mode'] not in {'discover','configured'}:raise ValueError('scope.modeはdiscover又はconfigured')
+    if not isinstance(s['pages'],list) or any(not isinstance(p,str) or not p for p in s['pages']):raise ValueError('pagesはURL又はパスの一覧')
+    if s['mode']=='configured':
+        if not s['pages']:raise ValueError('configuredにはpages又はpages_fileの対象一覧が必要')
+        from page_catalog import configured_urls
+        from browser_capture import in_scope
+        for url in configured_urls(c):
+            target=urlsplit(url)
+            if target.username or target.password or not in_scope(url,c):raise ValueError('指定ページは認証情報を含めず対象範囲内にする')
+    elif s['pages']:raise ValueError('pagesを指定するときはscope.modeをconfiguredにする')
     fragments=s.get('same_document_fragments',[])
     if not isinstance(fragments,list) or any(not isinstance(x,str) or not x or x.startswith('#') for x in fragments) or len(set(fragments))!=len(fragments):
         raise ValueError('同一文書と確認したfragment名は#を付けず重複のない文字列一覧にする')
@@ -134,6 +145,9 @@ def validate_config(c):
             raise ValueError('状態の到達確認assertが必要。操作が成功しただけで状態到達としない')
     if c.get('auth_state'):
         c['auth_state']=str(Path(c['auth_state']).resolve())
+    if 'inspection' in c:
+        from inspection import policy
+        c['inspection']=policy(c['inspection'])
     return c
 
 
@@ -310,6 +324,21 @@ def record(run, judgment):
     return result
 
 
+@locked
+def record_interactions(run, value):
+    from inspection import validate_review
+    if not isinstance(value,dict):raise ValueError('操作調査票はJSONオブジェクトにする')
+    run_catalog(run,for_write=True);plan=run_plan(run)
+    pointers=plan.setdefault('interaction_reviews',{})
+    if 'base_review' not in value or value['base_review']!=pointers.get(value.get('page_id')):
+        raise ValueError('最新の操作調査票の版をbase_reviewへ指定する。初回はnull')
+    checked=validate_review(run,value)
+    path='interaction-reviews/'+uuid.uuid4().hex+'.json'
+    save(run/path,dict(value,verified_evidence=checked['verified_evidence']))
+    pointers[value['page_id']]=path;save(run/'plan.json',plan)
+    return checked
+
+
 def validate_scope_review(run,value,for_write=True):
     meta,_=run_catalog(run,for_write=for_write)
     if value.get('config_digest')!=meta['config_digest']:raise ValueError('設定ハッシュが不一致')
@@ -382,6 +411,9 @@ def outcomes(run):
                 'inapplicable' if cs['inapplicable']==len(cases) else 'passed_checks')
         per_criterion.append({'id':c['id'],'title':c['title'],'level':c['level'],'normative_url':c['normative_url'],
                               'procedure_version':c['procedure_version'],'status':status,'counts':dict(cs)})
+    from inspection import review_status,policy
+    interactions=review_status(run)
+    complete=complete and interactions['complete']
     return {'level':meta['config']['level'],'url':meta['config']['url'],'audit_complete':complete,
             'conformance_claim':'この結果は記録した検査範囲についての報告です。未実施・判断保留は適合と判定していません。',
             'scope_confirmed':inventory_ok,'scope_review':scope,'unvisited':manifest['unvisited'],
@@ -393,6 +425,8 @@ def outcomes(run):
             'recorded_cases':sum(r['assessment_data'] is not None for r in rows),
             'human_review_cases':[r['case_id'] for r in human_cases],
             'unassigned_remaining_cases':unassigned,
+            'inspection_policy':policy(meta['config'].get('inspection')),'interaction_review':interactions,
+            'observation_usage':manifest.get('inspection',{}),
             'counts':dict(stats),'criteria':per_criterion,'cases':rows}
 
 
@@ -444,16 +478,26 @@ def report(run):
     definition_link='<a href="catalog.snapshot.json">保存した検査定義</a>' if (run/'catalog.snapshot.json').exists() else 'この旧実行には定義のコピーがありません。'
     collection_notice={'completed':'予定した収集の試行を終了', 'running':'収集中、又は収集の途中で停止',
         'interrupted':'収集の途中で停止', 'legacy_unspecified':'当時の収集記録を使用'}[result['collector_status']]
+    from inspection import report_rows
+    observations=report_rows(result)
+    observation_rows=''.join('<tr>'+''.join('<td>'+escape(str(value))+'</td>' for value in
+        [o['url'],o['capture'],o['label'],o['visual'],o['status'],o['observed'],o['remaining'],o['screen_reader']])+'</tr>' for o in observations)
+    images=result['observation_usage'].get('screenshots',[])
+    captured=sum(i['status']=='captured' for i in images);skipped=sum(i['status']=='skipped' for i in images)
+    readers=', '.join(sorted({p['screen_reader']['status'] for p in result['interaction_review'].get('pages',{}).values()})) or 'not_recorded'
     page=f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>WCAG検証結果 — {escape(result['url'])}</title><style>body{{font:1rem/1.7 system-ui;margin:2rem;max-width:100rem;color:#202020;background:#fff}}table{{border-collapse:collapse;min-width:64rem}}td,th{{border:1px solid #666;padding:.6rem;vertical-align:top;text-align:left;overflow-wrap:anywhere}}a{{color:#00529b}}:focus-visible{{outline:3px solid #000;outline-offset:3px}}.scroll{{overflow:auto;max-width:100%}}pre{{white-space:pre-wrap}}</style></head><body>
 <main><h1>WCAG {result['level']} 検証結果</h1><p>対象：{escape(result['url'])}</p><p>{escape(summary)}</p>
 <p>予定範囲の検査完了：{'はい' if result['audit_complete'] else 'いいえ'}</p><p>サイト・状態・適合要件の範囲確認：{escape(inventory)}</p>
 <p>判定・引き継ぎの記録：{result['recorded_cases']} / {len(result['cases'])}。人による確認待ち：{len(result['human_review_cases'])}。<a href="human-review.md">対象と具体的な確認手順</a>。引き継ぎ先が未整理の判断保留・未網羅：{len(result['unassigned_remaining_cases'])}。</p>
+<p>観察設定：画像 {escape(result['inspection_policy']['screenshots'])}、実スクリーンリーダー {escape(result['inspection_policy']['screen_reader'])}。操作・状態の調査：{escape(result['interaction_review']['status'])}。必要な調査の完了：{result['interaction_review']['complete']}。画像保存は実際に観察した証明ではありません。</p>
+<p>この収集の保存画像：{captured}件、省略：{skipped}件。実SRの実施記録：{escape(readers)}。<a href="interaction-review.md">画面・操作の調査と残る確認</a>。</p>
 <p>ブラウザー証拠の収集：{escape(collection_notice)}。</p>
 <p>未訪問URL：{len(result['unvisited'])}。目標レベル外の基準：{len(excluded)}。</p>
 <p>未収集のページ・状態・環境：{len(result['missing_captures'])}。計画にない検査票：{len(result['missing_cases'])}。</p>
 <details><summary>使用した検査定義</summary><p>{escape(definition_notice)}</p><p>定義ID：<code style="overflow-wrap:anywhere">{escape(result['catalog_digest'])}</code></p><p>{definition_link}</p></details>
 <p>{escape(result['conformance_claim'])}</p><details><summary>全86基準の状況</summary><ul>{by_criterion}</ul></details>
+<details><summary>画面から調べた操作・状態</summary><div class="scroll" tabindex="0" role="region" aria-label="操作調査の表"><table><caption>実際の観察と未探索の範囲。実SRは実施結果を表示。</caption><thead><tr><th>ページ</th><th>状態・環境</th><th>操作対象</th><th>画像確認</th><th>操作確認</th><th>観察</th><th>残る確認</th><th>実SR</th></tr></thead><tbody>{observation_rows}</tbody></table></div></details>
 <h2>ページ・状態・環境・基準ごとの結果</h2><div class="scroll" tabindex="0" role="region" aria-label="検査結果の表"><table><caption>具体的な観察結果と証拠。未実施は通過数に含めません。</caption>
 <thead><tr><th scope="col">基準</th><th scope="col">対象</th><th scope="col">結果</th><th scope="col">観察・残る確認</th><th scope="col">証拠</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>
 <p>修正担当向け：<a href="issues.md">不適合の再現と期待結果</a>。機械処理用：<a href="report.json">report.json</a>。元の収集記録：<a href="capture-manifest.json">capture-manifest.json</a>。</p></main></body></html>'''
@@ -473,9 +517,19 @@ def report(run):
                        '証拠: '+', '.join(t['evidence']), '']
         source=next(x['normative_url'] for x in result['criteria'] if x['id']==c['criterion'])
         issues += ['原典: '+source,'このcaseの未確認: '+(', '.join(a.get('remaining',[])) or 'なし'), '']
-    (run/'issues.md').write_text('\n'.join(issues)+'\n')
+    (run/'issues.md').write_text('\n'.join(issues).rstrip()+'\n')
     (run/'human-review.md').write_text(handoff_markdown([c for c in result['cases']
         if c['assessment_data'] and c['assessment_data'].get('human_handoff')]))
+    notes=['# 画面・操作の調査と残る確認','',
+           '調査状態: '+result['interaction_review']['status'],
+           '画像の選択: '+result['inspection_policy']['screenshots'],
+           '実SRの選択: '+result['inspection_policy']['screen_reader'],'']
+    for o in observations:
+        notes += [o['url']+' / '+o['capture'],o['label']+' / '+o['location'],
+                  '画像: '+o['visual']+' / 操作: '+o['status']+' / 実SR: '+o['screen_reader'],
+                  o['observed'],'実施した操作: '+o['steps'],'残る確認: '+o['remaining'],
+                  '元の調査票: '+o['source_review'],'']
+    (run/'interaction-review.md').write_text('\n'.join(line.rstrip() for line in notes).rstrip()+'\n')
     print(json.dumps({k:result[k] for k in ['audit_complete','scope_confirmed','counts']},ensure_ascii=False))
     return result
 
@@ -484,11 +538,17 @@ def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     sub=parser.add_subparsers(dest='command',required=True)
     p=sub.add_parser('init');p.add_argument('--url',required=True);p.add_argument('--config',required=True)
+    p.add_argument('--profile',choices=['quick','standard','thorough'],default='standard')
     sub.add_parser('doctor')
     p=sub.add_parser('rules');p.add_argument('--criterion',choices=list(CRITERIA))
     p.add_argument('--status',choices=['active','approved','proposed','deprecated','all'],default='active')
     p=sub.add_parser('rule');p.add_argument('--id',required=True)
     p=sub.add_parser('start');p.add_argument('--config',required=True);p.add_argument('--out',required=True)
+    p=sub.add_parser('pages');p.add_argument('--config',required=True);p.add_argument('--out',required=True)
+    p=sub.add_parser('page');p.add_argument('--url',required=True);p.add_argument('--out',required=True);p.add_argument('--config')
+    p.add_argument('--level',choices=list(LEVELS));p.add_argument('--profile',choices=['quick','standard','thorough'])
+    p.add_argument('--screenshots',choices=['off','states','all']);p.add_argument('--screen-reader',choices=['off','optional','required'])
+    p.add_argument('--max-images',type=int)
     p=sub.add_parser('tasks');actions=p.add_subparsers(dest='task_action',required=True)
     for action in ['create','list','claim']:
         q=actions.add_parser(action);q.add_argument('--run',required=True)
@@ -503,17 +563,18 @@ def main(argv=None):
         q=actions.add_parser(action);q.add_argument('--run',required=True)
         if action=='export':
             q.add_argument('--out',required=True);q.add_argument('--mode',choices=['report','work'],default='report')
-            q.add_argument('--task');q.add_argument('--owner');q.add_argument('--page');q.add_argument('--criterion')
+            q.add_argument('--task');q.add_argument('--owner');q.add_argument('--page');q.add_argument('--page-exact');q.add_argument('--criterion')
             q.add_argument('--pending-only',action='store_true')
         else:q.add_argument('--file',required=True);q.add_argument('--check',action='store_true')
-    for name in ['pending','case','record','report','attach','scope-review','recover','probe','snapshot']:
+    for name in ['pending','case','record','report','attach','scope-review','recover','probe','snapshot','review-interactions']:
         p=sub.add_parser(name);p.add_argument('--run',required=True)
         if name=='case':p.add_argument('--id',required=True)
         if name=='pending':
             p.add_argument('--criterion');p.add_argument('--page');p.add_argument('--limit',type=int,default=20)
+            p.add_argument('--page-exact')
             p.add_argument('--task');p.add_argument('--owner')
             p.add_argument('--status',choices=['not_run','cant_tell','human','all'],default='all')
-        if name in {'record','scope-review'}:p.add_argument('--file',required=True)
+        if name in {'record','scope-review','review-interactions'}:p.add_argument('--file',required=True)
         if name=='attach':p.add_argument('--case',required=True);p.add_argument('--file',required=True)
         if name=='probe':p.add_argument('--case',required=True);p.add_argument('--actions',required=True)
         if name=='report':p.add_argument('--strict',action='store_true')
@@ -538,12 +599,33 @@ def main(argv=None):
         if args.command=='init':
             p=Path(args.config)
             if p.exists():raise ValueError('既存設定を上書きしない')
-            save(p,init_config(args.url));print(p);return 0
-        if args.command=='start':
-            raw=load(args.config)
-            if raw.get('auth_state') and not Path(raw['auth_state']).is_absolute():
-                raw['auth_state']=str(Path(args.config).resolve().parent/raw['auth_state'])
-            config=validate_config(raw);run=Path(args.out)
+            from inspection import policy
+            config=init_config(args.url);config['inspection']=policy({'profile':args.profile})
+            save(p,config);print(p);return 0
+        if args.command in {'start','pages','page'}:
+            from page_catalog import read_config,select_pages
+            if args.command=='page':
+                from inspection import policy
+                config=read_config(args.config) if args.config else init_config(args.url)
+                if (urlsplit(config['url']).scheme,urlsplit(config['url']).netloc)!=(urlsplit(args.url).scheme,urlsplit(args.url).netloc):
+                    raise ValueError('設定と単独ページのオリジンが異なる')
+                if not args.config:
+                    config['environments']=[e for e in config['environments'] if e.get('zoom',1)==1]
+                config['scope'].update(mode='configured',pages=[args.url],max_pages=1)
+                choice={'profile':args.profile} if args.profile else dict(config.get('inspection',{'profile':'standard'}))
+                for key in ['screenshots','screen_reader','max_images']:
+                    value=getattr(args,key)
+                    if value is not None:choice[key]=value
+                config['inspection']=policy(choice)
+                if args.level:config['level']=args.level
+                config=validate_config(config)
+            else:config=read_config(args.config)
+            if args.command=='pages':
+                out=Path(args.out)
+                if out.exists():raise ValueError('既存のURL一覧を上書きしない')
+                value=asyncio.run(select_pages(config));save(out,value)
+                print(json.dumps({'file':str(out),'mode':value['mode'],'pages':len(value['pages']),'unvisited':len(value['unvisited']),'errors':len(value['errors']),'wcag_inspection_executed':False},ensure_ascii=False));return 0
+            run=Path(args.out)
             if run.exists() and any(run.iterdir()):raise ValueError('出力先は空にする。既存結果はpending/reportで再開する')
             run.mkdir(parents=True,exist_ok=True)
             save(run/'run.json',{'created_at':datetime.now(timezone.utc).isoformat(),'config':config,
@@ -552,6 +634,8 @@ def main(argv=None):
             from browser_capture import collect
             manifest=asyncio.run(collect(config,run));make_plan(run,manifest);report(run);return 0
         run=Path(args.run)
+        if args.command=='review-interactions':
+            print(json.dumps(record_interactions(run,load(args.file)),ensure_ascii=False,indent=2));return 0
         if args.command=='tasks':
             import work_queue
             if args.task_action=='create':
@@ -565,7 +649,7 @@ def main(argv=None):
             import workbook
             if args.excel_action=='export':
                 value=workbook.export(run,Path(args.out),mode=args.mode,task=args.task,owner=args.owner,
-                                      page=args.page,criterion=args.criterion,pending=args.pending_only)
+                                      page=args.page,page_exact=args.page_exact,criterion=args.criterion,pending=args.pending_only)
             else:value=workbook.import_book(run,Path(args.file),check=args.check)
             print(json.dumps(value,ensure_ascii=False,indent=2));return 0
         if args.command=='snapshot':
@@ -583,7 +667,7 @@ def main(argv=None):
             if args.page:pending=[c for c in pending if args.page in c['page_url']]
             if args.status=='human':pending=[c for c in pending if c['assessment_data'] and c['assessment_data'].get('human_handoff')]
             elif args.status!='all':pending=[c for c in pending if c['outcome']==args.status]
-            plan=run_plan(run);pending=work_queue.select(pending,plan,task=args.task,owner=args.owner)
+            plan=run_plan(run);pending=work_queue.select(pending,plan,task=args.task,owner=args.owner,page_exact=args.page_exact)
             print(json.dumps({'total':len(pending),'cases':[{'case_id':c['case_id'],'criterion':c['criterion'],'url':c['page_url'],'state':c['state'],
                                'environment':c['environment'],'methods':c['methods'],'status':c['outcome'],
                                'task':(work_queue.task_for(plan,c['case_id']) or {}).get('id'),
@@ -600,6 +684,7 @@ def main(argv=None):
                       'relationship':next(x['mapping'] for x in r['criteria'] if x['criterion']==c['id'])}
                      for r in act['rules'] if r['status']!='deprecated' and any(x['criterion']==c['id'] for x in r['criteria'])]
             print(json.dumps({'case':case,'criterion':c,'config_digest':meta['config_digest'],
+                              'interaction_review':run_plan(run).get('interaction_reviews',{}).get(case['page_id']),
                               'definitions_match_installed':meta['catalog_digest']==digest(CATALOG),
                               'catalog_snapshot':str(run/'catalog.snapshot.json') if (run/'catalog.snapshot.json').exists() else None,
                               'reference_notice':'現在のスキルの参考資料。保存した定義が異なる場合は、その版の手順を確認する。新しい定義での判定は新しいrunで行う。',
@@ -620,7 +705,7 @@ def main(argv=None):
             meta,_=run_catalog(run,for_write=True)
             _,case=get_case(run,args.case);config=json.loads(json.dumps(meta['config']))
             u=urlsplit(case['page_url']);path=u.path+('?' + u.query if u.query else '')+('#' + u.fragment if u.fragment else '')
-            config['scope'].update(seeds=[path],known_pages=[],max_pages=1)
+            config['scope'].update(mode='configured',pages=[path],seeds=[path],known_pages=[],max_pages=1)
             config['environments']=[e for e in config['environments'] if e['id']==case['environment']]
             prior=next((s['actions'] for s in config.get('states',[]) if s['id']==case['state']),[])
             value=load(args.actions)

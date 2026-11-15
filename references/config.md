@@ -9,6 +9,9 @@
 | `url` | サイトの基準URL。認証情報はURLに含めない |
 | `level` | `A`、`AA`、`AAA` |
 | `scope.include` | `/path`又は`/path/**`。後者は自身と配下。`/**`はサイト全体 |
+| `scope.mode` | discoverはリンクから候補を追う。configuredは指定URL一覧だけを使う |
+| `scope.pages` | configuredで処理するURL又はURLパスの一覧。クエリー・ハッシュも区別する |
+| `scope.pages_file` | 設定ファイルからの相対パス又は絶対パス。1行1URLのテキスト、JSON配列、pages出力JSONに対応 |
 | `scope.exclude` | `{path, reason}`の一覧。範囲外とする根拠を記す |
 | `scope.seeds` | 巡回開始のURLパス。クエリー・フラグメントを含められる |
 | `scope.known_pages` | 資料等から分かった未リンクを含むURLパス |
@@ -19,6 +22,24 @@
 | `states` | `{id, paths, actions, assert}`の一覧 |
 | `auth_state` | 既存のPlaywright認証状態ファイルがある場合のパス |
 | `keyboard_steps` | 収集時のTab操作回数。全機能のキー検査を代替する値ではない |
+| `inspection` | [画像・実SR・画像数の選択](inspection-profiles.md)。省略は未確認として残す |
+
+## URL一覧を指定する
+
+大規模サイト等で対象が確定している場合はconfiguredを使う。pagesとpages_fileはどちらか一方にする。範囲外又は別オリジンのURLは指定しない。
+
+```yaml
+scope:
+  mode: configured
+  pages_file: ./targets.txt
+  include: ["/**"]
+  exclude: []
+  max_pages: 100
+```
+
+configuredではseeds・known_pagesからの巡回や、表示されたリンクの追跡をしない。max_pagesで処理しきれなかった指定URLは未訪問へ残る。pagesコマンドで一覧だけ作る場合は全指定URLを返し、ブラウザーを開かない。pages_fileは読込時に一覧と元ファイルのハッシュへ解決してrunへ保存する。
+
+discoverは既存のseeds・known_pagesから初期表示のリンクをたどる。どちらのモードも、リンクがない画面や操作後の状態まで発見した証明にはならない。
 
 `states`は実際に調べたページの到達手順を記す。`initial`は予約名で、自動収集する。それ以外の状態には、操作後にその状態へ到達したと確認できる`assert`を必須にする。
 

@@ -1,5 +1,7 @@
 # サイト全体を検査する手順
 
+1ページだけの依頼は[wcag-page](../skills/wcag-page/SKILL.md)、URL選定は[wcag-pages](../skills/wcag-pages/SKILL.md)、既存結果の集計は[wcag-report](../skills/wcag-report/SKILL.md)を使う。この手順はサイト全体の共通台帳を準備するときに読む。
+
 ## 最初に作るもの
 
 1. 対象サイトと、全ページ・状態・環境の調査記録を作る。
