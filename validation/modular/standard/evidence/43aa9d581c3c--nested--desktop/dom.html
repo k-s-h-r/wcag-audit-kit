@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Visual control discovery fixture</title>
+<style>
+body{font:18px/1.6 system-ui;margin:40px;color:#142433;background:#fff;max-width:800px}
+.control,button{display:inline-block;background:#0755a5;color:white;border:2px solid #0755a5;border-radius:6px;padding:12px 18px;font:inherit;cursor:pointer;margin:8px 12px 8px 0}
+a{color:#06458b}:focus-visible{outline:3px solid #161616;outline-offset:4px}
+dialog{border:2px solid #142433;padding:28px;max-width:500px}dialog::backdrop{background:#0006}
+label,input{display:block}input{font:inherit;padding:8px}
+</style></head><body>
+<h1>Preferences and help</h1>
+<p>This owned fixture contains a visible control without keyboard support.</p>
+<div id="preferences-trigger" class="control">Open preferences</div>
+<button id="help-trigger" type="button">Open help</button>
+<p><a href="visual-linked.html">Related page</a></p>
+<dialog id="preferences"><h2>Preferences</h2><label for="name">Display name</label><input id="name" value="Demo">
+<button id="preferences-close" type="button">Close preferences</button></dialog>
+<dialog id="help" open=""><h2>Help</h2><p>Keyboard guidance for this fixture.</p>
+<button id="more" type="button">More options</button><button id="help-close" type="button">Close help</button></dialog>
+<dialog id="nested" open=""><h2>More options</h2><p>A second state after opening help.</p><button id="nested-close" type="button">Close options</button></dialog>
+<script>
+const preferences=document.querySelector('#preferences'),help=document.querySelector('#help'),nested=document.querySelector('#nested');
+document.querySelector('#preferences-trigger').addEventListener('click',()=>preferences.showModal());
+document.querySelector('#preferences-close').addEventListener('click',()=>preferences.close());
+document.querySelector('#help-trigger').addEventListener('click',()=>help.showModal());
+document.querySelector('#help-close').addEventListener('click',()=>help.close());
+document.querySelector('#more').addEventListener('click',()=>nested.showModal());
+document.querySelector('#nested-close').addEventListener('click',()=>nested.close());
+</script>
+</body></html>

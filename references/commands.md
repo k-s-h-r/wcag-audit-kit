@@ -2,6 +2,23 @@
 
 以下はスキルのディレクトリーを作業ディレクトリーとする例。プロジェクトの場所と混同せず、パスは実際の保存先へ置き換える。
 
+## 1ページ又はURL一覧から始める
+
+```sh
+python3 scripts/audit.py page --url https://example.com/contact --out /project/run-contact --profile standard
+python3 scripts/audit.py pages --config /project/wcag-audit.yaml --out /project/pages.json
+```
+
+pageはリンクを巡回せず、1ページの証拠と未実施票を作る。pagesは対象URLの選定だけを行う。[4つの入口](../README.md)と[観察設定](inspection-profiles.md)に沿って、収集後はページ検証スキルが実画面・操作・原典から判定する。
+
+## 操作・状態の調査を記録する
+
+```sh
+python3 scripts/audit.py review-interactions --run /project/run-contact --file /project/interaction-review.json
+```
+
+[画面からの調査](visual-discovery.md)で、見える操作対象と開いた後の状態を確認する。各ページの現在の票はplan.jsonのinteraction_reviewsに保持する。新しい票はbase_reviewで版を照合する。
+
 ## 設定と証拠を作る
 
 ```sh

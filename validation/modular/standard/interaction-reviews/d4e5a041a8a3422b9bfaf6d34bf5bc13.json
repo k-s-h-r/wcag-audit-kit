@@ -1,0 +1,212 @@
+{
+  "config_digest": "8e7601fbd418dfa668f858e60a29d047def7e54f770c5cb477c13eb1680cbf9b",
+  "page_id": "43aa9d581c3c",
+  "base_review": null,
+  "captures": [
+    {
+      "key": "43aa9d581c3c--initial--desktop",
+      "visual": {
+        "status": "reviewed",
+        "observed": "実際の画像で、Open preferencesとOpen helpの青い領域、Related pageの下線付きリンクを確認した。",
+        "evidence": [
+          "evidence/43aa9d581c3c--initial--desktop/page.png"
+        ]
+      },
+      "controls": [
+        {
+          "id": "preferences",
+          "label": "Open preferences",
+          "location": "画面左上、見出し下の左側の青い矩形。対応先は#preferences-trigger。",
+          "status": "tested",
+          "observed": "画面上は青いボタン状。DOMではdivでroleなし・tabIndex=-1。4回のTab経路には現れず、ポインターではPreferencesが開き、Escapeで閉じた。",
+          "steps": [
+            "画面で操作候補を列挙した",
+            "Tab移動を照合した",
+            "ポインターで開きEscapeで閉じる操作を照合した"
+          ],
+          "evidence": [
+            "evidence/43aa9d581c3c--initial--desktop/page.png",
+            "evidence/43aa9d581c3c--initial--desktop/keyboard.json",
+            "evidence/43aa9d581c3c--preferences--desktop/actions.json"
+          ],
+          "remaining": []
+        },
+        {
+          "id": "help",
+          "label": "Open help",
+          "location": "Open preferencesの右にある青いボタン。",
+          "status": "tested",
+          "observed": "ポインターでHelpを開き、Escapeで閉じると#help-triggerへフォーカスが戻った。続くEnterで再びHelpが開いた。",
+          "steps": [
+            "開く・Escape・Enterでの再開を実行した"
+          ],
+          "evidence": [
+            "evidence/43aa9d581c3c--initial--desktop/page.png",
+            "evidence/43aa9d581c3c--help--desktop/page.png",
+            "evidence/43aa9d581c3c--help--desktop/actions.json"
+          ],
+          "remaining": []
+        },
+        {
+          "id": "related",
+          "label": "Related page",
+          "location": "青い矩形の下、左側にある下線付きのリンク。",
+          "status": "unverified",
+          "observed": "画像上のリンクを候補に含めた。単独ページの収集はこのリンク先へ巡回していない。",
+          "steps": [],
+          "evidence": [
+            "evidence/43aa9d581c3c--initial--desktop/page.png"
+          ],
+          "remaining": [
+            "リンクの開始・遷移後の状態は、この確認では実行していない"
+          ]
+        }
+      ],
+      "states_complete": false,
+      "remaining": [
+        "入れ子の画面と未操作の対象を追加確認する。今回の予算では全状態の網羅を確認していない。"
+      ]
+    },
+    {
+      "key": "43aa9d581c3c--preferences--desktop",
+      "visual": {
+        "status": "reviewed",
+        "observed": "実際の画像でPreferences、Display nameの入力、Close preferencesを確認した。背景は暗くなっている。",
+        "evidence": [
+          "evidence/43aa9d581c3c--preferences--desktop/page.png"
+        ]
+      },
+      "controls": [
+        {
+          "id": "name",
+          "label": "Display name",
+          "location": "画面中央のPreferences内、Demoと表示された入力欄。",
+          "status": "unverified",
+          "observed": "画像では入力欄にフォーカス枠があり、名前と初期値を確認した。値の編集は実行していない。",
+          "steps": [],
+          "evidence": [
+            "evidence/43aa9d581c3c--preferences--desktop/page.png"
+          ],
+          "remaining": [
+            "実キーで値を編集し、その後の機能を確認する"
+          ]
+        },
+        {
+          "id": "close-preferences",
+          "label": "Close preferences",
+          "location": "入力欄の下にある青いボタン。",
+          "status": "unverified",
+          "observed": "Escapeによる終了は操作ログで確認したが、この閉じるボタン自体のキー操作は未実施。",
+          "steps": [],
+          "evidence": [
+            "evidence/43aa9d581c3c--preferences--desktop/page.png",
+            "evidence/43aa9d581c3c--preferences--desktop/actions.json"
+          ],
+          "remaining": [
+            "閉じるボタン自体をキーで操作する"
+          ]
+        }
+      ],
+      "states_complete": false,
+      "remaining": [
+        "入れ子の画面と未操作の対象を追加確認する。今回の予算では全状態の網羅を確認していない。"
+      ]
+    },
+    {
+      "key": "43aa9d581c3c--help--desktop",
+      "visual": {
+        "status": "reviewed",
+        "observed": "実際の画像でHelp、More options、Close helpを確認した。More optionsにフォーカス枠がある。",
+        "evidence": [
+          "evidence/43aa9d581c3c--help--desktop/page.png"
+        ]
+      },
+      "controls": [
+        {
+          "id": "more",
+          "label": "More options",
+          "location": "Helpダイアログの下側、左の青いボタン。",
+          "status": "tested",
+          "observed": "画像上でMore optionsを確認し、ポインターとSpaceで入れ子の状態が開いた。Escapeで#moreへ戻る動作も記録した。",
+          "steps": [
+            "More optionsを押す",
+            "Escapeで閉じる",
+            "Spaceで再度開く"
+          ],
+          "evidence": [
+            "evidence/43aa9d581c3c--help--desktop/page.png",
+            "evidence/43aa9d581c3c--nested--desktop/actions.json"
+          ],
+          "remaining": []
+        },
+        {
+          "id": "close-help",
+          "label": "Close help",
+          "location": "Help内、More optionsの右の青いボタン。",
+          "status": "unverified",
+          "observed": "HelpのEscape終了と起点への復帰は確認したが、Close helpボタンの実行は未確認。",
+          "steps": [],
+          "evidence": [
+            "evidence/43aa9d581c3c--help--desktop/page.png",
+            "evidence/43aa9d581c3c--help--desktop/actions.json"
+          ],
+          "remaining": [
+            "この閉じるボタン自体の実行を確認する"
+          ]
+        }
+      ],
+      "states_complete": false,
+      "remaining": [
+        "入れ子の画面と未操作の対象を追加確認する。今回の予算では全状態の網羅を確認していない。"
+      ]
+    },
+    {
+      "key": "43aa9d581c3c--nested--desktop",
+      "visual": {
+        "status": "skipped",
+        "observed": "状態のassertとキー入力は記録したが、画像上限3枚のためこの状態の画像は取得せず、実画面を確認していない。",
+        "evidence": []
+      },
+      "controls": [],
+      "states_complete": false,
+      "remaining": [
+        "入れ子の画面と未操作の対象を追加確認する。今回の予算では全状態の網羅を確認していない。"
+      ]
+    }
+  ],
+  "screen_reader": {
+    "status": "skipped",
+    "observed": "この実行ではscreen_reader=offを指定したため、実スクリーンリーダー確認は実施していない。",
+    "evidence": []
+  },
+  "verified_evidence": [
+    {
+      "path": "evidence/43aa9d581c3c--initial--desktop/page.png",
+      "sha256": "484fe7823f9eb355fd3bf72f3df22fde17897fd643156b9dd1a9db92c257ee86"
+    },
+    {
+      "path": "evidence/43aa9d581c3c--initial--desktop/keyboard.json",
+      "sha256": "9ca0fcffaa17074c0d24068ec9eb0305ad770969ea90e9a31238d34a9e5fcf46"
+    },
+    {
+      "path": "evidence/43aa9d581c3c--preferences--desktop/actions.json",
+      "sha256": "661fee5ea1d1e546ffb56e876de0832b00afc0270adf5087014c4248cf7e4ad9"
+    },
+    {
+      "path": "evidence/43aa9d581c3c--help--desktop/page.png",
+      "sha256": "601ae6c9cfd105446f7eadb3202ed94dbcc0d84f3168f7caf78f330b75852375"
+    },
+    {
+      "path": "evidence/43aa9d581c3c--help--desktop/actions.json",
+      "sha256": "d441afd83a88a2feea39adb0aaf5bf1e0dcf6e73351410e26530c43ecebf1c0b"
+    },
+    {
+      "path": "evidence/43aa9d581c3c--preferences--desktop/page.png",
+      "sha256": "513df1818fa0f70a6cf7647aea59017827bc3ff24719bcbd07622c0b7adf69bf"
+    },
+    {
+      "path": "evidence/43aa9d581c3c--nested--desktop/actions.json",
+      "sha256": "0f81a3ae5c625d31b14b5d6fc298aabe651f0d561a7e71e93738c4508653ff48"
+    }
+  ]
+}

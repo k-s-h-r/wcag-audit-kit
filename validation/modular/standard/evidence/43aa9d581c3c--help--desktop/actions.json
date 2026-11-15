@@ -1,0 +1,126 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "click",
+      "selector": "#help-trigger"
+    },
+    "url": "http://127.0.0.1:34897/visual-controls.html",
+    "focus": {
+      "tag": "button",
+      "id": "more",
+      "documentHasFocus": true,
+      "text": "More options",
+      "name": null,
+      "rect": {
+        "x": 487.890625,
+        "y": 489,
+        "width": 152.859375,
+        "height": 56.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "more"
+        },
+        {
+          "tag": "dialog",
+          "id": "help"
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T10:57:07.745772+00:00",
+    "observed_at": "2026-11-15T10:57:07.906331+00:00",
+    "observations": []
+  },
+  {
+    "index": 2,
+    "action": {
+      "type": "press",
+      "key": "Escape",
+      "assert": [
+        {
+          "selector": "#help",
+          "visible": false
+        }
+      ]
+    },
+    "url": "http://127.0.0.1:34897/visual-controls.html",
+    "focus": {
+      "tag": "button",
+      "id": "help-trigger",
+      "documentHasFocus": true,
+      "text": "Open help",
+      "name": null,
+      "rect": {
+        "x": 248.1875,
+        "y": 176.5,
+        "width": 128.078125,
+        "height": 56.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "help-trigger"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T10:57:07.909543+00:00",
+    "observed_at": "2026-11-15T10:57:08.016120+00:00",
+    "observations": [],
+    "action_asserted": true
+  },
+  {
+    "index": 3,
+    "action": {
+      "type": "press",
+      "key": "Enter"
+    },
+    "url": "http://127.0.0.1:34897/visual-controls.html",
+    "focus": {
+      "tag": "button",
+      "id": "more",
+      "documentHasFocus": true,
+      "text": "More options",
+      "name": null,
+      "rect": {
+        "x": 487.890625,
+        "y": 489,
+        "width": 152.859375,
+        "height": 56.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "more"
+        },
+        {
+          "tag": "dialog",
+          "id": "help"
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T10:57:08.020655+00:00",
+    "observed_at": "2026-11-15T10:57:08.127722+00:00",
+    "observations": []
+  }
+]

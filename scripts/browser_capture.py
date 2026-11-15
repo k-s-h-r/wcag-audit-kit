@@ -74,9 +74,10 @@ async def capture_image(page,path,full_page=False,native_zoom=False):
         await session.detach()
 
 
-async def capture_zoom_step(page,dest,prefix,percent,metrics,stage):
+async def capture_zoom_step(page,dest,prefix,percent,metrics,stage,images=None):
     image=dest/f'{prefix}-{percent}.png'
-    await capture_image(page,image,native_zoom=True)
+    if images:await images.capture(page,image,native_zoom=True)
+    else:await capture_image(page,image,native_zoom=True)
     inv=await page.evaluate(INVENTORY)
     (dest/f'{prefix}-{percent}-inventory.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2))
     (dest/f'{prefix}-{percent}-stage.json').write_text(json.dumps({'percent':percent,
@@ -138,8 +139,15 @@ async def collect(config, run_dir):
     run_dir = Path(run_dir)
     manifest = {'pages': [], 'unvisited': [], 'errors': [], 'discovered': [],'document_aliases':[],
                 'captures': [], 'not_a_screen_reader_test': True}
-    queue = [normalize(urljoin(config['url'], p),config) for p in config['scope'].get('seeds', ['/'])]
-    queue += [normalize(urljoin(config['url'], p),config) for p in config['scope'].get('known_pages', [])]
+    from inspection import ImageBudget
+    images=ImageBudget(config,run_dir,manifest,capture_image)
+    configured=config['scope'].get('mode','discover')=='configured'
+    if configured:
+        from page_catalog import configured_urls
+        queue=configured_urls(config)
+    else:
+        queue = [normalize(urljoin(config['url'], p),config) for p in config['scope'].get('seeds', ['/'])]
+        queue += [normalize(urljoin(config['url'], p),config) for p in config['scope'].get('known_pages', [])]
     queue = list(dict.fromkeys(queue))
     seen = set()
     known = set(queue)
@@ -155,6 +163,7 @@ async def collect(config, run_dir):
                         continue
                     seen.add(url)
                     pid = page_id(url)
+                    images.page=pid
                     manifest['pages'].append({'id': pid, 'url': url})
                     states = [{'id': 'initial', 'actions': []}] + [s for s in config.get('states', []) if urlsplit(url).path in s['paths']]
                     for env in config['environments']:
@@ -200,15 +209,15 @@ async def collect(config, run_dir):
                                     raise ValueError('対象範囲外へのリダイレクト: '+page.url)
                                 if native_zoom:
                                     async def zoom_step(percent,metrics):
-                                        await capture_zoom_step(page,dest,'native-zoom',percent,metrics,'before configured state actions')
+                                        await capture_zoom_step(page,dest,'native-zoom',percent,metrics,'before configured state actions',images)
                                     zoom_result=await apply_zoom(page,native_display,env['zoom'],env['viewport'],on_step=zoom_step)
                                     (dest/'native-zoom.json').write_text(json.dumps(zoom_result,ensure_ascii=False,indent=2))
                                     capture['native_zoom']=zoom_result
                                     capture['images_are_viewport_only']=True
                                     if shutil.which('ffmpeg'):
-                                        try:await native_display.screenshot(dest/'native-desktop.png')
+                                        try:await images.capture_with(dest/'native-desktop.png','detail',lambda:native_display.screenshot(dest/'native-desktop.png'))
                                         except Exception as exc:(dest/'native-desktop-error.txt').write_text(str(exc))
-                                await capture_image(page,dest/'00-before.png',full_page=True,native_zoom=native_zoom)
+                                await images.capture(page,dest/'00-before.png',full_page=True,native_zoom=native_zoom)
                                 for i, action in enumerate(state['actions'], 1):
                                     action_started=datetime.now(timezone.utc).isoformat()
                                     if action['type'] == 'press':
@@ -228,7 +237,7 @@ async def collect(config, run_dir):
                                     elif action['type'] == 'zoom':
                                         if not native_display:raise ValueError('zoom操作はネイティブ拡大の環境で実行する')
                                         async def zoom_action_step(percent,metrics):
-                                            await capture_zoom_step(page,dest,f'action-{i:03}-zoom',percent,metrics,'during configured state actions')
+                                            await capture_zoom_step(page,dest,f'action-{i:03}-zoom',percent,metrics,'during configured state actions',images)
                                         zoom_action=await apply_zoom(page,native_display,action['factor'],env['viewport'],on_step=zoom_action_step)
                                         (dest/f'action-{i:03}-zoom.json').write_text(json.dumps(zoom_action,ensure_ascii=False,indent=2))
                                     else:
@@ -248,7 +257,7 @@ async def collect(config, run_dir):
                                                     'url':page.url,'focus':await page.evaluate(FOCUS),
                                                     'started_at':action_started,'observed_at':datetime.now(timezone.utc).isoformat(),
                                                     'observations':await observe_targets(page,state.get('observe',[]))})
-                                    await capture_image(page,dest/f'action-{i:03}.png',full_page=True,native_zoom=native_zoom)
+                                    await images.capture(page,dest/f'action-{i:03}.png',full_page=True,native_zoom=native_zoom)
                                     if action.get('assert'):
                                         actions[-1]['action_asserted']=False
                                         await check_state(page,action['assert'])
@@ -259,7 +268,7 @@ async def collect(config, run_dir):
                                 if state.get('assert'):
                                     await check_state(page,state['assert'])
                                 inv = await page.evaluate(INVENTORY)
-                                await capture_image(page,dest/'page.png',full_page=True,native_zoom=native_zoom)
+                                await images.capture(page,dest/'page.png',kind='state',full_page=True,native_zoom=native_zoom)
                                 (dest/'dom.html').write_text(await page.content())
                                 (dest/'inventory.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2))
                                 cdp = await context.new_cdp_session(page)
@@ -280,7 +289,7 @@ async def collect(config, run_dir):
                                     focus = await page.evaluate(FOCUS)
                                     focus_trace.append({'index':i+1,'key':'Tab','url':page.url,'focus':focus})
                                     if config.get('focus_screenshots', True):
-                                        await capture_image(page,dest/f'focus-{i+1:03}.png',native_zoom=native_zoom)
+                                        await images.capture(page,dest/f'focus-{i+1:03}.png',native_zoom=native_zoom)
                                 save_json_atomic(dest/'actions.json', actions)
                                 (dest/'keyboard.json').write_text(json.dumps(focus_trace,ensure_ascii=False,indent=2))
                                 save_json_atomic(dest/'console.json', logs)
@@ -290,7 +299,7 @@ async def collect(config, run_dir):
                                                input_events_truncated=bool(observer.dropped),input_events=len(observer.events),
                                                browser_version=capture_browser.version,observed_at=datetime.now(timezone.utc).isoformat(),
                                                axe_candidates=len(axe['violations']),axe_incomplete=len(axe['incomplete']))
-                                if state['id'] == 'initial':
+                                if state['id'] == 'initial' and not configured:
                                     for link in inv['links']:
                                         normalized = normalize(link,config)
                                         if normalized!=normalize(link):

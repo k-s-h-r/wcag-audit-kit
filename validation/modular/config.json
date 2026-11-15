@@ -1,0 +1,31 @@
+{
+  "schema_version": "1",
+  "url": "http://127.0.0.1:34897",
+  "level": "AA",
+  "scope": {
+    "include": [
+      "/**"
+    ],
+    "exclude": [],
+    "seeds": [
+      "/visual-controls.html"
+    ],
+    "known_pages": [],
+    "max_pages": 3,
+    "mode": "discover",
+    "pages": []
+  },
+  "environments": [
+    {
+      "id": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "zoom": 1
+    }
+  ],
+  "states": [],
+  "keyboard_steps": 4,
+  "input_event_limit": 10000
+}

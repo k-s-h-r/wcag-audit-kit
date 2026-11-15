@@ -1,0 +1,145 @@
+{
+  "created_at": "2026-11-15T10:57:04.866771+00:00",
+  "config": {
+    "schema_version": "1",
+    "url": "http://127.0.0.1:34897",
+    "level": "AA",
+    "scope": {
+      "include": [
+        "/**"
+      ],
+      "exclude": [],
+      "seeds": [
+        "/"
+      ],
+      "known_pages": [],
+      "max_pages": 1,
+      "mode": "configured",
+      "pages": [
+        "http://127.0.0.1:34897/visual-controls.html"
+      ]
+    },
+    "environments": [
+      {
+        "id": "desktop",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        },
+        "zoom": 1
+      }
+    ],
+    "states": [
+      {
+        "id": "preferences",
+        "paths": [
+          "/visual-controls.html"
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#preferences-trigger"
+          },
+          {
+            "type": "press",
+            "key": "Escape",
+            "assert": [
+              {
+                "selector": "#preferences",
+                "visible": false
+              }
+            ]
+          },
+          {
+            "type": "click",
+            "selector": "#preferences-trigger"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#preferences",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "id": "help",
+        "paths": [
+          "/visual-controls.html"
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#help-trigger"
+          },
+          {
+            "type": "press",
+            "key": "Escape",
+            "assert": [
+              {
+                "selector": "#help",
+                "visible": false
+              }
+            ]
+          },
+          {
+            "type": "press",
+            "key": "Enter"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#help",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "id": "nested",
+        "paths": [
+          "/visual-controls.html"
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#help-trigger"
+          },
+          {
+            "type": "click",
+            "selector": "#more"
+          },
+          {
+            "type": "press",
+            "key": "Escape",
+            "assert": [
+              {
+                "selector": "#nested",
+                "visible": false
+              }
+            ]
+          },
+          {
+            "type": "press",
+            "key": "Space"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#nested",
+            "visible": true
+          }
+        ]
+      }
+    ],
+    "keyboard_steps": 4,
+    "input_event_limit": 10000,
+    "inspection": {
+      "screenshots": "states",
+      "screen_reader": "off",
+      "max_images": 3,
+      "profile": "standard"
+    }
+  },
+  "config_digest": "8e7601fbd418dfa668f858e60a29d047def7e54f770c5cb477c13eb1680cbf9b",
+  "catalog_digest": "f4e37a935b5002ab2ce2aecd471a3a899a255ea94ff65a14e7de9f6e4a888eb2"
+}

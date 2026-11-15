@@ -25,6 +25,8 @@ python3 scripts/audit.py excel export --run /project/artifacts/wcag/run-001 --mo
 
 概要、検査票、対象、観察方法、全86達成基準、人への確認、タスクのシートを出力する。検査票は出力条件に合う範囲、概要と達成基準はrun全体の集計。未実施・判断保留・人の確認待ちもそのまま表示する。reportは取り込みできない。
 
+操作調査を保存したrunでは「操作調査」シートにも画面・操作・実SRの実施結果と残る範囲を出す。このシートは閲覧用で、調査票の変更はreview-interactionsを使う。共通runの1ページだけを出す場合は`--page-exact <URL>`を使う。
+
 ## 作業用Excelを編集して取り込む
 
 ```sh

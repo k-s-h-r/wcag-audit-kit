@@ -1,0 +1,44 @@
+{
+  "created_at": "2026-11-15T10:57:09.803690+00:00",
+  "config": {
+    "schema_version": "1",
+    "url": "http://127.0.0.1:34897",
+    "level": "AA",
+    "scope": {
+      "include": [
+        "/**"
+      ],
+      "exclude": [],
+      "seeds": [
+        "/"
+      ],
+      "known_pages": [],
+      "max_pages": 1,
+      "mode": "configured",
+      "pages": [
+        "http://127.0.0.1:34897/visual-controls.html"
+      ]
+    },
+    "environments": [
+      {
+        "id": "desktop",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        },
+        "zoom": 1
+      }
+    ],
+    "states": [],
+    "keyboard_steps": 4,
+    "input_event_limit": 10000,
+    "inspection": {
+      "screenshots": "off",
+      "screen_reader": "off",
+      "max_images": 0,
+      "profile": "quick"
+    }
+  },
+  "config_digest": "7a3d0261ee9a29a9205e20594df057c0a538e59bb5106ed6eec1448f105efb2a",
+  "catalog_digest": "f4e37a935b5002ab2ce2aecd471a3a899a255ea94ff65a14e7de9f6e4a888eb2"
+}

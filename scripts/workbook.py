@@ -122,7 +122,7 @@ def sheet(book, name, columns, rows, readonly=False):
     return ws
 
 
-def export(run, out, *, mode='report', task=None, owner=None, page=None, criterion=None, pending=False):
+def export(run, out, *, mode='report', task=None, owner=None, page=None, page_exact=None, criterion=None, pending=False):
     import audit
     from openpyxl import Workbook
     from openpyxl.worksheet.datavalidation import DataValidation
@@ -131,7 +131,7 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, criteri
     out.parent.mkdir(parents=True,exist_ok=True)
     with run_lock(run):
         result=audit.outcomes(run);plan=audit.run_plan(run);meta,catalog=audit.run_catalog(run)
-        cases=queue.select(result['cases'],plan,task=task,owner=owner,page=page,criterion=criterion,pending=pending)
+        cases=queue.select(result['cases'],plan,task=task,owner=owner,page=page,page_exact=page_exact,criterion=criterion,pending=pending)
         if not cases:raise ValueError('条件に合う検査票がない')
         if len(cases)>MAX_CASES:raise ValueError('1万票を超える。--task、--page、--criterion等で分割して出力する')
         export_id=uuid.uuid4().hex
@@ -151,6 +151,9 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, criteri
                  ['検証完了',result['audit_complete']],['範囲確認',result['scope_confirmed']],
                  ['人の確認待ち',len(result['human_review_cases'])],['未訪問URL',len(result['unvisited'])]]
         summary += [[key,value] for key,value in result['counts'].items()]
+        summary += [['画像の設定',result['inspection_policy']['screenshots']],['実スクリーンリーダーの設定',result['inspection_policy']['screen_reader']],
+                    ['操作・状態の調査',result['interaction_review']['status']],['操作調査の完了',result['interaction_review']['complete']]]
+        summary += [['実SRの実施記録',', '.join(sorted({p['screen_reader']['status'] for p in result['interaction_review'].get('pages',{}).values()})) or 'not_recorded']]
         summary += [['使い方','reportは閲覧用。workでは検査票・対象・観察方法を編集しexcel import --checkで確認する。'],
                     ['共同作業','同じrunから配布し、調整担当が取り込む。同一runのJSONを複数端末で同時同期しない。'],
                     ['判定の注意','作業状態のdoneとWCAG適合・検証完了は別。未確認は通過に数えない。'],
@@ -168,6 +171,12 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, criteri
             ws.add_data_validation(rule);rule.add(f'{get_column_letter(index)}2:{get_column_letter(index)}{len(cases)+1}')
         sheet(book,'対象',TARGET_COLUMNS,targets,mode=='report')
         sheet(book,'観察方法',METHOD_COLUMNS,methods,mode=='report')
+        from inspection import report_rows
+        selected_ids={c['page_id'] for c in cases}
+        sheet(book,'操作調査',[('url','ページURL'),('capture','状態・環境'),('label','見える操作対象'),('location','位置'),
+              ('visual','画像確認'),('status','操作確認'),('observed','観察'),('steps','実施した操作'),
+              ('remaining','残る確認'),('screen_reader','実SRの実施結果'),('source_review','元の調査票')],
+              [r for r in report_rows(result) if r['page_id'] in selected_ids],True)
         sheet(book,'達成基準',[('id','基準'),('level','レベル'),('title','名称'),('status','状況'),('counts','件数'),('normative_url','原典')],
               [dict(c,counts=encoded(c['counts'])) for c in result['criteria']],True)
         handoffs=[]

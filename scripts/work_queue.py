@@ -59,7 +59,7 @@ def assignment(plan, case_id):
     return dict(work(plan)['cases'].get(case_id, {'owner': '', 'state': 'todo', 'note': ''}))
 
 
-def select(cases, plan, *, task=None, owner=None, page=None, criterion=None, pending=False):
+def select(cases, plan, *, task=None, owner=None, page=None, page_exact=None, criterion=None, pending=False):
     if task:
         found = next((t for t in work(plan)['tasks'] if t['id'] == task), None)
         if found is None:
@@ -69,6 +69,9 @@ def select(cases, plan, *, task=None, owner=None, page=None, criterion=None, pen
         cases = [c for c in cases if assignment(plan, c['case_id'])['owner'] == owner]
     if page:
         cases = [c for c in cases if page in c['page_url']]
+    if page_exact:
+        from browser_capture import normalize
+        cases = [c for c in cases if normalize(c['page_url']) == normalize(page_exact)]
     if criterion:
         cases = [c for c in cases if c['criterion'] == criterion]
     if pending:
