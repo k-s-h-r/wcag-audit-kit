@@ -30,6 +30,20 @@ AAを目標にするとAとAAの55基準を検査します。AAAなら86基準�
 
 [原典とライセンス](references/SOURCES.md)、[検査定義の索引](references/INDEX.md)、[試験記録](VALIDATION.md)を確認できます。
 
+## 分担・中断・再開とExcel出力
+
+検査票をページ又は基準ごとに小さいタスクへ分割し、担当・作業状態・メモを保存できます。次回は同じタスクの未完了票から続けます。Excelは閲覧用と作業用を用意し、担当・メモ・判定の編集を証拠付きで取り込めます。同じ票への更新が競合したら取り込み全体を止めます。
+
+```sh
+python3 scripts/audit.py tasks create --run /project/artifacts/wcag/run-001 --group-by page --size 20
+python3 scripts/audit.py tasks list --run /project/artifacts/wcag/run-001
+python3 scripts/audit.py excel export --run /project/artifacts/wcag/run-001 --mode report --out /project/wcag-report.xlsx
+```
+
+[共同作業の手順](references/collaboration.md)には、担当の取得、タスク別の作業用Excel、取り込みの事前確認、競合の解消、中断後の再開を記しています。対象・証拠等を省いて判定だけを合格にする操作は拒否します。タスク分割は収集済みの検査票が対象です。
+
+今後の変更はPRと[ADR](docs/adr/README.md)で記録します。[変更の進め方](CONTRIBUTING.md)を参照してください。
+
 開発時に実行した[検証の証拠とレポート](validation/README.md)も保存しています。未確認が残る報告例も含み、スキル全体の検証完了を示すものではありません。
 
 [単独ページの通し検査](validation/full-fixture/README.md)では、AAの55基準を3状態で検査し、通過75・対象外90として、その固定した範囲の検査を完了しました。状態更新を欠く比較ページの4.1.2は不適合として報告しました。これは既知の小さい試験ページでの確認であり、未知のサイトに対する独立した精度評価は残っています。

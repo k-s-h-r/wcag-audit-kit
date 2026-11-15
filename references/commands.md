@@ -24,6 +24,20 @@ python3 scripts/audit.py case --run /project/artifacts/wcag/run-001 --id <case_i
 
 caseの出力から本文・手順のパス、設定と本文のハッシュ、対象ページと証拠の場所を取得する。表示されたaxeの候補は、原典と実ページで確認する。
 
+## 分担とExcel
+
+```sh
+python3 scripts/audit.py tasks create --run /project/artifacts/wcag/run-001 --group-by page --size 20
+python3 scripts/audit.py tasks claim --run /project/artifacts/wcag/run-001 --id <task_id> --owner reviewer-a
+python3 scripts/audit.py pending --run /project/artifacts/wcag/run-001 --task <task_id> --owner reviewer-a --limit 5
+python3 scripts/audit.py excel export --run /project/artifacts/wcag/run-001 --mode report --out /project/report.xlsx
+python3 scripts/audit.py excel export --run /project/artifacts/wcag/run-001 --mode work --task <task_id> --out /project/task-a.xlsx
+python3 scripts/audit.py excel import --run /project/artifacts/wcag/run-001 --file /project/task-a.xlsx --check
+python3 scripts/audit.py excel import --run /project/artifacts/wcag/run-001 --file /project/task-a.xlsx
+```
+
+[共同作業の手順](collaboration.md)で、取り込み可能な列、競合、再取り込み、中断後の再開を確認する。判定を直接recordする場合も`base_assessment`に読み取ったcaseのassessment（初回はnull）を指定して競合を検出する。
+
 ## 関連するACT Rulesを読む
 
 ```sh

@@ -7,6 +7,7 @@
 ## 必須の情報
 
 - `case_id`、設定の`config_digest`、基準本文の`normative_sha256`。`case`コマンドから取得する。
+- `base_assessment`。共同作業では、caseを読んだ時点の`assessment`を写す（初回はnull）。更新されていたら記録を止める。従来の単独recordとの互換性のため任意だが、複数担当の直接記録では指定する。作業用Excelの取り込みでは同等の版照合を必ず行う。
 - `execution`と`outcome`。未実行と判断保留を合格にしない。
 - `steps_executed`と`tests_applied`。実際の操作と、使用した手順のID。
 - `observed`。実際に観察した事実。AIが用意した方針や期待結果とは区別する。
