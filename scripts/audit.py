@@ -433,6 +433,9 @@ def outcomes(run):
 @locked
 def report(run):
     result=outcomes(run);save(run/'report.json',result)
+    import checksheet
+    _,catalog=run_catalog(run)
+    human_report=checksheet.render_html(checksheet.build(result,catalog,manifest=load(run/'capture-manifest.json')))
     labels={'passed':'検査通過','failed':'不適合','inapplicable':'対象外','cant_tell':'判断保留','not_run':'未実施'}
     rows=[]
     for c in result['cases']:
@@ -486,8 +489,8 @@ def report(run):
     captured=sum(i['status']=='captured' for i in images);skipped=sum(i['status']=='skipped' for i in images)
     readers=', '.join(sorted({p['screen_reader']['status'] for p in result['interaction_review'].get('pages',{}).values()})) or 'not_recorded'
     page=f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WCAG検証結果 — {escape(result['url'])}</title><style>body{{font:1rem/1.7 system-ui;margin:2rem;max-width:100rem;color:#202020;background:#fff}}table{{border-collapse:collapse;min-width:64rem}}td,th{{border:1px solid #666;padding:.6rem;vertical-align:top;text-align:left;overflow-wrap:anywhere}}a{{color:#00529b}}:focus-visible{{outline:3px solid #000;outline-offset:3px}}.scroll{{overflow:auto;max-width:100%}}pre{{white-space:pre-wrap}}</style></head><body>
-<main><h1>WCAG {result['level']} 検証結果</h1><p>対象：{escape(result['url'])}</p><p>{escape(summary)}</p>
+<title>WCAG検証結果 — {escape(result['url'])}</title><style>body{{font:1rem/1.7 system-ui;margin:2rem;max-width:100rem;color:#202020;background:#fff}}table{{border-collapse:collapse;min-width:64rem}}td,th{{border:1px solid #666;padding:.6rem;vertical-align:top;text-align:left;overflow-wrap:anywhere}}a{{color:#00529b}}:focus-visible{{outline:3px solid #000;outline-offset:3px}}.scroll{{overflow:auto;max-width:100%}}pre{{white-space:pre-wrap}}caption{{text-align:left}}.criterion{{font-weight:bold;background:#eef3f6}}.failed td:nth-child(6){{background:#fce4d6}}.unverified td:nth-child(6){{background:#fff2cc}}.passed td:nth-child(6){{background:#e2f0d9}}@media(max-width:40rem){{body{{margin:1rem}}}}@media print{{@page{{size:A3 landscape;margin:12mm}}.scroll{{overflow:visible}}table{{min-width:0;width:100%!important;font-size:8pt}}.checksheet-table col{{width:auto!important}}thead{{display:table-header-group}}tr{{break-inside:avoid}}}}</style></head><body>
+<main><h1>WCAG {result['level']} 検証結果</h1><p>対象：{escape(result['url'])}</p><nav aria-label="レポート内の移動"><a href="#checksheet">達成基準チェックシート</a> / <a href="#failures">不適合箇所</a></nav><p>{escape(summary)}</p>
 <p>予定範囲の検査完了：{'はい' if result['audit_complete'] else 'いいえ'}</p><p>サイト・状態・適合要件の範囲確認：{escape(inventory)}</p>
 <p>判定・引き継ぎの記録：{result['recorded_cases']} / {len(result['cases'])}。人による確認待ち：{len(result['human_review_cases'])}。<a href="human-review.md">対象と具体的な確認手順</a>。引き継ぎ先が未整理の判断保留・未網羅：{len(result['unassigned_remaining_cases'])}。</p>
 <p>観察設定：画像 {escape(result['inspection_policy']['screenshots'])}、実スクリーンリーダー {escape(result['inspection_policy']['screen_reader'])}。操作・状態の調査：{escape(result['interaction_review']['status'])}。必要な調査の完了：{result['interaction_review']['complete']}。画像保存は実際に観察した証明ではありません。</p>
@@ -498,8 +501,9 @@ def report(run):
 <details><summary>使用した検査定義</summary><p>{escape(definition_notice)}</p><p>定義ID：<code style="overflow-wrap:anywhere">{escape(result['catalog_digest'])}</code></p><p>{definition_link}</p></details>
 <p>{escape(result['conformance_claim'])}</p><details><summary>全86基準の状況</summary><ul>{by_criterion}</ul></details>
 <details><summary>画面から調べた操作・状態</summary><div class="scroll" tabindex="0" role="region" aria-label="操作調査の表"><table><caption>実際の観察と未探索の範囲。実SRは実施結果を表示。</caption><thead><tr><th>ページ</th><th>状態・環境</th><th>操作対象</th><th>画像確認</th><th>操作確認</th><th>観察</th><th>残る確認</th><th>実SR</th></tr></thead><tbody>{observation_rows}</tbody></table></div></details>
-<h2>ページ・状態・環境・基準ごとの結果</h2><div class="scroll" tabindex="0" role="region" aria-label="検査結果の表"><table><caption>具体的な観察結果と証拠。未実施は通過数に含めません。</caption>
-<thead><tr><th scope="col">基準</th><th scope="col">対象</th><th scope="col">結果</th><th scope="col">観察・残る確認</th><th scope="col">証拠</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>
+{human_report}
+<details><summary>ページ・状態・環境・基準ごとの検査票</summary><div class="scroll" tabindex="0" role="region" aria-label="検査結果の表"><table><caption>具体的な観察結果と証拠。未実施は通過数に含めません。</caption>
+<thead><tr><th scope="col">基準</th><th scope="col">対象</th><th scope="col">結果</th><th scope="col">観察・残る確認</th><th scope="col">証拠</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div></details>
 <p>修正担当向け：<a href="issues.md">不適合の再現と期待結果</a>。機械処理用：<a href="report.json">report.json</a>。元の収集記録：<a href="capture-manifest.json">capture-manifest.json</a>。</p></main></body></html>'''
     (run/'report.html').write_text(page)
     issues=['# 修正担当向けの不適合記録','', 'この記録は検証結果です。製品コードの変更は行っていません。','',
