@@ -43,7 +43,7 @@
         /^(button|combobox|listbox|option|tab|checkbox|radio|menuitem|slider|switch|treeitem)$/.test(e.getAttribute('role')) ||
         getComputedStyle(e).cursor === 'pointer' || properties.some(p => typeof e[p] === 'function') ||
         [...(events.get(e) || [])].some(t => /click|pointer|mouse|key|change|input/.test(t))))
-      .filter(e => !e.disabled && e.getAttribute('aria-disabled') !== 'true')
+      .filter(e => !e.matches(':disabled') && e.getAttribute('aria-disabled') !== 'true')
       .filter(e => !(e.getAttribute('role') === 'listbox' && e.tabIndex < 0 && e.id &&
         all.some(c => c.getAttribute('role') === 'combobox' && (c.getAttribute('aria-controls') || '').split(/\s+/).includes(e.id))))
       .map(e => {
@@ -59,6 +59,13 @@
       expanded:e.getAttribute('aria-expanded'), checked:e.checked ?? e.getAttribute('aria-checked'),
       selected:e.getAttribute('aria-selected'), open:e.open, value:(e.type === 'password' ? '[redacted]' : 'value' in e ? e.value : null),
       role:e.getAttribute('role'), hidden:e.getAttribute('aria-hidden'),
+      disabled:e.matches(':disabled'), ariaDisabled:e.getAttribute('aria-disabled'),
+      readOnly:e.readOnly ?? null, inert:!!e.inert, tabIndex:e.tabIndex,
+      type:e.type || e.getAttribute('type'), href:e.getAttribute('href'), contentEditable:e.getAttribute('contenteditable'),
+      ariaControls:e.getAttribute('aria-controls'), ariaOwns:e.getAttribute('aria-owns'),
+      ariaHasPopup:e.getAttribute('aria-haspopup'), ariaPressed:e.getAttribute('aria-pressed'),
+      ariaChecked:e.getAttribute('aria-checked'), ariaActiveDescendant:e.getAttribute('aria-activedescendant'),
+      ariaModal:e.getAttribute('aria-modal'),
       styles:['color','backgroundColor'].map(k => getComputedStyle(e)[k])}));
     return {url:location.href,title:document.title,controls,state,modal:modal ? selector(modal) : null,
       frames:all.filter(e => e.matches('iframe,frame')).map(selector), closedRoots,

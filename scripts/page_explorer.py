@@ -21,7 +21,10 @@ class KeyboardUnreachable(ValueError):
 
 
 def fingerprint(value):
-    return sha256(json.dumps(value['state'],ensure_ascii=False,sort_keys=True).encode()).hexdigest()
+    keys=('selector','tag','role','type','href','label','tabIndex','haspopup')
+    controls=[dict({k:c.get(k) for k in keys},events=sorted(set(c.get('events',[])))) for c in value.get('controls',[])]
+    state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
+    return sha256(json.dumps(state,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
 
 
 def actions(control):
@@ -85,7 +88,7 @@ def status(run):
         review=audit.load(location)
         for proof in review['verified_evidence']:
             if audit.evidence_item(Path(run),proof['path'])!=proof:raise ValueError('追加検査の証拠が変更された')
-        if review['graph_digest']==graph_digest:resolved={r['item'] for r in review['resolutions']}
+        if review['graph_digest']==graph_digest:resolved={r['item'] for r in review.get('resolutions',[])}
     remaining += [r for r in value.get('remaining',[]) if r not in resolved]
     if value.get('running'):remaining.append('探索中又は途中停止。page-audit --resumeで再開する。')
     return dict(value,graph_digest=graph_digest,required=True,complete=not remaining and bool(value['nodes']),remaining=remaining)

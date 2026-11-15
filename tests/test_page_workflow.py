@@ -104,6 +104,58 @@ class WorkflowTest(unittest.TestCase):
             with self.assertRaises(ValueError):page_workflow.resolve(self.run,{'graph_digest':audit.digest(graph),
                 'resolutions':[{'item':'未確認','observed':'合成試験で追加検査の形式を確認する。','evidence':evidence}]})
 
+    def test_separate_resolutions_accumulate_without_rewriting_history(self):
+        graph=self.graph();graph['remaining']=['gap A','gap B'];audit.save(self.run/'exploration.json',graph)
+        def value(item):return {'graph_digest':audit.digest(graph),'resolutions':[{'item':item,
+            'observed':'合成試験で対象ごとの追加検査と証拠の保持を確認する。','evidence':['evidence/abc/axe.json']}]}
+        first=page_workflow.resolve(self.run,value('gap A'));path=Path(first['file']);before=path.read_bytes()
+        self.assertEqual(page_explorer.status(self.run)['remaining'],['gap B'])
+        page_workflow.resolve(self.run,value('gap B'))
+        self.assertTrue(page_explorer.status(self.run)['complete'])
+        saved=audit.load(self.run/audit.run_plan(self.run)['exploration_review'])
+        self.assertEqual([r['item'] for r in saved['resolutions']],['gap A','gap B'])
+        self.assertEqual(path.read_bytes(),before)
+
+    def test_resolution_on_a_new_graph_does_not_reuse_previous_items(self):
+        graph=self.graph();graph['remaining']=['gap A','gap B'];audit.save(self.run/'exploration.json',graph)
+        def value(item):return {'graph_digest':audit.digest(graph),'resolutions':[{'item':item,
+            'observed':'合成試験で探索の版ごとに追加検査を区別する。','evidence':['evidence/abc/axe.json']}]}
+        page_workflow.resolve(self.run,value('gap A'))
+        graph['steps']+=1;audit.save(self.run/'exploration.json',graph)
+        page_workflow.resolve(self.run,value('gap B'))
+        self.assertEqual(page_explorer.status(self.run)['remaining'],['gap A'])
+
+    def test_recording_one_resolution_again_keeps_other_items(self):
+        graph=self.graph();graph['remaining']=['gap A','gap B'];audit.save(self.run/'exploration.json',graph)
+        items=[{'item':name,'observed':'合成試験の最初の追加検査を記録する。','evidence':['evidence/abc/axe.json']} for name in graph['remaining']]
+        page_workflow.resolve(self.run,{'graph_digest':audit.digest(graph),'resolutions':items})
+        evidence=self.run/'evidence/abc/follow-up.json';audit.save(evidence,{'observed':'second observation'})
+        replacement=dict(items[0],observed='合成試験で対象Aだけの追加検査を更新する。',evidence=['evidence/abc/follow-up.json'])
+        page_workflow.resolve(self.run,{'graph_digest':audit.digest(graph),'resolutions':[replacement]})
+        saved=audit.load(self.run/audit.run_plan(self.run)['exploration_review'])
+        self.assertEqual(saved['resolutions'],[replacement,items[1]])
+        self.assertTrue(page_explorer.status(self.run)['complete'])
+        self.assertEqual({p['path'] for p in saved['verified_evidence']},{'evidence/abc/axe.json','evidence/abc/follow-up.json'})
+
+    def test_changed_inherited_proof_blocks_an_additional_resolution(self):
+        graph=self.graph();graph['remaining']=['gap A','gap B'];audit.save(self.run/'exploration.json',graph)
+        proof=self.run/'evidence/abc/follow-up.json';audit.save(proof,{'observed':'original'})
+        def value(item):return {'graph_digest':audit.digest(graph),'resolutions':[{'item':item,
+            'observed':'合成試験で過去の解消に使用した証拠を保持する。','evidence':['evidence/abc/follow-up.json']}]}
+        page_workflow.resolve(self.run,value('gap A'));before=(self.run/'plan.json').read_bytes()
+        audit.save(proof,{'observed':'changed'})
+        with self.assertRaisesRegex(ValueError,'追加検査の証拠'):page_workflow.resolve(self.run,value('gap B'))
+        self.assertEqual((self.run/'plan.json').read_bytes(),before)
+
+    def test_legacy_empty_resolution_snapshot_does_not_block_new_items(self):
+        graph=self.graph();graph['remaining']=['gap A'];audit.save(self.run/'exploration.json',graph)
+        audit.save(self.run/'exploration-reviews/legacy.json',{'graph_digest':audit.digest(graph),'verified_evidence':[]})
+        plan=audit.run_plan(self.run);plan['exploration_review']='exploration-reviews/legacy.json';audit.save(self.run/'plan.json',plan)
+        self.assertEqual(page_explorer.status(self.run)['remaining'],['gap A'])
+        page_workflow.resolve(self.run,{'graph_digest':audit.digest(graph),'resolutions':[{'item':'gap A',
+            'observed':'合成試験で空の旧記録から追加検査を記録する。','evidence':['evidence/abc/axe.json']}]})
+        self.assertTrue(page_explorer.status(self.run)['complete'])
+
     def test_page_reports_isolate_another_pages_failed_cases(self):
         audit.record(self.run,self.judgment)
         other=copy.deepcopy(self.manifest['captures'][0]);other.update(key='other--initial--desktop',page_id='other',url=self.config['url']+'/other')
@@ -179,6 +231,17 @@ class WorkflowTest(unittest.TestCase):
         self.assertEqual(page_explorer.fingerprint(original),page_explorer.fingerprint(other))
         other['state'][0]['styles']=['red']
         self.assertNotEqual(page_explorer.fingerprint(original),page_explorer.fingerprint(other))
+
+    def test_fingerprint_includes_newly_available_controls(self):
+        original={'state':[{'selector':'#button','text':'Open'}],'controls':[]}
+        enabled=dict(original,controls=[{'selector':'#button','tag':'button','type':'button','events':['click']}])
+        self.assertNotEqual(page_explorer.fingerprint(original),page_explorer.fingerprint(enabled))
+
+    def test_fingerprint_ignores_control_coordinates_and_event_registration_order(self):
+        original={'state':[],'controls':[{'selector':'#button','tag':'button','events':['click','keydown'],
+            'rect':{'x':0,'y':0}}]}
+        changed=copy.deepcopy(original);changed['controls'][0].update(rect={'x':10,'y':90},events=['keydown','click','click'])
+        self.assertEqual(page_explorer.fingerprint(original),page_explorer.fingerprint(changed))
 
 
 if __name__=='__main__':unittest.main()

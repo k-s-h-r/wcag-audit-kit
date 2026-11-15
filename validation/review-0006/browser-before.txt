@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/workspace/wcag-audit-kit-github/tests/page_review_browser.py", line 57, in <module>
+    parser=argparse.ArgumentParser();parser.add_argument('--out',type=Path,required=True);run(parser.parse_args().out)
+                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wcag-audit-kit-github/tests/page_review_browser.py", line 40, in run
+    asyncio.run(inspect())
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/wcag-audit-kit-github/tests/page_review_browser.py", line 37, in inspect
+    assert page_explorer.fingerprint(before)!=page_explorer.fingerprint(after),'enabled control merged with prior state'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: enabled control merged with prior state

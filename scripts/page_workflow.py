@@ -121,17 +121,24 @@ def resolve(run, value):
     from page_explorer import status
     from ledger_lock import run_lock
     with run_lock(run):
-        raw=audit.load(run/'exploration.json');graph=status(run)
+        raw=audit.load(run/'exploration.json');status(run)
         if value.get('graph_digest')!=audit.digest(raw):raise ValueError('探索が更新済み。最新のgraph_digestを使う')
         items=value.get('resolutions',[])
         if not isinstance(items,list):raise ValueError('resolutionsは一覧')
         names=[i.get('item') for i in items]
         if len(names)!=len(set(names)) or not set(names).issubset(raw.get('remaining',[])):raise ValueError('解消する未確認の項目が不正')
-        proof=[]
-        for item in items:
+        plan=audit.run_plan(run);previous=plan.get('exploration_review');combined={}
+        if previous:
+            saved=audit.load(run/previous)
+            if saved['graph_digest']==value['graph_digest']:
+                combined={item['item']:item for item in saved.get('resolutions',[])}
+        for item in items:combined[item['item']]=item
+        proof={}
+        for item in combined.values():
             if len(item.get('observed','').strip())<10 or not item.get('evidence'):raise ValueError('追加検査の具体的な観察と証拠が必要')
-            proof.extend(audit.evidence_item(run,p) for p in item['evidence'])
-        saved=dict(value,verified_evidence=proof)
+            for p in item['evidence']:
+                checked=audit.evidence_item(run,p);proof[checked['path']]=checked
+        saved=dict(value,resolutions=list(combined.values()),verified_evidence=list(proof.values()),previous_review=previous)
         path=run/'exploration-reviews'/(uuid.uuid4().hex+'.json');audit.save(path,saved)
-        plan=audit.run_plan(run);plan['exploration_review']=str(path.relative_to(run));audit.save(run/'plan.json',plan)
-        return {'file':str(path),'resolved':len(items)}
+        plan['exploration_review']=str(path.relative_to(run));audit.save(run/'plan.json',plan)
+        return {'file':str(path),'resolved':len(items),'total_resolved':len(combined)}
