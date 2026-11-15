@@ -15,6 +15,7 @@ import sys
 import uuid
 from urllib.parse import urlsplit
 from handoff import validate_handoff, details as handoff_details, markdown as handoff_markdown
+from ledger_lock import locked
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = json.loads((ROOT/'references/catalog.json').read_text())
@@ -78,6 +79,8 @@ def run_plan(run):
         raise ValueError('検査計画と保存した検査定義が不一致')
     ids=[c['case_id'] for c in plan['cases']]
     if len(ids)!=len(set(ids)):raise ValueError('検査計画のcase_idが重複している')
+    from work_queue import validate_work
+    validate_work(plan)
     return plan
 
 
@@ -144,6 +147,7 @@ def init_config(url):
                             'states':[],'keyboard_steps':30})
 
 
+@locked
 def make_plan(run, manifest):
     meta,catalog=run_catalog(run)
     existing=run_plan(run) if (run/'plan.json').exists() else {'cases':[]}
@@ -166,7 +170,7 @@ def make_plan(run, manifest):
                                                        'kind':kind,'nodes':v['nodes']}
                                                       for kind in ['violations','incomplete']
                                                       for v in axe.get(kind,[]) if tag in v.get('tags',[])]
-    plan={'config_digest':meta['config_digest'],'catalog_digest':meta['catalog_digest'],'cases':list(entries.values())}
+    plan=dict(existing,config_digest=meta['config_digest'],catalog_digest=meta['catalog_digest'],cases=list(entries.values()))
     save(run/'plan.json',plan)
     return plan
 
@@ -186,9 +190,15 @@ def evidence_item(run, path):
     return {'path':str(p.relative_to(root)),'sha256':sha256(p.read_bytes()).hexdigest()}
 
 
-def record(run, judgment):
+def prepare_record(run, judgment, plan=None):
+    """Validate without changing the ledger; callers commit under the run lock."""
     meta,catalog=run_catalog(run,for_write=True)
-    plan,case=get_case(run,judgment['case_id'])
+    plan=run_plan(run) if plan is None else plan
+    found=[c for c in plan['cases'] if c['case_id']==judgment['case_id']]
+    if len(found)!=1:raise ValueError('case_idが存在しない')
+    case=found[0]
+    if 'base_assessment' in judgment and judgment['base_assessment']!=case['assessment']:
+        raise ValueError('判定が更新済み。最新のcaseを読み、差分を確認してから再記録する')
     c=CRITERIA[case['criterion']]
     if judgment.get('config_digest')!=meta['config_digest'] or judgment.get('normative_sha256')!=c['normative_sha256']:
         raise ValueError('設定又は基準本文のハッシュが不一致')
@@ -271,11 +281,32 @@ def record(run, judgment):
         if not any(e['path'].startswith((own,attached)) for e in proof):
             raise ValueError('このページ・状態・環境の証拠を含める')
     result=dict(judgment,recorded_at=datetime.now(timezone.utc).isoformat(),verified_evidence=proof)
-    revision=uuid.uuid4().hex[:12]
-    path='assessments/'+case['case_id']+'--'+revision+'.json'
-    save(run/path,result)
-    case['assessment']=path
+    return result
+
+
+def commit_records(run, plan, results, work_updates=None):
+    """Append immutable revisions, then atomically publish all plan pointers."""
+    from work_queue import assignment, can_finish
+    cases={c['case_id']:c for c in plan['cases']}
+    for result in results:
+        case=cases[result['case_id']]
+        path='assessments/'+case['case_id']+'--'+uuid.uuid4().hex[:12]+'.json'
+        save(run/path,result)
+        case['assessment']=path
+        if case['case_id'] in plan.get('work',{}).get('cases',{}):
+            value=assignment(plan,case['case_id'])
+            value['state']='done' if can_finish(dict(case,outcome=result['outcome'],assessment_data=result)) else 'blocked'
+            plan['work']['cases'][case['case_id']]=value
+    if work_updates:
+        plan['work']['cases'].update(work_updates)
     save(run/'plan.json',plan)
+
+
+@locked
+def record(run, judgment):
+    plan=run_plan(run)
+    result=prepare_record(run,judgment,plan)
+    commit_records(run,plan,[result])
     return result
 
 
@@ -365,6 +396,7 @@ def outcomes(run):
             'counts':dict(stats),'criteria':per_criterion,'cases':rows}
 
 
+@locked
 def report(run):
     result=outcomes(run);save(run/'report.json',result)
     labels={'passed':'検査通過','failed':'不適合','inapplicable':'対象外','cant_tell':'判断保留','not_run':'未実施'}
@@ -457,11 +489,29 @@ def main(argv=None):
     p.add_argument('--status',choices=['active','approved','proposed','deprecated','all'],default='active')
     p=sub.add_parser('rule');p.add_argument('--id',required=True)
     p=sub.add_parser('start');p.add_argument('--config',required=True);p.add_argument('--out',required=True)
+    p=sub.add_parser('tasks');actions=p.add_subparsers(dest='task_action',required=True)
+    for action in ['create','list','claim']:
+        q=actions.add_parser(action);q.add_argument('--run',required=True)
+        q.add_argument('--owner',required=action=='claim')
+        if action=='create':
+            q.add_argument('--group-by',choices=['page','criterion','none'],default='page')
+            q.add_argument('--size',type=int,default=20);q.add_argument('--page');q.add_argument('--criterion')
+        if action=='claim':q.add_argument('--id',required=True);q.add_argument('--reassign',action='store_true')
+        if action=='list':q.add_argument('--limit',type=int,default=20)
+    p=sub.add_parser('excel');actions=p.add_subparsers(dest='excel_action',required=True)
+    for action in ['export','import']:
+        q=actions.add_parser(action);q.add_argument('--run',required=True)
+        if action=='export':
+            q.add_argument('--out',required=True);q.add_argument('--mode',choices=['report','work'],default='report')
+            q.add_argument('--task');q.add_argument('--owner');q.add_argument('--page');q.add_argument('--criterion')
+            q.add_argument('--pending-only',action='store_true')
+        else:q.add_argument('--file',required=True);q.add_argument('--check',action='store_true')
     for name in ['pending','case','record','report','attach','scope-review','recover','probe','snapshot']:
         p=sub.add_parser(name);p.add_argument('--run',required=True)
         if name=='case':p.add_argument('--id',required=True)
         if name=='pending':
             p.add_argument('--criterion');p.add_argument('--page');p.add_argument('--limit',type=int,default=20)
+            p.add_argument('--task');p.add_argument('--owner')
             p.add_argument('--status',choices=['not_run','cant_tell','human','all'],default='all')
         if name in {'record','scope-review'}:p.add_argument('--file',required=True)
         if name=='attach':p.add_argument('--case',required=True);p.add_argument('--file',required=True)
@@ -502,11 +552,28 @@ def main(argv=None):
             from browser_capture import collect
             manifest=asyncio.run(collect(config,run));make_plan(run,manifest);report(run);return 0
         run=Path(args.run)
+        if args.command=='tasks':
+            import work_queue
+            if args.task_action=='create':
+                value=work_queue.create_tasks(run,group_by=args.group_by,size=args.size,owner=args.owner or '',page=args.page,criterion=args.criterion)
+                value={'created':len(value),'tasks':value}
+            elif args.task_action=='claim':value=work_queue.claim(run,args.id,args.owner,args.reassign)
+            else:
+                value=work_queue.status(run,args.owner);value['tasks']=value['tasks'][:max(1,args.limit)]
+            print(json.dumps(value,ensure_ascii=False,indent=2));return 0
+        if args.command=='excel':
+            import workbook
+            if args.excel_action=='export':
+                value=workbook.export(run,Path(args.out),mode=args.mode,task=args.task,owner=args.owner,
+                                      page=args.page,criterion=args.criterion,pending=args.pending_only)
+            else:value=workbook.import_book(run,Path(args.file),check=args.check)
+            print(json.dumps(value,ensure_ascii=False,indent=2));return 0
         if args.command=='snapshot':
             print(json.dumps(snapshot_catalog(run),ensure_ascii=False));return 0
         if args.command=='recover':
             manifest=load(run/'capture-manifest.json');make_plan(run,manifest);report(run);return 0
         if args.command=='pending':
+            import work_queue
             result=outcomes(run)
             pending=[c for c in result['cases'] if c['outcome'] in {'not_run','cant_tell'} or
                      (c['assessment_data'] and (c['assessment_data'].get('remaining') or c['assessment_data'].get('coverage_complete') is not True or
@@ -516,8 +583,11 @@ def main(argv=None):
             if args.page:pending=[c for c in pending if args.page in c['page_url']]
             if args.status=='human':pending=[c for c in pending if c['assessment_data'] and c['assessment_data'].get('human_handoff')]
             elif args.status!='all':pending=[c for c in pending if c['outcome']==args.status]
+            plan=run_plan(run);pending=work_queue.select(pending,plan,task=args.task,owner=args.owner)
             print(json.dumps({'total':len(pending),'cases':[{'case_id':c['case_id'],'criterion':c['criterion'],'url':c['page_url'],'state':c['state'],
                                'environment':c['environment'],'methods':c['methods'],'status':c['outcome'],
+                               'task':(work_queue.task_for(plan,c['case_id']) or {}).get('id'),
+                               'work':work_queue.assignment(plan,c['case_id']),
                                'human_review_required':bool(c['assessment_data'] and c['assessment_data'].get('human_handoff'))}
                               for c in pending[:max(1,args.limit)]]},ensure_ascii=False,indent=2));return 0
         if args.command=='case':
@@ -568,7 +638,7 @@ def main(argv=None):
             save(run/'scope-review.json',value);return 0
         if args.command=='report':
             r=report(run);return 0 if not args.strict or r['audit_complete'] else 2
-    except (ValueError,KeyError,FileNotFoundError,ImportError) as exc:
+    except (ValueError,KeyError,OSError,ImportError) as exc:
         print('ERROR:',str(exc),file=sys.stderr);return 1
 
 

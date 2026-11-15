@@ -2,7 +2,7 @@
 name: wcag-audit-kit
 description: WCAG 2.2に基づいてサイト全体を検証し、ページ・状態・環境・達成基準ごとに証拠付きの結果を出す。WCAGを知らない利用者からの「このサイトをアクセシビリティ監査して」「何ができていないか全部調べて」に使う。既定はAAの55基準で、全86基準の状況を報告する。実装修正は行わず、修正担当が使える再現手順と期待結果を渡す。
 metadata:
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # サイト全体のWCAG検証を実行する
@@ -25,6 +25,8 @@ metadata:
 
 ## 3. 達成基準ごとに実ページで検証する
 
+大きなサイトや複数担当の検査では、[分担とExcelの手順](references/collaboration.md)を読み、`tasks create`でページ又は基準ごとに小さいタスクを作る。`tasks claim`で担当を記録し、`pending --task <ID> --owner <担当>`で次の票を読む。一度で全件を終える必要はない。中断前に判定・作業メモを保存し、次のセッションは同じrunとタスクから再開する。直接記録では`base_assessment`で読み取った判定版を照合する。
+
 1. `python3 scripts/audit.py pending --run <実行先> --status not_run`で次の検査票を取得する。必要なら`--criterion`又は`--page`で作業を分ける。
 2. `python3 scripts/audit.py case --run <実行先> --id <case_id>`で対象と資料を特定する。`references/criteria/<基準番号>.md`、対応する本文・公式解説、必要な公開試験手順を読む。[ACT Rules](references/ACT.md)の関連ルールも適用条件と照合する。承認状態と、ルールから基準への合否の対応を確認する。全資料を一括で読み込まない。
 3. 適用条件を実画面と内容で確認する。対象要素を全件列挙し、実際のセレクター・名前・位置等を検査票に記す。対象不在、実装上の例外、未到達を区別する。
@@ -40,6 +42,8 @@ metadata:
 `python3 scripts/audit.py report --run <実行先> --strict`を実行する。`report.html`、`report.json`、`issues.md`を渡す。全86基準の状況、ページ別の結果、再現手順、証拠、残る検査を利用者が把握できるようにする。
 
 `human-review.md`には対象・試した方法・必要な環境・残る操作・判定条件を出力する。全票に判定又は具体的な引き継ぎを記録し、範囲と残る適合要件を報告できたら、AIが今回行える作業を終える。人の確認待ちは検証未完了として渡す。`--strict`の2を消すために引き継ぎを通過へ変更しない。
+
+Excelを求められたら`excel export --mode report`でxlsxを出力する。共同作業では`--mode work`をタスクごとに配布し、編集後は`excel import --check`で証拠・判定・更新競合を確認してから取り込む。未実施や人の確認待ちを通過にせず、タスクのdoneとサイト全体の検証完了を区別する。
 
 [達成基準ごとの実証状況](references/VERIFICATION-COVERAGE.md)を参照する。対象外の確認だけの基準や未実証の方法も、対象サイトで適用性を調べ、必要な方法を試す。
 
