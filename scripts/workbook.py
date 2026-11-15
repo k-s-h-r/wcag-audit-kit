@@ -94,12 +94,16 @@ def baseline(case, plan):
                          'context':{k:row[k] for k in CONTEXT}})
 
 
-def append(ws, values):
+def validate_values(values):
     from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
-    if ws.max_row>=1048576:raise ValueError('Excelの行数上限。タスク又はページで分割して出力する')
     for value in values:
         if isinstance(value,str) and (len(value)>32767 or ILLEGAL_CHARACTERS_RE.search(value)):
             raise ValueError('Excelの文字数又は制御文字の制限。タスクを分け、長い記録はJSONで扱う')
+
+
+def append(ws, values):
+    if ws.max_row>=1048576:raise ValueError('Excelの行数上限。タスク又はページで分割して出力する')
+    validate_values(values)
     ws.append(values)
     for cell in ws[ws.max_row]:
         # Page text starting with =, +, - or @ remains literal text, never a formula.
@@ -120,6 +124,58 @@ def sheet(book, name, columns, rows, readonly=False):
         for cell in row:cell.alignment=Alignment(vertical='top',wrap_text=True)
     ws.protection.sheet=readonly
     return ws
+
+
+def human_sheets(book, model):
+    from math import ceil
+    from unicodedata import east_asian_width
+    from openpyxl.styles import Alignment, Font, PatternFill
+    from openpyxl.utils import get_column_letter
+    from openpyxl.worksheet.hyperlink import Hyperlink
+    import checksheet
+    failure_rows={f['id']:i for i,f in enumerate(model['failures'],7)}
+    for name,columns,rows in [('チェックシート',checksheet.COLUMNS,model['rows']),
+                              ('不適合箇所',checksheet.FAILURE_COLUMNS,model['failures'])]:
+        ws=sheet(book,name,columns,rows,True);ws.insert_rows(1,5)
+        prelude=[f'WCAG 2.2 {name}', '集計範囲：'+model['scope'], model['legend'],model['guidance'],
+                 ' '.join(model['notices']) or '集計時点の保存済み判定を表示しています。']
+        if name=='不適合箇所' and not rows:prelude[4]+=' 記録された不適合箇所はありません。未確認の有無はチェックシートを参照。'
+        for index,value in enumerate(prelude,1):
+            validate_values([value])
+            ws.cell(index,1,value);ws.cell(index,1).data_type='s'
+            ws.merge_cells(start_row=index,start_column=1,end_row=index,end_column=len(columns))
+            ws.cell(index,1).alignment=Alignment(vertical='top',wrap_text=True)
+            ws.row_dimensions[index].height=30 if index==1 else 44
+        ws['A1'].font=Font(size=18,bold=True,color='244A64')
+        widths={'criterion':14,'title':26,'level':9,'checkpoint':42,'applicability':14,'judgment':18,
+                'locations':50,'notes':52,'remaining':45,'evidence':45,'id':14,'page_url':44,
+                'state':18,'environment':18,'target':32,'observed':42,'expected':42,'steps':42}
+        for i,(key,_) in enumerate(columns,1):ws.column_dimensions[get_column_letter(i)].width=widths[key]
+        ws.row_dimensions[6].height=32
+        palette={'passed':'E2F0D9','failed':'FCE4D6','unverified':'FFF2CC','inapplicable':'E7E6E6','out_of_target_level':'E7E6E6'}
+        for index,row in enumerate(rows,7):
+            height=3
+            for i,(key,_) in enumerate(columns,1):
+                cell=ws.cell(index,i)
+                # Estimate wrapped CJK lines so the printed sheet remains legible.
+                height=max(height,sum(max(1,ceil(sum(2 if east_asian_width(c) in {'W','F'} else 1 for c in line)/widths[key]))
+                                      for line in str(cell.value or '').split('\n')))
+                if row.get('kind')=='criterion':cell.font=Font(bold=True)
+                if key=='judgment':cell.fill=PatternFill('solid',fgColor=palette[row['status']])
+                if key=='locations' and row.get('failure_ids'):
+                    target=failure_rows[row['failure_ids'][0]]
+                    cell.hyperlink=Hyperlink(ref=cell.coordinate,location=f"'不適合箇所'!A{target}",display=cell.value)
+                    cell.font=Font(color='00529B',underline='single')
+            ws.row_dimensions[index].height=min(409,height*15)
+        ws.freeze_panes='D7';ws.auto_filter.ref=f'A6:{get_column_letter(len(columns))}{max(6,ws.max_row)}'
+        ws.protection.autoFilter=False
+        ws.print_title_rows='1:6';ws.print_options.horizontalCentered=True
+        ws.page_setup.orientation='landscape';ws.page_setup.paperSize=ws.PAPERSIZE_A3
+        ws.page_setup.fitToWidth=1;ws.page_setup.fitToHeight=0
+        ws.sheet_properties.pageSetUpPr.fitToPage=True
+        ws.print_area=ws.dimensions
+        ws.oddFooter.center.text='&P / &N'
+    book.active=0
 
 
 def export(run, out, *, mode='report', task=None, owner=None, page=None, page_exact=None, criterion=None, pending=False):
@@ -147,6 +203,11 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         snapshot={'identity':identity,'cases':case_table,'targets':targets,'methods':methods,
                   'baselines':{c['case_id']:baseline(c,plan) for c in cases}}
         book=Workbook();book.remove(book.active)
+        import checksheet
+        model=checksheet.build(result,catalog,cases=cases,
+            filters=dict(task=task,owner=owner,page=page,page_exact=page_exact,criterion=criterion,pending=pending),
+            manifest=audit.load(run/'capture-manifest.json'))
+        human_sheets(book,model)
         summary=[['出力モード',mode],['サイト',result['url']],['全検査票',len(result['cases'])],['このファイルの票数',len(cases)],
                  ['検証完了',result['audit_complete']],['範囲確認',result['scope_confirmed']],
                  ['人の確認待ち',len(result['human_review_cases'])],['未訪問URL',len(result['unvisited'])]]
@@ -154,7 +215,7 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         summary += [['画像の設定',result['inspection_policy']['screenshots']],['実スクリーンリーダーの設定',result['inspection_policy']['screen_reader']],
                     ['操作・状態の調査',result['interaction_review']['status']],['操作調査の完了',result['interaction_review']['complete']]]
         summary += [['実SRの実施記録',', '.join(sorted({p['screen_reader']['status'] for p in result['interaction_review'].get('pages',{}).values()})) or 'not_recorded']]
-        summary += [['使い方','reportは閲覧用。workでは検査票・対象・観察方法を編集しexcel import --checkで確認する。'],
+        summary += [['使い方','チェックシート・不適合箇所は出力条件内の閲覧用。編集しても取り込まれない。workでは検査票・対象・観察方法を編集しexcel import --checkで確認する。'],
                     ['共同作業','同じrunから配布し、調整担当が取り込む。同一runのJSONを複数端末で同時同期しない。'],
                     ['判定の注意','作業状態のdoneとWCAG適合・検証完了は別。未確認は通過に数えない。'],
                     ['行の編集','検査票の灰色の識別情報は変更しない。行の並べ替え可。対象の追加は検査票IDと対象番号を指定。'],

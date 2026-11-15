@@ -22,6 +22,8 @@ python3 scripts/audit.py excel export --run <run> --mode report --out <新しい
 
 report.html、report.json、issues.md、human-review.md、interaction-review.mdを確認する。Excelは[閲覧用と作業用](../../references/collaboration.md)を区別する。作業用を受け取った場合は、事前確認と取り込みを済ませてから集計する。
 
+人向けには[達成基準チェックシート](../../references/checksheet.md)を使う。HTMLとExcelの先頭で基準ごとの適用・適合・未確認を示し、保存した対象の期待結果ごとに確認観点の行を分ける。不適合箇所の一覧にURL・状態・環境・対象要素・再現手順・証拠があることを確認する。内訳の通過を基準全体へ広げず、未実施の観点を自動作成して適合にしない。人向けシートの編集は取り込み対象ではない。
+
 報告依頼だけならブラウザーや実SRを起動しない。証拠の消失・改変、設定・基準版・caseの不一致を検出したら、結果を作り直して隠さず、問題を報告する。
 
 ## 利用者へ伝える
