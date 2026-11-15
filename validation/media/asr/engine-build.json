@@ -1,0 +1,28 @@
+{
+  "release": "v1.9.5",
+  "commit": "d1be6fde11ac6e0407606b4e42fe72d34add8037",
+  "commands": [
+    [
+      "/tmp/wcag-build-tools/usr/bin/cmake",
+      "-S",
+      "/tmp/wcag-whisper-src",
+      "-B",
+      "/tmp/wcag-whisper-build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DGGML_NATIVE=OFF",
+      "-DGGML_BLAS=OFF",
+      "-DBUILD_SHARED_LIBS=OFF",
+      "-DWHISPER_BUILD_TESTS=OFF",
+      "-DWHISPER_BUILD_SERVER=OFF"
+    ],
+    [
+      "/tmp/wcag-build-tools/usr/bin/cmake",
+      "--build",
+      "/tmp/wcag-whisper-build",
+      "--target",
+      "whisper-cli",
+      "-j",
+      "4"
+    ]
+  ]
+}

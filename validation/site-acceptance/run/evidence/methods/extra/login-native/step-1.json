@@ -1,0 +1,49 @@
+{
+  "index": 1,
+  "action": {
+    "type": "browser.fill",
+    "selector": "#login-email",
+    "value": "***"
+  },
+  "focus_before": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:18:01.656999+00:00",
+  "finished_at": "2026-11-15T00:18:03.175226+00:00",
+  "focus_after": {
+    "tag": "input",
+    "id": "login-email",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/login",
+  "speech": [
+    {
+      "at": "2026-11-15T00:18:01.701819+00:00",
+      "line": 6152,
+      "phrase": "leaving information.",
+      "raw": "00:18:01.701819 - SPEECH OUTPUT: 'leaving information.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:18:01.702583+00:00",
+      "line": 6160,
+      "phrase": "main content",
+      "raw": "00:18:01.702583 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:18:01.703151+00:00",
+      "line": 6167,
+      "phrase": "Email entry unknown@example.test required.",
+      "raw": "00:18:01.703151 - SPEECH OUTPUT: 'Email entry unknown@example.test required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:18:01.706679+00:00",
+      "line": 6196,
+      "phrase": "Focus mode",
+      "raw": "00:18:01.706679 - SPEECH OUTPUT: 'Focus mode' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": []
+}

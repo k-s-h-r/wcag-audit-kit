@@ -1,0 +1,307 @@
+{
+  "case_id": "580235776723--initial--desktop--2.2.5",
+  "config_digest": "7cb81c57a6fb9d61ac3fa6ea7c86d475bb28b7b49a7438ac2e54fd34ee87d4d8",
+  "normative_sha256": "3e63d32a2e2792c0e7fa5578bd730e903053e28b09580b972ca5a61dfeb04729",
+  "execution": "completed",
+  "outcome": "passed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "全クライアントとサーバーのソースを読み、時間制限・活動・保存・失効・例外の対象を列挙",
+    "実際にサインインして4種の値を入力し、警告・延長・無操作失効を実時間で観察",
+    "期限後の保存とサーバー401を確認し、再認証後の元データと活動の継続・完了を比較",
+    "基準ごとに期間告知、時間依存、延長経路、保持の適用条件を分けて判定"
+  ],
+  "tests_applied": [
+    "WCAG22:2.2.5:normative",
+    "G105"
+  ],
+  "observed": "日本語を含むタイトル、複数行の本文、Reviewの選択、Urgent=trueの4値を入力し、実際の無操作失効を待った。期限後のSaveはサーバーの401で拒否されるが、再認証後に4値が全て一致した。本文へAfter sign-in: revised.を追加して保存を完了し、サーバーの受領結果にも元の値と追加変更があることを確認した。単なる画面の存在や属性だけで判断していない。",
+  "targets": [
+    {
+      "target": "Demo session and draft form (#title, #notes, #category, #urgent)",
+      "observed": "日本語を含むタイトル、複数行の本文、Reviewの選択、Urgent=trueの4値を入力し、実際の無操作失効を待った。期限後のSaveはサーバーの401で拒否されるが、再認証後に4値が全て一致した。本文へAfter sign-in: revised.を追加して保存を完了し、サーバーの受領結果にも元の値と追加変更があることを確認した。単なる画面の存在や属性だけで判断していない。",
+      "expected": "認証失効後に再認証しても元のデータと追加変更を失わず、活動を継続・完了できる。",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/attached/580235776723--initial--desktop--2.2.5/case-binding.json",
+        "evidence/580235776723--initial--desktop/page.png",
+        "evidence/580235776723--initial--desktop/dom.html",
+        "evidence/580235776723--initial--desktop/inventory.json",
+        "evidence/580235776723--initial--desktop/axe.json",
+        "evidence/methods/timing/timing.html",
+        "evidence/methods/timing/timing_server.py",
+        "evidence/methods/timing/capture-executed.py.txt",
+        "evidence/methods/timing/source-hashes.json",
+        "evidence/methods/timing/comparison.json",
+        "evidence/methods/timing/results.json",
+        "evidence/methods/timing/good-extend/observations.json",
+        "evidence/methods/timing/good-extend/00-before-sign-in.png",
+        "evidence/methods/timing/good-extend/01-draft-entered.png",
+        "evidence/methods/timing/good-extend/02-warning-1.png",
+        "evidence/methods/timing/good-extend/03-extension-1.png",
+        "evidence/methods/timing/good-extend/04-warning-2.png",
+        "evidence/methods/timing/good-extend/05-extension-2.png",
+        "evidence/methods/timing/good-extend/06-warning-3.png",
+        "evidence/methods/timing/good-extend/07-extension-3.png",
+        "evidence/methods/timing/good-extend/08-warning-4.png",
+        "evidence/methods/timing/good-extend/09-extension-4.png",
+        "evidence/methods/timing/good-extend/10-warning-5.png",
+        "evidence/methods/timing/good-extend/11-extension-5.png",
+        "evidence/methods/timing/good-extend/12-warning-6.png",
+        "evidence/methods/timing/good-extend/13-extension-6.png",
+        "evidence/methods/timing/good-extend/14-warning-7.png",
+        "evidence/methods/timing/good-extend/15-extension-7.png",
+        "evidence/methods/timing/good-extend/16-warning-8.png",
+        "evidence/methods/timing/good-extend/17-extension-8.png",
+        "evidence/methods/timing/good-extend/18-warning-9.png",
+        "evidence/methods/timing/good-extend/19-extension-9.png",
+        "evidence/methods/timing/good-extend/20-warning-10.png",
+        "evidence/methods/timing/good-extend/21-extension-10.png",
+        "evidence/methods/timing/good-extend/22-expired.png",
+        "evidence/methods/timing/good-extend/23-server-rejected-expired-save.png",
+        "evidence/methods/timing/good-extend/24-reauthenticated.png",
+        "evidence/methods/timing/good-extend/25-completed-after-reauthentication.png",
+        "evidence/methods/timing/good-off/observations.json",
+        "evidence/methods/timing/good-off/00-before-sign-in.png",
+        "evidence/methods/timing/good-off/01-draft-entered.png",
+        "evidence/methods/timing/good-off/02-past-default-limit.png",
+        "evidence/methods/timing/good-off/03-saved-after-default-limit.png"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "timing",
+      "status": "executed",
+      "reason": "単調増加時計とブラウザーの時刻で実待機・警告・延長・失効を測り、仮想時計を使っていない。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "入力から失効・401・再認証・データ比較を通し、保持する例では追加変更と保存完了まで実行した。"
+    }
+  ],
+  "evidence": [
+    "evidence/attached/580235776723--initial--desktop--2.2.5/case-binding.json",
+    "evidence/580235776723--initial--desktop/page.png",
+    "evidence/580235776723--initial--desktop/dom.html",
+    "evidence/580235776723--initial--desktop/inventory.json",
+    "evidence/580235776723--initial--desktop/axe.json",
+    "evidence/methods/timing/timing.html",
+    "evidence/methods/timing/timing_server.py",
+    "evidence/methods/timing/capture-executed.py.txt",
+    "evidence/methods/timing/source-hashes.json",
+    "evidence/methods/timing/comparison.json",
+    "evidence/methods/timing/results.json",
+    "evidence/methods/timing/good-extend/observations.json",
+    "evidence/methods/timing/good-extend/00-before-sign-in.png",
+    "evidence/methods/timing/good-extend/01-draft-entered.png",
+    "evidence/methods/timing/good-extend/02-warning-1.png",
+    "evidence/methods/timing/good-extend/03-extension-1.png",
+    "evidence/methods/timing/good-extend/04-warning-2.png",
+    "evidence/methods/timing/good-extend/05-extension-2.png",
+    "evidence/methods/timing/good-extend/06-warning-3.png",
+    "evidence/methods/timing/good-extend/07-extension-3.png",
+    "evidence/methods/timing/good-extend/08-warning-4.png",
+    "evidence/methods/timing/good-extend/09-extension-4.png",
+    "evidence/methods/timing/good-extend/10-warning-5.png",
+    "evidence/methods/timing/good-extend/11-extension-5.png",
+    "evidence/methods/timing/good-extend/12-warning-6.png",
+    "evidence/methods/timing/good-extend/13-extension-6.png",
+    "evidence/methods/timing/good-extend/14-warning-7.png",
+    "evidence/methods/timing/good-extend/15-extension-7.png",
+    "evidence/methods/timing/good-extend/16-warning-8.png",
+    "evidence/methods/timing/good-extend/17-extension-8.png",
+    "evidence/methods/timing/good-extend/18-warning-9.png",
+    "evidence/methods/timing/good-extend/19-extension-9.png",
+    "evidence/methods/timing/good-extend/20-warning-10.png",
+    "evidence/methods/timing/good-extend/21-extension-10.png",
+    "evidence/methods/timing/good-extend/22-expired.png",
+    "evidence/methods/timing/good-extend/23-server-rejected-expired-save.png",
+    "evidence/methods/timing/good-extend/24-reauthenticated.png",
+    "evidence/methods/timing/good-extend/25-completed-after-reauthentication.png",
+    "evidence/methods/timing/good-off/observations.json",
+    "evidence/methods/timing/good-off/00-before-sign-in.png",
+    "evidence/methods/timing/good-off/01-draft-entered.png",
+    "evidence/methods/timing/good-off/02-past-default-limit.png",
+    "evidence/methods/timing/good-off/03-saved-after-default-limit.png"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-14T22:53:02.174611+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/attached/580235776723--initial--desktop--2.2.5/case-binding.json",
+      "sha256": "dbf523fe001087070bbed1166388a75890209430b554a8a17e3baf4cfc8b36da"
+    },
+    {
+      "path": "evidence/580235776723--initial--desktop/page.png",
+      "sha256": "501696236baa7fe971250a944a5bb1baa16f8a51f41e0608f5f783d44a3734d8"
+    },
+    {
+      "path": "evidence/580235776723--initial--desktop/dom.html",
+      "sha256": "4cba9c3359370ffd82231183cd6ab785eee70987e7e4b04716c89dce30fadc07"
+    },
+    {
+      "path": "evidence/580235776723--initial--desktop/inventory.json",
+      "sha256": "c902c609dc6a20b71e857119bcdbbd281fd9db1becfb730df05d3dac12dc6994"
+    },
+    {
+      "path": "evidence/580235776723--initial--desktop/axe.json",
+      "sha256": "32d05c1185546cb0aacde44e2d3ccf96c0c27ebb9dc124af8054faab6a354f7c"
+    },
+    {
+      "path": "evidence/methods/timing/timing.html",
+      "sha256": "8a3121c1370444cbf267dd9c406aefb2087b733262bfcf268dd72def7ad05393"
+    },
+    {
+      "path": "evidence/methods/timing/timing_server.py",
+      "sha256": "6c76ddc6b323b8ba855254a9b04530836a9281caa2173f6f1001f2c6c1605166"
+    },
+    {
+      "path": "evidence/methods/timing/capture-executed.py.txt",
+      "sha256": "7096f0aa8864194b206059f4571d42ba331781d90e0694809d66f718267ed0d9"
+    },
+    {
+      "path": "evidence/methods/timing/source-hashes.json",
+      "sha256": "d7fc275dea4cd29591249e7830a47394f50610b875930db21b40f246915a0804"
+    },
+    {
+      "path": "evidence/methods/timing/comparison.json",
+      "sha256": "a3d65b7da427a5b29aa2ed6b3cb0731c452c75002bd0e2201cdc3ba249cf8a5b"
+    },
+    {
+      "path": "evidence/methods/timing/results.json",
+      "sha256": "358049476311439e249bd18289dc2e019f81bae44d1f58efa6bacfec924f2269"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/observations.json",
+      "sha256": "07027a82bafc1a8a714be11bdcedeea2df79fa95cf01e58ebaea0585dd5b01e3"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/00-before-sign-in.png",
+      "sha256": "501696236baa7fe971250a944a5bb1baa16f8a51f41e0608f5f783d44a3734d8"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/01-draft-entered.png",
+      "sha256": "eec526682559d991efdda371ceb779ef842f7a5a8070197c592fe48e77d36212"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/02-warning-1.png",
+      "sha256": "d7bb97a174468c155c4a3af3fb2db7e639e1d6424fa7b202baaab51f54a36427"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/03-extension-1.png",
+      "sha256": "e9e0abfef31e02d6c0286305b8b5335946b4e2f7e8c7761108a9fb0f5b4e3252"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/04-warning-2.png",
+      "sha256": "71f0caa962da66b2186ff31ae93691b0c043d3f7bf5c0202fdcb6aff223d9e62"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/05-extension-2.png",
+      "sha256": "e9e0abfef31e02d6c0286305b8b5335946b4e2f7e8c7761108a9fb0f5b4e3252"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/06-warning-3.png",
+      "sha256": "5468b1c730a03002cd4a6f4d018f955fe1475fd1b4e81aba7dbb5a2b6c848933"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/07-extension-3.png",
+      "sha256": "e9e0abfef31e02d6c0286305b8b5335946b4e2f7e8c7761108a9fb0f5b4e3252"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/08-warning-4.png",
+      "sha256": "b3e7b615d1e5b8d81d96e884148835d53f6d1407786bf3b171a22dd5afc7dad5"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/09-extension-4.png",
+      "sha256": "e9e0abfef31e02d6c0286305b8b5335946b4e2f7e8c7761108a9fb0f5b4e3252"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/10-warning-5.png",
+      "sha256": "c624f8adca8995e2aac77ae2dcb109414297e083490789d57965b8777b5f5a53"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/11-extension-5.png",
+      "sha256": "e9e0abfef31e02d6c0286305b8b5335946b4e2f7e8c7761108a9fb0f5b4e3252"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/12-warning-6.png",
+      "sha256": "3e6c580f8fa1fd65dce5070fc415f09d70e448721a67615fda6fc13ec78cb017"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/13-extension-6.png",
+      "sha256": "e9e0abfef31e02d6c0286305b8b5335946b4e2f7e8c7761108a9fb0f5b4e3252"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/14-warning-7.png",
+      "sha256": "0f6b14c1345b647a08db64929e3f25f8513c0a6c2a05caae1497d28c71fdd5b7"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/15-extension-7.png",
+      "sha256": "e9e0abfef31e02d6c0286305b8b5335946b4e2f7e8c7761108a9fb0f5b4e3252"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/16-warning-8.png",
+      "sha256": "3fd56927d2d00f378ab08571b2d38bff50a308d7f634764f02de6d3a29035d40"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/17-extension-8.png",
+      "sha256": "e9e0abfef31e02d6c0286305b8b5335946b4e2f7e8c7761108a9fb0f5b4e3252"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/18-warning-9.png",
+      "sha256": "33226f58db97ba5d98349be81da98738ae48fcadbbc6b07a12e9c8f1f3f6cae6"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/19-extension-9.png",
+      "sha256": "e9e0abfef31e02d6c0286305b8b5335946b4e2f7e8c7761108a9fb0f5b4e3252"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/20-warning-10.png",
+      "sha256": "b339d86a0a791ba666c3d2398e8707f7ae3f2193cda0c6b1f5be20c9a830215a"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/21-extension-10.png",
+      "sha256": "e9e0abfef31e02d6c0286305b8b5335946b4e2f7e8c7761108a9fb0f5b4e3252"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/22-expired.png",
+      "sha256": "1b95ce98bee565e61bf6d41ea1fd22e6247c479b8a568265a76dde524e5f62da"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/23-server-rejected-expired-save.png",
+      "sha256": "6537eca9ef84d77e748d176104f84c493d32cfbdd9d4638d5fcc6b9a6b9ae320"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/24-reauthenticated.png",
+      "sha256": "5325b98ab95d57f19bc85a6a0679a0eebc5455ec85ef0654bbf65bbebf23e405"
+    },
+    {
+      "path": "evidence/methods/timing/good-extend/25-completed-after-reauthentication.png",
+      "sha256": "92653625fd963b995935369da47bba31a5d1258deeb592a64cb371d7957392c6"
+    },
+    {
+      "path": "evidence/methods/timing/good-off/observations.json",
+      "sha256": "86920035850e0fc3d34dde370ca88df563170f76c3a874e42a6c9aefb506ec1e"
+    },
+    {
+      "path": "evidence/methods/timing/good-off/00-before-sign-in.png",
+      "sha256": "501696236baa7fe971250a944a5bb1baa16f8a51f41e0608f5f783d44a3734d8"
+    },
+    {
+      "path": "evidence/methods/timing/good-off/01-draft-entered.png",
+      "sha256": "eec526682559d991efdda371ceb779ef842f7a5a8070197c592fe48e77d36212"
+    },
+    {
+      "path": "evidence/methods/timing/good-off/02-past-default-limit.png",
+      "sha256": "eec526682559d991efdda371ceb779ef842f7a5a8070197c592fe48e77d36212"
+    },
+    {
+      "path": "evidence/methods/timing/good-off/03-saved-after-default-limit.png",
+      "sha256": "a453ef88808689aa699b00fff90ee0e046a0fd05763b57a837ff827bcac24210"
+    }
+  ]
+}

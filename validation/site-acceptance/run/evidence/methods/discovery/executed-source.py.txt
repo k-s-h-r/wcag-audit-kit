@@ -1,0 +1,47 @@
+import asyncio,hashlib,json,shutil
+from pathlib import Path
+from urllib.request import urlopen
+from xml.etree import ElementTree
+from urllib.parse import urlsplit
+from playwright.async_api import async_playwright
+ROOT=Path('/workspace/wcag-audit-kit');OUT=Path('/tmp/wcag-acceptance-bootstrap-002')
+BASE='http://127.0.0.1:4330'
+
+async def main():
+ OUT.mkdir(exist_ok=False);shutil.copy2(__file__,OUT/'executed-source.py.txt')
+ raw=urlopen(BASE+'/sitemap.xml').read();(OUT/'sitemap.xml').write_bytes(raw)
+ urls=[e.text for e in ElementTree.fromstring(raw).iter() if e.tag.endswith('}loc')]
+ assert {urlsplit(u).path for u in urls}=={'/','/profile','/media','/help','/login'}
+ records=[]
+ async with async_playwright() as pw:
+  browser=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+  try:
+   context=await browser.new_context(viewport={'width':1280,'height':900},permissions=['clipboard-read','clipboard-write'])
+   await context.add_init_script('''() => {}''')
+   page=await context.new_page();await page.goto(BASE+'/login',wait_until='networkidle')
+   await page.evaluate('''() => {window.pasteProof=[];for(const type of ['paste','input','keydown'])addEventListener(type,e=>pasteProof.push({type:e.type,trusted:e.isTrusted,target:e.target.id,key:e.key||null}));}''')
+   for selector,value in [('#login-email','demo@example.test'),('#password','Test-password-42!')]:
+    await page.evaluate('text=>navigator.clipboard.writeText(text)',value)
+    await page.locator(selector).click();await page.keyboard.press('Control+V')
+    assert await page.locator(selector).input_value()==value
+   events=await page.evaluate('pasteProof')
+   (OUT/'paste-events.json').write_text(json.dumps(events,indent=2)+'\n')
+   assert len([e for e in events if e['type']=='paste' and e['trusted']])==2
+   await page.screenshot(path=str(OUT/'pasted-sign-in.png'))
+   await page.locator('#sign-in').click()
+   await page.wait_for_function("document.querySelector('#login-status').textContent.includes('Signed in.')")
+   await page.screenshot(path=str(OUT/'signed-in.png'))
+   (OUT/'login.html').write_text(await page.content())
+   await page.goto(BASE+'/profile',wait_until='networkidle')
+   assert await page.locator('#profile-form').is_visible()
+   assert await page.locator('#name').input_value()=='Demo User'
+   await context.storage_state(path=str(OUT/'storage-state.json'))
+   for url in urls:
+    await page.goto(url,wait_until='networkidle')
+    await page.screenshot(path=str(OUT/(('home' if urlsplit(url).path=='/' else urlsplit(url).path[1:])+'.png')))
+    records.append(await page.evaluate('''() => ({url:location.href,title:document.title,headings:[...document.querySelectorAll('h1,h2')].map(e=>e.innerText),links:[...document.querySelectorAll('a')].map(a=>a.href)})'''))
+   (OUT/'discovery.json').write_text(json.dumps({'source':'actual sitemap, authenticated navigation, fixture routes and source','pages':records,'trusted_paste_events':events,'note':'Owned test account only; not an evaluation of a third-party password manager.'},ensure_ascii=False,indent=2)+'\n')
+   await context.close()
+  finally:await browser.close()
+ print(json.dumps({'pages':len(records),'trusted_paste_events':2,'out':str(OUT)}))
+asyncio.run(main())

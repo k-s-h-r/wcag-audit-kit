@@ -1,0 +1,704 @@
+{
+  "status": "collected",
+  "mode": "zoom-400",
+  "spacing": false,
+  "zoom": 4,
+  "browser_version": "156.0.8078.79",
+  "images_are_viewport_only": true,
+  "stages": [
+    {
+      "index": 0,
+      "label": "home-initial",
+      "observed_at": "2026-11-15T00:10:44.047091+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "000-home-initial.json",
+      "image": "000-home-initial.png",
+      "dom": "000-home-initial.html",
+      "ax": "000-home-initial-ax.json"
+    },
+    {
+      "index": 1,
+      "label": "home-scroll-0",
+      "observed_at": "2026-11-15T00:10:44.362626+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "001-home-scroll-0.json",
+      "image": "001-home-scroll-0.png",
+      "dom": "001-home-scroll-0.html",
+      "ax": "001-home-scroll-0-ax.json"
+    },
+    {
+      "index": 2,
+      "label": "home-scroll-1",
+      "observed_at": "2026-11-15T00:10:44.763784+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "002-home-scroll-1.json",
+      "image": "002-home-scroll-1.png",
+      "dom": "002-home-scroll-1.html",
+      "ax": "002-home-scroll-1-ax.json"
+    },
+    {
+      "index": 3,
+      "label": "home-scroll-2",
+      "observed_at": "2026-11-15T00:10:45.082120+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "003-home-scroll-2.json",
+      "image": "003-home-scroll-2.png",
+      "dom": "003-home-scroll-2.html",
+      "ax": "003-home-scroll-2-ax.json"
+    },
+    {
+      "index": 4,
+      "label": "home-scroll-3",
+      "observed_at": "2026-11-15T00:10:45.430261+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "004-home-scroll-3.json",
+      "image": "004-home-scroll-3.png",
+      "dom": "004-home-scroll-3.html",
+      "ax": "004-home-scroll-3-ax.json"
+    },
+    {
+      "index": 5,
+      "label": "home-scroll-4",
+      "observed_at": "2026-11-15T00:10:45.760843+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "005-home-scroll-4.json",
+      "image": "005-home-scroll-4.png",
+      "dom": "005-home-scroll-4.html",
+      "ax": "005-home-scroll-4-ax.json"
+    },
+    {
+      "index": 6,
+      "label": "home-scroll-5",
+      "observed_at": "2026-11-15T00:10:46.077263+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "006-home-scroll-5.json",
+      "image": "006-home-scroll-5.png",
+      "dom": "006-home-scroll-5.html",
+      "ax": "006-home-scroll-5-ax.json"
+    },
+    {
+      "index": 7,
+      "label": "home-scroll-6",
+      "observed_at": "2026-11-15T00:10:46.393766+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "007-home-scroll-6.json",
+      "image": "007-home-scroll-6.png",
+      "dom": "007-home-scroll-6.html",
+      "ax": "007-home-scroll-6-ax.json"
+    },
+    {
+      "index": 8,
+      "label": "keyboard-count-two",
+      "observed_at": "2026-11-15T00:10:46.912982+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "008-keyboard-count-two.json",
+      "image": "008-keyboard-count-two.png",
+      "dom": "008-keyboard-count-two.html",
+      "ax": "008-keyboard-count-two-ax.json"
+    },
+    {
+      "index": 9,
+      "label": "pointer-held",
+      "observed_at": "2026-11-15T00:10:47.028455+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "009-pointer-held.json",
+      "image": "009-pointer-held.png",
+      "dom": "009-pointer-held.html",
+      "ax": "009-pointer-held-ax.json"
+    },
+    {
+      "index": 10,
+      "label": "pointer-cancelled",
+      "observed_at": "2026-11-15T00:10:47.110392+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "010-pointer-cancelled.json",
+      "image": "010-pointer-cancelled.png",
+      "dom": "010-pointer-cancelled.html",
+      "ax": "010-pointer-cancelled-ax.json"
+    },
+    {
+      "index": 11,
+      "label": "hybrid-count-six",
+      "observed_at": "2026-11-15T00:10:47.464525+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "011-hybrid-count-six.json",
+      "image": "011-hybrid-count-six.png",
+      "dom": "011-hybrid-count-six.html",
+      "ax": "011-hybrid-count-six-ax.json"
+    },
+    {
+      "index": 12,
+      "label": "dialog-open",
+      "observed_at": "2026-11-15T00:10:47.741204+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "012-dialog-open.json",
+      "image": "012-dialog-open.png",
+      "dom": "012-dialog-open.html",
+      "ax": "012-dialog-open-ax.json"
+    },
+    {
+      "index": 13,
+      "label": "dialog-tab-exit-or-cycle",
+      "observed_at": "2026-11-15T00:10:47.821585+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "013-dialog-tab-exit-or-cycle.json",
+      "image": "013-dialog-tab-exit-or-cycle.png",
+      "dom": "013-dialog-tab-exit-or-cycle.html",
+      "ax": "013-dialog-tab-exit-or-cycle-ax.json"
+    },
+    {
+      "index": 14,
+      "label": "dialog-escape-closed",
+      "observed_at": "2026-11-15T00:10:47.909871+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "014-dialog-escape-closed.json",
+      "image": "014-dialog-escape-closed.png",
+      "dom": "014-dialog-escape-closed.html",
+      "ax": "014-dialog-escape-closed-ax.json"
+    },
+    {
+      "index": 15,
+      "label": "profile-initial",
+      "observed_at": "2026-11-15T00:10:50.428857+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "015-profile-initial.json",
+      "image": "015-profile-initial.png",
+      "dom": "015-profile-initial.html",
+      "ax": "015-profile-initial-ax.json"
+    },
+    {
+      "index": 16,
+      "label": "profile-scroll-0",
+      "observed_at": "2026-11-15T00:10:50.750453+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "016-profile-scroll-0.json",
+      "image": "016-profile-scroll-0.png",
+      "dom": "016-profile-scroll-0.html",
+      "ax": "016-profile-scroll-0-ax.json"
+    },
+    {
+      "index": 17,
+      "label": "profile-scroll-1",
+      "observed_at": "2026-11-15T00:10:51.062089+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "017-profile-scroll-1.json",
+      "image": "017-profile-scroll-1.png",
+      "dom": "017-profile-scroll-1.html",
+      "ax": "017-profile-scroll-1-ax.json"
+    },
+    {
+      "index": 18,
+      "label": "profile-scroll-2",
+      "observed_at": "2026-11-15T00:10:51.381054+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "018-profile-scroll-2.json",
+      "image": "018-profile-scroll-2.png",
+      "dom": "018-profile-scroll-2.html",
+      "ax": "018-profile-scroll-2-ax.json"
+    },
+    {
+      "index": 19,
+      "label": "profile-scroll-3",
+      "observed_at": "2026-11-15T00:10:51.696563+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "019-profile-scroll-3.json",
+      "image": "019-profile-scroll-3.png",
+      "dom": "019-profile-scroll-3.html",
+      "ax": "019-profile-scroll-3-ax.json"
+    },
+    {
+      "index": 20,
+      "label": "profile-scroll-4",
+      "observed_at": "2026-11-15T00:10:52.042657+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "020-profile-scroll-4.json",
+      "image": "020-profile-scroll-4.png",
+      "dom": "020-profile-scroll-4.html",
+      "ax": "020-profile-scroll-4-ax.json"
+    },
+    {
+      "index": 21,
+      "label": "profile-scroll-5",
+      "observed_at": "2026-11-15T00:10:52.376795+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "021-profile-scroll-5.json",
+      "image": "021-profile-scroll-5.png",
+      "dom": "021-profile-scroll-5.html",
+      "ax": "021-profile-scroll-5-ax.json"
+    },
+    {
+      "index": 22,
+      "label": "profile-errors",
+      "observed_at": "2026-11-15T00:10:53.045693+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "022-profile-errors.json",
+      "image": "022-profile-errors.png",
+      "dom": "022-profile-errors.html",
+      "ax": "022-profile-errors-ax.json"
+    },
+    {
+      "index": 23,
+      "label": "profile-review",
+      "observed_at": "2026-11-15T00:10:53.445453+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "023-profile-review.json",
+      "image": "023-profile-review.png",
+      "dom": "023-profile-review.html",
+      "ax": "023-profile-review-ax.json"
+    },
+    {
+      "index": 24,
+      "label": "profile-back-retained",
+      "observed_at": "2026-11-15T00:10:53.727299+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "024-profile-back-retained.json",
+      "image": "024-profile-back-retained.png",
+      "dom": "024-profile-back-retained.html",
+      "ax": "024-profile-back-retained-ax.json"
+    },
+    {
+      "index": 25,
+      "label": "profile-completed",
+      "observed_at": "2026-11-15T00:10:54.281145+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "025-profile-completed.json",
+      "image": "025-profile-completed.png",
+      "dom": "025-profile-completed.html",
+      "ax": "025-profile-completed-ax.json"
+    },
+    {
+      "index": 26,
+      "label": "help",
+      "observed_at": "2026-11-15T00:10:56.814438+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "026-help.json",
+      "image": "026-help.png",
+      "dom": "026-help.html",
+      "ax": "026-help-ax.json"
+    },
+    {
+      "index": 27,
+      "label": "help-scroll-0",
+      "observed_at": "2026-11-15T00:10:57.128722+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "027-help-scroll-0.json",
+      "image": "027-help-scroll-0.png",
+      "dom": "027-help-scroll-0.html",
+      "ax": "027-help-scroll-0-ax.json"
+    },
+    {
+      "index": 28,
+      "label": "help-scroll-1",
+      "observed_at": "2026-11-15T00:10:57.444246+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "028-help-scroll-1.json",
+      "image": "028-help-scroll-1.png",
+      "dom": "028-help-scroll-1.html",
+      "ax": "028-help-scroll-1-ax.json"
+    },
+    {
+      "index": 29,
+      "label": "help-scroll-2",
+      "observed_at": "2026-11-15T00:10:57.763135+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "029-help-scroll-2.json",
+      "image": "029-help-scroll-2.png",
+      "dom": "029-help-scroll-2.html",
+      "ax": "029-help-scroll-2-ax.json"
+    },
+    {
+      "index": 30,
+      "label": "help-scroll-3",
+      "observed_at": "2026-11-15T00:10:58.086654+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "030-help-scroll-3.json",
+      "image": "030-help-scroll-3.png",
+      "dom": "030-help-scroll-3.html",
+      "ax": "030-help-scroll-3-ax.json"
+    },
+    {
+      "index": 31,
+      "label": "help-scroll-4",
+      "observed_at": "2026-11-15T00:10:58.436988+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "031-help-scroll-4.json",
+      "image": "031-help-scroll-4.png",
+      "dom": "031-help-scroll-4.html",
+      "ax": "031-help-scroll-4-ax.json"
+    },
+    {
+      "index": 32,
+      "label": "help-scroll-5",
+      "observed_at": "2026-11-15T00:10:58.764263+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "032-help-scroll-5.json",
+      "image": "032-help-scroll-5.png",
+      "dom": "032-help-scroll-5.html",
+      "ax": "032-help-scroll-5-ax.json"
+    },
+    {
+      "index": 33,
+      "label": "help-scroll-6",
+      "observed_at": "2026-11-15T00:10:59.087468+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "033-help-scroll-6.json",
+      "image": "033-help-scroll-6.png",
+      "dom": "033-help-scroll-6.html",
+      "ax": "033-help-scroll-6-ax.json"
+    },
+    {
+      "index": 34,
+      "label": "help-scroll-7",
+      "observed_at": "2026-11-15T00:10:59.418319+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "034-help-scroll-7.json",
+      "image": "034-help-scroll-7.png",
+      "dom": "034-help-scroll-7.html",
+      "ax": "034-help-scroll-7-ax.json"
+    },
+    {
+      "index": 35,
+      "label": "help-scroll-8",
+      "observed_at": "2026-11-15T00:10:59.765284+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "035-help-scroll-8.json",
+      "image": "035-help-scroll-8.png",
+      "dom": "035-help-scroll-8.html",
+      "ax": "035-help-scroll-8-ax.json"
+    },
+    {
+      "index": 36,
+      "label": "media-initial",
+      "observed_at": "2026-11-15T00:11:02.337510+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "036-media-initial.json",
+      "image": "036-media-initial.png",
+      "dom": "036-media-initial.html",
+      "ax": "036-media-initial-ax.json"
+    },
+    {
+      "index": 37,
+      "label": "media-scroll-0",
+      "observed_at": "2026-11-15T00:11:02.661124+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "037-media-scroll-0.json",
+      "image": "037-media-scroll-0.png",
+      "dom": "037-media-scroll-0.html",
+      "ax": "037-media-scroll-0-ax.json"
+    },
+    {
+      "index": 38,
+      "label": "media-scroll-1",
+      "observed_at": "2026-11-15T00:11:02.974684+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "038-media-scroll-1.json",
+      "image": "038-media-scroll-1.png",
+      "dom": "038-media-scroll-1.html",
+      "ax": "038-media-scroll-1-ax.json"
+    },
+    {
+      "index": 39,
+      "label": "media-scroll-2",
+      "observed_at": "2026-11-15T00:11:03.296545+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "039-media-scroll-2.json",
+      "image": "039-media-scroll-2.png",
+      "dom": "039-media-scroll-2.html",
+      "ax": "039-media-scroll-2-ax.json"
+    },
+    {
+      "index": 40,
+      "label": "media-scroll-3",
+      "observed_at": "2026-11-15T00:11:03.618035+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "040-media-scroll-3.json",
+      "image": "040-media-scroll-3.png",
+      "dom": "040-media-scroll-3.html",
+      "ax": "040-media-scroll-3-ax.json"
+    },
+    {
+      "index": 41,
+      "label": "media-scroll-4",
+      "observed_at": "2026-11-15T00:11:03.956829+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "041-media-scroll-4.json",
+      "image": "041-media-scroll-4.png",
+      "dom": "041-media-scroll-4.html",
+      "ax": "041-media-scroll-4-ax.json"
+    },
+    {
+      "index": 42,
+      "label": "media-scroll-5",
+      "observed_at": "2026-11-15T00:11:04.296626+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "042-media-scroll-5.json",
+      "image": "042-media-scroll-5.png",
+      "dom": "042-media-scroll-5.html",
+      "ax": "042-media-scroll-5-ax.json"
+    },
+    {
+      "index": 43,
+      "label": "media-scroll-6",
+      "observed_at": "2026-11-15T00:11:04.612264+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "043-media-scroll-6.json",
+      "image": "043-media-scroll-6.png",
+      "dom": "043-media-scroll-6.html",
+      "ax": "043-media-scroll-6-ax.json"
+    },
+    {
+      "index": 44,
+      "label": "media-scroll-7",
+      "observed_at": "2026-11-15T00:11:04.933142+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "044-media-scroll-7.json",
+      "image": "044-media-scroll-7.png",
+      "dom": "044-media-scroll-7.html",
+      "ax": "044-media-scroll-7-ax.json"
+    },
+    {
+      "index": 45,
+      "label": "media-scroll-8",
+      "observed_at": "2026-11-15T00:11:05.256569+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "045-media-scroll-8.json",
+      "image": "045-media-scroll-8.png",
+      "dom": "045-media-scroll-8.html",
+      "ax": "045-media-scroll-8-ax.json"
+    },
+    {
+      "index": 46,
+      "label": "captions-playing",
+      "observed_at": "2026-11-15T00:11:07.196706+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "046-captions-playing.json",
+      "image": "046-captions-playing.png",
+      "dom": "046-captions-playing.html",
+      "ax": "046-captions-playing-ax.json"
+    },
+    {
+      "index": 47,
+      "label": "video-paused",
+      "observed_at": "2026-11-15T00:11:07.465720+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "047-video-paused.json",
+      "image": "047-video-paused.png",
+      "dom": "047-video-paused.html",
+      "ax": "047-video-paused-ax.json"
+    },
+    {
+      "index": 48,
+      "label": "video-ended",
+      "observed_at": "2026-11-15T00:11:13.531861+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "048-video-ended.json",
+      "image": "048-video-ended.png",
+      "dom": "048-video-ended.html",
+      "ax": "048-video-ended-ax.json"
+    },
+    {
+      "index": 49,
+      "label": "login-initial",
+      "observed_at": "2026-11-15T00:11:16.078145+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "049-login-initial.json",
+      "image": "049-login-initial.png",
+      "dom": "049-login-initial.html",
+      "ax": "049-login-initial-ax.json"
+    },
+    {
+      "index": 50,
+      "label": "login-scroll-0",
+      "observed_at": "2026-11-15T00:11:16.393336+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "050-login-scroll-0.json",
+      "image": "050-login-scroll-0.png",
+      "dom": "050-login-scroll-0.html",
+      "ax": "050-login-scroll-0-ax.json"
+    },
+    {
+      "index": 51,
+      "label": "login-scroll-1",
+      "observed_at": "2026-11-15T00:11:16.707727+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "051-login-scroll-1.json",
+      "image": "051-login-scroll-1.png",
+      "dom": "051-login-scroll-1.html",
+      "ax": "051-login-scroll-1-ax.json"
+    },
+    {
+      "index": 52,
+      "label": "login-scroll-2",
+      "observed_at": "2026-11-15T00:11:17.024801+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "052-login-scroll-2.json",
+      "image": "052-login-scroll-2.png",
+      "dom": "052-login-scroll-2.html",
+      "ax": "052-login-scroll-2-ax.json"
+    },
+    {
+      "index": 53,
+      "label": "login-scroll-3",
+      "observed_at": "2026-11-15T00:11:17.343709+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "053-login-scroll-3.json",
+      "image": "053-login-scroll-3.png",
+      "dom": "053-login-scroll-3.html",
+      "ax": "053-login-scroll-3-ax.json"
+    },
+    {
+      "index": 54,
+      "label": "login-scroll-4",
+      "observed_at": "2026-11-15T00:11:17.692868+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "054-login-scroll-4.json",
+      "image": "054-login-scroll-4.png",
+      "dom": "054-login-scroll-4.html",
+      "ax": "054-login-scroll-4-ax.json"
+    },
+    {
+      "index": 55,
+      "label": "login-scroll-5",
+      "observed_at": "2026-11-15T00:11:18.043681+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "055-login-scroll-5.json",
+      "image": "055-login-scroll-5.png",
+      "dom": "055-login-scroll-5.html",
+      "ax": "055-login-scroll-5-ax.json"
+    },
+    {
+      "index": 56,
+      "label": "login-error",
+      "observed_at": "2026-11-15T00:11:18.662663+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "056-login-error.json",
+      "image": "056-login-error.png",
+      "dom": "056-login-error.html",
+      "ax": "056-login-error-ax.json"
+    },
+    {
+      "index": 57,
+      "label": "login-pasted",
+      "observed_at": "2026-11-15T00:11:18.850688+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "057-login-pasted.json",
+      "image": "057-login-pasted.png",
+      "dom": "057-login-pasted.html",
+      "ax": "057-login-pasted-ax.json"
+    },
+    {
+      "index": 58,
+      "label": "login-success",
+      "observed_at": "2026-11-15T00:11:19.530534+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "058-login-success.json",
+      "image": "058-login-success.png",
+      "dom": "058-login-success.html",
+      "ax": "058-login-success-ax.json"
+    }
+  ],
+  "page_errors": [],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:4330/",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "http://127.0.0.1:4330/profile",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "http://127.0.0.1:4330/api/profile",
+      "method": "POST",
+      "type": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:4330/help",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "http://127.0.0.1:4330/media",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/clip.webm",
+      "method": "GET",
+      "type": "media"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/captions.vtt",
+      "method": "GET",
+      "type": "texttrack"
+    },
+    {
+      "url": "http://127.0.0.1:4330/login",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "http://127.0.0.1:4330/api/login",
+      "method": "POST",
+      "type": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:4330/api/login",
+      "method": "POST",
+      "type": "fetch"
+    }
+  ],
+  "wcag_judgement": null
+}

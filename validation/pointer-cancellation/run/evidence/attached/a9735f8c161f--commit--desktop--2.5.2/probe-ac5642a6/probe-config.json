@@ -1,0 +1,81 @@
+{
+  "schema_version": "1",
+  "url": "http://127.0.0.1:4317",
+  "locale": "en-US",
+  "level": "AA",
+  "scope": {
+    "include": [
+      "/pointer-cancel-good.html",
+      "/pointer-cancel-bad.html"
+    ],
+    "seeds": [
+      "/pointer-cancel-bad.html"
+    ],
+    "known_pages": [],
+    "max_pages": 1,
+    "exclude": []
+  },
+  "environments": [
+    {
+      "id": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "zoom": 1
+    }
+  ],
+  "states": [
+    {
+      "id": "probe",
+      "paths": [
+        "/pointer-cancel-bad.html"
+      ],
+      "actions": [
+        {
+          "type": "click",
+          "selector": "#append"
+        },
+        {
+          "type": "pointer_move",
+          "selector": "#append"
+        },
+        {
+          "type": "pointer_down",
+          "selector": "#append"
+        },
+        {
+          "type": "pointer_move",
+          "selector": "#cancel-area"
+        },
+        {
+          "type": "pointer_up"
+        },
+        {
+          "type": "press",
+          "key": "Escape"
+        },
+        {
+          "type": "press",
+          "key": "Control+z"
+        },
+        {
+          "type": "reload"
+        }
+      ],
+      "observe": [
+        {
+          "selector": "#count"
+        }
+      ],
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "2"
+        }
+      ]
+    }
+  ],
+  "keyboard_steps": 0,
+  "input_event_limit": 10000
+}

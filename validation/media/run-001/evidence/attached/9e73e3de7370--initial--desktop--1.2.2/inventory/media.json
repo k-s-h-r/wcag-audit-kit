@@ -1,0 +1,104 @@
+{
+  "status": "collected",
+  "source": "/workspace/wcag-audit-kit/tests/fixtures/media-captions/clip.webm",
+  "source_sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+  "source_bytes": 60749,
+  "started_at": "2026-11-14T19:48:38.518967+00:00",
+  "speech_meaning_reviewed": false,
+  "non_speech_meaning_reviewed": false,
+  "visual_meaning_reviewed": false,
+  "captions_meaning_reviewed": false,
+  "flash_thresholds_reviewed": false,
+  "wcag_judgement": null,
+  "duration_seconds": 7.008,
+  "streams": [
+    {
+      "index": 0,
+      "type": "video",
+      "codec": "vp9",
+      "language": null,
+      "disposition": {
+        "default": 0,
+        "dub": 0,
+        "original": 0,
+        "comment": 0,
+        "lyrics": 0,
+        "karaoke": 0,
+        "forced": 0,
+        "hearing_impaired": 0,
+        "visual_impaired": 0,
+        "clean_effects": 0,
+        "attached_pic": 0,
+        "timed_thumbnails": 0,
+        "non_diegetic": 0,
+        "captions": 0,
+        "descriptions": 0,
+        "metadata": 0,
+        "dependent": 0,
+        "still_image": 0,
+        "multilayer": 0
+      }
+    },
+    {
+      "index": 1,
+      "type": "audio",
+      "codec": "opus",
+      "language": null,
+      "disposition": {
+        "default": 0,
+        "dub": 0,
+        "original": 0,
+        "comment": 0,
+        "lyrics": 0,
+        "karaoke": 0,
+        "forced": 0,
+        "hearing_impaired": 0,
+        "visual_impaired": 0,
+        "clean_effects": 0,
+        "attached_pic": 0,
+        "timed_thumbnails": 0,
+        "non_diegetic": 0,
+        "captions": 0,
+        "descriptions": 0,
+        "metadata": 0,
+        "dependent": 0,
+        "still_image": 0,
+        "multilayer": 0
+      }
+    }
+  ],
+  "decode_exit_code": 0,
+  "all_video_and_audio_streams_decoded": true,
+  "frame_hashes": [
+    {
+      "stream_index": 0,
+      "file": "video-0.frames.sha256.txt",
+      "decoded_frames": 210,
+      "unique_hashes": 11,
+      "adjacent_hash_changes": 10,
+      "representation": "decoded RGBA 8-bit, SHA-256 per frame",
+      "note": "全復号フレームの比較。HDR・アルファ・色変換・プレーヤー等の重ね合わせを含む正式な閃光判定ではない。"
+    }
+  ],
+  "captions": [
+    {
+      "original_path": "/workspace/wcag-audit-kit/tests/fixtures/media-captions/good.vtt",
+      "copied": "captions-1.vtt",
+      "sha256": "28975181ad43b0c77ca3bad8219db2193dbe081b99cec50b12932380338bcbae",
+      "content_reviewed": false
+    },
+    {
+      "original_path": "/workspace/wcag-audit-kit/tests/fixtures/media-captions/wrong-text.vtt",
+      "copied": "captions-2.vtt",
+      "sha256": "843147b2e98d967a4827a0c98159aae989f27d831ab4afdd8115847be16f1a60",
+      "content_reviewed": false
+    },
+    {
+      "original_path": "/workspace/wcag-audit-kit/tests/fixtures/media-captions/late.vtt",
+      "copied": "captions-3.vtt",
+      "sha256": "7daefb1ab936cf99f3b2535b76ae92827024ff0e7ea40789a1dc1e203527ef50",
+      "content_reviewed": false
+    }
+  ],
+  "finished_at": "2026-11-14T19:48:39.308539+00:00"
+}

@@ -1,0 +1,3072 @@
+{
+  "config_digest": "61feba4fc45fa04a27c48307cbeff0f274c556f11a75a849ba2c07be86c9e5f1",
+  "catalog_digest": "34614755c63a3f50259b7b9fcc0aa04cefab942f1980d6422d2714e144a72cf7",
+  "cases": [
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.1.1",
+      "criterion": "1.1.1",
+      "title": "非テキストコンテンツ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic",
+        "screen-reader"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.1.1--f0f2c243a365.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.2.1",
+      "criterion": "1.2.1",
+      "title": "音声のみ及び映像のみ (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.2.1--f4f4f26b9ae9.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.2.2",
+      "criterion": "1.2.2",
+      "title": "キャプション (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.2.2--3402ab37ce49.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.2.3",
+      "criterion": "1.2.3",
+      "title": "音声解説、又はメディアに対する代替 (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.2.3--931500dde9e7.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.2.4",
+      "criterion": "1.2.4",
+      "title": "キャプション (ライブ)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.2.4--dd768b8315f6.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.2.5",
+      "criterion": "1.2.5",
+      "title": "音声解説 (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.2.5--f6b8709b2b1c.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.3.1",
+      "criterion": "1.3.1",
+      "title": "情報及び関係性",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.3.1--b87b3998a971.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.3.2",
+      "criterion": "1.3.2",
+      "title": "意味のあるシーケンス",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.3.2--5d3f8805a30a.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.3.3",
+      "criterion": "1.3.3",
+      "title": "感覚的な特徴",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.3.3--c8773615c718.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.3.4",
+      "criterion": "1.3.4",
+      "title": "表示の向き",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "orientation",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.3.4--a433c7c74b65.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.3.5",
+      "criterion": "1.3.5",
+      "title": "入力目的の特定",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.3.5--b736404563c8.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.4.1",
+      "criterion": "1.4.1",
+      "title": "色の使用",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.4.1--042b7917649b.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.4.2",
+      "criterion": "1.4.2",
+      "title": "音声の制御",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "audio",
+        "measurement",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.4.2--54eb68799fad.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.4.3",
+      "criterion": "1.4.3",
+      "title": "コントラスト (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.4.3--a0c31001390a.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.4.4",
+      "criterion": "1.4.4",
+      "title": "テキストのサイズ変更",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "zoom",
+        "visual",
+        "flow",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.4.4--60005728ca79.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.4.5",
+      "criterion": "1.4.5",
+      "title": "文字画像",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "visual",
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.4.5--d1a115bcff48.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.4.10",
+      "criterion": "1.4.10",
+      "title": "リフロー",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "visual",
+        "viewport",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.4.10--4f989c2343fb.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.4.11",
+      "criterion": "1.4.11",
+      "title": "非テキストのコントラスト",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "visual",
+        "measurement",
+        "dom"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.4.11--60e72b7d67ab.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.4.12",
+      "criterion": "1.4.12",
+      "title": "テキストの間隔",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.4.12--b13b357cd67c.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--1.4.13",
+      "criterion": "1.4.13",
+      "title": "ホバー又はフォーカスで表示されるコンテンツ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--1.4.13--166fce40d8c0.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.1.1",
+      "criterion": "2.1.1",
+      "title": "キーボード",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.1.1--55c5d0b4507f.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.1.2",
+      "criterion": "2.1.2",
+      "title": "キーボードトラップなし",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.1.2--325e49edfd31.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.1.4",
+      "criterion": "2.1.4",
+      "title": "文字キーのショートカット",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.1.4--3ef4c99063f7.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.2.1",
+      "criterion": "2.2.1",
+      "title": "タイミング調整可能",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "timing",
+        "flow",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.2.1--f82e18c58fc7.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.2.2",
+      "criterion": "2.2.2",
+      "title": "一時停止、停止、非表示",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "timing",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.2.2--bbca4ab721a6.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.3.1",
+      "criterion": "2.3.1",
+      "title": "3 回の閃光、又は閾値以下",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "flash-analysis",
+        "media",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.3.1--b7ea4d302e65.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.4.1",
+      "criterion": "2.4.1",
+      "title": "ブロックスキップ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "keyboard",
+        "screen-reader",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.4.1--23e08ecc8174.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.4.2",
+      "criterion": "2.4.2",
+      "title": "ページタイトル",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.4.2--0938f9044334.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.4.3",
+      "criterion": "2.4.3",
+      "title": "フォーカス順序",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "keyboard",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.4.3--7dae291aa760.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.4.4",
+      "criterion": "2.4.4",
+      "title": "リンクの目的 (コンテキスト内)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.4.4--9e11aa2236c0.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.4.5",
+      "criterion": "2.4.5",
+      "title": "複数の手段",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "cross-page",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.4.5--1067a1ca53e4.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.4.6",
+      "criterion": "2.4.6",
+      "title": "見出し及びラベル",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.4.6--c66f7582cec0.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.4.7",
+      "criterion": "2.4.7",
+      "title": "フォーカスの可視化",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.4.7--0037ce998b91.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.4.11",
+      "criterion": "2.4.11",
+      "title": "隠されないフォーカス (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.4.11--468ded1f848e.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.5.1",
+      "criterion": "2.5.1",
+      "title": "ポインタのジェスチャ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.5.1--dbb602dbef17.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.5.2",
+      "criterion": "2.5.2",
+      "title": "ポインタのキャンセル",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.5.2--b9663d64d4c5.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.5.3",
+      "criterion": "2.5.3",
+      "title": "ラベルを含む名前 (name)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.5.3--9f70168e4dac.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.5.4",
+      "criterion": "2.5.4",
+      "title": "動きによる起動",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "motion-input",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.5.4--7fbe3dc9efae.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.5.7",
+      "criterion": "2.5.7",
+      "title": "ドラッグ動作",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.5.7--130dc11b6e7f.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--2.5.8",
+      "criterion": "2.5.8",
+      "title": "ターゲットのサイズ (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "pointer",
+        "measurement",
+        "visual"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--2.5.8--270d07b830a7.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.1.1",
+      "criterion": "3.1.1",
+      "title": "ページの言語",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.1.1--98d6d5b4719b.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.1.2",
+      "criterion": "3.1.2",
+      "title": "一部分の言語",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.1.2--f4d70a931c27.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.2.1",
+      "criterion": "3.2.1",
+      "title": "フォーカス時",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.2.1--a5edbfa2872f.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.2.2",
+      "criterion": "3.2.2",
+      "title": "入力時",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.2.2--33fe56272ee0.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.2.3",
+      "criterion": "3.2.3",
+      "title": "一貫したナビゲーション",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.2.3--8f72199b1546.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.2.4",
+      "criterion": "3.2.4",
+      "title": "一貫した識別性",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "cross-page",
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.2.4--dba77651735b.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.2.6",
+      "criterion": "3.2.6",
+      "title": "一貫したヘルプ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.2.6--cb7fada1f1bd.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.3.1",
+      "criterion": "3.3.1",
+      "title": "エラーの特定",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "flow",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.3.1--0ed591dda60a.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.3.2",
+      "criterion": "3.3.2",
+      "title": "ラベル又は説明",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.3.2--e891ebb73717.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.3.3",
+      "criterion": "3.3.3",
+      "title": "エラー修正の提案",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.3.3--9c76519e32c6.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.3.4",
+      "criterion": "3.3.4",
+      "title": "誤り防止 (法的、金融、データ)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.3.4--363ee22c7800.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.3.7",
+      "criterion": "3.3.7",
+      "title": "冗長な入力項目",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.3.7--b5fe1103d542.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--3.3.8",
+      "criterion": "3.3.8",
+      "title": "アクセシブルな認証 (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "flow",
+        "password-manager",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--3.3.8--3fe310e104c8.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--4.1.2",
+      "criterion": "4.1.2",
+      "title": "名前 (name)・役割 (role)・値 (value)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "dom",
+        "flow",
+        "screen-reader"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--4.1.2--6cc444e7fd8c.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--initial--desktop--4.1.3",
+      "criterion": "4.1.3",
+      "title": "ステータスメッセージ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "e743f12ce843--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--initial--desktop",
+      "methods": [
+        "flow",
+        "dom",
+        "screen-reader"
+      ],
+      "assessment": "assessments/e743f12ce843--initial--desktop--4.1.3--6a19c339b209.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.1.1",
+      "criterion": "1.1.1",
+      "title": "非テキストコンテンツ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic",
+        "screen-reader"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.1.1--2fb6f4a8fd2b.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.2.1",
+      "criterion": "1.2.1",
+      "title": "音声のみ及び映像のみ (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.2.1--87abee20f566.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.2.2",
+      "criterion": "1.2.2",
+      "title": "キャプション (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.2.2--83e71bb07b0e.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.2.3",
+      "criterion": "1.2.3",
+      "title": "音声解説、又はメディアに対する代替 (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.2.3--087bec6264cc.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.2.4",
+      "criterion": "1.2.4",
+      "title": "キャプション (ライブ)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.2.4--9ae5920d3712.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.2.5",
+      "criterion": "1.2.5",
+      "title": "音声解説 (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.2.5--0df92393d3b0.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.3.1",
+      "criterion": "1.3.1",
+      "title": "情報及び関係性",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.3.1--847731f3cf37.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.3.2",
+      "criterion": "1.3.2",
+      "title": "意味のあるシーケンス",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.3.2--847b3faa174b.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.3.3",
+      "criterion": "1.3.3",
+      "title": "感覚的な特徴",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.3.3--b8ad92fc7410.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.3.4",
+      "criterion": "1.3.4",
+      "title": "表示の向き",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "orientation",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.3.4--ec4202ebdfc5.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.3.5",
+      "criterion": "1.3.5",
+      "title": "入力目的の特定",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.3.5--7fd4fc9db86a.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.4.1",
+      "criterion": "1.4.1",
+      "title": "色の使用",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.4.1--b71677b3ee3d.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.4.2",
+      "criterion": "1.4.2",
+      "title": "音声の制御",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "audio",
+        "measurement",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.4.2--d752cfc64adc.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.4.3",
+      "criterion": "1.4.3",
+      "title": "コントラスト (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.4.3--b4b986216027.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.4.4",
+      "criterion": "1.4.4",
+      "title": "テキストのサイズ変更",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "zoom",
+        "visual",
+        "flow",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.4.4--0bcc13ecc114.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.4.5",
+      "criterion": "1.4.5",
+      "title": "文字画像",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "visual",
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.4.5--1effa8ea0f41.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.4.10",
+      "criterion": "1.4.10",
+      "title": "リフロー",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "visual",
+        "viewport",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.4.10--52a908ab017f.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.4.11",
+      "criterion": "1.4.11",
+      "title": "非テキストのコントラスト",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "visual",
+        "measurement",
+        "dom"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.4.11--57adab3022e3.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.4.12",
+      "criterion": "1.4.12",
+      "title": "テキストの間隔",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.4.12--d9e7d02ba55e.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--1.4.13",
+      "criterion": "1.4.13",
+      "title": "ホバー又はフォーカスで表示されるコンテンツ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--1.4.13--30441c2a2d69.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.1.1",
+      "criterion": "2.1.1",
+      "title": "キーボード",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.1.1--31b9079c1070.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.1.2",
+      "criterion": "2.1.2",
+      "title": "キーボードトラップなし",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.1.2--ddc19760b57c.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.1.4",
+      "criterion": "2.1.4",
+      "title": "文字キーのショートカット",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.1.4--69acf28fc82f.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.2.1",
+      "criterion": "2.2.1",
+      "title": "タイミング調整可能",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "timing",
+        "flow",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.2.1--ff100b0603a4.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.2.2",
+      "criterion": "2.2.2",
+      "title": "一時停止、停止、非表示",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "timing",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.2.2--7dcafb16b034.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.3.1",
+      "criterion": "2.3.1",
+      "title": "3 回の閃光、又は閾値以下",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "flash-analysis",
+        "media",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.3.1--e9b1418ab9fd.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.4.1",
+      "criterion": "2.4.1",
+      "title": "ブロックスキップ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "screen-reader",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.4.1--b5d416b861be.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.4.2",
+      "criterion": "2.4.2",
+      "title": "ページタイトル",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.4.2--21fda1bbcf58.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.4.3",
+      "criterion": "2.4.3",
+      "title": "フォーカス順序",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.4.3--28586c7f8ad9.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.4.4",
+      "criterion": "2.4.4",
+      "title": "リンクの目的 (コンテキスト内)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.4.4--232a6ea78654.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.4.5",
+      "criterion": "2.4.5",
+      "title": "複数の手段",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "cross-page",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.4.5--0fc246cfa4b6.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.4.6",
+      "criterion": "2.4.6",
+      "title": "見出し及びラベル",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.4.6--49b40731c3e9.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.4.7",
+      "criterion": "2.4.7",
+      "title": "フォーカスの可視化",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.4.7--219ab890155f.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.4.11",
+      "criterion": "2.4.11",
+      "title": "隠されないフォーカス (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.4.11--a84c32bd8c8e.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.5.1",
+      "criterion": "2.5.1",
+      "title": "ポインタのジェスチャ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.5.1--b14829726f66.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.5.2",
+      "criterion": "2.5.2",
+      "title": "ポインタのキャンセル",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.5.2--1045bcf416bc.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.5.3",
+      "criterion": "2.5.3",
+      "title": "ラベルを含む名前 (name)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.5.3--1321c0a11007.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.5.4",
+      "criterion": "2.5.4",
+      "title": "動きによる起動",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "motion-input",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.5.4--00c5a871c2ef.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.5.7",
+      "criterion": "2.5.7",
+      "title": "ドラッグ動作",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.5.7--bc33331fcce9.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--2.5.8",
+      "criterion": "2.5.8",
+      "title": "ターゲットのサイズ (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "pointer",
+        "measurement",
+        "visual"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--2.5.8--8e1c695508e1.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.1.1",
+      "criterion": "3.1.1",
+      "title": "ページの言語",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.1.1--3aeccb3d5032.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.1.2",
+      "criterion": "3.1.2",
+      "title": "一部分の言語",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.1.2--be40a0da8aa8.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.2.1",
+      "criterion": "3.2.1",
+      "title": "フォーカス時",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.2.1--fb578acd84d0.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.2.2",
+      "criterion": "3.2.2",
+      "title": "入力時",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.2.2--d7de0b17d549.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.2.3",
+      "criterion": "3.2.3",
+      "title": "一貫したナビゲーション",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.2.3--ae3716c5956d.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.2.4",
+      "criterion": "3.2.4",
+      "title": "一貫した識別性",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "cross-page",
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.2.4--221b032719ee.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.2.6",
+      "criterion": "3.2.6",
+      "title": "一貫したヘルプ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.2.6--b4e5ae7e0f50.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.3.1",
+      "criterion": "3.3.1",
+      "title": "エラーの特定",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "flow",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.3.1--5ca8ad4ba577.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.3.2",
+      "criterion": "3.3.2",
+      "title": "ラベル又は説明",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.3.2--38f12afc06d0.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.3.3",
+      "criterion": "3.3.3",
+      "title": "エラー修正の提案",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.3.3--453cb74650d1.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.3.4",
+      "criterion": "3.3.4",
+      "title": "誤り防止 (法的、金融、データ)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.3.4--22e0f982f08c.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.3.7",
+      "criterion": "3.3.7",
+      "title": "冗長な入力項目",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.3.7--2e2deb13a40c.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--3.3.8",
+      "criterion": "3.3.8",
+      "title": "アクセシブルな認証 (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "flow",
+        "password-manager",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--3.3.8--a33ff4f7fd3e.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--4.1.2",
+      "criterion": "4.1.2",
+      "title": "名前 (name)・役割 (role)・値 (value)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "dom",
+        "flow",
+        "screen-reader"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--4.1.2--2ebd702aa252.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--enabled--desktop--4.1.3",
+      "criterion": "4.1.3",
+      "title": "ステータスメッセージ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "e743f12ce843--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--enabled--desktop",
+      "methods": [
+        "flow",
+        "dom",
+        "screen-reader"
+      ],
+      "assessment": "assessments/e743f12ce843--enabled--desktop--4.1.3--1f6635b928cb.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.1.1",
+      "criterion": "1.1.1",
+      "title": "非テキストコンテンツ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic",
+        "screen-reader"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.1.1--3073b466d19d.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.2.1",
+      "criterion": "1.2.1",
+      "title": "音声のみ及び映像のみ (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.2.1--df657555a9df.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.2.2",
+      "criterion": "1.2.2",
+      "title": "キャプション (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.2.2--0acbecf3393c.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.2.3",
+      "criterion": "1.2.3",
+      "title": "音声解説、又はメディアに対する代替 (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.2.3--ea6d7b8b5102.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.2.4",
+      "criterion": "1.2.4",
+      "title": "キャプション (ライブ)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.2.4--4c426a1d2792.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.2.5",
+      "criterion": "1.2.5",
+      "title": "音声解説 (収録済)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.2.5--84e13cd8100a.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.3.1",
+      "criterion": "1.3.1",
+      "title": "情報及び関係性",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.3.1--0e618fc284af.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.3.2",
+      "criterion": "1.3.2",
+      "title": "意味のあるシーケンス",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.3.2--0eec8d95c474.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.3.3",
+      "criterion": "1.3.3",
+      "title": "感覚的な特徴",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.3.3--d1aa6d762d59.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.3.4",
+      "criterion": "1.3.4",
+      "title": "表示の向き",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "orientation",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.3.4--a66e9fc29f7c.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.3.5",
+      "criterion": "1.3.5",
+      "title": "入力目的の特定",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.3.5--ff0c77682a2b.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.4.1",
+      "criterion": "1.4.1",
+      "title": "色の使用",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.4.1--9fb832a4964b.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.4.2",
+      "criterion": "1.4.2",
+      "title": "音声の制御",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "audio",
+        "measurement",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.4.2--97c31b871faf.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.4.3",
+      "criterion": "1.4.3",
+      "title": "コントラスト (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.4.3--8ca9784e562b.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.4.4",
+      "criterion": "1.4.4",
+      "title": "テキストのサイズ変更",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "zoom",
+        "visual",
+        "flow",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.4.4--a2fdc6c16ef8.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.4.5",
+      "criterion": "1.4.5",
+      "title": "文字画像",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.4.5--8441982c8a80.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.4.10",
+      "criterion": "1.4.10",
+      "title": "リフロー",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "viewport",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.4.10--6b6880f29d1f.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.4.11",
+      "criterion": "1.4.11",
+      "title": "非テキストのコントラスト",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "measurement",
+        "dom"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.4.11--7c8557a79099.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.4.12",
+      "criterion": "1.4.12",
+      "title": "テキストの間隔",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.4.12--4d7cf4649e56.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--1.4.13",
+      "criterion": "1.4.13",
+      "title": "ホバー又はフォーカスで表示されるコンテンツ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--1.4.13--2da49e7bb1e7.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.1.1",
+      "criterion": "2.1.1",
+      "title": "キーボード",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.1.1--c1fffc0e815a.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.1.2",
+      "criterion": "2.1.2",
+      "title": "キーボードトラップなし",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.1.2--b76453d0300f.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.1.4",
+      "criterion": "2.1.4",
+      "title": "文字キーのショートカット",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.1.4--46686206f1cb.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.2.1",
+      "criterion": "2.2.1",
+      "title": "タイミング調整可能",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "timing",
+        "flow",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.2.1--cb893f5dd459.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.2.2",
+      "criterion": "2.2.2",
+      "title": "一時停止、停止、非表示",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "timing",
+        "visual",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.2.2--b6a96f286d87.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.3.1",
+      "criterion": "2.3.1",
+      "title": "3 回の閃光、又は閾値以下",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "flash-analysis",
+        "media",
+        "measurement"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.3.1--ec1a555db1d4.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.4.1",
+      "criterion": "2.4.1",
+      "title": "ブロックスキップ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "screen-reader",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.4.1--b5344d4cee06.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.4.2",
+      "criterion": "2.4.2",
+      "title": "ページタイトル",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.4.2--645cbda54b2e.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.4.3",
+      "criterion": "2.4.3",
+      "title": "フォーカス順序",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.4.3--e67584937bfb.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.4.4",
+      "criterion": "2.4.4",
+      "title": "リンクの目的 (コンテキスト内)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.4.4--847af53aff85.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.4.5",
+      "criterion": "2.4.5",
+      "title": "複数の手段",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "cross-page",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.4.5--0e7f1ca09912.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.4.6",
+      "criterion": "2.4.6",
+      "title": "見出し及びラベル",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.4.6--b18cbdc758a8.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.4.7",
+      "criterion": "2.4.7",
+      "title": "フォーカスの可視化",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.4.7--d8755649001a.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.4.11",
+      "criterion": "2.4.11",
+      "title": "隠されないフォーカス (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.4.11--369d18f0d2f4.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.5.1",
+      "criterion": "2.5.1",
+      "title": "ポインタのジェスチャ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.5.1--609f310d8f47.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.5.2",
+      "criterion": "2.5.2",
+      "title": "ポインタのキャンセル",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.5.2--63a4c2a85ec1.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.5.3",
+      "criterion": "2.5.3",
+      "title": "ラベルを含む名前 (name)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.5.3--1206036258d6.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.5.4",
+      "criterion": "2.5.4",
+      "title": "動きによる起動",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "motion-input",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.5.4--4fcc5bd7d1bf.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.5.7",
+      "criterion": "2.5.7",
+      "title": "ドラッグ動作",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.5.7--e9d2be7933d6.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--2.5.8",
+      "criterion": "2.5.8",
+      "title": "ターゲットのサイズ (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "pointer",
+        "measurement",
+        "visual"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--2.5.8--027e9f5addc9.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.1.1",
+      "criterion": "3.1.1",
+      "title": "ページの言語",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.1.1--206ce9427160.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.1.2",
+      "criterion": "3.1.2",
+      "title": "一部分の言語",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.1.2--2decb0a68087.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.2.1",
+      "criterion": "3.2.1",
+      "title": "フォーカス時",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.2.1--5b9357e189ed.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.2.2",
+      "criterion": "3.2.2",
+      "title": "入力時",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "flow"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.2.2--db8bbcb1fdf8.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.2.3",
+      "criterion": "3.2.3",
+      "title": "一貫したナビゲーション",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.2.3--a551dc0496b5.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.2.4",
+      "criterion": "3.2.4",
+      "title": "一貫した識別性",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "cross-page",
+        "dom",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.2.4--dd785c575c21.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.2.6",
+      "criterion": "3.2.6",
+      "title": "一貫したヘルプ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.2.6--23946cda8049.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.3.1",
+      "criterion": "3.3.1",
+      "title": "エラーの特定",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.3.1--da369cfafbaf.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.3.2",
+      "criterion": "3.3.2",
+      "title": "ラベル又は説明",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.3.2--d35d13e1d1f2.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.3.3",
+      "criterion": "3.3.3",
+      "title": "エラー修正の提案",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.3.3--70eab4a27b29.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.3.4",
+      "criterion": "3.3.4",
+      "title": "誤り防止 (法的、金融、データ)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.3.4--076d6abf6e4e.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.3.7",
+      "criterion": "3.3.7",
+      "title": "冗長な入力項目",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.3.7--95328f4c8d90.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--3.3.8",
+      "criterion": "3.3.8",
+      "title": "アクセシブルな認証 (最低限)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "password-manager",
+        "semantic"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--3.3.8--7f4929b5422d.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--4.1.2",
+      "criterion": "4.1.2",
+      "title": "名前 (name)・役割 (role)・値 (value)",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "flow",
+        "screen-reader"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--4.1.2--ec17d921f027.json",
+      "automated_candidates": []
+    },
+    {
+      "case_id": "e743f12ce843--disabled-again--desktop--4.1.3",
+      "criterion": "4.1.3",
+      "title": "ステータスメッセージ",
+      "page_url": "http://127.0.0.1:4320/",
+      "page_id": "e743f12ce843",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "e743f12ce843--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/e743f12ce843--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "dom",
+        "screen-reader"
+      ],
+      "assessment": "assessments/e743f12ce843--disabled-again--desktop--4.1.3--38cce0c6fa65.json",
+      "automated_candidates": []
+    }
+  ]
+}

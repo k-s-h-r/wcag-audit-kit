@@ -1,0 +1,82 @@
+{
+  "index": 6,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "space"
+    ],
+    "expect_contains": "Correct the following"
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "review",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:37.857631+00:00",
+  "finished_at": "2026-11-15T00:10:39.259139+00:00",
+  "focus_after": {
+    "tag": "div",
+    "id": "errors",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/profile",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:37.864222+00:00",
+      "line": 7237,
+      "phrase": "space",
+      "raw": "00:10:37.864222 - SPEECH OUTPUT: 'space' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:10:37.924060+00:00",
+      "line": 7499,
+      "phrase": "leaving form.",
+      "raw": "00:10:37.924060 - SPEECH OUTPUT: 'leaving form.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:37.924968+00:00",
+      "line": 7506,
+      "phrase": "Correct the following Enter a name. Enter an email such as name@example.test.",
+      "raw": "00:10:37.924968 - SPEECH OUTPUT: 'Correct the following Enter a name. Enter an email such as name@example.test.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:37.926117+00:00",
+      "line": 7513,
+      "phrase": "clickable.",
+      "raw": "00:10:37.926117 - SPEECH OUTPUT: 'clickable.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#errors"
+      },
+      "text": "Correct the following\nEnter a name.\nEnter an email such as name@example.test."
+    },
+    {
+      "target": {
+        "selector": "#name",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": "true"
+      }
+    },
+    {
+      "target": {
+        "selector": "#email",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": "true"
+      }
+    }
+  ]
+}

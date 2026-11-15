@@ -1,0 +1,157 @@
+{
+  "case_id": "e743f12ce843--initial--desktop--1.3.4",
+  "url": "http://127.0.0.1:4320/",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "orientation": "portrait-primary",
+  "assert": [
+    {
+      "selector": "#email-switch[aria-checked=\"false\"]",
+      "visible": true
+    },
+    {
+      "selector": "#visual-state",
+      "text": "Off"
+    }
+  ],
+  "observe": [
+    {
+      "selector": "#visual-state"
+    },
+    {
+      "selector": "#email-switch",
+      "attributes": [
+        "role",
+        "aria-checked"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "press",
+      "key": "Tab",
+      "assert": [
+        {
+          "selector": "#email-switch[aria-checked=\"false\"]",
+          "visible": true
+        },
+        {
+          "selector": "#visual-state",
+          "text": "Off"
+        }
+      ]
+    },
+    {
+      "type": "press",
+      "key": "Space",
+      "assert": [
+        {
+          "selector": "#email-switch[aria-checked=\"true\"]",
+          "visible": true
+        },
+        {
+          "selector": "#visual-state",
+          "text": "On"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "orientation": "landscape-primary",
+      "assert": [
+        {
+          "selector": "#email-switch[aria-checked=\"true\"]",
+          "visible": true
+        },
+        {
+          "selector": "#visual-state",
+          "text": "On"
+        }
+      ]
+    },
+    {
+      "type": "press",
+      "key": "Space",
+      "assert": [
+        {
+          "selector": "#email-switch[aria-checked=\"false\"]",
+          "visible": true
+        },
+        {
+          "selector": "#visual-state",
+          "text": "Off"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "orientation": "portrait-secondary",
+      "assert": [
+        {
+          "selector": "#email-switch[aria-checked=\"false\"]",
+          "visible": true
+        },
+        {
+          "selector": "#visual-state",
+          "text": "Off"
+        }
+      ]
+    },
+    {
+      "type": "press",
+      "key": "Space",
+      "assert": [
+        {
+          "selector": "#email-switch[aria-checked=\"true\"]",
+          "visible": true
+        },
+        {
+          "selector": "#visual-state",
+          "text": "On"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "orientation": "landscape-secondary",
+      "assert": [
+        {
+          "selector": "#email-switch[aria-checked=\"true\"]",
+          "visible": true
+        },
+        {
+          "selector": "#visual-state",
+          "text": "On"
+        }
+      ]
+    },
+    {
+      "type": "press",
+      "key": "Space",
+      "assert": [
+        {
+          "selector": "#email-switch[aria-checked=\"false\"]",
+          "visible": true
+        },
+        {
+          "selector": "#visual-state",
+          "text": "Off"
+        }
+      ]
+    }
+  ]
+}

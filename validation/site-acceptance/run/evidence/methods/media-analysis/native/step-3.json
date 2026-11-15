@@ -1,0 +1,43 @@
+{
+  "index": 3,
+  "action": {
+    "type": "reader.nextButton",
+    "expect_contains": "Play video"
+  },
+  "focus_before": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:29:35.152388+00:00",
+  "finished_at": "2026-11-15T00:29:36.553722+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "play",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/media",
+  "speech": [
+    {
+      "at": "2026-11-15T00:29:35.156382+00:00",
+      "line": 6878,
+      "phrase": "b",
+      "raw": "00:29:35.156382 - SPEECH OUTPUT: 'b' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:29:35.189763+00:00",
+      "line": 7059,
+      "phrase": "Play video button.",
+      "raw": "00:29:35.189763 - SPEECH OUTPUT: 'Play video button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#playback-state"
+      },
+      "text": "Not playing"
+    }
+  ]
+}

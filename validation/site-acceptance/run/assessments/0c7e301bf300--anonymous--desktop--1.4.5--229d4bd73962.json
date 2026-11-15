@@ -1,0 +1,121 @@
+{
+  "case_id": "0c7e301bf300--anonymous--desktop--1.4.5",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "a80f659e93ad33985a35b43953662670af22e1aad4a427dc397c409e3331e9ec",
+  "execution": "completed",
+  "outcome": "inapplicable",
+  "observed": "このcaseはhttp://127.0.0.1:4330/help / anonymous / desktop。表示の主内容はHelp — Profile demo。可視見出し: ['Help', 'Profile fields', 'Saving changes']。入力欄: []。本文・ラベル・状態は実際のHTML文字。ホームのSVGは三段階の関係を示す図で、文字は図のラベルとして含まれる。独立したビットマップの文字画像や装飾された文字を画像に置換した内容はない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:1.4.5:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [],
+  "method_coverage": [
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/0c7e301bf300--anonymous--desktop/page.png",
+    "evidence/0c7e301bf300--anonymous--desktop/inventory.json",
+    "evidence/0c7e301bf300--anonymous--desktop/dom.html",
+    "evidence/0c7e301bf300--anonymous--desktop/accessibility-tree.json",
+    "evidence/0c7e301bf300--anonymous--desktop/actions.json",
+    "evidence/0c7e301bf300--anonymous--desktop/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/desktop/observations.json",
+    "evidence/methods/browser/desktop/013-help.png",
+    "evidence/methods/browser/desktop/013-help.json",
+    "evidence/methods/browser/desktop/013-help-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:42.705752+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/0c7e301bf300--anonymous--desktop/page.png",
+      "sha256": "2030e02c70bfcaa7b890557203a2f36f9de8c9e56d773d6809911599df9822d9"
+    },
+    {
+      "path": "evidence/0c7e301bf300--anonymous--desktop/inventory.json",
+      "sha256": "c2786fe94f95ee15cb146c2030e655642c8fcdc8612fa6cade2df2c035fe7c20"
+    },
+    {
+      "path": "evidence/0c7e301bf300--anonymous--desktop/dom.html",
+      "sha256": "a391131a93787f888efb82263a8f0eaf818ff344d35ae05477c4c4424f53e2b2"
+    },
+    {
+      "path": "evidence/0c7e301bf300--anonymous--desktop/accessibility-tree.json",
+      "sha256": "726bc2bd20bba7668194a7ef033b9e428d5d235413ed40c704360b4064d95311"
+    },
+    {
+      "path": "evidence/0c7e301bf300--anonymous--desktop/actions.json",
+      "sha256": "b1845fb3d1dbb061c4ec51b6cb7f8baf453cb58eaf27e65cf3c853d18635b789"
+    },
+    {
+      "path": "evidence/0c7e301bf300--anonymous--desktop/keyboard.json",
+      "sha256": "7ffbf988635617ac3d56db5f304b228f2b284396e7419c725e069a4926c25a38"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/observations.json",
+      "sha256": "39b0ef7069d2e14adab81994bd7f17bf2a61176f8051449773cab1c691b5a9fe"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/013-help.png",
+      "sha256": "c4e8dbf4c893e41615f5b5bdf7ce6cf66e57be8a7431386b0b9583a1ac7fc340"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/013-help.json",
+      "sha256": "25f5f209ba4ed420c535dbfc09b41f1bf0452743aa296d2aff5eacea340fdd7f"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/013-help-ax.json",
+      "sha256": "2331423dc3101107756d3d89f73477fd71651b477cba6275d01d046275c65a77"
+    }
+  ]
+}

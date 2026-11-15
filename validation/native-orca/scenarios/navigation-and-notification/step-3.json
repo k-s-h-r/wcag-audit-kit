@@ -1,0 +1,36 @@
+{
+  "index": 3,
+  "action": {
+    "type": "browser.press",
+    "key": "Space",
+    "expect_contains": "Record two saved."
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "save2"
+  },
+  "started_at": "2026-11-14T18:53:38.384912+00:00",
+  "finished_at": "2026-11-14T18:53:40.189482+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "save2"
+  },
+  "url": "http://127.0.0.1:4317/live-region-variants.html",
+  "speech": [
+    {
+      "at": "2026-11-14T18:53:38.498255+00:00",
+      "line": 4573,
+      "phrase": "Record two saved.",
+      "raw": "18:53:38.498255 - SPEECH OUTPUT: 'Record two saved.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#message2"
+      },
+      "text": "Record two saved."
+    }
+  ]
+}

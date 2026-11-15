@@ -1,0 +1,68 @@
+"""Run fixed, known-source controls; no expected text is passed to ASR."""
+from pathlib import Path
+import hashlib
+import json
+import os
+import subprocess
+
+out = Path('/tmp/wcag-whisper-controls-002')
+out.mkdir(exist_ok=False)
+commands = []
+
+
+def run(command, env=None):
+    commands.append(command)
+    return subprocess.run(command, check=True, capture_output=True, text=True, env=env)
+
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+prefix = Path('/tmp/wcag-at-root')
+env = {**os.environ,
+       'LD_LIBRARY_PATH': str(prefix / 'usr/lib/x86_64-linux-gnu'),
+       'ESPEAK_DATA_PATH': str(prefix / 'usr/lib/x86_64-linux-gnu')}
+intended_red = 'Press the red button to delete the document.'
+run(['/tmp/wcag-media-tools/usr/bin/espeak-ng', '-v', 'en-us', '-s', '145',
+     '-w', str(out / 'red-speech.wav'), intended_red], env=env)
+run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-i', str(out / 'red-speech.wav'),
+     '-f', 'lavfi', '-i', 'sine=frequency=880:duration=0.25:sample_rate=22050',
+     '-filter_complex', '[0:a]adelay=500:all=1,apad=whole_dur=7[a];'
+     '[1:a]volume=0.2,adelay=5500:all=1[b];'
+     '[a][b]amix=inputs=2:duration=longest:normalize=0,atrim=duration=7',
+     '-ar', '16000', '-ac', '1', '-c:a', 'pcm_s16le', str(out / 'red.wav')])
+run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i',
+     'sine=frequency=880:duration=0.25:sample_rate=16000', '-af',
+     'volume=0.2,adelay=5500:all=1,apad=whole_dur=7,atrim=duration=7',
+     '-ar', '16000', '-ac', '1', '-c:a', 'pcm_s16le', str(out / 'tone.wav')])
+run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i',
+     'anullsrc=r=16000:cl=mono', '-t', '7', '-c:a', 'pcm_s16le', str(out / 'silence.wav')])
+
+model = Path('/tmp/wcag-whisper-models/ggml-base.en.bin')
+engine = Path('/tmp/wcag-whisper-build/bin/whisper-cli')
+facts = []
+for name, intention in [('red', intended_red), ('tone', 'No speech; an 880 Hz tone at 5.5 seconds'),
+                        ('silence', 'No speech or sound; digital silence')]:
+    target = out / name
+    target.mkdir()
+    command = [str(engine), '-m', str(model), '-f', str(out / (name + '.wav')),
+               '-l', 'en', '-t', '4', '-ojf', '-otxt', '-of', str(target / 'transcript')]
+    result = run(command)
+    (target / 'stdout.txt').write_text(result.stdout)
+    (target / 'stderr.txt').write_text(result.stderr)
+    text = (target / 'transcript.txt').read_text()
+    facts.append({'name': name, 'intended_source': intention,
+                  'source_sha256': digest(out / (name + '.wav')), 'transcript': text,
+                  'segments': json.loads((target / 'transcript.json').read_text())['transcription'],
+                  'command': command})
+    print(json.dumps({'name': name, 'transcript': text}), flush=True)
+
+manifest = {'kind': 'known synthetic source calibration; not a blind or real-speaker accuracy study',
+            'commands': commands, 'model': json.loads(Path('/tmp/wcag-whisper-models/manifest-base.en.json').read_text()),
+            'engine': json.loads(Path('/tmp/wcag-whisper-build/provenance.json').read_text()),
+            'engine_binary_sha256': digest(engine),
+            'model_actual_sha256': digest(model), 'results': facts,
+            'listening_performed': False, 'non_speech_meaning_reviewed': False,
+            'wcag_judgement': None}
+(out / 'provenance.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')

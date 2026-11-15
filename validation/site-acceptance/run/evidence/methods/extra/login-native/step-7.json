@@ -1,0 +1,31 @@
+{
+  "index": 7,
+  "action": {
+    "type": "browser.fill",
+    "selector": "#password",
+    "value": "***"
+  },
+  "focus_before": {
+    "tag": "input",
+    "id": "login-email",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:18:11.052216+00:00",
+  "finished_at": "2026-11-15T00:18:12.561868+00:00",
+  "focus_after": {
+    "tag": "input",
+    "id": "password",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/login",
+  "speech": [
+    {
+      "at": "2026-11-15T00:18:11.093080+00:00",
+      "line": 8137,
+      "phrase": "Password password text 17 • characters required.",
+      "raw": "00:18:11.093080 - SPEECH OUTPUT: 'Password password text 17 • characters required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": []
+}

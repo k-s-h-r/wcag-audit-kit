@@ -1,0 +1,113 @@
+"""Record the explicit human/AI-reviewed matrix; never derive WCAG passes from axe."""
+from pathlib import Path
+import collections
+import copy
+import hashlib
+import json
+import sys
+
+KIT = Path('/workspace/wcag-audit-kit')
+RUN = Path('/tmp/wcag-full-fixture-audit-003')
+sys.path.insert(0, str(KIT/'scripts'))
+import audit
+from lxml import html
+
+matrix_path=RUN/'evidence/criterion-review.json'
+matrix=json.loads(matrix_path.read_text())
+matrix_hash=hashlib.sha256(matrix_path.read_bytes()).hexdigest()
+meta=json.loads((RUN/'run.json').read_text())
+catalog=json.loads((RUN/'catalog.snapshot.json').read_text())
+criteria={c['id']:c for c in catalog['criteria']}
+plan=json.loads((RUN/'plan.json').read_text())
+assert set(matrix)=={k for k,v in criteria.items() if v['level']!='AAA'}
+manifest=json.loads((RUN/'capture-manifest.json').read_text())
+assert manifest['collector_status']=='completed' and len(manifest['captures'])==3
+assert all(c['execution']=='completed' for c in manifest['captures'])
+assert not manifest['unvisited']
+
+common=['evidence/criterion-review.json',
+ 'evidence/methods/source-scope/index.html',
+ 'evidence/methods/source-scope/reader-controls.js',
+ 'evidence/methods/source-scope/server.py.txt',
+ 'evidence/methods/source-scope/scope.json',
+ 'evidence/methods/browser/observations.json']
+method_reasons={
+ 'dom':'この実ページの全DOM、属性、計算済み情報、AXとソースを照合した。対象: ',
+ 'visual':'実画像を読み、表示文字・折り返し・輪郭・隠れをこの対象について照合した: ',
+ 'semantic':'実際の文・目的・文脈と原典の条件を読み、意味を比較した。対象: ',
+ 'keyboard':'Tab/Shift+Tab、Space/Enterと実Orca経由のXTestを使い、対象の到達・操作・離脱を実際に確認した: ',
+ 'pointer':'対象上の実pointer down、対象外のup、通常clickとその後の状態を確認した: ',
+ 'flow':'全ソースと利用フローを確認し、On/Off/Off復帰、状態保持、前後のフォーカス・URLを対応付けた: ',
+ 'measurement':'実測JSONと画面を照合し、色・寸法・文字サイズ又はDPRのうち、この基準で必要な値を比較した: ',
+ 'zoom':'専用X11でネイティブキーを送り、110/125/150/175/200/400%と復帰の実測・画像・操作を確認した: ',
+ 'viewport':'実400%時の320 CSS px、横スクロールの不在と縦の全領域・機能を確認した: ',
+ 'screen-reader':'実Orca 48.1の順次読み・名前・役割・状態変更と、画面・DOM・前後のフォーカスを対応付けた: ',
+ 'orientation':'縦横primary/secondaryのAPI・画面・CSSと実操作をエミュレーションで確認。全ソースに実端末固有のlock・センサー処理がない: '
+}
+
+written=skipped=0
+for case in plan['cases']:
+    row=matrix[case['criterion']]
+    c=criteria[case['criterion']]
+    own=case['evidence_dir']
+    dom=html.fromstring((RUN/own/'dom.html').read_bytes())
+    state='On' if case['state']=='enabled' else 'Off'
+    checked='true' if state=='On' else 'false'
+    assert dom.xpath('//*[@id="visual-state"]')[0].text_content()==state
+    assert dom.xpath('//*[@id="email-switch"]')[0].get('aria-checked')==checked
+    inv=json.loads((RUN/own/'inventory.json').read_text())
+    assert not inv['truncated']
+    if case.get('assessment'):
+        prior=json.loads((RUN/case['assessment']).read_text())
+        assert prior.get('criterion_review_sha256')==matrix_hash, 'Do not replace a different review'
+        skipped+=1
+        continue
+    proofs=common+[own+'/'+p for p in ['dom.html','inventory.json','page.png','accessibility-tree.json','actions.json','keyboard.json']]
+    proofs+=['evidence/methods/'+p for p in row.get('proofs',[])]
+    proofs=list(dict.fromkeys(proofs))
+    assert all((RUN/p).is_file() for p in proofs),(case['case_id'],[p for p in proofs if not (RUN/p).is_file()])
+    context=f"このcaseは{case['state']}。実収集で表示{state}、aria-checked={checked}を確認。"
+    judgment={
+      'case_id':case['case_id'],'config_digest':meta['config_digest'],
+      'normative_sha256':c['normative_sha256'],'execution':'completed','outcome':row['outcome'],
+      'conditions_reviewed':True,'exceptions_reviewed':True,'coverage_complete':True,
+      'steps_executed':row.get('steps',['当該基準の本文・条件・例外を読む','全ソース・全状態のDOM・AXと実画面を調べる','適用条件と対象不在・条件不成立を照合する']),
+      'tests_applied':['WCAG22:'+case['criterion']+':normative','fixture-aa/'+case['criterion']+':page-specific-review'],
+      'observed':context+' '+row['observed'],'targets':[],
+      'method_coverage':[],'evidence':proofs,'remaining':[],
+      'criterion_review_sha256':matrix_hash,
+      'review_kind':'known controlled fixture, not a blind or professional-equivalence accuracy benchmark'
+    }
+    if row['outcome']=='passed':
+        judgment['targets']=[{'target':row['target'],'expected':row['expected'],
+          'observed':context+' '+row['observed'],'outcome':'passed','evidence':proofs}]
+        for method in c['methods']:
+            assert method in method_reasons,(case['criterion'],method)
+            judgment['method_coverage'].append({'method':method,'status':'executed',
+                 'reason':method_reasons[method]+row['target']})
+    else:
+        for method in c['methods']:
+            judgment['method_coverage'].append({'method':method,'status':'not_needed',
+              'reason':'全ソース・全状態と原典を確認した適用条件の根拠: '+row['observed']})
+    audit.record(RUN,judgment)
+    written+=1
+
+scope={
+ 'config_digest':meta['config_digest'],'complete':True,'processes_reviewed':True,
+ 'full_pages_reviewed':True,'accessibility_support_reviewed':True,'non_interference_reviewed':True,
+ 'sources':['evidence/methods/source-scope/server.py.txt','evidence/methods/source-scope/index.html',
+            'evidence/methods/source-scope/reader-controls.js','capture-manifest.json'],
+ 'observed':'評価範囲は専用サーバー4320の単独文書だけ。全ルートを実装と照合し、HTMLは/、資源はreader-controls.jsのみ。他のパスは空の404。アカウント・権限・遷移・外部埋め込み・別文書・隠れた機能はない。唯一の手続きは一時的な通知設定のOff→On→Offで、全3状態を収集し、全55対象基準を各状態で検査した。全ページの全内容はh1・p・button・spanとそのスタイル・JSだけで、UIは一つ。HTML/CSS/JS/WAI-ARIAへの依拠をChromiumと実Orca 48.1、実キー・ポインター・拡大・向きのエミュレーションで確認した。非依拠の第三者コンテンツはない。音声の自動再生・キートラップ・自動更新・閃光の非干渉条件も全ソースと実操作で確認した。この範囲確認は他のfixture、別のOS、複雑なサイト又はスキル全体の精度へ広げない。',
+ 'evidence':['evidence/methods/source-scope/scope.json','evidence/methods/source-scope/server.py.txt',
+ 'evidence/methods/source-scope/index.html','evidence/methods/source-scope/reader-controls.js',
+ 'evidence/methods/browser/observations.json','evidence/methods/native-reader/screen-reader.json',
+ 'evidence/methods/native-reader/orca-debug.log','evidence/methods/orientation/orientation.json',
+ 'evidence/criterion-review.json','capture-manifest.json'],
+ 'remaining':[]
+}
+value=audit.validate_scope_review(RUN,scope)
+audit.save(RUN/'scope-review.json',value)
+audit.report(RUN)
+result=audit.outcomes(RUN)
+assert result['audit_complete'] and result['counts']=={'inapplicable':90,'passed':75},result['counts']
+print(json.dumps({'written':written,'skipped':skipped,'counts':result['counts'],'audit_complete':result['audit_complete']},ensure_ascii=False))

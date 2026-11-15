@@ -1,0 +1,47 @@
+{
+  "candidate_device_pixels": 676,
+  "same_pixel_contrast_min": 6.551304852616529,
+  "same_pixel_contrast_max": 6.551304852616529,
+  "pixels_with_contrast_at_least_3": 676,
+  "qualifying_area_css_px2": 676.0,
+  "reference_area_css_px2": 1280.0,
+  "qualifying_area_to_reference_ratio": 0.528125,
+  "reference_formula": "4w+4h / 4πr / 4w+4h−(16−4π)r from Understanding 2.4.13",
+  "wcag_judgement": null,
+  "limitations": [
+    "The operator must identify the actual component and indicator pixels.",
+    "This compares the same coordinates; it does not measure adjacent-color contrast.",
+    "A literal 2 CSS px perimeter and exceptions must also be checked against the source.",
+    "All components, states, keyboard operation and other WCAG conditions require review."
+  ],
+  "case_id": "focus-area-thin",
+  "mask_description": "The sole author-supplied rectangular outline, identified from its CSS and actual rendered blue pixels.",
+  "dpr": 1.0,
+  "component_before": {
+    "x": 48.0,
+    "y": 240.234375,
+    "width": 240.0,
+    "height": 80.0
+  },
+  "component_focused": {
+    "x": 48.0,
+    "y": 240.234375,
+    "width": 240.0,
+    "height": 80.0
+  },
+  "indicator_colors": [
+    "#005bba"
+  ],
+  "regions": [
+    {
+      "x": 38,
+      "y": 230.234375,
+      "width": 260,
+      "height": 100
+    }
+  ],
+  "before_sha256": "bd2871bf3dcf4eea3cd2861c1f23c5b50e40a0f6efe36012ecb22fc91e66d3f0",
+  "focused_sha256": "5579022c76cee30b7d676070da08f41180f831d65c50228531ca97ae94377fb5",
+  "status": "collected",
+  "request_sha256": "ce49cdcf808cf0964748e7f2402fd1977086dfcf914cb81d4c226b991cee4ab6"
+}

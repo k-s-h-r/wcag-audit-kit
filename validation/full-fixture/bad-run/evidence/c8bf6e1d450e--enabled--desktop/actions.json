@@ -1,0 +1,99 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "press",
+      "key": "Tab"
+    },
+    "url": "http://127.0.0.1:4322/",
+    "focus": {
+      "tag": "button",
+      "id": "email-switch",
+      "documentHasFocus": true,
+      "text": "Email notifications",
+      "name": null,
+      "rect": {
+        "x": 32,
+        "y": 189.046875,
+        "width": 213.3125,
+        "height": 71.1875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "email-switch"
+        },
+        {
+          "tag": "main",
+          "id": ""
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-14T21:21:00.568322+00:00",
+    "observed_at": "2026-11-14T21:21:00.678085+00:00",
+    "observations": []
+  },
+  {
+    "index": 2,
+    "action": {
+      "type": "press",
+      "key": "Space",
+      "assert": [
+        {
+          "selector": "#email-switch",
+          "visible": true
+        },
+        {
+          "selector": "#visual-state",
+          "text": "On"
+        }
+      ]
+    },
+    "url": "http://127.0.0.1:4322/",
+    "focus": {
+      "tag": "button",
+      "id": "email-switch",
+      "documentHasFocus": true,
+      "text": "Email notifications",
+      "name": null,
+      "rect": {
+        "x": 32,
+        "y": 189.046875,
+        "width": 213.3125,
+        "height": 71.1875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "email-switch"
+        },
+        {
+          "tag": "main",
+          "id": ""
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-14T21:21:00.705002+00:00",
+    "observed_at": "2026-11-14T21:21:00.812038+00:00",
+    "observations": [],
+    "action_asserted": true
+  }
+]

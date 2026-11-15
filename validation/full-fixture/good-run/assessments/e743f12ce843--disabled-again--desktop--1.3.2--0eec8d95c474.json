@@ -1,0 +1,162 @@
+{
+  "case_id": "e743f12ce843--disabled-again--desktop--1.3.2",
+  "config_digest": "61feba4fc45fa04a27c48307cbeff0f274c556f11a75a849ba2c07be86c9e5f1",
+  "normative_sha256": "26dce3d6ae5ac9fd699f7215e9cf85cbc5a64505739b22c75d228adbd420978f",
+  "execution": "completed",
+  "outcome": "passed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "全内容の視覚順とDOM順を読む",
+    "実Orcaで先頭からDownで内容を通読",
+    "400%で上・中・下へ実際にスクロールし順序を比較"
+  ],
+  "tests_applied": [
+    "WCAG22:1.3.2:normative",
+    "fixture-aa/1.3.2:page-specific-review"
+  ],
+  "observed": "このcaseはdisabled-again。実収集で表示Off、aria-checked=falseを確認。 実Orcaの順次読みでNotification settings見出し1、Use the checkbox...の説明、Email notifications checkboxと状態、Offの順に取得した。画面とDOMも同じ順序で、400%の320 CSS pxでも見出し・説明・部品・状態の順に折り返された。CSSのorder・絶対配置等による並べ替えはない。",
+  "targets": [
+    {
+      "target": "mainのh1 → p → #email-switch → #visual-stateという全内容",
+      "expected": "目的を理解し操作できる意味のある順序が、プログラム上の読み順でも得られる。",
+      "observed": "このcaseはdisabled-again。実収集で表示Off、aria-checked=falseを確認。 実Orcaの順次読みでNotification settings見出し1、Use the checkbox...の説明、Email notifications checkboxと状態、Offの順に取得した。画面とDOMも同じ順序で、400%の320 CSS pxでも見出し・説明・部品・状態の順に折り返された。CSSのorder・絶対配置等による並べ替えはない。",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/criterion-review.json",
+        "evidence/methods/source-scope/index.html",
+        "evidence/methods/source-scope/reader-controls.js",
+        "evidence/methods/source-scope/server.py.txt",
+        "evidence/methods/source-scope/scope.json",
+        "evidence/methods/browser/observations.json",
+        "evidence/e743f12ce843--disabled-again--desktop/dom.html",
+        "evidence/e743f12ce843--disabled-again--desktop/inventory.json",
+        "evidence/e743f12ce843--disabled-again--desktop/page.png",
+        "evidence/e743f12ce843--disabled-again--desktop/accessibility-tree.json",
+        "evidence/e743f12ce843--disabled-again--desktop/actions.json",
+        "evidence/e743f12ce843--disabled-again--desktop/keyboard.json",
+        "evidence/methods/native-reader/screen-reader.json",
+        "evidence/methods/native-reader/orca-debug.log",
+        "evidence/methods/browser/reflow-home.png",
+        "evidence/methods/browser/reflow-pagedown.png",
+        "evidence/methods/browser/reflow-end.png"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "この実ページの全DOM、属性、計算済み情報、AXとソースを照合した。対象: mainのh1 → p → #email-switch → #visual-stateという全内容"
+    },
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "実画像を読み、表示文字・折り返し・輪郭・隠れをこの対象について照合した: mainのh1 → p → #email-switch → #visual-stateという全内容"
+    },
+    {
+      "method": "screen-reader",
+      "status": "executed",
+      "reason": "実Orca 48.1の順次読み・名前・役割・状態変更と、画面・DOM・前後のフォーカスを対応付けた: mainのh1 → p → #email-switch → #visual-stateという全内容"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "実際の文・目的・文脈と原典の条件を読み、意味を比較した。対象: mainのh1 → p → #email-switch → #visual-stateという全内容"
+    }
+  ],
+  "evidence": [
+    "evidence/criterion-review.json",
+    "evidence/methods/source-scope/index.html",
+    "evidence/methods/source-scope/reader-controls.js",
+    "evidence/methods/source-scope/server.py.txt",
+    "evidence/methods/source-scope/scope.json",
+    "evidence/methods/browser/observations.json",
+    "evidence/e743f12ce843--disabled-again--desktop/dom.html",
+    "evidence/e743f12ce843--disabled-again--desktop/inventory.json",
+    "evidence/e743f12ce843--disabled-again--desktop/page.png",
+    "evidence/e743f12ce843--disabled-again--desktop/accessibility-tree.json",
+    "evidence/e743f12ce843--disabled-again--desktop/actions.json",
+    "evidence/e743f12ce843--disabled-again--desktop/keyboard.json",
+    "evidence/methods/native-reader/screen-reader.json",
+    "evidence/methods/native-reader/orca-debug.log",
+    "evidence/methods/browser/reflow-home.png",
+    "evidence/methods/browser/reflow-pagedown.png",
+    "evidence/methods/browser/reflow-end.png"
+  ],
+  "remaining": [],
+  "criterion_review_sha256": "b60ce0af0790ca8312a837177ca1888cdc2619f8c8c36ccdbf423fc91d31fa32",
+  "review_kind": "known controlled fixture, not a blind or professional-equivalence accuracy benchmark",
+  "recorded_at": "2026-11-14T21:19:14.938038+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/criterion-review.json",
+      "sha256": "b60ce0af0790ca8312a837177ca1888cdc2619f8c8c36ccdbf423fc91d31fa32"
+    },
+    {
+      "path": "evidence/methods/source-scope/index.html",
+      "sha256": "d1aab119e78f3bd57043d800d717a97b5ed6885ed72279105b40daadd0efb71d"
+    },
+    {
+      "path": "evidence/methods/source-scope/reader-controls.js",
+      "sha256": "4bf2bbd7e6a26244510267d8dabcda6a04fc3f84ee94d7aede5d58b2cf9b4a8d"
+    },
+    {
+      "path": "evidence/methods/source-scope/server.py.txt",
+      "sha256": "52fe84496da10c9f4bccfe99a0c110f1a4e7f6bb8f66ee81656866029de6b4d1"
+    },
+    {
+      "path": "evidence/methods/source-scope/scope.json",
+      "sha256": "22f4d0d0413a2492431507071837909fb6eb0b007f9e1ef78bf8a98dadc5d353"
+    },
+    {
+      "path": "evidence/methods/browser/observations.json",
+      "sha256": "5a61169b7b4aad018a1e08b31040be30b81abda06321b54922a707dbd01c7afd"
+    },
+    {
+      "path": "evidence/e743f12ce843--disabled-again--desktop/dom.html",
+      "sha256": "2fa8e934eebcbc3c57b66ad6c0196744669f27315ab3e83002ef195a3b5bcf35"
+    },
+    {
+      "path": "evidence/e743f12ce843--disabled-again--desktop/inventory.json",
+      "sha256": "333b290efe4e8571a0d589d220adc52d6d713c07cb46390ebffd26df61be6b3e"
+    },
+    {
+      "path": "evidence/e743f12ce843--disabled-again--desktop/page.png",
+      "sha256": "8a0212854c565fc73c63fd3903530f3845b6d86bedb39f890c8b48eacc1b96ea"
+    },
+    {
+      "path": "evidence/e743f12ce843--disabled-again--desktop/accessibility-tree.json",
+      "sha256": "3ebfda4383d36db4dbcaafca5e91b44260a9869b2398a61e0e7a709d240b7ab9"
+    },
+    {
+      "path": "evidence/e743f12ce843--disabled-again--desktop/actions.json",
+      "sha256": "d40958dbb4d1d1eea032e3fa961f75add5c8d76b8c0b9691e9b19c1bcb58ac43"
+    },
+    {
+      "path": "evidence/e743f12ce843--disabled-again--desktop/keyboard.json",
+      "sha256": "4966729db4763ff9b093203d0ac17e5ad78fc7f4cb4431e893ff6d86f7553621"
+    },
+    {
+      "path": "evidence/methods/native-reader/screen-reader.json",
+      "sha256": "7b3460850ae8270e31d0aa5a980106fd2607da57098cfd40c8c8da88db3d01af"
+    },
+    {
+      "path": "evidence/methods/native-reader/orca-debug.log",
+      "sha256": "8239e806cbc3a0d0cae57d3bd8432f0e8ca3e5871509195b61c7ead96cd05537"
+    },
+    {
+      "path": "evidence/methods/browser/reflow-home.png",
+      "sha256": "b33872594ca86be7709da89bfd76cbd8214f78468548b416b2a187d66d2bb6e4"
+    },
+    {
+      "path": "evidence/methods/browser/reflow-pagedown.png",
+      "sha256": "338041941c948a2aac4e3585dae9b34b1e503e5861cd3e7e433a1120decde674"
+    },
+    {
+      "path": "evidence/methods/browser/reflow-end.png",
+      "sha256": "bff03135e9f6f2cfba7658c2552e0cf0d5baa9256516ff0527ef5db2cf43afe1"
+    }
+  ]
+}

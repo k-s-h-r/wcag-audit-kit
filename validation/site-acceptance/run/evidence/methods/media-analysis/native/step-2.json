@@ -1,0 +1,49 @@
+{
+  "index": 2,
+  "action": {
+    "type": "reader.nextHeading",
+    "expect_contains": "Video instructions"
+  },
+  "focus_before": {
+    "tag": "a",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:29:33.673236+00:00",
+  "finished_at": "2026-11-15T00:29:35.074438+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/media",
+  "speech": [
+    {
+      "at": "2026-11-15T00:29:33.677541+00:00",
+      "line": 6432,
+      "phrase": "h",
+      "raw": "00:29:33.677541 - SPEECH OUTPUT: 'h' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:29:33.719593+00:00",
+      "line": 6660,
+      "phrase": "main content",
+      "raw": "00:29:33.719593 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:29:33.720745+00:00",
+      "line": 6667,
+      "phrase": "Video instructions heading 1",
+      "raw": "00:29:33.720745 - SPEECH OUTPUT: 'Video instructions heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#playback-state"
+      },
+      "text": "Not playing"
+    }
+  ]
+}

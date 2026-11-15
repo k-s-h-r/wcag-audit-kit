@@ -1,0 +1,38 @@
+{
+  "index": 4,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Tab"
+    ]
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "show-password",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:18:06.380125+00:00",
+  "finished_at": "2026-11-15T00:18:07.883132+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "sign-in",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/login",
+  "speech": [
+    {
+      "at": "2026-11-15T00:18:06.387934+00:00",
+      "line": 7019,
+      "phrase": "tab",
+      "raw": "00:18:06.387934 - SPEECH OUTPUT: 'tab' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:18:06.423119+00:00",
+      "line": 7210,
+      "phrase": "Sign in button.",
+      "raw": "00:18:06.423119 - SPEECH OUTPUT: 'Sign in button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": []
+}

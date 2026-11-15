@@ -1,0 +1,146 @@
+{
+  "case_id": "ee1978846e1c--anonymous--narrow--3.3.4",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "e9d6508543df386222e4fe47d4af3ddd95bc443bd580f55ed3f5215aca217c06",
+  "execution": "completed",
+  "outcome": "inapplicable",
+  "observed": "このcaseはhttp://127.0.0.1:4330/media / anonymous / narrow。表示の主内容はVideo instructions — Profile demo。可視見出し: ['Video instructions', 'Text description']。入力欄: []。この状態に金融・法律上の確定、保存済みユーザー情報の変更・削除、テスト回答の送信はない。認証cookieの変更をそのままこの業務データの条件へ置換していない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:3.3.4:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [],
+  "method_coverage": [
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/ee1978846e1c--anonymous--narrow/page.png",
+    "evidence/ee1978846e1c--anonymous--narrow/inventory.json",
+    "evidence/ee1978846e1c--anonymous--narrow/dom.html",
+    "evidence/ee1978846e1c--anonymous--narrow/accessibility-tree.json",
+    "evidence/ee1978846e1c--anonymous--narrow/actions.json",
+    "evidence/ee1978846e1c--anonymous--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/browser/narrow/015-captions-playing.png",
+    "evidence/methods/browser/narrow/015-captions-playing.json",
+    "evidence/methods/browser/narrow/015-captions-playing-ax.json",
+    "evidence/methods/browser/narrow/016-video-paused.png",
+    "evidence/methods/browser/narrow/016-video-paused.json",
+    "evidence/methods/browser/narrow/016-video-paused-ax.json",
+    "evidence/methods/browser/narrow/017-video-ended.png",
+    "evidence/methods/browser/narrow/017-video-ended.json",
+    "evidence/methods/browser/narrow/017-video-ended-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:35.894262+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/ee1978846e1c--anonymous--narrow/page.png",
+      "sha256": "ca513187044a31060b67e849f388954d331abb1ffd175057eac3f62a9086feb3"
+    },
+    {
+      "path": "evidence/ee1978846e1c--anonymous--narrow/inventory.json",
+      "sha256": "abcfcae99968cd1bb3b2504d7419c4a84487971d88cf7a23a356e8aaba765c42"
+    },
+    {
+      "path": "evidence/ee1978846e1c--anonymous--narrow/dom.html",
+      "sha256": "c8b0df04ed2e1f979f2ebb125839f105a2478c956b5b110505e153003d538181"
+    },
+    {
+      "path": "evidence/ee1978846e1c--anonymous--narrow/accessibility-tree.json",
+      "sha256": "4ecc3dffaadb80e34ca17b26d38a61365a52b05e766c646078a6789b0cb6a739"
+    },
+    {
+      "path": "evidence/ee1978846e1c--anonymous--narrow/actions.json",
+      "sha256": "ad4287eaa0a13ce8f39e4bbff8f2229488038ee59057556205726878a70ae3ab"
+    },
+    {
+      "path": "evidence/ee1978846e1c--anonymous--narrow/keyboard.json",
+      "sha256": "0b709e604bcf5ba63114f96c9c17bf7f795c3130c0cc5f4e7333ad6a8afb658e"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/015-captions-playing.png",
+      "sha256": "5ba74c2c39e21e58927fcb7529e0ff881778b1253eda023755f81ea76f104245"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/015-captions-playing.json",
+      "sha256": "70b4770cdbb590ba4bb77d31a09b93f68738279277dd4982a6ba402dbc9f34ed"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/015-captions-playing-ax.json",
+      "sha256": "9ff797b17610f08ea1625e8dd53eb6419a9a4bc5bd14b5071d4b73f52ed4db1b"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/016-video-paused.png",
+      "sha256": "ec2090305c436debb6c506ac57ec7e1ed88933488286f7831cdea208144da90a"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/016-video-paused.json",
+      "sha256": "9b5d56b6322b8808fd8210125741f077d0e50c375b12dc5247649b691c9eac7a"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/016-video-paused-ax.json",
+      "sha256": "21eca0092c0e9a5e2c0bfb7512b3ea98b4e39fd96df592775a51f02169ba82c0"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/017-video-ended.png",
+      "sha256": "b952713e84d02dc6d8f2368923bb76992fbe80d5a595f558662583991cf4c42f"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/017-video-ended.json",
+      "sha256": "6b1b59cc163f206ceebde6b935e1d6d1537fc68d293d5a266305a4ed64cd03c1"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/017-video-ended-ax.json",
+      "sha256": "9b6a2351a41ba473f7f020b3b94d50f79ba3ec78cc4cb97db202191d017932e2"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "case_id": "caption-display-good",
+  "url": "http://127.0.0.1:4317/media-captions/good.html",
+  "media": {
+    "selector": "#clip"
+  },
+  "prepare_actions": [
+    {
+      "type": "click",
+      "selector": "#captions"
+    }
+  ],
+  "play_action": {
+    "type": "click",
+    "selector": "#play"
+  },
+  "screenshot_times": [
+    1.2,
+    2.5,
+    5.7
+  ],
+  "max_seconds": 15
+}

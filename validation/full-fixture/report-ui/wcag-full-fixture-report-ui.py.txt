@@ -1,0 +1,30 @@
+import asyncio
+import json
+from pathlib import Path
+from playwright.async_api import async_playwright
+
+
+async def main():
+    root=Path('/workspace/wcag-audit-kit')
+    report=(root/'validation/full-fixture/good-run/report.html').read_text()
+    result=[]
+    async with async_playwright() as pw:
+        browser=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+        try:
+            for width in [1280,320]:
+                page=await browser.new_page(viewport={'width':width,'height':900})
+                await page.set_content(report)
+                await page.add_script_tag(path=str(root/'vendor/axe.min.js'))
+                a=await page.evaluate('async () => {const r=await axe.run();return r.violations.map(v=>({id:v.id,impact:v.impact,targets:v.nodes.map(n=>n.target)}))}')
+                dimensions=await page.evaluate('({width:innerWidth,docWidth:document.documentElement.scrollWidth,tables:[...document.querySelectorAll("table")].map(t=>({scrollWidth:t.scrollWidth,clientWidth:t.clientWidth})),rows:document.querySelectorAll("tbody tr").length})')
+                await page.screenshot(path=f'/tmp/wcag-full-fixture-report-{width}.png')
+                result.append({'width':width,'axe_violations':a,'dimensions':dimensions})
+                assert not a and dimensions['docWidth']==width
+                await page.close()
+        finally:
+            await browser.close()
+    Path('/tmp/wcag-full-fixture-report-ui.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+    print(json.dumps(result,ensure_ascii=False))
+
+
+asyncio.run(main())

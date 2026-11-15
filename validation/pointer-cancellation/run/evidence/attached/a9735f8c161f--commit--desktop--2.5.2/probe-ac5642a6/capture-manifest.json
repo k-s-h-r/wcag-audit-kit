@@ -1,0 +1,58 @@
+{
+  "pages": [
+    {
+      "id": "a9735f8c161f",
+      "url": "http://127.0.0.1:4317/pointer-cancel-bad.html"
+    }
+  ],
+  "unvisited": [],
+  "errors": [],
+  "discovered": [
+    "http://127.0.0.1:4317/pointer-cancel-bad.html"
+  ],
+  "captures": [
+    {
+      "key": "a9735f8c161f--initial--desktop",
+      "page_id": "a9735f8c161f",
+      "url": "http://127.0.0.1:4317/pointer-cancel-bad.html",
+      "state": "initial",
+      "environment": "desktop",
+      "execution": "completed",
+      "evidence_dir": "evidence/a9735f8c161f--initial--desktop",
+      "final_url": "http://127.0.0.1:4317/pointer-cancel-bad.html",
+      "title": "Pointer cancellation — down-event fixture",
+      "node_count": 16,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 0,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T17:44:07.734926+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "a9735f8c161f--probe--desktop",
+      "page_id": "a9735f8c161f",
+      "url": "http://127.0.0.1:4317/pointer-cancel-bad.html",
+      "state": "probe",
+      "environment": "desktop",
+      "execution": "completed",
+      "evidence_dir": "evidence/a9735f8c161f--probe--desktop",
+      "final_url": "http://127.0.0.1:4317/pointer-cancel-bad.html",
+      "title": "Pointer cancellation — down-event fixture",
+      "node_count": 18,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 16,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T17:44:09.617407+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    }
+  ],
+  "not_a_screen_reader_test": true,
+  "declared_states_without_page": [],
+  "linked_pages_exhausted": true,
+  "site_inventory_confirmed": false,
+  "scope_note": "リンクをたどった範囲のみ。未リンクURL・権限別画面・未知の状態の調査は別に必要"
+}

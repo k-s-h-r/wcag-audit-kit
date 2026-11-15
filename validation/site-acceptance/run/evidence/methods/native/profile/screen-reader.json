@@ -1,0 +1,677 @@
+{
+  "status": "collected",
+  "started_at": "2026-11-15T00:10:24.206947+00:00",
+  "case_id": "aa61afa5bf07--initial--desktop--3.3.1",
+  "request_sha256": "43891d86fb73eb3cfb2dad7f56ac9532e52fe24afa6ae9c4827f90511cbbb4f3",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "observations": [
+    {
+      "index": 1,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ]
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:10:30.467642+00:00",
+      "finished_at": "2026-11-15T00:10:31.869570+00:00",
+      "focus_after": {
+        "tag": "a",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/profile",
+      "speech": [
+        {
+          "at": "2026-11-15T00:10:30.474473+00:00",
+          "line": 5170,
+          "phrase": "left control",
+          "raw": "00:10:30.474473 - SPEECH OUTPUT: 'left control' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:10:30.520214+00:00",
+          "line": 5503,
+          "phrase": "leaving information.",
+          "raw": "00:10:30.520214 - SPEECH OUTPUT: 'leaving information.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:10:30.520988+00:00",
+          "line": 5510,
+          "phrase": "Skip to main content link.",
+          "raw": "00:10:30.520988 - SPEECH OUTPUT: 'Skip to main content link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#errors"
+          },
+          "text": "Correct the following"
+        },
+        {
+          "target": {
+            "selector": "#name",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": null
+          }
+        },
+        {
+          "target": {
+            "selector": "#email",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": null
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "reader.nextHeading",
+        "expect_contains": "Edit your profile"
+      },
+      "focus_before": {
+        "tag": "a",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:10:31.943546+00:00",
+      "finished_at": "2026-11-15T00:10:33.346011+00:00",
+      "focus_after": {
+        "tag": "main",
+        "id": "main",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/profile",
+      "speech": [
+        {
+          "at": "2026-11-15T00:10:31.948511+00:00",
+          "line": 5718,
+          "phrase": "h",
+          "raw": "00:10:31.948511 - SPEECH OUTPUT: 'h' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:10:31.988032+00:00",
+          "line": 5943,
+          "phrase": "main content",
+          "raw": "00:10:31.988032 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:10:31.989073+00:00",
+          "line": 5950,
+          "phrase": "Edit your profile heading 1",
+          "raw": "00:10:31.989073 - SPEECH OUTPUT: 'Edit your profile heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#errors"
+          },
+          "text": "Correct the following"
+        },
+        {
+          "target": {
+            "selector": "#name",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": null
+          }
+        },
+        {
+          "target": {
+            "selector": "#email",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": null
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "browser.fill",
+        "selector": "#name",
+        "value": "***"
+      },
+      "focus_before": {
+        "tag": "main",
+        "id": "main",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:10:33.448380+00:00",
+      "finished_at": "2026-11-15T00:10:34.860135+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "name",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/profile",
+      "speech": [
+        {
+          "at": "2026-11-15T00:10:33.507706+00:00",
+          "line": 6391,
+          "phrase": "Name (required) entry required.",
+          "raw": "00:10:33.507706 - SPEECH OUTPUT: 'Name (required) entry required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#errors"
+          },
+          "text": "Correct the following"
+        },
+        {
+          "target": {
+            "selector": "#name",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": null
+          }
+        },
+        {
+          "target": {
+            "selector": "#email",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": null
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "browser.fill",
+        "selector": "#email",
+        "value": "***"
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "name",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:10:34.924817+00:00",
+      "finished_at": "2026-11-15T00:10:36.334237+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "email",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/profile",
+      "speech": [
+        {
+          "at": "2026-11-15T00:10:34.974223+00:00",
+          "line": 6718,
+          "phrase": "Email (required) entry not-an-email required.",
+          "raw": "00:10:34.974223 - SPEECH OUTPUT: 'Email (required) entry not-an-email required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:10:34.975295+00:00",
+          "line": 6725,
+          "phrase": "invalid entry.",
+          "raw": "00:10:34.975295 - SPEECH OUTPUT: 'invalid entry.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#errors"
+          },
+          "text": "Correct the following"
+        },
+        {
+          "target": {
+            "selector": "#name",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": null
+          }
+        },
+        {
+          "target": {
+            "selector": "#email",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": null
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ],
+        "expect_contains": "Review changes"
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "email",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:10:36.391063+00:00",
+      "finished_at": "2026-11-15T00:10:37.793499+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "review",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/profile",
+      "speech": [
+        {
+          "at": "2026-11-15T00:10:36.397457+00:00",
+          "line": 6992,
+          "phrase": "tab",
+          "raw": "00:10:36.397457 - SPEECH OUTPUT: 'tab' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:10:36.441253+00:00",
+          "line": 7185,
+          "phrase": "Review changes button.",
+          "raw": "00:10:36.441253 - SPEECH OUTPUT: 'Review changes button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#errors"
+          },
+          "text": "Correct the following"
+        },
+        {
+          "target": {
+            "selector": "#name",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": null
+          }
+        },
+        {
+          "target": {
+            "selector": "#email",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": null
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "Correct the following"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "review",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:10:37.857631+00:00",
+      "finished_at": "2026-11-15T00:10:39.259139+00:00",
+      "focus_after": {
+        "tag": "div",
+        "id": "errors",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/profile",
+      "speech": [
+        {
+          "at": "2026-11-15T00:10:37.864222+00:00",
+          "line": 7237,
+          "phrase": "space",
+          "raw": "00:10:37.864222 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:10:37.924060+00:00",
+          "line": 7499,
+          "phrase": "leaving form.",
+          "raw": "00:10:37.924060 - SPEECH OUTPUT: 'leaving form.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:10:37.924968+00:00",
+          "line": 7506,
+          "phrase": "Correct the following Enter a name. Enter an email such as name@example.test.",
+          "raw": "00:10:37.924968 - SPEECH OUTPUT: 'Correct the following Enter a name. Enter an email such as name@example.test.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:10:37.926117+00:00",
+          "line": 7513,
+          "phrase": "clickable.",
+          "raw": "00:10:37.926117 - SPEECH OUTPUT: 'clickable.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#errors"
+          },
+          "text": "Correct the following\nEnter a name.\nEnter an email such as name@example.test."
+        },
+        {
+          "target": {
+            "selector": "#name",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": "true"
+          }
+        },
+        {
+          "target": {
+            "selector": "#email",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": "true"
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Down"
+        ]
+      },
+      "focus_before": {
+        "tag": "div",
+        "id": "errors",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:10:39.346060+00:00",
+      "finished_at": "2026-11-15T00:10:40.747614+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/profile",
+      "speech": [
+        {
+          "at": "2026-11-15T00:10:39.551559+00:00",
+          "line": 8416,
+          "phrase": "List with 2 items",
+          "raw": "00:10:39.551559 - SPEECH OUTPUT: 'List with 2 items' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:10:39.552445+00:00",
+          "line": 8423,
+          "phrase": "• ",
+          "raw": "00:10:39.552445 - SPEECH OUTPUT: '• ' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:10:39.553285+00:00",
+          "line": 8431,
+          "phrase": "Enter a name. link.",
+          "raw": "00:10:39.553285 - SPEECH OUTPUT: 'Enter a name. link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#errors"
+          },
+          "text": "Correct the following\nEnter a name.\nEnter an email such as name@example.test."
+        },
+        {
+          "target": {
+            "selector": "#name",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": "true"
+          }
+        },
+        {
+          "target": {
+            "selector": "#email",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": "true"
+          }
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Down"
+        ]
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:10:40.830159+00:00",
+      "finished_at": "2026-11-15T00:10:42.231006+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/profile",
+      "speech": [
+        {
+          "at": "2026-11-15T00:10:41.003458+00:00",
+          "line": 9120,
+          "phrase": "• ",
+          "raw": "00:10:41.003458 - SPEECH OUTPUT: '• ' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:10:41.004154+00:00",
+          "line": 9128,
+          "phrase": "Enter an email such as name@example.test. link.",
+          "raw": "00:10:41.004154 - SPEECH OUTPUT: 'Enter an email such as name@example.test. link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#errors"
+          },
+          "text": "Correct the following\nEnter a name.\nEnter an email such as name@example.test."
+        },
+        {
+          "target": {
+            "selector": "#name",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": "true"
+          }
+        },
+        {
+          "target": {
+            "selector": "#email",
+            "attributes": [
+              "aria-invalid"
+            ]
+          },
+          "text": "",
+          "attributes": {
+            "aria-invalid": "true"
+          }
+        }
+      ]
+    }
+  ],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "case_id": "aa61afa5bf07--initial--desktop--3.3.1",
+    "url": "http://127.0.0.1:4330/profile",
+    "observe": [
+      {
+        "selector": "#errors"
+      },
+      {
+        "selector": "#name",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      {
+        "selector": "#email",
+        "attributes": [
+          "aria-invalid"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ]
+      },
+      {
+        "type": "reader.nextHeading",
+        "expect_contains": "Edit your profile"
+      },
+      {
+        "type": "browser.fill",
+        "selector": "#name",
+        "value": "***"
+      },
+      {
+        "type": "browser.fill",
+        "selector": "#email",
+        "value": "***"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ],
+        "expect_contains": "Review changes"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "Correct the following"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Down"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Down"
+        ]
+      }
+    ],
+    "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+    "locale": "en-US",
+    "settle_ms": 1400
+  },
+  "cleanup": {
+    "debug_log_sha256": "ad3557a91c1b1826b1b9e6ed9d942d6d3e63941e0e090e5fa5c4c26fe3d62091",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-15T00:10:43.861517+00:00"
+}

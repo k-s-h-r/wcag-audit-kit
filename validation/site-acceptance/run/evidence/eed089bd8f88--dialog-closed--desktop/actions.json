@@ -1,0 +1,84 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "click",
+      "selector": "#about"
+    },
+    "url": "http://127.0.0.1:4330/",
+    "focus": {
+      "tag": "button",
+      "id": "close-about",
+      "documentHasFocus": true,
+      "text": "Close",
+      "name": null,
+      "rect": {
+        "x": 463.390625,
+        "y": 491.40625,
+        "width": 78.8125,
+        "height": 51.984375
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "close-about"
+        },
+        {
+          "tag": "dialog",
+          "id": "about-dialog"
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:01:14.433711+00:00",
+    "observed_at": "2026-11-15T00:01:14.563062+00:00",
+    "observations": []
+  },
+  {
+    "index": 2,
+    "action": {
+      "type": "click",
+      "selector": "#close-about"
+    },
+    "url": "http://127.0.0.1:4330/",
+    "focus": {
+      "tag": "button",
+      "id": "about",
+      "documentHasFocus": true,
+      "text": "About this demo",
+      "name": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 690.515625,
+        "width": 162.859375,
+        "height": 51.984375
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "about"
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:01:14.592094+00:00",
+    "observed_at": "2026-11-15T00:01:14.709334+00:00",
+    "observations": []
+  }
+]

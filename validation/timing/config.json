@@ -1,0 +1,32 @@
+{
+  "schema_version": "1",
+  "url": "http://127.0.0.1:4326",
+  "level": "AAA",
+  "scope": {
+    "include": [
+      "/timing.html"
+    ],
+    "exclude": [],
+    "seeds": [
+      "/timing.html?variant=good",
+      "/timing.html?variant=bad"
+    ],
+    "known_pages": [
+      "/timing.html?variant=good",
+      "/timing.html?variant=bad"
+    ],
+    "max_pages": 4
+  },
+  "environments": [
+    {
+      "id": "desktop",
+      "viewport": {
+        "width": 1100,
+        "height": 1000
+      },
+      "zoom": 1
+    }
+  ],
+  "states": [],
+  "keyboard_steps": 0
+}

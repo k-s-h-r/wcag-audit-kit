@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="en" data-variant="thin"><head><meta charset="utf-8">
+<title>Focus area calibration</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{font:22px/1.6 sans-serif;color:#000;background:#fff;margin:3rem}
+#probe{appearance:none;box-sizing:border-box;width:240px;height:80px;font:inherit;
+border:2px solid #333;border-radius:0;background:#fff;color:#000;outline:none;box-shadow:none}
+#probe:focus-visible{outline:4px solid #005bba;outline-offset:4px}
+html[data-variant="thin"] #probe:focus-visible{outline-width:1px}
+html[data-variant="similar"] #probe{outline:4px solid #005bba;outline-offset:4px}
+html[data-variant="similar"] #probe:focus-visible{outline-color:#005cbb}
+</style>
+</head><body><main><h1>Focus area calibration</h1>
+<p>Use Tab to focus the example button. These controlled examples test focus area and color change.</p>
+<button id="probe" type="button">Example button</button>
+<p>Activations: <output id="count">0</output></p></main>
+<script>
+const variant=new URLSearchParams(location.search).get('variant')||'good';
+if(!['good','thin','similar'].includes(variant))throw new Error('Unknown calibration variant');
+document.documentElement.dataset.variant=variant;
+let count=0;
+document.querySelector('#probe').addEventListener('click',()=>document.querySelector('#count').textContent=String(++count));
+</script>
+
+</body></html>

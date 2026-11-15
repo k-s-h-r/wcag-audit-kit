@@ -1,0 +1,22 @@
+import json,subprocess,sys,shutil
+from pathlib import Path
+ROOT=Path('/workspace/wcag-audit-kit');OUT=Path('/tmp/wcag-acceptance-orientation-001');OUT.mkdir(exist_ok=False)
+shutil.copy2(__file__,OUT/'executed-source.py.txt')
+plan=json.loads(Path('/tmp/wcag-acceptance-audit-001/plan.json').read_text())['cases'];rows=[]
+for path in ['/','/profile','/media','/help','/login']:
+ name=path.strip('/') or 'home';case=next(c for c in plan if c['page_url']=='http://127.0.0.1:4330'+path and c['state']=='initial' and c['environment']=='desktop' and c['criterion']=='1.3.4')
+ actions=[]
+ if path=='/profile':actions += [{'type':'fill','selector':'#name','value':'Rotated Demo'},{'type':'fill','selector':'#email','value':'rotation@example.test'}]
+ if path=='/login':actions += [{'type':'fill','selector':'#login-email','value':'demo@example.test'},{'type':'fill','selector':'#password','value':'Test-password-42!'}]
+ for index,(orientation,w,h) in enumerate([('landscape-primary',900,600),('portrait-primary',600,900),('landscape-secondary',900,600),('portrait-secondary',600,900)]):
+  actions.append({'type':'rotate','orientation':orientation,'viewport':{'width':w,'height':h},'assert':[{'selector':'#main','visible':True}]})
+  if path=='/':actions.append({'type':'click','selector':'#count-button','assert':[{'selector':'#count','text':str(index+1)}]})
+ if path=='/profile':actions += [{'type':'click','selector':'#review','assert':[{'selector':'#review-name','text':'Rotated Demo'},{'selector':'#review-email','text':'rotation@example.test'}]},{'type':'click','selector':'#confirm','assert':[{'selector':'#completion','visible':True}]}]
+ if path=='/login':actions += [{'type':'click','selector':'#sign-in','assert':[{'selector':'#login-status','text':'Signed in. Continue to profile.'}]}]
+ if path=='/media':actions += [{'type':'click','selector':'#captions-toggle'},{'type':'click','selector':'#play'},{'type':'wait_for','selector':'#playback-state:text-is("Ended")','assert':[{'selector':'#playback-state','text':'Ended'}]}]
+ request={'case_id':case['case_id'],'url':case['page_url'],'auth_state':'/tmp/wcag-acceptance-bootstrap-002/storage-state.json','locale':'en-US','viewport':{'width':900,'height':600},'orientation':'landscape-primary','assert':[{'selector':'#main','visible':True}],'actions':actions}
+ p=OUT/(name+'-request.json');p.write_text(json.dumps(request,indent=2)+'\n')
+ with (OUT/(name+'-stdout.txt')).open('w') as so,(OUT/(name+'-stderr.txt')).open('w') as se:
+  r=subprocess.run([sys.executable,str(ROOT/'scripts/orientation_probe.py'),'--request',str(p),'--out',str(OUT/name)],stdout=so,stderr=se)
+ rows.append({'page':path,'exit_code':r.returncode});print(json.dumps(rows[-1]),flush=True)
+(OUT/'results.json').write_text(json.dumps(rows,indent=2)+'\n')

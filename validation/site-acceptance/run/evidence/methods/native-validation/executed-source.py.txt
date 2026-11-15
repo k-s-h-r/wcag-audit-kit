@@ -1,0 +1,30 @@
+import asyncio,json,os,subprocess,sys,shutil
+from pathlib import Path
+from playwright.async_api import async_playwright
+ROOT=Path('/workspace/wcag-audit-kit');OUT=Path('/tmp/wcag-acceptance-native-validation-001')
+sys.path.insert(0,str(ROOT/'scripts'));from native_zoom import NativeDisplay
+async def main():
+ OUT.mkdir(exist_ok=False);shutil.copy2(__file__,OUT/'executed-source.py.txt')
+ os.environ['WCAG_XVFB']='/tmp/wcag-at-root/usr/bin/Xvfb';os.environ['LD_LIBRARY_PATH']='/tmp/wcag-at-root/usr/lib/x86_64-linux-gnu'
+ display=NativeDisplay(OUT).start();rows=[]
+ try:
+  async with async_playwright() as pw:
+   b=await pw.chromium.launch(executable_path='/usr/bin/chromium',headless=False,env=display.env,args=['--no-sandbox'])
+   try:
+    p=await b.new_page(no_viewport=True)
+    for name,email,password in [('missing-email','',''),('missing-password','demo@example.test',''),('malformed-email','invalid','wrong')]:
+     await p.goto('http://127.0.0.1:4330/login',wait_until='networkidle');await p.locator('#login-email').fill(email);await p.locator('#password').fill(password);await p.locator('#sign-in').click();await p.wait_for_timeout(250)
+     await display.screenshot(OUT/(name+'-desktop.png'))
+     rows.append(await p.evaluate('''() => ({focus:document.activeElement.id,fields:[...document.querySelectorAll('input')].map(e=>({id:e.id,message:e.validationMessage}))})'''))
+   finally:await b.close()
+ finally:display.close()
+ (OUT/'native-validation.json').write_text(json.dumps(rows,indent=2)+'\n')
+asyncio.run(main())
+plan=json.loads(Path('/tmp/wcag-acceptance-audit-001/plan.json').read_text())['cases'];case=next(c for c in plan if c['page_url']=='http://127.0.0.1:4330/' and c['state']=='initial' and c['environment']=='desktop' and c['criterion']=='1.1.1')
+request={'case_id':case['case_id'],'url':case['page_url'],'auth_state':'/tmp/wcag-acceptance-bootstrap-002/storage-state.json','locale':'en-US','settle_ms':1400,
+ 'actions':[{'type':'reader.press','keys':['Control_L','Home']},{'type':'reader.press','keys':['Return']},
+ {'type':'reader.press','keys':['Control_L','Home']},{'type':'reader.nextHeading','expect_contains':'Update your demo profile'},{'type':'reader.press','keys':['g'],'expect_contains':'Three stages'}]}
+p=OUT/'graphic-request.json';p.write_text(json.dumps(request,indent=2)+'\n')
+with (OUT/'native-stdout.txt').open('w') as so,(OUT/'native-stderr.txt').open('w') as se:
+ r=subprocess.run([sys.executable,str(ROOT/'scripts/screen_reader_native.py'),'--root','/tmp/wcag-at-root','--request',str(p),'--out',str(OUT/'graphic-native')],stdout=so,stderr=se)
+print(json.dumps({'graphic_exit':r.returncode,'out':str(OUT)}),flush=True)

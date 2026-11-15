@@ -1,0 +1,139 @@
+{
+  "case_id": "c8bf6e1d450e--disabled-again--desktop--4.1.2",
+  "config_digest": "0275e8f971e54b2824b01251dea7b9d4da67bd5fce6bb6b659ae1bd2cca69411",
+  "normative_sha256": "e4279d556f9b92a8ea2796010e184ee8fe5ddbb1b8edecf8758fedaeeef080f7",
+  "execution": "completed",
+  "outcome": "failed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "URLを開き、実OrcaでCtrl+Home、Down、Downにより見出し・説明・部品の名前と役割を取得",
+    "XTestのSpaceでOnにし、表示・aria-checked・AX checked・発話を比較",
+    "SpaceでOffへ戻し、さらにOn→Offを繰り返し同じ不一致を再確認",
+    "全HTML・JSを読み、同じ部品の表示更新と公開状態の更新の欠落を対応付ける"
+  ],
+  "tests_applied": [
+    "WCAG22:4.1.2:normative",
+    "fixture-state-roundtrip:actual-AX-and-Orca"
+  ],
+  "observed": "このcaseはdisabled-again、表示はOff。唯一の部品の名前Email notificationsとcheckboxの役割は取得できるが、表示Onのときもaria-checkedとAXのcheckedがfalseのまま。実Orcaの初期の名前・役割・not checkedは取得できたため、環境全体の沈黙ではない。XTestのSpaceによるOff→On→Off→On→Offで、Onの2回とも公開状態はfalse、発話はキーのechoだけで選択状態の変更を取得しなかった。無発話だけでなく、実表示と公開値の不一致を根拠に4.1.2の不適合とした。部品はこれ一つで、全選択値と復帰後の再操作を検査した。",
+  "targets": [
+    {
+      "target": "button#email-switch[role=checkbox]",
+      "expected": "利用者がOnへ切り替えたら公開されたcheckboxのcheckedもtrueとなり、Offへ戻せばfalseとなる。名前・役割に加え、実際の選択状態とその変更を支援技術が取得できる。",
+      "observed": "このcaseはdisabled-again、表示はOff。唯一の部品の名前Email notificationsとcheckboxの役割は取得できるが、表示Onのときもaria-checkedとAXのcheckedがfalseのまま。実Orcaの初期の名前・役割・not checkedは取得できたため、環境全体の沈黙ではない。XTestのSpaceによるOff→On→Off→On→Offで、Onの2回とも公開状態はfalse、発話はキーのechoだけで選択状態の変更を取得しなかった。無発話だけでなく、実表示と公開値の不一致を根拠に4.1.2の不適合とした。部品はこれ一つで、全選択値と復帰後の再操作を検査した。",
+      "outcome": "failed",
+      "evidence": [
+        "evidence/methods/source-scope/index.html",
+        "evidence/methods/source-scope/reader-controls.js",
+        "evidence/methods/source-scope/server.py.txt",
+        "evidence/methods/native-reader/screen-reader.json",
+        "evidence/methods/native-reader/orca-debug.log",
+        "evidence/methods/native-reader/request.json",
+        "evidence/methods/native-reader/step-3.png",
+        "evidence/methods/native-reader/step-4.png",
+        "evidence/methods/native-reader/step-6.png",
+        "evidence/c8bf6e1d450e--disabled-again--desktop/dom.html",
+        "evidence/c8bf6e1d450e--disabled-again--desktop/inventory.json",
+        "evidence/c8bf6e1d450e--disabled-again--desktop/page.png",
+        "evidence/c8bf6e1d450e--disabled-again--desktop/accessibility-tree.json",
+        "evidence/c8bf6e1d450e--disabled-again--desktop/actions.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "全DOMと全ソース、各状態のAXを調べ、Onでもcheckedがfalseであることを確認した。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "唯一の機能でOff→On→Off→On→Offを通常のネイティブキーで操作し、各段階の表示と公開状態を照合した。"
+    },
+    {
+      "method": "screen-reader",
+      "status": "executed",
+      "reason": "実Orca 48.1が名前・役割・初期状態を読み、状態変更を通知しないことを、対応する実表示・属性・AXと共に確認した。"
+    }
+  ],
+  "evidence": [
+    "evidence/methods/source-scope/index.html",
+    "evidence/methods/source-scope/reader-controls.js",
+    "evidence/methods/source-scope/server.py.txt",
+    "evidence/methods/native-reader/screen-reader.json",
+    "evidence/methods/native-reader/orca-debug.log",
+    "evidence/methods/native-reader/request.json",
+    "evidence/methods/native-reader/step-3.png",
+    "evidence/methods/native-reader/step-4.png",
+    "evidence/methods/native-reader/step-6.png",
+    "evidence/c8bf6e1d450e--disabled-again--desktop/dom.html",
+    "evidence/c8bf6e1d450e--disabled-again--desktop/inventory.json",
+    "evidence/c8bf6e1d450e--disabled-again--desktop/page.png",
+    "evidence/c8bf6e1d450e--disabled-again--desktop/accessibility-tree.json",
+    "evidence/c8bf6e1d450e--disabled-again--desktop/actions.json"
+  ],
+  "remaining": [],
+  "review_kind": "Known negative control; not a blind accuracy evaluation. Other criteria are not assessed in this run.",
+  "recorded_at": "2026-11-14T21:28:50.791348+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/methods/source-scope/index.html",
+      "sha256": "403e05267a7ec98f93d36c628db397ba6343b0e3c59cbd49d0336de318fff89a"
+    },
+    {
+      "path": "evidence/methods/source-scope/reader-controls.js",
+      "sha256": "4bf2bbd7e6a26244510267d8dabcda6a04fc3f84ee94d7aede5d58b2cf9b4a8d"
+    },
+    {
+      "path": "evidence/methods/source-scope/server.py.txt",
+      "sha256": "52fe84496da10c9f4bccfe99a0c110f1a4e7f6bb8f66ee81656866029de6b4d1"
+    },
+    {
+      "path": "evidence/methods/native-reader/screen-reader.json",
+      "sha256": "dc6b42d981dd00829bc95d32afef645e7589f86c6da1e5debcb67a011a447f4d"
+    },
+    {
+      "path": "evidence/methods/native-reader/orca-debug.log",
+      "sha256": "a0eb7355b9b07d30eefbf23d9a38e3ccc2f951b19130a966c5e3f8838963f382"
+    },
+    {
+      "path": "evidence/methods/native-reader/request.json",
+      "sha256": "33c66fcb997dc48c164cb4ada398666fe5e9948dc8779816854d38af37e1f47a"
+    },
+    {
+      "path": "evidence/methods/native-reader/step-3.png",
+      "sha256": "8a0212854c565fc73c63fd3903530f3845b6d86bedb39f890c8b48eacc1b96ea"
+    },
+    {
+      "path": "evidence/methods/native-reader/step-4.png",
+      "sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+    },
+    {
+      "path": "evidence/methods/native-reader/step-6.png",
+      "sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+    },
+    {
+      "path": "evidence/c8bf6e1d450e--disabled-again--desktop/dom.html",
+      "sha256": "1a1f6e08edd811c90220ac98ed9c7c147018fe050a12087a0dda8faf066352ef"
+    },
+    {
+      "path": "evidence/c8bf6e1d450e--disabled-again--desktop/inventory.json",
+      "sha256": "e1a831b206e9dec56759f48b54ee00b813a879e53014ee8b603fa0f5a71310d8"
+    },
+    {
+      "path": "evidence/c8bf6e1d450e--disabled-again--desktop/page.png",
+      "sha256": "8a0212854c565fc73c63fd3903530f3845b6d86bedb39f890c8b48eacc1b96ea"
+    },
+    {
+      "path": "evidence/c8bf6e1d450e--disabled-again--desktop/accessibility-tree.json",
+      "sha256": "bed85b873913071a666235bea63764c9e46d4587647e32aa5e3ad95884e91055"
+    },
+    {
+      "path": "evidence/c8bf6e1d450e--disabled-again--desktop/actions.json",
+      "sha256": "fe115e668bcc576978e8502068269527d7d2c94b800e1f400efaea0d8b395f57"
+    }
+  ]
+}

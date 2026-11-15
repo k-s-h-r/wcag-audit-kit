@@ -1,0 +1,61 @@
+{
+  "index": 1,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Control_L",
+      "Home"
+    ],
+    "expect_contains": "Notification settings"
+  },
+  "focus_before": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-14T21:08:46.992853+00:00",
+  "finished_at": "2026-11-14T21:08:48.594743+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4320/",
+  "speech": [
+    {
+      "at": "2026-11-14T21:08:47.002734+00:00",
+      "line": 2140,
+      "phrase": "left control",
+      "raw": "21:08:47.002734 - SPEECH OUTPUT: 'left control' {'established': False}"
+    },
+    {
+      "at": "2026-11-14T21:08:47.053676+00:00",
+      "line": 2454,
+      "phrase": "Notification settings heading 1",
+      "raw": "21:08:47.053676 - SPEECH OUTPUT: 'Notification settings heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#visual-state"
+      },
+      "text": "Off"
+    },
+    {
+      "target": {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      },
+      "text": "Email notifications",
+      "attributes": {
+        "role": "checkbox",
+        "aria-checked": "false"
+      }
+    }
+  ]
+}

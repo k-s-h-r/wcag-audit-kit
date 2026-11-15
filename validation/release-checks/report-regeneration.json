@@ -1,0 +1,137 @@
+{
+  "note": "Re-rendering from frozen definitions is not re-testing the sites. Counts and completion were unchanged.",
+  "runs": [
+    {
+      "run": "validation/act-title/run-html",
+      "counts": {
+        "not_run": 979,
+        "failed": 8,
+        "passed": 3
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/act-title/run-svg",
+      "counts": {
+        "not_run": 110
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/dragging/method-control",
+      "counts": {
+        "not_run": 110
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/dragging/run-002",
+      "counts": {
+        "not_run": 438,
+        "passed": 1,
+        "failed": 1
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/focus-appearance/run",
+      "counts": {
+        "not_run": 255,
+        "passed": 1,
+        "failed": 2
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/full-fixture/bad-run",
+      "counts": {
+        "not_run": 162,
+        "failed": 3
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/full-fixture/good-run",
+      "counts": {
+        "inapplicable": 90,
+        "passed": 75
+      },
+      "audit_complete": true
+    },
+    {
+      "run": "validation/media/run-001",
+      "counts": {
+        "not_run": 54,
+        "cant_tell": 1
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/native-zoom/run-004",
+      "counts": {
+        "not_run": 219,
+        "cant_tell": 1
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/pointer-cancellation/method-control",
+      "counts": {
+        "not_run": 110
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/pointer-cancellation/run",
+      "counts": {
+        "not_run": 324,
+        "passed": 3,
+        "failed": 3
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/recovery/completed-run",
+      "counts": {
+        "not_run": 165
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/recovery/interrupted-run",
+      "counts": {
+        "not_run": 110
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/reduced-motion/run",
+      "counts": {
+        "not_run": 170,
+        "passed": 1,
+        "failed": 1
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/site-acceptance/run",
+      "counts": {
+        "passed": 1342,
+        "inapplicable": 762,
+        "cant_tell": 80,
+        "failed": 16
+      },
+      "audit_complete": false
+    },
+    {
+      "run": "validation/timing/run",
+      "counts": {
+        "not_run": 164,
+        "passed": 3,
+        "inapplicable": 1,
+        "failed": 4
+      },
+      "audit_complete": false
+    }
+  ]
+}

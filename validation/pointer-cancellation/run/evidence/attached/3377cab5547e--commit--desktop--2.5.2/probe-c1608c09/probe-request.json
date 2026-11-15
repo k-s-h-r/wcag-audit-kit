@@ -1,0 +1,41 @@
+{
+  "actions": [
+    {
+      "type": "pointer_move",
+      "selector": "#append"
+    },
+    {
+      "type": "pointer_down",
+      "selector": "#append"
+    },
+    {
+      "type": "pointer_move",
+      "selector": "#cancel-area"
+    },
+    {
+      "type": "pointer_up"
+    },
+    {
+      "type": "press",
+      "key": "Escape"
+    },
+    {
+      "type": "press",
+      "key": "Control+z"
+    },
+    {
+      "type": "reload"
+    }
+  ],
+  "observe": [
+    {
+      "selector": "#count"
+    }
+  ],
+  "assert": [
+    {
+      "selector": "#count",
+      "text": "1"
+    }
+  ]
+}

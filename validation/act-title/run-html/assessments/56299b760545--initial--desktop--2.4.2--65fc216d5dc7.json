@@ -1,0 +1,65 @@
+{
+  "case_id": "56299b760545--initial--desktop--2.4.2",
+  "config_digest": "501fbc6ae0d59b19d06a51dfe2977508ddba6a944b9bcf8689edc4aa09b59d68",
+  "normative_sha256": "c8ea15c57c75772ac694984252bafe819baec75f9703c5ab3da13e51455ddcf6",
+  "outcome": "passed",
+  "execution": "completed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "remaining": [],
+  "observed": "本文がクレメンタインの収穫時期を説明し、題名がその主題を示している。",
+  "steps_executed": [
+    "対象URLを独立したHTTPのトップレベル文書としてChromiumで開いた。",
+    "ブラウザーのdocument.titleと各titleの名前空間・テキストノード・順序を取得した。",
+    "本文と題名の主題・目的を比較した。"
+  ],
+  "tests_applied": [
+    "ACT/c4a8a4@01577d2f2d18a8f1f21239690fb7e0bd9aba532b14f758600369a0c3395ad4de"
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "実ブラウザーの文書と各titleの順序・名前空間・テキストを取得した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "本文がクレメンタインの収穫時期を説明し、題名がその主題を示している。"
+    }
+  ],
+  "targets": [
+    {
+      "target": "このトップレベルHTML文書の題名",
+      "expected": "ページの主題又は目的を説明する題名がある。",
+      "observed": "本文がクレメンタインの収穫時期を説明し、題名がその主題を示している。",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/56299b760545--initial--desktop/inventory.json",
+        "evidence/56299b760545--initial--desktop/dom.html",
+        "evidence/56299b760545--initial--desktop/page.png"
+      ]
+    }
+  ],
+  "evidence": [
+    "evidence/56299b760545--initial--desktop/inventory.json",
+    "evidence/56299b760545--initial--desktop/dom.html",
+    "evidence/56299b760545--initial--desktop/page.png"
+  ],
+  "recorded_at": "2026-11-14T16:54:41.839364+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/56299b760545--initial--desktop/inventory.json",
+      "sha256": "4ba5c44593ec38f9d6fb19d21bee3f7efb6e1e9878a2c3ee85cdaee3b23d58ea"
+    },
+    {
+      "path": "evidence/56299b760545--initial--desktop/dom.html",
+      "sha256": "b06c92e09818d3980d54e17d6b355762590cc447d2a7cd60f910ee9dfefdc61c"
+    },
+    {
+      "path": "evidence/56299b760545--initial--desktop/page.png",
+      "sha256": "000979a74d2f0730be51a460f98f356893a83e3d9d794cc3a11d73255f8b6bad"
+    }
+  ]
+}

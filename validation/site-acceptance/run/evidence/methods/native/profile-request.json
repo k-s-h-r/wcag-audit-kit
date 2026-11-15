@@ -1,0 +1,73 @@
+{
+  "case_id": "aa61afa5bf07--initial--desktop--3.3.1",
+  "url": "http://127.0.0.1:4330/profile",
+  "observe": [
+    {
+      "selector": "#errors"
+    },
+    {
+      "selector": "#name",
+      "attributes": [
+        "aria-invalid"
+      ]
+    },
+    {
+      "selector": "#email",
+      "attributes": [
+        "aria-invalid"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "reader.press",
+      "keys": [
+        "Control_L",
+        "Home"
+      ]
+    },
+    {
+      "type": "reader.nextHeading",
+      "expect_contains": "Edit your profile"
+    },
+    {
+      "type": "browser.fill",
+      "selector": "#name",
+      "value": ""
+    },
+    {
+      "type": "browser.fill",
+      "selector": "#email",
+      "value": "not-an-email"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Tab"
+      ],
+      "expect_contains": "Review changes"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "space"
+      ],
+      "expect_contains": "Correct the following"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Down"
+      ]
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Down"
+      ]
+    }
+  ],
+  "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+  "locale": "en-US",
+  "settle_ms": 1400
+}

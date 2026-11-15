@@ -1,0 +1,541 @@
+{
+  "status": "collected",
+  "case_id": "caption-display-wrong-text",
+  "started_at": "2026-11-14T19:48:34.905736+00:00",
+  "request_sha256": "a246e9873887b0782bd67f6205ffc533f8013b8dae499740dab07b4f81c4a5ef",
+  "actions": [
+    {
+      "action": {
+        "type": "click",
+        "selector": "#captions"
+      },
+      "started_at": "2026-11-14T19:48:36.106401+00:00",
+      "observed_at": "2026-11-14T19:48:36.145115+00:00",
+      "player": {
+        "currentTime": 0,
+        "duration": 7.008,
+        "paused": true,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:4317/media-captions/clip.webm",
+        "played": [],
+        "quality": {
+          "creationTime": 361.6000000014901,
+          "totalVideoFrames": 4,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": []
+          }
+        ]
+      }
+    },
+    {
+      "action": {
+        "type": "click",
+        "selector": "#play"
+      },
+      "started_at": "2026-11-14T19:48:36.162251+00:00",
+      "observed_at": "2026-11-14T19:48:36.216482+00:00",
+      "player": {
+        "currentTime": 0.02069,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:4317/media-captions/clip.webm",
+        "played": [
+          [
+            0,
+            0.02069
+          ]
+        ],
+        "quality": {
+          "creationTime": 435.6000000014901,
+          "totalVideoFrames": 4,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": []
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "caption-1.png",
+      "requested_media_time": 1.2,
+      "before_capture": {
+        "currentTime": 1.241626,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:4317/media-captions/clip.webm",
+        "played": [
+          [
+            0,
+            1.241626
+          ]
+        ],
+        "quality": {
+          "creationTime": 1699.300000000745,
+          "totalVideoFrames": 42,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              }
+            ]
+          }
+        ]
+      },
+      "after_capture": {
+        "currentTime": 1.29843,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:4317/media-captions/clip.webm",
+        "played": [
+          [
+            0,
+            1.29843
+          ]
+        ],
+        "quality": {
+          "creationTime": 1755.9000000022352,
+          "totalVideoFrames": 44,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              }
+            ]
+          }
+        ]
+      },
+      "note": "画像取得中も再生は進む。要求時刻の厳密なフレームとは限らない。"
+    },
+    {
+      "path": "caption-2.png",
+      "requested_media_time": 2.5,
+      "before_capture": {
+        "currentTime": 2.556181,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:4317/media-captions/clip.webm",
+        "played": [
+          [
+            0,
+            2.556181
+          ]
+        ],
+        "quality": {
+          "creationTime": 3014.900000002235,
+          "totalVideoFrames": 82,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              }
+            ]
+          }
+        ]
+      },
+      "after_capture": {
+        "currentTime": 2.600661,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:4317/media-captions/clip.webm",
+        "played": [
+          [
+            0,
+            2.600661
+          ]
+        ],
+        "quality": {
+          "creationTime": 3059.300000000745,
+          "totalVideoFrames": 83,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              }
+            ]
+          }
+        ]
+      },
+      "note": "画像取得中も再生は進む。要求時刻の厳密なフレームとは限らない。"
+    },
+    {
+      "path": "caption-3.png",
+      "requested_media_time": 5.7,
+      "before_capture": {
+        "currentTime": 5.735908,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:4317/media-captions/clip.webm",
+        "played": [
+          [
+            0,
+            5.735908
+          ]
+        ],
+        "quality": {
+          "creationTime": 6193.400000002235,
+          "totalVideoFrames": 177,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": [
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ]
+          }
+        ]
+      },
+      "after_capture": {
+        "currentTime": 5.781527,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:4317/media-captions/clip.webm",
+        "played": [
+          [
+            0,
+            5.781527
+          ]
+        ],
+        "quality": {
+          "creationTime": 6239.10000000149,
+          "totalVideoFrames": 178,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 0.4,
+                "end": 3.684,
+                "text": "[Narrator] Press the red button to delete the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": [
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ]
+          }
+        ]
+      },
+      "note": "画像取得中も再生は進む。要求時刻の厳密なフレームとは限らない。"
+    }
+  ],
+  "listening_performed": false,
+  "speech_meaning_reviewed": false,
+  "non_speech_meaning_reviewed": false,
+  "all_visual_frames_reviewed": false,
+  "flash_thresholds_reviewed": false,
+  "wcag_judgement": null,
+  "note": "再生・字幕の実表示の観察。endedや字幕トラックの存在から意味・全区間の合格を作らない。",
+  "scenario": {
+    "case_id": "caption-display-wrong-text",
+    "url": "http://127.0.0.1:4317/media-captions/wrong-text.html",
+    "media": {
+      "selector": "#clip"
+    },
+    "prepare_actions": [
+      {
+        "type": "click",
+        "selector": "#captions"
+      }
+    ],
+    "play_action": {
+      "type": "click",
+      "selector": "#play"
+    },
+    "screenshot_times": [
+      1.2,
+      2.5,
+      5.7
+    ],
+    "max_seconds": 15
+  },
+  "browser_version": "156.0.8078.79",
+  "before": {
+    "currentTime": 0,
+    "duration": 7.008,
+    "paused": true,
+    "ended": false,
+    "muted": false,
+    "volume": 1,
+    "playbackRate": 1,
+    "readyState": 4,
+    "currentSrc": "http://127.0.0.1:4317/media-captions/clip.webm",
+    "played": [],
+    "quality": {
+      "creationTime": 191.80000000074506,
+      "totalVideoFrames": 4,
+      "droppedVideoFrames": 0,
+      "corruptedVideoFrames": 0
+    },
+    "tracks": [
+      {
+        "kind": "captions",
+        "label": "English",
+        "language": "en",
+        "mode": "disabled",
+        "cues": null,
+        "activeCues": null
+      }
+    ]
+  },
+  "after": {
+    "currentTime": 7.008,
+    "duration": 7.008,
+    "paused": true,
+    "ended": true,
+    "muted": false,
+    "volume": 1,
+    "playbackRate": 1,
+    "readyState": 4,
+    "currentSrc": "http://127.0.0.1:4317/media-captions/clip.webm",
+    "played": [
+      [
+        0,
+        7.008
+      ]
+    ],
+    "quality": {
+      "creationTime": 7535.5,
+      "totalVideoFrames": 210,
+      "droppedVideoFrames": 0,
+      "corruptedVideoFrames": 0
+    },
+    "tracks": [
+      {
+        "kind": "captions",
+        "label": "English",
+        "language": "en",
+        "mode": "showing",
+        "cues": [
+          {
+            "start": 0.4,
+            "end": 3.684,
+            "text": "[Narrator] Press the red button to delete the document."
+          },
+          {
+            "start": 5.4,
+            "end": 6.4,
+            "text": "[Confirmation tone]"
+          }
+        ],
+        "activeCues": []
+      }
+    ]
+  },
+  "playback_ended": true,
+  "unreached_screenshot_times": [],
+  "finished_at": "2026-11-14T19:48:43.392215+00:00",
+  "event_trace": {
+    "events": 212,
+    "truncated": false,
+    "dropped": 0
+  },
+  "frame_callbacks": {
+    "count": 209,
+    "first_media_time": 0.033,
+    "last_media_time": 6.967,
+    "note": "コールバック数や再生終了だけで、AIが全フレームを視認・理解したことにはしない。"
+  }
+}

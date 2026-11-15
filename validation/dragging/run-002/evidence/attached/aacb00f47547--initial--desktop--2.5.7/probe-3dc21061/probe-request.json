@@ -1,0 +1,67 @@
+{
+  "actions": [
+    {
+      "type": "drag",
+      "selector": "#alpha",
+      "target": {
+        "selector": "#bravo"
+      },
+      "assert": [
+        {
+          "selector": "#order",
+          "text": "Bravo, Alpha"
+        }
+      ]
+    },
+    {
+      "type": "drag",
+      "selector": "#alpha",
+      "target": {
+        "selector": "#bravo"
+      },
+      "assert": [
+        {
+          "selector": "#order",
+          "text": "Alpha, Bravo"
+        }
+      ]
+    },
+    {
+      "type": "drag",
+      "selector": "#bravo",
+      "target": {
+        "selector": "#alpha"
+      },
+      "assert": [
+        {
+          "selector": "#order",
+          "text": "Bravo, Alpha"
+        }
+      ]
+    },
+    {
+      "type": "drag",
+      "selector": "#bravo",
+      "target": {
+        "selector": "#alpha"
+      },
+      "assert": [
+        {
+          "selector": "#order",
+          "text": "Alpha, Bravo"
+        }
+      ]
+    }
+  ],
+  "observe": [
+    {
+      "selector": "#order"
+    }
+  ],
+  "assert": [
+    {
+      "selector": "#order",
+      "text": "Alpha, Bravo"
+    }
+  ]
+}

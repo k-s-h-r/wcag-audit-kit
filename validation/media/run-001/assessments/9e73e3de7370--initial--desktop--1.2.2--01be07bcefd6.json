@@ -1,0 +1,257 @@
+{
+  "case_id": "9e73e3de7370--initial--desktop--1.2.2",
+  "config_digest": "fc174543bcaeb589789aa17b2c45de1a5443933090f162f93e437d8f1089b1f9",
+  "normative_sha256": "e4cb55ac6b34f8aaf2bd297b08054496d889b7125e2662c7a8c1aaf1fc784283",
+  "execution": "blocked",
+  "outcome": "cant_tell",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": false,
+  "remaining": [
+    "全区間の発話・必要な非言語音を、聴取又は校正できた適切な方法で確認し、字幕の情報・同期と照合する。",
+    "このAIの音声入力は非対応。試したPocketSphinxの出力は既知の原文を正しく再現せず、この比較に使える方法として未成立。"
+  ],
+  "observed": "実ページのCaptionsボタンとPlayボタンをクリックして7.008秒まで再生した。210映像フレームを出力し、字幕の実表示・cueの時刻・画面を記録した。元ファイルの全映像・音声ストリームのデコードとフレームハッシュも取得した。しかし、このAIが音を聴取したとは扱えず、試したASRは意図した原文を大きく誤認識した。字幕の存在・表示・再生終了から内容の対応を合格にはできない。",
+  "steps_executed": [
+    "原典1.2.2とH95等を読み、音声情報とキャプションの内容・同期が対象であることを確認した。",
+    "実際のCaptionsとPlayをクリックし、画面、ブラウザーのcue・時刻、再生区間とフレームのデータを取得した。",
+    "ffprobe、全ストリームのデコード、210フレームのハッシュ、原本のハッシュを取得した。",
+    "実音声入力と既知の合成音声でのASRを試したが、情報の照合に使える方法が確立しなかった。"
+  ],
+  "tests_applied": [
+    "WCAG 2.2 1.2.2 / H95・G87（内容比較は未完了）"
+  ],
+  "method_coverage": [
+    {
+      "method": "media",
+      "status": "executed",
+      "reason": "再生・字幕操作と実表示・cueの時刻、ストリームと復号の情報は実際に取得した。"
+    },
+    {
+      "method": "semantic",
+      "status": "unavailable",
+      "reason": "映像と字幕の実表示は読んだが、元の音声・効果音を聴取する能力がなく、ASRもこの試験で校正できなかった。"
+    }
+  ],
+  "targets": [
+    {
+      "target": "video#clip / English caption track / 0–7.008秒",
+      "expected": "必要な発話・話者・非言語音の情報を、同期したキャプションで受け取れる。",
+      "observed": "字幕の文字列・cueと画面は取得した。元音声との意味の比較は全区間で未確認。",
+      "outcome": "cant_tell",
+      "media_review": {
+        "source": "http://127.0.0.1:4317/media-captions/clip.webm / audio stream 1 and English captions",
+        "timeline": "prerecorded",
+        "duration": 7.008,
+        "comparison": "元の発話・話者・意味のある音と、実際に表示される英語キャプションの内容・同期の比較。",
+        "intervals": [
+          {
+            "start": 0,
+            "end": 0.4,
+            "status": "not_reviewed",
+            "reason": "この区間の音声・非言語音の聴取手段がなく、字幕との情報の比較は未確認。"
+          },
+          {
+            "start": 0.4,
+            "end": 3.684,
+            "status": "not_reviewed",
+            "reason": "画面で意図した文の字幕が表示されることを確認したが、実際の発話との意味の比較は音声入力非対応で未確認。"
+          },
+          {
+            "start": 3.684,
+            "end": 5.4,
+            "status": "not_reviewed",
+            "reason": "この区間は字幕cueがないが、元の音声情報の有無と意味を聴取する手段がなく未確認。"
+          },
+          {
+            "start": 5.4,
+            "end": 6.4,
+            "status": "not_reviewed",
+            "reason": "Confirmation toneの字幕表示は確認したが、実際の非言語音との対応は聴取手段がなく未確認。"
+          },
+          {
+            "start": 6.4,
+            "end": 7.008,
+            "status": "not_reviewed",
+            "reason": "字幕cueが消えた後の元の音声・非言語音の情報は、聴取手段がなく未確認。"
+          }
+        ]
+      },
+      "evidence": [
+        "evidence/9e73e3de7370--initial--desktop/page.png",
+        "evidence/9e73e3de7370--initial--desktop/dom.html",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/captions-1.vtt",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/captions-2.vtt",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/captions-3.vtt",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/decode-errors.txt",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/decode-progress.txt",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/ffprobe.json",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/media.json",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/video-0.frames.sha256.txt",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/asr.stderr",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/asr.stdout",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/command.json",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/health.json",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/package-manifest.json",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/before.png",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-1.png",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-2.png",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-3.png",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-player.json",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/media-events.json",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/page.html",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/request.json",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/clip.webm",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/good.vtt",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/soundtrack.wav",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/source-provenance.json",
+        "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/speech.wav"
+      ]
+    }
+  ],
+  "evidence": [
+    "evidence/9e73e3de7370--initial--desktop/page.png",
+    "evidence/9e73e3de7370--initial--desktop/dom.html",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/captions-1.vtt",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/captions-2.vtt",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/captions-3.vtt",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/decode-errors.txt",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/decode-progress.txt",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/ffprobe.json",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/media.json",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/video-0.frames.sha256.txt",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/asr.stderr",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/asr.stdout",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/command.json",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/health.json",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/package-manifest.json",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/before.png",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-1.png",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-2.png",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-3.png",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-player.json",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/media-events.json",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/page.html",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/request.json",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/clip.webm",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/good.vtt",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/soundtrack.wav",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/source-provenance.json",
+    "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/speech.wav"
+  ],
+  "recorded_at": "2026-11-14T20:02:03.042463+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/9e73e3de7370--initial--desktop/page.png",
+      "sha256": "276641e5229de26f338418783aef83b67ece7bee8707d96ede530b74efde6ccb"
+    },
+    {
+      "path": "evidence/9e73e3de7370--initial--desktop/dom.html",
+      "sha256": "eb1f48c7ecf9cd78509d379581458928b3536372bf47d051a0148a1b7c9f1b03"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/captions-1.vtt",
+      "sha256": "28975181ad43b0c77ca3bad8219db2193dbe081b99cec50b12932380338bcbae"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/captions-2.vtt",
+      "sha256": "843147b2e98d967a4827a0c98159aae989f27d831ab4afdd8115847be16f1a60"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/captions-3.vtt",
+      "sha256": "7daefb1ab936cf99f3b2535b76ae92827024ff0e7ea40789a1dc1e203527ef50"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/decode-errors.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/decode-progress.txt",
+      "sha256": "42ed16b1e3aacebcd4e3098be2a97231baeda15ac465d4cb460a8a8ba1fac09c"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/ffprobe.json",
+      "sha256": "b7e1f7bc9a4070de6301309ca9708e398ce989f5d440fddb66ef226266e2046e"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/media.json",
+      "sha256": "1bd2e8463603462eefd52b9b216c233afc20cb77c5fad168a788060e0756bf95"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/inventory/video-0.frames.sha256.txt",
+      "sha256": "db4e47c71f211c7dc85acad21997e7d57939adc11b515f5f799aca1405839d3c"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/asr.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/asr.stdout",
+      "sha256": "be3d6f2136b5d52aef69f91ee21364e2ce8aa0323518633ac186438ceae67be7"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/command.json",
+      "sha256": "4d7134a5ed18d7344cff0687dd92c36692b6d0c0ff4a834a0bcb7c0fdccfb1ac"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/health.json",
+      "sha256": "5d33ff1a7e40480cb1e76699d80c61e1c0af92ef512b11ed58c262326be7a954"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/method-health/package-manifest.json",
+      "sha256": "375e1a86e54c9270a83021d8a7e05c816563011eafd062607686e2e360074f2e"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/before.png",
+      "sha256": "276641e5229de26f338418783aef83b67ece7bee8707d96ede530b74efde6ccb"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-1.png",
+      "sha256": "2e65e68ab30caddf9c3c56ccecd43046dff2770e57c136cf60e0716396856d65"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-2.png",
+      "sha256": "2e65e68ab30caddf9c3c56ccecd43046dff2770e57c136cf60e0716396856d65"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-3.png",
+      "sha256": "7c2d4b083af63028283d5100af79135985eb4b0f35bdd9514ef0bd546023177d"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/caption-player.json",
+      "sha256": "5d78b8903f7aff3f456e8061ba1451c86975d1e067b6445e8f1e4a0b7b4fd2e8"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/media-events.json",
+      "sha256": "76bf96078c8f7ac97b6886bf401c1d973096b65ad95d97d739a1240c4a0856e0"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/page.html",
+      "sha256": "5fddc8bb2f3ed80b697b021d167c1c25dbc6e8efaad78fe6b79ef869d53aa8c0"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/player/request.json",
+      "sha256": "32a216502860c1b4f62ba89b13aad565f1d9c80725300a532a0468620b930ba7"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/clip.webm",
+      "sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/good.vtt",
+      "sha256": "28975181ad43b0c77ca3bad8219db2193dbe081b99cec50b12932380338bcbae"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/soundtrack.wav",
+      "sha256": "900bd07690bc32aadcf33abb8b8a611c52ef23f2b0503892c9ee82fe5ddf74b7"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/source-provenance.json",
+      "sha256": "a066b3caaad725507bed85680644e04dd40b5279b33f89bc9865aab5648558e7"
+    },
+    {
+      "path": "evidence/attached/9e73e3de7370--initial--desktop--1.2.2/source/speech.wav",
+      "sha256": "8afac46347d2422017c2e95777ce3399279fc3a102062e1cfd5b335e3bf21a07"
+    }
+  ]
+}

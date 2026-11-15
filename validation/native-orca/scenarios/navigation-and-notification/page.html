@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<title>Live region compatibility controls</title>
+<style>body{font:18px sans-serif;line-height:1.5;max-width:50rem;margin:2rem}section{border:1px solid #666;padding:1rem;margin:1rem 0}button{font:inherit}</style>
+</head><body><main>
+<h1>Live region compatibility controls</h1>
+<p>Diagnostic controls for observing a particular browser and screen reader combination.</p>
+<section><h2>Implicit atomic status</h2><button id="save1">Save record one</button><p id="message1" role="status"></p></section>
+<section><h2>Polite region</h2><button id="save2">Save record two</button><div id="message2" aria-live="polite">Record two saved.</div></section>
+<section><h2>Nonatomic status</h2><button id="save3">Save record three</button><p id="message3" role="status" aria-atomic="false"></p></section>
+<section><h2>Explicit atomic region</h2><button id="save4">Save record four</button><div id="message4" aria-live="polite" aria-atomic="true"></div></section>
+<section><h2>Silent control</h2><button id="save5">Save record five</button><p id="message5"></p></section>
+</main>
+<script>
+for (const [index, word] of ['one', 'two', 'three', 'four', 'five'].entries()) {
+  const n = index + 1;
+  document.querySelector(`#save${n}`).addEventListener('click', () => {
+    document.querySelector(`#message${n}`).textContent = `Record ${word} saved.`;
+  });
+}
+</script>
+
+</body></html>

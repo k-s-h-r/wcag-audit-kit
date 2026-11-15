@@ -1,0 +1,280 @@
+{
+  "case_id": "aacb00f47547--initial--desktop--2.5.7",
+  "config_digest": "3c74b041f21a2ec03ac3499aa2a1c89a402a5db12cd70a8b6b36cdf96e2045a7",
+  "normative_sha256": "dd3067a90310a3efbed2a605fdb8f735c4fbd5f0ef7ed6a60babeec20b70a579",
+  "execution": "completed",
+  "outcome": "passed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "remaining": [],
+  "steps_executed": [
+    "初期画面とDOMの全操作を調べ、ドラッグする対象がAlpha/Bravoの2項目だけであることを確認した。",
+    "通常収集と追加probeで、両項目の上下4方向への実ドラッグ、入力ログ、順序の中間値、実画像を照合した。",
+    "Tabで項目へ移動し、矢印キーで並べ替えと復帰を実行した。",
+    "単一ポインターの移動ボタンを4通りクリックした。失敗例では両項目をクリックし、画面・DOM・ソースで他の経路も調べた。",
+    "通常の著者実装の並べ替えで、ドラッグは本質的ではなく、UAが独自に決める機能の例外も該当しないと確認した。"
+  ],
+  "tests_applied": [
+    "WCAG 2.2 2.5.7 (REC 2024-12-12)",
+    "G219 / F108 at w3c/wcag c9ea04d4f3702e92249997c11fd678777f9c03ae"
+  ],
+  "observed": "2項目の全2順序で、Alpha/Bravoを上下へ動かす4通りのHTML5ドラッグを実際に実行し、各段階がBA→AB→BA→ABとなった。trusted dragstart/dropと実画像を照合した。Tab・ArrowDown・ArrowUpは両方のページで順序を変更した。このページではAlpha down/up、Bravo up/downの4ボタンをクリックし、同じ順序と結果を得た。全ての中間assertが成功した。",
+  "targets": [
+    {
+      "target": "#alpha の並べ替え（Alpha,BravoとBravo,Alphaの両順序）",
+      "expected": "ドラッグで得る同じ並べ替え結果を、ドラッグなしの単一ポインター操作で得られる。",
+      "observed": "2項目の全2順序で、Alpha/Bravoを上下へ動かす4通りのHTML5ドラッグを実際に実行し、各段階がBA→AB→BA→ABとなった。trusted dragstart/dropと実画像を照合した。Tab・ArrowDown・ArrowUpは両方のページで順序を変更した。このページではAlpha down/up、Bravo up/downの4ボタンをクリックし、同じ順序と結果を得た。全ての中間assertが成功した。",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aacb00f47547--initial--desktop/page.png",
+        "evidence/aacb00f47547--initial--desktop/dom.html",
+        "evidence/aacb00f47547--initial--desktop/inventory.json",
+        "evidence/aacb00f47547--drag--desktop/action-001.png",
+        "evidence/aacb00f47547--drag--desktop/action-002.png",
+        "evidence/aacb00f47547--drag--desktop/actions.json",
+        "evidence/aacb00f47547--drag--desktop/dom.html",
+        "evidence/aacb00f47547--drag--desktop/input-events.json",
+        "evidence/aacb00f47547--keyboard--desktop/action-001.png",
+        "evidence/aacb00f47547--keyboard--desktop/action-002.png",
+        "evidence/aacb00f47547--keyboard--desktop/action-003.png",
+        "evidence/aacb00f47547--keyboard--desktop/actions.json",
+        "evidence/aacb00f47547--keyboard--desktop/dom.html",
+        "evidence/aacb00f47547--keyboard--desktop/input-events.json",
+        "evidence/aacb00f47547--pointer-alternative--desktop/action-001.png",
+        "evidence/aacb00f47547--pointer-alternative--desktop/action-002.png",
+        "evidence/aacb00f47547--pointer-alternative--desktop/action-003.png",
+        "evidence/aacb00f47547--pointer-alternative--desktop/action-004.png",
+        "evidence/aacb00f47547--pointer-alternative--desktop/actions.json",
+        "evidence/aacb00f47547--pointer-alternative--desktop/dom.html",
+        "evidence/aacb00f47547--pointer-alternative--desktop/input-events.json",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-001.png",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-002.png",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-003.png",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-004.png",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/actions.json",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/dom.html",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/input-events.json",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder-good.html",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder.css",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder.js"
+      ]
+    },
+    {
+      "target": "#bravo の並べ替え（Alpha,BravoとBravo,Alphaの両順序）",
+      "expected": "ドラッグで得る同じ並べ替え結果を、ドラッグなしの単一ポインター操作で得られる。",
+      "observed": "2項目の全2順序で、Alpha/Bravoを上下へ動かす4通りのHTML5ドラッグを実際に実行し、各段階がBA→AB→BA→ABとなった。trusted dragstart/dropと実画像を照合した。Tab・ArrowDown・ArrowUpは両方のページで順序を変更した。このページではAlpha down/up、Bravo up/downの4ボタンをクリックし、同じ順序と結果を得た。全ての中間assertが成功した。",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aacb00f47547--initial--desktop/page.png",
+        "evidence/aacb00f47547--initial--desktop/dom.html",
+        "evidence/aacb00f47547--initial--desktop/inventory.json",
+        "evidence/aacb00f47547--drag--desktop/action-001.png",
+        "evidence/aacb00f47547--drag--desktop/action-002.png",
+        "evidence/aacb00f47547--drag--desktop/actions.json",
+        "evidence/aacb00f47547--drag--desktop/dom.html",
+        "evidence/aacb00f47547--drag--desktop/input-events.json",
+        "evidence/aacb00f47547--keyboard--desktop/action-001.png",
+        "evidence/aacb00f47547--keyboard--desktop/action-002.png",
+        "evidence/aacb00f47547--keyboard--desktop/action-003.png",
+        "evidence/aacb00f47547--keyboard--desktop/actions.json",
+        "evidence/aacb00f47547--keyboard--desktop/dom.html",
+        "evidence/aacb00f47547--keyboard--desktop/input-events.json",
+        "evidence/aacb00f47547--pointer-alternative--desktop/action-001.png",
+        "evidence/aacb00f47547--pointer-alternative--desktop/action-002.png",
+        "evidence/aacb00f47547--pointer-alternative--desktop/action-003.png",
+        "evidence/aacb00f47547--pointer-alternative--desktop/action-004.png",
+        "evidence/aacb00f47547--pointer-alternative--desktop/actions.json",
+        "evidence/aacb00f47547--pointer-alternative--desktop/dom.html",
+        "evidence/aacb00f47547--pointer-alternative--desktop/input-events.json",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-001.png",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-002.png",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-003.png",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-004.png",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/actions.json",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/dom.html",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/input-events.json",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder-good.html",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder.css",
+        "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder.js"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "pointer",
+      "status": "executed",
+      "reason": "4通りの実ドラッグと単一ポインター代替のクリックを比較し、trustedイベント・実画像・結果を確認した。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "2順序の全4移動を実操作し、移動直後と元の順序への復帰をそれぞれassertと観察で確認した。"
+    },
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "画面の全操作とDOM、共有の著者スクリプトを照合し、隠れた代替経路や本質性・UAの条件を確認した。"
+    }
+  ],
+  "evidence": [
+    "evidence/aacb00f47547--initial--desktop/page.png",
+    "evidence/aacb00f47547--initial--desktop/dom.html",
+    "evidence/aacb00f47547--initial--desktop/inventory.json",
+    "evidence/aacb00f47547--drag--desktop/action-001.png",
+    "evidence/aacb00f47547--drag--desktop/action-002.png",
+    "evidence/aacb00f47547--drag--desktop/actions.json",
+    "evidence/aacb00f47547--drag--desktop/dom.html",
+    "evidence/aacb00f47547--drag--desktop/input-events.json",
+    "evidence/aacb00f47547--keyboard--desktop/action-001.png",
+    "evidence/aacb00f47547--keyboard--desktop/action-002.png",
+    "evidence/aacb00f47547--keyboard--desktop/action-003.png",
+    "evidence/aacb00f47547--keyboard--desktop/actions.json",
+    "evidence/aacb00f47547--keyboard--desktop/dom.html",
+    "evidence/aacb00f47547--keyboard--desktop/input-events.json",
+    "evidence/aacb00f47547--pointer-alternative--desktop/action-001.png",
+    "evidence/aacb00f47547--pointer-alternative--desktop/action-002.png",
+    "evidence/aacb00f47547--pointer-alternative--desktop/action-003.png",
+    "evidence/aacb00f47547--pointer-alternative--desktop/action-004.png",
+    "evidence/aacb00f47547--pointer-alternative--desktop/actions.json",
+    "evidence/aacb00f47547--pointer-alternative--desktop/dom.html",
+    "evidence/aacb00f47547--pointer-alternative--desktop/input-events.json",
+    "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-001.png",
+    "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-002.png",
+    "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-003.png",
+    "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-004.png",
+    "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/actions.json",
+    "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/dom.html",
+    "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/input-events.json",
+    "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder-good.html",
+    "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder.css",
+    "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder.js"
+  ],
+  "recorded_at": "2026-11-14T18:37:58.623981+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/aacb00f47547--initial--desktop/page.png",
+      "sha256": "6f7b988ecbad2562b354b73c44dd89ea8d699b610b46e15a553a61a6e5798a9f"
+    },
+    {
+      "path": "evidence/aacb00f47547--initial--desktop/dom.html",
+      "sha256": "2e6b029475a7639b9291679d6f279bea82caefe6ccd0ab686fa1b651f5bb22bd"
+    },
+    {
+      "path": "evidence/aacb00f47547--initial--desktop/inventory.json",
+      "sha256": "7e22394919d5a85a06646481d9fb6a176bd87cd2589f1f753ae4f2a5bca616ba"
+    },
+    {
+      "path": "evidence/aacb00f47547--drag--desktop/action-001.png",
+      "sha256": "087a009bde0bcaf15dd64340856d9d31b17c6c2cc2a1cfd2404cef4e5e5efb6a"
+    },
+    {
+      "path": "evidence/aacb00f47547--drag--desktop/action-002.png",
+      "sha256": "6f7b988ecbad2562b354b73c44dd89ea8d699b610b46e15a553a61a6e5798a9f"
+    },
+    {
+      "path": "evidence/aacb00f47547--drag--desktop/actions.json",
+      "sha256": "69b35d6bbd52df8d5b62decfd9a9722ba98ea51753a7bccd29bb606fcbba0519"
+    },
+    {
+      "path": "evidence/aacb00f47547--drag--desktop/dom.html",
+      "sha256": "2e6b029475a7639b9291679d6f279bea82caefe6ccd0ab686fa1b651f5bb22bd"
+    },
+    {
+      "path": "evidence/aacb00f47547--drag--desktop/input-events.json",
+      "sha256": "91747caa2958d9dc83a5759b8a3274f79be93d9b3a093c9e5d7f2ada7f73c52a"
+    },
+    {
+      "path": "evidence/aacb00f47547--keyboard--desktop/action-001.png",
+      "sha256": "1ac9434a77accf09cd974989a5b820b4bd9850e4ea9b33c2eb8e485f230858d6"
+    },
+    {
+      "path": "evidence/aacb00f47547--keyboard--desktop/action-002.png",
+      "sha256": "7e44ab9621a1a424e4ce228b0a360f4ee7075149d6aaf306aff1cf8bde99176e"
+    },
+    {
+      "path": "evidence/aacb00f47547--keyboard--desktop/action-003.png",
+      "sha256": "1ac9434a77accf09cd974989a5b820b4bd9850e4ea9b33c2eb8e485f230858d6"
+    },
+    {
+      "path": "evidence/aacb00f47547--keyboard--desktop/actions.json",
+      "sha256": "50fd58306bf69780f39c43c35da4b162a4c23f7bcd08d601c768c23666435369"
+    },
+    {
+      "path": "evidence/aacb00f47547--keyboard--desktop/dom.html",
+      "sha256": "2e6b029475a7639b9291679d6f279bea82caefe6ccd0ab686fa1b651f5bb22bd"
+    },
+    {
+      "path": "evidence/aacb00f47547--keyboard--desktop/input-events.json",
+      "sha256": "7917767187a01e533872f18ebf1a49ce5fe6bf5d5cace48a46ebc4e465fd4b6a"
+    },
+    {
+      "path": "evidence/aacb00f47547--pointer-alternative--desktop/action-001.png",
+      "sha256": "ee13d1fc7d8195a5fc8c4a55d0248508735906b8a1b29defceb38f737ab56197"
+    },
+    {
+      "path": "evidence/aacb00f47547--pointer-alternative--desktop/action-002.png",
+      "sha256": "90611ff7046347cb26fa51f4d5fff8d760912029d00a414f3fe55260bf62cf9d"
+    },
+    {
+      "path": "evidence/aacb00f47547--pointer-alternative--desktop/action-003.png",
+      "sha256": "55595b8e16fcf87b878539f3dac5cf60c8f9844cdc35e5cae4142a2c4ca48293"
+    },
+    {
+      "path": "evidence/aacb00f47547--pointer-alternative--desktop/action-004.png",
+      "sha256": "6d63f8ecaee6cebb2c62c733dd8706c10af162e1190e06232353fe6adc66c2cd"
+    },
+    {
+      "path": "evidence/aacb00f47547--pointer-alternative--desktop/actions.json",
+      "sha256": "3355c94328d84f32146f96acc296941cb5b8f5888862aeda9f7df6b7b8b15108"
+    },
+    {
+      "path": "evidence/aacb00f47547--pointer-alternative--desktop/dom.html",
+      "sha256": "2e6b029475a7639b9291679d6f279bea82caefe6ccd0ab686fa1b651f5bb22bd"
+    },
+    {
+      "path": "evidence/aacb00f47547--pointer-alternative--desktop/input-events.json",
+      "sha256": "523ada6e3a1101c013c4afa95084056576692a9f4104c0bb2f50baa8af4c2fbb"
+    },
+    {
+      "path": "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-001.png",
+      "sha256": "087a009bde0bcaf15dd64340856d9d31b17c6c2cc2a1cfd2404cef4e5e5efb6a"
+    },
+    {
+      "path": "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-002.png",
+      "sha256": "1f271eff6546583056f340262c590f0c9282713149203e935be2f620da819610"
+    },
+    {
+      "path": "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-003.png",
+      "sha256": "0baf19b8f41e5468ffb2bb0eed9696039a2e687fdb8668c5ecc5c0731a357fca"
+    },
+    {
+      "path": "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/action-004.png",
+      "sha256": "6f7b988ecbad2562b354b73c44dd89ea8d699b610b46e15a553a61a6e5798a9f"
+    },
+    {
+      "path": "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/actions.json",
+      "sha256": "437e21694527997afe7dddc0872b86d7d976a1cbe21fc7170c26b5b6563847a1"
+    },
+    {
+      "path": "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/dom.html",
+      "sha256": "2e6b029475a7639b9291679d6f279bea82caefe6ccd0ab686fa1b651f5bb22bd"
+    },
+    {
+      "path": "evidence/attached/aacb00f47547--initial--desktop--2.5.7/probe-3dc21061/evidence/aacb00f47547--probe--desktop/input-events.json",
+      "sha256": "120791c2121ad521a4253d60fb24bbfa26b35f8400e142dce4bae1afd3a2cdba"
+    },
+    {
+      "path": "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder-good.html",
+      "sha256": "8c30f834510ff1f94d13c4a4c44b8501653c7f0bd35de50bd2bd4e9017f66096"
+    },
+    {
+      "path": "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder.css",
+      "sha256": "25f929a114279e627829151decc6f13b91e9579471ea1ce2bd6c0a3e7e4420e6"
+    },
+    {
+      "path": "evidence/attached/aacb00f47547--initial--desktop--2.5.7/sources/drag-reorder.js",
+      "sha256": "98170ee61e98860131f1ffb421b238ba253c19fabd96faad499468dc0ef8efb0"
+    }
+  ]
+}

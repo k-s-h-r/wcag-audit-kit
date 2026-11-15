@@ -1,0 +1,181 @@
+{
+  "case_id": "eed089bd8f88--initial--desktop--2.3.1",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "287dfe616150e0e3579460d60149a258724e55a233feb2beae3392c5088eb907",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/ / initial / desktop。表示の主内容はHome — Profile demo。可視見出し: ['Update your demo profile', 'Example controls']。入力欄: []。全ソース、全状態、実画面に著者による閃光・点滅・画像切替・連続アニメーションはない。静止した文字・図と利用者が操作する部品だけで、外部媒体・背景画像・埋め込みもない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:2.3.1:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "このURLのページ全体、可視の内容・部品と到達可能な全状態",
+      "observed": "全ソース、全状態、実画面に著者による閃光・点滅・画像切替・連続アニメーションはない。静止した文字・図と利用者が操作する部品だけで、外部媒体・背景画像・埋め込みもない。",
+      "expected": "閃光回数又は閾値の要件を満たすか。肉眼だけで安全と判定せず、分析不能は未確認にする",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/eed089bd8f88--initial--desktop/page.png",
+        "evidence/eed089bd8f88--initial--desktop/inventory.json",
+        "evidence/eed089bd8f88--initial--desktop/dom.html",
+        "evidence/eed089bd8f88--initial--desktop/accessibility-tree.json",
+        "evidence/eed089bd8f88--initial--desktop/actions.json",
+        "evidence/eed089bd8f88--initial--desktop/keyboard.json",
+        "evidence/methods/browser/executed-source.py.txt",
+        "evidence/methods/browser/source/app.js",
+        "evidence/methods/browser/source/app.css",
+        "evidence/methods/browser/server.py.txt",
+        "evidence/methods/discovery/discovery.json",
+        "evidence/methods/browser/desktop/observations.json",
+        "evidence/methods/browser/desktop/000-home-initial.png",
+        "evidence/methods/browser/desktop/000-home-initial.json",
+        "evidence/methods/browser/desktop/000-home-initial-ax.json",
+        "evidence/methods/browser/desktop/005-dialog-open.png",
+        "evidence/methods/browser/desktop/005-dialog-open.json",
+        "evidence/methods/browser/desktop/005-dialog-open-ax.json",
+        "evidence/methods/browser/desktop/004-hybrid-count-six.png",
+        "evidence/methods/browser/desktop/004-hybrid-count-six.json",
+        "evidence/methods/browser/desktop/004-hybrid-count-six-ax.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "flash-analysis",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "media",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "measurement",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/eed089bd8f88--initial--desktop/page.png",
+    "evidence/eed089bd8f88--initial--desktop/inventory.json",
+    "evidence/eed089bd8f88--initial--desktop/dom.html",
+    "evidence/eed089bd8f88--initial--desktop/accessibility-tree.json",
+    "evidence/eed089bd8f88--initial--desktop/actions.json",
+    "evidence/eed089bd8f88--initial--desktop/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/desktop/observations.json",
+    "evidence/methods/browser/desktop/000-home-initial.png",
+    "evidence/methods/browser/desktop/000-home-initial.json",
+    "evidence/methods/browser/desktop/000-home-initial-ax.json",
+    "evidence/methods/browser/desktop/005-dialog-open.png",
+    "evidence/methods/browser/desktop/005-dialog-open.json",
+    "evidence/methods/browser/desktop/005-dialog-open-ax.json",
+    "evidence/methods/browser/desktop/004-hybrid-count-six.png",
+    "evidence/methods/browser/desktop/004-hybrid-count-six.json",
+    "evidence/methods/browser/desktop/004-hybrid-count-six-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:48:45.976884+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/eed089bd8f88--initial--desktop/page.png",
+      "sha256": "3858ff2a2ea8fcb8d1e287eb596768e828bf2a8a1e97bb5201c9c32e481d13c6"
+    },
+    {
+      "path": "evidence/eed089bd8f88--initial--desktop/inventory.json",
+      "sha256": "4b25b103d764845158ee86812283f6fff55b534ca83d2f09411cc27902af1bd4"
+    },
+    {
+      "path": "evidence/eed089bd8f88--initial--desktop/dom.html",
+      "sha256": "54c6cc3221026a9eff3da1e1d7ea4e92414fc0c4ab1223267be0f528facedab4"
+    },
+    {
+      "path": "evidence/eed089bd8f88--initial--desktop/accessibility-tree.json",
+      "sha256": "74cc03a1089fa291dac54b3bfa1194630e8a3385378e2b15cfa2313071872749"
+    },
+    {
+      "path": "evidence/eed089bd8f88--initial--desktop/actions.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "evidence/eed089bd8f88--initial--desktop/keyboard.json",
+      "sha256": "597c1049e6ced78ffd309739a17291944e8ce450c8454904b6e2149074136f19"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/observations.json",
+      "sha256": "39b0ef7069d2e14adab81994bd7f17bf2a61176f8051449773cab1c691b5a9fe"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/000-home-initial.png",
+      "sha256": "3858ff2a2ea8fcb8d1e287eb596768e828bf2a8a1e97bb5201c9c32e481d13c6"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/000-home-initial.json",
+      "sha256": "49c57dc3af9a41bf49d7fac2802ba9efd9a03c9115d552b7c7ca9291b682d1f9"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/000-home-initial-ax.json",
+      "sha256": "464146e62a1ae69305e23a8c08d61f45667578849f51374da17d7a5d76ee1ef0"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/005-dialog-open.png",
+      "sha256": "fed5d942d6c73fdb4e39c62e5f7457d208c47937121386e1672c8f4aca9f3e53"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/005-dialog-open.json",
+      "sha256": "7d8ee6e8c1f8b311bb684d0f47a50c84add3749e8269e23f95e9e2019d7d08b1"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/005-dialog-open-ax.json",
+      "sha256": "5025b8a2c834e86ade4edbf5ede9908e647923f0aafb8d35ae459fcdefc4bffc"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/004-hybrid-count-six.png",
+      "sha256": "abcb561d25f2849196b0cdb1bd20b203ab3372a5c03560ed53b7c4a6fd2b33f6"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/004-hybrid-count-six.json",
+      "sha256": "0cbe8feadfe875bdfbdede47d8bf9a85139ddbad541165b440a46cf159680370"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/004-hybrid-count-six-ax.json",
+      "sha256": "5f27ddc3d93eae09431921ad2b77da5554da19c31ed73d48e4658ffaa29b1648"
+    }
+  ]
+}

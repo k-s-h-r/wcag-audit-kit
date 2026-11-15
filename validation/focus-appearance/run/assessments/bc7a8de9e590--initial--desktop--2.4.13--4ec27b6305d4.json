@@ -1,0 +1,139 @@
+{
+  "case_id": "bc7a8de9e590--initial--desktop--2.4.13",
+  "config_digest": "41ecdb6e5db675d7a61a9918ac39a6563cb0cb7e28991985eb36c7fc8df3606c",
+  "normative_sha256": "8e5c67316ca893fdcd425f41e3761db0145001eee2c32e568b310d543d413384",
+  "execution": "completed",
+  "outcome": "failed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "全ソース・DOM・画面から操作対象と著者指定の表示を一つずつ特定",
+    "未フォーカスを撮影し、実キーTabで唯一の部品へ移動。フォーカスと前後の同じ位置・表示領域を照合",
+    "実色と位置から輪郭の全画素を特定し、sRGBで同じ画素の前後の3:1以上の面積をCSS px²で計算",
+    "本文・公式解説の面積と例外を照合し、測定値と実表示からこの基準だけを判定"
+  ],
+  "tests_applied": [
+    "WCAG22:2.4.13:normative",
+    "Understanding:focus-appearance:rectangle-area",
+    "focus_measure.py:same-pixel-srgb:development-001"
+  ],
+  "observed": "このURLの操作部品はExample buttonの一つだけ。全HTML/CSS/JS、DOMと実画像を確認した。UA既定ではなくappearance:noneと著者指定の輪郭であり、著者が未変更のUA表示の例外を適用しない。実際のTab、documentHasFocus=true、同じ240×80の位置・DPR1・1000×700表示領域を確認した。コア収集の前後画像は別の校正実行と画素単位で同一だった。未フォーカスでも青い4px輪郭があり、実キーTab後は#005bbaから#005cbbへ変わる。前後の同一画素は1.0134:1で、3:1以上となる面積は0 CSS px²。隣接白に対する強いコントラストを前後比較の代用にしない。",
+  "targets": [
+    {
+      "target": "button#probe (Example button)",
+      "observed": "このURLの操作部品はExample buttonの一つだけ。全HTML/CSS/JS、DOMと実画像を確認した。UA既定ではなくappearance:noneと著者指定の輪郭であり、著者が未変更のUA表示の例外を適用しない。実際のTab、documentHasFocus=true、同じ240×80の位置・DPR1・1000×700表示領域を確認した。コア収集の前後画像は別の校正実行と画素単位で同一だった。未フォーカスでも青い4px輪郭があり、実キーTab後は#005bbaから#005cbbへ変わる。前後の同一画素は1.0134:1で、3:1以上となる面積は0 CSS px²。隣接白に対する強いコントラストを前後比較の代用にしない。",
+      "expected": "未フォーカスの部品の2 CSS px外周相当以上の面積で、同じ画素のフォーカス前後のコントラストが3:1以上となる。該当する原典の例外があれば確認する。",
+      "outcome": "failed",
+      "evidence": [
+        "evidence/bc7a8de9e590--initial--desktop/page.png",
+        "evidence/bc7a8de9e590--initial--desktop/focus-001.png",
+        "evidence/bc7a8de9e590--initial--desktop/keyboard.json",
+        "evidence/bc7a8de9e590--initial--desktop/inventory.json",
+        "evidence/bc7a8de9e590--initial--desktop/dom.html",
+        "evidence/bc7a8de9e590--initial--desktop/input-events.json",
+        "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/focus-measure.json",
+        "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/request.json",
+        "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/before.png",
+        "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/focused.png",
+        "evidence/methods/focus-appearance/captures/similar/capture.json",
+        "evidence/methods/focus-appearance/fixture.html",
+        "evidence/methods/focus-appearance/capture-executed.py.txt",
+        "evidence/methods/focus-appearance/measure-source.py.txt"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "keyboard",
+      "status": "executed",
+      "reason": "実際のTabでbuttonへ移動し、trustedキーイベントと実フォーカス、画面を確認した。"
+    },
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "前後の実画像と全ソースから輪郭の位置・表示・全対象一つを確認した。"
+    },
+    {
+      "method": "measurement",
+      "status": "executed",
+      "reason": "ケース自身の画像を同一画素・sRGB・DPRで測定し、基準面積と前後の比を照合した。"
+    }
+  ],
+  "evidence": [
+    "evidence/bc7a8de9e590--initial--desktop/page.png",
+    "evidence/bc7a8de9e590--initial--desktop/focus-001.png",
+    "evidence/bc7a8de9e590--initial--desktop/keyboard.json",
+    "evidence/bc7a8de9e590--initial--desktop/inventory.json",
+    "evidence/bc7a8de9e590--initial--desktop/dom.html",
+    "evidence/bc7a8de9e590--initial--desktop/input-events.json",
+    "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/focus-measure.json",
+    "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/request.json",
+    "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/before.png",
+    "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/focused.png",
+    "evidence/methods/focus-appearance/captures/similar/capture.json",
+    "evidence/methods/focus-appearance/fixture.html",
+    "evidence/methods/focus-appearance/capture-executed.py.txt",
+    "evidence/methods/focus-appearance/measure-source.py.txt"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-14T22:41:04.150187+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/bc7a8de9e590--initial--desktop/page.png",
+      "sha256": "01a2b8db3560cb057bbb3d44c32694b317cc29f68438a6d4e6971a83bee3e39a"
+    },
+    {
+      "path": "evidence/bc7a8de9e590--initial--desktop/focus-001.png",
+      "sha256": "93ad6de868cb98b342e79f097332a67ac237bb6c4f5d14ce541b68ed2ab20f5f"
+    },
+    {
+      "path": "evidence/bc7a8de9e590--initial--desktop/keyboard.json",
+      "sha256": "799f049d1b7062d641e7843a447e3e4b475c2acd0b0adc69c9b2ba7a31e67aa0"
+    },
+    {
+      "path": "evidence/bc7a8de9e590--initial--desktop/inventory.json",
+      "sha256": "bc95cfaf08809bf02c6246c57d8f1a7c6351d631905c7f4990b028a603f55601"
+    },
+    {
+      "path": "evidence/bc7a8de9e590--initial--desktop/dom.html",
+      "sha256": "17390e657d7f7bb407aae77abc7a2bdb994d7128a2ab248de69baaec38f64581"
+    },
+    {
+      "path": "evidence/bc7a8de9e590--initial--desktop/input-events.json",
+      "sha256": "35d018fef1e9104406c68a75a1384363059e13d9f0337de7116fe6b4c022990b"
+    },
+    {
+      "path": "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/focus-measure.json",
+      "sha256": "800688f5f79472fa2f4fcfa789b3eb8e617db63d88113c3cc5fc1f34a89fb2a2"
+    },
+    {
+      "path": "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/request.json",
+      "sha256": "9d472a56885536ddbadce84a5534f5a224af37e5c2a1d9040422d0fc08bbb251"
+    },
+    {
+      "path": "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/before.png",
+      "sha256": "01a2b8db3560cb057bbb3d44c32694b317cc29f68438a6d4e6971a83bee3e39a"
+    },
+    {
+      "path": "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/focused.png",
+      "sha256": "93ad6de868cb98b342e79f097332a67ac237bb6c4f5d14ce541b68ed2ab20f5f"
+    },
+    {
+      "path": "evidence/methods/focus-appearance/captures/similar/capture.json",
+      "sha256": "ceb4cab336cf5222aac14e2dd1840ea1b63fed52ce586a7550bf8879fbdb6d72"
+    },
+    {
+      "path": "evidence/methods/focus-appearance/fixture.html",
+      "sha256": "3257241c49193ce9cf51c3acde9725640c50902a3d5e415afa290d33d610ba3c"
+    },
+    {
+      "path": "evidence/methods/focus-appearance/capture-executed.py.txt",
+      "sha256": "b325996156e4f1cfdb8c7149a96b5a316ee598be457a11fa4db71d9e1dadfc32"
+    },
+    {
+      "path": "evidence/methods/focus-appearance/measure-source.py.txt",
+      "sha256": "2eaf39273f9015aed305ff45b865ef0b6487df8cffade16809f07867a94b27eb"
+    }
+  ]
+}

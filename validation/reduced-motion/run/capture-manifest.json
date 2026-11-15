@@ -1,0 +1,70 @@
+{
+  "pages": [
+    {
+      "id": "ec2fe5f305eb",
+      "url": "http://127.0.0.1:4334/reduced-motion.html?variant=good"
+    },
+    {
+      "id": "b97405c438d1",
+      "url": "http://127.0.0.1:4334/reduced-motion.html?variant=bad"
+    }
+  ],
+  "unvisited": [],
+  "errors": [],
+  "discovered": [
+    "http://127.0.0.1:4334/reduced-motion.html?variant=bad",
+    "http://127.0.0.1:4334/reduced-motion.html?variant=good"
+  ],
+  "document_aliases": [],
+  "captures": [
+    {
+      "key": "ec2fe5f305eb--initial--desktop",
+      "page_id": "ec2fe5f305eb",
+      "url": "http://127.0.0.1:4334/reduced-motion.html?variant=good",
+      "state": "initial",
+      "environment": "desktop",
+      "execution": "completed",
+      "collection_state": "finished",
+      "evidence_dir": "evidence/ec2fe5f305eb--initial--desktop",
+      "http_status": 200,
+      "final_url": "http://127.0.0.1:4334/reduced-motion.html?variant=good",
+      "title": "Interaction motion example",
+      "node_count": 16,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 2,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-15T01:10:37.351036+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "b97405c438d1--initial--desktop",
+      "page_id": "b97405c438d1",
+      "url": "http://127.0.0.1:4334/reduced-motion.html?variant=bad",
+      "state": "initial",
+      "environment": "desktop",
+      "execution": "completed",
+      "collection_state": "finished",
+      "evidence_dir": "evidence/b97405c438d1--initial--desktop",
+      "http_status": 200,
+      "final_url": "http://127.0.0.1:4334/reduced-motion.html?variant=bad",
+      "title": "Interaction motion example",
+      "node_count": 16,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 2,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-15T01:10:37.947982+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    }
+  ],
+  "not_a_screen_reader_test": true,
+  "collector_status": "completed",
+  "checkpoint_at": "2026-11-15T01:10:38.010694+00:00",
+  "declared_states_without_page": [],
+  "linked_pages_exhausted": true,
+  "site_inventory_confirmed": false,
+  "scope_note": "リンクをたどった範囲のみ。未リンクURL・権限別画面・未知の状態の調査は別に必要"
+}

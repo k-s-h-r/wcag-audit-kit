@@ -1,0 +1,58 @@
+{
+  "pages": [
+    {
+      "id": "2d82c455dd61",
+      "url": "http://127.0.0.1:4317/drag-reorder-bad.html"
+    }
+  ],
+  "unvisited": [],
+  "errors": [],
+  "discovered": [
+    "http://127.0.0.1:4317/drag-reorder-bad.html"
+  ],
+  "captures": [
+    {
+      "key": "2d82c455dd61--initial--desktop",
+      "page_id": "2d82c455dd61",
+      "url": "http://127.0.0.1:4317/drag-reorder-bad.html",
+      "state": "initial",
+      "environment": "desktop",
+      "execution": "completed",
+      "evidence_dir": "evidence/2d82c455dd61--initial--desktop",
+      "final_url": "http://127.0.0.1:4317/drag-reorder-bad.html",
+      "title": "Reorder with keyboard alternative only",
+      "node_count": 17,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 0,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T18:36:20.091799+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "2d82c455dd61--probe--desktop",
+      "page_id": "2d82c455dd61",
+      "url": "http://127.0.0.1:4317/drag-reorder-bad.html",
+      "state": "probe",
+      "environment": "desktop",
+      "execution": "completed",
+      "evidence_dir": "evidence/2d82c455dd61--probe--desktop",
+      "final_url": "http://127.0.0.1:4317/drag-reorder-bad.html",
+      "title": "Reorder with keyboard alternative only",
+      "node_count": 17,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 28,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T18:36:21.617084+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    }
+  ],
+  "not_a_screen_reader_test": true,
+  "declared_states_without_page": [],
+  "linked_pages_exhausted": true,
+  "site_inventory_confirmed": false,
+  "scope_note": "リンクをたどった範囲のみ。未リンクURL・権限別画面・未知の状態の調査は別に必要"
+}

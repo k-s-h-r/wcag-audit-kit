@@ -1,0 +1,69 @@
+{
+  "pages": [
+    {
+      "id": "580235776723",
+      "url": "http://127.0.0.1:4326/timing.html?variant=good"
+    },
+    {
+      "id": "9957e43aff2e",
+      "url": "http://127.0.0.1:4326/timing.html?variant=bad"
+    }
+  ],
+  "unvisited": [],
+  "errors": [],
+  "discovered": [
+    "http://127.0.0.1:4326/timing.html?variant=bad",
+    "http://127.0.0.1:4326/timing.html?variant=good"
+  ],
+  "captures": [
+    {
+      "key": "580235776723--initial--desktop",
+      "page_id": "580235776723",
+      "url": "http://127.0.0.1:4326/timing.html?variant=good",
+      "state": "initial",
+      "environment": "desktop",
+      "execution": "completed",
+      "collection_state": "finished",
+      "evidence_dir": "evidence/580235776723--initial--desktop",
+      "http_status": 200,
+      "final_url": "http://127.0.0.1:4326/timing.html?variant=good",
+      "title": "Session timing calibration",
+      "node_count": 40,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 0,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T22:49:41.160433+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "9957e43aff2e--initial--desktop",
+      "page_id": "9957e43aff2e",
+      "url": "http://127.0.0.1:4326/timing.html?variant=bad",
+      "state": "initial",
+      "environment": "desktop",
+      "execution": "completed",
+      "collection_state": "finished",
+      "evidence_dir": "evidence/9957e43aff2e--initial--desktop",
+      "http_status": 200,
+      "final_url": "http://127.0.0.1:4326/timing.html?variant=bad",
+      "title": "Session timing calibration",
+      "node_count": 40,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 0,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T22:49:41.728045+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    }
+  ],
+  "not_a_screen_reader_test": true,
+  "collector_status": "completed",
+  "checkpoint_at": "2026-11-14T22:49:41.792369+00:00",
+  "declared_states_without_page": [],
+  "linked_pages_exhausted": true,
+  "site_inventory_confirmed": false,
+  "scope_note": "リンクをたどった範囲のみ。未リンクURL・権限別画面・未知の状態の調査は別に必要"
+}

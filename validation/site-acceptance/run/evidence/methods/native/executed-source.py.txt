@@ -1,0 +1,33 @@
+import json,subprocess,sys,shutil
+from pathlib import Path
+ROOT=Path('/workspace/wcag-audit-kit');OUT=Path('/tmp/wcag-acceptance-native-001');OUT.mkdir(exist_ok=False)
+shutil.copy2(__file__,OUT/'executed-source.py.txt')
+plan=json.loads(Path('/tmp/wcag-acceptance-audit-001/plan.json').read_text())['cases']
+def key(path,criterion):return next(c['case_id'] for c in plan if c['page_url']=='http://127.0.0.1:4330'+path and c['state']=='initial' and c['environment']=='desktop' and c['criterion']==criterion)
+def press(keys,expected=None):
+ value={'type':'reader.press','keys':keys}
+ if expected:value['expect_contains']=expected
+ return value
+requests={
+ 'home':{'case_id':key('/','4.1.3'),'url':'http://127.0.0.1:4330/', 'observe':[{'selector':'#count'}],
+  'actions':[press(['Control_L','Home']),{'type':'reader.nextHeading','expect_contains':'Update your demo profile'},
+   {'type':'reader.nextButton','expect_contains':'Add one'},press(['space'],'1'),
+   {'type':'reader.nextButton','expect_contains':'About this demo'},press(['space'],'About this demo'),press(['Escape'])]},
+ 'help':{'case_id':key('/help','1.3.1'),'url':'http://127.0.0.1:4330/help',
+  'actions':[press(['Control_L','Home']),{'type':'reader.nextHeading','expect_contains':'Help'},
+   {'type':'reader.nextHeading','expect_contains':'Profile fields'},press(['t'],'What to enter'),
+   press(['Down']),press(['Down']),press(['Down']),press(['Down'])]},
+ 'profile':{'case_id':key('/profile','3.3.1'),'url':'http://127.0.0.1:4330/profile',
+  'observe':[{'selector':'#errors'},{'selector':'#name','attributes':['aria-invalid']},{'selector':'#email','attributes':['aria-invalid']}],
+  'actions':[press(['Control_L','Home']),{'type':'reader.nextHeading','expect_contains':'Edit your profile'},
+   {'type':'browser.fill','selector':'#name','value':''},{'type':'browser.fill','selector':'#email','value':'not-an-email'},
+   press(['Tab'],'Review changes'),press(['space'],'Correct the following'),press(['Down']),press(['Down'])]}}
+rows=[]
+for name,request in requests.items():
+ request.update(auth_state='/tmp/wcag-acceptance-bootstrap-002/storage-state.json',locale='en-US',settle_ms=1400)
+ path=OUT/(name+'-request.json');path.write_text(json.dumps(request,indent=2)+'\n')
+ print('starting '+name,flush=True)
+ with (OUT/(name+'-stdout.txt')).open('w') as stdout,(OUT/(name+'-stderr.txt')).open('w') as stderr:
+  result=subprocess.run([sys.executable,str(ROOT/'scripts/screen_reader_native.py'),'--root','/tmp/wcag-at-root','--request',str(path),'--out',str(OUT/name)],stdout=stdout,stderr=stderr)
+ rows.append({'name':name,'exit_code':result.returncode});print(json.dumps(rows[-1]),flush=True)
+(OUT/'results.json').write_text(json.dumps(rows,indent=2)+'\n')

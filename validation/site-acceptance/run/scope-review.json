@@ -1,0 +1,53 @@
+{
+  "processes_reviewed": true,
+  "full_pages_reviewed": true,
+  "complete": false,
+  "accessibility_support_reviewed": false,
+  "non_interference_reviewed": false,
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "sources": [
+    "server route table and complete source",
+    "actual sitemap and all links",
+    "40 page/state/environment captures",
+    "all six browser method scenarios and actual Orca"
+  ],
+  "observed": "5文書、共通ナビとヘルプ、匿名/認証済み、dialog、入力エラー/修正/確認/戻る/保存、ログインエラー/成功、字幕選択/動画終了を全て調査・実行した。サーバーに他の文書ルートや権限はない。静的main/name/emailアンカーの同一文書の根拠も全ソースで確認した。本文全体と手続きを覆うが、動画の閃光による非干渉と、Login成功通知の支援技術サポート等の人による確認は残る。",
+  "evidence": [
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/discovery/sitemap.xml",
+    "capture-manifest.json",
+    "evidence/criterion-review.json",
+    "evidence/methods/extra/login-native/screen-reader.json"
+  ],
+  "remaining": [
+    "動画の閃光の非干渉等はhuman-review.mdの2.3.1へ引き継ぐ",
+    "Login成功通知の支援技術サポートはhuman-review.mdの4.1.3へ引き継ぐ"
+  ],
+  "verified_evidence": [
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/discovery/sitemap.xml",
+      "sha256": "f84ab4e7d7f7aae34117ed85c0b535ebf391f98a60908aa787c5495deea4b3c6"
+    },
+    {
+      "path": "capture-manifest.json",
+      "sha256": "95b2ad94df5220aced57601f8ca691edef7f17121d8fc6ae3ff240d44cbe02be"
+    },
+    {
+      "path": "evidence/criterion-review.json",
+      "sha256": "692af6ad66d78be9966b0b4b68537ece2e698a2ede4e161cd40cceacd440f9fa"
+    },
+    {
+      "path": "evidence/methods/extra/login-native/screen-reader.json",
+      "sha256": "e3b45615b39f749398888552fa6b5e12829a0907f7f86095dae64eab159c55ca"
+    }
+  ]
+}

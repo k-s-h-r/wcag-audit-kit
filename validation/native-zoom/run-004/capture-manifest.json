@@ -1,0 +1,476 @@
+{
+  "pages": [
+    {
+      "id": "c9fd4f350d0f",
+      "url": "http://127.0.0.1:4317/zoom-intermediate.html"
+    }
+  ],
+  "unvisited": [],
+  "errors": [],
+  "discovered": [
+    "http://127.0.0.1:4317/zoom-intermediate.html"
+  ],
+  "captures": [
+    {
+      "key": "c9fd4f350d0f--initial--zoom-125",
+      "page_id": "c9fd4f350d0f",
+      "url": "http://127.0.0.1:4317/zoom-intermediate.html",
+      "state": "initial",
+      "environment": "zoom-125",
+      "execution": "completed",
+      "evidence_dir": "evidence/c9fd4f350d0f--initial--zoom-125",
+      "native_zoom": {
+        "mechanism": "native XTest keys into dedicated Chromium window",
+        "factor": 1.25,
+        "baseline": {
+          "innerWidth": 1280,
+          "innerHeight": 900,
+          "outerWidth": 1280,
+          "outerHeight": 987,
+          "devicePixelRatio": 1,
+          "visualScale": 1,
+          "docWidth": 1280,
+          "docHeight": 900,
+          "bodyZoom": "1",
+          "rootZoom": "1"
+        },
+        "observed": {
+          "innerWidth": 1024,
+          "innerHeight": 720,
+          "outerWidth": 1280,
+          "outerHeight": 987,
+          "devicePixelRatio": 1.25,
+          "visualScale": 1,
+          "docWidth": 1024,
+          "docHeight": 720,
+          "bodyZoom": "1",
+          "rootZoom": "1"
+        },
+        "steps": [
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 1164,
+              "innerHeight": 818,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.100000023841858,
+              "visualScale": 1,
+              "docWidth": 1164,
+              "docHeight": 818,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          },
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 1024,
+              "innerHeight": 720,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.25,
+              "visualScale": 1,
+              "docWidth": 1024,
+              "docHeight": 720,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          }
+        ],
+        "verified": true,
+        "observed_at": "2026-11-14T16:13:40.545805+00:00",
+        "note": "実ブラウザー拡大の操作確認。内容・機能の保持又はWCAG合格の判定ではない"
+      },
+      "images_are_viewport_only": true,
+      "final_url": "http://127.0.0.1:4317/zoom-intermediate.html",
+      "title": "Lost action at intermediate zoom — method fixture",
+      "node_count": 11,
+      "inventory_truncated": false,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T16:13:40.993231+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "c9fd4f350d0f--reset-and-resize--zoom-125",
+      "page_id": "c9fd4f350d0f",
+      "url": "http://127.0.0.1:4317/zoom-intermediate.html",
+      "state": "reset-and-resize",
+      "environment": "zoom-125",
+      "execution": "completed",
+      "evidence_dir": "evidence/c9fd4f350d0f--reset-and-resize--zoom-125",
+      "native_zoom": {
+        "mechanism": "native XTest keys into dedicated Chromium window",
+        "factor": 1.25,
+        "baseline": {
+          "innerWidth": 1280,
+          "innerHeight": 900,
+          "outerWidth": 1280,
+          "outerHeight": 987,
+          "devicePixelRatio": 1,
+          "visualScale": 1,
+          "docWidth": 1280,
+          "docHeight": 900,
+          "bodyZoom": "1",
+          "rootZoom": "1"
+        },
+        "observed": {
+          "innerWidth": 1024,
+          "innerHeight": 720,
+          "outerWidth": 1280,
+          "outerHeight": 987,
+          "devicePixelRatio": 1.25,
+          "visualScale": 1,
+          "docWidth": 1024,
+          "docHeight": 720,
+          "bodyZoom": "1",
+          "rootZoom": "1"
+        },
+        "steps": [
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 1164,
+              "innerHeight": 818,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.100000023841858,
+              "visualScale": 1,
+              "docWidth": 1164,
+              "docHeight": 818,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          },
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 1024,
+              "innerHeight": 720,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.25,
+              "visualScale": 1,
+              "docWidth": 1024,
+              "docHeight": 720,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          }
+        ],
+        "verified": true,
+        "observed_at": "2026-11-14T16:13:42.563844+00:00",
+        "note": "実ブラウザー拡大の操作確認。内容・機能の保持又はWCAG合格の判定ではない"
+      },
+      "images_are_viewport_only": true,
+      "final_url": "http://127.0.0.1:4317/zoom-intermediate.html",
+      "title": "Lost action at intermediate zoom — method fixture",
+      "node_count": 11,
+      "inventory_truncated": false,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T16:13:44.727097+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "c9fd4f350d0f--initial--zoom-200",
+      "page_id": "c9fd4f350d0f",
+      "url": "http://127.0.0.1:4317/zoom-intermediate.html",
+      "state": "initial",
+      "environment": "zoom-200",
+      "execution": "completed",
+      "evidence_dir": "evidence/c9fd4f350d0f--initial--zoom-200",
+      "native_zoom": {
+        "mechanism": "native XTest keys into dedicated Chromium window",
+        "factor": 2,
+        "baseline": {
+          "innerWidth": 1280,
+          "innerHeight": 900,
+          "outerWidth": 1280,
+          "outerHeight": 987,
+          "devicePixelRatio": 1,
+          "visualScale": 1,
+          "docWidth": 1280,
+          "docHeight": 900,
+          "bodyZoom": "1",
+          "rootZoom": "1"
+        },
+        "observed": {
+          "innerWidth": 640,
+          "innerHeight": 450,
+          "outerWidth": 1280,
+          "outerHeight": 987,
+          "devicePixelRatio": 2,
+          "visualScale": 1,
+          "docWidth": 640,
+          "docHeight": 450,
+          "bodyZoom": "1",
+          "rootZoom": "1"
+        },
+        "steps": [
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 1164,
+              "innerHeight": 818,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.100000023841858,
+              "visualScale": 1,
+              "docWidth": 1164,
+              "docHeight": 818,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          },
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 1024,
+              "innerHeight": 720,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.25,
+              "visualScale": 1,
+              "docWidth": 1024,
+              "docHeight": 720,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          },
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 853,
+              "innerHeight": 600,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.5,
+              "visualScale": 1,
+              "docWidth": 853,
+              "docHeight": 600,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          },
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 731,
+              "innerHeight": 514,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.75,
+              "visualScale": 1,
+              "docWidth": 731,
+              "docHeight": 514,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          },
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 640,
+              "innerHeight": 450,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 2,
+              "visualScale": 1,
+              "docWidth": 640,
+              "docHeight": 450,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          }
+        ],
+        "verified": true,
+        "observed_at": "2026-11-14T16:13:46.932983+00:00",
+        "note": "実ブラウザー拡大の操作確認。内容・機能の保持又はWCAG合格の判定ではない"
+      },
+      "images_are_viewport_only": true,
+      "final_url": "http://127.0.0.1:4317/zoom-intermediate.html",
+      "title": "Lost action at intermediate zoom — method fixture",
+      "node_count": 11,
+      "inventory_truncated": false,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T16:13:47.362460+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "c9fd4f350d0f--reset-and-resize--zoom-200",
+      "page_id": "c9fd4f350d0f",
+      "url": "http://127.0.0.1:4317/zoom-intermediate.html",
+      "state": "reset-and-resize",
+      "environment": "zoom-200",
+      "execution": "completed",
+      "evidence_dir": "evidence/c9fd4f350d0f--reset-and-resize--zoom-200",
+      "native_zoom": {
+        "mechanism": "native XTest keys into dedicated Chromium window",
+        "factor": 2,
+        "baseline": {
+          "innerWidth": 1280,
+          "innerHeight": 900,
+          "outerWidth": 1280,
+          "outerHeight": 987,
+          "devicePixelRatio": 1,
+          "visualScale": 1,
+          "docWidth": 1280,
+          "docHeight": 900,
+          "bodyZoom": "1",
+          "rootZoom": "1"
+        },
+        "observed": {
+          "innerWidth": 640,
+          "innerHeight": 450,
+          "outerWidth": 1280,
+          "outerHeight": 987,
+          "devicePixelRatio": 2,
+          "visualScale": 1,
+          "docWidth": 640,
+          "docHeight": 450,
+          "bodyZoom": "1",
+          "rootZoom": "1"
+        },
+        "steps": [
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 1164,
+              "innerHeight": 818,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.100000023841858,
+              "visualScale": 1,
+              "docWidth": 1164,
+              "docHeight": 818,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          },
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 1024,
+              "innerHeight": 720,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.25,
+              "visualScale": 1,
+              "docWidth": 1024,
+              "docHeight": 720,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          },
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 853,
+              "innerHeight": 600,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.5,
+              "visualScale": 1,
+              "docWidth": 853,
+              "docHeight": 600,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          },
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 731,
+              "innerHeight": 514,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 1.75,
+              "visualScale": 1,
+              "docWidth": 731,
+              "docHeight": 514,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          },
+          {
+            "native_keys": [
+              "Control_L",
+              "equal"
+            ],
+            "metrics": {
+              "innerWidth": 640,
+              "innerHeight": 450,
+              "outerWidth": 1280,
+              "outerHeight": 987,
+              "devicePixelRatio": 2,
+              "visualScale": 1,
+              "docWidth": 640,
+              "docHeight": 450,
+              "bodyZoom": "1",
+              "rootZoom": "1"
+            }
+          }
+        ],
+        "verified": true,
+        "observed_at": "2026-11-14T16:13:49.583788+00:00",
+        "note": "実ブラウザー拡大の操作確認。内容・機能の保持又はWCAG合格の判定ではない"
+      },
+      "images_are_viewport_only": true,
+      "final_url": "http://127.0.0.1:4317/zoom-intermediate.html",
+      "title": "Lost action at intermediate zoom — method fixture",
+      "node_count": 11,
+      "inventory_truncated": false,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T16:13:51.809283+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    }
+  ],
+  "not_a_screen_reader_test": true,
+  "declared_states_without_page": [],
+  "linked_pages_exhausted": true,
+  "site_inventory_confirmed": false,
+  "scope_note": "リンクをたどった範囲のみ。未リンクURL・権限別画面・未知の状態の調査は別に必要"
+}

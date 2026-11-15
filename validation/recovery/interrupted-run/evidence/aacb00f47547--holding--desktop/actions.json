@@ -1,0 +1,55 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "press",
+      "key": "Tab"
+    },
+    "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+    "focus": {
+      "tag": "li",
+      "id": "alpha",
+      "text": "AlphaMove Alpha upMove Alpha down",
+      "name": null,
+      "rect": {
+        "x": 72,
+        "y": 198.796875,
+        "width": 840,
+        "height": 102
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "alpha-down"
+        },
+        {
+          "tag": "li",
+          "id": "alpha"
+        },
+        {
+          "tag": "ul",
+          "id": "records"
+        },
+        {
+          "tag": "main",
+          "id": ""
+        },
+        {
+          "tag": "body",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-14T18:41:23.939144+00:00",
+    "observed_at": "2026-11-14T18:41:24.047529+00:00",
+    "observations": [
+      {
+        "target": {
+          "selector": "#order"
+        },
+        "text": "Alpha, Bravo"
+      }
+    ]
+  }
+]

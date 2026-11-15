@@ -1,0 +1,65 @@
+{
+  "note": "Predictions made from the rules applicability/expectation and actual DOM/AX observations before reading sealed expected outcomes. Atomic rule outcomes only.",
+  "predictions": [
+    {
+      "case": "case-01",
+      "outcome": "passed",
+      "reason": "AXに露出したsemantic buttonの名前My buttonが非空。"
+    },
+    {
+      "case": "case-02",
+      "outcome": "inapplicable",
+      "reason": "disabledのbuttonはrole=noneで、AX内のsemantic buttonとして露出していない。"
+    },
+    {
+      "case": "case-03",
+      "outcome": "inapplicable",
+      "reason": "input type=imageはこのbuttonルールの明示的な適用除外。"
+    },
+    {
+      "case": "case-04",
+      "outcome": "failed",
+      "reason": "AXに露出したbuttonのaccessible nameが空。"
+    },
+    {
+      "case": "case-05",
+      "outcome": "passed",
+      "reason": "HTML imgであり、空のaltによって装飾として扱われ、semantic roleがpresentation/noneとなる。"
+    },
+    {
+      "case": "case-06",
+      "outcome": "failed",
+      "reason": "隠されていないHTML imgがAXでimageとして露出するが、名前が空。"
+    },
+    {
+      "case": "case-07",
+      "outcome": "inapplicable",
+      "reason": "祖先によりprogrammatically hiddenとなった画像。"
+    },
+    {
+      "case": "case-08",
+      "outcome": "failed",
+      "reason": "role=noneという属性だけでは判断せず、focusableなimgの実際のsemantic imageへの露出と空の名前を確認した。"
+    },
+    {
+      "case": "case-09",
+      "outcome": "passed",
+      "reason": "空のaltのHTML imgで装飾のsemantic roleとなり、AXに画像として露出しない。"
+    },
+    {
+      "case": "case-10",
+      "outcome": "inapplicable",
+      "reason": "aria-hidden=trueによってprogrammatically hiddenとなった画像。"
+    },
+    {
+      "case": "case-11",
+      "outcome": "failed",
+      "reason": "semantic buttonのspanはAXに露出するがaccessible nameが空。"
+    },
+    {
+      "case": "case-12",
+      "outcome": "passed",
+      "reason": "AXに露出したbuttonのaccessible nameはSaveで非空。"
+    }
+  ]
+}

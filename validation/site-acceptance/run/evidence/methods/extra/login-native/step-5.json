@@ -1,0 +1,39 @@
+{
+  "index": 5,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "space"
+    ],
+    "expect_contains": "Use the demo email"
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "sign-in",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:18:07.939021+00:00",
+  "finished_at": "2026-11-15T00:18:09.440849+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "sign-in",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/login",
+  "speech": [
+    {
+      "at": "2026-11-15T00:18:07.945930+00:00",
+      "line": 7260,
+      "phrase": "space",
+      "raw": "00:18:07.945930 - SPEECH OUTPUT: 'space' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:18:08.227757+00:00",
+      "line": 7395,
+      "phrase": "Use the demo email and password shown in Help.",
+      "raw": "00:18:08.227757 - SPEECH OUTPUT: 'Use the demo email and password shown in Help.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": []
+}

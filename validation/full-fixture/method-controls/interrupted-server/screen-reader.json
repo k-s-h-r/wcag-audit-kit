@@ -1,0 +1,129 @@
+{
+  "status": "blocked",
+  "started_at": "2026-11-14T21:07:47.682218+00:00",
+  "case_id": "e743f12ce843--initial--desktop--1.3.2",
+  "request_sha256": "dabdbc6a42f449d697f42f66397abec3eecafa72f49934ef6bcb0242c10fa046",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false
+  },
+  "observations": [],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "case_id": "e743f12ce843--initial--desktop--1.3.2",
+    "url": "http://127.0.0.1:4320/",
+    "settle_ms": 1600,
+    "locale": "en-US",
+    "observe": [
+      {
+        "selector": "#visual-state"
+      },
+      {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ],
+        "expect_contains": "Notification settings"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Down"
+        ],
+        "expect_contains": "Use the checkbox"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Down"
+        ],
+        "expect_contains": "Email notifications"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "checked",
+        "expect_not_contains": [
+          "not checked",
+          "unchecked"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "not checked"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Down"
+        ],
+        "expect_contains": "Off"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ],
+        "expect_contains": "Notification settings"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Shift_L",
+          "Tab"
+        ],
+        "expect_contains": "Email notifications"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Shift_L",
+          "Tab"
+        ]
+      }
+    ]
+  },
+  "error": "Page.goto: net::ERR_CONNECTION_RESET at http://127.0.0.1:4320/\nCall log:\n  - navigating to \"http://127.0.0.1:4320/\", waiting until \"domcontentloaded\"\n",
+  "cleanup": {
+    "debug_log_sha256": "30d16e15ae443a6b210fbba58a2d7b5ba840047b0a4413a1dbcacde81ac4c3cf",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-14T21:07:52.535383+00:00"
+}

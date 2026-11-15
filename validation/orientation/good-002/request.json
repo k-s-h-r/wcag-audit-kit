@@ -1,0 +1,163 @@
+{
+  "case_id": "orientation-method-good",
+  "url": "http://127.0.0.1:4317/orientation-good.html",
+  "locale": "en-US",
+  "viewport": {
+    "width": 900,
+    "height": 600
+  },
+  "orientation": "landscape-primary",
+  "assert": [
+    {
+      "selector": "#task",
+      "visible": true
+    }
+  ],
+  "observe": [
+    {
+      "selector": "#count"
+    }
+  ],
+  "actions": [
+    {
+      "type": "click",
+      "selector": "#increment",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "viewport": {
+        "width": 600,
+        "height": 900
+      },
+      "orientation": "portrait-primary",
+      "assert": [
+        {
+          "selector": "#task",
+          "visible": true
+        },
+        {
+          "selector": "#rotation-warning",
+          "visible": false
+        }
+      ]
+    },
+    {
+      "type": "click",
+      "selector": "#increment",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "2"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "viewport": {
+        "width": 900,
+        "height": 600
+      },
+      "orientation": "landscape-primary",
+      "assert": [
+        {
+          "selector": "#task",
+          "visible": true
+        },
+        {
+          "selector": "#count",
+          "text": "2"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "viewport": {
+        "width": 600,
+        "height": 900
+      },
+      "orientation": "portrait-secondary",
+      "assert": [
+        {
+          "selector": "#task",
+          "visible": true
+        },
+        {
+          "selector": "#count",
+          "text": "2"
+        }
+      ]
+    },
+    {
+      "type": "click",
+      "selector": "#increment",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "3"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "viewport": {
+        "width": 900,
+        "height": 600
+      },
+      "orientation": "landscape-secondary",
+      "assert": [
+        {
+          "selector": "#task",
+          "visible": true
+        },
+        {
+          "selector": "#count",
+          "text": "3"
+        }
+      ]
+    },
+    {
+      "type": "click",
+      "selector": "#increment",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "4"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "viewport": {
+        "width": 900,
+        "height": 600
+      },
+      "orientation": "landscape-primary",
+      "assert": [
+        {
+          "selector": "#task",
+          "visible": true
+        },
+        {
+          "selector": "#count",
+          "text": "4"
+        }
+      ]
+    },
+    {
+      "type": "click",
+      "selector": "#increment",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "5"
+        }
+      ]
+    }
+  ]
+}

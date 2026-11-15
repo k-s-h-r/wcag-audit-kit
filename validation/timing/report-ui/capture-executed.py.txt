@@ -1,0 +1,29 @@
+import asyncio,json,shutil
+from pathlib import Path
+from playwright.async_api import async_playwright
+ROOT=Path('/workspace/wcag-audit-kit');OUT=ROOT/'validation/timing/report-ui'
+async def main():
+ OUT.mkdir(exist_ok=False);shutil.copy2(__file__,OUT/'capture-executed.py.txt')
+ rows=[]
+ async with async_playwright() as pw:
+  browser=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+  try:
+   for width in [1280,320]:
+    page=await browser.new_page(viewport={'width':width,'height':1000})
+    await page.goto((ROOT/'validation/timing/run/report.html').as_uri())
+    await page.add_script_tag(path=str(ROOT/'vendor/axe.min.js'))
+    axe=await page.evaluate('axe.run()')
+    stats=await page.evaluate('''() => ({width:innerWidth,documentWidth:document.documentElement.scrollWidth,
+     rows:document.querySelectorAll('tbody tr').length,tableWidth:document.querySelector('table').scrollWidth,
+     summary:document.querySelector('main').innerText.slice(0,750)})''')
+    assert stats['rows']==172 and stats['documentWidth']==width
+    assert '未実施 164' in stats['summary'] and '検査完了：いいえ' in stats['summary']
+    assert len(axe['violations'])==0
+    await page.screenshot(path=str(OUT/f'report-{width}.png'))
+    (OUT/f'axe-{width}.json').write_text(json.dumps(axe,ensure_ascii=False,indent=2)+'\n')
+    rows.append({**stats,'axe_violations':len(axe['violations']),'browser_version':browser.version})
+    await page.close()
+  finally:await browser.close()
+ (OUT/'results.json').write_text(json.dumps({'note':'Report display check; not a full WCAG conformance audit of the report.', 'views':rows},ensure_ascii=False,indent=2)+'\n')
+ print(json.dumps(rows,ensure_ascii=False))
+asyncio.run(main())

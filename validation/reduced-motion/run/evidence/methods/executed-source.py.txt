@@ -1,0 +1,31 @@
+import asyncio,hashlib,json,shutil
+from pathlib import Path
+from playwright.async_api import async_playwright
+ROOT=Path('/workspace/wcag-audit-kit');OUT=Path('/tmp/wcag-motion-method-001')
+async def main():
+ OUT.mkdir(exist_ok=False);shutil.copy2(__file__,OUT/'executed-source.py.txt');shutil.copy2(ROOT/'tests/fixtures/reduced-motion.html',OUT/'source.html');rows=[]
+ async with async_playwright() as pw:
+  b=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+  try:
+   for variant in ['good','bad']:
+    for preference in ['no-preference','reduce']:
+     name=variant+'-'+preference;folder=OUT/name;folder.mkdir(exist_ok=False)
+     page=await b.new_page(viewport={'width':1000,'height':700});await page.emulate_media(reduced_motion=preference)
+     await page.goto('http://127.0.0.1:4334/reduced-motion.html?variant='+variant,wait_until='networkidle')
+     await page.evaluate("window.keyProof=[];addEventListener('keydown',e=>keyProof.push({key:e.key,trusted:e.isTrusted}))")
+     metrics='''() => {const e=document.querySelector('#box'),r=e.getBoundingClientRect();return {performance_ms:performance.now(),reduced:matchMedia('(prefers-reduced-motion:reduce)').matches,x:r.x,transform:getComputedStyle(e).transform,animations:document.getAnimations().map(a=>({time:a.currentTime,state:a.playState})),count:document.querySelector('#count').textContent,focus:document.activeElement.id,keys:window.keyProof}}'''
+     before=await page.evaluate(metrics);assert before['reduced']==(preference=='reduce')
+     await page.keyboard.press('Tab');await page.keyboard.press('Enter')
+     samples=[]
+     for index in range(3):
+      await page.wait_for_timeout(100);sample=await page.evaluate(metrics);samples.append(sample)
+      await page.screenshot(path=str(folder/(str(index)+'.png')),animations='allow')
+     assert all(s['count']=='1' and s['focus']=='run' for s in samples)
+     moving=max(s['x'] for s in samples)-min(s['x'] for s in samples)>5
+     assert moving==(variant=='bad' or preference=='no-preference')
+     row={'variant':variant,'preference':preference,'before':before,'samples':samples,'motion_observed':moving,'physical_os_setting':False,'wcag_judgement':None}
+     (folder/'observations.json').write_text(json.dumps(row,indent=2)+'\n');rows.append(row);await page.close()
+  finally:await b.close()
+ (OUT/'comparison.json').write_text(json.dumps({'note':'Actual elapsed-time positions after trusted keyboard interaction. Chromium preference emulation, not a physical OS setting. Known-source calibration only.','browser_version':b.version,'source_sha256':hashlib.sha256((OUT/'source.html').read_bytes()).hexdigest(),'scenarios':rows},indent=2)+'\n')
+ print(json.dumps([{'variant':r['variant'],'preference':r['preference'],'motion_observed':r['motion_observed'],'positions':[s['x'] for s in r['samples']]} for r in rows]))
+asyncio.run(main())

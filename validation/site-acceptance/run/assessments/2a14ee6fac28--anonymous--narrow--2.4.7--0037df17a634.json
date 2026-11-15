@@ -1,0 +1,176 @@
+{
+  "case_id": "2a14ee6fac28--anonymous--narrow--2.4.7",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "e85376c459127eac4da116ec9e68df4aecc7db794a36b7536a2d260486eb16c1",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/login / anonymous / narrow。表示の主内容はSign in — Profile demo。可視見出し: ['Sign in']。入力欄: [\"#login-email: ['Email']\", \"#password: ['Password']\"]。実Tabと実キー操作の画面で、対象に青い3pxの輪郭が現れる。スキップ、dialog、入力、エラー、確認、保存、プレーヤー、ログインの操作後と実拡大でも確認した。著者がキーのフォーカス表示を消す処理はない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:2.4.7:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "このURLのページ全体、可視の内容・部品と到達可能な全状態",
+      "observed": "実Tabと実キー操作の画面で、対象に青い3pxの輪郭が現れる。スキップ、dialog、入力、エラー、確認、保存、プレーヤー、ログインの操作後と実拡大でも確認した。著者がキーのフォーカス表示を消す処理はない。",
+      "expected": "キーボードフォーカスが視覚的に分かる操作モードがあるか",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--anonymous--narrow/page.png",
+        "evidence/2a14ee6fac28--anonymous--narrow/inventory.json",
+        "evidence/2a14ee6fac28--anonymous--narrow/dom.html",
+        "evidence/2a14ee6fac28--anonymous--narrow/accessibility-tree.json",
+        "evidence/2a14ee6fac28--anonymous--narrow/actions.json",
+        "evidence/2a14ee6fac28--anonymous--narrow/keyboard.json",
+        "evidence/methods/browser/executed-source.py.txt",
+        "evidence/methods/browser/source/app.js",
+        "evidence/methods/browser/source/app.css",
+        "evidence/methods/browser/server.py.txt",
+        "evidence/methods/discovery/discovery.json",
+        "evidence/methods/browser/narrow/observations.json",
+        "evidence/methods/browser/narrow/019-login-error.png",
+        "evidence/methods/browser/narrow/019-login-error.json",
+        "evidence/methods/browser/narrow/019-login-error-ax.json",
+        "evidence/methods/browser/narrow/020-login-pasted.png",
+        "evidence/methods/browser/narrow/020-login-pasted.json",
+        "evidence/methods/browser/narrow/020-login-pasted-ax.json",
+        "evidence/methods/browser/narrow/021-login-success.png",
+        "evidence/methods/browser/narrow/021-login-success.json",
+        "evidence/methods/browser/narrow/021-login-success-ax.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "keyboard",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/2a14ee6fac28--anonymous--narrow/page.png",
+    "evidence/2a14ee6fac28--anonymous--narrow/inventory.json",
+    "evidence/2a14ee6fac28--anonymous--narrow/dom.html",
+    "evidence/2a14ee6fac28--anonymous--narrow/accessibility-tree.json",
+    "evidence/2a14ee6fac28--anonymous--narrow/actions.json",
+    "evidence/2a14ee6fac28--anonymous--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/browser/narrow/019-login-error.png",
+    "evidence/methods/browser/narrow/019-login-error.json",
+    "evidence/methods/browser/narrow/019-login-error-ax.json",
+    "evidence/methods/browser/narrow/020-login-pasted.png",
+    "evidence/methods/browser/narrow/020-login-pasted.json",
+    "evidence/methods/browser/narrow/020-login-pasted-ax.json",
+    "evidence/methods/browser/narrow/021-login-success.png",
+    "evidence/methods/browser/narrow/021-login-success.json",
+    "evidence/methods/browser/narrow/021-login-success-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:59.678820+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/2a14ee6fac28--anonymous--narrow/page.png",
+      "sha256": "9fafc21d4fc4b5fea2f00c3ccdc7ff6ee55460e6fa43e048e17affde1173a0cd"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--anonymous--narrow/inventory.json",
+      "sha256": "34f68512eb97386de91ccacb31662ac10ae368b0fdab86cefdf5f9ae891bd7ef"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--anonymous--narrow/dom.html",
+      "sha256": "22de94f4e4887f696be132b5e52c79d9000f9b7962a3c862573ef49d02a18714"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--anonymous--narrow/accessibility-tree.json",
+      "sha256": "adafe31c7e95c5d03a34b4e512ecced63c9b51cb0e95cf86652c33552aee2ebb"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--anonymous--narrow/actions.json",
+      "sha256": "ce6137bc78d6077a174d7427333d0baa0501c83a4a5a2b56799969d4909816ed"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--anonymous--narrow/keyboard.json",
+      "sha256": "1e66b1ba095c7f66a1f161edd68b4cae5d2bd45659152187f16a8af63d440792"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/019-login-error.png",
+      "sha256": "469ca75bb7c63a882ce912116d9de5c636f4cc48bc7277a54df18783d44e22c9"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/019-login-error.json",
+      "sha256": "c2d54275e2250730494cd6e012061cdc91b28e3c0f26d08c0cef9182c8674e1f"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/019-login-error-ax.json",
+      "sha256": "08b7664d898c4af36537c9db7d32373ae473bc2ef41b2246046dc4335bd187f6"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/020-login-pasted.png",
+      "sha256": "98fcf70ba4f788239078fcf71b43eb09a35738a6da02c527b67b65dbe744b5c0"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/020-login-pasted.json",
+      "sha256": "85fdecfb1b8446662776154441fc2ae79f041ed8031a695e68bfd8e7bcbb6389"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/020-login-pasted-ax.json",
+      "sha256": "bd843a1296d8269079e8a3b03bbae90552bac9fc2a06411b62fb39d47343f197"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/021-login-success.png",
+      "sha256": "5ed0fcaec77f70a794f50b468ee7966798e4ebfaf095fb6a2faa122d79a67cb8"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/021-login-success.json",
+      "sha256": "9ac929fb7a4ca015518662a2e427f9187494cf5dccf6df6ebcec64ef480b2c90"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/021-login-success-ax.json",
+      "sha256": "362019d041c3a894ce699fc58c55d3b2f714d43fd9636d24727ac29a62b8c1d6"
+    }
+  ]
+}

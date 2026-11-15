@@ -1,0 +1,85 @@
+{
+  "pages": [
+    {
+      "id": "c8bf6e1d450e",
+      "url": "http://127.0.0.1:4322/"
+    }
+  ],
+  "unvisited": [],
+  "errors": [],
+  "discovered": [
+    "http://127.0.0.1:4322/"
+  ],
+  "captures": [
+    {
+      "key": "c8bf6e1d450e--initial--desktop",
+      "page_id": "c8bf6e1d450e",
+      "url": "http://127.0.0.1:4322/",
+      "state": "initial",
+      "environment": "desktop",
+      "execution": "completed",
+      "collection_state": "finished",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "http_status": 200,
+      "final_url": "http://127.0.0.1:4322/",
+      "title": "Notification setting with stale exposed state",
+      "node_count": 12,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 8,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T21:21:00.126197+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "c8bf6e1d450e--enabled--desktop",
+      "page_id": "c8bf6e1d450e",
+      "url": "http://127.0.0.1:4322/",
+      "state": "enabled",
+      "environment": "desktop",
+      "execution": "completed",
+      "collection_state": "finished",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "http_status": 200,
+      "final_url": "http://127.0.0.1:4322/",
+      "title": "Notification setting with stale exposed state",
+      "node_count": 12,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 13,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T21:21:01.295662+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "c8bf6e1d450e--disabled-again--desktop",
+      "page_id": "c8bf6e1d450e",
+      "url": "http://127.0.0.1:4322/",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "execution": "completed",
+      "collection_state": "finished",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "http_status": 200,
+      "final_url": "http://127.0.0.1:4322/",
+      "title": "Notification setting with stale exposed state",
+      "node_count": 12,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 16,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T21:21:02.522804+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    }
+  ],
+  "not_a_screen_reader_test": true,
+  "collector_status": "completed",
+  "checkpoint_at": "2026-11-14T21:21:02.599191+00:00",
+  "declared_states_without_page": [],
+  "linked_pages_exhausted": true,
+  "site_inventory_confirmed": false,
+  "scope_note": "リンクをたどった範囲のみ。未リンクURL・権限別画面・未知の状態の調査は別に必要"
+}

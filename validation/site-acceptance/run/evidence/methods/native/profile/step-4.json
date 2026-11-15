@@ -1,0 +1,68 @@
+{
+  "index": 4,
+  "action": {
+    "type": "browser.fill",
+    "selector": "#email",
+    "value": "***"
+  },
+  "focus_before": {
+    "tag": "input",
+    "id": "name",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:34.924817+00:00",
+  "finished_at": "2026-11-15T00:10:36.334237+00:00",
+  "focus_after": {
+    "tag": "input",
+    "id": "email",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/profile",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:34.974223+00:00",
+      "line": 6718,
+      "phrase": "Email (required) entry not-an-email required.",
+      "raw": "00:10:34.974223 - SPEECH OUTPUT: 'Email (required) entry not-an-email required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:34.975295+00:00",
+      "line": 6725,
+      "phrase": "invalid entry.",
+      "raw": "00:10:34.975295 - SPEECH OUTPUT: 'invalid entry.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": [
+    {
+      "target": {
+        "selector": "#errors"
+      },
+      "text": "Correct the following"
+    },
+    {
+      "target": {
+        "selector": "#name",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": null
+      }
+    },
+    {
+      "target": {
+        "selector": "#email",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": null
+      }
+    }
+  ]
+}

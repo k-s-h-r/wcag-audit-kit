@@ -1,0 +1,51 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "click",
+      "selector": "#append"
+    },
+    "url": "http://127.0.0.1:4317/pointer-cancel-bad.html",
+    "focus": {
+      "tag": "button",
+      "id": "append",
+      "text": "Log an entry",
+      "name": null,
+      "rect": {
+        "x": 24,
+        "y": 152.609375,
+        "width": 128.078125,
+        "height": 56.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "append"
+        },
+        {
+          "tag": "main",
+          "id": ""
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-14T17:35:40.993404+00:00",
+    "observed_at": "2026-11-14T17:35:41.141996+00:00",
+    "observations": [
+      {
+        "target": {
+          "selector": "#count"
+        },
+        "text": "1"
+      }
+    ]
+  }
+]

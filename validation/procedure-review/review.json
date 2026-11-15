@@ -1,0 +1,254 @@
+{
+  "review_scope": "All 31 AAA normative conditions and current procedures, plus media-alternative definition and selected official Understanding/Techniques. This is a knowledge review, not a full execution validation.",
+  "changes": [
+    {
+      "id": "1.2.1",
+      "old_version": "2",
+      "new_version": "3",
+      "changed_fields": [
+        "target_enumeration",
+        "steps",
+        "expectation",
+        "procedure_version"
+      ],
+      "normative_sha256": "d6eeb52c6bf0a9f02684db608a913394473fd6fb75f4d73e3b302e17c1a424c9"
+    },
+    {
+      "id": "1.2.3",
+      "old_version": "2",
+      "new_version": "3",
+      "changed_fields": [
+        "target_enumeration",
+        "steps",
+        "expectation",
+        "procedure_version"
+      ],
+      "normative_sha256": "25d331cd49fe1eb21ea12fcda4e45f1a1d51beed9d0dda297fba3bb4a5ebab24"
+    },
+    {
+      "id": "1.2.8",
+      "old_version": "2",
+      "new_version": "3",
+      "changed_fields": [
+        "target_enumeration",
+        "steps",
+        "expectation",
+        "procedure_version"
+      ],
+      "normative_sha256": "f697f3b845d7d2194f7fd74447715fd020cd835bdb1437cb3c1deeb7b826b863"
+    },
+    {
+      "id": "1.4.7",
+      "old_version": "1",
+      "new_version": "2",
+      "changed_fields": [
+        "applicability",
+        "target_enumeration",
+        "steps",
+        "expectation",
+        "procedure_version"
+      ],
+      "normative_sha256": "a0b0047196f8613c639f18de67982321b68cf8a3e30f5e6831377fd8b447dc65"
+    },
+    {
+      "id": "1.4.8",
+      "old_version": "1",
+      "new_version": "2",
+      "changed_fields": [
+        "applicability",
+        "target_enumeration",
+        "steps",
+        "expectation",
+        "methods",
+        "procedure_version"
+      ],
+      "normative_sha256": "8a848f7510999ac4bf652b8b35254b283195eb2d3ae26b583d6f9d92fe977910"
+    },
+    {
+      "id": "2.1.3",
+      "old_version": "1",
+      "new_version": "2",
+      "changed_fields": [
+        "target_enumeration",
+        "steps",
+        "expectation",
+        "procedure_version"
+      ],
+      "normative_sha256": "c7566d92b16dd89f7050714c110ac5c5ee8cf090515e6419d74b7531cbb07d36"
+    },
+    {
+      "id": "2.2.3",
+      "old_version": "1",
+      "new_version": "2",
+      "changed_fields": [
+        "applicability",
+        "target_enumeration",
+        "steps",
+        "expectation",
+        "methods",
+        "procedure_version"
+      ],
+      "normative_sha256": "724724b332044089cec8f55487a545110fcd1869ad74ef93ae1746db55b64f9b"
+    },
+    {
+      "id": "2.3.2",
+      "old_version": "1",
+      "new_version": "2",
+      "changed_fields": [
+        "target_enumeration",
+        "steps",
+        "expectation",
+        "procedure_version"
+      ],
+      "normative_sha256": "8f2410711cb779b44d44e2b528571bed3f3764a3af9072de9fd9cb7b3d2b6642"
+    },
+    {
+      "id": "2.4.12",
+      "old_version": "1",
+      "new_version": "2",
+      "changed_fields": [
+        "target_enumeration",
+        "steps",
+        "expectation",
+        "procedure_version"
+      ],
+      "normative_sha256": "15f26ae201b41c693f1cbcb6f52f019588164c54f931c348bffce89ab4cfa78e"
+    },
+    {
+      "id": "3.3.5",
+      "old_version": "1",
+      "new_version": "2",
+      "changed_fields": [
+        "applicability",
+        "target_enumeration",
+        "steps",
+        "expectation",
+        "procedure_version"
+      ],
+      "normative_sha256": "d615296c0e4fd81437cde3695bb82bca9d146d9cba440fc193c6414e2803b6eb"
+    }
+  ],
+  "normative_hashes_unchanged": 86,
+  "new_catalog_digest": "2773c9387d6594734989c28764f00b31d62d79fd0b9a63095e39ce69cce05f74",
+  "existing_runs": [
+    {
+      "run": "validation/act-title/run-html",
+      "counts": {
+        "not_run": 979,
+        "failed": 8,
+        "passed": 3
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/act-title/run-svg",
+      "counts": {
+        "not_run": 110
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/dragging/method-control",
+      "counts": {
+        "not_run": 110
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/dragging/run-002",
+      "counts": {
+        "not_run": 438,
+        "passed": 1,
+        "failed": 1
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/full-fixture/bad-run",
+      "counts": {
+        "not_run": 162,
+        "failed": 3
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/full-fixture/good-run",
+      "counts": {
+        "inapplicable": 90,
+        "passed": 75
+      },
+      "audit_complete": true,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/media/run-001",
+      "counts": {
+        "not_run": 54,
+        "cant_tell": 1
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/native-zoom/run-004",
+      "counts": {
+        "not_run": 219,
+        "cant_tell": 1
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/pointer-cancellation/method-control",
+      "counts": {
+        "not_run": 110
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/pointer-cancellation/run",
+      "counts": {
+        "not_run": 324,
+        "passed": 3,
+        "failed": 3
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/recovery/completed-run",
+      "counts": {
+        "not_run": 165
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    },
+    {
+      "run": "validation/recovery/interrupted-run",
+      "counts": {
+        "not_run": 110
+      },
+      "audit_complete": false,
+      "frozen_definitions_preserved": true,
+      "new_writes_rejected": true
+    }
+  ],
+  "remaining": "Applicable media content, sign language, flashes, timing and input method calibration, complex site flow verification and independent accuracy evaluation remain."
+}

@@ -1,0 +1,146 @@
+{
+  "case_id": "aa61afa5bf07--back-to-edit--desktop--1.2.1",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "d6eeb52c6bf0a9f02684db608a913394473fd6fb75f4d73e3b302e17c1a424c9",
+  "execution": "completed",
+  "outcome": "inapplicable",
+  "observed": "このcaseはhttp://127.0.0.1:4330/profile / back-to-edit / desktop。表示の主内容はEdit profile — Profile demo。可視見出し: ['Edit your profile']。入力欄: [\"#name: ['Name (required)']\", \"#email: ['Email (required)']\"]。媒体があるページも、映像と音声が同期した一つのWebMである。音声のみ又は映像のみの収録物は全ソース・実際の読み込みにない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:1.2.1:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [],
+  "method_coverage": [
+    {
+      "method": "media",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/aa61afa5bf07--back-to-edit--desktop/page.png",
+    "evidence/aa61afa5bf07--back-to-edit--desktop/inventory.json",
+    "evidence/aa61afa5bf07--back-to-edit--desktop/dom.html",
+    "evidence/aa61afa5bf07--back-to-edit--desktop/accessibility-tree.json",
+    "evidence/aa61afa5bf07--back-to-edit--desktop/actions.json",
+    "evidence/aa61afa5bf07--back-to-edit--desktop/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/desktop/observations.json",
+    "evidence/methods/browser/desktop/009-profile-errors.png",
+    "evidence/methods/browser/desktop/009-profile-errors.json",
+    "evidence/methods/browser/desktop/009-profile-errors-ax.json",
+    "evidence/methods/browser/desktop/010-profile-review.png",
+    "evidence/methods/browser/desktop/010-profile-review.json",
+    "evidence/methods/browser/desktop/010-profile-review-ax.json",
+    "evidence/methods/browser/desktop/012-profile-completed.png",
+    "evidence/methods/browser/desktop/012-profile-completed.json",
+    "evidence/methods/browser/desktop/012-profile-completed-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:08.102177+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--desktop/page.png",
+      "sha256": "9124773faa41eef4b8fe11301fb1087428fa92a5ea3d2d8f77566c4f7ea156c1"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--desktop/inventory.json",
+      "sha256": "a7d288c3d410fc17cd27600c805b3dcc5e1afcc9af4e5e762afa8086b001b886"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--desktop/dom.html",
+      "sha256": "e4334734571e783feb30da28b0f0aadda2b217c38dee7f8c1810c07b514d44b6"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--desktop/accessibility-tree.json",
+      "sha256": "383e549cef9f19be1824db1e990b367f1201970b099a76b589640dbaad992bd8"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--desktop/actions.json",
+      "sha256": "07eb4fcaf458c2633b5e649b347fc637b75c96445ccd71df2ccad004155a8d8a"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--desktop/keyboard.json",
+      "sha256": "0956649777836bfea2e1ab7068a3b00aa7244b4b117e7dc7932b2d078576bac2"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/observations.json",
+      "sha256": "39b0ef7069d2e14adab81994bd7f17bf2a61176f8051449773cab1c691b5a9fe"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/009-profile-errors.png",
+      "sha256": "0acf0b8c01058cde94a75d2adba8f0d5f6f739e302ce2677a887c5d6f890150e"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/009-profile-errors.json",
+      "sha256": "d4cbf4d03c1c7ee0e1615398058f499d67506ad83a39bd2c97904dba46f47862"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/009-profile-errors-ax.json",
+      "sha256": "12dd4847249a8ef07a955cb115f18e9925ac153c8040bd76cafdd686835fba2a"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/010-profile-review.png",
+      "sha256": "3862e9c83c168514cfb9e1e2dfe0422660ecee7b6a2a9712cf646a0ef3e91f5f"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/010-profile-review.json",
+      "sha256": "d56a198d8a87fd0f9986cc697588e64195d8e7ddfcf9fa15e1362a137fb04f9e"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/010-profile-review-ax.json",
+      "sha256": "9ae22a42459c59a5c831df4910b83010b4f13fc78f3eae6e29711b96e76ee421"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/012-profile-completed.png",
+      "sha256": "185b69126eaa279e6f0d473c1f03eba0d5bb9adbab45af8b5cda8b242031211d"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/012-profile-completed.json",
+      "sha256": "b14cf77569c2befcbdd03f1cfedb58b2843f9cef391fc3b1b1d6f01f86647360"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/012-profile-completed-ax.json",
+      "sha256": "846281a1aef8be2c1339b9b7bcf271ffbb09cab1cc96e19629773578d7fbdd07"
+    }
+  ]
+}

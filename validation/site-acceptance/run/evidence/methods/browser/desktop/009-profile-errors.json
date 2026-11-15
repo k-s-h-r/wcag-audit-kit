@@ -1,0 +1,783 @@
+{
+  "url": "http://127.0.0.1:4330/profile",
+  "title": "Edit profile — Profile demo",
+  "lang": "en",
+  "viewport": {
+    "width": 1280,
+    "height": 900,
+    "dpr": 1,
+    "scale": 1
+  },
+  "document": {
+    "width": 1280,
+    "height": 1084,
+    "scrollX": 0,
+    "scrollY": 0
+  },
+  "focus": {
+    "id": "errors",
+    "tag": "div",
+    "documentHasFocus": true,
+    "rect": {
+      "x": 219.1875,
+      "y": 376.9375,
+      "width": 841.625,
+      "height": 201.59375
+    }
+  },
+  "text": "Skip to main content\n\nProfile demo\n\nHome\nEdit profile\nVideo instructions\nHelp\nSign in\nSign out\nEdit your profile\n\nChange your saved name and email, then review before saving. Both fields are required.\n\nCorrect the following\nEnter a name.\nEnter an email such as name@example.test.\nName (required)\n\nEnter a name.\n\nEmail (required)\n\nEnter an email such as name@example.test.\n\nReview changes\nHelp\n\nContact: example@example.test",
+  "controls": [
+    {
+      "tag": "a",
+      "id": "",
+      "text": "Skip to main content",
+      "value": null,
+      "type": "",
+      "href": "#main",
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 16,
+        "y": -160,
+        "width": 182.28125,
+        "height": 47.984375
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(0, 74, 153)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTopColor": "rgb(0, 74, 153)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(0, 74, 153)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "text": "Home",
+      "value": null,
+      "type": "",
+      "href": "/",
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 84.984375,
+        "width": 76.796875,
+        "height": 47.984375
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(0, 74, 153)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(0, 74, 153)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(0, 74, 153)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "text": "Edit profile",
+      "value": null,
+      "type": "",
+      "href": "/profile",
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 303.984375,
+        "y": 84.984375,
+        "width": 113.828125,
+        "height": 47.984375
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(0, 74, 153)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(0, 74, 153)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(0, 74, 153)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "text": "Video instructions",
+      "value": null,
+      "type": "",
+      "href": "/media",
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 425.8125,
+        "y": 84.984375,
+        "width": 170.53125,
+        "height": 47.984375
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(0, 74, 153)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(0, 74, 153)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(0, 74, 153)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "text": "Help",
+      "value": null,
+      "type": "",
+      "href": "/help",
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 604.34375,
+        "y": 84.984375,
+        "width": 65.8125,
+        "height": 47.984375
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(0, 74, 153)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(0, 74, 153)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(0, 74, 153)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "text": "Sign in",
+      "value": null,
+      "type": "",
+      "href": "/login",
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 678.15625,
+        "y": 84.984375,
+        "width": 83.828125,
+        "height": 47.984375
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(0, 74, 153)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(0, 74, 153)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(0, 74, 153)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "button",
+      "id": "sign-out",
+      "text": "Sign out",
+      "value": "",
+      "type": "button",
+      "href": null,
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 132.96875,
+        "width": 98.84375,
+        "height": 51.984375
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(238, 238, 238)",
+        "borderTopColor": "rgb(68, 68, 68)",
+        "borderTopWidth": "2px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "text": "Enter a name.",
+      "value": null,
+      "type": "",
+      "href": "#name",
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 278.1875,
+        "y": 487.9375,
+        "width": 113.0625,
+        "height": 20
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(0, 74, 153)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(0, 74, 153)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(0, 74, 153)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "text": "Enter an email such as name@example.test.",
+      "value": null,
+      "type": "",
+      "href": "#email",
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 278.1875,
+        "y": 516.734375,
+        "width": 358.453125,
+        "height": 20
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(0, 74, 153)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(0, 74, 153)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(0, 74, 153)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "input",
+      "id": "name",
+      "text": "",
+      "value": "",
+      "type": "text",
+      "href": null,
+      "name": "name",
+      "autocomplete": "name",
+      "ariaPressed": null,
+      "ariaInvalid": "true",
+      "rect": {
+        "x": 219.1875,
+        "y": 623.328125,
+        "width": 841.625,
+        "height": 48.796875
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTopColor": "rgb(85, 85, 85)",
+        "borderTopWidth": "2px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "clip"
+      }
+    },
+    {
+      "tag": "input",
+      "id": "email",
+      "text": "",
+      "value": "not-an-email",
+      "type": "email",
+      "href": null,
+      "name": "email",
+      "autocomplete": "email",
+      "ariaPressed": null,
+      "ariaInvalid": "true",
+      "rect": {
+        "x": 219.1875,
+        "y": 765.71875,
+        "width": 841.625,
+        "height": 48.796875
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "borderTopColor": "rgb(85, 85, 85)",
+        "borderTopWidth": "2px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "clip"
+      }
+    },
+    {
+      "tag": "button",
+      "id": "review",
+      "text": "Review changes",
+      "value": "",
+      "type": "submit",
+      "href": null,
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 879.3125,
+        "width": 164.859375,
+        "height": 51.984375
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgb(238, 238, 238)",
+        "borderTopColor": "rgb(68, 68, 68)",
+        "borderTopWidth": "2px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "a",
+      "id": "",
+      "text": "Help",
+      "value": null,
+      "type": "",
+      "href": "/help",
+      "name": null,
+      "autocomplete": null,
+      "ariaPressed": null,
+      "ariaInvalid": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 974.671875,
+        "width": 37.03125,
+        "height": 20
+      },
+      "inertByModal": false,
+      "style": {
+        "color": "rgb(0, 74, 153)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(0, 74, 153)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(0, 74, 153)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    }
+  ],
+  "textStyles": [
+    {
+      "tag": "p",
+      "id": "",
+      "text": "Profile demo",
+      "rect": {
+        "x": 219.1875,
+        "y": 38.1875,
+        "width": 841.625,
+        "height": 28.796875
+      },
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(17, 17, 17)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "18px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "h1",
+      "id": "",
+      "text": "Edit your profile",
+      "rect": {
+        "x": 219.1875,
+        "y": 248.4375,
+        "width": 841.625,
+        "height": 57.59375
+      },
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(17, 17, 17)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "36px",
+        "fontWeight": "700",
+        "lineHeight": "57.6px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "24.12px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "",
+      "text": "Change your saved name and email, then review before saving. Both fields are required.",
+      "rect": {
+        "x": 219.1875,
+        "y": 330.140625,
+        "width": 841.625,
+        "height": 28.796875
+      },
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(17, 17, 17)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "18px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "h2",
+      "id": "",
+      "text": "Correct the following",
+      "rect": {
+        "x": 238.1875,
+        "y": 418.34375,
+        "width": 803.625,
+        "height": 43.1875
+      },
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(17, 17, 17)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "27px",
+        "fontWeight": "700",
+        "lineHeight": "43.2px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "22.41px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "label",
+      "id": "",
+      "text": "Name (required)",
+      "rect": {
+        "x": 219.1875,
+        "y": 594.53125,
+        "width": 841.625,
+        "height": 28.796875
+      },
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(17, 17, 17)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "name-error",
+      "text": "Enter a name.",
+      "rect": {
+        "x": 219.1875,
+        "y": 690.125,
+        "width": 841.625,
+        "height": 28.796875
+      },
+      "style": {
+        "color": "rgb(133, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(133, 0, 0)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(133, 0, 0)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "18px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "label",
+      "id": "",
+      "text": "Email (required)",
+      "rect": {
+        "x": 219.1875,
+        "y": 736.921875,
+        "width": 841.625,
+        "height": 28.796875
+      },
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(17, 17, 17)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "email-error",
+      "text": "Enter an email such as name@example.test.",
+      "rect": {
+        "x": 219.1875,
+        "y": 832.515625,
+        "width": 841.625,
+        "height": 28.796875
+      },
+      "style": {
+        "color": "rgb(133, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(133, 0, 0)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(133, 0, 0)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "700",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "18px",
+        "overflow": "visible"
+      }
+    },
+    {
+      "tag": "p",
+      "id": "",
+      "text": "Contact: example@example.test",
+      "rect": {
+        "x": 219.1875,
+        "y": 1017.46875,
+        "width": 841.625,
+        "height": 28.796875
+      },
+      "style": {
+        "color": "rgb(17, 17, 17)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderTopColor": "rgb(17, 17, 17)",
+        "borderTopWidth": "0px",
+        "outlineColor": "rgb(17, 17, 17)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "lineHeight": "28.8px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "18px",
+        "overflow": "visible"
+      }
+    }
+  ],
+  "nav": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Edit profile",
+      "href": "/profile"
+    },
+    {
+      "text": "Video instructions",
+      "href": "/media"
+    },
+    {
+      "text": "Help",
+      "href": "/help"
+    },
+    {
+      "text": "Sign in",
+      "href": "/login"
+    }
+  ],
+  "images": [],
+  "video": null,
+  "animations": [],
+  "pointers": {
+    "coarse": true,
+    "hover": false
+  },
+  "pasteEvents": []
+}

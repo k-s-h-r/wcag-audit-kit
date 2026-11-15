@@ -1,0 +1,85 @@
+{
+  "case_id": "c8bf6e1d450e--initial--desktop--4.1.2",
+  "url": "http://127.0.0.1:4322/",
+  "settle_ms": 1600,
+  "locale": "en-US",
+  "observe": [
+    {
+      "selector": "#visual-state"
+    },
+    {
+      "selector": "#email-switch",
+      "attributes": [
+        "role",
+        "aria-checked"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "reader.press",
+      "keys": [
+        "Control_L",
+        "Home"
+      ],
+      "expect_contains": "Notification settings"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Down"
+      ],
+      "expect_contains": "Use the checkbox"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Down"
+      ],
+      "expect_contains": "Email notifications"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "space"
+      ],
+      "expect_contains": "checked",
+      "expect_not_contains": [
+        "not checked",
+        "unchecked"
+      ]
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "space"
+      ],
+      "expect_contains": "not checked"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "space"
+      ],
+      "expect_contains": "checked",
+      "expect_not_contains": [
+        "not checked",
+        "unchecked"
+      ]
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "space"
+      ],
+      "expect_contains": "not checked"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Down"
+      ],
+      "expect_contains": "Off"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "created_at": "2026-11-14T18:35:06.672037+00:00",
+  "config": {
+    "schema_version": "1",
+    "url": "http://127.0.0.1:4317",
+    "locale": "en-US",
+    "level": "AA",
+    "scope": {
+      "include": [
+        "/drag-reorder-good.html"
+      ],
+      "seeds": [
+        "/drag-reorder-good.html"
+      ],
+      "max_pages": 1,
+      "exclude": [],
+      "known_pages": []
+    },
+    "environments": [
+      {
+        "id": "desktop",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        },
+        "zoom": 1
+      }
+    ],
+    "states": [
+      {
+        "id": "wrong-intermediate",
+        "paths": [
+          "/drag-reorder-good.html"
+        ],
+        "observe": [
+          {
+            "selector": "#order"
+          }
+        ],
+        "actions": [
+          {
+            "type": "drag",
+            "selector": "#alpha",
+            "target": {
+              "selector": "#bravo"
+            },
+            "assert": [
+              {
+                "selector": "#order",
+                "text": "Alpha, Bravo"
+              }
+            ]
+          },
+          {
+            "type": "drag",
+            "selector": "#bravo",
+            "target": {
+              "selector": "#alpha"
+            }
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#order",
+            "text": "Alpha, Bravo"
+          }
+        ]
+      }
+    ],
+    "keyboard_steps": 0,
+    "input_event_limit": 10000
+  },
+  "config_digest": "6249332a68a1e66eedf9053b1e4bc0ea5722c5ecd07732b52678781fb49a120a",
+  "catalog_digest": "4e3baee933947c82c6ce53dce846e55262dc3f26e86183cb2c68d7c921e6b7d2"
+}

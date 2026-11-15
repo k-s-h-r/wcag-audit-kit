@@ -1,0 +1,34 @@
+from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor
+from urllib.request import urlopen,Request
+from datetime import datetime,timezone
+import hashlib,json,random,re,shutil
+ROOT=Path('/workspace/wcag-audit-kit');OUT=Path('/tmp/wcag-act-held-out-001');OUT.mkdir(exist_ok=False)
+shutil.copy2(__file__,OUT/'prepare-executed.py.txt')
+data=json.loads((ROOT/'references/act-rules.json').read_text());rules={r['id']:r for r in data['rules']}
+selected=[]
+for rule_id in ['97a4e1','23a2a8']:
+ rule=rules[rule_id];assert rule['status']=='approved'
+ # Balanced sampling uses the source metadata, but outcomes are not emitted to the reviewer.
+ for outcome in ['passed','failed','inapplicable']:
+  pool=[e for e in rule['examples'] if e['expected']==outcome and e['extension']=='html']
+  selected.extend((rule_id,e) for e in random.Random('held-out-001:'+rule_id+outcome).sample(pool,min(2,len(pool))))
+random.Random('held-out-order-001').shuffle(selected)
+(OUT/'cases').mkdir()
+def fetch(row):
+ index,(rule_id,example)=row;name=f'case-{index:02}'
+ raw=urlopen(Request(example['url'],headers={'User-Agent':'WCAG-method-validation/1.0'}),timeout=30).read()
+ (OUT/'cases'/(name+'.html')).write_bytes(raw)
+ return {'case':name,'rule':rule_id,'expected':example['expected'],'source_url':example['url'],'sha256':hashlib.sha256(raw).hexdigest()}
+with ThreadPoolExecutor(max_workers=3) as executor:rows=list(executor.map(fetch,enumerate(selected,1)))
+key={'note':'Expected outcomes withheld from the reviewer until predictions are written. Original external expected outcomes, not whole-WCAG criterion verdicts.', 'source_index_commit':data['source_commit'],'fetched_at':datetime.now(timezone.utc).isoformat(),'cases':rows}
+raw=(json.dumps(key,ensure_ascii=False,indent=2)+'\n').encode();(OUT/'sealed-key.json').write_bytes(raw)
+(OUT/'review-cases.json').write_text(json.dumps({'cases':[{'case':r['case'],'rule':r['rule'],'file':'cases/'+r['case']+'.html'} for r in rows],'sealed_key_sha256':hashlib.sha256(raw).hexdigest()},indent=2)+'\n')
+for rule_id in ['97a4e1','23a2a8']:
+ text=(ROOT/rules[rule_id]['source']['path']).read_text();sections=[]
+ for header in ['Applicability','Expectation']:
+  m=re.search(r'^## '+header+r'\n(.*?)(?=^## |\Z)',text,re.M|re.S)
+  assert m,header
+  sections.append('## '+header+'\n'+m[1])
+ (OUT/(rule_id+'-conditions.md')).write_text('\n'.join(sections))
+print(json.dumps({'cases':len(rows),'rules':['97a4e1','23a2a8'],'key_sha256':hashlib.sha256(raw).hexdigest(),'out':str(OUT)}))

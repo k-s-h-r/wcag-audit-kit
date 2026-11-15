@@ -1,0 +1,65 @@
+{
+  "index": 9,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Tab"
+    ]
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "email-switch",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-14T21:09:00.314325+00:00",
+  "finished_at": "2026-11-14T21:09:01.918934+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": false
+  },
+  "url": "http://127.0.0.1:4320/",
+  "speech": [
+    {
+      "at": "2026-11-14T21:09:00.321868+00:00",
+      "line": 4960,
+      "phrase": "tab",
+      "raw": "21:09:00.321868 - SPEECH OUTPUT: 'tab' {'established': False}"
+    },
+    {
+      "at": "2026-11-14T21:09:00.392426+00:00",
+      "line": 5311,
+      "phrase": "Tab search button.",
+      "raw": "21:09:00.392426 - SPEECH OUTPUT: 'Tab search button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-14T21:09:00.393702+00:00",
+      "line": 5318,
+      "phrase": "opens menu",
+      "raw": "21:09:00.393702 - SPEECH OUTPUT: 'opens menu' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": [
+    {
+      "target": {
+        "selector": "#visual-state"
+      },
+      "text": "Off"
+    },
+    {
+      "target": {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      },
+      "text": "Email notifications",
+      "attributes": {
+        "role": "checkbox",
+        "aria-checked": "false"
+      }
+    }
+  ]
+}

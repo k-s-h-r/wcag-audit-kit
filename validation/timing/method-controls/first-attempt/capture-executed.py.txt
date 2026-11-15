@@ -1,0 +1,127 @@
+"""Measure real elapsed time against an owned server; no virtual clock or DOM expiry injection."""
+import asyncio
+from datetime import datetime,timezone
+import hashlib
+import json
+from pathlib import Path
+import shutil
+import time
+from playwright.async_api import async_playwright
+
+ROOT=Path('/workspace/wcag-audit-kit')
+OUT=Path('/tmp/wcag-timing-calibration-001')
+BEFORE={'title':'Session test 日本語','notes':'First line\nSecond line: keep this draft.','category':'review','urgent':True}
+
+
+def save(path,value):
+ tmp=path.with_suffix(path.suffix+'.tmp')
+ tmp.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n');tmp.replace(path)
+
+
+async def scenario(browser,variant,off=False):
+ name=variant+('-off' if off else '-extend')
+ folder=OUT/name;folder.mkdir(exist_ok=False)
+ started=time.monotonic()
+ context=await browser.new_context(viewport={'width':1100,'height':1000})
+ page=await context.new_page()
+ responses=[];errors=[];steps=[]
+ page.on('pageerror',lambda error:errors.append(str(error)))
+ async def capture(label):
+  index=len(steps)
+  state=await page.evaluate('''() => ({url:location.href,now_ms:Date.now(),performance_ms:performance.now(),
+   documentHasFocus:document.hasFocus(),focus:document.activeElement.id,values:window.draftValues(),
+   pending:window.pendingTimingRequests(),events:window.timingEvents,
+   expiredVisible:!document.querySelector('#expired').hidden,
+   warningVisible:!document.querySelector('#warning').hidden,fieldsDisabled:document.querySelector('#fields').disabled})''')
+  filename=f'{index:02}-{label}'
+  await page.screenshot(path=str(folder/(filename+'.png')),full_page=True)
+  (folder/(filename+'.html')).write_text(await page.content())
+  steps.append({'label':label,'runner_elapsed_ms':(time.monotonic()-started)*1000,
+    'captured_at':datetime.now(timezone.utc).isoformat(),'state':state,'image':filename+'.png','dom':filename+'.html'})
+  save(folder/'observations.json',{'variant':variant,'off':off,'status':'partial','browser_version':browser.version,
+    'steps':steps,'page_errors':errors,'wcag_judgement':None})
+  print(name,label,round(steps[-1]['runner_elapsed_ms']),flush=True)
+  return state
+ try:
+  await page.goto('http://127.0.0.1:4326/timing.html?variant='+variant,wait_until='networkidle')
+  await capture('before-sign-in')
+  if off:await page.locator('#off').check()
+  await page.locator('#login').click()
+  await page.locator('#activity').wait_for(state='visible')
+  await page.locator('#title').fill(BEFORE['title'])
+  await page.locator('#notes').fill(BEFORE['notes'])
+  await page.locator('#category').focus()
+  await page.keyboard.press('End');await page.keyboard.press('Tab')
+  await page.locator('#urgent').check()
+  await page.wait_for_function('pendingTimingRequests()===0')
+  assert await page.evaluate('draftValues()')==BEFORE
+  await capture('draft-entered')
+  if off:
+   wait_started=time.monotonic()
+   await page.wait_for_timeout(27000)
+   state=await capture('past-default-limit')
+   assert not state['expiredVisible'] and not state['fieldsDisabled'] and state['values']==BEFORE
+   assert time.monotonic()-wait_started>=27
+   await page.locator('#save').click()
+   await page.wait_for_function("timingEvents.some(e=>e.type==='saved')")
+   state=await capture('saved-after-default-limit')
+   assert [e for e in state['events'] if e['type']=='saved'][-1]['values']==BEFORE
+  else:
+   count=10 if variant=='good' else 1
+   for index in range(count):
+    await page.wait_for_function("!document.querySelector('#warning').hidden && Number(document.querySelector('#extension-count').textContent)==="+str(index),timeout=32000)
+    state=await capture('warning-'+str(index+1))
+    await page.locator('#extend').click()
+    await page.wait_for_function('''n => timingEvents.some(e=>e.type==='response'&&e.path==='/extend'&&e.status===200&&e.data.extension_count===n)''',index+1)
+    state=await capture('extension-'+str(index+1))
+    latest=[e for e in state['events'] if e['type']=='response' and e['path']=='/extend'][-1]
+    assert latest['status']==200 and latest['data']['extension_count']==index+1
+    assert latest['data']['remaining_ms']>=(25000 if variant=='good' else 5000)
+   await page.locator('#expired').wait_for(state='visible',timeout=32000)
+   state=await capture('expired')
+   assert state['expiredVisible'] and state['fieldsDisabled']
+   if variant=='good':assert state['values']==BEFORE
+   else:assert state['values']!=BEFORE
+   await page.locator('#save').click()
+   await page.wait_for_function("timingEvents.some(e=>e.type==='response'&&e.path==='/save'&&e.status===401)")
+   await capture('server-rejected-expired-save')
+   await page.locator('#reauth').click()
+   await page.locator('#expired').wait_for(state='hidden')
+   state=await capture('reauthenticated')
+   if variant=='good':
+    assert state['values']==BEFORE
+    revised=dict(BEFORE,notes=BEFORE['notes']+'\nAfter sign-in: revised.')
+    await page.locator('#notes').fill(revised['notes'])
+    await page.locator('#save').click()
+    await page.wait_for_function("timingEvents.some(e=>e.type==='saved')")
+    state=await capture('completed-after-reauthentication')
+    assert [e for e in state['events'] if e['type']=='saved'][-1]['values']==revised
+   else:assert state['values']!=BEFORE
+  assert not errors,errors
+  save(folder/'observations.json',{'variant':variant,'off':off,'status':'collected','browser_version':browser.version,
+    'before_values':BEFORE,'steps':steps,'page_errors':errors,'wcag_judgement':None})
+  return {'scenario':name,'status':'collected','steps':len(steps),'elapsed_ms':(time.monotonic()-started)*1000}
+ except Exception as error:
+  save(folder/'error.json',{'status':'blocked','error':str(error),'type':type(error).__name__,
+      'steps_completed':len(steps),'elapsed_ms':(time.monotonic()-started)*1000,'wcag_judgement':None})
+  raise
+ finally:await context.close()
+
+
+async def main():
+ OUT.mkdir(exist_ok=False)
+ shutil.copy2(__file__,OUT/'capture-executed.py.txt')
+ for name in ['timing_server.py','timing.html']:
+  shutil.copy2(ROOT/'tests/fixtures'/name,OUT/name)
+ save(OUT/'source-hashes.json',{name:hashlib.sha256((OUT/name).read_bytes()).hexdigest() for name in ['timing_server.py','timing.html','capture-executed.py.txt']})
+ async with async_playwright() as pw:
+  browser=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+  try:results=await asyncio.gather(scenario(browser,'good'),scenario(browser,'bad'),scenario(browser,'good',True),return_exceptions=True)
+  finally:await browser.close()
+ clean=[{'status':'blocked','error':str(x)} if isinstance(x,BaseException) else x for x in results]
+ save(OUT/'results.json',clean)
+ print(json.dumps(clean),flush=True)
+ if any(x['status']!='collected' for x in clean):raise SystemExit(2)
+
+
+asyncio.run(main())

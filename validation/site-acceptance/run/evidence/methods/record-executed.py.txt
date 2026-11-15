@@ -1,0 +1,215 @@
+"""Record this known fixture's reviewed observations. Not a generic WCAG judging engine."""
+from pathlib import Path
+from urllib.parse import urlsplit
+from collections import Counter
+import json,sys,shutil,hashlib
+ROOT=Path('/workspace/wcag-audit-kit');RUN=Path('/tmp/wcag-acceptance-audit-001')
+sys.path.insert(0,str(ROOT/'scripts'));import audit
+M='evidence/methods/'
+methods=RUN/M
+shutil.copy2(__file__,methods/'record-executed.py.txt')
+meta=audit.run_meta(RUN);plan=audit.run_plan(RUN)
+assert len(plan['cases'])==2200 and not any(c['assessment'] for c in plan['cases'])
+manifest=audit.load(RUN/'capture-manifest.json')
+assert len(manifest['pages'])==5 and len(manifest['captures'])==40 and not manifest['unvisited']
+assert all(c['execution']=='completed' and not c.get('inventory_truncated') and not c.get('input_events_truncated') for c in manifest['captures'])
+for mode in ['desktop','narrow','zoom-200','zoom-400','desktop-spacing','narrow-spacing']:
+ d=audit.load(methods/'browser'/mode/'observations.json');assert d['status']=='collected' and not d['page_errors']
+for name in ['home','help','profile']:
+ d=audit.load(methods/'native'/name/'screen-reader.json');assert d['status']=='collected'
+ assert all(o['assertion']!='not_matched' for o in d['observations'])
+assert audit.load(methods/'media-analysis/native/screen-reader.json')['status']=='collected'
+assert audit.load(methods/'extra/login-native/screen-reader.json')['status']=='assertion_failed'
+assert audit.load(methods/'measurements/target-geometry.json')['conflicts']==[]
+for path,sha in audit.load(methods/'browser/source-hashes.json').items():
+ assert hashlib.sha256((methods/'browser'/path).read_bytes()).hexdigest()==sha
+
+def note(ident,path,anonymous):
+ fields=path in {'/profile','/login'} and not (path=='/profile' and anonymous)
+ facts={
+ '1.1.1':('passed' if path in {'/','/media'} else 'inapplicable',
+  'ホームの図はEdit→Review→Saveの三段階。SVGのtitleとrole=imgから同じ順序の代替名を取得し、実OrcaもThree stages: Edit, Review, then Save imageと読んだ。ダイアログ外の内容は開いている間inertとなり、閉じると戻る。' if path=='/' else
+  '動画はVideo instructionsという見出しと、収録された保存操作のデモを示す説明で識別できる。媒体の全内容に必要な字幕・代替・音声解説は1.2系で別に引き継いでいる。' if path=='/media' else
+  '全HTML・CSS・JS、実表示・全要素に、文字以外の情報を伝える画像、アイコン、背景画像、SVG、canvas、CAPTCHA又は媒体はない。'),
+ '1.2.1':('inapplicable','媒体があるページも、映像と音声が同期した一つのWebMである。音声のみ又は映像のみの収録物は全ソース・実際の読み込みにない。'),
+ '1.2.2':('cant_tell','7秒の英語音声を含む収録済み動画と英語VTTがある。字幕の有効化、cue、実表示、再生・一時停止・終了は確認したが、発話・必要な音・話者と字幕の全内容の比較は未確認。') if path=='/media' else ('inapplicable','全ソース・実表示・実際の読み込みに、収録済みの音声を含む同期媒体又はプレーヤーがない。'),
+ '1.2.3':('cant_tell','映像と英語の文章による説明がある。元の音声・映像と文章代替の全情報、順序、必要な描写の対応は全区間で比較できていない。') if path=='/media' else ('inapplicable','同期媒体の収録済み映像、音声解説又はその代替と比較する対象がない。全ソースに外部埋め込みもない。'),
+ '1.2.4':('inapplicable','全実装とネットワークを確認した。ライブ配信やライブの音声を含む同期媒体はなく、動画ページも固定の7秒の収録済みファイルだけである。'),
+ '1.2.5':('cant_tell','収録済み映像の必要な視覚情報を、元の音声と全区間比較する聴取が未実施。文章代替の存在だけでAAの音声解説の条件を満たすとはしていない。') if path=='/media' else ('inapplicable','全表示・ソース・読み込みに同期媒体の収録済み映像がない。'),
+ '1.3.1':('passed','h1/h2、nav/main/footer、ラベルと入力、説明、定義リスト、表の行・列見出しをDOM・AXと実表示で比較した。Helpのtableにはcaptionとscope付きthがあり、実OrcaがWhat to enter、Name row header、Instructions column headerを読んだ。ProfileのName/Emailはlabelとfor/idで対応し、必須・invalid・エラーの説明も実Orcaで取得した。'),
+ '1.3.2':('passed','全ページの表示順とDOMの順序は、スキップ→共通ヘッダーとナビ→現在の主内容→共通ヘルプ。CSSの並べ替えや絶対配置による本文の入替はない。実Orcaの見出し・図・表・エラーの読みとAXを照合し、狭幅・実拡大・文字間隔変更後の順序も比較した。'),
+ '1.3.3':('cant_tell','HTMLの操作は表示名で識別できる。動画の発話に含まれる指示が色・位置等だけに依存していないかは、元音声と映像の比較が残る。') if path=='/media' else ('passed','説明はEdit/Review/Save、Name/Email、Sign in等の名前と目的を使う。色・左右・形・音だけを頼りにする操作指示は全表示と全ソースにない。エラーも項目名と文章で示す。'),
+ '1.3.4':('passed','全5ページでCSSの表示領域・screen・Orientation APIを一致させた縦横primary/secondaryの4種類を実行した。カウンター、入力した値から確認・保存、ログイン、字幕と再生が継続できた。著者の向き固定、orientation依存の非表示、センサー入力、PWAや全画面ロックはソースにない。これはエミュレーションで、物理端末の制御の検証ではない。'),
+ '1.3.5':('passed' if fields else 'inapplicable','Nameはautocomplete=name、ProfileのEmailはemail、認証のEmailはusername、Passwordはcurrent-password。実際の入力目的を本文のInput Purposes一覧と比較し、属性が目的と一致することを確認した。' if fields else 'この状態に利用者本人の情報を収集する入力欄はない。リンクや単純なボタンだけを個人情報の入力欄に数えていない。'),
+ '1.4.1':('passed','操作名、必須、エラー、カウンター、再生状態、確認内容、保存結果は文字で示す。赤いエラーには項目と修正方法があり、状態を色だけで表していない。図は文字と矢印、動画の保存結果もSavedという文字を持つ。'),
+ '1.4.2':('inapplicable','ページを開いた時の自動音声はない。唯一の動画もautoplay属性や自動play処理がなく、実行は利用者のPlay操作から始まる。Orca自身の発話はページの自動音声に数えていない。'),
+ '1.4.3':('cant_tell','HTMLの文字は実際の指定色・画面から比を確認した。動画内文字は圧縮画像で、取り出した一部画素の比だけでは全表示区間の文字色を確定していない。全編の文字・字幕との比の確認を残す。') if path=='/media' else ('passed','本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。'),
+ '1.4.4':('cant_tell','HTMLの本文・全操作は実ブラウザー200%でも保持して完了できた。一方、viewBoxとmax-widthで縮むSVG内文字の実効的な拡大と、画像内文字等の例外又は別の文字拡大経路の条件は確定していない。') if path=='/' else ('passed','実ブラウザーの200%でDPR2・CSS幅640、400%でDPR4・CSS幅320を計測し、各ページの全機能を実キーで完了した。HTMLの文字・値・エラー・確認・保存・ログインは失われない。本文のキャプションと画像内文字の例外を確認し、動画内の文字のサイズをHTMLの文字拡大の証拠にしない。'),
+ '1.4.5':('cant_tell','HTMLには実文字を使う。収録動画の模擬UI内の文字について、本文の画像内文字の適用範囲・必要な提示の例外・同じ情報を伝える方法の判断を残す。') if path=='/media' else ('inapplicable','本文・ラベル・状態は実際のHTML文字。ホームのSVGは三段階の関係を示す図で、文字は図のラベルとして含まれる。独立したビットマップの文字画像や装飾された文字を画像に置換した内容はない。'),
+ '1.4.10':('passed','通常の320 CSS pxと実400%の320 CSS pxで全ページを操作した。通常文字設定の全段階で文書幅は表示幅以下。実拡大のスクロールも行い、入力・確認・保存・字幕操作・ログインを完了できた。隠した内容や機能はない。文字間隔変更時のHelpの329pxは別に1.4.12で記録した。'),
+ '1.4.11':('passed','著者のフォーカス輪郭#005bba/白6.551:1、入力境界#555/白7.455:1、ボタン境界#444と白・#eeeも3:1以上。実際の図の線・枠と部品・状態を画面で確認した。部品名・エラー・保存状態は文字でも識別でき、図の青いSAVE領域の実色と白の比も6.656:1だった。'),
+ '1.4.12':('cant_tell','HTMLへ4設定を同時に適用し、全操作と全文を確認した。ネイティブWebVTT字幕では、各設定が適用できる範囲と字幕全体の保持の確認が残る。') if path=='/media' else ('passed','行高1.5、p後2em、字間.12em、単語間.16emだけを同時に指定し、狭幅でも全機能を完了した。全文字・ラベル・値は保持された。Helpの表は文書幅329pxとなるが、実キーでscrollXを0→9→0へ動かして全内容を取得でき、隠れ・省略はない。横スクロールだけを内容の損失と判定していない。'),
+ '1.4.13':('inapplicable','著者の内容がhover又はfocusだけで新たに現れる処理はない。スキップリンク自身の表示や、ボタンで開くdialogを追加のhover/focus内容へ数えていない。標準入力検証の表示も著者のhover/focus処理ではない。'),
+ '2.1.1':('passed','実キーでカウンターのEnter/Space、dialogの開閉、入力・エラー・修正・確認・戻る・保存、動画の字幕・再生・一時停止、貼り付けとログインまで実行した。各操作には間に待機を入れても動作する。共通リンクと全フォーカス対象の順序・href・ネイティブ意味も比較した。'),
+ '2.1.2':('passed','dialogは実キーEscapeで閉じ、起点Aboutへ戻れる。TabではブラウザーUIへ出てShift+Tabで戻ることも確認した。その他の入力・ボタン・リンクにもキー入力を閉じ込める著者処理はなく、40収集のTab記録と全機能の実キー操作を照合した。'),
+ '2.1.4':('inapplicable','著者JSはclick、submitと動画の状態イベントだけで、文字・数字・記号だけのショートカットを実装していない。Orca自身のh/b/g/tや検査器のキーはページのショートカットに数えていない。'),
+ '2.2.1':('inapplicable','全サーバー・JSに利用者の活動の制限時間、自動失効、タイマーはない。認証cookieは自動的な期限を設定せず、logoutは利用者が実行する。動画の再生時間を、利用者が応答しなければならない制限時間として扱わない。'),
+ '2.2.2':('inapplicable','自動開始する移動・点滅・スクロール・更新はない。動画の再生は利用者が明示的に開始し、一時停止・再開も実キーで動作した。全状態のanimation一覧とソースを確認した。'),
+ '2.3.1':('cant_tell','7秒の動画の全復号とフレームの取得はできるが、一般閃光・赤色閃光・面積の本文の閾値を検証済みの分析方法で全編評価する確認が残る。画面差分や目視だけで安全としていない。') if path=='/media' else ('passed','全ソース、全状態、実画面に著者による閃光・点滅・画像切替・連続アニメーションはない。静止した文字・図と利用者が操作する部品だけで、外部媒体・背景画像・埋め込みもない。'),
+ '2.4.1':('passed','共通ヘッダーより前にSkip to main contentがあり、#mainはmainランドマークとtabindex=-1を持つ。実Orcaで先頭リンクをReturnで実行してmain contentと現在のh1へ移れた。全5ページで同じ仕組みを確認した。'),
+ '2.4.2':('passed','実際のtitleはHome/Edit profile/Video instructions/Help/Sign in — Profile demoで、現在のページの主題・目的と対応する。匿名のProfileも編集のためにサインインする画面である。エラーや確認段階でも同じページの目的を説明する。'),
+ '2.4.3':('passed','共通ナビ、現在の内容、フッターの順にTabで移動し、正のtabindexやCSSの入替はない。dialog、エラー、確認、保存は起点に応じた見出し・エラー又は入力へ焦点を移す。戻ると値とフォーカスが保持され、Escapeは起点へ戻る。'),
+ '2.4.5':('failed','ホームと動画へのUI上の経路は共通navのリンクだけ。HTMLのサイトマップや検索、関連する本文リンクからの別経路はない。/sitemap.xmlはUIから案内されていない。両ページは特定の手続きの結果又は必須段階ではなく、本文の例外を適用しない。') if path in {'/','/media'} else ('passed','共通navに加え、Profileへはホーム本文のEdit your profileやLogin本文のContinue to profile、HelpへはLoginのdemo account in Help、Loginへは匿名Profile本文のsigning inから到達できる。全ページの実リンク・行先と、文脈の異なる経路を比較した。'),
+ '2.4.6':('passed','現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。'),
+ '2.4.7':('passed','実Tabと実キー操作の画面で、対象に青い3pxの輪郭が現れる。スキップ、dialog、入力、エラー、確認、保存、プレーヤー、ログインの操作後と実拡大でも確認した。著者がキーのフォーカス表示を消す処理はない。'),
+ '2.4.11':('passed','著者の固定ヘッダーや重ねる別内容で焦点を全て隠す構造はない。dialogを開くと焦点は内部へ移り、閉じると戻る。400%で大きいエラー領域の一部がviewport外にある場合も、著者の内容によって全体が隠れた状態と区別し、実画面を確認した。'),
+ '2.5.1':('inapplicable','著者機能は単純なリンク、クリック、ボタン、フォームで、複数点・軌跡・スワイプ等を解釈しない。タッチでも通常のclickによって同じカウンターを操作できた。'),
+ '2.5.2':('passed','カウンターを実pointer downで保持しても値は2のまま、外へ移してupしても2。通常clickで3へ進んだ。全著者JSはclick又はsubmitから実行し、pointerdown/mousedownで完了させる機能や押下のタイマーはない。各機能の通常の実行も確認した。'),
+ '2.5.3':('passed','可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。'),
+ '2.5.4':('inapplicable','端末又は利用者の動きを入力にする処理・センサー・カメラ・DeviceMotion等は全実装にない。向きのエミュレーションを行ったことを、動き入力の機能がある根拠にしていない。'),
+ '2.5.7':('inapplicable','著者によるドラッグ、並べ替え、移動、描画、スライダーの機能はない。テキスト選択等のUAの動作を著者のドラッグ機能に数えていない。'),
+ '2.5.8':('passed','40収集の全可視ターゲットの矩形を測り、24px未満の対象について直径24pxの円と他ターゲット等の交差も確認した。衝突候補は0。20px高の本文・フッターのリンクも、他ターゲットとの十分な間隔がある。実入力が部品に届くことと、dialog外がinertである状態も実操作と画像で確認した。'),
+ '3.1.1':('passed','主言語は英語でlang=en。全見出し・説明・ラベル・状態・エラー・確認内容と一致する。Helpに一つある日本語メールは別途jaが指定されている。'),
+ '3.1.2':('passed','Help内の日本語メールを実際の内容から特定し、span lang=jaを確認した。その他の表示は主言語の英語又は固有のテストアカウントである。') if path=='/help' else ('inapplicable','全表示の節・句は英語又は固有名・識別子。動画も固定したen-usの合成音声一つと確認音から構成された同一ハッシュの素材で、別言語の節を持たない。未確認の任意の音声にこの根拠を流用しない。'),
+ '3.2.1':('passed','Tabや移動で焦点を受けただけでは遷移・送信・別窓・値変更は起きない。本文の切替はReview/Back/Confirm/About等の明示的な実行から起きる。全JSと各実キーの経路を比較した。'),
+ '3.2.2':('passed','名前・メール・パスワードを入力又は変更しても、その場で予告されない遷移・送信・焦点変更は起きない。実行には各submit又はボタン操作が必要。値変更のchange/inputで文脈を変更する著者処理はない。'),
+ '3.2.3':('passed','全5ページ・匿名と認証済みの全状態のnavはHome→Edit profile→Video instructions→Help→Sign inの同じ相対順。CSSの折返しでも順序を変えない。'),
+ '3.2.4':('passed','全ページの同じ行先のnav、Help、Sign outは同じ名前・意味・機能で識別できる。本文中のHelpへの具体的な案内もHelpという語と目的を示し、別機能を同じ名前へ混同していない。'),
+ '3.2.6':('passed','全ページで繰り返すHelpと連絡先は共通footerにあり、他の主内容の後という相対順が同じ。navのHelpも全ページで同じ順序。モーダルは利用者の操作で開閉する。'),
+ '3.3.1':('passed' if fields else 'inapplicable','Profileで空のNameと不正形式のEmailを発生させ、項目と具体的な文章のエラーを画面・DOM・実Orcaで確認した。Loginでは必須欠落とメール形式のUAエラーを実デスクトップ画像とvalidationMessageで確認し、誤った資格情報の401の説明も取得した。' if fields else 'この状態には入力検証・自動検出する入力エラーの対象となる入力欄がない。'),
+ '3.3.2':('passed','入力がある場合は可視のName(required)/Email(required)又はEmail/Passwordと事前の説明があり、目的・必要な値・デモアカウントへの経路が分かる。単純な操作も表示名で機能を説明する。実画面で入力前に読めることを確認した。'),
+ '3.3.3':('passed' if fields else 'inapplicable','Nameの欠落にはEnter a name、Emailには具体例付きの説明。Loginの欠落・形式違いにはUAの文章と焦点、資格情報違いにはHelpの正しいデモメール・パスワードを使う提案がある。実際の全検証条件を全ソースと比較した。' if fields else 'この状態に自動検出する入力エラーの対象がなく、修正案を提示する対象がない。'),
+ '3.3.4':('passed' if path=='/profile' and not anonymous else 'inapplicable','保存済みのName/Emailを変更する前に両値をReviewで表示し、Backで両値を保持して修正でき、Confirm and saveを実行して初めて保存する。確認・戻る・再確認・保存と受領結果まで実キーで通した。' if path=='/profile' and not anonymous else 'この状態に金融・法律上の確定、保存済みユーザー情報の変更・削除、テスト回答の送信はない。認証cookieの変更をそのままこの業務データの条件へ置換していない。'),
+ '3.3.7':('passed' if path=='/profile' and not anonymous else 'inapplicable','同じ手続きの編集→確認→BackでもName/Emailは保持され、自分で修正する値だけを変更できる。確認後に同じ情報を再入力させない。実際の両値の一致と保存完了を比較した。' if path=='/profile' and not anonymous else '同じ手続き内の別段階で既に提供した同じ情報を再入力させる機能はない。入力エラーの修正や利用者が自分で繰り返す操作を冗長な再入力へ数えていない。'),
+ '3.3.8':('passed','既存のデモ利用者のEmail/Password認証がある。実ブラウザーのクリップボードとCtrl+Vで両欄に貼り付け、trusted pasteを記録し認証成功まで通した。全実装に他の認証段階・CAPTCHA・記憶だけを必須にする制限はない。第三者のパスワードマネージャーを検証したとはしていない。') if path=='/login' else ('inapplicable','このページ自身に既存利用者の認知機能テストを要する認証入力・段階はない。サインインへのリンクと認証済みのcookieの利用だけを認証テストとして扱わない。Loginページは別に検査している。'),
+ '4.1.2':('passed','ネイティブリンク・button・inputとlabel、dialogの名前、押された状態、入力値・invalid、字幕の選択状態をDOM・AX・実操作と対応付けた。実Orcaで図、ボタン、入力の名前・必須・invalid、dialog、表を取得した。字幕とパスワード表示の切替はaria-pressedと実機能が対応する。'),
+ '4.1.3':('cant_tell','誤った資格情報のalertは実Orcaが読んだ。成功の文字は表示され、AXはrole=status/live=polite/atomic=trueであるが、同じ実キーで成功した後にOrcaの発話を取得しなかった。環境・支援技術の差又は適合性の判断を分けるため、人に引き継ぐ。') if path=='/login' else
+ ('passed','カウンターの結果は実Orcaが1と発話し、DOM/AXにもstatusとpoliteの意味がある。焦点は操作ボタンに残る。') if path=='/' else
+ ('passed','再生・一時停止のPlaying/Pausedはstatusとして公開され、実Orcaも両方を発話した。元の音声を聴取した記録とは区別する。') if path=='/media' else
+ ('inapplicable','このページの文章は静的で、Profileのエラー・確認・保存では適切な焦点移動によって文脈が変わる。公式解説の定義に照合し、焦点を移さず通知すべき別のステータスメッセージはない。')
+ }
+ return facts[ident]
+
+# Human checks are specific to this asset or UI. The AI already collected the other conditions.
+HUMAN={
+ '1.2.2':('environment_constraint','字幕を元の音声と全区間比較する聴取能力がこのAIにない。','英語の発話・必要な音・字幕を比較できる担当','元の音声を聴取し、字幕を同時に表示できる実プレーヤー',
+  ['英語字幕を有効にしてvideo#clipを0〜7秒まで再生する','全発話、必要な音、話者、情報の抜けと同期を元音声・映像と比較し、区間ごとに記録する']),
+ '1.2.3':('environment_constraint','文章代替と元音声・映像の全情報の対応を確定する聴取ができない。','英語の元媒体と文章による代替を比較できる担当','元音声、映像、#transcriptの文章を同時に確認できる環境',
+  ['video#clipの0〜7秒の全情報と表示順序を確認する','#transcriptが必要な音声・視覚情報と順序を含むか、採用する代替の条件と比較する']),
+ '1.2.5':('environment_constraint','収録済み映像に必要な音声解説が元音声で得られるか全区間の聴取ができない。','英語音声と映像の重要情報・音声解説を比較できる担当','元の映像と音声を全区間再生し、解説の有無と内容を確認できる環境',
+  ['video#clipの0〜7秒で意味のある視覚情報を全て特定する','その情報が音声から取得できるか、必要な音声解説の提供と内容を比較する']),
+ '1.3.3':('environment_constraint','HTMLの指示は調べたが、動画の発話の指示を全区間で比較できない。','英語の操作指示と映像を比較できる担当','動画の元音声と映像',
+  ['video#clipの全発話のうち理解・操作の指示を特定する','色・位置・形・音だけに依存していないか、使える名前と文脈を比較する']),
+ '1.4.3':('no_reliable_method','HTMLと字幕の指定色は調べたが、圧縮映像の少数画素から全編の文字色を確定する方法は未校正。','圧縮映像と字幕の文字のコントラストを測定できる担当','元の映像、字幕と実プレーヤー、前景・背景を識別できる測定手段',
+  ['video#clipの全発生区間の文字と字幕を列挙し、文字サイズ・太さ・例外を確認する','アンチエイリアスの縁を前景色にせず実際の前景・背景を測り、本文の4.5:1又は大きい文字の3:1等と比較する']),
+ '1.4.5':('specialist_judgement','録画された模擬UI内の文字について、画像内文字の適用範囲・提示の例外の判断を残す。','媒体内の文字とWCAGの画像内文字・例外を判断できる担当','video#clip、文章代替、採用したWCAG本文と定義',
+  ['模擬UIの文字が本文の画像内文字の対象になるか、図・動画の文脈と定義を照合する','適用する場合、実文字による同じ情報の提示、カスタマイズ又は必要な提示の例外の根拠を確認する']),
+ '1.4.12':('no_reliable_method','HTMLの上書きと機能は確認済み。ネイティブWebVTT字幕で全設定を確認する方法は未校正。','WebVTTと対象ブラウザーの字幕表示・文字間隔を確認できる担当','対象Chromium、元のVTT、字幕を表示して各サポート設定を検証する手段',
+  ['実プレーヤーで英語字幕を表示し、WebVTTでサポートされる本文の各設定を特定する','変更可能な行高・段落・字間・単語間の条件を適用し、全字幕と操作の欠落・重なりを比較する']),
+ '2.3.1':('no_reliable_method','全フレームを取得できるが、本文の一般・赤色閃光と面積を検証済みの分析器で評価できていない。','WCAGの一般閃光・赤色閃光・面積・時間を分析できる担当','元の映像全フレームと対象の表示条件、両閃光閾値を評価できる検証済みの分析器',
+  ['video#clipの0〜7秒を全フレーム・連続する任意の1秒で分析する','毎秒3回以下又は一般・赤色閃光の両閾値以下か、表示面積の条件と併せて記録する']),
+ '1.4.4':('no_reliable_method','実ブラウザー拡大とHTML機能は確認済みだが、viewBoxで縮むSVG文字の実効拡大と別経路の条件を確定していない。','SVGの文字拡大・画像内文字等の例外を確認できる担当','ホームのSVGと対象ブラウザーの利用者向け文字拡大の仕組み',
+  ['SVGのEdit/Review/Saveのラベルについて、本文の対象と例外を照合する','対象なら利用者が200%まで文字を拡大する実在の経路を操作し、実効サイズ、情報と機能の保持を確認する']),
+ '4.1.3':('specialist_judgement','成功の文字とAXのlive属性はあるが、実Orcaで成功通知の発話を取得しなかった。alertと他ページのstatusは同じ実Orcaで取得した。','WCAGのstatus messageと対象支援技術のサポートを判断できる担当','このビルド、Chromium156/Orca48.1のログ、利用環境に応じた別の支援技術',
+  ['Loginでデモ資格情報を入力してサインインし、焦点を動かさず成功通知が取得できるか確認する','role/statusの公開値、実際の支援技術の通知、環境固有の問題と適合性を比較して根拠を記録する'])
+}
+
+def proof_for(case):
+ own=case['evidence_dir']
+ proof=[own+'/'+n for n in ['page.png','inventory.json','dom.html','accessibility-tree.json','actions.json','keyboard.json']]
+ path=urlsplit(case['page_url']).path;name=path.strip('/') or 'home'
+ mode='narrow' if case['environment']=='narrow' else 'desktop'
+ proof += [M+'browser/observations.json'] if (methods/'browser/observations.json').exists() else []
+ proof += [M+'browser/executed-source.py.txt',M+'browser/source/app.js',M+'browser/source/app.css',M+'browser/server.py.txt',M+'discovery/discovery.json',M+'browser/'+mode+'/observations.json']
+ ident=case['criterion']
+ if ident in {'1.1.1','1.3.1','1.3.2','4.1.2'}:
+  proof += [M+'native/'+n+'/screen-reader.json' for n in ['home','help','profile']]
+  proof += [M+'native-validation/graphic-native/screen-reader.json']
+ if ident in {'1.3.4'}:proof += [M+'orientation/'+name+'/orientation.json']
+ if ident in {'1.4.3','1.4.11'}:proof += [M+'measurements/contrasts.json',M+'media-analysis/frame-colors.json']
+ if ident=='2.5.8':proof += [M+'measurements/target-geometry.json']
+ if ident in {'1.4.4','1.4.10','1.4.12'}:
+  proof += [M+'browser/'+m+'/observations.json' for m in ['zoom-200','zoom-400','desktop-spacing','narrow-spacing']]
+  proof += [M+'extra/spacing-scroll.json']
+ if ident in {'3.3.1','3.3.3'}:
+  proof += [M+'validation-messages/observations.json',M+'native-validation/native-validation.json',M+'native/profile/screen-reader.json']
+ if ident=='3.3.8':proof += [M+'discovery/paste-events.json']
+ if ident=='4.1.3':proof += [M+'native/home/screen-reader.json',M+'extra/login-native/screen-reader.json',M+'media-analysis/native/screen-reader.json']
+ # Keep representative state images with all numerical/AX detail, rather than claiming JSON alone was visually reviewed.
+ allstages=audit.load(methods/'browser'/mode/'observations.json')['stages']
+ choices={'/':['home-initial','dialog-open','hybrid-count-six'],'/profile':['profile-errors','profile-review','profile-completed'],
+          '/media':['captions-playing','video-paused','video-ended'],'/help':['help'],'/login':['login-error','login-pasted','login-success']}
+ for label in choices[path]:
+  stage=next(s for s in allstages if s['label']==label)
+  proof += [M+'browser/'+mode+'/'+stage[key] for key in ['image','data','ax']]
+ return list(dict.fromkeys(proof))
+
+reviews=[];count=Counter()
+for index,case in enumerate(plan['cases'],1):
+ ident=case['criterion'];path=urlsplit(case['page_url']).path;anonymous=case['state']=='anonymous'
+ outcome,fact=note(ident,path,anonymous)
+ criterion=audit.CRITERIA[ident];inv=audit.load(RUN/case['evidence_dir']/'inventory.json')
+ visible=[n for n in inv['nodes'] if n['visible'] and n['tag'] not in {'html','body','script','style','head','title','meta','link'}]
+ controls=[n for n in visible if n['tag'] in {'a','button','input'} and (n['tag']!='a' or n['href'])]
+ observed=('このcaseは'+case['page_url']+' / '+case['state']+' / '+case['environment']+'。表示の主内容は'+inv['title']+'。'+fact)
+ evidence=proof_for(case)
+ stateproof=case['evidence_dir']+'/inventory.json'
+ # Identify full sequences/global conditions as one target; enumerate individual controls, labels or text where relevant.
+ if ident in {'1.3.5'}:targets=[n for n in controls if n['tag']=='input']
+ elif ident in {'2.5.2','2.5.3','2.5.8','4.1.2'}:targets=controls
+ elif ident in {'1.4.3','2.4.6','3.3.2'}:targets=[n for n in visible if n['tag'] in {'h1','h2','p','label','a','button','input','th','td','dt','dd'}]
+ elif ident in {'3.3.1','3.3.3'}:targets=[n for n in controls if n['tag']=='input']
+ else:targets=[]
+ if outcome=='inapplicable':target_records=[]
+ elif targets:
+  target_records=[{'target':n['selector']+' ['+n['tag']+'] '+(n['text'] or ' / '.join(n.get('labels',[])))[:120],
+   'observed':fact+' 実対象の文字・ラベル: '+str(n['text'] or n.get('labels',[]))[:180]+'。',
+   'expected':criterion['expectation'],'outcome':outcome,'evidence':[stateproof]} for n in targets]
+ else:
+  target_records=[{'target':('video#clip と全字幕・代替・該当する条件' if path=='/media' and outcome=='cant_tell' else 'SVG[role=img] のEdit/Review/Save' if ident=='1.4.4' and path=='/' else '#login-status の成功通知' if ident=='4.1.3' and path=='/login' else 'このURLのページ全体、可視の内容・部品と到達可能な全状態'),
+    'observed':fact,'expected':criterion['expectation'],'outcome':outcome,'evidence':evidence}]
+ # If a whole page feature is applicable but the current state hides its controls, the replayed state proof remains explicit.
+ if outcome in {'passed','failed'} and not target_records:
+  raise ValueError('Missing actual targets')
+ judgment={'case_id':case['case_id'],'config_digest':meta['config_digest'],'normative_sha256':criterion['normative_sha256'],
+  'execution':'blocked' if outcome=='cant_tell' else 'completed','outcome':outcome,'observed':observed,
+  'conditions_reviewed':True,'exceptions_reviewed':True,'coverage_complete':outcome!='cant_tell',
+  'steps_executed':['このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した',
+    '対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した',
+    '共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した',
+    'この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した'],
+  'tests_applied':['WCAG22:'+ident+':normative','acceptance-fixture-001:page-specific-review:1'],
+  'targets':target_records,'method_coverage':[{'method':m,'status':'executed' if outcome!='cant_tell' or m not in {'semantic','audio','flash-analysis'} else 'unavailable',
+   'reason':('この対象の全条件を確認する信頼できる観察が不足しているため、具体的な人の確認へ残した。' if outcome=='cant_tell' and m in {'semantic','audio','flash-analysis'} else 'このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。')} for m in criterion['methods']],
+  'comparison_pages':['http://127.0.0.1:4330'+p for p in ['/','/profile','/media','/help','/login']] if 'cross-page' in criterion['methods'] else [],
+  'evidence':evidence,'remaining':[]}
+ if outcome=='cant_tell':
+  kind,reason,reviewer,env,steps=HUMAN[ident]
+  extra=[]
+  if path=='/media':extra += [M+'browser/source/clip.webm',M+'browser/source/captions.vtt',M+'media-analysis/source-provenance.json']
+  if ident in {'1.4.3','1.4.5'}:extra += [M+'media-analysis/frame-6.png',M+'media-analysis/frame-colors.json']
+  evidence += extra;judgment['evidence']=list(dict.fromkeys(evidence))
+  judgment['remaining']=[reason]+steps
+  judgment['human_handoff']={'reason_kind':kind,'reason':reason,'reviewer':reviewer,'required_environment':env,
+   'attempts':[{'method':', '.join(criterion['methods']),'observed':fact,'evidence':judgment['evidence']}],
+   'checks':[{'target':target_records[0]['target']+' / '+case['page_url']+' / '+case['state']+' / '+case['environment'],
+      'steps':steps,'expected':criterion['expectation'],'evidence':judgment['evidence']}],
+   'resume':'対象ごとの実測・比較した内容・判断根拠・証拠を受け取り、このcaseの新しい判定として記録する。元の判定は保持する。'}
+  if ident.startswith('1.2.'):
+   target_records[0]['media_review']={'source':'video#clip / clip.webm / English captions.vtt','timeline':'prerecorded','duration':7,
+    'comparison':criterion['expectation'],'intervals':[{'start':0,'end':7,'status':'not_reviewed','reason':reason}]}
+ audit.record(RUN,judgment);count[outcome]+=1
+ reviews.append({'case_id':case['case_id'],'criterion':ident,'outcome':outcome,'observed':observed})
+ if index%200==0:print(json.dumps({'recorded':index,'counts':dict(count)}),flush=True)
+audit.save(RUN/'evidence/criterion-review.json',{'note':'Manual criterion review of this known fixture, recorded from actual observations. Not a generic automatic judge or independent expert benchmark.','cases':reviews})
+scope={key:True for key in ['processes_reviewed','full_pages_reviewed']}
+scope.update(complete=False,accessibility_support_reviewed=False,non_interference_reviewed=False,
+ config_digest=meta['config_digest'],sources=['server route table and complete source','actual sitemap and all links','40 page/state/environment captures','all six browser method scenarios and actual Orca'],
+ observed='5文書、共通ナビとヘルプ、匿名/認証済み、dialog、入力エラー/修正/確認/戻る/保存、ログインエラー/成功、字幕選択/動画終了を全て調査・実行した。サーバーに他の文書ルートや権限はない。静的main/name/emailアンカーの同一文書の根拠も全ソースで確認した。本文全体と手続きを覆うが、動画の閃光による非干渉と、Login成功通知の支援技術サポート等の人による確認は残る。',
+ evidence=[M+'browser/server.py.txt',M+'discovery/discovery.json',M+'discovery/sitemap.xml','capture-manifest.json','evidence/criterion-review.json',M+'extra/login-native/screen-reader.json'],
+ remaining=['動画の閃光の非干渉等はhuman-review.mdの2.3.1へ引き継ぐ','Login成功通知の支援技術サポートはhuman-review.mdの4.1.3へ引き継ぐ'])
+audit.save(RUN/'scope-review.json',audit.validate_scope_review(RUN,scope))
+result=audit.report(RUN)
+assert result['recorded_cases']==2200 and not result['counts'].get('not_run') and not result['unassigned_remaining_cases']
+assert not result['audit_complete'] and not result['scope_confirmed']
+print(json.dumps({'recorded_cases':2200,'human_cases':len(result['human_review_cases']),'counts':result['counts']},ensure_ascii=False),flush=True)

@@ -1,0 +1,65 @@
+{
+  "note": "Known-source calibration; this is not blind evaluation or a verdict for all criteria.",
+  "comparisons": [
+    {
+      "variant": "good",
+      "case_id": "a32bd2c4dcb8--initial--desktop--2.4.13",
+      "outcome": "passed",
+      "image_comparison": {
+        "page.png": {
+          "same_decoded_pixels": true,
+          "core_sha256": "bd2871bf3dcf4eea3cd2861c1f23c5b50e40a0f6efe36012ecb22fc91e66d3f0",
+          "calibration_sha256": "bd2871bf3dcf4eea3cd2861c1f23c5b50e40a0f6efe36012ecb22fc91e66d3f0"
+        },
+        "focus-001.png": {
+          "same_decoded_pixels": true,
+          "core_sha256": "01a2b8db3560cb057bbb3d44c32694b317cc29f68438a6d4e6971a83bee3e39a",
+          "calibration_sha256": "01a2b8db3560cb057bbb3d44c32694b317cc29f68438a6d4e6971a83bee3e39a"
+        }
+      },
+      "qualifying_area_css_px2": 2752,
+      "reference_area_css_px2": 1280,
+      "measurement": "evidence/attached/a32bd2c4dcb8--initial--desktop--2.4.13/measurement/focus-measure.json"
+    },
+    {
+      "variant": "thin",
+      "case_id": "dc92b7131d34--initial--desktop--2.4.13",
+      "outcome": "failed",
+      "image_comparison": {
+        "page.png": {
+          "same_decoded_pixels": true,
+          "core_sha256": "bd2871bf3dcf4eea3cd2861c1f23c5b50e40a0f6efe36012ecb22fc91e66d3f0",
+          "calibration_sha256": "bd2871bf3dcf4eea3cd2861c1f23c5b50e40a0f6efe36012ecb22fc91e66d3f0"
+        },
+        "focus-001.png": {
+          "same_decoded_pixels": true,
+          "core_sha256": "5579022c76cee30b7d676070da08f41180f831d65c50228531ca97ae94377fb5",
+          "calibration_sha256": "5579022c76cee30b7d676070da08f41180f831d65c50228531ca97ae94377fb5"
+        }
+      },
+      "qualifying_area_css_px2": 676,
+      "reference_area_css_px2": 1280,
+      "measurement": "evidence/attached/dc92b7131d34--initial--desktop--2.4.13/measurement/focus-measure.json"
+    },
+    {
+      "variant": "similar",
+      "case_id": "bc7a8de9e590--initial--desktop--2.4.13",
+      "outcome": "failed",
+      "image_comparison": {
+        "page.png": {
+          "same_decoded_pixels": true,
+          "core_sha256": "01a2b8db3560cb057bbb3d44c32694b317cc29f68438a6d4e6971a83bee3e39a",
+          "calibration_sha256": "01a2b8db3560cb057bbb3d44c32694b317cc29f68438a6d4e6971a83bee3e39a"
+        },
+        "focus-001.png": {
+          "same_decoded_pixels": true,
+          "core_sha256": "93ad6de868cb98b342e79f097332a67ac237bb6c4f5d14ce541b68ed2ab20f5f",
+          "calibration_sha256": "93ad6de868cb98b342e79f097332a67ac237bb6c4f5d14ce541b68ed2ab20f5f"
+        }
+      },
+      "qualifying_area_css_px2": 0,
+      "reference_area_css_px2": 1280,
+      "measurement": "evidence/attached/bc7a8de9e590--initial--desktop--2.4.13/measurement/focus-measure.json"
+    }
+  ]
+}

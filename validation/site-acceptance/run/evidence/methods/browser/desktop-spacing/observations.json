@@ -1,0 +1,334 @@
+{
+  "status": "collected",
+  "mode": "desktop-spacing",
+  "spacing": true,
+  "zoom": 1,
+  "browser_version": "156.0.8078.79",
+  "images_are_viewport_only": false,
+  "stages": [
+    {
+      "index": 0,
+      "label": "home-initial",
+      "observed_at": "2026-11-15T00:11:20.620617+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "000-home-initial.json",
+      "image": "000-home-initial.png",
+      "dom": "000-home-initial.html",
+      "ax": "000-home-initial-ax.json"
+    },
+    {
+      "index": 1,
+      "label": "keyboard-count-two",
+      "observed_at": "2026-11-15T00:11:21.112699+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "001-keyboard-count-two.json",
+      "image": "001-keyboard-count-two.png",
+      "dom": "001-keyboard-count-two.html",
+      "ax": "001-keyboard-count-two-ax.json"
+    },
+    {
+      "index": 2,
+      "label": "pointer-held",
+      "observed_at": "2026-11-15T00:11:21.226066+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "002-pointer-held.json",
+      "image": "002-pointer-held.png",
+      "dom": "002-pointer-held.html",
+      "ax": "002-pointer-held-ax.json"
+    },
+    {
+      "index": 3,
+      "label": "pointer-cancelled",
+      "observed_at": "2026-11-15T00:11:21.354245+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "003-pointer-cancelled.json",
+      "image": "003-pointer-cancelled.png",
+      "dom": "003-pointer-cancelled.html",
+      "ax": "003-pointer-cancelled-ax.json"
+    },
+    {
+      "index": 4,
+      "label": "hybrid-count-six",
+      "observed_at": "2026-11-15T00:11:21.673763+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "004-hybrid-count-six.json",
+      "image": "004-hybrid-count-six.png",
+      "dom": "004-hybrid-count-six.html",
+      "ax": "004-hybrid-count-six-ax.json"
+    },
+    {
+      "index": 5,
+      "label": "dialog-open",
+      "observed_at": "2026-11-15T00:11:21.957557+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "005-dialog-open.json",
+      "image": "005-dialog-open.png",
+      "dom": "005-dialog-open.html",
+      "ax": "005-dialog-open-ax.json"
+    },
+    {
+      "index": 6,
+      "label": "dialog-tab-exit-or-cycle",
+      "observed_at": "2026-11-15T00:11:22.038705+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "006-dialog-tab-exit-or-cycle.json",
+      "image": "006-dialog-tab-exit-or-cycle.png",
+      "dom": "006-dialog-tab-exit-or-cycle.html",
+      "ax": "006-dialog-tab-exit-or-cycle-ax.json"
+    },
+    {
+      "index": 7,
+      "label": "dialog-escape-closed",
+      "observed_at": "2026-11-15T00:11:22.124445+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "007-dialog-escape-closed.json",
+      "image": "007-dialog-escape-closed.png",
+      "dom": "007-dialog-escape-closed.html",
+      "ax": "007-dialog-escape-closed-ax.json"
+    },
+    {
+      "index": 8,
+      "label": "profile-initial",
+      "observed_at": "2026-11-15T00:11:22.733251+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "008-profile-initial.json",
+      "image": "008-profile-initial.png",
+      "dom": "008-profile-initial.html",
+      "ax": "008-profile-initial-ax.json"
+    },
+    {
+      "index": 9,
+      "label": "profile-errors",
+      "observed_at": "2026-11-15T00:11:23.276969+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "009-profile-errors.json",
+      "image": "009-profile-errors.png",
+      "dom": "009-profile-errors.html",
+      "ax": "009-profile-errors-ax.json"
+    },
+    {
+      "index": 10,
+      "label": "profile-review",
+      "observed_at": "2026-11-15T00:11:23.642208+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "010-profile-review.json",
+      "image": "010-profile-review.png",
+      "dom": "010-profile-review.html",
+      "ax": "010-profile-review-ax.json"
+    },
+    {
+      "index": 11,
+      "label": "profile-back-retained",
+      "observed_at": "2026-11-15T00:11:23.925431+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "011-profile-back-retained.json",
+      "image": "011-profile-back-retained.png",
+      "dom": "011-profile-back-retained.html",
+      "ax": "011-profile-back-retained-ax.json"
+    },
+    {
+      "index": 12,
+      "label": "profile-completed",
+      "observed_at": "2026-11-15T00:11:24.458526+00:00",
+      "url": "http://127.0.0.1:4330/profile",
+      "data": "012-profile-completed.json",
+      "image": "012-profile-completed.png",
+      "dom": "012-profile-completed.html",
+      "ax": "012-profile-completed-ax.json"
+    },
+    {
+      "index": 13,
+      "label": "help",
+      "observed_at": "2026-11-15T00:11:25.080316+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "data": "013-help.json",
+      "image": "013-help.png",
+      "dom": "013-help.html",
+      "ax": "013-help-ax.json"
+    },
+    {
+      "index": 14,
+      "label": "media-initial",
+      "observed_at": "2026-11-15T00:11:25.722252+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "014-media-initial.json",
+      "image": "014-media-initial.png",
+      "dom": "014-media-initial.html",
+      "ax": "014-media-initial-ax.json"
+    },
+    {
+      "index": 15,
+      "label": "captions-playing",
+      "observed_at": "2026-11-15T00:11:27.623924+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "015-captions-playing.json",
+      "image": "015-captions-playing.png",
+      "dom": "015-captions-playing.html",
+      "ax": "015-captions-playing-ax.json"
+    },
+    {
+      "index": 16,
+      "label": "video-paused",
+      "observed_at": "2026-11-15T00:11:27.887634+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "016-video-paused.json",
+      "image": "016-video-paused.png",
+      "dom": "016-video-paused.html",
+      "ax": "016-video-paused-ax.json"
+    },
+    {
+      "index": 17,
+      "label": "video-ended",
+      "observed_at": "2026-11-15T00:11:33.961620+00:00",
+      "url": "http://127.0.0.1:4330/media",
+      "data": "017-video-ended.json",
+      "image": "017-video-ended.png",
+      "dom": "017-video-ended.html",
+      "ax": "017-video-ended-ax.json"
+    },
+    {
+      "index": 18,
+      "label": "login-initial",
+      "observed_at": "2026-11-15T00:11:34.580329+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "018-login-initial.json",
+      "image": "018-login-initial.png",
+      "dom": "018-login-initial.html",
+      "ax": "018-login-initial-ax.json"
+    },
+    {
+      "index": 19,
+      "label": "login-error",
+      "observed_at": "2026-11-15T00:11:35.176905+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "019-login-error.json",
+      "image": "019-login-error.png",
+      "dom": "019-login-error.html",
+      "ax": "019-login-error-ax.json"
+    },
+    {
+      "index": 20,
+      "label": "login-pasted",
+      "observed_at": "2026-11-15T00:11:35.341637+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "020-login-pasted.json",
+      "image": "020-login-pasted.png",
+      "dom": "020-login-pasted.html",
+      "ax": "020-login-pasted-ax.json"
+    },
+    {
+      "index": 21,
+      "label": "login-success",
+      "observed_at": "2026-11-15T00:11:36.026260+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "data": "021-login-success.json",
+      "image": "021-login-success.png",
+      "dom": "021-login-success.html",
+      "ax": "021-login-success-ax.json"
+    }
+  ],
+  "page_errors": [],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:4330/",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "http://127.0.0.1:4330/profile",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "http://127.0.0.1:4330/api/profile",
+      "method": "POST",
+      "type": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:4330/help",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "http://127.0.0.1:4330/media",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/clip.webm",
+      "method": "GET",
+      "type": "media"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/captions.vtt",
+      "method": "GET",
+      "type": "texttrack"
+    },
+    {
+      "url": "http://127.0.0.1:4330/login",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    },
+    {
+      "url": "http://127.0.0.1:4330/api/login",
+      "method": "POST",
+      "type": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:4330/api/login",
+      "method": "POST",
+      "type": "fetch"
+    }
+  ],
+  "wcag_judgement": null
+}

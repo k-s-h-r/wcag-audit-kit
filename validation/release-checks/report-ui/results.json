@@ -1,0 +1,27 @@
+{
+  "note": "2200 rows and responsive summary checked; axe scope is overview excluding results table, plus one expanded human row. This is not a full WCAG audit of the entire report.",
+  "views": [
+    {
+      "width": 1280,
+      "documentWidth": 1280,
+      "tableWidth": 1216,
+      "rows": 2200,
+      "humanRows": 104,
+      "summary": "WCAG AA 検証結果\n\n対象：http://127.0.0.1:4330\n\n検査通過 1342、対象外 762、判断保留 80、不適合 16\n\n予定範囲の検査完了：いいえ\n\nサイト・状態・適合要件の範囲確認：未確認：範囲・適合要件の総合確認、アクセシビリティサポート、非干渉。残る確認：動画の閃光の非干渉等はhuman-review.mdの2.3.1へ引き継ぐ / Login成功通知の支援技術サポートはhuman-review.mdの4.1.3へ引き継ぐ\n\n判定・引き継ぎの記録：2200 / 2200。人による確認待ち：80。対象と具体的な確認手順。引き継ぎ先が未整理の判断保留・未網羅：0。\n\nブラウザー証拠の収集：予定した収集の試行を終了。\n\n未訪問URL：0。目標レベル外の基準：31。\n\n未収集のページ・状態・環境：0。計画にない検査票：0。\n\n使用した検査定義\n\nこの結果は記録した検査範囲についての報告です。未実施・判断保留は適合と判定していません。\n\n全86基準の状況\nページ・状態・環境・基準ごとの結果\n具体的な観察結果と証拠。未実施は通過数に含めません。\n基準\t対象\t結果\t観察・残る確認\t証拠\n1.1.1 非テキストコンテンツ\thttp://127.0.0.1:4330/\ninitial / desktop\t検査通過\tこのcaseはhttp://127.0.0.1:4330/ / initial / desktop。表示の主内容はHome — Profile demo。可視見出し: ['Update your demo profile', 'Example controls']。入力欄: []。ホームの図はEdit→Review→Saveの三段階。SVGのtitleとrole=imgから同じ順序の代替名を取得し、実OrcaもThree stages: Edit, Review, then Save imageと読んだ。ダイアログ外の内容は開いている間inertとなり、閉じると戻る。\n\tevidence/eed089bd8f88--initial--desktop/page.png\nevidence/eed089bd8f88--initial--desktop/inventory.json\nevidence/eed089bd8f88--initial--desktop/dom.html\nevidence/eed089bd8f88--initial--desktop/accessibility-tree.json\nevidence/eed089bd8f88--initial--desktop/actions.json\nevidence/eed089bd8f88--initial--desktop/keyboard.json\nevidence/methods/browser/executed-source.py.txt\nevidence/methods/browser/source/app.js\nevidence/methods/browser/source/app.css\nevidence/methods/browser/server.py.txt\nevidence/methods/discovery/discovery.json\nevidence/methods/browser/desktop/observations.json\nevidence/methods/native/home/screen-reader.json\nevidence/methods/native/help/screen-reader.json\nevidence/methods/native/profile/screen-reader.json\nevidence/methods/native-validation/graphic-native/screen-reader.json\nevidence/methods/browser/desktop/000-home-initial.png\nevidence/methods/browser/desktop/000-home-initial.json\nevidence/methods/browser/desk",
+      "axe_overview_violations": 0,
+      "axe_sample_human_row_violations": 0,
+      "browser_version": "156.0.8078.79"
+    },
+    {
+      "width": 320,
+      "documentWidth": 320,
+      "tableWidth": 1024,
+      "rows": 2200,
+      "humanRows": 104,
+      "summary": "WCAG AA 検証結果\n\n対象：http://127.0.0.1:4330\n\n検査通過 1342、対象外 762、判断保留 80、不適合 16\n\n予定範囲の検査完了：いいえ\n\nサイト・状態・適合要件の範囲確認：未確認：範囲・適合要件の総合確認、アクセシビリティサポート、非干渉。残る確認：動画の閃光の非干渉等はhuman-review.mdの2.3.1へ引き継ぐ / Login成功通知の支援技術サポートはhuman-review.mdの4.1.3へ引き継ぐ\n\n判定・引き継ぎの記録：2200 / 2200。人による確認待ち：80。対象と具体的な確認手順。引き継ぎ先が未整理の判断保留・未網羅：0。\n\nブラウザー証拠の収集：予定した収集の試行を終了。\n\n未訪問URL：0。目標レベル外の基準：31。\n\n未収集のページ・状態・環境：0。計画にない検査票：0。\n\n使用した検査定義\n\nこの結果は記録した検査範囲についての報告です。未実施・判断保留は適合と判定していません。\n\n全86基準の状況\nページ・状態・環境・基準ごとの結果\n具体的な観察結果と証拠。未実施は通過数に含めません。\n基準\t対象\t結果\t観察・残る確認\t証拠\n1.1.1 非テキストコンテンツ\thttp://127.0.0.1:4330/\ninitial / desktop\t検査通過\tこのcaseはhttp://127.0.0.1:4330/ / initial / desktop。表示の主内容はHome — Profile demo。可視見出し: ['Update your demo profile', 'Example controls']。入力欄: []。ホームの図はEdit→Review→Saveの三段階。SVGのtitleとrole=imgから同じ順序の代替名を取得し、実OrcaもThree stages: Edit, Review, then Save imageと読んだ。ダイアログ外の内容は開いている間inertとなり、閉じると戻る。\n\tevidence/eed089bd8f88--initial--desktop/page.png\nevidence/eed089bd8f88--initial--desktop/inventory.json\nevidence/eed089bd8f88--initial--desktop/dom.html\nevidence/eed089bd8f88--initial--desktop/accessibility-tree.json\nevidence/eed089bd8f88--initial--desktop/actions.json\nevidence/eed089bd8f88--initial--desktop/keyboard.json\nevidence/methods/browser/executed-source.py.txt\nevidence/methods/browser/source/app.js\nevidence/methods/browser/source/app.css\nevidence/methods/browser/server.py.txt\nevidence/methods/discovery/discovery.json\nevidence/methods/browser/desktop/observations.json\nevidence/methods/native/home/screen-reader.json\nevidence/methods/native/help/screen-reader.json\nevidence/methods/native/profile/screen-reader.json\nevidence/methods/native-validation/graphic-native/screen-reader.json\nevidence/methods/browser/desktop/000-home-initial.png\nevidence/methods/browser/desktop/000-home-initial.json\nevidence/methods/browser/desk",
+      "axe_overview_violations": 0,
+      "axe_sample_human_row_violations": 0,
+      "browser_version": "156.0.8078.79"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+"""Capture actual Tab focus; keep each source image unchanged."""
+import asyncio
+import hashlib
+import json
+from pathlib import Path
+import shutil
+from playwright.async_api import async_playwright
+
+ROOT=Path('/workspace/wcag-audit-kit')
+OUT=Path('/tmp/wcag-focus-area-calibration-001')
+METRICS=r'''() => {
+ const e=document.querySelector('#probe'),r=e.getBoundingClientRect(),s=getComputedStyle(e);
+ return {url:location.href,variant:document.documentElement.dataset.variant,
+   focus:{id:document.activeElement.id,tag:document.activeElement.localName,documentHasFocus:document.hasFocus()},
+   rect:{x:r.x,y:r.y,width:r.width,height:r.height},
+   viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},
+   style:{outlineColor:s.outlineColor,outlineWidth:s.outlineWidth,outlineOffset:s.outlineOffset,
+     outlineStyle:s.outlineStyle,borderRadius:s.borderRadius,background:s.backgroundColor},
+   events:window.focusTestEvents};}'''
+
+
+async def main():
+    OUT.mkdir(exist_ok=False)
+    shutil.copy2(__file__,OUT/'capture-executed.py.txt')
+    shutil.copy2(ROOT/'tests/fixtures/focus-appearance.html',OUT/'fixture.html')
+    shutil.copy2(ROOT/'scripts/focus_measure.py',OUT/'measure-source.py.txt')
+    rows=[]
+    async with async_playwright() as pw:
+        browser=await pw.chromium.launch(executable_path='/usr/bin/chromium',
+                         args=['--no-sandbox','--force-color-profile=srgb'])
+        try:
+            for variant in ['good','thin','similar']:
+                folder=OUT/'captures'/variant;folder.mkdir(parents=True)
+                page=await browser.new_page(viewport={'width':1000,'height':700},device_scale_factor=1)
+                url='http://127.0.0.1:4325/focus-appearance.html?variant='+variant
+                await page.goto(url,wait_until='networkidle')
+                await page.evaluate('''() => {window.focusTestEvents=[];
+                  addEventListener('keydown',e=>focusTestEvents.push({type:e.type,key:e.key,isTrusted:e.isTrusted,target:e.target.id}));}''')
+                before=await page.evaluate(METRICS)
+                assert before['variant']==variant and before['focus']['id']!='probe'
+                await page.screenshot(path=str(folder/'before.png'))
+                await page.keyboard.press('Tab')
+                await page.wait_for_timeout(150)
+                focused=await page.evaluate(METRICS)
+                assert focused['focus']['id']=='probe' and focused['focus']['documentHasFocus']
+                assert focused['rect']==before['rect'] and focused['viewport']==before['viewport']
+                assert focused['events'][-1]['key']=='Tab' and focused['events'][-1]['isTrusted']
+                await page.screenshot(path=str(folder/'focused.png'))
+                (folder/'page.html').write_text(await page.content())
+                capture={'before':before,'focused':focused,'browser_version':browser.version,
+                  'browser_args':['--no-sandbox','--force-color-profile=srgb'],
+                  'fixture_sha256':hashlib.sha256((OUT/'fixture.html').read_bytes()).hexdigest(),
+                  'wcag_judgement':None}
+                (folder/'capture.json').write_text(json.dumps(capture,ensure_ascii=False,indent=2)+'\n')
+                r=before['rect']
+                request={'case_id':'focus-area-'+variant,'color_space':'srgb','before':'before.png','focused':'focused.png',
+                  'dpr':1,'component_before':r,'component_focused':focused['rect'],'shape':'rectangle',
+                  'mask_description':'The sole author-supplied rectangular outline, identified from its CSS and actual rendered blue pixels.',
+                  'regions':[{'x':r['x']-10,'y':r['y']-10,'width':r['width']+20,'height':r['height']+20}],
+                  'indicator_colors':['#005cbb' if variant=='similar' else '#005bba']}
+                (folder/'request.json').write_text(json.dumps(request,ensure_ascii=False,indent=2)+'\n')
+                rows.append({'variant':variant,'url':url,'capture':'captures/'+variant+'/capture.json'})
+                await page.close()
+        finally:
+            await browser.close()
+    (OUT/'captures.json').write_text(json.dumps(rows,indent=2)+'\n')
+    print(json.dumps({'captures':len(rows),'out':str(OUT)}))
+
+
+asyncio.run(main())

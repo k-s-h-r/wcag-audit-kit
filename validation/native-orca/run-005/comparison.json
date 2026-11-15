@@ -1,0 +1,78 @@
+{
+  "note": "Native Orca diagnostic; not a Guidepup run, an audio recording, or a WCAG judgement. Absence is limited to each two-second window.",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "orca_debian_package": "48.1-1+deb13u2",
+    "speech_dispatcher_debian_package": "0.12.0-5",
+    "package_manifest_sha256": "ecc9d589e7b0ac6457ecf66cfb6e5d203ed09741285f3d2fe221532dc047fbf0",
+    "browser_version": "156.0.8078.79"
+  },
+  "controls": [
+    {
+      "control": 1,
+      "expected_message": "Record one saved.",
+      "name_observed": true,
+      "visible_message_matches": true,
+      "focus_preserved": true,
+      "notification_speech_observed": false,
+      "speech": [],
+      "wcag_judgement": null
+    },
+    {
+      "control": 2,
+      "expected_message": "Record two saved.",
+      "name_observed": true,
+      "visible_message_matches": true,
+      "focus_preserved": true,
+      "notification_speech_observed": true,
+      "speech": [
+        "Record two saved."
+      ],
+      "wcag_judgement": null
+    },
+    {
+      "control": 3,
+      "expected_message": "Record three saved.",
+      "name_observed": true,
+      "visible_message_matches": true,
+      "focus_preserved": true,
+      "notification_speech_observed": true,
+      "speech": [
+        "Record three saved."
+      ],
+      "wcag_judgement": null
+    },
+    {
+      "control": 4,
+      "expected_message": "Record four saved.",
+      "name_observed": true,
+      "visible_message_matches": true,
+      "focus_preserved": true,
+      "notification_speech_observed": true,
+      "speech": [
+        "Record four saved."
+      ],
+      "wcag_judgement": null
+    },
+    {
+      "control": 5,
+      "expected_message": "Record five saved.",
+      "name_observed": true,
+      "visible_message_matches": true,
+      "focus_preserved": true,
+      "notification_speech_observed": false,
+      "speech": [],
+      "wcag_judgement": null
+    }
+  ],
+  "native_heading_command": {
+    "action": "native XTest h, handled by Orca structural navigation",
+    "speech": [
+      "h",
+      "Wrapping to top.",
+      "Live region compatibility controls heading 1"
+    ]
+  },
+  "known_positive_and_negative_distinguished": true
+}

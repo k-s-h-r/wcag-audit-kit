@@ -1,0 +1,146 @@
+{
+  "case_id": "eed089bd8f88--anonymous--desktop--1.2.2",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "e4cb55ac6b34f8aaf2bd297b08054496d889b7125e2662c7a8c1aaf1fc784283",
+  "execution": "completed",
+  "outcome": "inapplicable",
+  "observed": "このcaseはhttp://127.0.0.1:4330/ / anonymous / desktop。表示の主内容はHome — Profile demo。可視見出し: ['Update your demo profile', 'Example controls']。入力欄: []。全ソース・実表示・実際の読み込みに、収録済みの音声を含む同期媒体又はプレーヤーがない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:1.2.2:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [],
+  "method_coverage": [
+    {
+      "method": "media",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/eed089bd8f88--anonymous--desktop/page.png",
+    "evidence/eed089bd8f88--anonymous--desktop/inventory.json",
+    "evidence/eed089bd8f88--anonymous--desktop/dom.html",
+    "evidence/eed089bd8f88--anonymous--desktop/accessibility-tree.json",
+    "evidence/eed089bd8f88--anonymous--desktop/actions.json",
+    "evidence/eed089bd8f88--anonymous--desktop/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/desktop/observations.json",
+    "evidence/methods/browser/desktop/000-home-initial.png",
+    "evidence/methods/browser/desktop/000-home-initial.json",
+    "evidence/methods/browser/desktop/000-home-initial-ax.json",
+    "evidence/methods/browser/desktop/005-dialog-open.png",
+    "evidence/methods/browser/desktop/005-dialog-open.json",
+    "evidence/methods/browser/desktop/005-dialog-open-ax.json",
+    "evidence/methods/browser/desktop/004-hybrid-count-six.png",
+    "evidence/methods/browser/desktop/004-hybrid-count-six.json",
+    "evidence/methods/browser/desktop/004-hybrid-count-six-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:48:47.086361+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/eed089bd8f88--anonymous--desktop/page.png",
+      "sha256": "0b30f01a0bb7bf907766e8cdd50dbb298cd0d5ef1e6e41f6116a4696b620ee9a"
+    },
+    {
+      "path": "evidence/eed089bd8f88--anonymous--desktop/inventory.json",
+      "sha256": "85c0524ed3a7b99de7c8c53dd1ccc45517554bc5ea0b8dd19709b9dedd1339fb"
+    },
+    {
+      "path": "evidence/eed089bd8f88--anonymous--desktop/dom.html",
+      "sha256": "c6607e7e75fe5576f1df2fbce01e2a9ea54951d6826fcbeaed810ab37b727588"
+    },
+    {
+      "path": "evidence/eed089bd8f88--anonymous--desktop/accessibility-tree.json",
+      "sha256": "40ae2b2f5ffa5099d9c1d2588221e719c60f895b5c2c565ece4333fa4e77e241"
+    },
+    {
+      "path": "evidence/eed089bd8f88--anonymous--desktop/actions.json",
+      "sha256": "34202911959ec1130d5728c14f4481a4454528e2f70eeb22f98e52e575e748a1"
+    },
+    {
+      "path": "evidence/eed089bd8f88--anonymous--desktop/keyboard.json",
+      "sha256": "703b61dd41d76f546be2cedebffeeb25827ffb30eb5023829005672b66771a8b"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/observations.json",
+      "sha256": "39b0ef7069d2e14adab81994bd7f17bf2a61176f8051449773cab1c691b5a9fe"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/000-home-initial.png",
+      "sha256": "3858ff2a2ea8fcb8d1e287eb596768e828bf2a8a1e97bb5201c9c32e481d13c6"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/000-home-initial.json",
+      "sha256": "49c57dc3af9a41bf49d7fac2802ba9efd9a03c9115d552b7c7ca9291b682d1f9"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/000-home-initial-ax.json",
+      "sha256": "464146e62a1ae69305e23a8c08d61f45667578849f51374da17d7a5d76ee1ef0"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/005-dialog-open.png",
+      "sha256": "fed5d942d6c73fdb4e39c62e5f7457d208c47937121386e1672c8f4aca9f3e53"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/005-dialog-open.json",
+      "sha256": "7d8ee6e8c1f8b311bb684d0f47a50c84add3749e8269e23f95e9e2019d7d08b1"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/005-dialog-open-ax.json",
+      "sha256": "5025b8a2c834e86ade4edbf5ede9908e647923f0aafb8d35ae459fcdefc4bffc"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/004-hybrid-count-six.png",
+      "sha256": "abcb561d25f2849196b0cdb1bd20b203ab3372a5c03560ed53b7c4a6fd2b33f6"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/004-hybrid-count-six.json",
+      "sha256": "0cbe8feadfe875bdfbdede47d8bf9a85139ddbad541165b440a46cf159680370"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/004-hybrid-count-six-ax.json",
+      "sha256": "5f27ddc3d93eae09431921ad2b77da5554da19c31ed73d48e4658ffaa29b1648"
+    }
+  ]
+}

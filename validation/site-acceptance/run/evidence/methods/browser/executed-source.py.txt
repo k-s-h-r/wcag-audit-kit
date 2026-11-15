@@ -1,0 +1,157 @@
+"""Page-specific acceptance observations. No automatic WCAG verdicts."""
+import asyncio,hashlib,json,os,shutil,sys
+from datetime import datetime,timezone
+from pathlib import Path
+from playwright.async_api import async_playwright
+ROOT=Path('/workspace/wcag-audit-kit');OUT=Path('/tmp/wcag-acceptance-methods-002');BASE='http://127.0.0.1:4330'
+sys.path.insert(0,str(ROOT/'scripts'))
+from native_zoom import NativeDisplay,apply_zoom
+from browser_capture import capture_image
+from input_observation import InputObserver,INIT_SCRIPT
+METRICS=r'''() => {
+ const rect=r=>({x:r.x,y:r.y,width:r.width,height:r.height});
+ const visible=e=>e.checkVisibility({checkOpacity:true,checkVisibilityCSS:true});
+ const props=['color','backgroundColor','borderTopColor','borderTopWidth','outlineColor','outlineWidth','outlineStyle','outlineOffset','fontSize','fontWeight','lineHeight','letterSpacing','wordSpacing','marginBottom','overflow'];
+ const modal=document.querySelector('dialog[open]');
+ return {url:location.href,title:document.title,lang:document.documentElement.lang,
+  viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio,scale:visualViewport.scale},
+  document:{width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight,scrollX,scrollY},
+  focus:{id:document.activeElement.id,tag:document.activeElement.localName,documentHasFocus:document.hasFocus(),rect:rect(document.activeElement.getBoundingClientRect())},
+  text:document.body.innerText,controls:[...document.querySelectorAll('a[href],button,input')].filter(visible).map(e=>({tag:e.localName,id:e.id,text:e.innerText||'',value:e.type==='password'?'(fixture password)':e.value,
+    type:e.type,href:e.getAttribute('href'),name:e.getAttribute('name'),autocomplete:e.getAttribute('autocomplete'),ariaPressed:e.getAttribute('aria-pressed'),ariaInvalid:e.getAttribute('aria-invalid'),rect:rect(e.getBoundingClientRect()),inertByModal:!!modal&&!modal.contains(e),
+    style:Object.fromEntries(props.map(k=>[k,getComputedStyle(e)[k]]))})),
+  textStyles:[...document.querySelectorAll('h1,h2,p,th,td,dt,dd,label')].filter(visible).map(e=>({tag:e.localName,id:e.id,text:e.innerText,rect:rect(e.getBoundingClientRect()),style:Object.fromEntries(props.map(k=>[k,getComputedStyle(e)[k]]))})),
+  nav:[...document.querySelectorAll('nav a')].map(e=>({text:e.innerText,href:e.getAttribute('href')})),
+  images:[...document.querySelectorAll('svg,img')].map(e=>({tag:e.localName,role:e.getAttribute('role'),labelledby:e.getAttribute('aria-labelledby'),text:e.textContent,rect:rect(e.getBoundingClientRect())})),
+  video:document.querySelector('video')?(()=>{const v=document.querySelector('video');return {currentTime:v.currentTime,duration:v.duration,paused:v.paused,ended:v.ended,played:[...Array(v.played.length)].map((_,i)=>[v.played.start(i),v.played.end(i)]),tracks:[...v.textTracks].map(t=>({kind:t.kind,language:t.language,mode:t.mode,cues:[...(t.cues||[])].map(c=>({start:c.startTime,end:c.endTime,text:c.text})),activeCues:[...(t.activeCues||[])].map(c=>c.text)}))}})():null,
+  animations:document.getAnimations().map(a=>({state:a.playState,currentTime:a.currentTime})),
+  pointers:{coarse:matchMedia('(any-pointer: coarse)').matches,hover:matchMedia('(any-hover:hover)').matches},
+  pasteEvents:window.pasteProof||[]};}'''
+
+def save(path,value):
+ tmp=path.with_suffix(path.suffix+'.tmp');tmp.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n');tmp.replace(path)
+
+async def mode(pw,name,width=1280,zoom=1,spacing=False):
+ folder=OUT/name;folder.mkdir(exist_ok=False)
+ native=zoom!=1;display=None;browser=None;stages=[];observer=InputObserver(10000);errors=[];requests=[]
+ try:
+  if native:
+   os.environ['WCAG_XVFB']='/tmp/wcag-at-root/usr/bin/Xvfb';os.environ['LD_LIBRARY_PATH']='/tmp/wcag-at-root/usr/lib/x86_64-linux-gnu'
+   display=NativeDisplay(folder).start()
+  launch={'executable_path':'/usr/bin/chromium','args':['--no-sandbox','--force-renderer-accessibility','--force-color-profile=srgb']}
+  if native:launch.update(headless=False,env=display.env)
+  browser=await pw.chromium.launch(**launch)
+  context=await browser.new_context(**({'no_viewport':True} if native else {'viewport':{'width':width,'height':900}}),
+   permissions=['clipboard-read','clipboard-write'],has_touch=True,locale='en-US',storage_state='/tmp/wcag-acceptance-bootstrap-002/storage-state.json')
+  await context.expose_binding('__wcagAuditInput',observer.accept);await context.add_init_script(INIT_SCRIPT)
+  await context.add_init_script("addEventListener('paste',e=>{(window.pasteProof??=[]).push({target:e.target.id,trusted:e.isTrusted})})")
+  page=await context.new_page();cdp=await context.new_cdp_session(page)
+  page.on('pageerror',lambda error:errors.append(str(error)))
+  context.on('request',lambda r:requests.append({'url':r.url,'method':r.method,'type':r.resource_type}))
+  async def snap(label):
+   index=len(stages);stem=f'{index:03}-{label}'
+   data=await page.evaluate(METRICS)
+   await capture_image(page,folder/(stem+'.png'),full_page=True,native_zoom=native)
+   (folder/(stem+'.html')).write_text(await page.content())
+   save(folder/(stem+'-ax.json'),await cdp.send('Accessibility.getFullAXTree'))
+   save(folder/(stem+'.json'),data)
+   stages.append({'index':index,'label':label,'observed_at':datetime.now(timezone.utc).isoformat(),'url':page.url,
+      'data':stem+'.json','image':stem+'.png','dom':stem+'.html','ax':stem+'-ax.json'})
+   save(folder/'observations.json',{'status':'partial','mode':name,'spacing':spacing,'zoom':zoom,'browser_version':browser.version,
+      'images_are_viewport_only':native,'stages':stages,'page_errors':errors,'requests':requests,'wcag_judgement':None})
+   save(folder/'input-events.json',observer.export())
+   return data
+  async def tab_to(selector):
+   for _ in range(45):
+    if await page.evaluate('s=>document.activeElement.matches(s)',selector):return
+    await page.keyboard.press('Tab');await page.wait_for_timeout(20)
+   raise ValueError('Keyboard did not reach '+selector)
+  async def activate(selector,key='Enter'):
+   await tab_to(selector);await page.keyboard.press(key);await page.wait_for_timeout(180)
+  async def type_into(selector,value):
+   await tab_to(selector);await page.keyboard.press('Control+A');await page.keyboard.insert_text(value)
+  async def visit(path):
+   await page.goto(BASE+path,wait_until='networkidle')
+   if native:
+    async def zoom_step(percent,metrics):
+     save(folder/(f'zoom-{path.strip("/") or "home"}-{percent}.json'),metrics)
+    result=await apply_zoom(page,display,zoom,{'width':1280,'height':900},on_step=zoom_step)
+    save(folder/('zoom-'+(path.strip('/') or 'home')+'.json'),result)
+   if spacing:await page.add_style_tag(content='*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-bottom:2em!important}')
+  async def sweep(label):
+   if not native:return
+   await page.keyboard.press('Control+Home');await page.wait_for_timeout(250)
+   previous=None
+   for index in range(30):
+    data=await snap(label+'-scroll-'+str(index));current=data['document']['scrollY']
+    if current==previous:return
+    previous=current
+    await page.keyboard.press('PageDown');await page.wait_for_timeout(250)
+   raise ValueError('Unfinished scroll sweep')
+  await visit('/');await snap('home-initial');await sweep('home')
+  await activate('#count-button');assert await page.locator('#count').inner_text()=='1'
+  await page.keyboard.press('Space');assert await page.locator('#count').inner_text()=='2'
+  await snap('keyboard-count-two')
+  await page.locator('#count-button').scroll_into_view_if_needed();box=await page.locator('#count-button').bounding_box()
+  await page.mouse.move(box['x']+box['width']/2,box['y']+box['height']/2);await page.mouse.down()
+  assert await page.locator('#count').inner_text()=='2';await snap('pointer-held')
+  await page.mouse.move(2,2);await page.mouse.up();assert await page.locator('#count').inner_text()=='2';await snap('pointer-cancelled')
+  await page.locator('#count-button').click();assert await page.locator('#count').inner_text()=='3'
+  box=await page.locator('#count-button').bounding_box();await page.touchscreen.tap(box['x']+box['width']/2,box['y']+box['height']/2)
+  assert await page.locator('#count').inner_text()=='4';await activate('#count-button');assert await page.locator('#count').inner_text()=='5'
+  await page.locator('#count-button').click();assert await page.locator('#count').inner_text()=='6';await snap('hybrid-count-six')
+  await activate('#about');assert await page.locator('#about-dialog').is_visible();await snap('dialog-open')
+  await page.keyboard.press('Tab');await snap('dialog-tab-exit-or-cycle')
+  await page.keyboard.press('Shift+Tab');assert await page.locator('#close-about').evaluate('e=>document.activeElement===e&&document.hasFocus()')
+  await page.keyboard.press('Escape');assert not await page.locator('#about-dialog').is_visible()
+  await snap('dialog-escape-closed')
+  await visit('/profile');await snap('profile-initial');await sweep('profile')
+  await type_into('#name','');await type_into('#email','not-an-email');await activate('#review')
+  assert await page.locator('#errors').is_visible();await snap('profile-errors')
+  await type_into('#name','Updated Demo');await type_into('#email','updated@example.test');await activate('#review')
+  assert await page.locator('#review-name').inner_text()=='Updated Demo';await snap('profile-review')
+  await activate('#back');assert await page.locator('#name').input_value()=='Updated Demo'
+  assert await page.locator('#email').input_value()=='updated@example.test';await snap('profile-back-retained')
+  await activate('#review');await activate('#confirm');await page.locator('#completion').wait_for(state='visible')
+  assert await page.locator('#saved-email').inner_text()=='updated@example.test';await snap('profile-completed')
+  await visit('/help');await snap('help');await sweep('help')
+  await visit('/media');await snap('media-initial');await sweep('media')
+  await activate('#captions-toggle');assert await page.locator('#captions-toggle').get_attribute('aria-pressed')=='true'
+  await activate('#play');await page.wait_for_timeout(1000);await snap('captions-playing')
+  await activate('#play');assert await page.locator('#clip').evaluate('v=>v.paused');await snap('video-paused')
+  await activate('#play','Space');await page.locator('#playback-state:text-is("Ended")').wait_for(state='visible')
+  await snap('video-ended')
+  await visit('/login');await snap('login-initial');await sweep('login')
+  await type_into('#login-email','unknown@example.test');await type_into('#password','wrong');await activate('#sign-in')
+  await page.wait_for_function("document.querySelector('#login-error').textContent.length>0");await snap('login-error')
+  for selector,value in [('#login-email','demo@example.test'),('#password','Test-password-42!')]:
+   await page.evaluate('text=>navigator.clipboard.writeText(text)',value)
+   await page.locator(selector).click();await page.keyboard.press('Control+A');await page.keyboard.press('Control+V')
+   assert await page.locator(selector).input_value()==value
+  assert await page.evaluate('pasteProof.filter(e=>e.trusted).length')==2;await snap('login-pasted')
+  await activate('#show-password');assert await page.locator('#password').get_attribute('type')=='text'
+  await activate('#show-password');assert await page.locator('#password').get_attribute('type')=='password'
+  await activate('#sign-in');await page.wait_for_function("document.querySelector('#login-status').textContent.includes('Signed in.')")
+  await snap('login-success')
+  assert not errors,errors
+  exported=observer.export();assert not exported['truncated']
+  assert any(e.get('pointerType')=='touch' and e.get('isTrusted') for e in exported['events'])
+  save(folder/'observations.json',{'status':'collected','mode':name,'spacing':spacing,'zoom':zoom,'browser_version':browser.version,
+      'images_are_viewport_only':native,'stages':stages,'page_errors':errors,'requests':requests,'wcag_judgement':None})
+  print(json.dumps({'mode':name,'stages':len(stages),'status':'collected'}),flush=True)
+ except Exception as error:
+  save(folder/'error.json',{'status':'blocked','error':str(error) or repr(error),'type':type(error).__name__,'stages_completed':len(stages),'wcag_judgement':None})
+  raise
+ finally:
+  if browser:await browser.close()
+  if display:display.close()
+
+async def main():
+ OUT.mkdir(exist_ok=False);shutil.copy2(__file__,OUT/'executed-source.py.txt')
+ shutil.copytree(ROOT/'tests/fixtures/audit-site',OUT/'source');shutil.copy2(ROOT/'tests/fixtures/audit_site_server.py',OUT/'server.py.txt')
+ save(OUT/'source-hashes.json',{str(p.relative_to(OUT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (OUT/'source').rglob('*') if p.is_file()})
+ async with async_playwright() as pw:
+  for name,width,zoom,spacing in [('desktop',1280,1,False),('narrow',320,1,False),('zoom-200',1280,2,False),('zoom-400',1280,4,False),('desktop-spacing',1280,1,True),('narrow-spacing',320,1,True)]:
+   await mode(pw,name,width,zoom,spacing)
+ print(str(OUT),flush=True)
+asyncio.run(main())

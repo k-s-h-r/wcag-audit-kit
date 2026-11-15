@@ -1,0 +1,236 @@
+{
+  "note": "Actual native Orca scenarios; independent of Guidepup. Transcript assertions are not whole-criterion judgements.",
+  "scenarios": [
+    {
+      "name": "navigation-and-notification",
+      "status": "collected",
+      "assertions": [
+        "matched",
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "speech": [
+        [
+          "Save record one button."
+        ],
+        [
+          "Save record two button."
+        ],
+        [
+          "Record two saved."
+        ],
+        [
+          "h",
+          "Nonatomic status heading 2"
+        ]
+      ],
+      "observations": [
+        [
+          {
+            "target": {
+              "selector": "#message2"
+            },
+            "text": ""
+          }
+        ],
+        [
+          {
+            "target": {
+              "selector": "#message2"
+            },
+            "text": ""
+          }
+        ],
+        [
+          {
+            "target": {
+              "selector": "#message2"
+            },
+            "text": "Record two saved."
+          }
+        ],
+        [
+          {
+            "target": {
+              "selector": "#message2"
+            },
+            "text": "Record two saved."
+          }
+        ]
+      ]
+    },
+    {
+      "name": "state-good",
+      "status": "collected",
+      "assertions": [
+        "matched",
+        "matched",
+        "matched"
+      ],
+      "speech": [
+        [
+          "Email notifications check box not checked."
+        ],
+        [
+          "checked"
+        ],
+        [
+          "not checked"
+        ]
+      ],
+      "observations": [
+        [
+          {
+            "target": {
+              "selector": "#visual-state"
+            },
+            "text": "Off"
+          },
+          {
+            "target": {
+              "selector": "#email-switch",
+              "attributes": [
+                "role",
+                "aria-checked"
+              ]
+            },
+            "text": "Email notifications",
+            "attributes": {
+              "role": "checkbox",
+              "aria-checked": "false"
+            }
+          }
+        ],
+        [
+          {
+            "target": {
+              "selector": "#visual-state"
+            },
+            "text": "On"
+          },
+          {
+            "target": {
+              "selector": "#email-switch",
+              "attributes": [
+                "role",
+                "aria-checked"
+              ]
+            },
+            "text": "Email notifications",
+            "attributes": {
+              "role": "checkbox",
+              "aria-checked": "true"
+            }
+          }
+        ],
+        [
+          {
+            "target": {
+              "selector": "#visual-state"
+            },
+            "text": "Off"
+          },
+          {
+            "target": {
+              "selector": "#email-switch",
+              "attributes": [
+                "role",
+                "aria-checked"
+              ]
+            },
+            "text": "Email notifications",
+            "attributes": {
+              "role": "checkbox",
+              "aria-checked": "false"
+            }
+          }
+        ]
+      ]
+    },
+    {
+      "name": "state-bad",
+      "status": "assertion_failed",
+      "assertions": [
+        "matched",
+        "not_matched",
+        "not_matched"
+      ],
+      "speech": [
+        [
+          "Email notifications check box not checked."
+        ],
+        [],
+        []
+      ],
+      "observations": [
+        [
+          {
+            "target": {
+              "selector": "#visual-state"
+            },
+            "text": "Off"
+          },
+          {
+            "target": {
+              "selector": "#email-switch",
+              "attributes": [
+                "role",
+                "aria-checked"
+              ]
+            },
+            "text": "Email notifications",
+            "attributes": {
+              "role": "checkbox",
+              "aria-checked": "false"
+            }
+          }
+        ],
+        [
+          {
+            "target": {
+              "selector": "#visual-state"
+            },
+            "text": "On"
+          },
+          {
+            "target": {
+              "selector": "#email-switch",
+              "attributes": [
+                "role",
+                "aria-checked"
+              ]
+            },
+            "text": "Email notifications",
+            "attributes": {
+              "role": "checkbox",
+              "aria-checked": "false"
+            }
+          }
+        ],
+        [
+          {
+            "target": {
+              "selector": "#visual-state"
+            },
+            "text": "Off"
+          },
+          {
+            "target": {
+              "selector": "#email-switch",
+              "attributes": [
+                "role",
+                "aria-checked"
+              ]
+            },
+            "text": "Email notifications",
+            "attributes": {
+              "role": "checkbox",
+              "aria-checked": "false"
+            }
+          }
+        ]
+      ]
+    }
+  ]
+}

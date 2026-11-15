@@ -1,0 +1,39 @@
+{
+  "index": 5,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "g"
+    ],
+    "expect_contains": "Three stages"
+  },
+  "focus_before": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:36:47.250006+00:00",
+  "finished_at": "2026-11-15T00:36:48.652142+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/#main",
+  "speech": [
+    {
+      "at": "2026-11-15T00:36:47.255180+00:00",
+      "line": 7476,
+      "phrase": "g",
+      "raw": "00:36:47.255180 - SPEECH OUTPUT: 'g' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:36:47.291933+00:00",
+      "line": 7668,
+      "phrase": "Three stages: Edit, Review, then Save image",
+      "raw": "00:36:47.291933 - SPEECH OUTPUT: 'Three stages: Edit, Review, then Save image' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": []
+}

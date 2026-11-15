@@ -1,0 +1,176 @@
+{
+  "case_id": "eed089bd8f88--dialog-closed--narrow--2.4.2",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "c8ea15c57c75772ac694984252bafe819baec75f9703c5ab3da13e51455ddcf6",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/ / dialog-closed / narrow。表示の主内容はHome — Profile demo。可視見出し: ['Update your demo profile', 'Example controls']。入力欄: []。実際のtitleはHome/Edit profile/Video instructions/Help/Sign in — Profile demoで、現在のページの主題・目的と対応する。匿名のProfileも編集のためにサインインする画面である。エラーや確認段階でも同じページの目的を説明する。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:2.4.2:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "このURLのページ全体、可視の内容・部品と到達可能な全状態",
+      "observed": "実際のtitleはHome/Edit profile/Video instructions/Help/Sign in — Profile demoで、現在のページの主題・目的と対応する。匿名のProfileも編集のためにサインインする画面である。エラーや確認段階でも同じページの目的を説明する。",
+      "expected": "主題又は目的を説明する題名が、使用する技術に適切な方法でページと関連付いているか。題名の存在だけで通過にせず、無効なHTMLの配置だけでも不適合にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/eed089bd8f88--dialog-closed--narrow/page.png",
+        "evidence/eed089bd8f88--dialog-closed--narrow/inventory.json",
+        "evidence/eed089bd8f88--dialog-closed--narrow/dom.html",
+        "evidence/eed089bd8f88--dialog-closed--narrow/accessibility-tree.json",
+        "evidence/eed089bd8f88--dialog-closed--narrow/actions.json",
+        "evidence/eed089bd8f88--dialog-closed--narrow/keyboard.json",
+        "evidence/methods/browser/executed-source.py.txt",
+        "evidence/methods/browser/source/app.js",
+        "evidence/methods/browser/source/app.css",
+        "evidence/methods/browser/server.py.txt",
+        "evidence/methods/discovery/discovery.json",
+        "evidence/methods/browser/narrow/observations.json",
+        "evidence/methods/browser/narrow/000-home-initial.png",
+        "evidence/methods/browser/narrow/000-home-initial.json",
+        "evidence/methods/browser/narrow/000-home-initial-ax.json",
+        "evidence/methods/browser/narrow/005-dialog-open.png",
+        "evidence/methods/browser/narrow/005-dialog-open.json",
+        "evidence/methods/browser/narrow/005-dialog-open-ax.json",
+        "evidence/methods/browser/narrow/004-hybrid-count-six.png",
+        "evidence/methods/browser/narrow/004-hybrid-count-six.json",
+        "evidence/methods/browser/narrow/004-hybrid-count-six-ax.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/eed089bd8f88--dialog-closed--narrow/page.png",
+    "evidence/eed089bd8f88--dialog-closed--narrow/inventory.json",
+    "evidence/eed089bd8f88--dialog-closed--narrow/dom.html",
+    "evidence/eed089bd8f88--dialog-closed--narrow/accessibility-tree.json",
+    "evidence/eed089bd8f88--dialog-closed--narrow/actions.json",
+    "evidence/eed089bd8f88--dialog-closed--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/browser/narrow/000-home-initial.png",
+    "evidence/methods/browser/narrow/000-home-initial.json",
+    "evidence/methods/browser/narrow/000-home-initial-ax.json",
+    "evidence/methods/browser/narrow/005-dialog-open.png",
+    "evidence/methods/browser/narrow/005-dialog-open.json",
+    "evidence/methods/browser/narrow/005-dialog-open-ax.json",
+    "evidence/methods/browser/narrow/004-hybrid-count-six.png",
+    "evidence/methods/browser/narrow/004-hybrid-count-six.json",
+    "evidence/methods/browser/narrow/004-hybrid-count-six-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:48:59.257875+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/eed089bd8f88--dialog-closed--narrow/page.png",
+      "sha256": "8b5ea3b0c0e428028a0f95d0c0183d2eb8ba7fff1715be897121ffcbd2c124f7"
+    },
+    {
+      "path": "evidence/eed089bd8f88--dialog-closed--narrow/inventory.json",
+      "sha256": "67145dc8af1d2f0b0474f1cd6de1995f23cff64e39a66506b31af6d5364d63f9"
+    },
+    {
+      "path": "evidence/eed089bd8f88--dialog-closed--narrow/dom.html",
+      "sha256": "54c6cc3221026a9eff3da1e1d7ea4e92414fc0c4ab1223267be0f528facedab4"
+    },
+    {
+      "path": "evidence/eed089bd8f88--dialog-closed--narrow/accessibility-tree.json",
+      "sha256": "905ed4d594cc2b13f36c6ed64be9c3caf9b5cb2c31e45d01548dff7d6c702f73"
+    },
+    {
+      "path": "evidence/eed089bd8f88--dialog-closed--narrow/actions.json",
+      "sha256": "bcda8adef9e53f2c63408c72cd4c51d4d88c36b54b69efe51bfe4e3ce3c2fa96"
+    },
+    {
+      "path": "evidence/eed089bd8f88--dialog-closed--narrow/keyboard.json",
+      "sha256": "c02938f468e3dd59698e0b2bb72369a4dfce262835c423eca41308bbc9256273"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/000-home-initial.png",
+      "sha256": "8b5ea3b0c0e428028a0f95d0c0183d2eb8ba7fff1715be897121ffcbd2c124f7"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/000-home-initial.json",
+      "sha256": "1c529325cce525ea4a5e378da476bb2f4776f0e04d3861e91ab796279c930e16"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/000-home-initial-ax.json",
+      "sha256": "2d82e3c250f47b032db4c8f75a19053e79e3293281881ea0a1f0f20e6d16c579"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/005-dialog-open.png",
+      "sha256": "26900c07946136e067287958bbbf281f671a36a55d62bb0a9d4279fe7e98c0a0"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/005-dialog-open.json",
+      "sha256": "e3c49ba8c280538527a712291d2708470306225f2493dd7123f59f32ead359c6"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/005-dialog-open-ax.json",
+      "sha256": "4abd4f70338dc0f520cea24ce980a5524e6b2c1bb3859dac3a65cd02ee139b18"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/004-hybrid-count-six.png",
+      "sha256": "d39dbe67f932dc226086ff01cfe5ad5816c4ef4a07eab28ebeaa4422e9e1dc4a"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/004-hybrid-count-six.json",
+      "sha256": "b42b25998013e95ba0ad4ea92a74d5168e4f13b06b85d983bc3f93380f630e9e"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/004-hybrid-count-six-ax.json",
+      "sha256": "44a896b6e0163bf4654d68336cfea8653cfe01c7e0e6cee019327a36f59b4c78"
+    }
+  ]
+}

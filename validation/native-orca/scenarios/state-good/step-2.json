@@ -1,0 +1,54 @@
+{
+  "index": 2,
+  "action": {
+    "type": "browser.press",
+    "key": "Space",
+    "expect_contains": "checked",
+    "expect_not_contains": [
+      "not checked",
+      "unchecked"
+    ]
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "email-switch"
+  },
+  "started_at": "2026-11-14T18:58:30.133995+00:00",
+  "finished_at": "2026-11-14T18:58:31.937751+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "email-switch"
+  },
+  "url": "http://127.0.0.1:4317/reader-controls-good.html",
+  "speech": [
+    {
+      "at": "2026-11-14T18:58:30.164721+00:00",
+      "line": 2785,
+      "phrase": "checked",
+      "raw": "18:58:30.164721 - SPEECH OUTPUT: 'checked' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#visual-state"
+      },
+      "text": "On"
+    },
+    {
+      "target": {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      },
+      "text": "Email notifications",
+      "attributes": {
+        "role": "checkbox",
+        "aria-checked": "true"
+      }
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "index": 3,
+  "action": {
+    "type": "reader.nextButton",
+    "expect_contains": "Add one"
+  },
+  "focus_before": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:09:55.217536+00:00",
+  "finished_at": "2026-11-15T00:09:56.618181+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "count-button",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/",
+  "speech": [
+    {
+      "at": "2026-11-15T00:09:55.230192+00:00",
+      "line": 6550,
+      "phrase": "b",
+      "raw": "00:09:55.230192 - SPEECH OUTPUT: 'b' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:09:55.318474+00:00",
+      "line": 6747,
+      "phrase": "Add one button.",
+      "raw": "00:09:55.318474 - SPEECH OUTPUT: 'Add one button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#count"
+      },
+      "text": "0"
+    }
+  ]
+}

@@ -1,0 +1,4721 @@
+{
+  "level": "AA",
+  "url": "http://127.0.0.1:4322",
+  "audit_complete": false,
+  "conformance_claim": "この結果は記録した検査範囲についての報告です。未実施・判断保留は適合と判定していません。",
+  "scope_confirmed": false,
+  "scope_review": null,
+  "unvisited": [],
+  "collector_status": "completed",
+  "collection_complete": true,
+  "catalog_digest": "34614755c63a3f50259b7b9fcc0aa04cefab942f1980d6422d2714e144a72cf7",
+  "definitions_match_installed": false,
+  "missing_captures": [],
+  "missing_cases": [],
+  "declared_states_without_page": [],
+  "recorded_cases": 3,
+  "human_review_cases": [],
+  "unassigned_remaining_cases": [],
+  "counts": {
+    "not_run": 162,
+    "failed": 3
+  },
+  "criteria": [
+    {
+      "id": "1.1.1",
+      "title": "非テキストコンテンツ",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#non-text-content",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.2.1",
+      "title": "音声のみ及び映像のみ (収録済)",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#audio-only-and-video-only-prerecorded",
+      "procedure_version": "2",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.2.2",
+      "title": "キャプション (収録済)",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#captions-prerecorded",
+      "procedure_version": "2",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.2.3",
+      "title": "音声解説、又はメディアに対する代替 (収録済)",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#audio-description-or-media-alternative-prerecorded",
+      "procedure_version": "2",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.2.4",
+      "title": "キャプション (ライブ)",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#captions-live",
+      "procedure_version": "2",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.2.5",
+      "title": "音声解説 (収録済)",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#audio-description-prerecorded",
+      "procedure_version": "2",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.2.6",
+      "title": "手話 (収録済)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#sign-language-prerecorded",
+      "procedure_version": "2",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "1.2.7",
+      "title": "拡張音声解説 (収録済)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#extended-audio-description-prerecorded",
+      "procedure_version": "2",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "1.2.8",
+      "title": "メディアに対する代替 (収録済)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#media-alternative-prerecorded",
+      "procedure_version": "2",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "1.2.9",
+      "title": "音声のみ (ライブ)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#audio-only-live",
+      "procedure_version": "2",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "1.3.1",
+      "title": "情報及び関係性",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#info-and-relationships",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.3.2",
+      "title": "意味のあるシーケンス",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#meaningful-sequence",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.3.3",
+      "title": "感覚的な特徴",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#sensory-characteristics",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.3.4",
+      "title": "表示の向き",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#orientation",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.3.5",
+      "title": "入力目的の特定",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#identify-input-purpose",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.3.6",
+      "title": "目的の特定",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#identify-purpose",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "1.4.1",
+      "title": "色の使用",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#use-of-color",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.4.2",
+      "title": "音声の制御",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#audio-control",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.4.3",
+      "title": "コントラスト (最低限)",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#contrast-minimum",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.4.4",
+      "title": "テキストのサイズ変更",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#resize-text",
+      "procedure_version": "2",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.4.5",
+      "title": "文字画像",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#images-of-text",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.4.6",
+      "title": "コントラスト (高度)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#contrast-enhanced",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "1.4.7",
+      "title": "小さな背景音、又は背景音なし",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#low-or-no-background-audio",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "1.4.8",
+      "title": "視覚的提示",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#visual-presentation",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "1.4.9",
+      "title": "文字画像 (例外なし)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#images-of-text-no-exception",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "1.4.10",
+      "title": "リフロー",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#reflow",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.4.11",
+      "title": "非テキストのコントラスト",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#non-text-contrast",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.4.12",
+      "title": "テキストの間隔",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#text-spacing",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "1.4.13",
+      "title": "ホバー又はフォーカスで表示されるコンテンツ",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#content-on-hover-or-focus",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.1.1",
+      "title": "キーボード",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#keyboard",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.1.2",
+      "title": "キーボードトラップなし",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#no-keyboard-trap",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.1.3",
+      "title": "キーボード (例外なし)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#keyboard-no-exception",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.1.4",
+      "title": "文字キーのショートカット",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#character-key-shortcuts",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.2.1",
+      "title": "タイミング調整可能",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#timing-adjustable",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.2.2",
+      "title": "一時停止、停止、非表示",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#pause-stop-hide",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.2.3",
+      "title": "タイミング非依存",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#no-timing",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.2.4",
+      "title": "割り込み",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#interruptions",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.2.5",
+      "title": "再認証",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#re-authenticating",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.2.6",
+      "title": "タイムアウト",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#timeouts",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.3.1",
+      "title": "3 回の閃光、又は閾値以下",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#three-flashes-or-below-threshold",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.3.2",
+      "title": "3 回の閃光",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#three-flashes",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.3.3",
+      "title": "インタラクションによるアニメーション",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#animation-from-interactions",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.4.1",
+      "title": "ブロックスキップ",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#bypass-blocks",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.4.2",
+      "title": "ページタイトル",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#page-titled",
+      "procedure_version": "2",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.4.3",
+      "title": "フォーカス順序",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#focus-order",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.4.4",
+      "title": "リンクの目的 (コンテキスト内)",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#link-purpose-in-context",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.4.5",
+      "title": "複数の手段",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#multiple-ways",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.4.6",
+      "title": "見出し及びラベル",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#headings-and-labels",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.4.7",
+      "title": "フォーカスの可視化",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#focus-visible",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.4.8",
+      "title": "現在位置",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#location",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.4.9",
+      "title": "リンクの目的 (リンクのみ)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#link-purpose-link-only",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.4.10",
+      "title": "セクション見出し",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#section-headings",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.4.11",
+      "title": "隠されないフォーカス (最低限)",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#focus-not-obscured-minimum",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.4.12",
+      "title": "隠されないフォーカス (高度)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#focus-not-obscured-enhanced",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.4.13",
+      "title": "フォーカスの外観",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#focus-appearance",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.5.1",
+      "title": "ポインタのジェスチャ",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#pointer-gestures",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.5.2",
+      "title": "ポインタのキャンセル",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#pointer-cancellation",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.5.3",
+      "title": "ラベルを含む名前 (name)",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#label-in-name",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.5.4",
+      "title": "動きによる起動",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#motion-actuation",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.5.5",
+      "title": "ターゲットのサイズ (高度)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#target-size-enhanced",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.5.6",
+      "title": "入力メカニズムの共存",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#concurrent-input-mechanisms",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "2.5.7",
+      "title": "ドラッグ動作",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#dragging-movements",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "2.5.8",
+      "title": "ターゲットのサイズ (最低限)",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#target-size-minimum",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.1.1",
+      "title": "ページの言語",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#language-of-page",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.1.2",
+      "title": "一部分の言語",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#language-of-parts",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.1.3",
+      "title": "一般的ではない用語",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#unusual-words",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "3.1.4",
+      "title": "略語",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#abbreviations",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "3.1.5",
+      "title": "読解レベル",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#reading-level",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "3.1.6",
+      "title": "発音",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#pronunciation",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "3.2.1",
+      "title": "フォーカス時",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#on-focus",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.2.2",
+      "title": "入力時",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#on-input",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.2.3",
+      "title": "一貫したナビゲーション",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#consistent-navigation",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.2.4",
+      "title": "一貫した識別性",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#consistent-identification",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.2.5",
+      "title": "要求による変化",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#change-on-request",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "3.2.6",
+      "title": "一貫したヘルプ",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#consistent-help",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.3.1",
+      "title": "エラーの特定",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#error-identification",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.3.2",
+      "title": "ラベル又は説明",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#labels-or-instructions",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.3.3",
+      "title": "エラー修正の提案",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#error-suggestion",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.3.4",
+      "title": "誤り防止 (法的、金融、データ)",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#error-prevention-legal-financial-data",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.3.5",
+      "title": "ヘルプ",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#help",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "3.3.6",
+      "title": "誤り防止 (すべて)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#error-prevention-all",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "3.3.7",
+      "title": "冗長な入力項目",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#redundant-entry",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.3.8",
+      "title": "アクセシブルな認証 (最低限)",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#accessible-authentication-minimum",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    },
+    {
+      "id": "3.3.9",
+      "title": "アクセシブルな認証 (高度)",
+      "level": "AAA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#accessible-authentication-enhanced",
+      "procedure_version": "1",
+      "status": "out_of_target_level",
+      "counts": {}
+    },
+    {
+      "id": "4.1.2",
+      "title": "名前 (name)・役割 (role)・値 (value)",
+      "level": "A",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#name-role-value",
+      "procedure_version": "1",
+      "status": "failed",
+      "counts": {
+        "failed": 3
+      }
+    },
+    {
+      "id": "4.1.3",
+      "title": "ステータスメッセージ",
+      "level": "AA",
+      "normative_url": "https://www.w3.org/TR/2024/REC-WCAG22-20241212/#status-messages",
+      "procedure_version": "1",
+      "status": "unverified",
+      "counts": {
+        "not_run": 3
+      }
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.1.1",
+      "criterion": "1.1.1",
+      "title": "非テキストコンテンツ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic",
+        "screen-reader"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.2.1",
+      "criterion": "1.2.1",
+      "title": "音声のみ及び映像のみ (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.2.2",
+      "criterion": "1.2.2",
+      "title": "キャプション (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.2.3",
+      "criterion": "1.2.3",
+      "title": "音声解説、又はメディアに対する代替 (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.2.4",
+      "criterion": "1.2.4",
+      "title": "キャプション (ライブ)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.2.5",
+      "criterion": "1.2.5",
+      "title": "音声解説 (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.3.1",
+      "criterion": "1.3.1",
+      "title": "情報及び関係性",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.3.2",
+      "criterion": "1.3.2",
+      "title": "意味のあるシーケンス",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.3.3",
+      "criterion": "1.3.3",
+      "title": "感覚的な特徴",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.3.4",
+      "criterion": "1.3.4",
+      "title": "表示の向き",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "orientation",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.3.5",
+      "criterion": "1.3.5",
+      "title": "入力目的の特定",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.4.1",
+      "criterion": "1.4.1",
+      "title": "色の使用",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.4.2",
+      "criterion": "1.4.2",
+      "title": "音声の制御",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "audio",
+        "measurement",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.4.3",
+      "criterion": "1.4.3",
+      "title": "コントラスト (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.4.4",
+      "criterion": "1.4.4",
+      "title": "テキストのサイズ変更",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "zoom",
+        "visual",
+        "flow",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.4.5",
+      "criterion": "1.4.5",
+      "title": "文字画像",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "visual",
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.4.10",
+      "criterion": "1.4.10",
+      "title": "リフロー",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "visual",
+        "viewport",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.4.11",
+      "criterion": "1.4.11",
+      "title": "非テキストのコントラスト",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "visual",
+        "measurement",
+        "dom"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.4.12",
+      "criterion": "1.4.12",
+      "title": "テキストの間隔",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--1.4.13",
+      "criterion": "1.4.13",
+      "title": "ホバー又はフォーカスで表示されるコンテンツ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.1.1",
+      "criterion": "2.1.1",
+      "title": "キーボード",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.1.2",
+      "criterion": "2.1.2",
+      "title": "キーボードトラップなし",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.1.4",
+      "criterion": "2.1.4",
+      "title": "文字キーのショートカット",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.2.1",
+      "criterion": "2.2.1",
+      "title": "タイミング調整可能",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "timing",
+        "flow",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.2.2",
+      "criterion": "2.2.2",
+      "title": "一時停止、停止、非表示",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "timing",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.3.1",
+      "criterion": "2.3.1",
+      "title": "3 回の閃光、又は閾値以下",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "flash-analysis",
+        "media",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.4.1",
+      "criterion": "2.4.1",
+      "title": "ブロックスキップ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "keyboard",
+        "screen-reader",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.4.2",
+      "criterion": "2.4.2",
+      "title": "ページタイトル",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.4.3",
+      "criterion": "2.4.3",
+      "title": "フォーカス順序",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "keyboard",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.4.4",
+      "criterion": "2.4.4",
+      "title": "リンクの目的 (コンテキスト内)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.4.5",
+      "criterion": "2.4.5",
+      "title": "複数の手段",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "cross-page",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.4.6",
+      "criterion": "2.4.6",
+      "title": "見出し及びラベル",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.4.7",
+      "criterion": "2.4.7",
+      "title": "フォーカスの可視化",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.4.11",
+      "criterion": "2.4.11",
+      "title": "隠されないフォーカス (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.5.1",
+      "criterion": "2.5.1",
+      "title": "ポインタのジェスチャ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.5.2",
+      "criterion": "2.5.2",
+      "title": "ポインタのキャンセル",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.5.3",
+      "criterion": "2.5.3",
+      "title": "ラベルを含む名前 (name)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.5.4",
+      "criterion": "2.5.4",
+      "title": "動きによる起動",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "motion-input",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.5.7",
+      "criterion": "2.5.7",
+      "title": "ドラッグ動作",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--2.5.8",
+      "criterion": "2.5.8",
+      "title": "ターゲットのサイズ (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "pointer",
+        "measurement",
+        "visual"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.1.1",
+      "criterion": "3.1.1",
+      "title": "ページの言語",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.1.2",
+      "criterion": "3.1.2",
+      "title": "一部分の言語",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.2.1",
+      "criterion": "3.2.1",
+      "title": "フォーカス時",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.2.2",
+      "criterion": "3.2.2",
+      "title": "入力時",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.2.3",
+      "criterion": "3.2.3",
+      "title": "一貫したナビゲーション",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.2.4",
+      "criterion": "3.2.4",
+      "title": "一貫した識別性",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "cross-page",
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.2.6",
+      "criterion": "3.2.6",
+      "title": "一貫したヘルプ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.3.1",
+      "criterion": "3.3.1",
+      "title": "エラーの特定",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "flow",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.3.2",
+      "criterion": "3.3.2",
+      "title": "ラベル又は説明",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.3.3",
+      "criterion": "3.3.3",
+      "title": "エラー修正の提案",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.3.4",
+      "criterion": "3.3.4",
+      "title": "誤り防止 (法的、金融、データ)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.3.7",
+      "criterion": "3.3.7",
+      "title": "冗長な入力項目",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--3.3.8",
+      "criterion": "3.3.8",
+      "title": "アクセシブルな認証 (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "flow",
+        "password-manager",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--4.1.2",
+      "criterion": "4.1.2",
+      "title": "名前 (name)・役割 (role)・値 (value)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "dom",
+        "flow",
+        "screen-reader"
+      ],
+      "assessment": "assessments/c8bf6e1d450e--initial--desktop--4.1.2--34ea8beef42d.json",
+      "automated_candidates": [],
+      "outcome": "failed",
+      "assessment_data": {
+        "case_id": "c8bf6e1d450e--initial--desktop--4.1.2",
+        "config_digest": "0275e8f971e54b2824b01251dea7b9d4da67bd5fce6bb6b659ae1bd2cca69411",
+        "normative_sha256": "e4279d556f9b92a8ea2796010e184ee8fe5ddbb1b8edecf8758fedaeeef080f7",
+        "execution": "completed",
+        "outcome": "failed",
+        "conditions_reviewed": true,
+        "exceptions_reviewed": true,
+        "coverage_complete": true,
+        "steps_executed": [
+          "URLを開き、実OrcaでCtrl+Home、Down、Downにより見出し・説明・部品の名前と役割を取得",
+          "XTestのSpaceでOnにし、表示・aria-checked・AX checked・発話を比較",
+          "SpaceでOffへ戻し、さらにOn→Offを繰り返し同じ不一致を再確認",
+          "全HTML・JSを読み、同じ部品の表示更新と公開状態の更新の欠落を対応付ける"
+        ],
+        "tests_applied": [
+          "WCAG22:4.1.2:normative",
+          "fixture-state-roundtrip:actual-AX-and-Orca"
+        ],
+        "observed": "このcaseはinitial、表示はOff。唯一の部品の名前Email notificationsとcheckboxの役割は取得できるが、表示Onのときもaria-checkedとAXのcheckedがfalseのまま。実Orcaの初期の名前・役割・not checkedは取得できたため、環境全体の沈黙ではない。XTestのSpaceによるOff→On→Off→On→Offで、Onの2回とも公開状態はfalse、発話はキーのechoだけで選択状態の変更を取得しなかった。無発話だけでなく、実表示と公開値の不一致を根拠に4.1.2の不適合とした。部品はこれ一つで、全選択値と復帰後の再操作を検査した。",
+        "targets": [
+          {
+            "target": "button#email-switch[role=checkbox]",
+            "expected": "利用者がOnへ切り替えたら公開されたcheckboxのcheckedもtrueとなり、Offへ戻せばfalseとなる。名前・役割に加え、実際の選択状態とその変更を支援技術が取得できる。",
+            "observed": "このcaseはinitial、表示はOff。唯一の部品の名前Email notificationsとcheckboxの役割は取得できるが、表示Onのときもaria-checkedとAXのcheckedがfalseのまま。実Orcaの初期の名前・役割・not checkedは取得できたため、環境全体の沈黙ではない。XTestのSpaceによるOff→On→Off→On→Offで、Onの2回とも公開状態はfalse、発話はキーのechoだけで選択状態の変更を取得しなかった。無発話だけでなく、実表示と公開値の不一致を根拠に4.1.2の不適合とした。部品はこれ一つで、全選択値と復帰後の再操作を検査した。",
+            "outcome": "failed",
+            "evidence": [
+              "evidence/methods/source-scope/index.html",
+              "evidence/methods/source-scope/reader-controls.js",
+              "evidence/methods/source-scope/server.py.txt",
+              "evidence/methods/native-reader/screen-reader.json",
+              "evidence/methods/native-reader/orca-debug.log",
+              "evidence/methods/native-reader/request.json",
+              "evidence/methods/native-reader/step-3.png",
+              "evidence/methods/native-reader/step-4.png",
+              "evidence/methods/native-reader/step-6.png",
+              "evidence/c8bf6e1d450e--initial--desktop/dom.html",
+              "evidence/c8bf6e1d450e--initial--desktop/inventory.json",
+              "evidence/c8bf6e1d450e--initial--desktop/page.png",
+              "evidence/c8bf6e1d450e--initial--desktop/accessibility-tree.json",
+              "evidence/c8bf6e1d450e--initial--desktop/actions.json"
+            ]
+          }
+        ],
+        "method_coverage": [
+          {
+            "method": "dom",
+            "status": "executed",
+            "reason": "全DOMと全ソース、各状態のAXを調べ、Onでもcheckedがfalseであることを確認した。"
+          },
+          {
+            "method": "flow",
+            "status": "executed",
+            "reason": "唯一の機能でOff→On→Off→On→Offを通常のネイティブキーで操作し、各段階の表示と公開状態を照合した。"
+          },
+          {
+            "method": "screen-reader",
+            "status": "executed",
+            "reason": "実Orca 48.1が名前・役割・初期状態を読み、状態変更を通知しないことを、対応する実表示・属性・AXと共に確認した。"
+          }
+        ],
+        "evidence": [
+          "evidence/methods/source-scope/index.html",
+          "evidence/methods/source-scope/reader-controls.js",
+          "evidence/methods/source-scope/server.py.txt",
+          "evidence/methods/native-reader/screen-reader.json",
+          "evidence/methods/native-reader/orca-debug.log",
+          "evidence/methods/native-reader/request.json",
+          "evidence/methods/native-reader/step-3.png",
+          "evidence/methods/native-reader/step-4.png",
+          "evidence/methods/native-reader/step-6.png",
+          "evidence/c8bf6e1d450e--initial--desktop/dom.html",
+          "evidence/c8bf6e1d450e--initial--desktop/inventory.json",
+          "evidence/c8bf6e1d450e--initial--desktop/page.png",
+          "evidence/c8bf6e1d450e--initial--desktop/accessibility-tree.json",
+          "evidence/c8bf6e1d450e--initial--desktop/actions.json"
+        ],
+        "remaining": [],
+        "review_kind": "Known negative control; not a blind accuracy evaluation. Other criteria are not assessed in this run.",
+        "recorded_at": "2026-11-14T21:28:50.776625+00:00",
+        "verified_evidence": [
+          {
+            "path": "evidence/methods/source-scope/index.html",
+            "sha256": "403e05267a7ec98f93d36c628db397ba6343b0e3c59cbd49d0336de318fff89a"
+          },
+          {
+            "path": "evidence/methods/source-scope/reader-controls.js",
+            "sha256": "4bf2bbd7e6a26244510267d8dabcda6a04fc3f84ee94d7aede5d58b2cf9b4a8d"
+          },
+          {
+            "path": "evidence/methods/source-scope/server.py.txt",
+            "sha256": "52fe84496da10c9f4bccfe99a0c110f1a4e7f6bb8f66ee81656866029de6b4d1"
+          },
+          {
+            "path": "evidence/methods/native-reader/screen-reader.json",
+            "sha256": "dc6b42d981dd00829bc95d32afef645e7589f86c6da1e5debcb67a011a447f4d"
+          },
+          {
+            "path": "evidence/methods/native-reader/orca-debug.log",
+            "sha256": "a0eb7355b9b07d30eefbf23d9a38e3ccc2f951b19130a966c5e3f8838963f382"
+          },
+          {
+            "path": "evidence/methods/native-reader/request.json",
+            "sha256": "33c66fcb997dc48c164cb4ada398666fe5e9948dc8779816854d38af37e1f47a"
+          },
+          {
+            "path": "evidence/methods/native-reader/step-3.png",
+            "sha256": "8a0212854c565fc73c63fd3903530f3845b6d86bedb39f890c8b48eacc1b96ea"
+          },
+          {
+            "path": "evidence/methods/native-reader/step-4.png",
+            "sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+          },
+          {
+            "path": "evidence/methods/native-reader/step-6.png",
+            "sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--initial--desktop/dom.html",
+            "sha256": "1a1f6e08edd811c90220ac98ed9c7c147018fe050a12087a0dda8faf066352ef"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--initial--desktop/inventory.json",
+            "sha256": "e1a831b206e9dec56759f48b54ee00b813a879e53014ee8b603fa0f5a71310d8"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--initial--desktop/page.png",
+            "sha256": "0e0f29c32c7bd9c3530a3b50dac60e57eb5e6119b4071fe4008ce21a3ffe2bd4"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--initial--desktop/accessibility-tree.json",
+            "sha256": "2d467d95644e6372bbc7b79ec9f11c73a438ea530691ded9fc380babdae8a6d6"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--initial--desktop/actions.json",
+            "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "c8bf6e1d450e--initial--desktop--4.1.3",
+      "criterion": "4.1.3",
+      "title": "ステータスメッセージ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "initial",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--initial--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--initial--desktop",
+      "methods": [
+        "flow",
+        "dom",
+        "screen-reader"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.1.1",
+      "criterion": "1.1.1",
+      "title": "非テキストコンテンツ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic",
+        "screen-reader"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.2.1",
+      "criterion": "1.2.1",
+      "title": "音声のみ及び映像のみ (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.2.2",
+      "criterion": "1.2.2",
+      "title": "キャプション (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.2.3",
+      "criterion": "1.2.3",
+      "title": "音声解説、又はメディアに対する代替 (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.2.4",
+      "criterion": "1.2.4",
+      "title": "キャプション (ライブ)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.2.5",
+      "criterion": "1.2.5",
+      "title": "音声解説 (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.3.1",
+      "criterion": "1.3.1",
+      "title": "情報及び関係性",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.3.2",
+      "criterion": "1.3.2",
+      "title": "意味のあるシーケンス",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.3.3",
+      "criterion": "1.3.3",
+      "title": "感覚的な特徴",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.3.4",
+      "criterion": "1.3.4",
+      "title": "表示の向き",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "orientation",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.3.5",
+      "criterion": "1.3.5",
+      "title": "入力目的の特定",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.4.1",
+      "criterion": "1.4.1",
+      "title": "色の使用",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.4.2",
+      "criterion": "1.4.2",
+      "title": "音声の制御",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "audio",
+        "measurement",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.4.3",
+      "criterion": "1.4.3",
+      "title": "コントラスト (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.4.4",
+      "criterion": "1.4.4",
+      "title": "テキストのサイズ変更",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "zoom",
+        "visual",
+        "flow",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.4.5",
+      "criterion": "1.4.5",
+      "title": "文字画像",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "visual",
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.4.10",
+      "criterion": "1.4.10",
+      "title": "リフロー",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "visual",
+        "viewport",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.4.11",
+      "criterion": "1.4.11",
+      "title": "非テキストのコントラスト",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "visual",
+        "measurement",
+        "dom"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.4.12",
+      "criterion": "1.4.12",
+      "title": "テキストの間隔",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--1.4.13",
+      "criterion": "1.4.13",
+      "title": "ホバー又はフォーカスで表示されるコンテンツ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.1.1",
+      "criterion": "2.1.1",
+      "title": "キーボード",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.1.2",
+      "criterion": "2.1.2",
+      "title": "キーボードトラップなし",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.1.4",
+      "criterion": "2.1.4",
+      "title": "文字キーのショートカット",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.2.1",
+      "criterion": "2.2.1",
+      "title": "タイミング調整可能",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "timing",
+        "flow",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.2.2",
+      "criterion": "2.2.2",
+      "title": "一時停止、停止、非表示",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "timing",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.3.1",
+      "criterion": "2.3.1",
+      "title": "3 回の閃光、又は閾値以下",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "flash-analysis",
+        "media",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.4.1",
+      "criterion": "2.4.1",
+      "title": "ブロックスキップ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "screen-reader",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.4.2",
+      "criterion": "2.4.2",
+      "title": "ページタイトル",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.4.3",
+      "criterion": "2.4.3",
+      "title": "フォーカス順序",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.4.4",
+      "criterion": "2.4.4",
+      "title": "リンクの目的 (コンテキスト内)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.4.5",
+      "criterion": "2.4.5",
+      "title": "複数の手段",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "cross-page",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.4.6",
+      "criterion": "2.4.6",
+      "title": "見出し及びラベル",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.4.7",
+      "criterion": "2.4.7",
+      "title": "フォーカスの可視化",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.4.11",
+      "criterion": "2.4.11",
+      "title": "隠されないフォーカス (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.5.1",
+      "criterion": "2.5.1",
+      "title": "ポインタのジェスチャ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.5.2",
+      "criterion": "2.5.2",
+      "title": "ポインタのキャンセル",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.5.3",
+      "criterion": "2.5.3",
+      "title": "ラベルを含む名前 (name)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.5.4",
+      "criterion": "2.5.4",
+      "title": "動きによる起動",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "motion-input",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.5.7",
+      "criterion": "2.5.7",
+      "title": "ドラッグ動作",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--2.5.8",
+      "criterion": "2.5.8",
+      "title": "ターゲットのサイズ (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "pointer",
+        "measurement",
+        "visual"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.1.1",
+      "criterion": "3.1.1",
+      "title": "ページの言語",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.1.2",
+      "criterion": "3.1.2",
+      "title": "一部分の言語",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.2.1",
+      "criterion": "3.2.1",
+      "title": "フォーカス時",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.2.2",
+      "criterion": "3.2.2",
+      "title": "入力時",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.2.3",
+      "criterion": "3.2.3",
+      "title": "一貫したナビゲーション",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.2.4",
+      "criterion": "3.2.4",
+      "title": "一貫した識別性",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "cross-page",
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.2.6",
+      "criterion": "3.2.6",
+      "title": "一貫したヘルプ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.3.1",
+      "criterion": "3.3.1",
+      "title": "エラーの特定",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "flow",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.3.2",
+      "criterion": "3.3.2",
+      "title": "ラベル又は説明",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.3.3",
+      "criterion": "3.3.3",
+      "title": "エラー修正の提案",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.3.4",
+      "criterion": "3.3.4",
+      "title": "誤り防止 (法的、金融、データ)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.3.7",
+      "criterion": "3.3.7",
+      "title": "冗長な入力項目",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--3.3.8",
+      "criterion": "3.3.8",
+      "title": "アクセシブルな認証 (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "flow",
+        "password-manager",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--4.1.2",
+      "criterion": "4.1.2",
+      "title": "名前 (name)・役割 (role)・値 (value)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "dom",
+        "flow",
+        "screen-reader"
+      ],
+      "assessment": "assessments/c8bf6e1d450e--enabled--desktop--4.1.2--93df0d6c37cd.json",
+      "automated_candidates": [],
+      "outcome": "failed",
+      "assessment_data": {
+        "case_id": "c8bf6e1d450e--enabled--desktop--4.1.2",
+        "config_digest": "0275e8f971e54b2824b01251dea7b9d4da67bd5fce6bb6b659ae1bd2cca69411",
+        "normative_sha256": "e4279d556f9b92a8ea2796010e184ee8fe5ddbb1b8edecf8758fedaeeef080f7",
+        "execution": "completed",
+        "outcome": "failed",
+        "conditions_reviewed": true,
+        "exceptions_reviewed": true,
+        "coverage_complete": true,
+        "steps_executed": [
+          "URLを開き、実OrcaでCtrl+Home、Down、Downにより見出し・説明・部品の名前と役割を取得",
+          "XTestのSpaceでOnにし、表示・aria-checked・AX checked・発話を比較",
+          "SpaceでOffへ戻し、さらにOn→Offを繰り返し同じ不一致を再確認",
+          "全HTML・JSを読み、同じ部品の表示更新と公開状態の更新の欠落を対応付ける"
+        ],
+        "tests_applied": [
+          "WCAG22:4.1.2:normative",
+          "fixture-state-roundtrip:actual-AX-and-Orca"
+        ],
+        "observed": "このcaseはenabled、表示はOn。唯一の部品の名前Email notificationsとcheckboxの役割は取得できるが、表示Onのときもaria-checkedとAXのcheckedがfalseのまま。実Orcaの初期の名前・役割・not checkedは取得できたため、環境全体の沈黙ではない。XTestのSpaceによるOff→On→Off→On→Offで、Onの2回とも公開状態はfalse、発話はキーのechoだけで選択状態の変更を取得しなかった。無発話だけでなく、実表示と公開値の不一致を根拠に4.1.2の不適合とした。部品はこれ一つで、全選択値と復帰後の再操作を検査した。",
+        "targets": [
+          {
+            "target": "button#email-switch[role=checkbox]",
+            "expected": "利用者がOnへ切り替えたら公開されたcheckboxのcheckedもtrueとなり、Offへ戻せばfalseとなる。名前・役割に加え、実際の選択状態とその変更を支援技術が取得できる。",
+            "observed": "このcaseはenabled、表示はOn。唯一の部品の名前Email notificationsとcheckboxの役割は取得できるが、表示Onのときもaria-checkedとAXのcheckedがfalseのまま。実Orcaの初期の名前・役割・not checkedは取得できたため、環境全体の沈黙ではない。XTestのSpaceによるOff→On→Off→On→Offで、Onの2回とも公開状態はfalse、発話はキーのechoだけで選択状態の変更を取得しなかった。無発話だけでなく、実表示と公開値の不一致を根拠に4.1.2の不適合とした。部品はこれ一つで、全選択値と復帰後の再操作を検査した。",
+            "outcome": "failed",
+            "evidence": [
+              "evidence/methods/source-scope/index.html",
+              "evidence/methods/source-scope/reader-controls.js",
+              "evidence/methods/source-scope/server.py.txt",
+              "evidence/methods/native-reader/screen-reader.json",
+              "evidence/methods/native-reader/orca-debug.log",
+              "evidence/methods/native-reader/request.json",
+              "evidence/methods/native-reader/step-3.png",
+              "evidence/methods/native-reader/step-4.png",
+              "evidence/methods/native-reader/step-6.png",
+              "evidence/c8bf6e1d450e--enabled--desktop/dom.html",
+              "evidence/c8bf6e1d450e--enabled--desktop/inventory.json",
+              "evidence/c8bf6e1d450e--enabled--desktop/page.png",
+              "evidence/c8bf6e1d450e--enabled--desktop/accessibility-tree.json",
+              "evidence/c8bf6e1d450e--enabled--desktop/actions.json"
+            ]
+          }
+        ],
+        "method_coverage": [
+          {
+            "method": "dom",
+            "status": "executed",
+            "reason": "全DOMと全ソース、各状態のAXを調べ、Onでもcheckedがfalseであることを確認した。"
+          },
+          {
+            "method": "flow",
+            "status": "executed",
+            "reason": "唯一の機能でOff→On→Off→On→Offを通常のネイティブキーで操作し、各段階の表示と公開状態を照合した。"
+          },
+          {
+            "method": "screen-reader",
+            "status": "executed",
+            "reason": "実Orca 48.1が名前・役割・初期状態を読み、状態変更を通知しないことを、対応する実表示・属性・AXと共に確認した。"
+          }
+        ],
+        "evidence": [
+          "evidence/methods/source-scope/index.html",
+          "evidence/methods/source-scope/reader-controls.js",
+          "evidence/methods/source-scope/server.py.txt",
+          "evidence/methods/native-reader/screen-reader.json",
+          "evidence/methods/native-reader/orca-debug.log",
+          "evidence/methods/native-reader/request.json",
+          "evidence/methods/native-reader/step-3.png",
+          "evidence/methods/native-reader/step-4.png",
+          "evidence/methods/native-reader/step-6.png",
+          "evidence/c8bf6e1d450e--enabled--desktop/dom.html",
+          "evidence/c8bf6e1d450e--enabled--desktop/inventory.json",
+          "evidence/c8bf6e1d450e--enabled--desktop/page.png",
+          "evidence/c8bf6e1d450e--enabled--desktop/accessibility-tree.json",
+          "evidence/c8bf6e1d450e--enabled--desktop/actions.json"
+        ],
+        "remaining": [],
+        "review_kind": "Known negative control; not a blind accuracy evaluation. Other criteria are not assessed in this run.",
+        "recorded_at": "2026-11-14T21:28:50.784913+00:00",
+        "verified_evidence": [
+          {
+            "path": "evidence/methods/source-scope/index.html",
+            "sha256": "403e05267a7ec98f93d36c628db397ba6343b0e3c59cbd49d0336de318fff89a"
+          },
+          {
+            "path": "evidence/methods/source-scope/reader-controls.js",
+            "sha256": "4bf2bbd7e6a26244510267d8dabcda6a04fc3f84ee94d7aede5d58b2cf9b4a8d"
+          },
+          {
+            "path": "evidence/methods/source-scope/server.py.txt",
+            "sha256": "52fe84496da10c9f4bccfe99a0c110f1a4e7f6bb8f66ee81656866029de6b4d1"
+          },
+          {
+            "path": "evidence/methods/native-reader/screen-reader.json",
+            "sha256": "dc6b42d981dd00829bc95d32afef645e7589f86c6da1e5debcb67a011a447f4d"
+          },
+          {
+            "path": "evidence/methods/native-reader/orca-debug.log",
+            "sha256": "a0eb7355b9b07d30eefbf23d9a38e3ccc2f951b19130a966c5e3f8838963f382"
+          },
+          {
+            "path": "evidence/methods/native-reader/request.json",
+            "sha256": "33c66fcb997dc48c164cb4ada398666fe5e9948dc8779816854d38af37e1f47a"
+          },
+          {
+            "path": "evidence/methods/native-reader/step-3.png",
+            "sha256": "8a0212854c565fc73c63fd3903530f3845b6d86bedb39f890c8b48eacc1b96ea"
+          },
+          {
+            "path": "evidence/methods/native-reader/step-4.png",
+            "sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+          },
+          {
+            "path": "evidence/methods/native-reader/step-6.png",
+            "sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--enabled--desktop/dom.html",
+            "sha256": "1061ff09fc572231848404740d5226d3ad8a196a3e233d75fa7a8c6c6a611a80"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--enabled--desktop/inventory.json",
+            "sha256": "f7522baa737ffbf14815def6c3d2e6ce7746c9b503b6de01b105e8abcfcdf1d1"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--enabled--desktop/page.png",
+            "sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--enabled--desktop/accessibility-tree.json",
+            "sha256": "cb76c1f8a9ed7464f31d38f3d554f98fa96d19a827174793962bc7a9c2759507"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--enabled--desktop/actions.json",
+            "sha256": "f81ee3c62edbc31e7f35d6e9961b69afe2e40fcf8cdd80cea50f76c0bd54804f"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "c8bf6e1d450e--enabled--desktop--4.1.3",
+      "criterion": "4.1.3",
+      "title": "ステータスメッセージ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "enabled",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--enabled--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--enabled--desktop",
+      "methods": [
+        "flow",
+        "dom",
+        "screen-reader"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.1.1",
+      "criterion": "1.1.1",
+      "title": "非テキストコンテンツ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic",
+        "screen-reader"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.2.1",
+      "criterion": "1.2.1",
+      "title": "音声のみ及び映像のみ (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.2.2",
+      "criterion": "1.2.2",
+      "title": "キャプション (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.2.3",
+      "criterion": "1.2.3",
+      "title": "音声解説、又はメディアに対する代替 (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.2.4",
+      "criterion": "1.2.4",
+      "title": "キャプション (ライブ)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.2.5",
+      "criterion": "1.2.5",
+      "title": "音声解説 (収録済)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "media",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.3.1",
+      "criterion": "1.3.1",
+      "title": "情報及び関係性",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.3.2",
+      "criterion": "1.3.2",
+      "title": "意味のあるシーケンス",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "screen-reader",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.3.3",
+      "criterion": "1.3.3",
+      "title": "感覚的な特徴",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.3.4",
+      "criterion": "1.3.4",
+      "title": "表示の向き",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "orientation",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.3.5",
+      "criterion": "1.3.5",
+      "title": "入力目的の特定",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.4.1",
+      "criterion": "1.4.1",
+      "title": "色の使用",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.4.2",
+      "criterion": "1.4.2",
+      "title": "音声の制御",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "audio",
+        "measurement",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.4.3",
+      "criterion": "1.4.3",
+      "title": "コントラスト (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.4.4",
+      "criterion": "1.4.4",
+      "title": "テキストのサイズ変更",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "zoom",
+        "visual",
+        "flow",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.4.5",
+      "criterion": "1.4.5",
+      "title": "文字画像",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.4.10",
+      "criterion": "1.4.10",
+      "title": "リフロー",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "viewport",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.4.11",
+      "criterion": "1.4.11",
+      "title": "非テキストのコントラスト",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "measurement",
+        "dom"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.4.12",
+      "criterion": "1.4.12",
+      "title": "テキストの間隔",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--1.4.13",
+      "criterion": "1.4.13",
+      "title": "ホバー又はフォーカスで表示されるコンテンツ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.1.1",
+      "criterion": "2.1.1",
+      "title": "キーボード",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.1.2",
+      "criterion": "2.1.2",
+      "title": "キーボードトラップなし",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.1.4",
+      "criterion": "2.1.4",
+      "title": "文字キーのショートカット",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.2.1",
+      "criterion": "2.2.1",
+      "title": "タイミング調整可能",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "timing",
+        "flow",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.2.2",
+      "criterion": "2.2.2",
+      "title": "一時停止、停止、非表示",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "timing",
+        "visual",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.3.1",
+      "criterion": "2.3.1",
+      "title": "3 回の閃光、又は閾値以下",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "flash-analysis",
+        "media",
+        "measurement"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.4.1",
+      "criterion": "2.4.1",
+      "title": "ブロックスキップ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "screen-reader",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.4.2",
+      "criterion": "2.4.2",
+      "title": "ページタイトル",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.4.3",
+      "criterion": "2.4.3",
+      "title": "フォーカス順序",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.4.4",
+      "criterion": "2.4.4",
+      "title": "リンクの目的 (コンテキスト内)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.4.5",
+      "criterion": "2.4.5",
+      "title": "複数の手段",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "cross-page",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.4.6",
+      "criterion": "2.4.6",
+      "title": "見出し及びラベル",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.4.7",
+      "criterion": "2.4.7",
+      "title": "フォーカスの可視化",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.4.11",
+      "criterion": "2.4.11",
+      "title": "隠されないフォーカス (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "visual"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.5.1",
+      "criterion": "2.5.1",
+      "title": "ポインタのジェスチャ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.5.2",
+      "criterion": "2.5.2",
+      "title": "ポインタのキャンセル",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.5.3",
+      "criterion": "2.5.3",
+      "title": "ラベルを含む名前 (name)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.5.4",
+      "criterion": "2.5.4",
+      "title": "動きによる起動",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "motion-input",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.5.7",
+      "criterion": "2.5.7",
+      "title": "ドラッグ動作",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--2.5.8",
+      "criterion": "2.5.8",
+      "title": "ターゲットのサイズ (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "pointer",
+        "measurement",
+        "visual"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.1.1",
+      "criterion": "3.1.1",
+      "title": "ページの言語",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.1.2",
+      "criterion": "3.1.2",
+      "title": "一部分の言語",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.2.1",
+      "criterion": "3.2.1",
+      "title": "フォーカス時",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.2.2",
+      "criterion": "3.2.2",
+      "title": "入力時",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "keyboard",
+        "pointer",
+        "flow"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.2.3",
+      "criterion": "3.2.3",
+      "title": "一貫したナビゲーション",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.2.4",
+      "criterion": "3.2.4",
+      "title": "一貫した識別性",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "cross-page",
+        "dom",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.2.6",
+      "criterion": "3.2.6",
+      "title": "一貫したヘルプ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "cross-page",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.3.1",
+      "criterion": "3.3.1",
+      "title": "エラーの特定",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.3.2",
+      "criterion": "3.3.2",
+      "title": "ラベル又は説明",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "visual",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.3.3",
+      "criterion": "3.3.3",
+      "title": "エラー修正の提案",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.3.4",
+      "criterion": "3.3.4",
+      "title": "誤り防止 (法的、金融、データ)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.3.7",
+      "criterion": "3.3.7",
+      "title": "冗長な入力項目",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--3.3.8",
+      "criterion": "3.3.8",
+      "title": "アクセシブルな認証 (最低限)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "password-manager",
+        "semantic"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--4.1.2",
+      "criterion": "4.1.2",
+      "title": "名前 (name)・役割 (role)・値 (value)",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "dom",
+        "flow",
+        "screen-reader"
+      ],
+      "assessment": "assessments/c8bf6e1d450e--disabled-again--desktop--4.1.2--031d7339ccf9.json",
+      "automated_candidates": [],
+      "outcome": "failed",
+      "assessment_data": {
+        "case_id": "c8bf6e1d450e--disabled-again--desktop--4.1.2",
+        "config_digest": "0275e8f971e54b2824b01251dea7b9d4da67bd5fce6bb6b659ae1bd2cca69411",
+        "normative_sha256": "e4279d556f9b92a8ea2796010e184ee8fe5ddbb1b8edecf8758fedaeeef080f7",
+        "execution": "completed",
+        "outcome": "failed",
+        "conditions_reviewed": true,
+        "exceptions_reviewed": true,
+        "coverage_complete": true,
+        "steps_executed": [
+          "URLを開き、実OrcaでCtrl+Home、Down、Downにより見出し・説明・部品の名前と役割を取得",
+          "XTestのSpaceでOnにし、表示・aria-checked・AX checked・発話を比較",
+          "SpaceでOffへ戻し、さらにOn→Offを繰り返し同じ不一致を再確認",
+          "全HTML・JSを読み、同じ部品の表示更新と公開状態の更新の欠落を対応付ける"
+        ],
+        "tests_applied": [
+          "WCAG22:4.1.2:normative",
+          "fixture-state-roundtrip:actual-AX-and-Orca"
+        ],
+        "observed": "このcaseはdisabled-again、表示はOff。唯一の部品の名前Email notificationsとcheckboxの役割は取得できるが、表示Onのときもaria-checkedとAXのcheckedがfalseのまま。実Orcaの初期の名前・役割・not checkedは取得できたため、環境全体の沈黙ではない。XTestのSpaceによるOff→On→Off→On→Offで、Onの2回とも公開状態はfalse、発話はキーのechoだけで選択状態の変更を取得しなかった。無発話だけでなく、実表示と公開値の不一致を根拠に4.1.2の不適合とした。部品はこれ一つで、全選択値と復帰後の再操作を検査した。",
+        "targets": [
+          {
+            "target": "button#email-switch[role=checkbox]",
+            "expected": "利用者がOnへ切り替えたら公開されたcheckboxのcheckedもtrueとなり、Offへ戻せばfalseとなる。名前・役割に加え、実際の選択状態とその変更を支援技術が取得できる。",
+            "observed": "このcaseはdisabled-again、表示はOff。唯一の部品の名前Email notificationsとcheckboxの役割は取得できるが、表示Onのときもaria-checkedとAXのcheckedがfalseのまま。実Orcaの初期の名前・役割・not checkedは取得できたため、環境全体の沈黙ではない。XTestのSpaceによるOff→On→Off→On→Offで、Onの2回とも公開状態はfalse、発話はキーのechoだけで選択状態の変更を取得しなかった。無発話だけでなく、実表示と公開値の不一致を根拠に4.1.2の不適合とした。部品はこれ一つで、全選択値と復帰後の再操作を検査した。",
+            "outcome": "failed",
+            "evidence": [
+              "evidence/methods/source-scope/index.html",
+              "evidence/methods/source-scope/reader-controls.js",
+              "evidence/methods/source-scope/server.py.txt",
+              "evidence/methods/native-reader/screen-reader.json",
+              "evidence/methods/native-reader/orca-debug.log",
+              "evidence/methods/native-reader/request.json",
+              "evidence/methods/native-reader/step-3.png",
+              "evidence/methods/native-reader/step-4.png",
+              "evidence/methods/native-reader/step-6.png",
+              "evidence/c8bf6e1d450e--disabled-again--desktop/dom.html",
+              "evidence/c8bf6e1d450e--disabled-again--desktop/inventory.json",
+              "evidence/c8bf6e1d450e--disabled-again--desktop/page.png",
+              "evidence/c8bf6e1d450e--disabled-again--desktop/accessibility-tree.json",
+              "evidence/c8bf6e1d450e--disabled-again--desktop/actions.json"
+            ]
+          }
+        ],
+        "method_coverage": [
+          {
+            "method": "dom",
+            "status": "executed",
+            "reason": "全DOMと全ソース、各状態のAXを調べ、Onでもcheckedがfalseであることを確認した。"
+          },
+          {
+            "method": "flow",
+            "status": "executed",
+            "reason": "唯一の機能でOff→On→Off→On→Offを通常のネイティブキーで操作し、各段階の表示と公開状態を照合した。"
+          },
+          {
+            "method": "screen-reader",
+            "status": "executed",
+            "reason": "実Orca 48.1が名前・役割・初期状態を読み、状態変更を通知しないことを、対応する実表示・属性・AXと共に確認した。"
+          }
+        ],
+        "evidence": [
+          "evidence/methods/source-scope/index.html",
+          "evidence/methods/source-scope/reader-controls.js",
+          "evidence/methods/source-scope/server.py.txt",
+          "evidence/methods/native-reader/screen-reader.json",
+          "evidence/methods/native-reader/orca-debug.log",
+          "evidence/methods/native-reader/request.json",
+          "evidence/methods/native-reader/step-3.png",
+          "evidence/methods/native-reader/step-4.png",
+          "evidence/methods/native-reader/step-6.png",
+          "evidence/c8bf6e1d450e--disabled-again--desktop/dom.html",
+          "evidence/c8bf6e1d450e--disabled-again--desktop/inventory.json",
+          "evidence/c8bf6e1d450e--disabled-again--desktop/page.png",
+          "evidence/c8bf6e1d450e--disabled-again--desktop/accessibility-tree.json",
+          "evidence/c8bf6e1d450e--disabled-again--desktop/actions.json"
+        ],
+        "remaining": [],
+        "review_kind": "Known negative control; not a blind accuracy evaluation. Other criteria are not assessed in this run.",
+        "recorded_at": "2026-11-14T21:28:50.791348+00:00",
+        "verified_evidence": [
+          {
+            "path": "evidence/methods/source-scope/index.html",
+            "sha256": "403e05267a7ec98f93d36c628db397ba6343b0e3c59cbd49d0336de318fff89a"
+          },
+          {
+            "path": "evidence/methods/source-scope/reader-controls.js",
+            "sha256": "4bf2bbd7e6a26244510267d8dabcda6a04fc3f84ee94d7aede5d58b2cf9b4a8d"
+          },
+          {
+            "path": "evidence/methods/source-scope/server.py.txt",
+            "sha256": "52fe84496da10c9f4bccfe99a0c110f1a4e7f6bb8f66ee81656866029de6b4d1"
+          },
+          {
+            "path": "evidence/methods/native-reader/screen-reader.json",
+            "sha256": "dc6b42d981dd00829bc95d32afef645e7589f86c6da1e5debcb67a011a447f4d"
+          },
+          {
+            "path": "evidence/methods/native-reader/orca-debug.log",
+            "sha256": "a0eb7355b9b07d30eefbf23d9a38e3ccc2f951b19130a966c5e3f8838963f382"
+          },
+          {
+            "path": "evidence/methods/native-reader/request.json",
+            "sha256": "33c66fcb997dc48c164cb4ada398666fe5e9948dc8779816854d38af37e1f47a"
+          },
+          {
+            "path": "evidence/methods/native-reader/step-3.png",
+            "sha256": "8a0212854c565fc73c63fd3903530f3845b6d86bedb39f890c8b48eacc1b96ea"
+          },
+          {
+            "path": "evidence/methods/native-reader/step-4.png",
+            "sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+          },
+          {
+            "path": "evidence/methods/native-reader/step-6.png",
+            "sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--disabled-again--desktop/dom.html",
+            "sha256": "1a1f6e08edd811c90220ac98ed9c7c147018fe050a12087a0dda8faf066352ef"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--disabled-again--desktop/inventory.json",
+            "sha256": "e1a831b206e9dec56759f48b54ee00b813a879e53014ee8b603fa0f5a71310d8"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--disabled-again--desktop/page.png",
+            "sha256": "8a0212854c565fc73c63fd3903530f3845b6d86bedb39f890c8b48eacc1b96ea"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--disabled-again--desktop/accessibility-tree.json",
+            "sha256": "bed85b873913071a666235bea63764c9e46d4587647e32aa5e3ad95884e91055"
+          },
+          {
+            "path": "evidence/c8bf6e1d450e--disabled-again--desktop/actions.json",
+            "sha256": "fe115e668bcc576978e8502068269527d7d2c94b800e1f400efaea0d8b395f57"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "c8bf6e1d450e--disabled-again--desktop--4.1.3",
+      "criterion": "4.1.3",
+      "title": "ステータスメッセージ",
+      "page_url": "http://127.0.0.1:4322/",
+      "page_id": "c8bf6e1d450e",
+      "state": "disabled-again",
+      "environment": "desktop",
+      "capture": "c8bf6e1d450e--disabled-again--desktop",
+      "capture_execution": "completed",
+      "evidence_dir": "evidence/c8bf6e1d450e--disabled-again--desktop",
+      "methods": [
+        "flow",
+        "dom",
+        "screen-reader"
+      ],
+      "assessment": null,
+      "automated_candidates": [],
+      "outcome": "not_run",
+      "assessment_data": null
+    }
+  ]
+}

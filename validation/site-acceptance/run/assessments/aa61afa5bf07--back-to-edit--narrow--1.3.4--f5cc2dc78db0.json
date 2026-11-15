@@ -1,0 +1,187 @@
+{
+  "case_id": "aa61afa5bf07--back-to-edit--narrow--1.3.4",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "a6f1fa49ef72f290bdb023e313ae78911b68f811b6cb4d7a4aff6a860d4c48e0",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/profile / back-to-edit / narrow。表示の主内容はEdit profile — Profile demo。可視見出し: ['Edit your profile']。入力欄: [\"#name: ['Name (required)']\", \"#email: ['Email (required)']\"]。全5ページでCSSの表示領域・screen・Orientation APIを一致させた縦横primary/secondaryの4種類を実行した。カウンター、入力した値から確認・保存、ログイン、字幕と再生が継続できた。著者の向き固定、orientation依存の非表示、センサー入力、PWAや全画面ロックはソースにない。これはエミュレーションで、物理端末の制御の検証ではない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:1.3.4:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "このURLのページ全体、可視の内容・部品と到達可能な全状態",
+      "observed": "全5ページでCSSの表示領域・screen・Orientation APIを一致させた縦横primary/secondaryの4種類を実行した。カウンター、入力した値から確認・保存、ログイン、字幕と再生が継続できた。著者の向き固定、orientation依存の非表示、センサー入力、PWAや全画面ロックはソースにない。これはエミュレーションで、物理端末の制御の検証ではない。",
+      "expected": "本質的な場合を除き向きが制限されていないか。サイズ変更だけと端末の向きの変更を区別する",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--back-to-edit--narrow/page.png",
+        "evidence/aa61afa5bf07--back-to-edit--narrow/inventory.json",
+        "evidence/aa61afa5bf07--back-to-edit--narrow/dom.html",
+        "evidence/aa61afa5bf07--back-to-edit--narrow/accessibility-tree.json",
+        "evidence/aa61afa5bf07--back-to-edit--narrow/actions.json",
+        "evidence/aa61afa5bf07--back-to-edit--narrow/keyboard.json",
+        "evidence/methods/browser/executed-source.py.txt",
+        "evidence/methods/browser/source/app.js",
+        "evidence/methods/browser/source/app.css",
+        "evidence/methods/browser/server.py.txt",
+        "evidence/methods/discovery/discovery.json",
+        "evidence/methods/browser/narrow/observations.json",
+        "evidence/methods/orientation/profile/orientation.json",
+        "evidence/methods/browser/narrow/009-profile-errors.png",
+        "evidence/methods/browser/narrow/009-profile-errors.json",
+        "evidence/methods/browser/narrow/009-profile-errors-ax.json",
+        "evidence/methods/browser/narrow/010-profile-review.png",
+        "evidence/methods/browser/narrow/010-profile-review.json",
+        "evidence/methods/browser/narrow/010-profile-review-ax.json",
+        "evidence/methods/browser/narrow/012-profile-completed.png",
+        "evidence/methods/browser/narrow/012-profile-completed.json",
+        "evidence/methods/browser/narrow/012-profile-completed-ax.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "orientation",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/aa61afa5bf07--back-to-edit--narrow/page.png",
+    "evidence/aa61afa5bf07--back-to-edit--narrow/inventory.json",
+    "evidence/aa61afa5bf07--back-to-edit--narrow/dom.html",
+    "evidence/aa61afa5bf07--back-to-edit--narrow/accessibility-tree.json",
+    "evidence/aa61afa5bf07--back-to-edit--narrow/actions.json",
+    "evidence/aa61afa5bf07--back-to-edit--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/orientation/profile/orientation.json",
+    "evidence/methods/browser/narrow/009-profile-errors.png",
+    "evidence/methods/browser/narrow/009-profile-errors.json",
+    "evidence/methods/browser/narrow/009-profile-errors-ax.json",
+    "evidence/methods/browser/narrow/010-profile-review.png",
+    "evidence/methods/browser/narrow/010-profile-review.json",
+    "evidence/methods/browser/narrow/010-profile-review-ax.json",
+    "evidence/methods/browser/narrow/012-profile-completed.png",
+    "evidence/methods/browser/narrow/012-profile-completed.json",
+    "evidence/methods/browser/narrow/012-profile-completed-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:20.172004+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--narrow/page.png",
+      "sha256": "24279784f5b151cc12acfffac7376dfefdbb9e7eea9c3c0b059774167bd6c237"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--narrow/inventory.json",
+      "sha256": "40b0d78ecdef0c22caca6d37c985f8953cae40d87cac3eeaa9302b0faf3b1792"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--narrow/dom.html",
+      "sha256": "e4334734571e783feb30da28b0f0aadda2b217c38dee7f8c1810c07b514d44b6"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--narrow/accessibility-tree.json",
+      "sha256": "735007d932346d58212035769bdfe828e1acc758f60a9337e2b3bfedae43f68c"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--narrow/actions.json",
+      "sha256": "a99c8873d9d347c93204053be1fe955f7628aeac0954f5eecf028143d0e1052b"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--back-to-edit--narrow/keyboard.json",
+      "sha256": "b1aec14d23cf5b95db0e68e04fa97929f0a6b85e6a24b4879a17213022d745ae"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/orientation/profile/orientation.json",
+      "sha256": "319af878c9fc3985f8fc29205dbed8cee3739f55954fb315fa5b85731002ec4b"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors.png",
+      "sha256": "5e8382bf4fa31674319fab758127b96b2804053f2199fbcc972c74bbb05725ee"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors.json",
+      "sha256": "c24e324c216f5d1eae2e0fd5e7bc0fa1af2c5c5a1276a31abc98a1e5f173ee52"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors-ax.json",
+      "sha256": "a1aecda9b71957f6573be6910534f5ebf5d0cf8abfcc5010ec6d70e131bdcfb1"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review.png",
+      "sha256": "82bf0d50431e5cb74c681050647b1fa492daa60575c31bfbd6c4376c94b54161"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review.json",
+      "sha256": "67ec1fc8d04ccfa7ff19402b907945ad65e8c11684a0ccc668d2b2897694e7d7"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review-ax.json",
+      "sha256": "07c99e65b102cfa61fc4ed2d46e9bee1df6c3ba169873a8ef736daba0c6c5c3e"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed.png",
+      "sha256": "552897125e27888201c52b4f21080291433150385ae605b9a9da17bb8b1c8e92"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed.json",
+      "sha256": "bf8ce603dfad49ef2258b89ef466312ba389a687c4bc45c6aea140e8a2d6554f"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed-ax.json",
+      "sha256": "3c266d9829267eefeda343a95505ed0bc3bcc363f2a660cd86ef5ce1c5ac52d5"
+    }
+  ]
+}

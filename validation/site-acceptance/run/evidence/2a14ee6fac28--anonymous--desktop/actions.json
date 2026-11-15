@@ -1,0 +1,49 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "click",
+      "selector": "#sign-out"
+    },
+    "url": "http://127.0.0.1:4330/login",
+    "focus": {
+      "tag": "body",
+      "id": "",
+      "documentHasFocus": true,
+      "text": "Skip to main content\n\nProfile demo\n\nHome\nEdit profile\nVideo instructions\nHelp\nSign in\nSigned out\nSign in\n\nUse the demo account in Help. You can paste the email ",
+      "name": null,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 794.875
+      },
+      "centerHitStack": [
+        {
+          "tag": "input",
+          "id": "login-email"
+        },
+        {
+          "tag": "form",
+          "id": "login-form"
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:02:17.639667+00:00",
+    "observed_at": "2026-11-15T00:02:17.779770+00:00",
+    "observations": []
+  }
+]

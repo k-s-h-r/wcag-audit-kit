@@ -1,0 +1,12 @@
+{
+  "digital_silence_control": {
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "sample_rate_hz": 16000,
+    "samples_per_channel": 112000,
+    "duration_seconds": 7.0,
+    "all_pcm_bytes_zero": true,
+    "sha256": "16006007e5787be3593367446a2c34a20653d00d790c3bac9dd183f17341de40"
+  },
+  "purpose": "Check that the ASR false word came from actual digital silence, not an accidentally reused speech file."
+}

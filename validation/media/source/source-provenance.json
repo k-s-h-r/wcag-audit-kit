@@ -1,0 +1,83 @@
+{
+  "kind": "known-source synthetic calibration, not a blind accuracy evaluation",
+  "intended_narration": "Press the blue button to save the document.",
+  "speech_duration_seconds": 2.984127,
+  "narration_audio_interval": [
+    0.5,
+    3.484127
+  ],
+  "tone_audio_interval": [
+    5.5,
+    5.75
+  ],
+  "generated_by": "eSpeak NG text-to-speech: 1.52.0  Data at: /tmp/wcag-at-root/usr/lib/x86_64-linux-gnu/espeak-ng-data",
+  "ffmpeg_version": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "source_probe": {
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "pcm_s16le",
+        "codec_long_name": "PCM signed 16-bit little-endian",
+        "codec_type": "audio",
+        "codec_tag_string": "[1][0][0][0]",
+        "codec_tag": "0x0001",
+        "sample_fmt": "s16",
+        "sample_rate": "22050",
+        "channels": 1,
+        "bits_per_sample": 16,
+        "initial_padding": 0,
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/22050",
+        "duration_ts": 65800,
+        "duration": "2.984127",
+        "bit_rate": "352800",
+        "disposition": {
+          "default": 0,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        }
+      }
+    ],
+    "format": {
+      "filename": "/workspace/wcag-audit-kit/tests/fixtures/media-captions/speech.wav",
+      "nb_streams": 1,
+      "nb_programs": 0,
+      "nb_stream_groups": 0,
+      "format_name": "wav",
+      "format_long_name": "WAV / WAVE (Waveform Audio)",
+      "duration": "2.984127",
+      "size": "131644",
+      "bit_rate": "352917",
+      "probe_score": 99
+    }
+  },
+  "files": {
+    "clip.webm": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+    "good.html": "fe64b9ae0e0970eac47f84d63c6db863eb2b2ead2a20953142b29c8a62fb10e6",
+    "good.vtt": "28975181ad43b0c77ca3bad8219db2193dbe081b99cec50b12932380338bcbae",
+    "late.html": "d776b08f3817b5b8f51231cac822127563aa6b665d102084bb39a5d8477e1c9a",
+    "late.vtt": "7daefb1ab936cf99f3b2535b76ae92827024ff0e7ea40789a1dc1e203527ef50",
+    "player.js": "4f5ca54b41b93d935a39a01e0fb84a59da8609d3c1e07b0c4a24b343aa71cd18",
+    "soundtrack.wav": "900bd07690bc32aadcf33abb8b8a611c52ef23f2b0503892c9ee82fe5ddf74b7",
+    "speech.wav": "8afac46347d2422017c2e95777ce3399279fc3a102062e1cfd5b335e3bf21a07",
+    "wrong-text.html": "2b815c0df3036eb3da66542f1e3fad5751e4c4dd91294b8271968d40b8ca9502",
+    "wrong-text.vtt": "843147b2e98d967a4827a0c98159aae989f27d831ab4afdd8115847be16f1a60"
+  }
+}

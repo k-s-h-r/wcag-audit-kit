@@ -1,0 +1,210 @@
+{
+  "status": "collected",
+  "started_at": "2026-11-14T18:53:28.041693+00:00",
+  "case_id": "native-orca-page-scenario-calibration",
+  "request_sha256": "add8122a11ba43b25abd6a83e254a090db998ac03b3fb1d62f50e62d2c767d89",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "observations": [
+    {
+      "index": 1,
+      "action": {
+        "type": "browser.press",
+        "key": "Tab",
+        "expect_contains": "Save record one"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": ""
+      },
+      "started_at": "2026-11-14T18:53:34.609835+00:00",
+      "finished_at": "2026-11-14T18:53:36.415123+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "save1"
+      },
+      "url": "http://127.0.0.1:4317/live-region-variants.html",
+      "speech": [
+        {
+          "at": "2026-11-14T18:53:34.638902+00:00",
+          "line": 4255,
+          "phrase": "Save record one button.",
+          "raw": "18:53:34.638902 - SPEECH OUTPUT: 'Save record one button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "browser.press",
+        "key": "Tab",
+        "expect_contains": "Save record two"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "save1"
+      },
+      "started_at": "2026-11-14T18:53:36.510655+00:00",
+      "finished_at": "2026-11-14T18:53:38.315272+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "save2"
+      },
+      "url": "http://127.0.0.1:4317/live-region-variants.html",
+      "speech": [
+        {
+          "at": "2026-11-14T18:53:36.539821+00:00",
+          "line": 4449,
+          "phrase": "Save record two button.",
+          "raw": "18:53:36.539821 - SPEECH OUTPUT: 'Save record two button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "browser.press",
+        "key": "Space",
+        "expect_contains": "Record two saved."
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "save2"
+      },
+      "started_at": "2026-11-14T18:53:38.384912+00:00",
+      "finished_at": "2026-11-14T18:53:40.189482+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "save2"
+      },
+      "url": "http://127.0.0.1:4317/live-region-variants.html",
+      "speech": [
+        {
+          "at": "2026-11-14T18:53:38.498255+00:00",
+          "line": 4573,
+          "phrase": "Record two saved.",
+          "raw": "18:53:38.498255 - SPEECH OUTPUT: 'Record two saved.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": "Record two saved."
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "reader.nextHeading",
+        "expect_contains": "Nonatomic status"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "save2"
+      },
+      "started_at": "2026-11-14T18:53:40.281069+00:00",
+      "finished_at": "2026-11-14T18:53:42.084309+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": ""
+      },
+      "url": "http://127.0.0.1:4317/live-region-variants.html",
+      "speech": [
+        {
+          "at": "2026-11-14T18:53:40.294517+00:00",
+          "line": 4621,
+          "phrase": "h",
+          "raw": "18:53:40.294517 - SPEECH OUTPUT: 'h' {'established': False}"
+        },
+        {
+          "at": "2026-11-14T18:53:40.337017+00:00",
+          "line": 4816,
+          "phrase": "Nonatomic status heading 2",
+          "raw": "18:53:40.337017 - SPEECH OUTPUT: 'Nonatomic status heading 2' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": "Record two saved."
+        }
+      ]
+    }
+  ],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "case_id": "native-orca-page-scenario-calibration",
+    "url": "http://127.0.0.1:4317/live-region-variants.html",
+    "locale": "en-US",
+    "settle_ms": 1800,
+    "observe": [
+      {
+        "selector": "#message2"
+      }
+    ],
+    "actions": [
+      {
+        "type": "browser.press",
+        "key": "Tab",
+        "expect_contains": "Save record one"
+      },
+      {
+        "type": "browser.press",
+        "key": "Tab",
+        "expect_contains": "Save record two"
+      },
+      {
+        "type": "browser.press",
+        "key": "Space",
+        "expect_contains": "Record two saved."
+      },
+      {
+        "type": "reader.nextHeading",
+        "expect_contains": "Nonatomic status"
+      }
+    ]
+  },
+  "cleanup": {
+    "debug_log_sha256": "73c74c546cfeebbc91f624faf563f2c2c16a2c4f485fe0e574e7a8257bcd3845",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-14T18:53:43.247154+00:00"
+}

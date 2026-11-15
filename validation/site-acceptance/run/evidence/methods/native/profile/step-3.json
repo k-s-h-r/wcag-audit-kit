@@ -1,0 +1,62 @@
+{
+  "index": 3,
+  "action": {
+    "type": "browser.fill",
+    "selector": "#name",
+    "value": "***"
+  },
+  "focus_before": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:33.448380+00:00",
+  "finished_at": "2026-11-15T00:10:34.860135+00:00",
+  "focus_after": {
+    "tag": "input",
+    "id": "name",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/profile",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:33.507706+00:00",
+      "line": 6391,
+      "phrase": "Name (required) entry required.",
+      "raw": "00:10:33.507706 - SPEECH OUTPUT: 'Name (required) entry required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": [
+    {
+      "target": {
+        "selector": "#errors"
+      },
+      "text": "Correct the following"
+    },
+    {
+      "target": {
+        "selector": "#name",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": null
+      }
+    },
+    {
+      "target": {
+        "selector": "#email",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": null
+      }
+    }
+  ]
+}

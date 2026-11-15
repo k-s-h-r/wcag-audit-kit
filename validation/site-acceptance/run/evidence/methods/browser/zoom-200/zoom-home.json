@@ -1,0 +1,123 @@
+{
+  "mechanism": "native XTest keys into dedicated Chromium window",
+  "factor": 2,
+  "baseline": {
+    "innerWidth": 1280,
+    "innerHeight": 900,
+    "outerWidth": 1280,
+    "outerHeight": 987,
+    "devicePixelRatio": 1,
+    "visualScale": 1,
+    "docWidth": 1280,
+    "docHeight": 900,
+    "bodyZoom": "1",
+    "rootZoom": "1"
+  },
+  "observed": {
+    "innerWidth": 640,
+    "innerHeight": 450,
+    "outerWidth": 1280,
+    "outerHeight": 987,
+    "devicePixelRatio": 2,
+    "visualScale": 1,
+    "docWidth": 632,
+    "docHeight": 917,
+    "bodyZoom": "1",
+    "rootZoom": "1"
+  },
+  "steps": [
+    {
+      "native_keys": [
+        "Control_L",
+        "equal"
+      ],
+      "metrics": {
+        "innerWidth": 1164,
+        "innerHeight": 818,
+        "outerWidth": 1280,
+        "outerHeight": 987,
+        "devicePixelRatio": 1.100000023841858,
+        "visualScale": 1,
+        "docWidth": 1150,
+        "docHeight": 895,
+        "bodyZoom": "1",
+        "rootZoom": "1"
+      }
+    },
+    {
+      "native_keys": [
+        "Control_L",
+        "equal"
+      ],
+      "metrics": {
+        "innerWidth": 1024,
+        "innerHeight": 720,
+        "outerWidth": 1280,
+        "outerHeight": 987,
+        "devicePixelRatio": 1.25,
+        "visualScale": 1,
+        "docWidth": 1012,
+        "docHeight": 893,
+        "bodyZoom": "1",
+        "rootZoom": "1"
+      }
+    },
+    {
+      "native_keys": [
+        "Control_L",
+        "equal"
+      ],
+      "metrics": {
+        "innerWidth": 853,
+        "innerHeight": 600,
+        "outerWidth": 1280,
+        "outerHeight": 987,
+        "devicePixelRatio": 1.5,
+        "visualScale": 1,
+        "docWidth": 843,
+        "docHeight": 895,
+        "bodyZoom": "1",
+        "rootZoom": "1"
+      }
+    },
+    {
+      "native_keys": [
+        "Control_L",
+        "equal"
+      ],
+      "metrics": {
+        "innerWidth": 731,
+        "innerHeight": 514,
+        "outerWidth": 1280,
+        "outerHeight": 987,
+        "devicePixelRatio": 1.75,
+        "visualScale": 1,
+        "docWidth": 723,
+        "docHeight": 892,
+        "bodyZoom": "1",
+        "rootZoom": "1"
+      }
+    },
+    {
+      "native_keys": [
+        "Control_L",
+        "equal"
+      ],
+      "metrics": {
+        "innerWidth": 640,
+        "innerHeight": 450,
+        "outerWidth": 1280,
+        "outerHeight": 987,
+        "devicePixelRatio": 2,
+        "visualScale": 1,
+        "docWidth": 632,
+        "docHeight": 917,
+        "bodyZoom": "1",
+        "rootZoom": "1"
+      }
+    }
+  ],
+  "verified": true,
+  "observed_at": "2026-11-15T00:10:13.817867+00:00",
+  "note": "実ブラウザー拡大の操作確認。内容・機能の保持又はWCAG合格の判定ではない"
+}

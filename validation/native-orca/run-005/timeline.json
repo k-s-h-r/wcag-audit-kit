@@ -1,0 +1,181 @@
+[
+  {
+    "label": "tab-1",
+    "action": "browser.keyboard.press Tab",
+    "started_at": "2026-11-14T18:23:29.999579+00:00",
+    "finished_at": "2026-11-14T18:23:32.003613+00:00",
+    "focus_before": {
+      "id": "",
+      "tag": "body"
+    },
+    "focus_after": {
+      "id": "save1",
+      "tag": "button"
+    },
+    "expected_focus": "save1",
+    "focus_matched": true
+  },
+  {
+    "label": "save-1",
+    "action": "browser.keyboard.press Space",
+    "started_at": "2026-11-14T18:23:32.116653+00:00",
+    "finished_at": "2026-11-14T18:23:34.119098+00:00",
+    "focus_before": {
+      "id": "save1",
+      "tag": "button"
+    },
+    "focus_after": {
+      "id": "save1",
+      "tag": "button"
+    },
+    "expected_focus": "save1",
+    "focus_matched": true,
+    "message": "Record one saved."
+  },
+  {
+    "label": "tab-2",
+    "action": "browser.keyboard.press Tab",
+    "started_at": "2026-11-14T18:23:34.174961+00:00",
+    "finished_at": "2026-11-14T18:23:36.176873+00:00",
+    "focus_before": {
+      "id": "save1",
+      "tag": "button"
+    },
+    "focus_after": {
+      "id": "save2",
+      "tag": "button"
+    },
+    "expected_focus": "save2",
+    "focus_matched": true
+  },
+  {
+    "label": "save-2",
+    "action": "browser.keyboard.press Space",
+    "started_at": "2026-11-14T18:23:36.244107+00:00",
+    "finished_at": "2026-11-14T18:23:38.246388+00:00",
+    "focus_before": {
+      "id": "save2",
+      "tag": "button"
+    },
+    "focus_after": {
+      "id": "save2",
+      "tag": "button"
+    },
+    "expected_focus": "save2",
+    "focus_matched": true,
+    "message": "Record two saved."
+  },
+  {
+    "label": "tab-3",
+    "action": "browser.keyboard.press Tab",
+    "started_at": "2026-11-14T18:23:38.313513+00:00",
+    "finished_at": "2026-11-14T18:23:40.316915+00:00",
+    "focus_before": {
+      "id": "save2",
+      "tag": "button"
+    },
+    "focus_after": {
+      "id": "save3",
+      "tag": "button"
+    },
+    "expected_focus": "save3",
+    "focus_matched": true
+  },
+  {
+    "label": "save-3",
+    "action": "browser.keyboard.press Space",
+    "started_at": "2026-11-14T18:23:40.424276+00:00",
+    "finished_at": "2026-11-14T18:23:42.426400+00:00",
+    "focus_before": {
+      "id": "save3",
+      "tag": "button"
+    },
+    "focus_after": {
+      "id": "save3",
+      "tag": "button"
+    },
+    "expected_focus": "save3",
+    "focus_matched": true,
+    "message": "Record three saved."
+  },
+  {
+    "label": "tab-4",
+    "action": "browser.keyboard.press Tab",
+    "started_at": "2026-11-14T18:23:42.495782+00:00",
+    "finished_at": "2026-11-14T18:23:44.498685+00:00",
+    "focus_before": {
+      "id": "save3",
+      "tag": "button"
+    },
+    "focus_after": {
+      "id": "save4",
+      "tag": "button"
+    },
+    "expected_focus": "save4",
+    "focus_matched": true
+  },
+  {
+    "label": "save-4",
+    "action": "browser.keyboard.press Space",
+    "started_at": "2026-11-14T18:23:44.556134+00:00",
+    "finished_at": "2026-11-14T18:23:46.558102+00:00",
+    "focus_before": {
+      "id": "save4",
+      "tag": "button"
+    },
+    "focus_after": {
+      "id": "save4",
+      "tag": "button"
+    },
+    "expected_focus": "save4",
+    "focus_matched": true,
+    "message": "Record four saved."
+  },
+  {
+    "label": "tab-5",
+    "action": "browser.keyboard.press Tab",
+    "started_at": "2026-11-14T18:23:46.627557+00:00",
+    "finished_at": "2026-11-14T18:23:48.631050+00:00",
+    "focus_before": {
+      "id": "save4",
+      "tag": "button"
+    },
+    "focus_after": {
+      "id": "save5",
+      "tag": "button"
+    },
+    "expected_focus": "save5",
+    "focus_matched": true
+  },
+  {
+    "label": "save-5",
+    "action": "browser.keyboard.press Space",
+    "started_at": "2026-11-14T18:23:48.722783+00:00",
+    "finished_at": "2026-11-14T18:23:50.724665+00:00",
+    "focus_before": {
+      "id": "save5",
+      "tag": "button"
+    },
+    "focus_after": {
+      "id": "save5",
+      "tag": "button"
+    },
+    "expected_focus": "save5",
+    "focus_matched": true,
+    "message": "Record five saved."
+  },
+  {
+    "label": "next-heading",
+    "action": "native XTest h, handled by Orca structural navigation",
+    "started_at": "2026-11-14T18:23:50.793299+00:00",
+    "finished_at": "2026-11-14T18:23:52.796510+00:00",
+    "focus_before": {
+      "id": "save5",
+      "tag": "button"
+    },
+    "focus_after": {
+      "id": "",
+      "tag": "body"
+    }
+  }
+]

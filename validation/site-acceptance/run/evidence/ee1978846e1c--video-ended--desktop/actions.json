@@ -1,0 +1,143 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "click",
+      "selector": "#captions-toggle"
+    },
+    "url": "http://127.0.0.1:4330/media",
+    "focus": {
+      "tag": "button",
+      "id": "captions-toggle",
+      "documentHasFocus": true,
+      "text": "English captions",
+      "name": null,
+      "rect": {
+        "x": 351.03125,
+        "y": 781.734375,
+        "width": 163.875,
+        "height": 51.984375
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "captions-toggle"
+        },
+        {
+          "tag": "div",
+          "id": ""
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:01:47.579903+00:00",
+    "observed_at": "2026-11-15T00:01:47.712956+00:00",
+    "observations": []
+  },
+  {
+    "index": 2,
+    "action": {
+      "type": "click",
+      "selector": "#play"
+    },
+    "url": "http://127.0.0.1:4330/media",
+    "focus": {
+      "tag": "button",
+      "id": "play",
+      "documentHasFocus": true,
+      "text": "Pause video",
+      "name": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 781.734375,
+        "width": 131.859375,
+        "height": 51.984375
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "play"
+        },
+        {
+          "tag": "div",
+          "id": ""
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:01:47.783982+00:00",
+    "observed_at": "2026-11-15T00:01:47.928960+00:00",
+    "observations": []
+  },
+  {
+    "index": 3,
+    "action": {
+      "type": "wait_for",
+      "selector": "#playback-state:text-is(\"Ended\")"
+    },
+    "url": "http://127.0.0.1:4330/media",
+    "focus": {
+      "tag": "button",
+      "id": "play",
+      "documentHasFocus": true,
+      "text": "Play video",
+      "name": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 781.734375,
+        "width": 115.84375,
+        "height": 51.984375
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "play"
+        },
+        {
+          "tag": "div",
+          "id": ""
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:01:47.982189+00:00",
+    "observed_at": "2026-11-15T00:01:55.407459+00:00",
+    "observations": []
+  }
+]

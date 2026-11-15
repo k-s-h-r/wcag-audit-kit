@@ -1,0 +1,43 @@
+{
+  "index": 5,
+  "action": {
+    "type": "browser.press",
+    "key": "Tab",
+    "expect_contains": "Email notifications"
+  },
+  "focus_before": {
+    "tag": "body",
+    "id": ""
+  },
+  "started_at": "2026-11-14T20:47:53.485108+00:00",
+  "finished_at": "2026-11-14T20:47:55.088113+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "email-switch"
+  },
+  "url": "http://127.0.0.1:4317/reader-controls-good.html",
+  "speech": [],
+  "assertion": "not_matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#visual-state"
+      },
+      "text": "Off"
+    },
+    {
+      "target": {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      },
+      "text": "Email notifications",
+      "attributes": {
+        "role": "checkbox",
+        "aria-checked": "false"
+      }
+    }
+  ]
+}

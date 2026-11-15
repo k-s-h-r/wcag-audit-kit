@@ -1,0 +1,54 @@
+{
+  "index": 2,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Down"
+    ],
+    "expect_contains": "Use the checkbox"
+  },
+  "focus_before": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-14T21:08:48.670218+00:00",
+  "finished_at": "2026-11-14T21:08:50.271830+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4320/",
+  "speech": [
+    {
+      "at": "2026-11-14T21:08:48.719242+00:00",
+      "line": 2807,
+      "phrase": "Use the checkbox to turn email notifications on or off.",
+      "raw": "21:08:48.719242 - SPEECH OUTPUT: 'Use the checkbox to turn email notifications on or off.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#visual-state"
+      },
+      "text": "Off"
+    },
+    {
+      "target": {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      },
+      "text": "Email notifications",
+      "attributes": {
+        "role": "checkbox",
+        "aria-checked": "false"
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "index": 5,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Tab"
+    ],
+    "expect_contains": "Review changes"
+  },
+  "focus_before": {
+    "tag": "input",
+    "id": "email",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:36.391063+00:00",
+  "finished_at": "2026-11-15T00:10:37.793499+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "review",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/profile",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:36.397457+00:00",
+      "line": 6992,
+      "phrase": "tab",
+      "raw": "00:10:36.397457 - SPEECH OUTPUT: 'tab' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:10:36.441253+00:00",
+      "line": 7185,
+      "phrase": "Review changes button.",
+      "raw": "00:10:36.441253 - SPEECH OUTPUT: 'Review changes button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#errors"
+      },
+      "text": "Correct the following"
+    },
+    {
+      "target": {
+        "selector": "#name",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": null
+      }
+    },
+    {
+      "target": {
+        "selector": "#email",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "index": 3,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Tab"
+    ]
+  },
+  "focus_before": {
+    "tag": "input",
+    "id": "password",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:18:04.806352+00:00",
+  "finished_at": "2026-11-15T00:18:06.308071+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "show-password",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/login",
+  "speech": [
+    {
+      "at": "2026-11-15T00:18:04.856026+00:00",
+      "line": 6921,
+      "phrase": "Show password toggle button not pressed.",
+      "raw": "00:18:04.856026 - SPEECH OUTPUT: 'Show password toggle button not pressed.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:18:04.871746+00:00",
+      "line": 6946,
+      "phrase": "Browse mode",
+      "raw": "00:18:04.871746 - SPEECH OUTPUT: 'Browse mode' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": []
+}

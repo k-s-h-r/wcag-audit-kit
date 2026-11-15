@@ -1,0 +1,39 @@
+{
+  "index": 1,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Control_L",
+      "Home"
+    ]
+  },
+  "focus_before": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:10.554702+00:00",
+  "finished_at": "2026-11-15T00:10:11.956889+00:00",
+  "focus_after": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/help",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:10.567226+00:00",
+      "line": 7944,
+      "phrase": "left control",
+      "raw": "00:10:10.567226 - SPEECH OUTPUT: 'left control' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:10:10.630951+00:00",
+      "line": 8253,
+      "phrase": "Skip to main content link.",
+      "raw": "00:10:10.630951 - SPEECH OUTPUT: 'Skip to main content link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": []
+}

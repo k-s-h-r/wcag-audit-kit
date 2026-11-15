@@ -1,0 +1,434 @@
+{
+  "kind": "known synthetic source calibration; not a blind or real-speaker accuracy study",
+  "commands": [
+    [
+      "/tmp/wcag-media-tools/usr/bin/espeak-ng",
+      "-v",
+      "en-us",
+      "-s",
+      "145",
+      "-w",
+      "/tmp/wcag-whisper-controls-002/red-speech.wav",
+      "Press the red button to delete the document."
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-i",
+      "/tmp/wcag-whisper-controls-002/red-speech.wav",
+      "-f",
+      "lavfi",
+      "-i",
+      "sine=frequency=880:duration=0.25:sample_rate=22050",
+      "-filter_complex",
+      "[0:a]adelay=500:all=1,apad=whole_dur=7[a];[1:a]volume=0.2,adelay=5500:all=1[b];[a][b]amix=inputs=2:duration=longest:normalize=0,atrim=duration=7",
+      "-ar",
+      "16000",
+      "-ac",
+      "1",
+      "-c:a",
+      "pcm_s16le",
+      "/tmp/wcag-whisper-controls-002/red.wav"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-f",
+      "lavfi",
+      "-i",
+      "sine=frequency=880:duration=0.25:sample_rate=16000",
+      "-af",
+      "volume=0.2,adelay=5500:all=1,apad=whole_dur=7,atrim=duration=7",
+      "-ar",
+      "16000",
+      "-ac",
+      "1",
+      "-c:a",
+      "pcm_s16le",
+      "/tmp/wcag-whisper-controls-002/tone.wav"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-f",
+      "lavfi",
+      "-i",
+      "anullsrc=r=16000:cl=mono",
+      "-t",
+      "7",
+      "-c:a",
+      "pcm_s16le",
+      "/tmp/wcag-whisper-controls-002/silence.wav"
+    ],
+    [
+      "/tmp/wcag-whisper-build/bin/whisper-cli",
+      "-m",
+      "/tmp/wcag-whisper-models/ggml-base.en.bin",
+      "-f",
+      "/tmp/wcag-whisper-controls-002/red.wav",
+      "-l",
+      "en",
+      "-t",
+      "4",
+      "-ojf",
+      "-otxt",
+      "-of",
+      "/tmp/wcag-whisper-controls-002/red/transcript"
+    ],
+    [
+      "/tmp/wcag-whisper-build/bin/whisper-cli",
+      "-m",
+      "/tmp/wcag-whisper-models/ggml-base.en.bin",
+      "-f",
+      "/tmp/wcag-whisper-controls-002/tone.wav",
+      "-l",
+      "en",
+      "-t",
+      "4",
+      "-ojf",
+      "-otxt",
+      "-of",
+      "/tmp/wcag-whisper-controls-002/tone/transcript"
+    ],
+    [
+      "/tmp/wcag-whisper-build/bin/whisper-cli",
+      "-m",
+      "/tmp/wcag-whisper-models/ggml-base.en.bin",
+      "-f",
+      "/tmp/wcag-whisper-controls-002/silence.wav",
+      "-l",
+      "en",
+      "-t",
+      "4",
+      "-ojf",
+      "-otxt",
+      "-of",
+      "/tmp/wcag-whisper-controls-002/silence/transcript"
+    ]
+  ],
+  "model": {
+    "model": "base.en",
+    "source_url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin",
+    "expected_sha1": "137c40403d78fd54d454da0f9bd998f78703390c",
+    "sha1": "137c40403d78fd54d454da0f9bd998f78703390c",
+    "sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+    "bytes": 147964211
+  },
+  "engine": {
+    "release": "v1.9.5",
+    "commit": "d1be6fde11ac6e0407606b4e42fe72d34add8037",
+    "commands": [
+      [
+        "/tmp/wcag-build-tools/usr/bin/cmake",
+        "-S",
+        "/tmp/wcag-whisper-src",
+        "-B",
+        "/tmp/wcag-whisper-build",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DGGML_NATIVE=OFF",
+        "-DGGML_BLAS=OFF",
+        "-DBUILD_SHARED_LIBS=OFF",
+        "-DWHISPER_BUILD_TESTS=OFF",
+        "-DWHISPER_BUILD_SERVER=OFF"
+      ],
+      [
+        "/tmp/wcag-build-tools/usr/bin/cmake",
+        "--build",
+        "/tmp/wcag-whisper-build",
+        "--target",
+        "whisper-cli",
+        "-j",
+        "4"
+      ]
+    ]
+  },
+  "engine_binary_sha256": "fe471aafa2290bab3d56d49badfca057954899f12e98ce9ecbd48043a80d3539",
+  "model_actual_sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+  "results": [
+    {
+      "name": "red",
+      "intended_source": "Press the red button to delete the document.",
+      "source_sha256": "22f659d4bdca30ab436936fc0842921a576c4e0aa4347990a658e8c0063b53bd",
+      "transcript": "press the red button to delete the document\n",
+      "segments": [
+        {
+          "timestamps": {
+            "from": "00:00:00,000",
+            "to": "00:00:03,000"
+          },
+          "offsets": {
+            "from": 0,
+            "to": 3000
+          },
+          "text": " press the red button to delete the document",
+          "tokens": [
+            {
+              "text": "[_BEG_]",
+              "timestamps": {
+                "from": "00:00:00,000",
+                "to": "00:00:00,000"
+              },
+              "offsets": {
+                "from": 0,
+                "to": 0
+              },
+              "id": 50363,
+              "p": 0.672366,
+              "t_dtw": -1
+            },
+            {
+              "text": " press",
+              "timestamps": {
+                "from": "00:00:00,000",
+                "to": "00:00:00,410"
+              },
+              "offsets": {
+                "from": 0,
+                "to": 410
+              },
+              "id": 1803,
+              "p": 0.260749,
+              "t_dtw": -1
+            },
+            {
+              "text": " the",
+              "timestamps": {
+                "from": "00:00:00,550",
+                "to": "00:00:00,660"
+              },
+              "offsets": {
+                "from": 550,
+                "to": 660
+              },
+              "id": 262,
+              "p": 0.950835,
+              "t_dtw": -1
+            },
+            {
+              "text": " red",
+              "timestamps": {
+                "from": "00:00:00,660",
+                "to": "00:00:00,900"
+              },
+              "offsets": {
+                "from": 660,
+                "to": 900
+              },
+              "id": 2266,
+              "p": 0.978959,
+              "t_dtw": -1
+            },
+            {
+              "text": " button",
+              "timestamps": {
+                "from": "00:00:00,910",
+                "to": "00:00:01,400"
+              },
+              "offsets": {
+                "from": 910,
+                "to": 1400
+              },
+              "id": 4936,
+              "p": 0.998268,
+              "t_dtw": -1
+            },
+            {
+              "text": " to",
+              "timestamps": {
+                "from": "00:00:01,400",
+                "to": "00:00:01,550"
+              },
+              "offsets": {
+                "from": 1400,
+                "to": 1550
+              },
+              "id": 284,
+              "p": 0.985034,
+              "t_dtw": -1
+            },
+            {
+              "text": " delete",
+              "timestamps": {
+                "from": "00:00:01,550",
+                "to": "00:00:02,050"
+              },
+              "offsets": {
+                "from": 1550,
+                "to": 2050
+              },
+              "id": 12233,
+              "p": 0.998144,
+              "t_dtw": -1
+            },
+            {
+              "text": " the",
+              "timestamps": {
+                "from": "00:00:02,050",
+                "to": "00:00:02,300"
+              },
+              "offsets": {
+                "from": 2050,
+                "to": 2300
+              },
+              "id": 262,
+              "p": 0.955155,
+              "t_dtw": -1
+            },
+            {
+              "text": " document",
+              "timestamps": {
+                "from": "00:00:02,300",
+                "to": "00:00:03,000"
+              },
+              "offsets": {
+                "from": 2300,
+                "to": 3000
+              },
+              "id": 3188,
+              "p": 0.997654,
+              "t_dtw": -1
+            },
+            {
+              "text": "[_TT_150]",
+              "timestamps": {
+                "from": "00:00:03,000",
+                "to": "00:00:03,000"
+              },
+              "offsets": {
+                "from": 3000,
+                "to": 3000
+              },
+              "id": 50513,
+              "p": 0.030967,
+              "t_dtw": -1
+            }
+          ]
+        }
+      ],
+      "command": [
+        "/tmp/wcag-whisper-build/bin/whisper-cli",
+        "-m",
+        "/tmp/wcag-whisper-models/ggml-base.en.bin",
+        "-f",
+        "/tmp/wcag-whisper-controls-002/red.wav",
+        "-l",
+        "en",
+        "-t",
+        "4",
+        "-ojf",
+        "-otxt",
+        "-of",
+        "/tmp/wcag-whisper-controls-002/red/transcript"
+      ]
+    },
+    {
+      "name": "tone",
+      "intended_source": "No speech; an 880 Hz tone at 5.5 seconds",
+      "source_sha256": "072c13be813ea3774aeccde9c3305a06312441b547d410fb5907ee0b91f9f9a9",
+      "transcript": "",
+      "segments": [],
+      "command": [
+        "/tmp/wcag-whisper-build/bin/whisper-cli",
+        "-m",
+        "/tmp/wcag-whisper-models/ggml-base.en.bin",
+        "-f",
+        "/tmp/wcag-whisper-controls-002/tone.wav",
+        "-l",
+        "en",
+        "-t",
+        "4",
+        "-ojf",
+        "-otxt",
+        "-of",
+        "/tmp/wcag-whisper-controls-002/tone/transcript"
+      ]
+    },
+    {
+      "name": "silence",
+      "intended_source": "No speech or sound; digital silence",
+      "source_sha256": "16006007e5787be3593367446a2c34a20653d00d790c3bac9dd183f17341de40",
+      "transcript": "You\n",
+      "segments": [
+        {
+          "timestamps": {
+            "from": "00:00:00,000",
+            "to": "00:00:02,000"
+          },
+          "offsets": {
+            "from": 0,
+            "to": 2000
+          },
+          "text": " You",
+          "tokens": [
+            {
+              "text": "[_BEG_]",
+              "timestamps": {
+                "from": "00:00:00,000",
+                "to": "00:00:00,000"
+              },
+              "offsets": {
+                "from": 0,
+                "to": 0
+              },
+              "id": 50363,
+              "p": 0.679621,
+              "t_dtw": -1
+            },
+            {
+              "text": " You",
+              "timestamps": {
+                "from": "00:00:00,000",
+                "to": "00:00:02,000"
+              },
+              "offsets": {
+                "from": 0,
+                "to": 2000
+              },
+              "id": 921,
+              "p": 0.101799,
+              "t_dtw": -1
+            },
+            {
+              "text": "[_TT_100]",
+              "timestamps": {
+                "from": "00:00:02,000",
+                "to": "00:00:02,000"
+              },
+              "offsets": {
+                "from": 2000,
+                "to": 2000
+              },
+              "id": 50463,
+              "p": 0.990994,
+              "t_dtw": -1
+            }
+          ]
+        }
+      ],
+      "command": [
+        "/tmp/wcag-whisper-build/bin/whisper-cli",
+        "-m",
+        "/tmp/wcag-whisper-models/ggml-base.en.bin",
+        "-f",
+        "/tmp/wcag-whisper-controls-002/silence.wav",
+        "-l",
+        "en",
+        "-t",
+        "4",
+        "-ojf",
+        "-otxt",
+        "-of",
+        "/tmp/wcag-whisper-controls-002/silence/transcript"
+      ]
+    }
+  ],
+  "listening_performed": false,
+  "non_speech_meaning_reviewed": false,
+  "wcag_judgement": null
+}

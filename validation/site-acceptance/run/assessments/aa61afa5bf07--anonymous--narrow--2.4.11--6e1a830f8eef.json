@@ -1,0 +1,176 @@
+{
+  "case_id": "aa61afa5bf07--anonymous--narrow--2.4.11",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "0805dfa8136397b016ae57c4bd4a5715a181a1deebf9697405c6d8e315db63f8",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/profile / anonymous / narrow。表示の主内容はEdit profile — Profile demo。可視見出し: ['Sign in to edit your profile']。入力欄: []。著者の固定ヘッダーや重ねる別内容で焦点を全て隠す構造はない。dialogを開くと焦点は内部へ移り、閉じると戻る。400%で大きいエラー領域の一部がviewport外にある場合も、著者の内容によって全体が隠れた状態と区別し、実画面を確認した。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:2.4.11:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "このURLのページ全体、可視の内容・部品と到達可能な全状態",
+      "observed": "著者の固定ヘッダーや重ねる別内容で焦点を全て隠す構造はない。dialogを開くと焦点は内部へ移り、閉じると戻る。400%で大きいエラー領域の一部がviewport外にある場合も、著者の内容によって全体が隠れた状態と区別し、実画面を確認した。",
+      "expected": "作者の内容で部品全体が隠れないか。一部の隠れとAAAを区別する",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--anonymous--narrow/page.png",
+        "evidence/aa61afa5bf07--anonymous--narrow/inventory.json",
+        "evidence/aa61afa5bf07--anonymous--narrow/dom.html",
+        "evidence/aa61afa5bf07--anonymous--narrow/accessibility-tree.json",
+        "evidence/aa61afa5bf07--anonymous--narrow/actions.json",
+        "evidence/aa61afa5bf07--anonymous--narrow/keyboard.json",
+        "evidence/methods/browser/executed-source.py.txt",
+        "evidence/methods/browser/source/app.js",
+        "evidence/methods/browser/source/app.css",
+        "evidence/methods/browser/server.py.txt",
+        "evidence/methods/discovery/discovery.json",
+        "evidence/methods/browser/narrow/observations.json",
+        "evidence/methods/browser/narrow/009-profile-errors.png",
+        "evidence/methods/browser/narrow/009-profile-errors.json",
+        "evidence/methods/browser/narrow/009-profile-errors-ax.json",
+        "evidence/methods/browser/narrow/010-profile-review.png",
+        "evidence/methods/browser/narrow/010-profile-review.json",
+        "evidence/methods/browser/narrow/010-profile-review-ax.json",
+        "evidence/methods/browser/narrow/012-profile-completed.png",
+        "evidence/methods/browser/narrow/012-profile-completed.json",
+        "evidence/methods/browser/narrow/012-profile-completed-ax.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "keyboard",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/aa61afa5bf07--anonymous--narrow/page.png",
+    "evidence/aa61afa5bf07--anonymous--narrow/inventory.json",
+    "evidence/aa61afa5bf07--anonymous--narrow/dom.html",
+    "evidence/aa61afa5bf07--anonymous--narrow/accessibility-tree.json",
+    "evidence/aa61afa5bf07--anonymous--narrow/actions.json",
+    "evidence/aa61afa5bf07--anonymous--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/browser/narrow/009-profile-errors.png",
+    "evidence/methods/browser/narrow/009-profile-errors.json",
+    "evidence/methods/browser/narrow/009-profile-errors-ax.json",
+    "evidence/methods/browser/narrow/010-profile-review.png",
+    "evidence/methods/browser/narrow/010-profile-review.json",
+    "evidence/methods/browser/narrow/010-profile-review-ax.json",
+    "evidence/methods/browser/narrow/012-profile-completed.png",
+    "evidence/methods/browser/narrow/012-profile-completed.json",
+    "evidence/methods/browser/narrow/012-profile-completed-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:15.159877+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/aa61afa5bf07--anonymous--narrow/page.png",
+      "sha256": "82652042eefed3e484698e2a91ac2f9b5db7b768da65869427549e11f4f5842c"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--anonymous--narrow/inventory.json",
+      "sha256": "b93696e8b84b2ab7d153719521a0b9ee20b28463934db126f1b1cf18ed0bc75f"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--anonymous--narrow/dom.html",
+      "sha256": "6ceed954a2e4abded9b3dc90c79bcaaffe28674b24be418d274d393f9a740ded"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--anonymous--narrow/accessibility-tree.json",
+      "sha256": "6f3eb4725d850acf3854571dd29d0b013d793b944be4f9a3f683a46306c22682"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--anonymous--narrow/actions.json",
+      "sha256": "19d79a37534f13b6c73407ecbc431e9dda77e259323862c83e593d54d07b3542"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--anonymous--narrow/keyboard.json",
+      "sha256": "51be0f0c8a303c627cfb9152a5835cb0a75be1bb5fe2b55992c99ccab6a7158f"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors.png",
+      "sha256": "5e8382bf4fa31674319fab758127b96b2804053f2199fbcc972c74bbb05725ee"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors.json",
+      "sha256": "c24e324c216f5d1eae2e0fd5e7bc0fa1af2c5c5a1276a31abc98a1e5f173ee52"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors-ax.json",
+      "sha256": "a1aecda9b71957f6573be6910534f5ebf5d0cf8abfcc5010ec6d70e131bdcfb1"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review.png",
+      "sha256": "82bf0d50431e5cb74c681050647b1fa492daa60575c31bfbd6c4376c94b54161"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review.json",
+      "sha256": "67ec1fc8d04ccfa7ff19402b907945ad65e8c11684a0ccc668d2b2897694e7d7"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review-ax.json",
+      "sha256": "07c99e65b102cfa61fc4ed2d46e9bee1df6c3ba169873a8ef736daba0c6c5c3e"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed.png",
+      "sha256": "552897125e27888201c52b4f21080291433150385ae605b9a9da17bb8b1c8e92"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed.json",
+      "sha256": "bf8ce603dfad49ef2258b89ef466312ba389a687c4bc45c6aea140e8a2d6554f"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed-ax.json",
+      "sha256": "3c266d9829267eefeda343a95505ed0bc3bcc363f2a660cd86ef5ce1c5ac52d5"
+    }
+  ]
+}

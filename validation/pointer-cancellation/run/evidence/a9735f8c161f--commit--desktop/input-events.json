@@ -1,0 +1,102 @@
+{
+  "events": [
+    {
+      "type": "pointerdown",
+      "isTrusted": true,
+      "documentId": "1794677740738.9-1a3yuwhq1a3",
+      "url": "http://127.0.0.1:4317/pointer-cancel-bad.html",
+      "timestamp": 291.09999999962747,
+      "target": {
+        "tag": "button",
+        "id": "append"
+      },
+      "pointerType": "mouse",
+      "button": 0,
+      "buttons": 1,
+      "x": 88.02999877929688,
+      "y": 181,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T17:35:41.034097+00:00"
+    },
+    {
+      "type": "mousedown",
+      "isTrusted": true,
+      "documentId": "1794677740738.9-1a3yuwhq1a3",
+      "url": "http://127.0.0.1:4317/pointer-cancel-bad.html",
+      "timestamp": 291.09999999962747,
+      "target": {
+        "tag": "button",
+        "id": "append"
+      },
+      "pointerType": null,
+      "button": 0,
+      "buttons": 1,
+      "x": 88,
+      "y": 181,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T17:35:41.035591+00:00"
+    },
+    {
+      "type": "pointerup",
+      "isTrusted": true,
+      "documentId": "1794677740738.9-1a3yuwhq1a3",
+      "url": "http://127.0.0.1:4317/pointer-cancel-bad.html",
+      "timestamp": 291.09999999962747,
+      "target": {
+        "tag": "button",
+        "id": "append"
+      },
+      "pointerType": "mouse",
+      "button": 0,
+      "buttons": 0,
+      "x": 88.02999877929688,
+      "y": 181,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T17:35:41.036100+00:00"
+    },
+    {
+      "type": "mouseup",
+      "isTrusted": true,
+      "documentId": "1794677740738.9-1a3yuwhq1a3",
+      "url": "http://127.0.0.1:4317/pointer-cancel-bad.html",
+      "timestamp": 291.09999999962747,
+      "target": {
+        "tag": "button",
+        "id": "append"
+      },
+      "pointerType": null,
+      "button": 0,
+      "buttons": 0,
+      "x": 88,
+      "y": 181,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T17:35:41.036298+00:00"
+    },
+    {
+      "type": "click",
+      "isTrusted": true,
+      "documentId": "1794677740738.9-1a3yuwhq1a3",
+      "url": "http://127.0.0.1:4317/pointer-cancel-bad.html",
+      "timestamp": 291.09999999962747,
+      "target": {
+        "tag": "button",
+        "id": "append"
+      },
+      "pointerType": "mouse",
+      "button": 0,
+      "buttons": 0,
+      "x": 88,
+      "y": 181,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T17:35:41.036510+00:00"
+    }
+  ],
+  "truncated": false,
+  "dropped": 0,
+  "note": "ブラウザー自動操作の入力イベント。物理端末の操作又はWCAG基準全体の判定ではない。"
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en" data-variant="bad"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Interaction motion example</title>
+<style>
+body{font:20px/1.6 sans-serif;margin:2rem;color:#111;background:white}
+button{font:inherit;padding:.6rem;border:2px solid #444;background:#eee;color:#111}
+:focus-visible{outline:3px solid #005bba;outline-offset:4px}
+#track{width:250px;height:90px;border:1px solid #555;margin:1rem 0}
+#box{width:60px;height:60px;background:#005bba;margin:10px}
+.running #box{animation:travel 1000ms linear forwards}
+@keyframes travel{from{transform:translateX(0)}to{transform:translateX(120px)}}
+@media(prefers-reduced-motion:reduce){html[data-variant=good] .running #box{animation:none}}
+</style></head><body><main><h1>Interaction motion example</h1>
+<p>The moving square is decorative. The button also increments a text count.</p>
+<button id="run" type="button">Move illustration</button>
+<p>Count: <output id="count">0</output></p>
+<div id="track" aria-hidden="true"><div id="box"></div></div></main>
+<script>
+const variant=new URLSearchParams(location.search).get('variant')||'good';
+if(!['good','bad'].includes(variant))throw new Error('Unknown variant');
+document.documentElement.dataset.variant=variant;
+let count=0;
+document.querySelector('#run').addEventListener('click',()=>{
+ document.querySelector('#count').textContent=String(++count);
+ const track=document.querySelector('#track');track.classList.remove('running');void track.offsetWidth;track.classList.add('running');
+});
+</script>
+</body></html>

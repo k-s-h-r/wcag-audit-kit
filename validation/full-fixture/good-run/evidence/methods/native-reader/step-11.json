@@ -1,0 +1,60 @@
+{
+  "index": 11,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Shift_L",
+      "Tab"
+    ]
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "email-switch",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-14T21:09:03.646757+00:00",
+  "finished_at": "2026-11-14T21:09:05.248757+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": false
+  },
+  "url": "http://127.0.0.1:4320/",
+  "speech": [
+    {
+      "at": "2026-11-14T21:09:03.652654+00:00",
+      "line": 5838,
+      "phrase": "left shift",
+      "raw": "21:09:03.652654 - SPEECH OUTPUT: 'left shift' {'established': False}"
+    },
+    {
+      "at": "2026-11-14T21:09:03.721808+00:00",
+      "line": 6303,
+      "phrase": "Address and search bar autocomplete 127.0.0.1:4320 selected.",
+      "raw": "21:09:03.721808 - SPEECH OUTPUT: 'Address and search bar autocomplete 127.0.0.1:4320 selected.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": [
+    {
+      "target": {
+        "selector": "#visual-state"
+      },
+      "text": "Off"
+    },
+    {
+      "target": {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      },
+      "text": "Email notifications",
+      "attributes": {
+        "role": "checkbox",
+        "aria-checked": "false"
+      }
+    }
+  ]
+}

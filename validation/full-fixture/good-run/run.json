@@ -1,0 +1,123 @@
+{
+  "created_at": "2026-11-14T21:05:04.333357+00:00",
+  "config": {
+    "schema_version": "1",
+    "url": "http://127.0.0.1:4320",
+    "level": "AA",
+    "scope": {
+      "include": [
+        "/"
+      ],
+      "exclude": [],
+      "seeds": [
+        "/"
+      ],
+      "known_pages": [
+        "/"
+      ],
+      "max_pages": 5
+    },
+    "environments": [
+      {
+        "id": "desktop",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        },
+        "zoom": 1
+      }
+    ],
+    "states": [
+      {
+        "id": "enabled",
+        "paths": [
+          "/"
+        ],
+        "actions": [
+          {
+            "type": "press",
+            "key": "Tab"
+          },
+          {
+            "type": "press",
+            "key": "Space",
+            "assert": [
+              {
+                "selector": "#email-switch",
+                "visible": true
+              },
+              {
+                "selector": "#visual-state",
+                "text": "On"
+              }
+            ]
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#email-switch",
+            "visible": true
+          },
+          {
+            "selector": "#visual-state",
+            "text": "On"
+          }
+        ]
+      },
+      {
+        "id": "disabled-again",
+        "paths": [
+          "/"
+        ],
+        "actions": [
+          {
+            "type": "press",
+            "key": "Tab"
+          },
+          {
+            "type": "press",
+            "key": "Space",
+            "assert": [
+              {
+                "selector": "#email-switch",
+                "visible": true
+              },
+              {
+                "selector": "#visual-state",
+                "text": "On"
+              }
+            ]
+          },
+          {
+            "type": "press",
+            "key": "Space",
+            "assert": [
+              {
+                "selector": "#email-switch",
+                "visible": true
+              },
+              {
+                "selector": "#visual-state",
+                "text": "Off"
+              }
+            ]
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#email-switch",
+            "visible": true
+          },
+          {
+            "selector": "#visual-state",
+            "text": "Off"
+          }
+        ]
+      }
+    ],
+    "keyboard_steps": 4,
+    "input_event_limit": 10000
+  },
+  "config_digest": "61feba4fc45fa04a27c48307cbeff0f274c556f11a75a849ba2c07be86c9e5f1",
+  "catalog_digest": "34614755c63a3f50259b7b9fcc0aa04cefab942f1980d6422d2714e144a72cf7"
+}

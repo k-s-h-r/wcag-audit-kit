@@ -1,0 +1,48 @@
+{
+  "status": "blocked",
+  "observations": [],
+  "environment": {
+    "platform": "linux",
+    "release": "6.18.57",
+    "reader": "orca",
+    "assetCompatible": false,
+    "asset": null,
+    "supportedPlatformVersions": [
+      "7"
+    ],
+    "installationVerified": false,
+    "reason": "インストールしたGuidepupのmanifestに対応する実行環境のアセットがない。",
+    "guidepupVersion": "0.40.0",
+    "nodeVersion": "v24.22.1",
+    "simulation": false,
+    "note": "Virtual Screen Readerは使わない。対応判定だけで起動済み・読み上げ確認済みとはしない。"
+  },
+  "case_id": "実際のcase_idへ置き換える",
+  "request_sha256": "435fe360302a8a2ce75aecceed62568b35eebb6f42c47b390225179a2053c92a",
+  "started_at": "2026-11-14T15:54:18.984Z",
+  "scenario": {
+    "url": "http://127.0.0.1:4317/notifications.html",
+    "allowed_origins": [
+      "http://127.0.0.1:4317"
+    ],
+    "actions": [
+      {
+        "type": "browser.click",
+        "selector": "h1"
+      },
+      {
+        "type": "browser.press",
+        "key": "Tab",
+        "expect_contains": "Save"
+      },
+      {
+        "type": "browser.press",
+        "key": "Space",
+        "expect_contains": "Saved successfully."
+      }
+    ]
+  },
+  "expectedNote": "読み上げの部分一致は検査1件の観察結果。WCAG基準全体の判定は別に行う。",
+  "error": "インストールしたGuidepupのmanifestに対応する実行環境のアセットがない。",
+  "finished_at": "2026-11-14T15:54:18.984Z"
+}

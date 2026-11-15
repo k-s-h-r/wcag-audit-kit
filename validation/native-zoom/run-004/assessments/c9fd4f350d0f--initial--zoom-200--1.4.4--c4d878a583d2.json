@@ -1,0 +1,117 @@
+{
+  "case_id": "c9fd4f350d0f--initial--zoom-200--1.4.4",
+  "config_digest": "02fc7f8aec22a145dea7df17ff6a0fb5a7fb4c76e5108e7b962783017739c65d",
+  "normative_sha256": "f59501cee5eb2a60947551eeb20df24e0a0974cf6f0577bce3f77369283779ab",
+  "outcome": "cant_tell",
+  "execution": "completed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": false,
+  "observed": "Chromiumのページ全体拡大では125%でダウンロード操作が消え、200%では復帰した。別の文字拡大方法は未検証であり、基準全体の適否は保留する。",
+  "steps_executed": [
+    "1280×900 CSS pxの100%表示からOSのキー入力で110・125・150・175・200%へ拡大した。",
+    "各段階の実画像とDOMを照合し、100%・125%・200%の同じリンクと見出しを比較した。",
+    "別の125%環境のTab記録でも、唯一のダウンロードリンクへ到達しないことを照合した。"
+  ],
+  "tests_applied": [
+    "wcag-audit-kit/1.4.4@2 — 中間倍率と実際の文字サイズの比較（部分実施）"
+  ],
+  "method_coverage": [
+    {
+      "method": "zoom",
+      "status": "executed",
+      "reason": "XTestの実キー入力とDPR・内外寸法で各倍率を確認した。"
+    },
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "100%・125%・200%の実画像を実際に見てリンクの有無を比較した。"
+    },
+    {
+      "method": "measurement",
+      "status": "executed",
+      "reason": "h1の32pxとDPRの1から2への変化を、画像の見た目と照合した。"
+    },
+    {
+      "method": "flow",
+      "status": "not_run",
+      "reason": "Tab移動は調べたが、各倍率でダウンロードを完了する操作は未実施。"
+    }
+  ],
+  "targets": [
+    {
+      "target": "h1 — Download your receipt",
+      "expected": "文字の実表示を100%時の2倍まで拡大できる。",
+      "observed": "CSS fontSizeは32pxのまま、DPRは1から2へ変化し、実画像でも文字の拡大を確認した。",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-100.png",
+        "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-200.png",
+        "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-100-inventory.json",
+        "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-200-inventory.json"
+      ]
+    },
+    {
+      "target": "#download — ページ全体拡大の経路",
+      "expected": "選択した拡大方法の途中でも操作部品を失わない。",
+      "observed": "1280 CSS pxでは表示、125%の1024 CSS pxではdisplay:noneで非表示、200%の640 CSS pxでは再表示。125%のTabでもリンクに到達しない。",
+      "outcome": "failed",
+      "evidence": [
+        "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-100.png",
+        "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-125.png",
+        "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-200.png",
+        "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-125-inventory.json",
+        "evidence/c9fd4f350d0f--initial--zoom-125/keyboard.json"
+      ]
+    }
+  ],
+  "remaining": [
+    "文字のみの拡大等の代替方法を実行し、少なくとも一つの方法で原典の条件を満たすか確認する。",
+    "各倍率で全機能の操作完了を確認する。"
+  ],
+  "evidence": [
+    "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom.json",
+    "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-100.png",
+    "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-125.png",
+    "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-200.png",
+    "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-100-inventory.json",
+    "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-125-inventory.json",
+    "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-200-inventory.json",
+    "evidence/c9fd4f350d0f--initial--zoom-125/keyboard.json"
+  ],
+  "recorded_at": "2026-11-14T16:19:25.829521+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom.json",
+      "sha256": "79bb88856c95dd7320b3386b45af1bd355a5b827e3bba0bb698ac72d177b158b"
+    },
+    {
+      "path": "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-100.png",
+      "sha256": "c0231f047832b73520395aa68341db5876bcb03e99c8bc8787e6e730e20d30d6"
+    },
+    {
+      "path": "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-125.png",
+      "sha256": "1a29a5f16efc1f5d33b5d495e4bd79039b4bcd218b39906cc9abd66aeb17905e"
+    },
+    {
+      "path": "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-200.png",
+      "sha256": "a24d331ebb95d91408bc7717869169abd2278e7e910abe9ea2101e0e6c19b91d"
+    },
+    {
+      "path": "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-100-inventory.json",
+      "sha256": "896677822951544a98c7d9fb6d7c6fd045699052debc3fd0b05db0f6af6e9c7e"
+    },
+    {
+      "path": "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-125-inventory.json",
+      "sha256": "2cc8b99878fa39cef480b065e6adb71fb0bab8f1302b7cbd00e25f851eb0f679"
+    },
+    {
+      "path": "evidence/c9fd4f350d0f--initial--zoom-200/native-zoom-200-inventory.json",
+      "sha256": "f7eaf4d251fb8ad1f34707b4115a4e6897167e2f2c86963596833e40ea288202"
+    },
+    {
+      "path": "evidence/c9fd4f350d0f--initial--zoom-125/keyboard.json",
+      "sha256": "5123e3e1a7e8cd8b496626dd9303a9739eb7e062730af337606aa9efaee1fda0"
+    }
+  ]
+}

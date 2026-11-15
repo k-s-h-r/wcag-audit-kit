@@ -1,0 +1,300 @@
+{
+  "case_id": "aa61afa5bf07--initial--narrow--2.4.6",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "be06de3d8b0512c6752eabababc86c55e0b6750de4786549f065d079ed589e4f",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/profile / initial / narrow。表示の主内容はEdit profile — Profile demo。可視見出し: ['Edit your profile']。入力欄: [\"#name: ['Name (required)']\", \"#email: ['Email (required)']\"]。現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:2.4.6:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "html>body:nth-child(2)>a:nth-child(1) [a] Skip to main content",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Skip to main content。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>p:nth-child(1) [p] Profile demo",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Profile demo。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(1) [a] Home",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Home。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(2) [a] Edit profile",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Edit profile。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(3) [a] Video instructions",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Video instructions。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(4) [a] Help",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Help。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(5) [a] Sign in",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Sign in。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "#sign-out [button] Sign out",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Sign out。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>h1:nth-child(1) [h1] Edit your profile",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Edit your profile。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>p:nth-child(2) [p] Change your saved name and email, then review before saving. Both fields are required.",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Change your saved name and email, then review before saving. Both fields are required.。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>section:nth-child(3)>form:nth-child(2)>label:nth-child(1) [label] Name (required)",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Name (required)。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "#name [input] Name (required)",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: ['Name (required)']。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>section:nth-child(3)>form:nth-child(2)>label:nth-child(4) [label] Email (required)",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Email (required)。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "#email [input] Email (required)",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: ['Email (required)']。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "#review [button] Review changes",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Review changes。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>footer:nth-child(4)>a:nth-child(1) [a] Help",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Help。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>footer:nth-child(4)>p:nth-child(2) [p] Contact: example@example.test",
+      "observed": "現在のh1/h2はページと区分の主題を説明し、Name/Email/Password、Review changes、Back to edit、Confirm and save、Play/Pause video、English captions、About、Closeの表示名は実機能と一致する。全表示と実操作を対応付けた。 実対象の文字・ラベル: Contact: example@example.test。",
+      "expected": "トピック又は目的を説明するか。存在の有無や見出しレベルだけと混同しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--initial--narrow/inventory.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/aa61afa5bf07--initial--narrow/page.png",
+    "evidence/aa61afa5bf07--initial--narrow/inventory.json",
+    "evidence/aa61afa5bf07--initial--narrow/dom.html",
+    "evidence/aa61afa5bf07--initial--narrow/accessibility-tree.json",
+    "evidence/aa61afa5bf07--initial--narrow/actions.json",
+    "evidence/aa61afa5bf07--initial--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/browser/narrow/009-profile-errors.png",
+    "evidence/methods/browser/narrow/009-profile-errors.json",
+    "evidence/methods/browser/narrow/009-profile-errors-ax.json",
+    "evidence/methods/browser/narrow/010-profile-review.png",
+    "evidence/methods/browser/narrow/010-profile-review.json",
+    "evidence/methods/browser/narrow/010-profile-review-ax.json",
+    "evidence/methods/browser/narrow/012-profile-completed.png",
+    "evidence/methods/browser/narrow/012-profile-completed.json",
+    "evidence/methods/browser/narrow/012-profile-completed-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:13.166825+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/aa61afa5bf07--initial--narrow/page.png",
+      "sha256": "043aa34a6c004c7fab4c2a1faf83832f0fa2dda9240d18098dce1075c97dcf30"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--initial--narrow/inventory.json",
+      "sha256": "d7d91e2d0965c78cb219e0d0a8ad345d0761e784f8e7f454f64cdff87003d7d1"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--initial--narrow/dom.html",
+      "sha256": "82ce4cd81e1c1839a7e0f4b3553f45bbb472e896d11e254df1c1c5f81b9df6ab"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--initial--narrow/accessibility-tree.json",
+      "sha256": "eb5197ee8e7184d913e828d3e5ca52ceb40c350fa6e150212a8f432e4ed13b17"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--initial--narrow/actions.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--initial--narrow/keyboard.json",
+      "sha256": "6a1006744be965556194fdad4f858b452375fc37a3847a1adddec6e50571d050"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors.png",
+      "sha256": "5e8382bf4fa31674319fab758127b96b2804053f2199fbcc972c74bbb05725ee"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors.json",
+      "sha256": "c24e324c216f5d1eae2e0fd5e7bc0fa1af2c5c5a1276a31abc98a1e5f173ee52"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors-ax.json",
+      "sha256": "a1aecda9b71957f6573be6910534f5ebf5d0cf8abfcc5010ec6d70e131bdcfb1"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review.png",
+      "sha256": "82bf0d50431e5cb74c681050647b1fa492daa60575c31bfbd6c4376c94b54161"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review.json",
+      "sha256": "67ec1fc8d04ccfa7ff19402b907945ad65e8c11684a0ccc668d2b2897694e7d7"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review-ax.json",
+      "sha256": "07c99e65b102cfa61fc4ed2d46e9bee1df6c3ba169873a8ef736daba0c6c5c3e"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed.png",
+      "sha256": "552897125e27888201c52b4f21080291433150385ae605b9a9da17bb8b1c8e92"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed.json",
+      "sha256": "bf8ce603dfad49ef2258b89ef466312ba389a687c4bc45c6aea140e8a2d6554f"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed-ax.json",
+      "sha256": "3c266d9829267eefeda343a95505ed0bc3bcc363f2a660cd86ef5ce1c5ac52d5"
+    }
+  ]
+}

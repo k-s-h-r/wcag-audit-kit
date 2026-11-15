@@ -1,0 +1,65 @@
+[
+  {
+    "case": "missing-email",
+    "url": "http://127.0.0.1:4330/login",
+    "focus": "login-email",
+    "fields": [
+      {
+        "id": "login-email",
+        "valueMissing": true,
+        "typeMismatch": false,
+        "validationMessage": "Please fill out this field.",
+        "name": "Email"
+      },
+      {
+        "id": "password",
+        "valueMissing": true,
+        "typeMismatch": false,
+        "validationMessage": "Please fill out this field.",
+        "name": "Password"
+      }
+    ]
+  },
+  {
+    "case": "missing-password",
+    "url": "http://127.0.0.1:4330/login",
+    "focus": "password",
+    "fields": [
+      {
+        "id": "login-email",
+        "valueMissing": false,
+        "typeMismatch": false,
+        "validationMessage": "",
+        "name": "Email"
+      },
+      {
+        "id": "password",
+        "valueMissing": true,
+        "typeMismatch": false,
+        "validationMessage": "Please fill out this field.",
+        "name": "Password"
+      }
+    ]
+  },
+  {
+    "case": "malformed-email",
+    "url": "http://127.0.0.1:4330/login",
+    "focus": "login-email",
+    "fields": [
+      {
+        "id": "login-email",
+        "valueMissing": false,
+        "typeMismatch": true,
+        "validationMessage": "Please include an '@' in the email address. 'invalid' is missing an '@'.",
+        "name": "Email"
+      },
+      {
+        "id": "password",
+        "valueMissing": false,
+        "typeMismatch": false,
+        "validationMessage": "",
+        "name": "Password"
+      }
+    ]
+  }
+]

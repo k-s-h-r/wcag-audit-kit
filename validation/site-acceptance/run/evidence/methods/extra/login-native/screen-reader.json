@@ -1,0 +1,468 @@
+{
+  "status": "assertion_failed",
+  "started_at": "2026-11-15T00:17:55.397087+00:00",
+  "case_id": "2a14ee6fac28--initial--desktop--4.1.3",
+  "request_sha256": "c12480b6d367526ee0911c8c4269fe8ca41bb4ff9ccff6701d21cd0607a210b2",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "observations": [
+    {
+      "index": 1,
+      "action": {
+        "type": "browser.fill",
+        "selector": "#login-email",
+        "value": "***"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:18:01.656999+00:00",
+      "finished_at": "2026-11-15T00:18:03.175226+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "login-email",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/login",
+      "speech": [
+        {
+          "at": "2026-11-15T00:18:01.701819+00:00",
+          "line": 6152,
+          "phrase": "leaving information.",
+          "raw": "00:18:01.701819 - SPEECH OUTPUT: 'leaving information.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:18:01.702583+00:00",
+          "line": 6160,
+          "phrase": "main content",
+          "raw": "00:18:01.702583 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:18:01.703151+00:00",
+          "line": 6167,
+          "phrase": "Email entry unknown@example.test required.",
+          "raw": "00:18:01.703151 - SPEECH OUTPUT: 'Email entry unknown@example.test required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:18:01.706679+00:00",
+          "line": 6196,
+          "phrase": "Focus mode",
+          "raw": "00:18:01.706679 - SPEECH OUTPUT: 'Focus mode' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "browser.fill",
+        "selector": "#password",
+        "value": "***"
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "login-email",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:18:03.234030+00:00",
+      "finished_at": "2026-11-15T00:18:04.741143+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "password",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/login",
+      "speech": [
+        {
+          "at": "2026-11-15T00:18:03.270159+00:00",
+          "line": 6596,
+          "phrase": "Password password text 5 • characters required.",
+          "raw": "00:18:03.270159 - SPEECH OUTPUT: 'Password password text 5 • characters required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "password",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:18:04.806352+00:00",
+      "finished_at": "2026-11-15T00:18:06.308071+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "show-password",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/login",
+      "speech": [
+        {
+          "at": "2026-11-15T00:18:04.856026+00:00",
+          "line": 6921,
+          "phrase": "Show password toggle button not pressed.",
+          "raw": "00:18:04.856026 - SPEECH OUTPUT: 'Show password toggle button not pressed.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:18:04.871746+00:00",
+          "line": 6946,
+          "phrase": "Browse mode",
+          "raw": "00:18:04.871746 - SPEECH OUTPUT: 'Browse mode' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "show-password",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:18:06.380125+00:00",
+      "finished_at": "2026-11-15T00:18:07.883132+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "sign-in",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/login",
+      "speech": [
+        {
+          "at": "2026-11-15T00:18:06.387934+00:00",
+          "line": 7019,
+          "phrase": "tab",
+          "raw": "00:18:06.387934 - SPEECH OUTPUT: 'tab' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:18:06.423119+00:00",
+          "line": 7210,
+          "phrase": "Sign in button.",
+          "raw": "00:18:06.423119 - SPEECH OUTPUT: 'Sign in button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 5,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "Use the demo email"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "sign-in",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:18:07.939021+00:00",
+      "finished_at": "2026-11-15T00:18:09.440849+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "sign-in",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/login",
+      "speech": [
+        {
+          "at": "2026-11-15T00:18:07.945930+00:00",
+          "line": 7260,
+          "phrase": "space",
+          "raw": "00:18:07.945930 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:18:08.227757+00:00",
+          "line": 7395,
+          "phrase": "Use the demo email and password shown in Help.",
+          "raw": "00:18:08.227757 - SPEECH OUTPUT: 'Use the demo email and password shown in Help.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": []
+    },
+    {
+      "index": 6,
+      "action": {
+        "type": "browser.fill",
+        "selector": "#login-email",
+        "value": "***"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "sign-in",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:18:09.484344+00:00",
+      "finished_at": "2026-11-15T00:18:10.991871+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "login-email",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/login",
+      "speech": [
+        {
+          "at": "2026-11-15T00:18:09.523797+00:00",
+          "line": 7598,
+          "phrase": "Email entry demo@example.test required.",
+          "raw": "00:18:09.523797 - SPEECH OUTPUT: 'Email entry demo@example.test required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:18:09.529082+00:00",
+          "line": 7627,
+          "phrase": "Focus mode",
+          "raw": "00:18:09.529082 - SPEECH OUTPUT: 'Focus mode' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 7,
+      "action": {
+        "type": "browser.fill",
+        "selector": "#password",
+        "value": "***"
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "login-email",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:18:11.052216+00:00",
+      "finished_at": "2026-11-15T00:18:12.561868+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "password",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/login",
+      "speech": [
+        {
+          "at": "2026-11-15T00:18:11.093080+00:00",
+          "line": 8137,
+          "phrase": "Password password text 17 • characters required.",
+          "raw": "00:18:11.093080 - SPEECH OUTPUT: 'Password password text 17 • characters required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 8,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "password",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:18:12.618162+00:00",
+      "finished_at": "2026-11-15T00:18:14.119734+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "show-password",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/login",
+      "speech": [
+        {
+          "at": "2026-11-15T00:18:12.657536+00:00",
+          "line": 8508,
+          "phrase": "Show password toggle button not pressed.",
+          "raw": "00:18:12.657536 - SPEECH OUTPUT: 'Show password toggle button not pressed.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:18:12.661464+00:00",
+          "line": 8533,
+          "phrase": "Browse mode",
+          "raw": "00:18:12.661464 - SPEECH OUTPUT: 'Browse mode' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 9,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "show-password",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:18:14.167477+00:00",
+      "finished_at": "2026-11-15T00:18:15.669799+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "sign-in",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/login",
+      "speech": [
+        {
+          "at": "2026-11-15T00:18:14.171955+00:00",
+          "line": 8606,
+          "phrase": "tab",
+          "raw": "00:18:14.171955 - SPEECH OUTPUT: 'tab' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:18:14.217024+00:00",
+          "line": 8796,
+          "phrase": "Sign in button.",
+          "raw": "00:18:14.217024 - SPEECH OUTPUT: 'Sign in button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 10,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "Signed in."
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "sign-in",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:18:15.715540+00:00",
+      "finished_at": "2026-11-15T00:18:17.219675+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "sign-in",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/login",
+      "speech": [
+        {
+          "at": "2026-11-15T00:18:15.720628+00:00",
+          "line": 8845,
+          "phrase": "space",
+          "raw": "00:18:15.720628 - SPEECH OUTPUT: 'space' {'established': False}"
+        }
+      ],
+      "assertion": "not_matched",
+      "observations": []
+    }
+  ],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "case_id": "2a14ee6fac28--initial--desktop--4.1.3",
+    "url": "http://127.0.0.1:4330/login",
+    "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+    "locale": "en-US",
+    "settle_ms": 1500,
+    "actions": [
+      {
+        "type": "browser.fill",
+        "selector": "#login-email",
+        "value": "***"
+      },
+      {
+        "type": "browser.fill",
+        "selector": "#password",
+        "value": "***"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "Use the demo email"
+      },
+      {
+        "type": "browser.fill",
+        "selector": "#login-email",
+        "value": "***"
+      },
+      {
+        "type": "browser.fill",
+        "selector": "#password",
+        "value": "***"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "Signed in."
+      }
+    ]
+  },
+  "cleanup": {
+    "debug_log_sha256": "86b3995928002b0c31b5ee433dce6362fa43340cc59582a6e0dff9052307c8fa",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-15T00:18:18.856697+00:00"
+}

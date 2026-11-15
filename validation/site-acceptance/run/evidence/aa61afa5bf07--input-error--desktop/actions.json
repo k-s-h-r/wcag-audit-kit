@@ -1,0 +1,145 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "fill",
+      "selector": "#name",
+      "value": "***"
+    },
+    "url": "http://127.0.0.1:4330/profile",
+    "focus": {
+      "tag": "input",
+      "id": "name",
+      "documentHasFocus": true,
+      "text": "",
+      "name": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 405.734375,
+        "width": 841.625,
+        "height": 48.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "input",
+          "id": "name"
+        },
+        {
+          "tag": "form",
+          "id": "profile-form"
+        },
+        {
+          "tag": "section",
+          "id": "editor"
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:01:24.972639+00:00",
+    "observed_at": "2026-11-15T00:01:25.086978+00:00",
+    "observations": []
+  },
+  {
+    "index": 2,
+    "action": {
+      "type": "fill",
+      "selector": "#email",
+      "value": "***"
+    },
+    "url": "http://127.0.0.1:4330/profile",
+    "focus": {
+      "tag": "input",
+      "id": "email",
+      "documentHasFocus": true,
+      "text": "",
+      "name": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 499.328125,
+        "width": 841.625,
+        "height": 48.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "input",
+          "id": "email"
+        },
+        {
+          "tag": "form",
+          "id": "profile-form"
+        },
+        {
+          "tag": "section",
+          "id": "editor"
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:01:25.124471+00:00",
+    "observed_at": "2026-11-15T00:01:25.233315+00:00",
+    "observations": []
+  },
+  {
+    "index": 3,
+    "action": {
+      "type": "click",
+      "selector": "#review"
+    },
+    "url": "http://127.0.0.1:4330/profile",
+    "focus": {
+      "tag": "div",
+      "id": "errors",
+      "documentHasFocus": true,
+      "text": "Correct the following\nEnter a name.\nEnter an email such as name@example.test.",
+      "name": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 376.9375,
+        "width": 841.625,
+        "height": 201.59375
+      },
+      "centerHitStack": [
+        {
+          "tag": "div",
+          "id": "errors"
+        },
+        {
+          "tag": "section",
+          "id": "editor"
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:01:25.285711+00:00",
+    "observed_at": "2026-11-15T00:01:25.429844+00:00",
+    "observations": []
+  }
+]

@@ -1,0 +1,89 @@
+{
+  "status": "partial",
+  "mode": "desktop",
+  "spacing": false,
+  "zoom": 1,
+  "browser_version": "156.0.8078.79",
+  "images_are_viewport_only": false,
+  "stages": [
+    {
+      "index": 0,
+      "label": "home-initial",
+      "observed_at": "2026-11-15T00:08:14.242689+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "000-home-initial.json",
+      "image": "000-home-initial.png",
+      "dom": "000-home-initial.html",
+      "ax": "000-home-initial-ax.json"
+    },
+    {
+      "index": 1,
+      "label": "keyboard-count-two",
+      "observed_at": "2026-11-15T00:08:14.717840+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "001-keyboard-count-two.json",
+      "image": "001-keyboard-count-two.png",
+      "dom": "001-keyboard-count-two.html",
+      "ax": "001-keyboard-count-two-ax.json"
+    },
+    {
+      "index": 2,
+      "label": "pointer-held",
+      "observed_at": "2026-11-15T00:08:14.829698+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "002-pointer-held.json",
+      "image": "002-pointer-held.png",
+      "dom": "002-pointer-held.html",
+      "ax": "002-pointer-held-ax.json"
+    },
+    {
+      "index": 3,
+      "label": "pointer-cancelled",
+      "observed_at": "2026-11-15T00:08:14.879778+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "003-pointer-cancelled.json",
+      "image": "003-pointer-cancelled.png",
+      "dom": "003-pointer-cancelled.html",
+      "ax": "003-pointer-cancelled-ax.json"
+    },
+    {
+      "index": 4,
+      "label": "hybrid-count-six",
+      "observed_at": "2026-11-15T00:08:15.218196+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "004-hybrid-count-six.json",
+      "image": "004-hybrid-count-six.png",
+      "dom": "004-hybrid-count-six.html",
+      "ax": "004-hybrid-count-six-ax.json"
+    },
+    {
+      "index": 5,
+      "label": "dialog-open",
+      "observed_at": "2026-11-15T00:08:15.479057+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "data": "005-dialog-open.json",
+      "image": "005-dialog-open.png",
+      "dom": "005-dialog-open.html",
+      "ax": "005-dialog-open-ax.json"
+    }
+  ],
+  "page_errors": [],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:4330/",
+      "method": "GET",
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.css",
+      "method": "GET",
+      "type": "stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:4330/assets/app.js",
+      "method": "GET",
+      "type": "script"
+    }
+  ],
+  "wcag_judgement": null
+}

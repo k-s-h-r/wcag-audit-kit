@@ -1,0 +1,175 @@
+"""Observe all states of the one-control fixture; never assign WCAG outcomes."""
+import asyncio
+import hashlib
+import json
+import os
+from pathlib import Path
+import shutil
+import sys
+from datetime import datetime, timezone
+
+KIT = Path('/workspace/wcag-audit-kit')
+sys.path.insert(0, str(KIT / 'scripts'))
+from native_zoom import NativeDisplay, apply_zoom
+from browser_capture import capture_image
+from input_observation import InputObserver, INIT_SCRIPT
+from playwright.async_api import async_playwright
+
+OUT = Path('/tmp/wcag-full-fixture-methods-001')
+URL = 'http://127.0.0.1:4317/reader-controls-good.html'
+
+MEASURE = r'''() => {
+ const rect = r => ({x:r.x,y:r.y,width:r.width,height:r.height});
+ const props=['color','backgroundColor','backgroundImage','fontSize','fontWeight','lineHeight',
+ 'letterSpacing','wordSpacing','marginBottom','borderTopColor','borderTopWidth','borderTopStyle',
+ 'outlineColor','outlineWidth','outlineStyle','outlineOffset','display','position','overflow','opacity'];
+ const elems=[...document.querySelectorAll('h1,p,button,span')];
+ return {url:location.href,title:document.title,lang:document.documentElement.lang,
+  viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio,scale:visualViewport.scale},
+  document:{width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight,
+   scrollX,scrollY},state:{text:document.querySelector('#visual-state').innerText,
+   checked:document.querySelector('#email-switch').getAttribute('aria-checked')},
+  focus:{tag:document.activeElement.localName,id:document.activeElement.id},
+  text:document.body.innerText,allElements:[...document.querySelectorAll('*')].map(e=>e.localName),
+  elements:elems.map(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();
+   const text=[...e.childNodes].filter(n=>n.nodeType===Node.TEXT_NODE&&n.textContent.trim()).map(n=>{
+    const range=document.createRange();range.selectNode(n);return {text:n.textContent,
+     rects:[...range.getClientRects()].map(rect)};});
+   return {tag:e.localName,id:e.id,text:e.innerText,attributes:Object.fromEntries([...e.attributes].map(a=>[a.name,a.value])),
+    rect:rect(r),style:Object.fromEntries(props.map(k=>[k,s[k]])),textRects:text};}),
+  animations:document.getAnimations().map(a=>({playState:a.playState,currentTime:a.currentTime})),
+  noExtraContent:!document.querySelector('iframe,object,embed,img,svg,canvas,audio,video,picture,form,a,input,select,textarea'),
+  pseudo:[...document.querySelectorAll('*')].flatMap(e=>['::before','::after'].map(p=>({tag:e.localName,p,
+   content:getComputedStyle(e,p).content,backgroundImage:getComputedStyle(e,p).backgroundImage})))
+ };}'''
+
+
+def write(path, value):
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
+
+
+async def main():
+    OUT.mkdir(exist_ok=False)
+    shutil.copy2(__file__, OUT / 'executed-source.py.txt')
+    source_files = [KIT/'tests/fixtures/reader-controls-good.html', KIT/'tests/fixtures/reader-controls.js']
+    for p in source_files: shutil.copy2(p, OUT/p.name)
+    result={'url':URL,'started_at':datetime.now(timezone.utc).isoformat(),
+            'scope':'one standalone local calibration page, Off / On / Off restored',
+            'status':'running','stages':[],
+            'source_hashes':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in source_files},
+            'wcag_judgement':None}
+    observer = InputObserver()
+    os.environ['WCAG_XVFB']='/tmp/wcag-at-root/usr/bin/Xvfb'
+    os.environ['LD_LIBRARY_PATH']='/tmp/wcag-at-root/usr/lib/x86_64-linux-gnu'
+    display=NativeDisplay(OUT).start()
+    browser=None
+    try:
+        async with async_playwright() as pw:
+            browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),headless=False,
+                        env=display.env,args=['--no-sandbox','--force-renderer-accessibility'])
+            result['browser_version']=browser.version
+            context=await browser.new_context(no_viewport=True,locale='en-US')
+            await context.expose_binding('__wcagAuditInput',observer.accept)
+            await context.add_init_script(INIT_SCRIPT)
+            requests=[]
+            context.on('request',lambda r:requests.append({'url':r.url,'method':r.method,'type':r.resource_type}))
+            page=await context.new_page()
+            session=await context.new_cdp_session(page)
+            await page.goto(URL,wait_until='networkidle')
+
+            async def snap(name, expected, action):
+                row=await page.evaluate(MEASURE)
+                row.update(name=name,action=action,observed_at=datetime.now(timezone.utc).isoformat())
+                assert row['state']=={'text':'On' if expected else 'Off','checked':str(expected).lower()},(name,row['state'])
+                assert row['noExtraContent'] and not row['animations'],name
+                row['state_asserted']=True
+                result['stages'].append(row)
+                await capture_image(page,OUT/(name+'.png'),native_zoom=True)
+                (OUT/(name+'.html')).write_text(await page.content())
+                write(OUT/(name+'.json'),row)
+                write(OUT/(name+'-ax.json'),await session.send('Accessibility.getFullAXTree'))
+                write(OUT/'observations.json',result)
+                write(OUT/'input-events.json',observer.export())
+
+            async def control_focus():
+                for _ in range(4):
+                    if await page.locator('#email-switch').evaluate('(e)=>e===document.activeElement'):return
+                    await page.keyboard.press('Tab')
+                raise RuntimeError('Could not reach the control by Tab')
+
+            await apply_zoom(page,display,1,{'width':1280,'height':900})
+            await snap('baseline-off',False,'Initial load; no direct focus/state mutation')
+            await page.keyboard.press('Tab')
+            await snap('keyboard-focus',False,'Tab into the only control')
+            await page.keyboard.press('Space')
+            await snap('keyboard-space-on',True,'Space activates native button click')
+            await page.wait_for_timeout(1200)
+            await page.keyboard.press('Space')
+            await snap('keyboard-space-off',False,'Space after a delay; no required fast key sequence')
+            await page.keyboard.press('Enter')
+            await snap('keyboard-enter-on',True,'Enter also toggles')
+            await page.keyboard.press('Enter')
+            await snap('keyboard-enter-off',False,'Enter restores Off')
+            await page.keyboard.press('Tab')
+            await snap('keyboard-exit-forward',False,'Tab away from the single control')
+            await page.keyboard.press('Shift+Tab')
+            await snap('keyboard-return-backward',False,'Shift+Tab back to the control')
+            await page.keyboard.press('Shift+Tab')
+            await snap('keyboard-exit-backward',False,'Shift+Tab away; no trap')
+
+            button=page.locator('#email-switch')
+            r=await button.bounding_box()
+            await page.mouse.move(r['x']+r['width']/2,r['y']+r['height']/2)
+            await snap('pointer-hover',False,'Hover alone does not expose additional content or change setting')
+            await page.mouse.down()
+            await snap('pointer-held',False,'Pointer down does not activate the function')
+            await page.mouse.move(900,600)
+            await page.mouse.up()
+            await snap('pointer-cancelled',False,'Move away and release; still Off')
+            await button.click()
+            await snap('pointer-click-on',True,'Ordinary single-pointer click')
+            await button.click()
+            await snap('pointer-click-off',False,'Ordinary click reverses it')
+
+            for factor in [1.1,1.25,1.5,1.75,2,4]:
+                zoom=await apply_zoom(page,display,factor,{'width':1280,'height':900})
+                result.setdefault('zoom_operations',[]).append(zoom)
+                await control_focus()
+                tag=str(round(factor*100))
+                await snap('zoom-'+tag+'-off',False,'Actual native browser zoom; verified DPR and CSS width')
+                await page.keyboard.press('Space')
+                await snap('zoom-'+tag+'-on',True,'Toggle at this actual zoom level')
+                await page.keyboard.press('Space')
+                await snap('zoom-'+tag+'-off-restored',False,'Toggle back at the same zoom')
+                if factor==4:
+                    for where in ['Home','PageDown','End']:
+                        await page.keyboard.press('Control+'+where if where=='Home' else where)
+                        await snap('reflow-'+where.lower(),False,'Keyboard vertical scroll to inspect all content at 320 CSS px')
+            result['zoom_reset']=await apply_zoom(page,display,1,{'width':1280,'height':900})
+            await snap('zoom-reset',False,'Actual Control+0 reset and measured baseline')
+
+            # Change only the four properties named by SC 1.4.12.
+            await page.add_style_tag(content='*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-bottom:2em!important}')
+            await control_focus()
+            await snap('spacing-off',False,'Override the four spacing properties together')
+            await page.keyboard.press('Space')
+            await snap('spacing-on',True,'Operate with spacing overrides')
+            await page.keyboard.press('Space')
+            await snap('spacing-off-restored',False,'Restore setting while overrides remain active')
+            result['requests']=requests
+            result['status']='collected'
+            await browser.close();browser=None
+    except Exception as error:
+        result['status']='blocked'
+        result['error']=str(error)
+        raise
+    finally:
+        if browser:await browser.close()
+        display.close()
+        result['finished_at']=datetime.now(timezone.utc).isoformat()
+        write(OUT/'observations.json',result)
+        write(OUT/'input-events.json',observer.export())
+        print(json.dumps({'status':result['status'],'stages':len(result['stages']),'error':result.get('error')}))
+
+
+if __name__=='__main__':asyncio.run(main())

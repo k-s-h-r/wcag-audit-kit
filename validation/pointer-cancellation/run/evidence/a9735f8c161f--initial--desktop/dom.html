@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pointer cancellation — down-event fixture</title>
+<style>body{font:18px/1.6 sans-serif;margin:24px;color:#222;background:#fff;max-width:720px}button{font:inherit;padding:12px}#cancel-area{border:2px dashed #555;padding:24px;margin-top:32px;min-height:80px}:focus-visible{outline:3px solid #111;outline-offset:3px}</style></head>
+<body data-activation="down"><main>
+<h1>Append an activity entry</h1>
+<p>Press the button, move to the cancellation area, and release.</p>
+<button id="append" type="button">Log an entry</button>
+<p>Entries: <output id="count" aria-label="Entry count">0</output></p>
+<ol id="entries"></ol>
+<div id="cancel-area">Release here to cancel.</div>
+</main><script src="pointer-cancel.js"></script>
+</body></html>

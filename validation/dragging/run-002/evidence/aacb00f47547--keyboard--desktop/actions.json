@@ -1,0 +1,182 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "press",
+      "key": "Tab",
+      "assert": [
+        {
+          "selector": "#order",
+          "text": "Alpha, Bravo"
+        }
+      ]
+    },
+    "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+    "focus": {
+      "tag": "li",
+      "id": "alpha",
+      "text": "AlphaMove Alpha upMove Alpha down",
+      "name": null,
+      "rect": {
+        "x": 72,
+        "y": 198.796875,
+        "width": 840,
+        "height": 102
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "alpha-down"
+        },
+        {
+          "tag": "li",
+          "id": "alpha"
+        },
+        {
+          "tag": "ul",
+          "id": "records"
+        },
+        {
+          "tag": "main",
+          "id": ""
+        },
+        {
+          "tag": "body",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-14T18:34:45.899325+00:00",
+    "observed_at": "2026-11-14T18:34:46.009315+00:00",
+    "observations": [
+      {
+        "target": {
+          "selector": "#order"
+        },
+        "text": "Alpha, Bravo"
+      }
+    ],
+    "action_asserted": true
+  },
+  {
+    "index": 2,
+    "action": {
+      "type": "press",
+      "key": "ArrowDown",
+      "assert": [
+        {
+          "selector": "#order",
+          "text": "Bravo, Alpha"
+        }
+      ]
+    },
+    "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+    "focus": {
+      "tag": "li",
+      "id": "alpha",
+      "text": "AlphaMove Alpha upMove Alpha down",
+      "name": null,
+      "rect": {
+        "x": 72,
+        "y": 316.796875,
+        "width": 840,
+        "height": 102
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "alpha-down"
+        },
+        {
+          "tag": "li",
+          "id": "alpha"
+        },
+        {
+          "tag": "ul",
+          "id": "records"
+        },
+        {
+          "tag": "main",
+          "id": ""
+        },
+        {
+          "tag": "body",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-14T18:34:46.042994+00:00",
+    "observed_at": "2026-11-14T18:34:46.150854+00:00",
+    "observations": [
+      {
+        "target": {
+          "selector": "#order"
+        },
+        "text": "Bravo, Alpha"
+      }
+    ],
+    "action_asserted": true
+  },
+  {
+    "index": 3,
+    "action": {
+      "type": "press",
+      "key": "ArrowUp",
+      "assert": [
+        {
+          "selector": "#order",
+          "text": "Alpha, Bravo"
+        }
+      ]
+    },
+    "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+    "focus": {
+      "tag": "li",
+      "id": "alpha",
+      "text": "AlphaMove Alpha upMove Alpha down",
+      "name": null,
+      "rect": {
+        "x": 72,
+        "y": 198.796875,
+        "width": 840,
+        "height": 102
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "alpha-down"
+        },
+        {
+          "tag": "li",
+          "id": "alpha"
+        },
+        {
+          "tag": "ul",
+          "id": "records"
+        },
+        {
+          "tag": "main",
+          "id": ""
+        },
+        {
+          "tag": "body",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-14T18:34:46.197609+00:00",
+    "observed_at": "2026-11-14T18:34:46.305897+00:00",
+    "observations": [
+      {
+        "target": {
+          "selector": "#order"
+        },
+        "text": "Alpha, Bravo"
+      }
+    ],
+    "action_asserted": true
+  }
+]

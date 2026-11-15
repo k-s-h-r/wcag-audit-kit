@@ -1,0 +1,185 @@
+{
+	"systeminfo": "WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | ",
+	"model": {
+		"type": "base",
+		"multilingual": false,
+		"vocab": 51864,
+		"audio": {
+			"ctx": 1500,
+			"state": 512,
+			"head": 8,
+			"layer": 6
+		},
+		"text": {
+			"ctx": 448,
+			"state": 512,
+			"head": 8,
+			"layer": 6
+		},
+		"mels": 80,
+		"ftype": 1
+	},
+	"params": {
+		"model": "/tmp/wcag-whisper-models/ggml-base.en.bin",
+		"language": "en",
+		"translate": false
+	},
+	"result": {
+		"language": "en"
+	},
+	"transcription": [
+		{
+			"timestamps": {
+				"from": "00:00:00,000",
+				"to": "00:00:03,000"
+			},
+			"offsets": {
+				"from": 0,
+				"to": 3000
+			},
+			"text": " press the red button to delete the document",
+			"tokens": [
+				{
+					"text": "[_BEG_]",
+					"timestamps": {
+						"from": "00:00:00,000",
+						"to": "00:00:00,000"
+					},
+					"offsets": {
+						"from": 0,
+						"to": 0
+					},
+					"id": 50363,
+					"p": 0.672366,
+					"t_dtw": -1
+				},
+				{
+					"text": " press",
+					"timestamps": {
+						"from": "00:00:00,000",
+						"to": "00:00:00,410"
+					},
+					"offsets": {
+						"from": 0,
+						"to": 410
+					},
+					"id": 1803,
+					"p": 0.260749,
+					"t_dtw": -1
+				},
+				{
+					"text": " the",
+					"timestamps": {
+						"from": "00:00:00,550",
+						"to": "00:00:00,660"
+					},
+					"offsets": {
+						"from": 550,
+						"to": 660
+					},
+					"id": 262,
+					"p": 0.950835,
+					"t_dtw": -1
+				},
+				{
+					"text": " red",
+					"timestamps": {
+						"from": "00:00:00,660",
+						"to": "00:00:00,900"
+					},
+					"offsets": {
+						"from": 660,
+						"to": 900
+					},
+					"id": 2266,
+					"p": 0.978959,
+					"t_dtw": -1
+				},
+				{
+					"text": " button",
+					"timestamps": {
+						"from": "00:00:00,910",
+						"to": "00:00:01,400"
+					},
+					"offsets": {
+						"from": 910,
+						"to": 1400
+					},
+					"id": 4936,
+					"p": 0.998268,
+					"t_dtw": -1
+				},
+				{
+					"text": " to",
+					"timestamps": {
+						"from": "00:00:01,400",
+						"to": "00:00:01,550"
+					},
+					"offsets": {
+						"from": 1400,
+						"to": 1550
+					},
+					"id": 284,
+					"p": 0.985034,
+					"t_dtw": -1
+				},
+				{
+					"text": " delete",
+					"timestamps": {
+						"from": "00:00:01,550",
+						"to": "00:00:02,050"
+					},
+					"offsets": {
+						"from": 1550,
+						"to": 2050
+					},
+					"id": 12233,
+					"p": 0.998144,
+					"t_dtw": -1
+				},
+				{
+					"text": " the",
+					"timestamps": {
+						"from": "00:00:02,050",
+						"to": "00:00:02,300"
+					},
+					"offsets": {
+						"from": 2050,
+						"to": 2300
+					},
+					"id": 262,
+					"p": 0.955155,
+					"t_dtw": -1
+				},
+				{
+					"text": " document",
+					"timestamps": {
+						"from": "00:00:02,300",
+						"to": "00:00:03,000"
+					},
+					"offsets": {
+						"from": 2300,
+						"to": 3000
+					},
+					"id": 3188,
+					"p": 0.997654,
+					"t_dtw": -1
+				},
+				{
+					"text": "[_TT_150]",
+					"timestamps": {
+						"from": "00:00:03,000",
+						"to": "00:00:03,000"
+					},
+					"offsets": {
+						"from": 3000,
+						"to": 3000
+					},
+					"id": 50513,
+					"p": 0.030967,
+					"t_dtw": -1
+				}
+			]
+		}
+	]
+}

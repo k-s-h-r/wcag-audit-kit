@@ -1,0 +1,41 @@
+{
+  "index": 4,
+  "action": {
+    "type": "reader.nextHeading",
+    "expect_contains": "Nonatomic status"
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "save2"
+  },
+  "started_at": "2026-11-14T18:53:40.281069+00:00",
+  "finished_at": "2026-11-14T18:53:42.084309+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": ""
+  },
+  "url": "http://127.0.0.1:4317/live-region-variants.html",
+  "speech": [
+    {
+      "at": "2026-11-14T18:53:40.294517+00:00",
+      "line": 4621,
+      "phrase": "h",
+      "raw": "18:53:40.294517 - SPEECH OUTPUT: 'h' {'established': False}"
+    },
+    {
+      "at": "2026-11-14T18:53:40.337017+00:00",
+      "line": 4816,
+      "phrase": "Nonatomic status heading 2",
+      "raw": "18:53:40.337017 - SPEECH OUTPUT: 'Nonatomic status heading 2' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#message2"
+      },
+      "text": "Record two saved."
+    }
+  ]
+}

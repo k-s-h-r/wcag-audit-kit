@@ -1,0 +1,64 @@
+{
+  "index": 4,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "space"
+    ],
+    "expect_contains": "checked",
+    "expect_not_contains": [
+      "not checked",
+      "unchecked"
+    ]
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "email-switch",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-14T21:08:51.986868+00:00",
+  "finished_at": "2026-11-14T21:08:53.588260+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "email-switch",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4320/",
+  "speech": [
+    {
+      "at": "2026-11-14T21:08:51.993310+00:00",
+      "line": 3302,
+      "phrase": "space",
+      "raw": "21:08:51.993310 - SPEECH OUTPUT: 'space' {'established': False}"
+    },
+    {
+      "at": "2026-11-14T21:08:52.023896+00:00",
+      "line": 3489,
+      "phrase": "checked",
+      "raw": "21:08:52.023896 - SPEECH OUTPUT: 'checked' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#visual-state"
+      },
+      "text": "On"
+    },
+    {
+      "target": {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      },
+      "text": "Email notifications",
+      "attributes": {
+        "role": "checkbox",
+        "aria-checked": "true"
+      }
+    }
+  ]
+}

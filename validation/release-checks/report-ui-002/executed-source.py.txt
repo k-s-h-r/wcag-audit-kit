@@ -1,0 +1,33 @@
+import asyncio,json,shutil
+from pathlib import Path
+from playwright.async_api import async_playwright
+ROOT=Path('/workspace/wcag-audit-kit');OUT=ROOT/'validation/release-checks/report-ui-002'
+async def main():
+ OUT.mkdir(exist_ok=False);shutil.copy2(__file__,OUT/'executed-source.py.txt');rows=[]
+ async with async_playwright() as pw:
+  browser=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+  try:
+   for width in [1280,320]:
+    page=await browser.new_page(viewport={'width':width,'height':1000})
+    await page.goto('http://127.0.0.1:4333/validation/site-acceptance/run/report.html',wait_until='load')
+    stats=await page.evaluate('''() => ({width:innerWidth,documentWidth:document.documentElement.scrollWidth,tableWidth:document.querySelector('table').scrollWidth,rows:document.querySelectorAll('tbody tr').length,humanRows:[...document.querySelectorAll('tbody tr details summary')].filter(s=>s.textContent==='人による確認が必要').length,summary:document.querySelector('main').innerText.slice(0,1800)})''')
+    assert stats['rows']==2200 and stats['documentWidth']==width and stats['humanRows']==80
+    assert '2,200' not in stats['summary'] or '2200 / 2200' in stats['summary']
+    assert '2200 / 2200' in stats['summary'] and '人による確認待ち：80' in stats['summary']
+    assert '検査完了：いいえ' in stats['summary'] and '残る確認' in stats['summary']
+    await page.screenshot(path=str(OUT/f'summary-{width}.png'))
+    await page.add_script_tag(path=str(ROOT/'vendor/axe.min.js'))
+    overview=await page.evaluate("axe.run({include:[['main']],exclude:[['.scroll']]})")
+    human=page.locator('tbody tr:has(details > summary:text-is("人による確認が必要"))').first
+    await human.locator('summary').first.click()
+    await page.screenshot(path=str(OUT/f'human-{width}.png'))
+    witness=await human.evaluate('(row)=>axe.run(row)')
+    for name,result in [('overview',overview),('human-row',witness)]:
+     (OUT/f'axe-{name}-{width}.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+     assert len(result['violations'])==0,(name,result['violations'])
+    rows.append({**stats,'axe_overview_violations':len(overview['violations']),'axe_sample_human_row_violations':len(witness['violations']),'browser_version':browser.version})
+    await page.close()
+  finally:await browser.close()
+ (OUT/'results.json').write_text(json.dumps({'note':'2200 rows and responsive summary checked; axe scope is overview excluding results table, plus one expanded human row. This is not a full WCAG audit of the entire report.','views':rows},ensure_ascii=False,indent=2)+'\n')
+ print(json.dumps([{'width':r['width'],'documentWidth':r['documentWidth'],'rows':r['rows'],'human_summaries':r['humanRows'],'axe_overview':r['axe_overview_violations'],'axe_sample_human_row':r['axe_sample_human_row_violations']} for r in rows]))
+asyncio.run(main())

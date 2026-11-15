@@ -1,0 +1,42 @@
+{
+  "index": 4,
+  "action": {
+    "type": "reader.nextHeading",
+    "expect_contains": "Update your demo profile"
+  },
+  "focus_before": {
+    "tag": "a",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:36:45.794336+00:00",
+  "finished_at": "2026-11-15T00:36:47.196035+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/#main",
+  "speech": [
+    {
+      "at": "2026-11-15T00:36:45.798635+00:00",
+      "line": 7031,
+      "phrase": "h",
+      "raw": "00:36:45.798635 - SPEECH OUTPUT: 'h' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:36:45.832121+00:00",
+      "line": 7258,
+      "phrase": "main content",
+      "raw": "00:36:45.832121 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:36:45.833015+00:00",
+      "line": 7265,
+      "phrase": "Update your demo profile heading 1",
+      "raw": "00:36:45.833015 - SPEECH OUTPUT: 'Update your demo profile heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": []
+}

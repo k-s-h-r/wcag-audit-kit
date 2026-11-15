@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en" data-variant="good"><head><meta charset="utf-8">
+<title>Session timing calibration</title><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{font:18px/1.6 sans-serif;max-width:50rem;margin:2rem;color:#111;background:white}
+label{display:block;margin:.5rem 0} input,textarea,select,button{font:inherit}
+textarea{display:block;width:95%;height:5rem} button{margin:.5rem .4rem .5rem 0}
+:focus-visible{outline:3px solid #005bba;outline-offset:3px}[hidden]{display:none!important}
+#warning,#expired{border:3px solid #864900;padding:1rem} fieldset{margin:1rem 0}
+</style>
+</head><body><main><h1>Session timing calibration</h1>
+<p>This is an owned test service. Sign-in creates a server session for a demo account.</p>
+<p id="duration">After 26 seconds with no form activity, your session expires. Draft data stays on this page for sign-in.</p>
+<div id="setup" hidden=""><label id="off-label"><input id="off" type="checkbox" style="">Disable the session timeout before starting</label>
+<button id="login" type="button">Sign in as demo</button></div>
+<section id="activity">
+<p id="session-state">Signed in</p>
+<div id="warning" role="alert"><p>Your session will expire soon.</p>
+<button id="extend" type="button">Extend session</button><span id="extension-count">8</span></div>
+<div id="expired" hidden=""><p>Session expired. Sign in again to continue.</p>
+<button id="reauth" type="button">Sign in again</button></div>
+<form id="form"><fieldset id="fields"><legend>Draft</legend>
+<label>Title <input id="title" name="title" style=""></label>
+<label>Notes <textarea id="notes" name="notes" style=""></textarea></label>
+<label>Category <select id="category" name="category"><option value="draft">Draft</option><option value="review">Review</option></select></label>
+<label><input id="urgent" name="urgent" type="checkbox" style="">Urgent</label>
+</fieldset><button id="save" type="submit">Save draft</button></form>
+<p id="save-result" role="status"></p>
+</section></main>
+<script>
+const variant=new URLSearchParams(location.search).get('variant')||'good';
+if(!['good','bad'].includes(variant))throw new Error('Unknown calibration variant');
+document.documentElement.dataset.variant=variant;
+const $=selector=>document.querySelector(selector);
+$('#duration').textContent=variant==='good'?'After 26 seconds with no form activity, your session expires. Draft data stays on this page for sign-in.':'Sign in to edit a draft.';
+$('#off-label').hidden=variant!=='good';
+window.timingEvents=[];
+function event(type,extra={}){timingEvents.push({type,wall_ms:Date.now(),performance_ms:performance.now(),...extra})}
+let current=null,expired=false,polling=false,lastWarning=false,pending=0;
+function values(){return {title:$('#title').value,notes:$('#notes').value,category:$('#category').value,urgent:$('#urgent').checked}}
+window.draftValues=values;
+async function api(path,body){
+ pending++;
+ try{
+  const response=await fetch(path,{method:body===undefined?'GET':'POST',credentials:'same-origin',
+   headers:body===undefined?{}:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});
+  const data=await response.json();event('response',{path,status:response.status,data});
+  return {status:response.status,data};
+ }finally{pending--}
+}
+window.pendingTimingRequests=()=>pending;
+function render(data){
+ current=data;
+ if(!data.active){
+  if(!expired){
+   expired=true;
+   if(variant==='bad'){$('#form').reset();event('data-cleared')}
+   $('#fields').disabled=true;$('#expired').hidden=false;$('#session-state').textContent='Session expired';
+   event('expired',{values:values()});
+  }
+  $('#warning').hidden=true;lastWarning=false;return;
+ }
+ const warning=data.remaining_ms!==null&&data.remaining_ms<=data.warning_at_remaining_ms;
+ $('#warning').hidden=!warning;$('#extension-count').textContent=String(data.extension_count);
+ $('#extend').disabled=data.extension_count>=data.extension_limit;
+ if(warning&&!lastWarning)event('warning-shown',{remaining_ms:data.remaining_ms,extension_count:data.extension_count});
+ lastWarning=warning;
+}
+async function signIn(){
+ const result=await api('/start',{variant,off:$('#off').checked});
+ if(result.status!==200)throw new Error('sign in failed');
+ expired=false;lastWarning=false;$('#fields').disabled=false;$('#expired').hidden=true;
+ $('#setup').hidden=true;$('#activity').hidden=false;$('#session-state').textContent='Signed in';
+ render(result.data);event('signed-in',{values:values(),off:$('#off').checked});
+}
+$('#login').addEventListener('click',signIn);$('#reauth').addEventListener('click',signIn);
+$('#extend').addEventListener('click',async()=>{const r=await api('/extend',{});if(r.status===200)render(r.data)});
+$('#form').addEventListener('input',async e=>{
+ event('form-input',{target:e.target.id,trusted:e.isTrusted});
+ if(!expired){const r=await api('/activity',{});if(r.status===200)render(r.data)}
+});
+$('#form').addEventListener('submit',async e=>{
+ e.preventDefault();const r=await api('/save',{data:values()});
+ if(r.status===401){render({active:false});$('#save-result').textContent='Sign in again to save.'}
+ else if(r.status===200){$('#save-result').textContent='Draft saved.';event('saved',{values:r.data.saved})}
+});
+setInterval(async()=>{
+ if(!current||expired||polling||pending)return;
+ polling=true;try{const r=await api('/status');if(r.status===200)render(r.data)}finally{polling=false}
+},100);
+</script>
+</body></html>

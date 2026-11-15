@@ -1,0 +1,269 @@
+{
+  "case_id": "aa61afa5bf07--input-error--narrow--2.5.3",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "742c3a50bfdfcabbad46ca93d257bc4d8eba7e520afebeef158d58b3ec4a59a6",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/profile / input-error / narrow。表示の主内容はEdit profile — Profile demo。可視見出し: ['Edit your profile', 'Correct the following']。入力欄: [\"#name: ['Name (required)']\", \"#email: ['Email (required)']\"]。可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:2.5.3:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "html>body:nth-child(2)>a:nth-child(1) [a] Skip to main content",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Skip to main content。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(1) [a] Home",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Home。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(2) [a] Edit profile",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Edit profile。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(3) [a] Video instructions",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Video instructions。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(4) [a] Help",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Help。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(5) [a] Sign in",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Sign in。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "#sign-out [button] Sign out",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Sign out。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>section:nth-child(3)>div:nth-child(1)>ul:nth-child(2)>li:nth-child(1)>a:nth-child(1) [a] Enter a name.",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Enter a name.。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>section:nth-child(3)>div:nth-child(1)>ul:nth-child(2)>li:nth-child(2)>a:nth-child(1) [a] Enter an email such as name@example.test.",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Enter an email such as name@example.test.。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "#name [input] Name (required)",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: ['Name (required)']。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "#email [input] Email (required)",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: ['Email (required)']。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "#review [button] Review changes",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Review changes。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>footer:nth-child(4)>a:nth-child(1) [a] Help",
+      "observed": "可視のリンク・ボタンの文字はそのままアクセシブルネームになり、入力の名前は対応する可視labelから取る。Play/Pauseの変更、英語字幕、Show passwordの切替後も、表示名とDOM/AXの名前を比較した。別名へ置換するaria-labelはない。 実対象の文字・ラベル: Help。",
+      "expected": "表示される文字を名前に含むか。名前の存在だけでは通過にしない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/aa61afa5bf07--input-error--narrow/inventory.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/aa61afa5bf07--input-error--narrow/page.png",
+    "evidence/aa61afa5bf07--input-error--narrow/inventory.json",
+    "evidence/aa61afa5bf07--input-error--narrow/dom.html",
+    "evidence/aa61afa5bf07--input-error--narrow/accessibility-tree.json",
+    "evidence/aa61afa5bf07--input-error--narrow/actions.json",
+    "evidence/aa61afa5bf07--input-error--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/browser/narrow/009-profile-errors.png",
+    "evidence/methods/browser/narrow/009-profile-errors.json",
+    "evidence/methods/browser/narrow/009-profile-errors-ax.json",
+    "evidence/methods/browser/narrow/010-profile-review.png",
+    "evidence/methods/browser/narrow/010-profile-review.json",
+    "evidence/methods/browser/narrow/010-profile-review-ax.json",
+    "evidence/methods/browser/narrow/012-profile-completed.png",
+    "evidence/methods/browser/narrow/012-profile-completed.json",
+    "evidence/methods/browser/narrow/012-profile-completed-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:17.184705+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/aa61afa5bf07--input-error--narrow/page.png",
+      "sha256": "fc0ef067a96c03664cdc856915b839746f80f143ea818b631a862d8fd314951d"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--input-error--narrow/inventory.json",
+      "sha256": "e75444ee94b957145542977a1886a93b4738dd38fcffe588347cd0a280e4b7ce"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--input-error--narrow/dom.html",
+      "sha256": "751aca258a58d8974a949e37be0a2294446c9b31d06da1a2964ce7b80207b827"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--input-error--narrow/accessibility-tree.json",
+      "sha256": "3ad5750f6a133dce9009e5d8ec54e8fc8cad595ba50a71f909bc0fc3ab6bb1ff"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--input-error--narrow/actions.json",
+      "sha256": "a8afc195c4551499b7765cce9a356ad38cc209316f4db14a99181b65310d91b9"
+    },
+    {
+      "path": "evidence/aa61afa5bf07--input-error--narrow/keyboard.json",
+      "sha256": "b03bb6011ad05dba5c06053490f01482a8f79727d74bd143af2dab8c905a6454"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors.png",
+      "sha256": "5e8382bf4fa31674319fab758127b96b2804053f2199fbcc972c74bbb05725ee"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors.json",
+      "sha256": "c24e324c216f5d1eae2e0fd5e7bc0fa1af2c5c5a1276a31abc98a1e5f173ee52"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/009-profile-errors-ax.json",
+      "sha256": "a1aecda9b71957f6573be6910534f5ebf5d0cf8abfcc5010ec6d70e131bdcfb1"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review.png",
+      "sha256": "82bf0d50431e5cb74c681050647b1fa492daa60575c31bfbd6c4376c94b54161"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review.json",
+      "sha256": "67ec1fc8d04ccfa7ff19402b907945ad65e8c11684a0ccc668d2b2897694e7d7"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/010-profile-review-ax.json",
+      "sha256": "07c99e65b102cfa61fc4ed2d46e9bee1df6c3ba169873a8ef736daba0c6c5c3e"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed.png",
+      "sha256": "552897125e27888201c52b4f21080291433150385ae605b9a9da17bb8b1c8e92"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed.json",
+      "sha256": "bf8ce603dfad49ef2258b89ef466312ba389a687c4bc45c6aea140e8a2d6554f"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/012-profile-completed-ax.json",
+      "sha256": "3c266d9829267eefeda343a95505ed0bc3bcc363f2a660cd86ef5ce1c5ac52d5"
+    }
+  ]
+}

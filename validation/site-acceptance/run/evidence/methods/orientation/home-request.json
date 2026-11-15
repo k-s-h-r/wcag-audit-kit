@@ -1,0 +1,115 @@
+{
+  "case_id": "eed089bd8f88--initial--desktop--1.3.4",
+  "url": "http://127.0.0.1:4330/",
+  "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+  "locale": "en-US",
+  "viewport": {
+    "width": 900,
+    "height": 600
+  },
+  "orientation": "landscape-primary",
+  "assert": [
+    {
+      "selector": "#main",
+      "visible": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "rotate",
+      "orientation": "landscape-primary",
+      "viewport": {
+        "width": 900,
+        "height": 600
+      },
+      "assert": [
+        {
+          "selector": "#main",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "type": "click",
+      "selector": "#count-button",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "orientation": "portrait-primary",
+      "viewport": {
+        "width": 600,
+        "height": 900
+      },
+      "assert": [
+        {
+          "selector": "#main",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "type": "click",
+      "selector": "#count-button",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "2"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "orientation": "landscape-secondary",
+      "viewport": {
+        "width": 900,
+        "height": 600
+      },
+      "assert": [
+        {
+          "selector": "#main",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "type": "click",
+      "selector": "#count-button",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "3"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "orientation": "portrait-secondary",
+      "viewport": {
+        "width": 600,
+        "height": 900
+      },
+      "assert": [
+        {
+          "selector": "#main",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "type": "click",
+      "selector": "#count-button",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "4"
+        }
+      ]
+    }
+  ]
+}

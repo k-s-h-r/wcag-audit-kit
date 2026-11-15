@@ -1,0 +1,40 @@
+{
+  "created_at": "2026-11-14T22:39:51.275745+00:00",
+  "config": {
+    "schema_version": "1",
+    "url": "http://127.0.0.1:4325",
+    "level": "AAA",
+    "scope": {
+      "include": [
+        "/focus-appearance.html"
+      ],
+      "exclude": [],
+      "seeds": [
+        "/focus-appearance.html?variant=good",
+        "/focus-appearance.html?variant=thin",
+        "/focus-appearance.html?variant=similar"
+      ],
+      "known_pages": [
+        "/focus-appearance.html?variant=good",
+        "/focus-appearance.html?variant=thin",
+        "/focus-appearance.html?variant=similar"
+      ],
+      "max_pages": 5
+    },
+    "environments": [
+      {
+        "id": "desktop",
+        "viewport": {
+          "width": 1000,
+          "height": 700
+        },
+        "zoom": 1
+      }
+    ],
+    "states": [],
+    "keyboard_steps": 1,
+    "input_event_limit": 10000
+  },
+  "config_digest": "41ecdb6e5db675d7a61a9918ac39a6563cb0cb7e28991985eb36c7fc8df3606c",
+  "catalog_digest": "25a358c67938127048b65f0189ad3ebb3f67688ee152822ba3c3766daf699211"
+}

@@ -1,0 +1,46 @@
+{
+  "index": 4,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "space"
+    ],
+    "expect_contains": "1"
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "count-button",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:09:56.686068+00:00",
+  "finished_at": "2026-11-15T00:09:58.087841+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "count-button",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/",
+  "speech": [
+    {
+      "at": "2026-11-15T00:09:56.690711+00:00",
+      "line": 6917,
+      "phrase": "space",
+      "raw": "00:09:56.690711 - SPEECH OUTPUT: 'space' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:09:56.804229+00:00",
+      "line": 7141,
+      "phrase": "1",
+      "raw": "00:09:56.804229 - SPEECH OUTPUT: '1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#count"
+      },
+      "text": "1"
+    }
+  ]
+}

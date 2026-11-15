@@ -1,0 +1,199 @@
+{
+	"systeminfo": "WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | ",
+	"model": {
+		"type": "tiny",
+		"multilingual": false,
+		"vocab": 51864,
+		"audio": {
+			"ctx": 1500,
+			"state": 384,
+			"head": 6,
+			"layer": 4
+		},
+		"text": {
+			"ctx": 448,
+			"state": 384,
+			"head": 6,
+			"layer": 4
+		},
+		"mels": 80,
+		"ftype": 1
+	},
+	"params": {
+		"model": "/tmp/wcag-whisper-models/ggml-tiny.en.bin",
+		"language": "en",
+		"translate": false
+	},
+	"result": {
+		"language": "en"
+	},
+	"transcription": [
+		{
+			"timestamps": {
+				"from": "00:00:00,000",
+				"to": "00:00:05,000"
+			},
+			"offsets": {
+				"from": 0,
+				"to": 5000
+			},
+			"text": " Press the boomer to save the document.",
+			"tokens": [
+				{
+					"text": "[_BEG_]",
+					"timestamps": {
+						"from": "00:00:00,000",
+						"to": "00:00:00,000"
+					},
+					"offsets": {
+						"from": 0,
+						"to": 0
+					},
+					"id": 50363,
+					"p": 0.746764,
+					"t_dtw": -1
+				},
+				{
+					"text": " Press",
+					"timestamps": {
+						"from": "00:00:00,480",
+						"to": "00:00:00,480"
+					},
+					"offsets": {
+						"from": 480,
+						"to": 480
+					},
+					"id": 4332,
+					"p": 0.741862,
+					"t_dtw": -1
+				},
+				{
+					"text": " the",
+					"timestamps": {
+						"from": "00:00:00,550",
+						"to": "00:00:00,760"
+					},
+					"offsets": {
+						"from": 550,
+						"to": 760
+					},
+					"id": 262,
+					"p": 0.96077,
+					"t_dtw": -1
+				},
+				{
+					"text": " bo",
+					"timestamps": {
+						"from": "00:00:00,770",
+						"to": "00:00:00,960"
+					},
+					"offsets": {
+						"from": 770,
+						"to": 960
+					},
+					"id": 1489,
+					"p": 0.155134,
+					"t_dtw": -1
+				},
+				{
+					"text": "omer",
+					"timestamps": {
+						"from": "00:00:00,960",
+						"to": "00:00:01,330"
+					},
+					"offsets": {
+						"from": 960,
+						"to": 1330
+					},
+					"id": 12057,
+					"p": 0.727253,
+					"t_dtw": -1
+				},
+				{
+					"text": " to",
+					"timestamps": {
+						"from": "00:00:01,340",
+						"to": "00:00:01,490"
+					},
+					"offsets": {
+						"from": 1340,
+						"to": 1490
+					},
+					"id": 284,
+					"p": 0.919905,
+					"t_dtw": -1
+				},
+				{
+					"text": " save",
+					"timestamps": {
+						"from": "00:00:01,560",
+						"to": "00:00:01,900"
+					},
+					"offsets": {
+						"from": 1560,
+						"to": 1900
+					},
+					"id": 3613,
+					"p": 0.991329,
+					"t_dtw": -1
+				},
+				{
+					"text": " the",
+					"timestamps": {
+						"from": "00:00:01,900",
+						"to": "00:00:02,190"
+					},
+					"offsets": {
+						"from": 1900,
+						"to": 2190
+					},
+					"id": 262,
+					"p": 0.983037,
+					"t_dtw": -1
+				},
+				{
+					"text": " document",
+					"timestamps": {
+						"from": "00:00:02,190",
+						"to": "00:00:02,970"
+					},
+					"offsets": {
+						"from": 2190,
+						"to": 2970
+					},
+					"id": 3188,
+					"p": 0.902386,
+					"t_dtw": -1
+				},
+				{
+					"text": ".",
+					"timestamps": {
+						"from": "00:00:03,020",
+						"to": "00:00:03,160"
+					},
+					"offsets": {
+						"from": 3020,
+						"to": 3160
+					},
+					"id": 13,
+					"p": 0.621909,
+					"t_dtw": -1
+				},
+				{
+					"text": "[_TT_250]",
+					"timestamps": {
+						"from": "00:00:05,000",
+						"to": "00:00:05,000"
+					},
+					"offsets": {
+						"from": 5000,
+						"to": 5000
+					},
+					"id": 50613,
+					"p": 0.0276633,
+					"t_dtw": -1
+				}
+			]
+		}
+	]
+}

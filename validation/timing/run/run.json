@@ -1,0 +1,38 @@
+{
+  "created_at": "2026-11-14T22:49:39.640022+00:00",
+  "config": {
+    "schema_version": "1",
+    "url": "http://127.0.0.1:4326",
+    "level": "AAA",
+    "scope": {
+      "include": [
+        "/timing.html"
+      ],
+      "exclude": [],
+      "seeds": [
+        "/timing.html?variant=good",
+        "/timing.html?variant=bad"
+      ],
+      "known_pages": [
+        "/timing.html?variant=good",
+        "/timing.html?variant=bad"
+      ],
+      "max_pages": 4
+    },
+    "environments": [
+      {
+        "id": "desktop",
+        "viewport": {
+          "width": 1100,
+          "height": 1000
+        },
+        "zoom": 1
+      }
+    ],
+    "states": [],
+    "keyboard_steps": 0,
+    "input_event_limit": 10000
+  },
+  "config_digest": "7cb81c57a6fb9d61ac3fa6ea7c86d475bb28b7b49a7438ac2e54fd34ee87d4d8",
+  "catalog_digest": "f4e37a935b5002ab2ce2aecd471a3a899a255ea94ff65a14e7de9f6e4a888eb2"
+}

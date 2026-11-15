@@ -1,0 +1,214 @@
+{
+  "case_id": "0c7e301bf300--initial--desktop--4.1.2",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "e4279d556f9b92a8ea2796010e184ee8fe5ddbb1b8edecf8758fedaeeef080f7",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/help / initial / desktop。表示の主内容はHelp — Profile demo。可視見出し: ['Help', 'Profile fields', 'Saving changes']。入力欄: []。ネイティブリンク・button・inputとlabel、dialogの名前、押された状態、入力値・invalid、字幕の選択状態をDOM・AX・実操作と対応付けた。実Orcaで図、ボタン、入力の名前・必須・invalid、dialog、表を取得した。字幕とパスワード表示の切替はaria-pressedと実機能が対応する。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:4.1.2:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "html>body:nth-child(2)>a:nth-child(1) [a] Skip to main content",
+      "observed": "ネイティブリンク・button・inputとlabel、dialogの名前、押された状態、入力値・invalid、字幕の選択状態をDOM・AX・実操作と対応付けた。実Orcaで図、ボタン、入力の名前・必須・invalid、dialog、表を取得した。字幕とパスワード表示の切替はaria-pressedと実機能が対応する。 実対象の文字・ラベル: Skip to main content。",
+      "expected": "名前・役割・設定可能な状態等がプログラムで分かり変更通知を受け取れるか",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/0c7e301bf300--initial--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(1) [a] Home",
+      "observed": "ネイティブリンク・button・inputとlabel、dialogの名前、押された状態、入力値・invalid、字幕の選択状態をDOM・AX・実操作と対応付けた。実Orcaで図、ボタン、入力の名前・必須・invalid、dialog、表を取得した。字幕とパスワード表示の切替はaria-pressedと実機能が対応する。 実対象の文字・ラベル: Home。",
+      "expected": "名前・役割・設定可能な状態等がプログラムで分かり変更通知を受け取れるか",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/0c7e301bf300--initial--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(2) [a] Edit profile",
+      "observed": "ネイティブリンク・button・inputとlabel、dialogの名前、押された状態、入力値・invalid、字幕の選択状態をDOM・AX・実操作と対応付けた。実Orcaで図、ボタン、入力の名前・必須・invalid、dialog、表を取得した。字幕とパスワード表示の切替はaria-pressedと実機能が対応する。 実対象の文字・ラベル: Edit profile。",
+      "expected": "名前・役割・設定可能な状態等がプログラムで分かり変更通知を受け取れるか",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/0c7e301bf300--initial--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(3) [a] Video instructions",
+      "observed": "ネイティブリンク・button・inputとlabel、dialogの名前、押された状態、入力値・invalid、字幕の選択状態をDOM・AX・実操作と対応付けた。実Orcaで図、ボタン、入力の名前・必須・invalid、dialog、表を取得した。字幕とパスワード表示の切替はaria-pressedと実機能が対応する。 実対象の文字・ラベル: Video instructions。",
+      "expected": "名前・役割・設定可能な状態等がプログラムで分かり変更通知を受け取れるか",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/0c7e301bf300--initial--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(4) [a] Help",
+      "observed": "ネイティブリンク・button・inputとlabel、dialogの名前、押された状態、入力値・invalid、字幕の選択状態をDOM・AX・実操作と対応付けた。実Orcaで図、ボタン、入力の名前・必須・invalid、dialog、表を取得した。字幕とパスワード表示の切替はaria-pressedと実機能が対応する。 実対象の文字・ラベル: Help。",
+      "expected": "名前・役割・設定可能な状態等がプログラムで分かり変更通知を受け取れるか",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/0c7e301bf300--initial--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(5) [a] Sign in",
+      "observed": "ネイティブリンク・button・inputとlabel、dialogの名前、押された状態、入力値・invalid、字幕の選択状態をDOM・AX・実操作と対応付けた。実Orcaで図、ボタン、入力の名前・必須・invalid、dialog、表を取得した。字幕とパスワード表示の切替はaria-pressedと実機能が対応する。 実対象の文字・ラベル: Sign in。",
+      "expected": "名前・役割・設定可能な状態等がプログラムで分かり変更通知を受け取れるか",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/0c7e301bf300--initial--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "#sign-out [button] Sign out",
+      "observed": "ネイティブリンク・button・inputとlabel、dialogの名前、押された状態、入力値・invalid、字幕の選択状態をDOM・AX・実操作と対応付けた。実Orcaで図、ボタン、入力の名前・必須・invalid、dialog、表を取得した。字幕とパスワード表示の切替はaria-pressedと実機能が対応する。 実対象の文字・ラベル: Sign out。",
+      "expected": "名前・役割・設定可能な状態等がプログラムで分かり変更通知を受け取れるか",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/0c7e301bf300--initial--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>footer:nth-child(4)>a:nth-child(1) [a] Help",
+      "observed": "ネイティブリンク・button・inputとlabel、dialogの名前、押された状態、入力値・invalid、字幕の選択状態をDOM・AX・実操作と対応付けた。実Orcaで図、ボタン、入力の名前・必須・invalid、dialog、表を取得した。字幕とパスワード表示の切替はaria-pressedと実機能が対応する。 実対象の文字・ラベル: Help。",
+      "expected": "名前・役割・設定可能な状態等がプログラムで分かり変更通知を受け取れるか",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/0c7e301bf300--initial--desktop/inventory.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "screen-reader",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/0c7e301bf300--initial--desktop/page.png",
+    "evidence/0c7e301bf300--initial--desktop/inventory.json",
+    "evidence/0c7e301bf300--initial--desktop/dom.html",
+    "evidence/0c7e301bf300--initial--desktop/accessibility-tree.json",
+    "evidence/0c7e301bf300--initial--desktop/actions.json",
+    "evidence/0c7e301bf300--initial--desktop/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/desktop/observations.json",
+    "evidence/methods/native/home/screen-reader.json",
+    "evidence/methods/native/help/screen-reader.json",
+    "evidence/methods/native/profile/screen-reader.json",
+    "evidence/methods/native-validation/graphic-native/screen-reader.json",
+    "evidence/methods/browser/desktop/013-help.png",
+    "evidence/methods/browser/desktop/013-help.json",
+    "evidence/methods/browser/desktop/013-help-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:42.095937+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/0c7e301bf300--initial--desktop/page.png",
+      "sha256": "c4e8dbf4c893e41615f5b5bdf7ce6cf66e57be8a7431386b0b9583a1ac7fc340"
+    },
+    {
+      "path": "evidence/0c7e301bf300--initial--desktop/inventory.json",
+      "sha256": "04a2f9cd3bfbfdce9c2b095830e9a6e930a45addbd6ee61ca7653df4ae5505c3"
+    },
+    {
+      "path": "evidence/0c7e301bf300--initial--desktop/dom.html",
+      "sha256": "f41f868c140b8e8ac4f7b19c80e48cd7635d3725cf9f1c62a048e7494e9598d8"
+    },
+    {
+      "path": "evidence/0c7e301bf300--initial--desktop/accessibility-tree.json",
+      "sha256": "22887acadaa569550e0b6e90ceca434977476bc2986313fdc97513c199572b4b"
+    },
+    {
+      "path": "evidence/0c7e301bf300--initial--desktop/actions.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "evidence/0c7e301bf300--initial--desktop/keyboard.json",
+      "sha256": "e465360fe3c6672f2c4311dcb6c37fc4caf8d97b6fa53eac16e52e8894c94611"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/observations.json",
+      "sha256": "39b0ef7069d2e14adab81994bd7f17bf2a61176f8051449773cab1c691b5a9fe"
+    },
+    {
+      "path": "evidence/methods/native/home/screen-reader.json",
+      "sha256": "08c1b3b0a0d570776c7648072aa3f55e0f05c741f5c7527d92094162fd52da64"
+    },
+    {
+      "path": "evidence/methods/native/help/screen-reader.json",
+      "sha256": "70960133c7c03cebe9c1a899d557cb8d4b6dd40d32c2764c5146f817985e8ece"
+    },
+    {
+      "path": "evidence/methods/native/profile/screen-reader.json",
+      "sha256": "32a86df0757876f7755c58cd0a8971ba5426fb48d215da04aa3a27096701b519"
+    },
+    {
+      "path": "evidence/methods/native-validation/graphic-native/screen-reader.json",
+      "sha256": "6670180daf0d871f20a9af3dc88968541ca1c877bc77cf29deeca12576c05a04"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/013-help.png",
+      "sha256": "c4e8dbf4c893e41615f5b5bdf7ce6cf66e57be8a7431386b0b9583a1ac7fc340"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/013-help.json",
+      "sha256": "25f5f209ba4ed420c535dbfc09b41f1bf0452743aa296d2aff5eacea340fdd7f"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/013-help-ax.json",
+      "sha256": "2331423dc3101107756d3d89f73477fd71651b477cba6275d01d046275c65a77"
+    }
+  ]
+}

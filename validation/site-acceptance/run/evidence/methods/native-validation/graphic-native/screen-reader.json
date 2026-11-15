@@ -1,0 +1,284 @@
+{
+  "status": "collected",
+  "started_at": "2026-11-15T00:36:35.254961+00:00",
+  "case_id": "eed089bd8f88--initial--desktop--1.1.1",
+  "request_sha256": "9619f6bdb7e944e5ed835f573b34efa937eae6bf5a13841125cd80692d9cb84d",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "observations": [
+    {
+      "index": 1,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ]
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:36:41.434447+00:00",
+      "finished_at": "2026-11-15T00:36:42.839590+00:00",
+      "focus_after": {
+        "tag": "a",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/",
+      "speech": [
+        {
+          "at": "2026-11-15T00:36:41.443823+00:00",
+          "line": 5519,
+          "phrase": "left control",
+          "raw": "00:36:41.443823 - SPEECH OUTPUT: 'left control' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:36:41.494147+00:00",
+          "line": 5855,
+          "phrase": "leaving information.",
+          "raw": "00:36:41.494147 - SPEECH OUTPUT: 'leaving information.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:36:41.494871+00:00",
+          "line": 5862,
+          "phrase": "Skip to main content link.",
+          "raw": "00:36:41.494871 - SPEECH OUTPUT: 'Skip to main content link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Return"
+        ]
+      },
+      "focus_before": {
+        "tag": "a",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:36:42.888793+00:00",
+      "finished_at": "2026-11-15T00:36:44.290967+00:00",
+      "focus_after": {
+        "tag": "main",
+        "id": "main",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/#main",
+      "speech": [
+        {
+          "at": "2026-11-15T00:36:42.898540+00:00",
+          "line": 6070,
+          "phrase": "return",
+          "raw": "00:36:42.898540 - SPEECH OUTPUT: 'return' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:36:42.932548+00:00",
+          "line": 6300,
+          "phrase": "main content.",
+          "raw": "00:36:42.932548 - SPEECH OUTPUT: 'main content.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:36:42.964378+00:00",
+          "line": 6529,
+          "phrase": "Update your demo profile heading 1",
+          "raw": "00:36:42.964378 - SPEECH OUTPUT: 'Update your demo profile heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ]
+      },
+      "focus_before": {
+        "tag": "main",
+        "id": "main",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:36:44.337487+00:00",
+      "finished_at": "2026-11-15T00:36:45.742163+00:00",
+      "focus_after": {
+        "tag": "a",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/#main",
+      "speech": [
+        {
+          "at": "2026-11-15T00:36:44.341598+00:00",
+          "line": 6619,
+          "phrase": "left control",
+          "raw": "00:36:44.341598 - SPEECH OUTPUT: 'left control' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:36:44.370516+00:00",
+          "line": 6861,
+          "phrase": "leaving main content.",
+          "raw": "00:36:44.370516 - SPEECH OUTPUT: 'leaving main content.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:36:44.371308+00:00",
+          "line": 6868,
+          "phrase": "Skip to main content link.",
+          "raw": "00:36:44.371308 - SPEECH OUTPUT: 'Skip to main content link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": []
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "reader.nextHeading",
+        "expect_contains": "Update your demo profile"
+      },
+      "focus_before": {
+        "tag": "a",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:36:45.794336+00:00",
+      "finished_at": "2026-11-15T00:36:47.196035+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/#main",
+      "speech": [
+        {
+          "at": "2026-11-15T00:36:45.798635+00:00",
+          "line": 7031,
+          "phrase": "h",
+          "raw": "00:36:45.798635 - SPEECH OUTPUT: 'h' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:36:45.832121+00:00",
+          "line": 7258,
+          "phrase": "main content",
+          "raw": "00:36:45.832121 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:36:45.833015+00:00",
+          "line": 7265,
+          "phrase": "Update your demo profile heading 1",
+          "raw": "00:36:45.833015 - SPEECH OUTPUT: 'Update your demo profile heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": []
+    },
+    {
+      "index": 5,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "g"
+        ],
+        "expect_contains": "Three stages"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:36:47.250006+00:00",
+      "finished_at": "2026-11-15T00:36:48.652142+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/#main",
+      "speech": [
+        {
+          "at": "2026-11-15T00:36:47.255180+00:00",
+          "line": 7476,
+          "phrase": "g",
+          "raw": "00:36:47.255180 - SPEECH OUTPUT: 'g' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:36:47.291933+00:00",
+          "line": 7668,
+          "phrase": "Three stages: Edit, Review, then Save image",
+          "raw": "00:36:47.291933 - SPEECH OUTPUT: 'Three stages: Edit, Review, then Save image' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": []
+    }
+  ],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "case_id": "eed089bd8f88--initial--desktop--1.1.1",
+    "url": "http://127.0.0.1:4330/",
+    "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+    "locale": "en-US",
+    "settle_ms": 1400,
+    "actions": [
+      {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Return"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ]
+      },
+      {
+        "type": "reader.nextHeading",
+        "expect_contains": "Update your demo profile"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "g"
+        ],
+        "expect_contains": "Three stages"
+      }
+    ]
+  },
+  "cleanup": {
+    "debug_log_sha256": "f48cdb0dd614bbca28447b8b05b9632384c4f8955da1bc2f9878e05602f2a1f8",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-15T00:36:51.609895+00:00"
+}

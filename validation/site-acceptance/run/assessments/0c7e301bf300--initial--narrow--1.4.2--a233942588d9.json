@@ -1,0 +1,121 @@
+{
+  "case_id": "0c7e301bf300--initial--narrow--1.4.2",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "666b3dcb2df6b0163655260c8e3cda1961e502ad35b9eeb9128809a3ff7cf507",
+  "execution": "completed",
+  "outcome": "inapplicable",
+  "observed": "このcaseはhttp://127.0.0.1:4330/help / initial / narrow。表示の主内容はHelp — Profile demo。可視見出し: ['Help', 'Profile fields', 'Saving changes']。入力欄: []。ページを開いた時の自動音声はない。唯一の動画もautoplay属性や自動play処理がなく、実行は利用者のPlay操作から始まる。Orca自身の発話はページの自動音声に数えていない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:1.4.2:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [],
+  "method_coverage": [
+    {
+      "method": "audio",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "measurement",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/0c7e301bf300--initial--narrow/page.png",
+    "evidence/0c7e301bf300--initial--narrow/inventory.json",
+    "evidence/0c7e301bf300--initial--narrow/dom.html",
+    "evidence/0c7e301bf300--initial--narrow/accessibility-tree.json",
+    "evidence/0c7e301bf300--initial--narrow/actions.json",
+    "evidence/0c7e301bf300--initial--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/browser/narrow/013-help.png",
+    "evidence/methods/browser/narrow/013-help.json",
+    "evidence/methods/browser/narrow/013-help-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:44.572808+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/0c7e301bf300--initial--narrow/page.png",
+      "sha256": "c337a2daa86b224a7684c2505a3cf7a66e580b7aed586df1c896683e2f026c6d"
+    },
+    {
+      "path": "evidence/0c7e301bf300--initial--narrow/inventory.json",
+      "sha256": "ed17e0dcb9824e848185b7314975d6b2386676993f9ac4193468503eadbde412"
+    },
+    {
+      "path": "evidence/0c7e301bf300--initial--narrow/dom.html",
+      "sha256": "f41f868c140b8e8ac4f7b19c80e48cd7635d3725cf9f1c62a048e7494e9598d8"
+    },
+    {
+      "path": "evidence/0c7e301bf300--initial--narrow/accessibility-tree.json",
+      "sha256": "f6cf09b98662d7c27cfb7ca5fde62effc1324342b2d73c72c6d942e873e81cfd"
+    },
+    {
+      "path": "evidence/0c7e301bf300--initial--narrow/actions.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "evidence/0c7e301bf300--initial--narrow/keyboard.json",
+      "sha256": "bd295960122a51a823005a0bf1a23de07470d8b1d6e9b73bdf4ff84935bc3a2c"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/013-help.png",
+      "sha256": "c337a2daa86b224a7684c2505a3cf7a66e580b7aed586df1c896683e2f026c6d"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/013-help.json",
+      "sha256": "e48dd4ac424bbd1b254c9d2a711d82e59ae9c19ce07f640831cacdd0780fb0e6"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/013-help-ax.json",
+      "sha256": "045fcacc2fc1cf0e7d0773292543f877a93c5273d89f9d90e539500564dd5464"
+    }
+  ]
+}

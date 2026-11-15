@@ -1,0 +1,237 @@
+{
+  "case_id": "orientation-method-bad",
+  "status": "collected",
+  "started_at": "2026-11-14T19:13:08.629332+00:00",
+  "request_sha256": "860614d4e6a28ff99eca780465de2205745ca6c1c3662e7ebd7d19612337acfd",
+  "steps": [
+    {
+      "index": 0,
+      "action": {
+        "type": "initial",
+        "assert": [
+          {
+            "selector": "#task",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-14T19:13:09.704143+00:00",
+      "observed_at": "2026-11-14T19:13:09.704195+00:00",
+      "url": "http://127.0.0.1:4317/orientation-bad.html",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": ""
+      },
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "0"
+        }
+      ],
+      "state_asserted": true
+    },
+    {
+      "index": 1,
+      "action": {
+        "type": "click",
+        "selector": "#increment",
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "1"
+          }
+        ]
+      },
+      "started_at": "2026-11-14T19:13:09.815646+00:00",
+      "observed_at": "2026-11-14T19:13:09.955455+00:00",
+      "url": "http://127.0.0.1:4317/orientation-bad.html",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "button",
+        "id": "increment"
+      },
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "1"
+        }
+      ],
+      "state_asserted": true
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "rotate",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "orientation": "portrait-primary",
+        "assert": [
+          {
+            "selector": "#task",
+            "visible": false
+          },
+          {
+            "selector": "#rotation-warning",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-14T19:13:10.003408+00:00",
+      "observed_at": "2026-11-14T19:13:10.259118+00:00",
+      "url": "http://127.0.0.1:4317/orientation-bad.html",
+      "metrics": {
+        "width": 600,
+        "height": 900,
+        "dpr": 1,
+        "screenWidth": 600,
+        "screenHeight": 900,
+        "type": "portrait-primary",
+        "angle": 0,
+        "portrait": true,
+        "landscape": false,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": ""
+      },
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "1"
+        }
+      ],
+      "state_asserted": true
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "rotate",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "orientation": "landscape-primary",
+        "assert": [
+          {
+            "selector": "#task",
+            "visible": true
+          },
+          {
+            "selector": "#count",
+            "text": "1"
+          }
+        ]
+      },
+      "started_at": "2026-11-14T19:13:10.286238+00:00",
+      "observed_at": "2026-11-14T19:13:10.542001+00:00",
+      "url": "http://127.0.0.1:4317/orientation-bad.html",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": ""
+      },
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "1"
+        }
+      ],
+      "state_asserted": true
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "click",
+        "selector": "#increment",
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "2"
+          }
+        ]
+      },
+      "started_at": "2026-11-14T19:13:10.570873+00:00",
+      "observed_at": "2026-11-14T19:13:10.690011+00:00",
+      "url": "http://127.0.0.1:4317/orientation-bad.html",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "button",
+        "id": "increment"
+      },
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "2"
+        }
+      ],
+      "state_asserted": true
+    }
+  ],
+  "environment": {
+    "backend": "Chromium CDP device metrics / screen orientation emulation",
+    "physical_device": false,
+    "simulation": true,
+    "browser_version": "156.0.8078.79"
+  },
+  "wcag_judgement": null,
+  "http_status": 200,
+  "finished_at": "2026-11-14T19:13:10.796667+00:00"
+}

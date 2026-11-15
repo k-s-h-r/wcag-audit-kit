@@ -1,0 +1,52 @@
+{
+  "index": 1,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Control_L",
+      "Home"
+    ]
+  },
+  "focus_before": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:09:52.296746+00:00",
+  "finished_at": "2026-11-15T00:09:53.699266+00:00",
+  "focus_after": {
+    "tag": "a",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/",
+  "speech": [
+    {
+      "at": "2026-11-15T00:09:52.304010+00:00",
+      "line": 5552,
+      "phrase": "left control",
+      "raw": "00:09:52.304010 - SPEECH OUTPUT: 'left control' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:09:52.347952+00:00",
+      "line": 5888,
+      "phrase": "leaving information.",
+      "raw": "00:09:52.347952 - SPEECH OUTPUT: 'leaving information.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:09:52.348823+00:00",
+      "line": 5895,
+      "phrase": "Skip to main content link.",
+      "raw": "00:09:52.348823 - SPEECH OUTPUT: 'Skip to main content link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": [
+    {
+      "target": {
+        "selector": "#count"
+      },
+      "text": "0"
+    }
+  ]
+}

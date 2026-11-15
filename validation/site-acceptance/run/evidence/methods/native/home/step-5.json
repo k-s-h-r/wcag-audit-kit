@@ -1,0 +1,43 @@
+{
+  "index": 5,
+  "action": {
+    "type": "reader.nextButton",
+    "expect_contains": "About this demo"
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "count-button",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:09:58.142040+00:00",
+  "finished_at": "2026-11-15T00:09:59.542962+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "about",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/",
+  "speech": [
+    {
+      "at": "2026-11-15T00:09:58.148836+00:00",
+      "line": 7183,
+      "phrase": "b",
+      "raw": "00:09:58.148836 - SPEECH OUTPUT: 'b' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:09:58.210693+00:00",
+      "line": 7401,
+      "phrase": "About this demo button.",
+      "raw": "00:09:58.210693 - SPEECH OUTPUT: 'About this demo button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#count"
+      },
+      "text": "1"
+    }
+  ]
+}

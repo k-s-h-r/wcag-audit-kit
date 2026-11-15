@@ -1,0 +1,30 @@
+{
+  "schema_version": "1",
+  "url": "http://127.0.0.1:4334",
+  "level": "AAA",
+  "scope": {
+    "include": [
+      "/reduced-motion.html"
+    ],
+    "exclude": [],
+    "seeds": [
+      "/reduced-motion.html?variant=good",
+      "/reduced-motion.html?variant=bad"
+    ],
+    "known_pages": [],
+    "max_pages": 3
+  },
+  "environments": [
+    {
+      "id": "desktop",
+      "viewport": {
+        "width": 1000,
+        "height": 700
+      },
+      "zoom": 1
+    }
+  ],
+  "states": [],
+  "keyboard_steps": 1,
+  "focus_screenshots": false
+}

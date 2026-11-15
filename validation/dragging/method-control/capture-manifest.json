@@ -1,0 +1,54 @@
+{
+  "pages": [
+    {
+      "id": "aacb00f47547",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html"
+    }
+  ],
+  "unvisited": [],
+  "errors": [
+    {
+      "capture": "aacb00f47547--wrong-intermediate--desktop",
+      "error": "期待するテキストと一致しない: {'selector': '#order', 'text': 'Alpha, Bravo'}"
+    }
+  ],
+  "discovered": [
+    "http://127.0.0.1:4317/drag-reorder-good.html"
+  ],
+  "captures": [
+    {
+      "key": "aacb00f47547--initial--desktop",
+      "page_id": "aacb00f47547",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "state": "initial",
+      "environment": "desktop",
+      "execution": "completed",
+      "evidence_dir": "evidence/aacb00f47547--initial--desktop",
+      "final_url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "title": "Reorder with pointer alternatives",
+      "node_count": 21,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 0,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T18:35:07.970465+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "aacb00f47547--wrong-intermediate--desktop",
+      "page_id": "aacb00f47547",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "state": "wrong-intermediate",
+      "environment": "desktop",
+      "execution": "blocked",
+      "evidence_dir": "evidence/aacb00f47547--wrong-intermediate--desktop",
+      "error": "期待するテキストと一致しない: {'selector': '#order', 'text': 'Alpha, Bravo'}"
+    }
+  ],
+  "not_a_screen_reader_test": true,
+  "declared_states_without_page": [],
+  "linked_pages_exhausted": true,
+  "site_inventory_confirmed": false,
+  "scope_note": "リンクをたどった範囲のみ。未リンクURL・権限別画面・未知の状態の調査は別に必要"
+}

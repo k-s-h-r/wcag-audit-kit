@@ -1,0 +1,52 @@
+{
+  "index": 4,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "space"
+    ],
+    "expect_contains": "Playing"
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "play",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:29:36.683835+00:00",
+  "finished_at": "2026-11-15T00:29:38.085058+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "play",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/media",
+  "speech": [
+    {
+      "at": "2026-11-15T00:29:36.688412+00:00",
+      "line": 7231,
+      "phrase": "space",
+      "raw": "00:29:36.688412 - SPEECH OUTPUT: 'space' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:29:36.863714+00:00",
+      "line": 7507,
+      "phrase": "Pause video button.",
+      "raw": "00:29:36.863714 - SPEECH OUTPUT: 'Pause video button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:29:36.952146+00:00",
+      "line": 7615,
+      "phrase": "Playing",
+      "raw": "00:29:36.952146 - SPEECH OUTPUT: 'Playing' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#playback-state"
+      },
+      "text": "Playing"
+    }
+  ]
+}

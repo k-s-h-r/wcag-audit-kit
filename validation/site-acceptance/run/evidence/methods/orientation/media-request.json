@@ -1,0 +1,93 @@
+{
+  "case_id": "ee1978846e1c--initial--desktop--1.3.4",
+  "url": "http://127.0.0.1:4330/media",
+  "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+  "locale": "en-US",
+  "viewport": {
+    "width": 900,
+    "height": 600
+  },
+  "orientation": "landscape-primary",
+  "assert": [
+    {
+      "selector": "#main",
+      "visible": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "rotate",
+      "orientation": "landscape-primary",
+      "viewport": {
+        "width": 900,
+        "height": 600
+      },
+      "assert": [
+        {
+          "selector": "#main",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "orientation": "portrait-primary",
+      "viewport": {
+        "width": 600,
+        "height": 900
+      },
+      "assert": [
+        {
+          "selector": "#main",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "orientation": "landscape-secondary",
+      "viewport": {
+        "width": 900,
+        "height": 600
+      },
+      "assert": [
+        {
+          "selector": "#main",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "orientation": "portrait-secondary",
+      "viewport": {
+        "width": 600,
+        "height": 900
+      },
+      "assert": [
+        {
+          "selector": "#main",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "type": "click",
+      "selector": "#captions-toggle"
+    },
+    {
+      "type": "click",
+      "selector": "#play"
+    },
+    {
+      "type": "wait_for",
+      "selector": "#playback-state:text-is(\"Ended\")",
+      "assert": [
+        {
+          "selector": "#playback-state",
+          "text": "Ended"
+        }
+      ]
+    }
+  ]
+}

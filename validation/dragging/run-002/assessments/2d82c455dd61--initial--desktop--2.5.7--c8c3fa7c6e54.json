@@ -1,0 +1,273 @@
+{
+  "case_id": "2d82c455dd61--initial--desktop--2.5.7",
+  "config_digest": "3c74b041f21a2ec03ac3499aa2a1c89a402a5db12cd70a8b6b36cdf96e2045a7",
+  "normative_sha256": "dd3067a90310a3efbed2a605fdb8f735c4fbd5f0ef7ed6a60babeec20b70a579",
+  "execution": "completed",
+  "outcome": "failed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "remaining": [],
+  "steps_executed": [
+    "初期画面とDOMの全操作を調べ、ドラッグする対象がAlpha/Bravoの2項目だけであることを確認した。",
+    "通常収集と追加probeで、両項目の上下4方向への実ドラッグ、入力ログ、順序の中間値、実画像を照合した。",
+    "Tabで項目へ移動し、矢印キーで並べ替えと復帰を実行した。",
+    "単一ポインターの移動ボタンを4通りクリックした。失敗例では両項目をクリックし、画面・DOM・ソースで他の経路も調べた。",
+    "通常の著者実装の並べ替えで、ドラッグは本質的ではなく、UAが独自に決める機能の例外も該当しないと確認した。"
+  ],
+  "tests_applied": [
+    "WCAG 2.2 2.5.7 (REC 2024-12-12)",
+    "G219 / F108 at w3c/wcag c9ea04d4f3702e92249997c11fd678777f9c03ae"
+  ],
+  "observed": "2項目の全2順序で、Alpha/Bravoを上下へ動かす4通りのHTML5ドラッグを実際に実行し、各段階がBA→AB→BA→ABとなった。trusted dragstart/dropと実画像を照合した。Tab・ArrowDown・ArrowUpは両方のページで順序を変更した。このページにはドラッグとLIの矢印キー操作だけがあり、対象のクリックは順序を変えなかった。画面・DOM・共有ソースを調べても別の移動ボタン、移動先の選択、数値入力等がない。キーボードによる代替だけでは2.5.7の単一ポインターの条件を満たさない。",
+  "targets": [
+    {
+      "target": "#alpha の並べ替え（Alpha,BravoとBravo,Alphaの両順序）",
+      "expected": "ドラッグで得る同じ並べ替え結果を、ドラッグなしの単一ポインター操作で得られる。",
+      "observed": "2項目の全2順序で、Alpha/Bravoを上下へ動かす4通りのHTML5ドラッグを実際に実行し、各段階がBA→AB→BA→ABとなった。trusted dragstart/dropと実画像を照合した。Tab・ArrowDown・ArrowUpは両方のページで順序を変更した。このページにはドラッグとLIの矢印キー操作だけがあり、対象のクリックは順序を変えなかった。画面・DOM・共有ソースを調べても別の移動ボタン、移動先の選択、数値入力等がない。キーボードによる代替だけでは2.5.7の単一ポインターの条件を満たさない。",
+      "outcome": "failed",
+      "evidence": [
+        "evidence/2d82c455dd61--initial--desktop/page.png",
+        "evidence/2d82c455dd61--initial--desktop/dom.html",
+        "evidence/2d82c455dd61--initial--desktop/inventory.json",
+        "evidence/2d82c455dd61--drag--desktop/action-001.png",
+        "evidence/2d82c455dd61--drag--desktop/action-002.png",
+        "evidence/2d82c455dd61--drag--desktop/actions.json",
+        "evidence/2d82c455dd61--drag--desktop/dom.html",
+        "evidence/2d82c455dd61--drag--desktop/input-events.json",
+        "evidence/2d82c455dd61--keyboard--desktop/action-001.png",
+        "evidence/2d82c455dd61--keyboard--desktop/action-002.png",
+        "evidence/2d82c455dd61--keyboard--desktop/action-003.png",
+        "evidence/2d82c455dd61--keyboard--desktop/actions.json",
+        "evidence/2d82c455dd61--keyboard--desktop/dom.html",
+        "evidence/2d82c455dd61--keyboard--desktop/input-events.json",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-001.png",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-002.png",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-003.png",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/actions.json",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/dom.html",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/input-events.json",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-001.png",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-002.png",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-003.png",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-004.png",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/actions.json",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/dom.html",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/input-events.json",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder-bad.html",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder.css",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder.js"
+      ]
+    },
+    {
+      "target": "#bravo の並べ替え（Alpha,BravoとBravo,Alphaの両順序）",
+      "expected": "ドラッグで得る同じ並べ替え結果を、ドラッグなしの単一ポインター操作で得られる。",
+      "observed": "2項目の全2順序で、Alpha/Bravoを上下へ動かす4通りのHTML5ドラッグを実際に実行し、各段階がBA→AB→BA→ABとなった。trusted dragstart/dropと実画像を照合した。Tab・ArrowDown・ArrowUpは両方のページで順序を変更した。このページにはドラッグとLIの矢印キー操作だけがあり、対象のクリックは順序を変えなかった。画面・DOM・共有ソースを調べても別の移動ボタン、移動先の選択、数値入力等がない。キーボードによる代替だけでは2.5.7の単一ポインターの条件を満たさない。",
+      "outcome": "failed",
+      "evidence": [
+        "evidence/2d82c455dd61--initial--desktop/page.png",
+        "evidence/2d82c455dd61--initial--desktop/dom.html",
+        "evidence/2d82c455dd61--initial--desktop/inventory.json",
+        "evidence/2d82c455dd61--drag--desktop/action-001.png",
+        "evidence/2d82c455dd61--drag--desktop/action-002.png",
+        "evidence/2d82c455dd61--drag--desktop/actions.json",
+        "evidence/2d82c455dd61--drag--desktop/dom.html",
+        "evidence/2d82c455dd61--drag--desktop/input-events.json",
+        "evidence/2d82c455dd61--keyboard--desktop/action-001.png",
+        "evidence/2d82c455dd61--keyboard--desktop/action-002.png",
+        "evidence/2d82c455dd61--keyboard--desktop/action-003.png",
+        "evidence/2d82c455dd61--keyboard--desktop/actions.json",
+        "evidence/2d82c455dd61--keyboard--desktop/dom.html",
+        "evidence/2d82c455dd61--keyboard--desktop/input-events.json",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-001.png",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-002.png",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-003.png",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/actions.json",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/dom.html",
+        "evidence/2d82c455dd61--pointer-only-attempt--desktop/input-events.json",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-001.png",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-002.png",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-003.png",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-004.png",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/actions.json",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/dom.html",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/input-events.json",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder-bad.html",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder.css",
+        "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder.js"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "pointer",
+      "status": "executed",
+      "reason": "4通りの実ドラッグと単一ポインター代替のクリックを比較し、trustedイベント・実画像・結果を確認した。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "2順序の全4移動を実操作し、移動直後と元の順序への復帰をそれぞれassertと観察で確認した。"
+    },
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "画面の全操作とDOM、共有の著者スクリプトを照合し、隠れた代替経路や本質性・UAの条件を確認した。"
+    }
+  ],
+  "evidence": [
+    "evidence/2d82c455dd61--initial--desktop/page.png",
+    "evidence/2d82c455dd61--initial--desktop/dom.html",
+    "evidence/2d82c455dd61--initial--desktop/inventory.json",
+    "evidence/2d82c455dd61--drag--desktop/action-001.png",
+    "evidence/2d82c455dd61--drag--desktop/action-002.png",
+    "evidence/2d82c455dd61--drag--desktop/actions.json",
+    "evidence/2d82c455dd61--drag--desktop/dom.html",
+    "evidence/2d82c455dd61--drag--desktop/input-events.json",
+    "evidence/2d82c455dd61--keyboard--desktop/action-001.png",
+    "evidence/2d82c455dd61--keyboard--desktop/action-002.png",
+    "evidence/2d82c455dd61--keyboard--desktop/action-003.png",
+    "evidence/2d82c455dd61--keyboard--desktop/actions.json",
+    "evidence/2d82c455dd61--keyboard--desktop/dom.html",
+    "evidence/2d82c455dd61--keyboard--desktop/input-events.json",
+    "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-001.png",
+    "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-002.png",
+    "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-003.png",
+    "evidence/2d82c455dd61--pointer-only-attempt--desktop/actions.json",
+    "evidence/2d82c455dd61--pointer-only-attempt--desktop/dom.html",
+    "evidence/2d82c455dd61--pointer-only-attempt--desktop/input-events.json",
+    "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-001.png",
+    "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-002.png",
+    "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-003.png",
+    "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-004.png",
+    "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/actions.json",
+    "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/dom.html",
+    "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/input-events.json",
+    "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder-bad.html",
+    "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder.css",
+    "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder.js"
+  ],
+  "recorded_at": "2026-11-14T18:37:58.732838+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/2d82c455dd61--initial--desktop/page.png",
+      "sha256": "d144d827a328e617940a8d7e91665f6f20768b25880b71d5451066c9fb96d7ea"
+    },
+    {
+      "path": "evidence/2d82c455dd61--initial--desktop/dom.html",
+      "sha256": "0e47353121b218e4c22c066adb978864e7de024301a75b376ee7ee45c4a4fd8c"
+    },
+    {
+      "path": "evidence/2d82c455dd61--initial--desktop/inventory.json",
+      "sha256": "beab7154765b8cb45a8d63d84611be47b5d7914176ee63c7eac1536637b1fa4f"
+    },
+    {
+      "path": "evidence/2d82c455dd61--drag--desktop/action-001.png",
+      "sha256": "705941771eb1a77ee0c7104bfd6b5ddd031134328ecc78f399f81e7c11d8d54b"
+    },
+    {
+      "path": "evidence/2d82c455dd61--drag--desktop/action-002.png",
+      "sha256": "d144d827a328e617940a8d7e91665f6f20768b25880b71d5451066c9fb96d7ea"
+    },
+    {
+      "path": "evidence/2d82c455dd61--drag--desktop/actions.json",
+      "sha256": "ccae34b0a4b0db3a3ae3d728ddd79cb79bd74adc28d6ea5c9aada172d1501393"
+    },
+    {
+      "path": "evidence/2d82c455dd61--drag--desktop/dom.html",
+      "sha256": "0e47353121b218e4c22c066adb978864e7de024301a75b376ee7ee45c4a4fd8c"
+    },
+    {
+      "path": "evidence/2d82c455dd61--drag--desktop/input-events.json",
+      "sha256": "cbb8947cab7ed063f63c6c9cafd01815f3ddd02f0d7bba682bd77fc543d059cd"
+    },
+    {
+      "path": "evidence/2d82c455dd61--keyboard--desktop/action-001.png",
+      "sha256": "957cdab33cf6c7c3f68c4a87e8bc5ff5170a7d270c8939a1f52a930b346de990"
+    },
+    {
+      "path": "evidence/2d82c455dd61--keyboard--desktop/action-002.png",
+      "sha256": "9d9a11b1b31797339cc015280a985c63a711030b71f51753545e4da15c9d8646"
+    },
+    {
+      "path": "evidence/2d82c455dd61--keyboard--desktop/action-003.png",
+      "sha256": "957cdab33cf6c7c3f68c4a87e8bc5ff5170a7d270c8939a1f52a930b346de990"
+    },
+    {
+      "path": "evidence/2d82c455dd61--keyboard--desktop/actions.json",
+      "sha256": "87b39d40f45f42657951d9703fcd9aadc4855aa7651329102f4b3383f328c209"
+    },
+    {
+      "path": "evidence/2d82c455dd61--keyboard--desktop/dom.html",
+      "sha256": "0e47353121b218e4c22c066adb978864e7de024301a75b376ee7ee45c4a4fd8c"
+    },
+    {
+      "path": "evidence/2d82c455dd61--keyboard--desktop/input-events.json",
+      "sha256": "413bd92f5df9ed600b30bd4e67b5be6ed58c8f162753ba97d4ee8f3413bbd4fb"
+    },
+    {
+      "path": "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-001.png",
+      "sha256": "d144d827a328e617940a8d7e91665f6f20768b25880b71d5451066c9fb96d7ea"
+    },
+    {
+      "path": "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-002.png",
+      "sha256": "d144d827a328e617940a8d7e91665f6f20768b25880b71d5451066c9fb96d7ea"
+    },
+    {
+      "path": "evidence/2d82c455dd61--pointer-only-attempt--desktop/action-003.png",
+      "sha256": "d144d827a328e617940a8d7e91665f6f20768b25880b71d5451066c9fb96d7ea"
+    },
+    {
+      "path": "evidence/2d82c455dd61--pointer-only-attempt--desktop/actions.json",
+      "sha256": "cbfc96c229de1dfbac522d0bd539ce893fd0254a23df04db56e283e97a6bc1b4"
+    },
+    {
+      "path": "evidence/2d82c455dd61--pointer-only-attempt--desktop/dom.html",
+      "sha256": "0e47353121b218e4c22c066adb978864e7de024301a75b376ee7ee45c4a4fd8c"
+    },
+    {
+      "path": "evidence/2d82c455dd61--pointer-only-attempt--desktop/input-events.json",
+      "sha256": "48bfae56f6f6640152e21236e7c4e9ced5425e8318135776ca443f0ade0aff54"
+    },
+    {
+      "path": "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-001.png",
+      "sha256": "705941771eb1a77ee0c7104bfd6b5ddd031134328ecc78f399f81e7c11d8d54b"
+    },
+    {
+      "path": "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-002.png",
+      "sha256": "d144d827a328e617940a8d7e91665f6f20768b25880b71d5451066c9fb96d7ea"
+    },
+    {
+      "path": "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-003.png",
+      "sha256": "705941771eb1a77ee0c7104bfd6b5ddd031134328ecc78f399f81e7c11d8d54b"
+    },
+    {
+      "path": "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/action-004.png",
+      "sha256": "d144d827a328e617940a8d7e91665f6f20768b25880b71d5451066c9fb96d7ea"
+    },
+    {
+      "path": "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/actions.json",
+      "sha256": "3243d18b988541b1fd89c10f0192ce0249b745fd9dedca71347a2928f075ed57"
+    },
+    {
+      "path": "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/dom.html",
+      "sha256": "0e47353121b218e4c22c066adb978864e7de024301a75b376ee7ee45c4a4fd8c"
+    },
+    {
+      "path": "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/probe-04f7bb80/evidence/2d82c455dd61--probe--desktop/input-events.json",
+      "sha256": "fc1a1f3debd9966c697fdff3f170e3144d8104adcb6816c6f53c1f3ce762fd17"
+    },
+    {
+      "path": "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder-bad.html",
+      "sha256": "d5ff92b2d7be2e57385ff1728404a478fe6a15e7de3678cf7e8e32a6453b88e8"
+    },
+    {
+      "path": "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder.css",
+      "sha256": "25f929a114279e627829151decc6f13b91e9579471ea1ce2bd6c0a3e7e4420e6"
+    },
+    {
+      "path": "evidence/attached/2d82c455dd61--initial--desktop--2.5.7/sources/drag-reorder.js",
+      "sha256": "98170ee61e98860131f1ffb421b238ba253c19fabd96faad499468dc0ef8efb0"
+    }
+  ]
+}

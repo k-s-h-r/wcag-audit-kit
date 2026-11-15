@@ -1,0 +1,1012 @@
+{
+  "variant": "bad",
+  "off": false,
+  "status": "partial",
+  "browser_version": "156.0.8078.79",
+  "steps": [
+    {
+      "label": "before-sign-in",
+      "runner_elapsed_ms": 1262.6427889990737,
+      "captured_at": "2026-11-14T22:48:11.673047+00:00",
+      "state": {
+        "url": "http://127.0.0.1:4326/timing.html?variant=bad",
+        "now_ms": 1794696491525,
+        "performance_ms": 652.5,
+        "documentHasFocus": true,
+        "focus": "",
+        "values": {
+          "title": "",
+          "notes": "",
+          "category": "draft",
+          "urgent": false
+        },
+        "pending": 0,
+        "events": [],
+        "expiredVisible": false,
+        "warningVisible": false,
+        "fieldsDisabled": false
+      },
+      "image": "00-before-sign-in.png",
+      "dom": "00-before-sign-in.html"
+    },
+    {
+      "label": "draft-entered",
+      "runner_elapsed_ms": 1567.1421549996012,
+      "captured_at": "2026-11-14T22:48:11.977545+00:00",
+      "state": {
+        "url": "http://127.0.0.1:4326/timing.html?variant=bad",
+        "now_ms": 1794696491919,
+        "performance_ms": 1046.4000000022352,
+        "documentHasFocus": true,
+        "focus": "urgent",
+        "values": {
+          "title": "Session test 日本語",
+          "notes": "First line\nSecond line: keep this draft.",
+          "category": "review",
+          "urgent": true
+        },
+        "pending": 0,
+        "events": [
+          {
+            "type": "response",
+            "wall_ms": 1794696491727,
+            "performance_ms": 853.9000000022352,
+            "path": "/start",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.994442005118,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "signed-in",
+            "wall_ms": 1794696491727,
+            "performance_ms": 854.1000000014901,
+            "values": {
+              "title": "",
+              "notes": "",
+              "category": "draft",
+              "urgent": false
+            },
+            "off": false
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491791,
+            "performance_ms": 917.9000000022352,
+            "target": "title",
+            "trusted": true
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491797,
+            "performance_ms": 924,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.9987880000845,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491809,
+            "performance_ms": 936.1000000014901,
+            "target": "notes",
+            "trusted": true
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491809,
+            "performance_ms": 936.7000000029802,
+            "target": "notes",
+            "trusted": true
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491810,
+            "performance_ms": 936.9000000022352,
+            "target": "notes",
+            "trusted": true
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491815,
+            "performance_ms": 942.2000000029802,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.998687999323,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491818,
+            "performance_ms": 944.7000000029802,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.998977997166,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491818,
+            "performance_ms": 944.9000000022352,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.998988998414,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491831,
+            "performance_ms": 958.5,
+            "target": "category",
+            "trusted": true
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491843,
+            "performance_ms": 970.6000000014901,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.9987080009305,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491884,
+            "performance_ms": 1010.9000000022352,
+            "target": "urgent",
+            "trusted": true
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491893,
+            "performance_ms": 1020.6000000014901,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.998888997652,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          }
+        ],
+        "expiredVisible": false,
+        "warningVisible": false,
+        "fieldsDisabled": false
+      },
+      "image": "01-draft-entered.png",
+      "dom": "01-draft-entered.html"
+    },
+    {
+      "label": "warning-1",
+      "runner_elapsed_ms": 5540.809470003296,
+      "captured_at": "2026-11-14T22:48:15.951211+00:00",
+      "state": {
+        "url": "http://127.0.0.1:4326/timing.html?variant=bad",
+        "now_ms": 1794696495896,
+        "performance_ms": 5022.800000000745,
+        "documentHasFocus": true,
+        "focus": "urgent",
+        "values": {
+          "title": "Session test 日本語",
+          "notes": "First line\nSecond line: keep this draft.",
+          "category": "review",
+          "urgent": true
+        },
+        "pending": 0,
+        "events": [
+          {
+            "type": "response",
+            "wall_ms": 1794696491727,
+            "performance_ms": 853.9000000022352,
+            "path": "/start",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.994442005118,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "signed-in",
+            "wall_ms": 1794696491727,
+            "performance_ms": 854.1000000014901,
+            "values": {
+              "title": "",
+              "notes": "",
+              "category": "draft",
+              "urgent": false
+            },
+            "off": false
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491791,
+            "performance_ms": 917.9000000022352,
+            "target": "title",
+            "trusted": true
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491797,
+            "performance_ms": 924,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.9987880000845,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491809,
+            "performance_ms": 936.1000000014901,
+            "target": "notes",
+            "trusted": true
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491809,
+            "performance_ms": 936.7000000029802,
+            "target": "notes",
+            "trusted": true
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491810,
+            "performance_ms": 936.9000000022352,
+            "target": "notes",
+            "trusted": true
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491815,
+            "performance_ms": 942.2000000029802,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.998687999323,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491818,
+            "performance_ms": 944.7000000029802,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.998977997166,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491818,
+            "performance_ms": 944.9000000022352,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.998988998414,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491831,
+            "performance_ms": 958.5,
+            "target": "category",
+            "trusted": true
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491843,
+            "performance_ms": 970.6000000014901,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.9987080009305,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "form-input",
+            "wall_ms": 1794696491884,
+            "performance_ms": 1010.9000000022352,
+            "target": "urgent",
+            "trusted": true
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491893,
+            "performance_ms": 1020.6000000014901,
+            "path": "/activity",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5999.998888997652,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696491991,
+            "performance_ms": 1118.4000000022352,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5895.3681319981115,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696492091,
+            "performance_ms": 1218,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5795.3794119966915,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696492191,
+            "performance_ms": 1318.300000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5695.256694998534,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696492291,
+            "performance_ms": 1418.300000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5595.058393999352,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696492392,
+            "performance_ms": 1518.9000000022352,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5494.662755001627,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696492491,
+            "performance_ms": 1617.800000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5395.427957999345,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696492591,
+            "performance_ms": 1718.1000000014901,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5295.276872995601,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696492691,
+            "performance_ms": 1817.9000000022352,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5195.447688995046,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696492791,
+            "performance_ms": 1917.800000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 5095.526480996341,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696492891,
+            "performance_ms": 2018.5,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 4995.125057997939,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696492991,
+            "performance_ms": 2117.800000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 4895.440852997126,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696493091,
+            "performance_ms": 2218,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 4795.291895999981,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696493191,
+            "performance_ms": 2318.10000000149,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 4695.235690000118,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696493291,
+            "performance_ms": 2417.900000002235,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 4595.3622839952,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696493391,
+            "performance_ms": 2517.800000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 4495.423838998249,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696493491,
+            "performance_ms": 2618.2000000029802,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 4395.3879330001655,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696493591,
+            "performance_ms": 2718.2000000029802,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 4295.366478996584,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696493691,
+            "performance_ms": 2817.7000000029802,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 4195.494154999324,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696493791,
+            "performance_ms": 2918.300000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 4095.0892309992923,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696493891,
+            "performance_ms": 3018.10000000149,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 3995.375487000274,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696493991,
+            "performance_ms": 3118.10000000149,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 3895.3994319963385,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696494091,
+            "performance_ms": 3218.300000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 3795.4567259948817,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696494191,
+            "performance_ms": 3318.2000000029802,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 3695.457544999954,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696494291,
+            "performance_ms": 3417.900000002235,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 3595.5886259980616,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696494391,
+            "performance_ms": 3518,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 3495.420881001337,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696494491,
+            "performance_ms": 3618,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 3395.3690609996556,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696494591,
+            "performance_ms": 3717.800000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 3295.495148995542,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696494691,
+            "performance_ms": 3818,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 3195.223807997536,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696494791,
+            "performance_ms": 3918.10000000149,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 3095.4318000003695,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696494891,
+            "performance_ms": 4018.400000002235,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 2994.870655995328,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696494997,
+            "performance_ms": 4124.300000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 2895.3657309975824,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696495091,
+            "performance_ms": 4218.300000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 2795.0860880009714,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696495191,
+            "performance_ms": 4318,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 2695.3707649954595,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696495291,
+            "performance_ms": 4418.60000000149,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 2595.127735999995,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696495391,
+            "performance_ms": 4518.300000000745,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 2495.3138650016626,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696495491,
+            "performance_ms": 4618.70000000298,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 2394.920170001569,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696495591,
+            "performance_ms": 4718.400000002235,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 2295.313320995774,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696495691,
+            "performance_ms": 4817.900000002235,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 2195.514542996534,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696495792,
+            "performance_ms": 4918.900000002235,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 2095.150841996656,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "response",
+            "wall_ms": 1794696495891,
+            "performance_ms": 5018.10000000149,
+            "path": "/status",
+            "status": 200,
+            "data": {
+              "active": true,
+              "remaining_ms": 1995.1155419985298,
+              "duration_ms": 6000,
+              "extension_count": 0,
+              "extension_limit": 1,
+              "warning_at_remaining_ms": 2000
+            }
+          },
+          {
+            "type": "warning-shown",
+            "wall_ms": 1794696495891,
+            "performance_ms": 5018.300000000745,
+            "remaining_ms": 1995.1155419985298,
+            "extension_count": 0
+          }
+        ],
+        "expiredVisible": false,
+        "warningVisible": true,
+        "fieldsDisabled": false
+      },
+      "image": "02-warning-1.png",
+      "dom": "02-warning-1.html"
+    }
+  ],
+  "page_errors": [],
+  "wcag_judgement": null
+}

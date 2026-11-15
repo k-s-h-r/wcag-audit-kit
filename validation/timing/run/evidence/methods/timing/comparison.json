@@ -1,0 +1,34 @@
+{
+  "note": "Known-source fixture calibration. Last active provides a conservative observed lower bound before expiry. No simulated clock.",
+  "scenarios": [
+    {
+      "scenario": "good-extend",
+      "steps": 26,
+      "warnings": 11,
+      "extensions_succeeded": 10,
+      "min_reported_warning_ms": 22899.580609999248,
+      "last_warning_to_last_active_ms": 22894.29999999702,
+      "last_warning_to_expiry_observed_ms": 22994.599999997765,
+      "expired_save_rejected": true,
+      "retained_after_reauth": true
+    },
+    {
+      "scenario": "bad-extend",
+      "steps": 7,
+      "warnings": 2,
+      "extensions_succeeded": 1,
+      "min_reported_warning_ms": 1915.9768960016663,
+      "last_warning_to_last_active_ms": 1900.5,
+      "last_warning_to_expiry_observed_ms": 2000.5999999977648,
+      "expired_save_rejected": true,
+      "retained_after_reauth": false
+    },
+    {
+      "scenario": "good-off",
+      "steps": 4,
+      "warnings": 0,
+      "extensions_succeeded": 0,
+      "observed_no_expiry_ms": 27066.42813399958
+    }
+  ]
+}

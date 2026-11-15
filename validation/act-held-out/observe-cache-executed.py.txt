@@ -1,0 +1,53 @@
+import asyncio,hashlib,json,shutil
+from pathlib import Path
+from urllib.request import urlopen,Request
+from urllib.error import HTTPError
+from urllib.parse import urlsplit
+from playwright.async_api import async_playwright
+OUT=Path('/tmp/wcag-act-held-out-001')
+
+def fetch(url):
+ try:
+  with urlopen(Request(url,headers={'User-Agent':'WCAG-method-validation/1.0'}),timeout=30) as r:return r.status,r.headers.get_content_type(),r.read()
+ except HTTPError as e:return e.code,e.headers.get_content_type(),e.read()
+
+async def main():
+ shutil.copy2(__file__,OUT/'observe-cache-executed.py.txt');rows=[];assets=[]
+ index=json.loads((OUT/'review-cases.json').read_text());folder_root=OUT/'observations-cache-002'
+ folder_root.mkdir(exist_ok=False)
+ async with async_playwright() as pw:
+  browser=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox','--force-renderer-accessibility'])
+  try:
+   for case in index['cases']:
+    folder=folder_root/case['case'];folder.mkdir(exist_ok=False)
+    page=await browser.new_page(viewport={'width':1100,'height':800})
+    async def verified_transport(route):
+     url=route.request.url
+     if url==case['url']:status,kind,body=200,'text/html',(OUT/case['file']).read_bytes()
+     else:
+      u=urlsplit(url)
+      if u.hostname not in {'w3.org','www.w3.org','act-rules.github.io'}:
+       assets.append({'url':url,'status':'blocked external resource'});await route.abort();return
+      status,kind,body=await asyncio.to_thread(fetch,url)
+     assets.append({'url':url,'status':status,'sha256':hashlib.sha256(body).hexdigest(),'content_type':kind})
+     await route.fulfill(status=status,content_type=kind,body=body)
+    await page.route('**/*',verified_transport)
+    response=await page.goto(case['url'],wait_until='networkidle');assert response.status==200
+    raw=await response.body();assert raw==(OUT/case['file']).read_bytes()
+    cdp=await page.context.new_cdp_session(page);ax=await cdp.send('Accessibility.getFullAXTree')
+    (folder/'ax.json').write_text(json.dumps(ax,indent=2)+'\n');(folder/'dom.html').write_text(await page.content())
+    await page.screenshot(path=str(folder/'page.png'),full_page=True)
+    dom=await page.evaluate('''() => [...document.querySelectorAll('button,input,img,[role]')].map(e=>({tag:e.localName,namespace:e.namespaceURI,type:e.getAttribute('type'),role:e.getAttribute('role'),alt:e.getAttribute('alt'),ariaHidden:e.getAttribute('aria-hidden'),text:e.textContent,display:getComputedStyle(e).display,visibility:getComputedStyle(e).visibility,
+     hiddenByAncestor:[...function*(x){for(let p=x;p;p=p.parentElement)yield p}(e)].some(p=>getComputedStyle(p).display==='none'||p.getAttribute('aria-hidden')==='true'||p.hasAttribute('inert'))}))''')
+    for i,value in enumerate(dom):
+     remote=await cdp.send('Runtime.evaluate',{'expression':f"document.querySelectorAll('button,input,img,[role]')[{i}]"})
+     desc=await cdp.send('DOM.describeNode',{'objectId':remote['result']['objectId']})
+     bid=desc['node']['backendNodeId'];node=next((n for n in ax['nodes'] if n.get('backendDOMNodeId')==bid),None)
+     value['ax']=None if node is None else {'role':node['role']['value'],'name':node.get('name',{}).get('value',''),'ignored':node['ignored'],'ignoredReasons':node.get('ignoredReasons',[])}
+    row={'case':case['case'],'rule':case['rule'],'dom_targets':dom,'source_sha256':hashlib.sha256(raw).hexdigest(),'browser_version':browser.version}
+    rows.append(row);(folder/'observation.json').write_text(json.dumps(row,indent=2)+'\n');await page.close()
+  finally:await browser.close()
+ (OUT/'review-observations.json').write_text(json.dumps(rows,indent=2)+'\n')
+ (OUT/'transport.json').write_text(json.dumps({'note':'Browser TLS could not validate the environment certificate. Original HTML and resources were downloaded with urllib TLS verification and fulfilled without changing bytes. No browser TLS errors were ignored. This evaluates semantic ACT behavior, not transport security.', 'resources':assets},indent=2)+'\n')
+ print(json.dumps(rows,ensure_ascii=False,indent=2))
+asyncio.run(main())

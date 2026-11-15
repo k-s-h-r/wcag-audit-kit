@@ -1,0 +1,207 @@
+{
+  "case_id": "ee1978846e1c--captions-on--narrow--2.1.1",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "ba1639b46087cfe52fa09be54d6111501e88d454192246c016df2f626c9185a5",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/media / captions-on / narrow。表示の主内容はVideo instructions — Profile demo。可視見出し: ['Video instructions', 'Text description']。入力欄: []。実キーでカウンターのEnter/Space、dialogの開閉、入力・エラー・修正・確認・戻る・保存、動画の字幕・再生・一時停止、貼り付けとログインまで実行した。各操作には間に待機を入れても動作する。共通リンクと全フォーカス対象の順序・href・ネイティブ意味も比較した。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した",
+    "共通navの全5リンクを実Tab/Enterで開き、Passwordの表示とaria-pressedを実Enter/Spaceで往復し、各段階のAX・属性・実画面を取得した。"
+  ],
+  "tests_applied": [
+    "WCAG22:2.1.1:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "このURLのページ全体、可視の内容・部品と到達可能な全状態",
+      "observed": "実キーでカウンターのEnter/Space、dialogの開閉、入力・エラー・修正・確認・戻る・保存、動画の字幕・再生・一時停止、貼り付けとログインまで実行した。各操作には間に待機を入れても動作する。共通リンクと全フォーカス対象の順序・href・ネイティブ意味も比較した。",
+      "expected": "同じ又は同等の機能を特定のキータイミングなしに利用できるか。重複した全操作部品への到達を一律には要求しない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/ee1978846e1c--captions-on--narrow/page.png",
+        "evidence/ee1978846e1c--captions-on--narrow/inventory.json",
+        "evidence/ee1978846e1c--captions-on--narrow/dom.html",
+        "evidence/ee1978846e1c--captions-on--narrow/accessibility-tree.json",
+        "evidence/ee1978846e1c--captions-on--narrow/actions.json",
+        "evidence/ee1978846e1c--captions-on--narrow/keyboard.json",
+        "evidence/methods/browser/executed-source.py.txt",
+        "evidence/methods/browser/source/app.js",
+        "evidence/methods/browser/source/app.css",
+        "evidence/methods/browser/server.py.txt",
+        "evidence/methods/discovery/discovery.json",
+        "evidence/methods/browser/narrow/observations.json",
+        "evidence/methods/browser/narrow/015-captions-playing.png",
+        "evidence/methods/browser/narrow/015-captions-playing.json",
+        "evidence/methods/browser/narrow/015-captions-playing-ax.json",
+        "evidence/methods/browser/narrow/016-video-paused.png",
+        "evidence/methods/browser/narrow/016-video-paused.json",
+        "evidence/methods/browser/narrow/016-video-paused-ax.json",
+        "evidence/methods/browser/narrow/017-video-ended.png",
+        "evidence/methods/browser/narrow/017-video-ended.json",
+        "evidence/methods/browser/narrow/017-video-ended-ax.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "keyboard",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/ee1978846e1c--captions-on--narrow/page.png",
+    "evidence/ee1978846e1c--captions-on--narrow/inventory.json",
+    "evidence/ee1978846e1c--captions-on--narrow/dom.html",
+    "evidence/ee1978846e1c--captions-on--narrow/accessibility-tree.json",
+    "evidence/ee1978846e1c--captions-on--narrow/actions.json",
+    "evidence/ee1978846e1c--captions-on--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/browser/narrow/015-captions-playing.png",
+    "evidence/methods/browser/narrow/015-captions-playing.json",
+    "evidence/methods/browser/narrow/015-captions-playing-ax.json",
+    "evidence/methods/browser/narrow/016-video-paused.png",
+    "evidence/methods/browser/narrow/016-video-paused.json",
+    "evidence/methods/browser/narrow/016-video-paused-ax.json",
+    "evidence/methods/browser/narrow/017-video-ended.png",
+    "evidence/methods/browser/narrow/017-video-ended.json",
+    "evidence/methods/browser/narrow/017-video-ended-ax.json",
+    "evidence/methods/navigation-password/navigation.json",
+    "evidence/methods/navigation-password/shown.json",
+    "evidence/methods/navigation-password/hidden.json",
+    "evidence/methods/navigation-password/shown.png",
+    "evidence/methods/navigation-password/hidden.png",
+    "evidence/methods/navigation-password/executed-source.py.txt"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T01:24:49.700989+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/ee1978846e1c--captions-on--narrow/page.png",
+      "sha256": "d7fe5bfabd779bf0a60f2349c4e147c078f9bb862140ff506ae449fa2e5addf7"
+    },
+    {
+      "path": "evidence/ee1978846e1c--captions-on--narrow/inventory.json",
+      "sha256": "e9a6ce5f31a83083bab899508fd520f6e9c76a0925c98f8784c1707ff2686135"
+    },
+    {
+      "path": "evidence/ee1978846e1c--captions-on--narrow/dom.html",
+      "sha256": "00c73d603c5f206480ea4f3af80d795b5364c4ec7b3a425320c59cb06bd3c105"
+    },
+    {
+      "path": "evidence/ee1978846e1c--captions-on--narrow/accessibility-tree.json",
+      "sha256": "b5282f20ad02560016d8fe751e116bf31ce7c55e800ac50655a37482f7e4c93f"
+    },
+    {
+      "path": "evidence/ee1978846e1c--captions-on--narrow/actions.json",
+      "sha256": "ddf7ac70e04ab917b911a5e843b8c0465f53998a120cdb78b259f084042f4119"
+    },
+    {
+      "path": "evidence/ee1978846e1c--captions-on--narrow/keyboard.json",
+      "sha256": "11b2a963b11652b36abd52841e438cfda317dc9270b173e6f6fbdfc303439743"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/015-captions-playing.png",
+      "sha256": "5ba74c2c39e21e58927fcb7529e0ff881778b1253eda023755f81ea76f104245"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/015-captions-playing.json",
+      "sha256": "70b4770cdbb590ba4bb77d31a09b93f68738279277dd4982a6ba402dbc9f34ed"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/015-captions-playing-ax.json",
+      "sha256": "9ff797b17610f08ea1625e8dd53eb6419a9a4bc5bd14b5071d4b73f52ed4db1b"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/016-video-paused.png",
+      "sha256": "ec2090305c436debb6c506ac57ec7e1ed88933488286f7831cdea208144da90a"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/016-video-paused.json",
+      "sha256": "9b5d56b6322b8808fd8210125741f077d0e50c375b12dc5247649b691c9eac7a"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/016-video-paused-ax.json",
+      "sha256": "21eca0092c0e9a5e2c0bfb7512b3ea98b4e39fd96df592775a51f02169ba82c0"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/017-video-ended.png",
+      "sha256": "b952713e84d02dc6d8f2368923bb76992fbe80d5a595f558662583991cf4c42f"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/017-video-ended.json",
+      "sha256": "6b1b59cc163f206ceebde6b935e1d6d1537fc68d293d5a266305a4ed64cd03c1"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/017-video-ended-ax.json",
+      "sha256": "9b6a2351a41ba473f7f020b3b94d50f79ba3ec78cc4cb97db202191d017932e2"
+    },
+    {
+      "path": "evidence/methods/navigation-password/navigation.json",
+      "sha256": "40824a1cc4633684b39ad7cf33827cce431bd4ca1f2533307648d6d9eda9cb9f"
+    },
+    {
+      "path": "evidence/methods/navigation-password/shown.json",
+      "sha256": "9c81854c77cc9cf2f0f9270cd955cbdaff841c3780008a7c579d7a32547ec926"
+    },
+    {
+      "path": "evidence/methods/navigation-password/hidden.json",
+      "sha256": "59170bc706c77549e531e0ec01dab4838998b40e49e204d6a6ca66ee6de4c908"
+    },
+    {
+      "path": "evidence/methods/navigation-password/shown.png",
+      "sha256": "c2da4ca04bddb01882eb1589a90627a8f8e53b6bef60ede1079c2be7cef8dddd"
+    },
+    {
+      "path": "evidence/methods/navigation-password/hidden.png",
+      "sha256": "3473cd0653d697aaf677fc3def9737159afc740f733c33836571bc127c12cb0c"
+    },
+    {
+      "path": "evidence/methods/navigation-password/executed-source.py.txt",
+      "sha256": "02be8dff50f3de7e2d5e3f9fdfd20e085357d7e9239be65280f97e54867bab16"
+    }
+  ]
+}

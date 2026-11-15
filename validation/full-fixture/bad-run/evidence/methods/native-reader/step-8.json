@@ -1,0 +1,54 @@
+{
+  "index": 8,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Down"
+    ],
+    "expect_contains": "Off"
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "email-switch",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-14T21:24:51.311731+00:00",
+  "finished_at": "2026-11-14T21:24:52.914285+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4322/",
+  "speech": [
+    {
+      "at": "2026-11-14T21:24:51.353644+00:00",
+      "line": 4135,
+      "phrase": "Off.",
+      "raw": "21:24:51.353644 - SPEECH OUTPUT: 'Off.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#visual-state"
+      },
+      "text": "Off"
+    },
+    {
+      "target": {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      },
+      "text": "Email notifications",
+      "attributes": {
+        "role": "checkbox",
+        "aria-checked": "false"
+      }
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "case_id": "ee1978846e1c--anonymous--desktop--3.1.1",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "1013e37f664dbe2ddaae98a1451fd13f51fe83fe6147c2027fd2875b85c5afae",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/media / anonymous / desktop。表示の主内容はVideo instructions — Profile demo。可視見出し: ['Video instructions', 'Text description']。入力欄: []。主言語は英語でlang=en。全見出し・説明・ラベル・状態・エラー・確認内容と一致する。Helpに一つある日本語メールは別途jaが指定されている。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:3.1.1:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "このURLのページ全体、可視の内容・部品と到達可能な全状態",
+      "observed": "主言語は英語でlang=en。全見出し・説明・ラベル・状態・エラー・確認内容と一致する。Helpに一つある日本語メールは別途jaが指定されている。",
+      "expected": "主たる言語をプログラムで特定でき、実際の内容と合うか",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/ee1978846e1c--anonymous--desktop/page.png",
+        "evidence/ee1978846e1c--anonymous--desktop/inventory.json",
+        "evidence/ee1978846e1c--anonymous--desktop/dom.html",
+        "evidence/ee1978846e1c--anonymous--desktop/accessibility-tree.json",
+        "evidence/ee1978846e1c--anonymous--desktop/actions.json",
+        "evidence/ee1978846e1c--anonymous--desktop/keyboard.json",
+        "evidence/methods/browser/executed-source.py.txt",
+        "evidence/methods/browser/source/app.js",
+        "evidence/methods/browser/source/app.css",
+        "evidence/methods/browser/server.py.txt",
+        "evidence/methods/discovery/discovery.json",
+        "evidence/methods/browser/desktop/observations.json",
+        "evidence/methods/browser/desktop/015-captions-playing.png",
+        "evidence/methods/browser/desktop/015-captions-playing.json",
+        "evidence/methods/browser/desktop/015-captions-playing-ax.json",
+        "evidence/methods/browser/desktop/016-video-paused.png",
+        "evidence/methods/browser/desktop/016-video-paused.json",
+        "evidence/methods/browser/desktop/016-video-paused-ax.json",
+        "evidence/methods/browser/desktop/017-video-ended.png",
+        "evidence/methods/browser/desktop/017-video-ended.json",
+        "evidence/methods/browser/desktop/017-video-ended-ax.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/ee1978846e1c--anonymous--desktop/page.png",
+    "evidence/ee1978846e1c--anonymous--desktop/inventory.json",
+    "evidence/ee1978846e1c--anonymous--desktop/dom.html",
+    "evidence/ee1978846e1c--anonymous--desktop/accessibility-tree.json",
+    "evidence/ee1978846e1c--anonymous--desktop/actions.json",
+    "evidence/ee1978846e1c--anonymous--desktop/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/desktop/observations.json",
+    "evidence/methods/browser/desktop/015-captions-playing.png",
+    "evidence/methods/browser/desktop/015-captions-playing.json",
+    "evidence/methods/browser/desktop/015-captions-playing-ax.json",
+    "evidence/methods/browser/desktop/016-video-paused.png",
+    "evidence/methods/browser/desktop/016-video-paused.json",
+    "evidence/methods/browser/desktop/016-video-paused-ax.json",
+    "evidence/methods/browser/desktop/017-video-ended.png",
+    "evidence/methods/browser/desktop/017-video-ended.json",
+    "evidence/methods/browser/desktop/017-video-ended-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:27.357944+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/ee1978846e1c--anonymous--desktop/page.png",
+      "sha256": "e6da37f3bc275527d3b39f039f803877d4c942510d2401f177450e5455d431b7"
+    },
+    {
+      "path": "evidence/ee1978846e1c--anonymous--desktop/inventory.json",
+      "sha256": "ef7958d7f5725e8e925c7c4e0a6e06b8b7a2ef732b3bda0661ac1bc429313263"
+    },
+    {
+      "path": "evidence/ee1978846e1c--anonymous--desktop/dom.html",
+      "sha256": "c8b0df04ed2e1f979f2ebb125839f105a2478c956b5b110505e153003d538181"
+    },
+    {
+      "path": "evidence/ee1978846e1c--anonymous--desktop/accessibility-tree.json",
+      "sha256": "a836d48ef178f24c84825baa0d7bd4081162e8b290d2bbed46dc93b00aef64e1"
+    },
+    {
+      "path": "evidence/ee1978846e1c--anonymous--desktop/actions.json",
+      "sha256": "34ab0df2db21b8cbf46d7a4e5cddeb844ff06b76958012059330f618bd3f483e"
+    },
+    {
+      "path": "evidence/ee1978846e1c--anonymous--desktop/keyboard.json",
+      "sha256": "e29266a21810401681554cf63389ec243a7b2bcfb93f55a170da566997929b6a"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/observations.json",
+      "sha256": "39b0ef7069d2e14adab81994bd7f17bf2a61176f8051449773cab1c691b5a9fe"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/015-captions-playing.png",
+      "sha256": "68b17505e459fec0d9830ae303f40ca5c43561143da9f848dfeae76413c59b89"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/015-captions-playing.json",
+      "sha256": "c1a7725ebde374fa8a60fa0b741289c4895d84ae9fe0e4d507a73c63a85a498e"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/015-captions-playing-ax.json",
+      "sha256": "19993f49b56e7b76211be1b78a4a5eefae6b38483c22f69b8485a3f773705d69"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/016-video-paused.png",
+      "sha256": "89d31dec180a67036c3210a806add92c7d40378e0d0d4cf07982b26bd3a2e3fb"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/016-video-paused.json",
+      "sha256": "179c641466ea80e9adc2860a06cc1be48ee1597f635b4c2a2212964e79dff7de"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/016-video-paused-ax.json",
+      "sha256": "aaed6722f15902bc5c0bbe24f622ce33db01dccaff0f75e070199ca053a69a5c"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/017-video-ended.png",
+      "sha256": "bb5cd24f637cfb25fe9fcc6b95418f11bc3f99f4cecc23e24e175b1a1adabdb9"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/017-video-ended.json",
+      "sha256": "55352092d42a103829ba5700993527b14714a4df4e0558609be1e7dd70a2bd64"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/017-video-ended-ax.json",
+      "sha256": "b7baf6e22c0da2b2919cd909e1f8561d12adde7ec9012be088c25eeabc3ece85"
+    }
+  ]
+}

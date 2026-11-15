@@ -1,0 +1,57 @@
+{
+  "index": 7,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Escape"
+    ]
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "close-about",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:01.082608+00:00",
+  "finished_at": "2026-11-15T00:10:02.483477+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "about",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:01.086773+00:00",
+      "line": 7953,
+      "phrase": "escape",
+      "raw": "00:10:01.086773 - SPEECH OUTPUT: 'escape' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:10:01.142708+00:00",
+      "line": 8266,
+      "phrase": "main content",
+      "raw": "00:10:01.142708 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:01.143311+00:00",
+      "line": 8273,
+      "phrase": "About this demo button.",
+      "raw": "00:10:01.143311 - SPEECH OUTPUT: 'About this demo button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:01.261307+00:00",
+      "line": 8380,
+      "phrase": "1",
+      "raw": "00:10:01.261307 - SPEECH OUTPUT: '1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": [
+    {
+      "target": {
+        "selector": "#count"
+      },
+      "text": "1"
+    }
+  ]
+}

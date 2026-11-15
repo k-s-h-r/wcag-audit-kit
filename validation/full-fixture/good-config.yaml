@@ -1,0 +1,46 @@
+schema_version: "1"
+url: "http://127.0.0.1:4320"
+level: AA
+scope:
+  include: ["/"]
+  exclude: []
+  seeds: ["/"]
+  known_pages: ["/"]
+  max_pages: 5
+environments:
+  - id: desktop
+    viewport: {width: 1280, height: 900}
+    zoom: 1
+states:
+  - id: enabled
+    paths: ["/"]
+    actions:
+      - type: press
+        key: Tab
+      - type: press
+        key: Space
+        assert:
+          - {selector: '#email-switch', visible: true}
+          - {selector: '#visual-state', text: "On"}
+    assert:
+      - {selector: '#email-switch', visible: true}
+      - {selector: '#visual-state', text: "On"}
+  - id: disabled-again
+    paths: ["/"]
+    actions:
+      - type: press
+        key: Tab
+      - type: press
+        key: Space
+        assert:
+          - {selector: '#email-switch', visible: true}
+          - {selector: '#visual-state', text: "On"}
+      - type: press
+        key: Space
+        assert:
+          - {selector: '#email-switch', visible: true}
+          - {selector: '#visual-state', text: "Off"}
+    assert:
+      - {selector: '#email-switch', visible: true}
+      - {selector: '#visual-state', text: "Off"}
+keyboard_steps: 4

@@ -1,0 +1,42 @@
+{
+  "index": 2,
+  "action": {
+    "type": "reader.nextHeading",
+    "expect_contains": "Help"
+  },
+  "focus_before": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:12.102963+00:00",
+  "finished_at": "2026-11-15T00:10:13.506428+00:00",
+  "focus_after": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/help",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:12.109828+00:00",
+      "line": 8620,
+      "phrase": "h",
+      "raw": "00:10:12.109828 - SPEECH OUTPUT: 'h' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:10:12.119265+00:00",
+      "line": 8668,
+      "phrase": "Wrapping to top.",
+      "raw": "00:10:12.119265 - SPEECH OUTPUT: 'Wrapping to top.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:12.164471+00:00",
+      "line": 8840,
+      "phrase": "Help heading 1",
+      "raw": "00:10:12.164471 - SPEECH OUTPUT: 'Help heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": []
+}

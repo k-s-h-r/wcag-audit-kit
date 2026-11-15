@@ -1,0 +1,208 @@
+{
+  "status": "assertion_failed",
+  "started_at": "2026-11-14T18:59:40.768661+00:00",
+  "case_id": "native-orca-state-bad",
+  "request_sha256": "ec9fd3d62d29f9f5c3cd6d48b0c2a0bf4bfd4d8fcd82884c7abc5c550de5b31d",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "observations": [
+    {
+      "index": 1,
+      "action": {
+        "type": "browser.press",
+        "key": "Tab",
+        "expect_contains": "Email notifications"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": ""
+      },
+      "started_at": "2026-11-14T18:59:47.205688+00:00",
+      "finished_at": "2026-11-14T18:59:49.010454+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "email-switch"
+      },
+      "url": "http://127.0.0.1:4317/reader-controls-bad.html",
+      "speech": [
+        {
+          "at": "2026-11-14T18:59:47.249153+00:00",
+          "line": 2611,
+          "phrase": "Email notifications check box not checked.",
+          "raw": "18:59:47.249153 - SPEECH OUTPUT: 'Email notifications check box not checked.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#visual-state"
+          },
+          "text": "Off"
+        },
+        {
+          "target": {
+            "selector": "#email-switch",
+            "attributes": [
+              "role",
+              "aria-checked"
+            ]
+          },
+          "text": "Email notifications",
+          "attributes": {
+            "role": "checkbox",
+            "aria-checked": "false"
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "browser.press",
+        "key": "Space",
+        "expect_contains": "checked",
+        "expect_not_contains": [
+          "not checked",
+          "unchecked"
+        ]
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "email-switch"
+      },
+      "started_at": "2026-11-14T18:59:49.068380+00:00",
+      "finished_at": "2026-11-14T18:59:50.872506+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "email-switch"
+      },
+      "url": "http://127.0.0.1:4317/reader-controls-bad.html",
+      "speech": [],
+      "assertion": "not_matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#visual-state"
+          },
+          "text": "On"
+        },
+        {
+          "target": {
+            "selector": "#email-switch",
+            "attributes": [
+              "role",
+              "aria-checked"
+            ]
+          },
+          "text": "Email notifications",
+          "attributes": {
+            "role": "checkbox",
+            "aria-checked": "false"
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "browser.press",
+        "key": "Space",
+        "expect_contains": "not checked"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "email-switch"
+      },
+      "started_at": "2026-11-14T18:59:50.914264+00:00",
+      "finished_at": "2026-11-14T18:59:52.718688+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "email-switch"
+      },
+      "url": "http://127.0.0.1:4317/reader-controls-bad.html",
+      "speech": [],
+      "assertion": "not_matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#visual-state"
+          },
+          "text": "Off"
+        },
+        {
+          "target": {
+            "selector": "#email-switch",
+            "attributes": [
+              "role",
+              "aria-checked"
+            ]
+          },
+          "text": "Email notifications",
+          "attributes": {
+            "role": "checkbox",
+            "aria-checked": "false"
+          }
+        }
+      ]
+    }
+  ],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "case_id": "native-orca-state-bad",
+    "url": "http://127.0.0.1:4317/reader-controls-bad.html",
+    "locale": "en-US",
+    "settle_ms": 1800,
+    "observe": [
+      {
+        "selector": "#visual-state"
+      },
+      {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "type": "browser.press",
+        "key": "Tab",
+        "expect_contains": "Email notifications"
+      },
+      {
+        "type": "browser.press",
+        "key": "Space",
+        "expect_contains": "checked",
+        "expect_not_contains": [
+          "not checked",
+          "unchecked"
+        ]
+      },
+      {
+        "type": "browser.press",
+        "key": "Space",
+        "expect_contains": "not checked"
+      }
+    ]
+  },
+  "cleanup": {
+    "debug_log_sha256": "6d31b543ada4cc49d7eafc8e811259481cd62322e869c62005a8b430eed68797",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-14T18:59:53.724336+00:00"
+}

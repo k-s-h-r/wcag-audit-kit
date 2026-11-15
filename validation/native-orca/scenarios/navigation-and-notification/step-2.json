@@ -1,0 +1,36 @@
+{
+  "index": 2,
+  "action": {
+    "type": "browser.press",
+    "key": "Tab",
+    "expect_contains": "Save record two"
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "save1"
+  },
+  "started_at": "2026-11-14T18:53:36.510655+00:00",
+  "finished_at": "2026-11-14T18:53:38.315272+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "save2"
+  },
+  "url": "http://127.0.0.1:4317/live-region-variants.html",
+  "speech": [
+    {
+      "at": "2026-11-14T18:53:36.539821+00:00",
+      "line": 4449,
+      "phrase": "Save record two button.",
+      "raw": "18:53:36.539821 - SPEECH OUTPUT: 'Save record two button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#message2"
+      },
+      "text": ""
+    }
+  ]
+}

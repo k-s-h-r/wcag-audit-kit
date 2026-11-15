@@ -1,0 +1,39 @@
+[
+  {
+    "index": 1,
+    "key": "Tab",
+    "url": "http://127.0.0.1:4325/focus-appearance.html?variant=thin",
+    "focus": {
+      "tag": "button",
+      "id": "probe",
+      "documentHasFocus": true,
+      "text": "Example button",
+      "name": null,
+      "rect": {
+        "x": 48,
+        "y": 240.234375,
+        "width": 240,
+        "height": 80
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "probe"
+        },
+        {
+          "tag": "main",
+          "id": ""
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    }
+  }
+]

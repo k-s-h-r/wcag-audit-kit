@@ -1,0 +1,57 @@
+{
+  "index": 4,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "t"
+    ],
+    "expect_contains": "What to enter"
+  },
+  "focus_before": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:15.072324+00:00",
+  "finished_at": "2026-11-15T00:10:16.474658+00:00",
+  "focus_after": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/help",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:15.083053+00:00",
+      "line": 9211,
+      "phrase": "t",
+      "raw": "00:10:15.083053 - SPEECH OUTPUT: 't' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:10:15.090331+00:00",
+      "line": 9262,
+      "phrase": "What to enter",
+      "raw": "00:10:15.090331 - SPEECH OUTPUT: 'What to enter' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:15.093660+00:00",
+      "line": 9282,
+      "phrase": "table with 3 rows 2 columns",
+      "raw": "00:10:15.093660 - SPEECH OUTPUT: 'table with 3 rows 2 columns' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:15.143403+00:00",
+      "line": 9489,
+      "phrase": "table with 3 rows 2 columns",
+      "raw": "00:10:15.143403 - SPEECH OUTPUT: 'table with 3 rows 2 columns' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:15.144313+00:00",
+      "line": 9496,
+      "phrase": "Field column header.",
+      "raw": "00:10:15.144313 - SPEECH OUTPUT: 'Field column header.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": []
+}

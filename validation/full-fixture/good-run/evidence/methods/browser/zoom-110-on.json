@@ -1,0 +1,390 @@
+{
+  "url": "http://127.0.0.1:4320/",
+  "title": "Notification setting with exposed state",
+  "lang": "en",
+  "viewport": {
+    "width": 1164,
+    "height": 818,
+    "dpr": 1.100000023841858,
+    "scale": 1
+  },
+  "document": {
+    "width": 1164,
+    "height": 818,
+    "scrollX": 0,
+    "scrollY": 0
+  },
+  "state": {
+    "text": "On",
+    "checked": "true"
+  },
+  "focus": {
+    "tag": "button",
+    "id": "email-switch",
+    "document_has_focus": true
+  },
+  "text": "Notification settings\n\nUse the checkbox to turn email notifications on or off.\n\nEmail notificationsOn",
+  "allElements": [
+    "html",
+    "head",
+    "meta",
+    "title",
+    "style",
+    "body",
+    "main",
+    "h1",
+    "p",
+    "button",
+    "span",
+    "script"
+  ],
+  "elements": [
+    {
+      "tag": "h1",
+      "id": "",
+      "text": "Notification settings",
+      "attributes": {},
+      "rect": {
+        "x": 31.988636016845703,
+        "y": 31.988636016845703,
+        "width": 1099.6590576171875,
+        "height": 70.3977279663086
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "44px",
+        "fontWeight": "700",
+        "lineHeight": "70.4px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "29.48px",
+        "borderTopColor": "rgb(0, 0, 0)",
+        "borderTopWidth": "0px",
+        "borderTopStyle": "none",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "2.72727px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "overflow": "visible",
+        "opacity": "1"
+      },
+      "textRects": [
+        {
+          "text": "Notification settings",
+          "rects": [
+            {
+              "x": 31.988636016845703,
+              "y": 41.9886360168457,
+              "width": 422.8266906738281,
+              "height": 49.09090805053711
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "p",
+      "id": "",
+      "text": "Use the checkbox to turn email notifications on or off.",
+      "attributes": {},
+      "rect": {
+        "x": 31.988636016845703,
+        "y": 131.8607940673828,
+        "width": 1099.6590576171875,
+        "height": 35.1988639831543
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "22px",
+        "fontWeight": "400",
+        "lineHeight": "35.2px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "22px",
+        "borderTopColor": "rgb(0, 0, 0)",
+        "borderTopWidth": "0px",
+        "borderTopStyle": "none",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "2.72727px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "overflow": "visible",
+        "opacity": "1"
+      },
+      "textRects": [
+        {
+          "text": "Use the checkbox to turn email notifications on or off.",
+          "rects": [
+            {
+              "x": 31.988636016845703,
+              "y": 136.40625,
+              "width": 516.6051025390625,
+              "height": 24.545455932617188
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "button",
+      "id": "email-switch",
+      "text": "Email notifications",
+      "attributes": {
+        "id": "email-switch",
+        "type": "button",
+        "role": "checkbox",
+        "aria-checked": "true"
+      },
+      "rect": {
+        "x": 31.988636016845703,
+        "y": 189.0482940673828,
+        "width": 212.8408966064453,
+        "height": 70.82386016845703
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgb(239, 239, 239)",
+        "backgroundImage": "none",
+        "fontSize": "22px",
+        "fontWeight": "400",
+        "lineHeight": "35.2px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "borderTopColor": "rgb(0, 0, 0)",
+        "borderTopWidth": "1.81818px",
+        "borderTopStyle": "outset",
+        "outlineColor": "rgb(0, 91, 186)",
+        "outlineWidth": "3.63636px",
+        "outlineStyle": "solid",
+        "outlineOffset": "3.63636px",
+        "display": "inline-block",
+        "position": "static",
+        "overflow": "visible",
+        "opacity": "1"
+      },
+      "textRects": [
+        {
+          "text": "Email notifications",
+          "rects": [
+            {
+              "x": 49.8011360168457,
+              "y": 211.40625,
+              "width": 177.21591186523438,
+              "height": 24.545440673828125
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "span",
+      "id": "visual-state",
+      "text": "On",
+      "attributes": {
+        "id": "visual-state"
+      },
+      "rect": {
+        "x": 260.8238525390625,
+        "y": 211.40625,
+        "width": 29.346590042114258,
+        "height": 24.545454025268555
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "22px",
+        "fontWeight": "400",
+        "lineHeight": "35.2px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "borderTopColor": "rgb(0, 0, 0)",
+        "borderTopWidth": "0px",
+        "borderTopStyle": "none",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "2.72727px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "display": "inline",
+        "position": "static",
+        "overflow": "visible",
+        "opacity": "1"
+      },
+      "textRects": [
+        {
+          "text": "On",
+          "rects": [
+            {
+              "x": 260.8238525390625,
+              "y": 211.40625,
+              "width": 29.346588134765625,
+              "height": 24.545440673828125
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "animations": [],
+  "noExtraContent": true,
+  "pseudo": [
+    {
+      "tag": "html",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "html",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "head",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "head",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "meta",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "meta",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "title",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "title",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "style",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "style",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "body",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "body",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "main",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "main",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "h1",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "h1",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "p",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "p",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "button",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "button",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "span",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "span",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "script",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "script",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    }
+  ],
+  "name": "zoom-110-on",
+  "action": "Toggle at this actual zoom level",
+  "observed_at": "2026-11-14T21:05:23.436745+00:00",
+  "state_asserted": true
+}

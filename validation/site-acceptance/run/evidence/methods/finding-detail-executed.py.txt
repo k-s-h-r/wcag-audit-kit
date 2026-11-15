@@ -1,0 +1,23 @@
+from pathlib import Path
+import json,sys,shutil
+ROOT=Path('/workspace/wcag-audit-kit');RUN=Path('/tmp/wcag-acceptance-audit-001')
+sys.path.insert(0,str(ROOT/'scripts'));import audit
+shutil.copy2(__file__,RUN/'evidence/methods/finding-detail-executed.py.txt')
+count=0
+for case in audit.run_plan(RUN)['cases']:
+ if case['criterion']!='2.4.5':continue
+ value=audit.load(RUN/case['assessment'])
+ if value['outcome']!='failed':continue
+ value={k:v for k,v in value.items() if k not in {'recorded_at','verified_evidence'}}
+ url=case['page_url']
+ value['steps_executed']=[
+  '対象'+url+'と、Home/Profile/Media/Help/Loginの全5文書・匿名状態を訪問した。',
+  '共通nav、本文、footerのリンクと行先を一覧化し、この対象を探す別経路を全実装と比較した。',
+  '検索、利用者向けサイトマップ、本文の関連リンク等の有無を確認した。XMLサイトマップにはUIからの入口がない。',
+  'この対象へは共通navだけから到達でき、特定の手続きの結果・必須段階だけのページではないことを本文の例外に照合した。']
+ value['targets'][0]['target']=url+' への到達経路（nav[aria-label="Main"]、全5文書の本文・footerのリンク）'
+ value['targets'][0]['observed']='このURLへのUI上の経路は共通navの一つだけ。別の検索・サイトマップ・本文の関連リンクからの経路はない。手続きの結果又は必須の段階の例外には該当しない。'
+ audit.record(RUN,value);count+=1
+assert count==16
+result=audit.report(RUN);assert result['recorded_cases']==2200 and not result['unassigned_remaining_cases']
+print({'refined_failure_records':count,'counts':result['counts']})

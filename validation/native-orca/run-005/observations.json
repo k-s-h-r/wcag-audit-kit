@@ -1,0 +1,298 @@
+{
+  "status": "observed",
+  "started_at": "2026-11-14T18:23:22.612523+00:00",
+  "observations": [
+    {
+      "label": "tab-1",
+      "action": "browser.keyboard.press Tab",
+      "started_at": "2026-11-14T18:23:29.999579+00:00",
+      "finished_at": "2026-11-14T18:23:32.003613+00:00",
+      "focus_before": {
+        "id": "",
+        "tag": "body"
+      },
+      "focus_after": {
+        "id": "save1",
+        "tag": "button"
+      },
+      "expected_focus": "save1",
+      "focus_matched": true,
+      "speech": [
+        {
+          "at": "2026-11-14T18:23:30.026655+00:00",
+          "line": 4546,
+          "phrase": "Save record one button.",
+          "raw": "18:23:30.026655 - SPEECH OUTPUT: 'Save record one button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    },
+    {
+      "label": "save-1",
+      "action": "browser.keyboard.press Space",
+      "started_at": "2026-11-14T18:23:32.116653+00:00",
+      "finished_at": "2026-11-14T18:23:34.119098+00:00",
+      "focus_before": {
+        "id": "save1",
+        "tag": "button"
+      },
+      "focus_after": {
+        "id": "save1",
+        "tag": "button"
+      },
+      "expected_focus": "save1",
+      "focus_matched": true,
+      "message": "Record one saved.",
+      "speech": [],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    },
+    {
+      "label": "tab-2",
+      "action": "browser.keyboard.press Tab",
+      "started_at": "2026-11-14T18:23:34.174961+00:00",
+      "finished_at": "2026-11-14T18:23:36.176873+00:00",
+      "focus_before": {
+        "id": "save1",
+        "tag": "button"
+      },
+      "focus_after": {
+        "id": "save2",
+        "tag": "button"
+      },
+      "expected_focus": "save2",
+      "focus_matched": true,
+      "speech": [
+        {
+          "at": "2026-11-14T18:23:34.201429+00:00",
+          "line": 4834,
+          "phrase": "Save record two button.",
+          "raw": "18:23:34.201429 - SPEECH OUTPUT: 'Save record two button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    },
+    {
+      "label": "save-2",
+      "action": "browser.keyboard.press Space",
+      "started_at": "2026-11-14T18:23:36.244107+00:00",
+      "finished_at": "2026-11-14T18:23:38.246388+00:00",
+      "focus_before": {
+        "id": "save2",
+        "tag": "button"
+      },
+      "focus_after": {
+        "id": "save2",
+        "tag": "button"
+      },
+      "expected_focus": "save2",
+      "focus_matched": true,
+      "message": "Record two saved.",
+      "speech": [
+        {
+          "at": "2026-11-14T18:23:36.368637+00:00",
+          "line": 4957,
+          "phrase": "Record two saved.",
+          "raw": "18:23:36.368637 - SPEECH OUTPUT: 'Record two saved.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    },
+    {
+      "label": "tab-3",
+      "action": "browser.keyboard.press Tab",
+      "started_at": "2026-11-14T18:23:38.313513+00:00",
+      "finished_at": "2026-11-14T18:23:40.316915+00:00",
+      "focus_before": {
+        "id": "save2",
+        "tag": "button"
+      },
+      "focus_after": {
+        "id": "save3",
+        "tag": "button"
+      },
+      "expected_focus": "save3",
+      "focus_matched": true,
+      "speech": [
+        {
+          "at": "2026-11-14T18:23:38.338906+00:00",
+          "line": 5149,
+          "phrase": "Save record three button.",
+          "raw": "18:23:38.338906 - SPEECH OUTPUT: 'Save record three button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    },
+    {
+      "label": "save-3",
+      "action": "browser.keyboard.press Space",
+      "started_at": "2026-11-14T18:23:40.424276+00:00",
+      "finished_at": "2026-11-14T18:23:42.426400+00:00",
+      "focus_before": {
+        "id": "save3",
+        "tag": "button"
+      },
+      "focus_after": {
+        "id": "save3",
+        "tag": "button"
+      },
+      "expected_focus": "save3",
+      "focus_matched": true,
+      "message": "Record three saved.",
+      "speech": [
+        {
+          "at": "2026-11-14T18:23:40.537142+00:00",
+          "line": 5271,
+          "phrase": "Record three saved.",
+          "raw": "18:23:40.537142 - SPEECH OUTPUT: 'Record three saved.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    },
+    {
+      "label": "tab-4",
+      "action": "browser.keyboard.press Tab",
+      "started_at": "2026-11-14T18:23:42.495782+00:00",
+      "finished_at": "2026-11-14T18:23:44.498685+00:00",
+      "focus_before": {
+        "id": "save3",
+        "tag": "button"
+      },
+      "focus_after": {
+        "id": "save4",
+        "tag": "button"
+      },
+      "expected_focus": "save4",
+      "focus_matched": true,
+      "speech": [
+        {
+          "at": "2026-11-14T18:23:42.522313+00:00",
+          "line": 5463,
+          "phrase": "Save record four button.",
+          "raw": "18:23:42.522313 - SPEECH OUTPUT: 'Save record four button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    },
+    {
+      "label": "save-4",
+      "action": "browser.keyboard.press Space",
+      "started_at": "2026-11-14T18:23:44.556134+00:00",
+      "finished_at": "2026-11-14T18:23:46.558102+00:00",
+      "focus_before": {
+        "id": "save4",
+        "tag": "button"
+      },
+      "focus_after": {
+        "id": "save4",
+        "tag": "button"
+      },
+      "expected_focus": "save4",
+      "focus_matched": true,
+      "message": "Record four saved.",
+      "speech": [
+        {
+          "at": "2026-11-14T18:23:44.670473+00:00",
+          "line": 5589,
+          "phrase": "Record four saved.",
+          "raw": "18:23:44.670473 - SPEECH OUTPUT: 'Record four saved.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    },
+    {
+      "label": "tab-5",
+      "action": "browser.keyboard.press Tab",
+      "started_at": "2026-11-14T18:23:46.627557+00:00",
+      "finished_at": "2026-11-14T18:23:48.631050+00:00",
+      "focus_before": {
+        "id": "save4",
+        "tag": "button"
+      },
+      "focus_after": {
+        "id": "save5",
+        "tag": "button"
+      },
+      "expected_focus": "save5",
+      "focus_matched": true,
+      "speech": [
+        {
+          "at": "2026-11-14T18:23:46.657637+00:00",
+          "line": 5781,
+          "phrase": "Save record five button.",
+          "raw": "18:23:46.657637 - SPEECH OUTPUT: 'Save record five button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    },
+    {
+      "label": "save-5",
+      "action": "browser.keyboard.press Space",
+      "started_at": "2026-11-14T18:23:48.722783+00:00",
+      "finished_at": "2026-11-14T18:23:50.724665+00:00",
+      "focus_before": {
+        "id": "save5",
+        "tag": "button"
+      },
+      "focus_after": {
+        "id": "save5",
+        "tag": "button"
+      },
+      "expected_focus": "save5",
+      "focus_matched": true,
+      "message": "Record five saved.",
+      "speech": [],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    },
+    {
+      "label": "next-heading",
+      "action": "native XTest h, handled by Orca structural navigation",
+      "started_at": "2026-11-14T18:23:50.793299+00:00",
+      "finished_at": "2026-11-14T18:23:52.796510+00:00",
+      "focus_before": {
+        "id": "save5",
+        "tag": "button"
+      },
+      "focus_after": {
+        "id": "",
+        "tag": "body"
+      },
+      "speech": [
+        {
+          "at": "2026-11-14T18:23:50.800910+00:00",
+          "line": 5882,
+          "phrase": "h",
+          "raw": "18:23:50.800910 - SPEECH OUTPUT: 'h' {'established': False}"
+        },
+        {
+          "at": "2026-11-14T18:23:50.810222+00:00",
+          "line": 5930,
+          "phrase": "Wrapping to top.",
+          "raw": "18:23:50.810222 - SPEECH OUTPUT: 'Wrapping to top.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-14T18:23:50.838670+00:00",
+          "line": 6111,
+          "phrase": "Live region compatibility controls heading 1",
+          "raw": "18:23:50.838670 - SPEECH OUTPUT: 'Live region compatibility controls heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "index_method": "closed log speech timestamps, not buffered file offsets"
+    }
+  ],
+  "backend": "native Orca debug speech output; NOT Guidepup",
+  "audio": "Speech Dispatcher configured with ALSA null; no acoustic recording",
+  "log_timezone": "UTC",
+  "wcag_judgement": null,
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "orca_debian_package": "48.1-1+deb13u2",
+    "speech_dispatcher_debian_package": "0.12.0-5",
+    "package_manifest_sha256": "ecc9d589e7b0ac6457ecf66cfb6e5d203ed09741285f3d2fe221532dc047fbf0",
+    "browser_version": "156.0.8078.79"
+  },
+  "url": "http://127.0.0.1:4317/live-region-variants.html",
+  "fixture_sha256": "60da8bb14e588b3a5c8bf914d7b32fbed36d1476d9615bfb8a79968784eb8a25",
+  "closed_log_sha256": "0bee5d85e20b9a46325f595f7e1527576f7cb12d8a15d1df58a5ab8cf411571d",
+  "finished_at": "2026-11-14T18:23:53.800548+00:00"
+}

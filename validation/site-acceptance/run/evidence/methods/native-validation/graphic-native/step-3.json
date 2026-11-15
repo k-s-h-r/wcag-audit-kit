@@ -1,0 +1,45 @@
+{
+  "index": 3,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Control_L",
+      "Home"
+    ]
+  },
+  "focus_before": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:36:44.337487+00:00",
+  "finished_at": "2026-11-15T00:36:45.742163+00:00",
+  "focus_after": {
+    "tag": "a",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/#main",
+  "speech": [
+    {
+      "at": "2026-11-15T00:36:44.341598+00:00",
+      "line": 6619,
+      "phrase": "left control",
+      "raw": "00:36:44.341598 - SPEECH OUTPUT: 'left control' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:36:44.370516+00:00",
+      "line": 6861,
+      "phrase": "leaving main content.",
+      "raw": "00:36:44.370516 - SPEECH OUTPUT: 'leaving main content.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:36:44.371308+00:00",
+      "line": 6868,
+      "phrase": "Skip to main content link.",
+      "raw": "00:36:44.371308 - SPEECH OUTPUT: 'Skip to main content link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": []
+}

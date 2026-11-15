@@ -1,0 +1,28 @@
+import asyncio,hashlib,json,shutil
+from pathlib import Path
+from playwright.async_api import async_playwright
+OUT=Path('/tmp/wcag-act-held-out-001')
+async def main():
+ shutil.copy2(__file__,OUT/'observe-executed.py.txt');rows=[]
+ index=json.loads((OUT/'review-cases.json').read_text())
+ async with async_playwright() as pw:
+  browser=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox','--force-renderer-accessibility'])
+  try:
+   for case in index['cases']:
+    folder=OUT/'observations'/case['case'];folder.mkdir(parents=True,exist_ok=False)
+    page=await browser.new_page(viewport={'width':1100,'height':800})
+    response=await page.goto(case['url'],wait_until='networkidle');assert response.status==200
+    raw=await response.body();assert raw==(OUT/case['file']).read_bytes()
+    cdp=await page.context.new_cdp_session(page);ax=await cdp.send('Accessibility.getFullAXTree')
+    (folder/'ax.json').write_text(json.dumps(ax,indent=2)+'\n');(folder/'dom.html').write_text(await page.content())
+    await page.screenshot(path=str(folder/'page.png'),full_page=True)
+    role='button' if case['rule']=='97a4e1' else 'image'
+    nodes=[{'role':n['role']['value'],'name':n.get('name',{}).get('value',''),'ignored':n.get('ignored',False),'backend_id':n.get('backendDOMNodeId')} for n in ax['nodes'] if n.get('role',{}).get('value') in ['button','image'] and not n.get('ignored')]
+    dom=await page.evaluate('''() => [...document.querySelectorAll('button,input,img,[role]')].map(e=>({tag:e.localName,type:e.getAttribute('type'),role:e.getAttribute('role'),alt:e.getAttribute('alt'),ariaHidden:e.getAttribute('aria-hidden'),text:e.textContent,display:getComputedStyle(e).display,visibility:getComputedStyle(e).visibility}))''')
+    row={'case':case['case'],'rule':case['rule'],'exposed_nodes':nodes,'dom_targets':dom,'source_sha256':hashlib.sha256(raw).hexdigest(),'browser_version':browser.version}
+    rows.append(row);(folder/'observation.json').write_text(json.dumps(row,indent=2)+'\n')
+    await page.close()
+  finally:await browser.close()
+ (OUT/'review-observations.json').write_text(json.dumps(rows,indent=2)+'\n')
+ print(json.dumps(rows,ensure_ascii=False,indent=2))
+asyncio.run(main())

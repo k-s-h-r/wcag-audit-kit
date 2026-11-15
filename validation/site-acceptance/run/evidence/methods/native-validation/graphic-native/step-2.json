@@ -1,0 +1,44 @@
+{
+  "index": 2,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Return"
+    ]
+  },
+  "focus_before": {
+    "tag": "a",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:36:42.888793+00:00",
+  "finished_at": "2026-11-15T00:36:44.290967+00:00",
+  "focus_after": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/#main",
+  "speech": [
+    {
+      "at": "2026-11-15T00:36:42.898540+00:00",
+      "line": 6070,
+      "phrase": "return",
+      "raw": "00:36:42.898540 - SPEECH OUTPUT: 'return' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:36:42.932548+00:00",
+      "line": 6300,
+      "phrase": "main content.",
+      "raw": "00:36:42.932548 - SPEECH OUTPUT: 'main content.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:36:42.964378+00:00",
+      "line": 6529,
+      "phrase": "Update your demo profile heading 1",
+      "raw": "00:36:42.964378 - SPEECH OUTPUT: 'Update your demo profile heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": []
+}

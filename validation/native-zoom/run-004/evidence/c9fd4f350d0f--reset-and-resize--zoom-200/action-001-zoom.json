@@ -1,0 +1,32 @@
+{
+  "mechanism": "native XTest keys into dedicated Chromium window",
+  "factor": 1,
+  "baseline": {
+    "innerWidth": 1280,
+    "innerHeight": 900,
+    "outerWidth": 1280,
+    "outerHeight": 987,
+    "devicePixelRatio": 1,
+    "visualScale": 1,
+    "docWidth": 1280,
+    "docHeight": 900,
+    "bodyZoom": "1",
+    "rootZoom": "1"
+  },
+  "observed": {
+    "innerWidth": 1280,
+    "innerHeight": 900,
+    "outerWidth": 1280,
+    "outerHeight": 987,
+    "devicePixelRatio": 1,
+    "visualScale": 1,
+    "docWidth": 1280,
+    "docHeight": 900,
+    "bodyZoom": "1",
+    "rootZoom": "1"
+  },
+  "steps": [],
+  "verified": true,
+  "observed_at": "2026-11-14T16:13:50.299280+00:00",
+  "note": "実ブラウザー拡大の操作確認。内容・機能の保持又はWCAG合格の判定ではない"
+}

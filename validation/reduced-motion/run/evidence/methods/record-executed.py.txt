@@ -1,0 +1,35 @@
+from pathlib import Path
+import json,sys,shutil
+from urllib.parse import urlsplit,parse_qs
+ROOT=Path('/workspace/wcag-audit-kit');RUN=Path('/tmp/wcag-motion-audit-001')
+sys.path.insert(0,str(ROOT/'scripts'));import audit
+methods=RUN/'evidence/methods';shutil.copytree('/tmp/wcag-motion-method-001',methods)
+shutil.copy2(__file__,methods/'record-executed.py.txt')
+meta=audit.run_meta(RUN);comparison=audit.load(methods/'comparison.json');rows=comparison['scenarios']
+for case in audit.run_plan(RUN)['cases']:
+ if case['criterion']!='2.3.3':continue
+ variant=parse_qs(urlsplit(case['page_url']).query)['variant'][0];passed=variant=='good'
+ selected=[r for r in rows if r['variant']==variant]
+ assert len(selected)==2 and all(s['count']=='1' for r in selected for s in r['samples'])
+ assert next(r for r in selected if r['preference']=='no-preference')['motion_observed']
+ assert next(r for r in selected if r['preference']=='reduce')['motion_observed'] is (not passed)
+ outcome='passed' if passed else 'failed'
+ observed=('装飾の四角の移動はMove illustrationの実キー操作から始まり、通常設定では実時刻に応じてx座標が変わる。表示の主機能はCountの増加で、動きを止めてもCount=1として機能を保持する。'
+  +('reduceでは同じ四角がx=43のまま、著者CSSのmedia queryで非本質的な動きを無効にできた。' if passed else 'reduceでもx=55→71→86.988と移動し、media queryに応答しない。全ソースとUIに別の無効化手段がなく、説明と機能から装飾の移動は本質的ではない。'))
+ evidence=[case['evidence_dir']+'/'+n for n in ['page.png','inventory.json','dom.html','keyboard.json']]
+ evidence += ['evidence/methods/'+n for n in ['comparison.json','source.html','executed-source.py.txt']]
+ for pref in ['no-preference','reduce']:
+  evidence += ['evidence/methods/'+variant+'-'+pref+'/'+n for n in ['observations.json','0.png','2.png']]
+ audit.record(RUN,{'case_id':case['case_id'],'config_digest':meta['config_digest'],
+  'normative_sha256':audit.CRITERIA['2.3.3']['normative_sha256'],'execution':'completed','outcome':outcome,
+  'conditions_reviewed':True,'exceptions_reviewed':True,'coverage_complete':True,
+  'steps_executed':['実際のTab/Enterで装飾の移動とCount増加を開始','no-preferenceとreduceをChromiumでエミュレーションし、matchMediaの一致と実時間の位置・実画面を比較','全著者CSS/JS/UIを読み、別の無効化経路と本質的な動きの例外を照合'],
+  'tests_applied':['WCAG22:2.3.3:normative','reduced-motion-real-time-001'],
+  'observed':observed,'targets':[{'target':'button#runによる装飾の#boxの移動','observed':observed,
+   'expected':audit.CRITERIA['2.3.3']['expectation'],'outcome':outcome,'evidence':evidence}],
+  'method_coverage':[{'method':m,'status':'executed','reason':'実キーで動作を開始し、実際の表示・位置・経過時刻と利用者のmotion設定のエミュレーションを比較した。'} for m in audit.CRITERIA['2.3.3']['methods']],
+  'evidence':evidence,'remaining':[]})
+r=audit.report(RUN);assert r['counts']=={'not_run':170,'passed':1,'failed':1}
+root=ROOT/'validation/reduced-motion';root.mkdir(exist_ok=False);shutil.copytree(RUN,root/'run')
+shutil.copy2('/tmp/wcag-motion-config-001.json',root/'config.json')
+print({'counts':r['counts'],'audit_complete':r['audit_complete']})

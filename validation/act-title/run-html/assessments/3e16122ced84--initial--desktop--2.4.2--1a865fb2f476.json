@@ -1,0 +1,65 @@
+{
+  "case_id": "3e16122ced84--initial--desktop--2.4.2",
+  "config_digest": "501fbc6ae0d59b19d06a51dfe2977508ddba6a944b9bcf8689edc4aa09b59d68",
+  "normative_sha256": "c8ea15c57c75772ac694984252bafe819baec75f9703c5ab3da13e51455ddcf6",
+  "outcome": "passed",
+  "execution": "completed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "remaining": [],
+  "observed": "最初の題名は本文のクレメンタインの収穫時期と一致する。2番目のtitleをブラウザーは題名として使っていない。",
+  "steps_executed": [
+    "対象URLを独立したHTTPのトップレベル文書としてChromiumで開いた。",
+    "ブラウザーのdocument.titleと各titleの名前空間・テキストノード・順序を取得した。",
+    "本文と題名の主題・目的を比較した。"
+  ],
+  "tests_applied": [
+    "ACT/c4a8a4@01577d2f2d18a8f1f21239690fb7e0bd9aba532b14f758600369a0c3395ad4de"
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "実ブラウザーの文書と各titleの順序・名前空間・テキストを取得した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "最初の題名は本文のクレメンタインの収穫時期と一致する。2番目のtitleをブラウザーは題名として使っていない。"
+    }
+  ],
+  "targets": [
+    {
+      "target": "このトップレベルHTML文書の題名",
+      "expected": "ページの主題又は目的を説明する題名がある。",
+      "observed": "最初の題名は本文のクレメンタインの収穫時期と一致する。2番目のtitleをブラウザーは題名として使っていない。",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/3e16122ced84--initial--desktop/inventory.json",
+        "evidence/3e16122ced84--initial--desktop/dom.html",
+        "evidence/3e16122ced84--initial--desktop/page.png"
+      ]
+    }
+  ],
+  "evidence": [
+    "evidence/3e16122ced84--initial--desktop/inventory.json",
+    "evidence/3e16122ced84--initial--desktop/dom.html",
+    "evidence/3e16122ced84--initial--desktop/page.png"
+  ],
+  "recorded_at": "2026-11-14T16:54:41.858903+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/3e16122ced84--initial--desktop/inventory.json",
+      "sha256": "95e89c5c85a27253a63fa698e56d03c620c35c242add11518215d12c5b722c68"
+    },
+    {
+      "path": "evidence/3e16122ced84--initial--desktop/dom.html",
+      "sha256": "16fd6481a6c99a43aa5d74ae551693b2dd6a051c97d7a5de6df596bf640f465e"
+    },
+    {
+      "path": "evidence/3e16122ced84--initial--desktop/page.png",
+      "sha256": "000979a74d2f0730be51a460f98f356893a83e3d9d794cc3a11d73255f8b6bad"
+    }
+  ]
+}

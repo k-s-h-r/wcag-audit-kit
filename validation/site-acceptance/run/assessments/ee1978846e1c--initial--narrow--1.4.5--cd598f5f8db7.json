@@ -1,0 +1,294 @@
+{
+  "case_id": "ee1978846e1c--initial--narrow--1.4.5",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "a80f659e93ad33985a35b43953662670af22e1aad4a427dc397c409e3331e9ec",
+  "execution": "blocked",
+  "outcome": "cant_tell",
+  "observed": "このcaseはhttp://127.0.0.1:4330/media / initial / narrow。表示の主内容はVideo instructions — Profile demo。可視見出し: ['Video instructions', 'Text description']。入力欄: []。HTMLには実文字を使う。収録動画の模擬UI内の文字について、本文の画像内文字の適用範囲・必要な提示の例外・同じ情報を伝える方法の判断を残す。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": false,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:1.4.5:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "video#clip と全字幕・代替・該当する条件",
+      "observed": "HTMLには実文字を使う。収録動画の模擬UI内の文字について、本文の画像内文字の適用範囲・必要な提示の例外・同じ情報を伝える方法の判断を残す。",
+      "expected": "原典の例外を除き文字画像への依存がないか",
+      "outcome": "cant_tell",
+      "evidence": [
+        "evidence/ee1978846e1c--initial--narrow/page.png",
+        "evidence/ee1978846e1c--initial--narrow/inventory.json",
+        "evidence/ee1978846e1c--initial--narrow/dom.html",
+        "evidence/ee1978846e1c--initial--narrow/accessibility-tree.json",
+        "evidence/ee1978846e1c--initial--narrow/actions.json",
+        "evidence/ee1978846e1c--initial--narrow/keyboard.json",
+        "evidence/methods/browser/executed-source.py.txt",
+        "evidence/methods/browser/source/app.js",
+        "evidence/methods/browser/source/app.css",
+        "evidence/methods/browser/server.py.txt",
+        "evidence/methods/discovery/discovery.json",
+        "evidence/methods/browser/narrow/observations.json",
+        "evidence/methods/browser/narrow/015-captions-playing.png",
+        "evidence/methods/browser/narrow/015-captions-playing.json",
+        "evidence/methods/browser/narrow/015-captions-playing-ax.json",
+        "evidence/methods/browser/narrow/016-video-paused.png",
+        "evidence/methods/browser/narrow/016-video-paused.json",
+        "evidence/methods/browser/narrow/016-video-paused-ax.json",
+        "evidence/methods/browser/narrow/017-video-ended.png",
+        "evidence/methods/browser/narrow/017-video-ended.json",
+        "evidence/methods/browser/narrow/017-video-ended-ax.json",
+        "evidence/methods/browser/source/clip.webm",
+        "evidence/methods/browser/source/captions.vtt",
+        "evidence/methods/media-analysis/source-provenance.json",
+        "evidence/methods/media-analysis/frame-6.png",
+        "evidence/methods/media-analysis/frame-colors.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "unavailable",
+      "reason": "この対象の全条件を確認する信頼できる観察が不足しているため、具体的な人の確認へ残した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/ee1978846e1c--initial--narrow/page.png",
+    "evidence/ee1978846e1c--initial--narrow/inventory.json",
+    "evidence/ee1978846e1c--initial--narrow/dom.html",
+    "evidence/ee1978846e1c--initial--narrow/accessibility-tree.json",
+    "evidence/ee1978846e1c--initial--narrow/actions.json",
+    "evidence/ee1978846e1c--initial--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/browser/narrow/015-captions-playing.png",
+    "evidence/methods/browser/narrow/015-captions-playing.json",
+    "evidence/methods/browser/narrow/015-captions-playing-ax.json",
+    "evidence/methods/browser/narrow/016-video-paused.png",
+    "evidence/methods/browser/narrow/016-video-paused.json",
+    "evidence/methods/browser/narrow/016-video-paused-ax.json",
+    "evidence/methods/browser/narrow/017-video-ended.png",
+    "evidence/methods/browser/narrow/017-video-ended.json",
+    "evidence/methods/browser/narrow/017-video-ended-ax.json",
+    "evidence/methods/browser/source/clip.webm",
+    "evidence/methods/browser/source/captions.vtt",
+    "evidence/methods/media-analysis/source-provenance.json",
+    "evidence/methods/media-analysis/frame-6.png",
+    "evidence/methods/media-analysis/frame-colors.json"
+  ],
+  "remaining": [
+    "録画された模擬UI内の文字について、画像内文字の適用範囲・提示の例外の判断を残す。",
+    "模擬UIの文字が本文の画像内文字の対象になるか、図・動画の文脈と定義を照合する",
+    "適用する場合、実文字による同じ情報の提示、カスタマイズ又は必要な提示の例外の根拠を確認する"
+  ],
+  "human_handoff": {
+    "reason_kind": "specialist_judgement",
+    "reason": "録画された模擬UI内の文字について、画像内文字の適用範囲・提示の例外の判断を残す。",
+    "reviewer": "媒体内の文字とWCAGの画像内文字・例外を判断できる担当",
+    "required_environment": "video#clip、文章代替、採用したWCAG本文と定義",
+    "attempts": [
+      {
+        "method": "visual, dom, semantic",
+        "observed": "HTMLには実文字を使う。収録動画の模擬UI内の文字について、本文の画像内文字の適用範囲・必要な提示の例外・同じ情報を伝える方法の判断を残す。",
+        "evidence": [
+          "evidence/ee1978846e1c--initial--narrow/page.png",
+          "evidence/ee1978846e1c--initial--narrow/inventory.json",
+          "evidence/ee1978846e1c--initial--narrow/dom.html",
+          "evidence/ee1978846e1c--initial--narrow/accessibility-tree.json",
+          "evidence/ee1978846e1c--initial--narrow/actions.json",
+          "evidence/ee1978846e1c--initial--narrow/keyboard.json",
+          "evidence/methods/browser/executed-source.py.txt",
+          "evidence/methods/browser/source/app.js",
+          "evidence/methods/browser/source/app.css",
+          "evidence/methods/browser/server.py.txt",
+          "evidence/methods/discovery/discovery.json",
+          "evidence/methods/browser/narrow/observations.json",
+          "evidence/methods/browser/narrow/015-captions-playing.png",
+          "evidence/methods/browser/narrow/015-captions-playing.json",
+          "evidence/methods/browser/narrow/015-captions-playing-ax.json",
+          "evidence/methods/browser/narrow/016-video-paused.png",
+          "evidence/methods/browser/narrow/016-video-paused.json",
+          "evidence/methods/browser/narrow/016-video-paused-ax.json",
+          "evidence/methods/browser/narrow/017-video-ended.png",
+          "evidence/methods/browser/narrow/017-video-ended.json",
+          "evidence/methods/browser/narrow/017-video-ended-ax.json",
+          "evidence/methods/browser/source/clip.webm",
+          "evidence/methods/browser/source/captions.vtt",
+          "evidence/methods/media-analysis/source-provenance.json",
+          "evidence/methods/media-analysis/frame-6.png",
+          "evidence/methods/media-analysis/frame-colors.json"
+        ]
+      }
+    ],
+    "checks": [
+      {
+        "target": "video#clip と全字幕・代替・該当する条件 / http://127.0.0.1:4330/media / initial / narrow",
+        "steps": [
+          "模擬UIの文字が本文の画像内文字の対象になるか、図・動画の文脈と定義を照合する",
+          "適用する場合、実文字による同じ情報の提示、カスタマイズ又は必要な提示の例外の根拠を確認する"
+        ],
+        "expected": "原典の例外を除き文字画像への依存がないか",
+        "evidence": [
+          "evidence/ee1978846e1c--initial--narrow/page.png",
+          "evidence/ee1978846e1c--initial--narrow/inventory.json",
+          "evidence/ee1978846e1c--initial--narrow/dom.html",
+          "evidence/ee1978846e1c--initial--narrow/accessibility-tree.json",
+          "evidence/ee1978846e1c--initial--narrow/actions.json",
+          "evidence/ee1978846e1c--initial--narrow/keyboard.json",
+          "evidence/methods/browser/executed-source.py.txt",
+          "evidence/methods/browser/source/app.js",
+          "evidence/methods/browser/source/app.css",
+          "evidence/methods/browser/server.py.txt",
+          "evidence/methods/discovery/discovery.json",
+          "evidence/methods/browser/narrow/observations.json",
+          "evidence/methods/browser/narrow/015-captions-playing.png",
+          "evidence/methods/browser/narrow/015-captions-playing.json",
+          "evidence/methods/browser/narrow/015-captions-playing-ax.json",
+          "evidence/methods/browser/narrow/016-video-paused.png",
+          "evidence/methods/browser/narrow/016-video-paused.json",
+          "evidence/methods/browser/narrow/016-video-paused-ax.json",
+          "evidence/methods/browser/narrow/017-video-ended.png",
+          "evidence/methods/browser/narrow/017-video-ended.json",
+          "evidence/methods/browser/narrow/017-video-ended-ax.json",
+          "evidence/methods/browser/source/clip.webm",
+          "evidence/methods/browser/source/captions.vtt",
+          "evidence/methods/media-analysis/source-provenance.json",
+          "evidence/methods/media-analysis/frame-6.png",
+          "evidence/methods/media-analysis/frame-colors.json"
+        ]
+      }
+    ],
+    "resume": "対象ごとの実測・比較した内容・判断根拠・証拠を受け取り、このcaseの新しい判定として記録する。元の判定は保持する。"
+  },
+  "recorded_at": "2026-11-15T00:49:32.669814+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/ee1978846e1c--initial--narrow/page.png",
+      "sha256": "d7fe5bfabd779bf0a60f2349c4e147c078f9bb862140ff506ae449fa2e5addf7"
+    },
+    {
+      "path": "evidence/ee1978846e1c--initial--narrow/inventory.json",
+      "sha256": "3883f95c16677c714acc3beafc8d988dbec25aa0ad389fe5d3065d409711e549"
+    },
+    {
+      "path": "evidence/ee1978846e1c--initial--narrow/dom.html",
+      "sha256": "d02ac83d1e582e66815bf3befc8616222421203689f7201d8259091f29237161"
+    },
+    {
+      "path": "evidence/ee1978846e1c--initial--narrow/accessibility-tree.json",
+      "sha256": "9cbf55a87d1a147ca1d46105e334dac7fb07b49aa2533f4862e3d4131c84ec39"
+    },
+    {
+      "path": "evidence/ee1978846e1c--initial--narrow/actions.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "evidence/ee1978846e1c--initial--narrow/keyboard.json",
+      "sha256": "3bbdc390bbd78411965bebfdfd8a2299741658633988793b393a0fe7500144ee"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/015-captions-playing.png",
+      "sha256": "5ba74c2c39e21e58927fcb7529e0ff881778b1253eda023755f81ea76f104245"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/015-captions-playing.json",
+      "sha256": "70b4770cdbb590ba4bb77d31a09b93f68738279277dd4982a6ba402dbc9f34ed"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/015-captions-playing-ax.json",
+      "sha256": "9ff797b17610f08ea1625e8dd53eb6419a9a4bc5bd14b5071d4b73f52ed4db1b"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/016-video-paused.png",
+      "sha256": "ec2090305c436debb6c506ac57ec7e1ed88933488286f7831cdea208144da90a"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/016-video-paused.json",
+      "sha256": "9b5d56b6322b8808fd8210125741f077d0e50c375b12dc5247649b691c9eac7a"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/016-video-paused-ax.json",
+      "sha256": "21eca0092c0e9a5e2c0bfb7512b3ea98b4e39fd96df592775a51f02169ba82c0"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/017-video-ended.png",
+      "sha256": "b952713e84d02dc6d8f2368923bb76992fbe80d5a595f558662583991cf4c42f"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/017-video-ended.json",
+      "sha256": "6b1b59cc163f206ceebde6b935e1d6d1537fc68d293d5a266305a4ed64cd03c1"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/017-video-ended-ax.json",
+      "sha256": "9b6a2351a41ba473f7f020b3b94d50f79ba3ec78cc4cb97db202191d017932e2"
+    },
+    {
+      "path": "evidence/methods/browser/source/clip.webm",
+      "sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5"
+    },
+    {
+      "path": "evidence/methods/browser/source/captions.vtt",
+      "sha256": "28975181ad43b0c77ca3bad8219db2193dbe081b99cec50b12932380338bcbae"
+    },
+    {
+      "path": "evidence/methods/media-analysis/source-provenance.json",
+      "sha256": "a066b3caaad725507bed85680644e04dd40b5279b33f89bc9865aab5648558e7"
+    },
+    {
+      "path": "evidence/methods/media-analysis/frame-6.png",
+      "sha256": "80220b516b9f6ad330708ac3a96ecef614bd4e82bc8141f3f55448c57ec9fdbd"
+    },
+    {
+      "path": "evidence/methods/media-analysis/frame-colors.json",
+      "sha256": "ba0eeaad96aebb0944fe9dfdea1e61d050d8726ca1aa610a5ce4b668b8f5346b"
+    }
+  ]
+}

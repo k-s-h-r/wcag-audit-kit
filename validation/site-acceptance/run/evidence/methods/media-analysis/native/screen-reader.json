@@ -1,0 +1,320 @@
+{
+  "status": "collected",
+  "started_at": "2026-11-15T00:29:25.517241+00:00",
+  "case_id": "ee1978846e1c--initial--desktop--4.1.3",
+  "request_sha256": "c30120c4b66d287fc54dc42ac5f3882666c43595e3971e819e2402ddb7a7d7ae",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "observations": [
+    {
+      "index": 1,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ]
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:29:32.192158+00:00",
+      "finished_at": "2026-11-15T00:29:33.593677+00:00",
+      "focus_after": {
+        "tag": "a",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/media",
+      "speech": [
+        {
+          "at": "2026-11-15T00:29:32.200279+00:00",
+          "line": 5843,
+          "phrase": "left control",
+          "raw": "00:29:32.200279 - SPEECH OUTPUT: 'left control' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:29:32.246954+00:00",
+          "line": 6179,
+          "phrase": "leaving information.",
+          "raw": "00:29:32.246954 - SPEECH OUTPUT: 'leaving information.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:29:32.247686+00:00",
+          "line": 6186,
+          "phrase": "Skip to main content link.",
+          "raw": "00:29:32.247686 - SPEECH OUTPUT: 'Skip to main content link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#playback-state"
+          },
+          "text": "Not playing"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "reader.nextHeading",
+        "expect_contains": "Video instructions"
+      },
+      "focus_before": {
+        "tag": "a",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:29:33.673236+00:00",
+      "finished_at": "2026-11-15T00:29:35.074438+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/media",
+      "speech": [
+        {
+          "at": "2026-11-15T00:29:33.677541+00:00",
+          "line": 6432,
+          "phrase": "h",
+          "raw": "00:29:33.677541 - SPEECH OUTPUT: 'h' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:29:33.719593+00:00",
+          "line": 6660,
+          "phrase": "main content",
+          "raw": "00:29:33.719593 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:29:33.720745+00:00",
+          "line": 6667,
+          "phrase": "Video instructions heading 1",
+          "raw": "00:29:33.720745 - SPEECH OUTPUT: 'Video instructions heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#playback-state"
+          },
+          "text": "Not playing"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "reader.nextButton",
+        "expect_contains": "Play video"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:29:35.152388+00:00",
+      "finished_at": "2026-11-15T00:29:36.553722+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "play",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/media",
+      "speech": [
+        {
+          "at": "2026-11-15T00:29:35.156382+00:00",
+          "line": 6878,
+          "phrase": "b",
+          "raw": "00:29:35.156382 - SPEECH OUTPUT: 'b' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:29:35.189763+00:00",
+          "line": 7059,
+          "phrase": "Play video button.",
+          "raw": "00:29:35.189763 - SPEECH OUTPUT: 'Play video button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#playback-state"
+          },
+          "text": "Not playing"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "Playing"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "play",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:29:36.683835+00:00",
+      "finished_at": "2026-11-15T00:29:38.085058+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "play",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/media",
+      "speech": [
+        {
+          "at": "2026-11-15T00:29:36.688412+00:00",
+          "line": 7231,
+          "phrase": "space",
+          "raw": "00:29:36.688412 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:29:36.863714+00:00",
+          "line": 7507,
+          "phrase": "Pause video button.",
+          "raw": "00:29:36.863714 - SPEECH OUTPUT: 'Pause video button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:29:36.952146+00:00",
+          "line": 7615,
+          "phrase": "Playing",
+          "raw": "00:29:36.952146 - SPEECH OUTPUT: 'Playing' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#playback-state"
+          },
+          "text": "Playing"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "Paused"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "play",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:29:38.163564+00:00",
+      "finished_at": "2026-11-15T00:29:39.564612+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "play",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/media",
+      "speech": [
+        {
+          "at": "2026-11-15T00:29:38.167733+00:00",
+          "line": 7742,
+          "phrase": "space",
+          "raw": "00:29:38.167733 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:29:38.344417+00:00",
+          "line": 8018,
+          "phrase": "Play video button.",
+          "raw": "00:29:38.344417 - SPEECH OUTPUT: 'Play video button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:29:38.430197+00:00",
+          "line": 8126,
+          "phrase": "Paused",
+          "raw": "00:29:38.430197 - SPEECH OUTPUT: 'Paused' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#playback-state"
+          },
+          "text": "Paused"
+        }
+      ]
+    }
+  ],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "case_id": "ee1978846e1c--initial--desktop--4.1.3",
+    "url": "http://127.0.0.1:4330/media",
+    "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+    "locale": "en-US",
+    "settle_ms": 1400,
+    "observe": [
+      {
+        "selector": "#playback-state"
+      }
+    ],
+    "actions": [
+      {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ]
+      },
+      {
+        "type": "reader.nextHeading",
+        "expect_contains": "Video instructions"
+      },
+      {
+        "type": "reader.nextButton",
+        "expect_contains": "Play video"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "Playing"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "Paused"
+      }
+    ]
+  },
+  "cleanup": {
+    "debug_log_sha256": "3fffae7b35a5a33d0ebce89ecb89e21f5ff9ada2b3a5319d35d5538b8b961e04",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-15T00:29:40.207145+00:00"
+}

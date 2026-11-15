@@ -1,0 +1,40 @@
+{
+  "case_id": "eed089bd8f88--initial--desktop--1.1.1",
+  "url": "http://127.0.0.1:4330/",
+  "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+  "locale": "en-US",
+  "settle_ms": 1400,
+  "actions": [
+    {
+      "type": "reader.press",
+      "keys": [
+        "Control_L",
+        "Home"
+      ]
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Return"
+      ]
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Control_L",
+        "Home"
+      ]
+    },
+    {
+      "type": "reader.nextHeading",
+      "expect_contains": "Update your demo profile"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "g"
+      ],
+      "expect_contains": "Three stages"
+    }
+  ]
+}

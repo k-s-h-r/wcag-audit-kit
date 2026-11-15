@@ -1,0 +1,146 @@
+{
+  "case_id": "2a14ee6fac28--login-success--desktop--3.3.4",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "e9d6508543df386222e4fe47d4af3ddd95bc443bd580f55ed3f5215aca217c06",
+  "execution": "completed",
+  "outcome": "inapplicable",
+  "observed": "このcaseはhttp://127.0.0.1:4330/login / login-success / desktop。表示の主内容はSign in — Profile demo。可視見出し: ['Sign in']。入力欄: [\"#login-email: ['Email']\", \"#password: ['Password']\"]。この状態に金融・法律上の確定、保存済みユーザー情報の変更・削除、テスト回答の送信はない。認証cookieの変更をそのままこの業務データの条件へ置換していない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:3.3.4:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [],
+  "method_coverage": [
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/2a14ee6fac28--login-success--desktop/page.png",
+    "evidence/2a14ee6fac28--login-success--desktop/inventory.json",
+    "evidence/2a14ee6fac28--login-success--desktop/dom.html",
+    "evidence/2a14ee6fac28--login-success--desktop/accessibility-tree.json",
+    "evidence/2a14ee6fac28--login-success--desktop/actions.json",
+    "evidence/2a14ee6fac28--login-success--desktop/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/desktop/observations.json",
+    "evidence/methods/browser/desktop/019-login-error.png",
+    "evidence/methods/browser/desktop/019-login-error.json",
+    "evidence/methods/browser/desktop/019-login-error-ax.json",
+    "evidence/methods/browser/desktop/020-login-pasted.png",
+    "evidence/methods/browser/desktop/020-login-pasted.json",
+    "evidence/methods/browser/desktop/020-login-pasted-ax.json",
+    "evidence/methods/browser/desktop/021-login-success.png",
+    "evidence/methods/browser/desktop/021-login-success.json",
+    "evidence/methods/browser/desktop/021-login-success-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:56.108916+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/2a14ee6fac28--login-success--desktop/page.png",
+      "sha256": "ffa2cc4fc7ea92e8d7e52c4a7ebe82f692feacf6f6ce258f733de6048d122a0f"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--login-success--desktop/inventory.json",
+      "sha256": "2b42f4667788006e03ad2e7164697f320ac3e3a8dea48ad3811ba5316078fcb6"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--login-success--desktop/dom.html",
+      "sha256": "77b1b8c9040bd99b85226f61cc377e94e61874898158ab384b0a76140e8e2079"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--login-success--desktop/accessibility-tree.json",
+      "sha256": "21b5f5d42c43cebdec8f35be69200135a5bdca6c294e06a1a5d6cf141a8874b8"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--login-success--desktop/actions.json",
+      "sha256": "c0efb3cff9091420baee1ca00f785bc688bbef71fad6c50614d205d75766ad37"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--login-success--desktop/keyboard.json",
+      "sha256": "b2ada6070b9b65efee739d4f7d5e7e56b7db7c3cab257e3769a0e41deb06fddd"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/observations.json",
+      "sha256": "39b0ef7069d2e14adab81994bd7f17bf2a61176f8051449773cab1c691b5a9fe"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/019-login-error.png",
+      "sha256": "9190583c2efbd4a7bfa3e46710ebb604bcee37228152bbdc7b874ce11fa93071"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/019-login-error.json",
+      "sha256": "a1431e7cb61a3000fa3dea11f456b4c52c24fdb6ae40b94311230b0b2dc803f5"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/019-login-error-ax.json",
+      "sha256": "2b5c81d5b1d76bb518d952868c239a1a2349f95c7e73e1f1130060abcd4d4119"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/020-login-pasted.png",
+      "sha256": "6de725f17007d3f848069f0857f4b4e3a6d5d98dda53239159e2fbfdeb24ea5c"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/020-login-pasted.json",
+      "sha256": "22d6f2430b3c4358c2107ca3c3b55226297ac98365df369eacdba60fd9d8e40f"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/020-login-pasted-ax.json",
+      "sha256": "9ec23e072e2dff3e4ceda884536b1d1c90e60a56bb923bdbcc065192a4a4139a"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/021-login-success.png",
+      "sha256": "61ca7773d33b88a4db6e7175fda167517aa579436d71947a2038b48adaa9bbc0"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/021-login-success.json",
+      "sha256": "3b8e5c51d7bac01930c84c3ff475dc227ac1df838325c9a7584385a7b07b1eea"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/021-login-success-ax.json",
+      "sha256": "1277faeeb4e2683773122c5466b6be159593040e3dbb9266e26652b6814aef00"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "drag",
+      "selector": "#alpha",
+      "target": {
+        "selector": "#bravo"
+      },
+      "assert": [
+        {
+          "selector": "#order",
+          "text": "Alpha, Bravo"
+        }
+      ]
+    },
+    "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+    "focus": {
+      "tag": "body",
+      "id": "",
+      "text": "Reorder two records\n\nDrag an item onto the other item, or use its move buttons. With an item focused, ArrowUp and ArrowDown also move it.\n\nBravoMove Bravo upMov",
+      "name": null,
+      "rect": {
+        "x": 32,
+        "y": 32,
+        "width": 880,
+        "height": 436.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "bravo-down"
+        },
+        {
+          "tag": "li",
+          "id": "bravo"
+        },
+        {
+          "tag": "ul",
+          "id": "records"
+        },
+        {
+          "tag": "main",
+          "id": ""
+        },
+        {
+          "tag": "body",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-14T18:35:08.325637+00:00",
+    "observed_at": "2026-11-14T18:35:08.527718+00:00",
+    "observations": [
+      {
+        "target": {
+          "selector": "#order"
+        },
+        "text": "Bravo, Alpha"
+      }
+    ],
+    "action_asserted": false
+  }
+]

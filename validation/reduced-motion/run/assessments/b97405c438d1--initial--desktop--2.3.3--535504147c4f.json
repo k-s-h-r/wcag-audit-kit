@@ -1,0 +1,131 @@
+{
+  "case_id": "b97405c438d1--initial--desktop--2.3.3",
+  "config_digest": "bf0daccc7eeb073e653e116153b9b58719e7825256d874761ba2bf0af182bcf1",
+  "normative_sha256": "48391fc0dfde9683b88c868c561401efb767da9ab2a52b5e2e06b54932e4c542",
+  "execution": "completed",
+  "outcome": "failed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "実際のTab/Enterで装飾の移動とCount増加を開始",
+    "no-preferenceとreduceをChromiumでエミュレーションし、matchMediaの一致と実時間の位置・実画面を比較",
+    "全著者CSS/JS/UIを読み、別の無効化経路と本質的な動きの例外を照合"
+  ],
+  "tests_applied": [
+    "WCAG22:2.3.3:normative",
+    "reduced-motion-real-time-001"
+  ],
+  "observed": "装飾の四角の移動はMove illustrationの実キー操作から始まり、通常設定では実時刻に応じてx座標が変わる。表示の主機能はCountの増加で、動きを止めてもCount=1として機能を保持する。reduceでもx=55→71→86.988と移動し、media queryに応答しない。全ソースとUIに別の無効化手段がなく、説明と機能から装飾の移動は本質的ではない。",
+  "targets": [
+    {
+      "target": "button#runによる装飾の#boxの移動",
+      "observed": "装飾の四角の移動はMove illustrationの実キー操作から始まり、通常設定では実時刻に応じてx座標が変わる。表示の主機能はCountの増加で、動きを止めてもCount=1として機能を保持する。reduceでもx=55→71→86.988と移動し、media queryに応答しない。全ソースとUIに別の無効化手段がなく、説明と機能から装飾の移動は本質的ではない。",
+      "expected": "本質的なものを除き操作起因の動きを無効にできるか",
+      "outcome": "failed",
+      "evidence": [
+        "evidence/b97405c438d1--initial--desktop/page.png",
+        "evidence/b97405c438d1--initial--desktop/inventory.json",
+        "evidence/b97405c438d1--initial--desktop/dom.html",
+        "evidence/b97405c438d1--initial--desktop/keyboard.json",
+        "evidence/methods/comparison.json",
+        "evidence/methods/source.html",
+        "evidence/methods/executed-source.py.txt",
+        "evidence/methods/bad-no-preference/observations.json",
+        "evidence/methods/bad-no-preference/0.png",
+        "evidence/methods/bad-no-preference/2.png",
+        "evidence/methods/bad-reduce/observations.json",
+        "evidence/methods/bad-reduce/0.png",
+        "evidence/methods/bad-reduce/2.png"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "実キーで動作を開始し、実際の表示・位置・経過時刻と利用者のmotion設定のエミュレーションを比較した。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "実キーで動作を開始し、実際の表示・位置・経過時刻と利用者のmotion設定のエミュレーションを比較した。"
+    },
+    {
+      "method": "reduced-motion",
+      "status": "executed",
+      "reason": "実キーで動作を開始し、実際の表示・位置・経過時刻と利用者のmotion設定のエミュレーションを比較した。"
+    }
+  ],
+  "evidence": [
+    "evidence/b97405c438d1--initial--desktop/page.png",
+    "evidence/b97405c438d1--initial--desktop/inventory.json",
+    "evidence/b97405c438d1--initial--desktop/dom.html",
+    "evidence/b97405c438d1--initial--desktop/keyboard.json",
+    "evidence/methods/comparison.json",
+    "evidence/methods/source.html",
+    "evidence/methods/executed-source.py.txt",
+    "evidence/methods/bad-no-preference/observations.json",
+    "evidence/methods/bad-no-preference/0.png",
+    "evidence/methods/bad-no-preference/2.png",
+    "evidence/methods/bad-reduce/observations.json",
+    "evidence/methods/bad-reduce/0.png",
+    "evidence/methods/bad-reduce/2.png"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T01:12:26.210695+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/b97405c438d1--initial--desktop/page.png",
+      "sha256": "4c08b6fa2389889f378fc31545e7a4c8d73ddd3ae1e8338561dd7f8648b2c619"
+    },
+    {
+      "path": "evidence/b97405c438d1--initial--desktop/inventory.json",
+      "sha256": "1992c849c0e75360a231bb64446e524a9550f4582182b4414ce45dafc9563796"
+    },
+    {
+      "path": "evidence/b97405c438d1--initial--desktop/dom.html",
+      "sha256": "3979ede7e2cec3b1d1ef0cbcf4dd8db9a51a20dbbdff3609d9c434fa2197739e"
+    },
+    {
+      "path": "evidence/b97405c438d1--initial--desktop/keyboard.json",
+      "sha256": "0c069faadd9c60e1bece1d5005bca2dab8d8b6754ea2bac6dcc09cb071096621"
+    },
+    {
+      "path": "evidence/methods/comparison.json",
+      "sha256": "cabe7052ae6230ef725c2e478d9b0954ca9eeec1d681c121ce8add2701286119"
+    },
+    {
+      "path": "evidence/methods/source.html",
+      "sha256": "6b66862bc900cc69651b1bd17c9616fad1e740f4345a0154ef7b135df4514491"
+    },
+    {
+      "path": "evidence/methods/executed-source.py.txt",
+      "sha256": "dd34bec2e7166c14be380df8a5635f86a48b777dc613bcd6a305cc1e5aa49568"
+    },
+    {
+      "path": "evidence/methods/bad-no-preference/observations.json",
+      "sha256": "16435edb215d8dd9418eabf7534b5a2bf80de5ca949ee239426649b5a73653e4"
+    },
+    {
+      "path": "evidence/methods/bad-no-preference/0.png",
+      "sha256": "4c35734778951d4b2adc4f22f7cd52391a83d84fd436d35b53618dbadcb6b2de"
+    },
+    {
+      "path": "evidence/methods/bad-no-preference/2.png",
+      "sha256": "2e2e7e2aca62cf5fda40af8e1d79db305a5113513e41b5111557e4a92f441615"
+    },
+    {
+      "path": "evidence/methods/bad-reduce/observations.json",
+      "sha256": "2babb6242b4bbae6dff8fceb54a9929213acd82991f14b9cca86276c95281c0d"
+    },
+    {
+      "path": "evidence/methods/bad-reduce/0.png",
+      "sha256": "6b8027c7d6791cab48c342d26fa8fa1c3145508d6702a3a29efa0446e312b338"
+    },
+    {
+      "path": "evidence/methods/bad-reduce/2.png",
+      "sha256": "95cceeb9e0f78528a33c55d310b995c9c831d6e96baae6fe9c684090de40216c"
+    }
+  ]
+}

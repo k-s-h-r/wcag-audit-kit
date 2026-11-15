@@ -1,0 +1,84 @@
+from pathlib import Path
+import hashlib
+import json
+import shutil
+import sys
+from urllib.parse import parse_qs,urlsplit
+import numpy as np
+from PIL import Image
+
+ROOT=Path('/workspace/wcag-audit-kit');RUN=Path('/tmp/wcag-timing-audit-001')
+sys.path.insert(0,str(ROOT/'scripts'))
+import audit
+methods=RUN/'evidence/methods/timing'
+shutil.copytree('/tmp/wcag-timing-calibration-002',methods)
+shutil.copy2(__file__,methods/'record-executed.py.txt')
+meta=audit.run_meta(RUN);plan=audit.run_plan(RUN)
+comparison=json.loads((methods/'comparison.json').read_text())
+rows={row['scenario']:row for row in comparison['scenarios']}
+assert rows['good-extend']['extensions_succeeded']==10
+assert rows['good-extend']['last_warning_to_last_active_ms']>20000
+assert rows['bad-extend']['last_warning_to_expiry_observed_ms']<3000
+assert rows['good-off']['observed_no_expiry_ms']>26000
+outcomes=[]
+for case in plan['cases']:
+ ident=case['criterion']
+ if ident not in {'2.2.1','2.2.3','2.2.5','2.2.6'}:continue
+ variant=parse_qs(urlsplit(case['page_url']).query)['variant'][0]
+ good=variant=='good'
+ scenario='good-extend' if good else 'bad-extend'
+ first=methods/scenario/'00-before-sign-in.png';own=RUN/case['evidence_dir']/'page.png'
+ assert np.array_equal(np.asarray(Image.open(first)),np.asarray(Image.open(own)))
+ binding=RUN/'evidence/attached'/case['case_id']/'case-binding.json'
+ audit.save(binding,{'case_id':case['case_id'],'url':case['page_url'],
+    'scenarios':['good-extend','good-off'] if good else ['bad-extend'],
+    'initial_images_same_decoded_pixels':True,'core_sha256':hashlib.sha256(own.read_bytes()).hexdigest(),
+    'method_sha256':hashlib.sha256(first.read_bytes()).hexdigest(),
+    'source_hashes':json.loads((methods/'source-hashes.json').read_text())})
+ method=str(methods.relative_to(RUN));evidence=[str(binding.relative_to(RUN))]
+ evidence += [case['evidence_dir']+'/'+name for name in ['page.png','dom.html','inventory.json','axe.json']]
+ evidence += [method+'/'+name for name in ['timing.html','timing_server.py','capture-executed.py.txt','source-hashes.json','comparison.json','results.json']]
+ evidence += [method+'/'+scenario+'/observations.json']
+ for png in sorted((methods/scenario).glob('*.png')):
+  evidence.append(str(png.relative_to(RUN)))
+ if good:
+  evidence.append(method+'/good-off/observations.json')
+  evidence += [str(p.relative_to(RUN)) for p in sorted((methods/'good-off').glob('*.png'))]
+ observed={
+ ('good','2.2.1'):'著者とサーバーによる既定26秒の無操作制限が一つある。活動開始前の無効化を実際に選び、入力後27.066秒以上待っても失効せず元の4値を保存できた。別の実行では警告後の簡単なクリックで10回延長でき、最終警告から最後の有効応答まで22.894秒、失効の観察まで22.995秒だった。全ソースと画面から他の時間制限・調整経路がないことも調べた。無効化の経路に依拠して通過とし、延長の経路も実測した。',
+ ('bad','2.2.1'):'既定6秒のサーバー無操作制限がある。警告から失効観察まで約2.001秒で、実際に延長できる回数も1回だけ。画面の無効化は非表示でサーバーもbadではoffを認めず、調整機能もない。全ソースから代替の適合経路がないことを確認した。通常の下書き入力であり、リアルタイム・本質的な制限・20時間超の例外には該当しない。',
+ ('good','2.2.3'):'著者による時間依存は26秒のセッション制限だけ。開始前に無効化する経路ではサーバーの期限判定も無効になり、入力から27.066秒以上経過した後も活動を保存・完了できた。全HTML/JSとサーバーを照合し、この一つの活動に他の期限又は時間依存の操作がない。延長回数が多いことをAAAの通過理由にはしていない。',
+ ('bad','2.2.3'):'全ソースと操作から、下書きの活動には必ず6秒の無操作制限があり、無効化や時間に依存しない経路がない。サーバーは失効した保存を401で拒否し、画面の4値を消去する。非インタラクティブな同期メディア又は定義上のリアルタイムイベントではない。Aの本質性や20時間超等の例外は適用していない。',
+ ('good','2.2.5'):'日本語を含むタイトル、複数行の本文、Reviewの選択、Urgent=trueの4値を入力し、実際の無操作失効を待った。期限後のSaveはサーバーの401で拒否されるが、再認証後に4値が全て一致した。本文へAfter sign-in: revised.を追加して保存を完了し、サーバーの受領結果にも元の値と追加変更があることを確認した。単なる画面の存在や属性だけで判断していない。',
+ ('bad','2.2.5'):'同じ4値を入力して実際の無操作失効を待った。失効時にform.resetで全4値が初期値へ戻り、期限後のSaveはサーバーの401で拒否された。実際に再認証してもタイトル・本文は空、CategoryはDraft、Urgent=falseのままで、元の活動データを使って完了できなかった。再入力を元データの保持と数えていない。',
+ ('good','2.2.6'):'このページに一つある無操作セッション失効では、入力中の4値を消去しない。全クライアント・サーバーのソースで、無操作の長さによるデータ消去の経路がなく、ページ上の値を再認証後にそのまま保存できることも実行確認した。依拠するサーバー側の下書き保存はなく、利用者自身がページを閉じる操作はこの制限による損失と区別した。無操作によってデータを失う対象がないため対象外。短い観察を20時間超の保存の証明にしたものではない。',
+ ('bad','2.2.6'):'このページは6秒の無操作セッション失効で、入力した4値を全て初期化する。活動開始時の説明はSign in to edit a draft.だけで、無操作時間を伝えず、直前警告にも期間の記述がない。失効・401・再認証後の空データを実際に確認し、全ソースで20時間超の保存又は別の復元がないことを確認した。'}[(variant,ident)]
+ outcome='inapplicable' if good and ident=='2.2.6' else ('passed' if good else 'failed')
+ expected={
+ '2.2.1':'各時間制限で、本文の無効化・調整・延長のいずれか又は根拠のある例外を満たす。延長経路なら少なくとも20秒と10回を確かめる。',
+ '2.2.3':'非インタラクティブな同期メディア又は定義上のリアルタイムイベント以外では、時間が活動の本質的な部分にならず、時間をかけても活動を完了できる。',
+ '2.2.5':'認証失効後に再認証しても元のデータと追加変更を失わず、活動を継続・完了できる。',
+ '2.2.6':'無操作でデータを失う場合、その無操作時間が利用者へ告知されるか、無操作でも20時間超保存される。'}[ident]
+ tests={'2.2.1':['WCAG22:2.2.1:normative','G198','SCR1','SCR16'],
+  '2.2.3':['WCAG22:2.2.3:normative'],
+  '2.2.5':['WCAG22:2.2.5:normative','G105' if good else 'F12'],
+  '2.2.6':['WCAG22:2.2.6:normative','Understanding:timeouts:inactivity-data-loss']}[ident]
+ reasons={'timing':'単調増加時計とブラウザーの時刻で実待機・警告・延長・失効を測り、仮想時計を使っていない。',
+   'flow':'入力から失効・401・再認証・データ比較を通し、保持する例では追加変更と保存完了まで実行した。',
+   'measurement':'警告後の残り時間、10回又は1回の延長、期限超過の無効化を実時間とサーバー応答から照合した。',
+   'semantic':'活動開始前の説明と警告の実表示を読み、期間の告知とデータ消失の事実に対応付けた。'}
+ judgment={'case_id':case['case_id'],'config_digest':meta['config_digest'],
+   'normative_sha256':audit.CRITERIA[ident]['normative_sha256'],'execution':'completed','outcome':outcome,
+   'conditions_reviewed':True,'exceptions_reviewed':True,'coverage_complete':True,
+   'steps_executed':['全クライアントとサーバーのソースを読み、時間制限・活動・保存・失効・例外の対象を列挙',
+    '実際にサインインして4種の値を入力し、警告・延長・無操作失効を実時間で観察',
+    '期限後の保存とサーバー401を確認し、再認証後の元データと活動の継続・完了を比較',
+    '基準ごとに期間告知、時間依存、延長経路、保持の適用条件を分けて判定'],
+   'tests_applied':tests,'observed':observed,
+   'targets':[] if outcome=='inapplicable' else [{'target':'Demo session and draft form (#title, #notes, #category, #urgent)',
+     'observed':observed,'expected':expected,'outcome':outcome,'evidence':evidence}],
+   'method_coverage':[{'method':m,'status':'executed','reason':reasons[m]} for m in audit.CRITERIA[ident]['methods']],
+   'evidence':evidence,'remaining':[]}
+ audit.record(RUN,judgment);outcomes.append({'variant':variant,'criterion':ident,'outcome':outcome})
+audit.save(methods/'ledger-results.json',{'note':'Known-source calibration, limited to these criteria and the sole draft workflow.', 'results':outcomes})
+audit.report(RUN)

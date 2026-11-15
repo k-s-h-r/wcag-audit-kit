@@ -1,0 +1,34 @@
+import asyncio,json,shutil
+from pathlib import Path
+from playwright.async_api import async_playwright
+OUT=Path('/tmp/wcag-navigation-password-proof-001');BASE='http://127.0.0.1:4330'
+async def main():
+ OUT.mkdir(exist_ok=False);shutil.copy2(__file__,OUT/'executed-source.py.txt');rows=[]
+ async with async_playwright() as pw:
+  b=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+  try:
+   p=await b.new_page(viewport={'width':1280,'height':900},storage_state='/tmp/wcag-acceptance-bootstrap-002/storage-state.json');await p.goto(BASE+'/',wait_until='networkidle')
+   for path in ['/','/profile','/media','/help','/login']:
+    for _ in range(40):
+     match=await p.evaluate("path=>document.activeElement.matches('nav a')&&document.activeElement.getAttribute('href')===path",path)
+     if match:break
+     await p.keyboard.press('Tab')
+    assert match,path
+    await p.keyboard.press('Enter');await p.wait_for_url(BASE+path);await p.wait_for_load_state('networkidle')
+    rows.append({'action':'native keyboard Enter on nav link','path':path,'url':p.url,'title':await p.title()})
+   for _ in range(30):
+    if await p.evaluate("document.activeElement.id==='password'"):break
+    await p.keyboard.press('Tab')
+   await p.keyboard.insert_text('Test-password-42!');await p.keyboard.press('Tab')
+   assert await p.evaluate("document.activeElement.id==='show-password'")
+   for pressed,key in [(True,'Enter'),(False,'Space')]:
+    await p.keyboard.press(key);await p.wait_for_timeout(100)
+    state=await p.evaluate("({type:document.querySelector('#password').type,pressed:document.querySelector('#show-password').getAttribute('aria-pressed'),focus:document.activeElement.id})")
+    assert state['type']==('text' if pressed else 'password') and state['pressed']==str(pressed).lower()
+    assert await p.locator('#password').input_value()=='Test-password-42!'
+    cdp=await p.context.new_cdp_session(p);ax=await cdp.send('Accessibility.getFullAXTree')
+    (OUT/('shown' if pressed else 'hidden')).with_suffix('.json').write_text(json.dumps({'state':state,'ax':ax},indent=2)+'\n')
+    await p.screenshot(path=str(OUT/(('shown' if pressed else 'hidden')+'.png')))
+  finally:await b.close()
+ (OUT/'navigation.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps({'keyboard_routes_verified':len(rows),'password_pressed_roundtrip':True}))
+asyncio.run(main())

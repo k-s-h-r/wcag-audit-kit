@@ -1,0 +1,69 @@
+{
+  "index": 8,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Down"
+    ]
+  },
+  "focus_before": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:40.830159+00:00",
+  "finished_at": "2026-11-15T00:10:42.231006+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/profile",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:41.003458+00:00",
+      "line": 9120,
+      "phrase": "• ",
+      "raw": "00:10:41.003458 - SPEECH OUTPUT: '• ' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:41.004154+00:00",
+      "line": 9128,
+      "phrase": "Enter an email such as name@example.test. link.",
+      "raw": "00:10:41.004154 - SPEECH OUTPUT: 'Enter an email such as name@example.test. link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": [
+    {
+      "target": {
+        "selector": "#errors"
+      },
+      "text": "Correct the following\nEnter a name.\nEnter an email such as name@example.test."
+    },
+    {
+      "target": {
+        "selector": "#name",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": "true"
+      }
+    },
+    {
+      "target": {
+        "selector": "#email",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": "true"
+      }
+    }
+  ]
+}

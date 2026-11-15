@@ -1,0 +1,424 @@
+{
+  "status": "collected",
+  "started_at": "2026-11-15T00:09:45.864934+00:00",
+  "case_id": "eed089bd8f88--initial--desktop--4.1.3",
+  "request_sha256": "e3d470ce3f3ea27dbbfb4d8dd3fbf82980dda92ddd1c6fb89b49c68e5adf8a04",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "observations": [
+    {
+      "index": 1,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ]
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:09:52.296746+00:00",
+      "finished_at": "2026-11-15T00:09:53.699266+00:00",
+      "focus_after": {
+        "tag": "a",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/",
+      "speech": [
+        {
+          "at": "2026-11-15T00:09:52.304010+00:00",
+          "line": 5552,
+          "phrase": "left control",
+          "raw": "00:09:52.304010 - SPEECH OUTPUT: 'left control' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:09:52.347952+00:00",
+          "line": 5888,
+          "phrase": "leaving information.",
+          "raw": "00:09:52.347952 - SPEECH OUTPUT: 'leaving information.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:09:52.348823+00:00",
+          "line": 5895,
+          "phrase": "Skip to main content link.",
+          "raw": "00:09:52.348823 - SPEECH OUTPUT: 'Skip to main content link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "0"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "reader.nextHeading",
+        "expect_contains": "Update your demo profile"
+      },
+      "focus_before": {
+        "tag": "a",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:09:53.762764+00:00",
+      "finished_at": "2026-11-15T00:09:55.164698+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/",
+      "speech": [
+        {
+          "at": "2026-11-15T00:09:53.768618+00:00",
+          "line": 6103,
+          "phrase": "h",
+          "raw": "00:09:53.768618 - SPEECH OUTPUT: 'h' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:09:53.806933+00:00",
+          "line": 6331,
+          "phrase": "main content",
+          "raw": "00:09:53.806933 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:09:53.809049+00:00",
+          "line": 6338,
+          "phrase": "Update your demo profile heading 1",
+          "raw": "00:09:53.809049 - SPEECH OUTPUT: 'Update your demo profile heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "0"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "reader.nextButton",
+        "expect_contains": "Add one"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:09:55.217536+00:00",
+      "finished_at": "2026-11-15T00:09:56.618181+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/",
+      "speech": [
+        {
+          "at": "2026-11-15T00:09:55.230192+00:00",
+          "line": 6550,
+          "phrase": "b",
+          "raw": "00:09:55.230192 - SPEECH OUTPUT: 'b' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:09:55.318474+00:00",
+          "line": 6747,
+          "phrase": "Add one button.",
+          "raw": "00:09:55.318474 - SPEECH OUTPUT: 'Add one button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "0"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "1"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:09:56.686068+00:00",
+      "finished_at": "2026-11-15T00:09:58.087841+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/",
+      "speech": [
+        {
+          "at": "2026-11-15T00:09:56.690711+00:00",
+          "line": 6917,
+          "phrase": "space",
+          "raw": "00:09:56.690711 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:09:56.804229+00:00",
+          "line": 7141,
+          "phrase": "1",
+          "raw": "00:09:56.804229 - SPEECH OUTPUT: '1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "action": {
+        "type": "reader.nextButton",
+        "expect_contains": "About this demo"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:09:58.142040+00:00",
+      "finished_at": "2026-11-15T00:09:59.542962+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "about",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/",
+      "speech": [
+        {
+          "at": "2026-11-15T00:09:58.148836+00:00",
+          "line": 7183,
+          "phrase": "b",
+          "raw": "00:09:58.148836 - SPEECH OUTPUT: 'b' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:09:58.210693+00:00",
+          "line": 7401,
+          "phrase": "About this demo button.",
+          "raw": "00:09:58.210693 - SPEECH OUTPUT: 'About this demo button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "About this demo"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "about",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:09:59.596976+00:00",
+      "finished_at": "2026-11-15T00:10:00.998304+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "close-about",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/",
+      "speech": [
+        {
+          "at": "2026-11-15T00:09:59.601326+00:00",
+          "line": 7570,
+          "phrase": "space",
+          "raw": "00:09:59.601326 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:09:59.649125+00:00",
+          "line": 7802,
+          "phrase": "About this demo All accounts and profile values are test data.",
+          "raw": "00:09:59.649125 - SPEECH OUTPUT: 'About this demo All accounts and profile values are test data.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:09:59.650002+00:00",
+          "line": 7809,
+          "phrase": "Close button.",
+          "raw": "00:09:59.650002 - SPEECH OUTPUT: 'Close button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "matched",
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Escape"
+        ]
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "close-about",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-15T00:10:01.082608+00:00",
+      "finished_at": "2026-11-15T00:10:02.483477+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "about",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:4330/",
+      "speech": [
+        {
+          "at": "2026-11-15T00:10:01.086773+00:00",
+          "line": 7953,
+          "phrase": "escape",
+          "raw": "00:10:01.086773 - SPEECH OUTPUT: 'escape' {'established': False}"
+        },
+        {
+          "at": "2026-11-15T00:10:01.142708+00:00",
+          "line": 8266,
+          "phrase": "main content",
+          "raw": "00:10:01.142708 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:10:01.143311+00:00",
+          "line": 8273,
+          "phrase": "About this demo button.",
+          "raw": "00:10:01.143311 - SPEECH OUTPUT: 'About this demo button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-15T00:10:01.261307+00:00",
+          "line": 8380,
+          "phrase": "1",
+          "raw": "00:10:01.261307 - SPEECH OUTPUT: '1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#count"
+          },
+          "text": "1"
+        }
+      ]
+    }
+  ],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "case_id": "eed089bd8f88--initial--desktop--4.1.3",
+    "url": "http://127.0.0.1:4330/",
+    "observe": [
+      {
+        "selector": "#count"
+      }
+    ],
+    "actions": [
+      {
+        "type": "reader.press",
+        "keys": [
+          "Control_L",
+          "Home"
+        ]
+      },
+      {
+        "type": "reader.nextHeading",
+        "expect_contains": "Update your demo profile"
+      },
+      {
+        "type": "reader.nextButton",
+        "expect_contains": "Add one"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "1"
+      },
+      {
+        "type": "reader.nextButton",
+        "expect_contains": "About this demo"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ],
+        "expect_contains": "About this demo"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Escape"
+        ]
+      }
+    ],
+    "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+    "locale": "en-US",
+    "settle_ms": 1400
+  },
+  "cleanup": {
+    "debug_log_sha256": "877bf3b8d8258889c4bc1384c7177a99f3417b50d5cf30f135c9bb41470adec1",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-15T00:10:04.128570+00:00"
+}

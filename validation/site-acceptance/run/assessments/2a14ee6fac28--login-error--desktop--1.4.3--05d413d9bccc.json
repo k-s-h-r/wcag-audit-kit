@@ -1,0 +1,360 @@
+{
+  "case_id": "2a14ee6fac28--login-error--desktop--1.4.3",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "997299a7016a6c80ece81ece6daad7a5e59d47f7ce6a2b5f81ebc044314aec34",
+  "execution": "completed",
+  "outcome": "passed",
+  "observed": "このcaseはhttp://127.0.0.1:4330/login / login-error / desktop。表示の主内容はSign in — Profile demo。可視見出し: ['Sign in']。入力欄: [\"#login-email: ['Email']\", \"#password: ['Password']\"]。本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:1.4.3:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [
+    {
+      "target": "html>body:nth-child(2)>a:nth-child(1) [a] Skip to main content",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Skip to main content。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>p:nth-child(1) [p] Profile demo",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Profile demo。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(1) [a] Home",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Home。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(2) [a] Edit profile",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Edit profile。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(3) [a] Video instructions",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Video instructions。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(4) [a] Help",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Help。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>header:nth-child(2)>nav:nth-child(2)>a:nth-child(5) [a] Sign in",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Sign in。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "#sign-out [button] Sign out",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Sign out。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>h1:nth-child(1) [h1] Sign in",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Sign in。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>p:nth-child(2) [p] Use the demo account in Help. You can paste the email and password.",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Use the demo account in Help. You can paste the email and password.。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>p:nth-child(2)>a:nth-child(1) [a] demo account in Help",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: demo account in Help。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>form:nth-child(3)>label:nth-child(1) [label] Email",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Email。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "#login-email [input] Email",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: ['Email']。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>form:nth-child(3)>label:nth-child(3) [label] Password",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Password。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "#password [input] Password",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: ['Password']。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "#show-password [button] Show password",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Show password。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "#sign-in [button] Sign in",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Sign in。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "#login-error [p] Use the demo email and password shown in Help.",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Use the demo email and password shown in Help.。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>p:nth-child(6) [p] Continue to profile",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Continue to profile。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>main:nth-child(3)>p:nth-child(6)>a:nth-child(1) [a] Continue to profile",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Continue to profile。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>footer:nth-child(4)>a:nth-child(1) [a] Help",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Help。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    },
+    {
+      "target": "html>body:nth-child(2)>footer:nth-child(4)>p:nth-child(2) [p] Contact: example@example.test",
+      "observed": "本文#111/白18.883:1、ボタン#111/#eee16.275:1、リンク#004a99/白8.608:1、エラー#850000/白10.514:1。実画面・計算済み色・著者CSSを照合し、透明な子要素は白い背景に表示されることを確認した。通常文字でも4.5:1以上で、アンチエイリアスの縁を前景色にしていない。 実対象の文字・ラベル: Contact: example@example.test。",
+      "expected": "通常4.5:1、大きな文字3:1等を原典の定義と例外に沿って判定する。ptとCSS pxを区別し丸めない",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/2a14ee6fac28--login-error--desktop/inventory.json"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "visual",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "measurement",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/2a14ee6fac28--login-error--desktop/page.png",
+    "evidence/2a14ee6fac28--login-error--desktop/inventory.json",
+    "evidence/2a14ee6fac28--login-error--desktop/dom.html",
+    "evidence/2a14ee6fac28--login-error--desktop/accessibility-tree.json",
+    "evidence/2a14ee6fac28--login-error--desktop/actions.json",
+    "evidence/2a14ee6fac28--login-error--desktop/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/desktop/observations.json",
+    "evidence/methods/measurements/contrasts.json",
+    "evidence/methods/media-analysis/frame-colors.json",
+    "evidence/methods/browser/desktop/019-login-error.png",
+    "evidence/methods/browser/desktop/019-login-error.json",
+    "evidence/methods/browser/desktop/019-login-error-ax.json",
+    "evidence/methods/browser/desktop/020-login-pasted.png",
+    "evidence/methods/browser/desktop/020-login-pasted.json",
+    "evidence/methods/browser/desktop/020-login-pasted-ax.json",
+    "evidence/methods/browser/desktop/021-login-success.png",
+    "evidence/methods/browser/desktop/021-login-success.json",
+    "evidence/methods/browser/desktop/021-login-success-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:49:52.683401+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/2a14ee6fac28--login-error--desktop/page.png",
+      "sha256": "c054274d41e264ecb55ca0f84d5c1d0b9282136b73e781793a260075ddaffb77"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--login-error--desktop/inventory.json",
+      "sha256": "dc6332ec971b4b235bc3cb4948af07ea97dff851a1b27251d374b55d629a0889"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--login-error--desktop/dom.html",
+      "sha256": "9d7da82462e9c318a24d548b8981aebbb8762fb9df75dbd856aecf82f6a7d92a"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--login-error--desktop/accessibility-tree.json",
+      "sha256": "ec89edb2dfddbc79b5db93efba4cbdd306ee96672b1541a3cd6858fd521e61c8"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--login-error--desktop/actions.json",
+      "sha256": "f91f1ed22e95900b4c42540600891ec69dae117feb4211c055a63e25730be861"
+    },
+    {
+      "path": "evidence/2a14ee6fac28--login-error--desktop/keyboard.json",
+      "sha256": "b2ada6070b9b65efee739d4f7d5e7e56b7db7c3cab257e3769a0e41deb06fddd"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/observations.json",
+      "sha256": "39b0ef7069d2e14adab81994bd7f17bf2a61176f8051449773cab1c691b5a9fe"
+    },
+    {
+      "path": "evidence/methods/measurements/contrasts.json",
+      "sha256": "0d027ee4d97c2368c8a7baf0e08cff0c57268d4d84564fc53c61ee5422fb1cf1"
+    },
+    {
+      "path": "evidence/methods/media-analysis/frame-colors.json",
+      "sha256": "ba0eeaad96aebb0944fe9dfdea1e61d050d8726ca1aa610a5ce4b668b8f5346b"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/019-login-error.png",
+      "sha256": "9190583c2efbd4a7bfa3e46710ebb604bcee37228152bbdc7b874ce11fa93071"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/019-login-error.json",
+      "sha256": "a1431e7cb61a3000fa3dea11f456b4c52c24fdb6ae40b94311230b0b2dc803f5"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/019-login-error-ax.json",
+      "sha256": "2b5c81d5b1d76bb518d952868c239a1a2349f95c7e73e1f1130060abcd4d4119"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/020-login-pasted.png",
+      "sha256": "6de725f17007d3f848069f0857f4b4e3a6d5d98dda53239159e2fbfdeb24ea5c"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/020-login-pasted.json",
+      "sha256": "22d6f2430b3c4358c2107ca3c3b55226297ac98365df369eacdba60fd9d8e40f"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/020-login-pasted-ax.json",
+      "sha256": "9ec23e072e2dff3e4ceda884536b1d1c90e60a56bb923bdbcc065192a4a4139a"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/021-login-success.png",
+      "sha256": "61ca7773d33b88a4db6e7175fda167517aa579436d71947a2038b48adaa9bbc0"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/021-login-success.json",
+      "sha256": "3b8e5c51d7bac01930c84c3ff475dc227ac1df838325c9a7584385a7b07b1eea"
+    },
+    {
+      "path": "evidence/methods/browser/desktop/021-login-success-ax.json",
+      "sha256": "1277faeeb4e2683773122c5466b6be159593040e3dbb9266e26652b6814aef00"
+    }
+  ]
+}

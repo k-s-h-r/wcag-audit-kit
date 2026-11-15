@@ -1,0 +1,163 @@
+{
+  "case_id": "9957e43aff2e--initial--desktop--2.2.5",
+  "config_digest": "7cb81c57a6fb9d61ac3fa6ea7c86d475bb28b7b49a7438ac2e54fd34ee87d4d8",
+  "normative_sha256": "3e63d32a2e2792c0e7fa5578bd730e903053e28b09580b972ca5a61dfeb04729",
+  "execution": "completed",
+  "outcome": "failed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "全クライアントとサーバーのソースを読み、時間制限・活動・保存・失効・例外の対象を列挙",
+    "実際にサインインして4種の値を入力し、警告・延長・無操作失効を実時間で観察",
+    "期限後の保存とサーバー401を確認し、再認証後の元データと活動の継続・完了を比較",
+    "基準ごとに期間告知、時間依存、延長経路、保持の適用条件を分けて判定"
+  ],
+  "tests_applied": [
+    "WCAG22:2.2.5:normative",
+    "F12"
+  ],
+  "observed": "同じ4値を入力して実際の無操作失効を待った。失効時にform.resetで全4値が初期値へ戻り、期限後のSaveはサーバーの401で拒否された。実際に再認証してもタイトル・本文は空、CategoryはDraft、Urgent=falseのままで、元の活動データを使って完了できなかった。再入力を元データの保持と数えていない。",
+  "targets": [
+    {
+      "target": "Demo session and draft form (#title, #notes, #category, #urgent)",
+      "observed": "同じ4値を入力して実際の無操作失効を待った。失効時にform.resetで全4値が初期値へ戻り、期限後のSaveはサーバーの401で拒否された。実際に再認証してもタイトル・本文は空、CategoryはDraft、Urgent=falseのままで、元の活動データを使って完了できなかった。再入力を元データの保持と数えていない。",
+      "expected": "認証失効後に再認証しても元のデータと追加変更を失わず、活動を継続・完了できる。",
+      "outcome": "failed",
+      "evidence": [
+        "evidence/attached/9957e43aff2e--initial--desktop--2.2.5/case-binding.json",
+        "evidence/9957e43aff2e--initial--desktop/page.png",
+        "evidence/9957e43aff2e--initial--desktop/dom.html",
+        "evidence/9957e43aff2e--initial--desktop/inventory.json",
+        "evidence/9957e43aff2e--initial--desktop/axe.json",
+        "evidence/methods/timing/timing.html",
+        "evidence/methods/timing/timing_server.py",
+        "evidence/methods/timing/capture-executed.py.txt",
+        "evidence/methods/timing/source-hashes.json",
+        "evidence/methods/timing/comparison.json",
+        "evidence/methods/timing/results.json",
+        "evidence/methods/timing/bad-extend/observations.json",
+        "evidence/methods/timing/bad-extend/00-before-sign-in.png",
+        "evidence/methods/timing/bad-extend/01-draft-entered.png",
+        "evidence/methods/timing/bad-extend/02-warning-1.png",
+        "evidence/methods/timing/bad-extend/03-extension-1.png",
+        "evidence/methods/timing/bad-extend/04-expired.png",
+        "evidence/methods/timing/bad-extend/05-server-rejected-expired-save.png",
+        "evidence/methods/timing/bad-extend/06-reauthenticated.png"
+      ]
+    }
+  ],
+  "method_coverage": [
+    {
+      "method": "timing",
+      "status": "executed",
+      "reason": "単調増加時計とブラウザーの時刻で実待機・警告・延長・失効を測り、仮想時計を使っていない。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "入力から失効・401・再認証・データ比較を通し、保持する例では追加変更と保存完了まで実行した。"
+    }
+  ],
+  "evidence": [
+    "evidence/attached/9957e43aff2e--initial--desktop--2.2.5/case-binding.json",
+    "evidence/9957e43aff2e--initial--desktop/page.png",
+    "evidence/9957e43aff2e--initial--desktop/dom.html",
+    "evidence/9957e43aff2e--initial--desktop/inventory.json",
+    "evidence/9957e43aff2e--initial--desktop/axe.json",
+    "evidence/methods/timing/timing.html",
+    "evidence/methods/timing/timing_server.py",
+    "evidence/methods/timing/capture-executed.py.txt",
+    "evidence/methods/timing/source-hashes.json",
+    "evidence/methods/timing/comparison.json",
+    "evidence/methods/timing/results.json",
+    "evidence/methods/timing/bad-extend/observations.json",
+    "evidence/methods/timing/bad-extend/00-before-sign-in.png",
+    "evidence/methods/timing/bad-extend/01-draft-entered.png",
+    "evidence/methods/timing/bad-extend/02-warning-1.png",
+    "evidence/methods/timing/bad-extend/03-extension-1.png",
+    "evidence/methods/timing/bad-extend/04-expired.png",
+    "evidence/methods/timing/bad-extend/05-server-rejected-expired-save.png",
+    "evidence/methods/timing/bad-extend/06-reauthenticated.png"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-14T22:53:02.300373+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/attached/9957e43aff2e--initial--desktop--2.2.5/case-binding.json",
+      "sha256": "8c5c69eb007edd90eb232850acfb8ffc22c7a982111f196a24ba9837c76b94f9"
+    },
+    {
+      "path": "evidence/9957e43aff2e--initial--desktop/page.png",
+      "sha256": "6afb741457dda6331d2aa1c40b3d796ef9178d6fcaafa9726fd4bdaf347ebb77"
+    },
+    {
+      "path": "evidence/9957e43aff2e--initial--desktop/dom.html",
+      "sha256": "186ac9a83f4521e824dc774d3f11cd8776c99c155e3790e383ebc0da38220430"
+    },
+    {
+      "path": "evidence/9957e43aff2e--initial--desktop/inventory.json",
+      "sha256": "072023dbfe9e8e16d7392f1523e3802a4253b3af8d5eea413cd6f71afc26c247"
+    },
+    {
+      "path": "evidence/9957e43aff2e--initial--desktop/axe.json",
+      "sha256": "d5b825a50715fba4afdf07ca795bbc3c2c20704b7c9c5a39a1a042266a931015"
+    },
+    {
+      "path": "evidence/methods/timing/timing.html",
+      "sha256": "8a3121c1370444cbf267dd9c406aefb2087b733262bfcf268dd72def7ad05393"
+    },
+    {
+      "path": "evidence/methods/timing/timing_server.py",
+      "sha256": "6c76ddc6b323b8ba855254a9b04530836a9281caa2173f6f1001f2c6c1605166"
+    },
+    {
+      "path": "evidence/methods/timing/capture-executed.py.txt",
+      "sha256": "7096f0aa8864194b206059f4571d42ba331781d90e0694809d66f718267ed0d9"
+    },
+    {
+      "path": "evidence/methods/timing/source-hashes.json",
+      "sha256": "d7fc275dea4cd29591249e7830a47394f50610b875930db21b40f246915a0804"
+    },
+    {
+      "path": "evidence/methods/timing/comparison.json",
+      "sha256": "a3d65b7da427a5b29aa2ed6b3cb0731c452c75002bd0e2201cdc3ba249cf8a5b"
+    },
+    {
+      "path": "evidence/methods/timing/results.json",
+      "sha256": "358049476311439e249bd18289dc2e019f81bae44d1f58efa6bacfec924f2269"
+    },
+    {
+      "path": "evidence/methods/timing/bad-extend/observations.json",
+      "sha256": "6b536a057f50c05edf3738740c99f745f600a1288189b1e59a40b8d879e5e720"
+    },
+    {
+      "path": "evidence/methods/timing/bad-extend/00-before-sign-in.png",
+      "sha256": "6afb741457dda6331d2aa1c40b3d796ef9178d6fcaafa9726fd4bdaf347ebb77"
+    },
+    {
+      "path": "evidence/methods/timing/bad-extend/01-draft-entered.png",
+      "sha256": "088e1fcefe5662c86b55b1f23bbc78f1bd10762c592f5b38ad197791090ddbce"
+    },
+    {
+      "path": "evidence/methods/timing/bad-extend/02-warning-1.png",
+      "sha256": "3e329d3aba725224c1b8a5dd84ba4ef2696835ba25d4fdc2ef94949db79f3248"
+    },
+    {
+      "path": "evidence/methods/timing/bad-extend/03-extension-1.png",
+      "sha256": "b13641281b22db1b118fde6e512c8324dc65dc29be480af56f594cfc92abfefd"
+    },
+    {
+      "path": "evidence/methods/timing/bad-extend/04-expired.png",
+      "sha256": "675a5c12e65c61fd8379ffee6d7b6e9ca6b552e18ea08cfc7c35c494999a2f14"
+    },
+    {
+      "path": "evidence/methods/timing/bad-extend/05-server-rejected-expired-save.png",
+      "sha256": "31cae6422094d875ac17d015a28aba25e3ce5b89ab59fe3053c677a8b8e63fba"
+    },
+    {
+      "path": "evidence/methods/timing/bad-extend/06-reauthenticated.png",
+      "sha256": "277ac3762a348200e84ea2c02e2d3cb58a1c6a4b06178af4ef6751084a9b50e7"
+    }
+  ]
+}

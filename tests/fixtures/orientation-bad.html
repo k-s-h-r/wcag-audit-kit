@@ -1,0 +1,6 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Counter restricted to landscape</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{font:22px/1.6 sans-serif;margin:2rem}button{font:inherit;padding:1rem}button:focus-visible{outline:4px solid #005bba;outline-offset:4px}#rotation-warning{display:none}@media(orientation:portrait){#task{display:none}#rotation-warning{display:block}}</style>
+<main id="task"><h1>Count completed records</h1><button id="increment">Count one record</button><p>Completed: <output id="count">0</output></p></main>
+<aside id="rotation-warning">Please rotate your device to landscape.</aside>
+<script>document.querySelector('#increment').addEventListener('click',()=>document.querySelector('#count').value=String(Number(document.querySelector('#count').value)+1));</script></html>

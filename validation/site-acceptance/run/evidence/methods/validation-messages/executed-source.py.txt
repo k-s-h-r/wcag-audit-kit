@@ -1,0 +1,19 @@
+import asyncio,json,shutil
+from pathlib import Path
+from playwright.async_api import async_playwright
+OUT=Path('/tmp/wcag-acceptance-input-validation-001')
+async def main():
+ OUT.mkdir(exist_ok=False);shutil.copy2(__file__,OUT/'executed-source.py.txt');rows=[]
+ async with async_playwright() as pw:
+  b=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+  try:
+   p=await b.new_page(viewport={'width':320,'height':900})
+   for name,email,password in [('missing-email','',''),('missing-password','demo@example.test',''),('malformed-email','invalid','wrong')]:
+    await p.goto('http://127.0.0.1:4330/login',wait_until='networkidle')
+    await p.locator('#login-email').fill(email);await p.locator('#password').fill(password);await p.locator('#sign-in').click()
+    data=await p.evaluate('''() => ({url:location.href,focus:document.activeElement.id,fields:[...document.querySelectorAll('input')].map(e=>({id:e.id,valueMissing:e.validity.valueMissing,typeMismatch:e.validity.typeMismatch,validationMessage:e.validationMessage,name:document.querySelector('label[for='+e.id+']').textContent}))})''')
+    assert any(x['validationMessage'] for x in data['fields'])
+    await p.screenshot(path=str(OUT/(name+'.png')));rows.append({'case':name,**data})
+  finally:await b.close()
+ (OUT/'observations.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n');print(json.dumps(rows,ensure_ascii=False))
+asyncio.run(main())

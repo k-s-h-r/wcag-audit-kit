@@ -1,0 +1,58 @@
+{
+  "model": {
+    "model": "base.en",
+    "source_url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin",
+    "expected_sha1": "137c40403d78fd54d454da0f9bd998f78703390c",
+    "sha1": "137c40403d78fd54d454da0f9bd998f78703390c",
+    "sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+    "bytes": 147964211
+  },
+  "engine": {
+    "release": "v1.9.5",
+    "commit": "d1be6fde11ac6e0407606b4e42fe72d34add8037",
+    "commands": [
+      [
+        "/tmp/wcag-build-tools/usr/bin/cmake",
+        "-S",
+        "/tmp/wcag-whisper-src",
+        "-B",
+        "/tmp/wcag-whisper-build",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DGGML_NATIVE=OFF",
+        "-DGGML_BLAS=OFF",
+        "-DBUILD_SHARED_LIBS=OFF",
+        "-DWHISPER_BUILD_TESTS=OFF",
+        "-DWHISPER_BUILD_SERVER=OFF"
+      ],
+      [
+        "/tmp/wcag-build-tools/usr/bin/cmake",
+        "--build",
+        "/tmp/wcag-whisper-build",
+        "--target",
+        "whisper-cli",
+        "-j",
+        "4"
+      ]
+    ]
+  },
+  "command": [
+    "/tmp/wcag-whisper-build/bin/whisper-cli",
+    "-m",
+    "/tmp/wcag-whisper-models/ggml-base.en.bin",
+    "-f",
+    "/tmp/wcag-whisper-test/source-audio16k.wav",
+    "-l",
+    "en",
+    "-t",
+    "4",
+    "-ojf",
+    "-otxt",
+    "-of",
+    "/tmp/wcag-whisper-base-test/transcript"
+  ],
+  "audio_derivative_sha256": "690451cd3198834ce770eaffa8f5beb4e66e64fd2763425b7ef4a5a416051f42",
+  "transcript": "press the blue button to save the document\n",
+  "human_or_agent_listening_performed": false,
+  "non_speech_meaning_reviewed": false,
+  "wcag_judgement": null
+}

@@ -1,0 +1,395 @@
+{
+  "case_id": "2a14ee6fac28--initial--desktop--1.3.4",
+  "status": "collected",
+  "started_at": "2026-11-15T00:18:04.158739+00:00",
+  "request_sha256": "ea29edf854951fbda61eafbc5fca3905008b0591d3373fa7573977a52f7618ae",
+  "steps": [
+    {
+      "index": 0,
+      "action": {
+        "type": "initial",
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:04.884356+00:00",
+      "observed_at": "2026-11-15T00:18:04.884425+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 1,
+      "action": {
+        "type": "fill",
+        "selector": "#login-email",
+        "value": "***"
+      },
+      "started_at": "2026-11-15T00:18:04.952859+00:00",
+      "observed_at": "2026-11-15T00:18:05.064105+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "input",
+        "id": "login-email",
+        "documentHasFocus": true
+      },
+      "observations": []
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "fill",
+        "selector": "#password",
+        "value": "***"
+      },
+      "started_at": "2026-11-15T00:18:05.084407+00:00",
+      "observed_at": "2026-11-15T00:18:05.190807+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "input",
+        "id": "password",
+        "documentHasFocus": true
+      },
+      "observations": []
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "rotate",
+        "orientation": "landscape-primary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:05.212738+00:00",
+      "observed_at": "2026-11-15T00:18:05.466805+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "input",
+        "id": "password",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "rotate",
+        "orientation": "portrait-primary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:05.501522+00:00",
+      "observed_at": "2026-11-15T00:18:05.759239+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "metrics": {
+        "width": 600,
+        "height": 900,
+        "dpr": 1,
+        "screenWidth": 600,
+        "screenHeight": 900,
+        "type": "portrait-primary",
+        "angle": 0,
+        "portrait": true,
+        "landscape": false,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "input",
+        "id": "password",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 5,
+      "action": {
+        "type": "rotate",
+        "orientation": "landscape-secondary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:05.782715+00:00",
+      "observed_at": "2026-11-15T00:18:06.045617+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-secondary",
+        "angle": 270,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "input",
+        "id": "password",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 6,
+      "action": {
+        "type": "rotate",
+        "orientation": "portrait-secondary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:06.069080+00:00",
+      "observed_at": "2026-11-15T00:18:06.325174+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "metrics": {
+        "width": 600,
+        "height": 900,
+        "dpr": 1,
+        "screenWidth": 600,
+        "screenHeight": 900,
+        "type": "portrait-secondary",
+        "angle": 180,
+        "portrait": true,
+        "landscape": false,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "input",
+        "id": "password",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 7,
+      "action": {
+        "type": "click",
+        "selector": "#sign-in",
+        "assert": [
+          {
+            "selector": "#login-status",
+            "text": "Signed in. Continue to profile."
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:06.377830+00:00",
+      "observed_at": "2026-11-15T00:18:06.509605+00:00",
+      "url": "http://127.0.0.1:4330/login",
+      "metrics": {
+        "width": 600,
+        "height": 900,
+        "dpr": 1,
+        "screenWidth": 600,
+        "screenHeight": 900,
+        "type": "portrait-secondary",
+        "angle": 180,
+        "portrait": true,
+        "landscape": false,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "button",
+        "id": "sign-in",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    }
+  ],
+  "environment": {
+    "backend": "Chromium CDP device metrics / screen orientation emulation",
+    "physical_device": false,
+    "simulation": true,
+    "browser_version": "156.0.8078.79"
+  },
+  "wcag_judgement": null,
+  "scenario": {
+    "case_id": "2a14ee6fac28--initial--desktop--1.3.4",
+    "url": "http://127.0.0.1:4330/login",
+    "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+    "locale": "en-US",
+    "viewport": {
+      "width": 900,
+      "height": 600
+    },
+    "orientation": "landscape-primary",
+    "assert": [
+      {
+        "selector": "#main",
+        "visible": true
+      }
+    ],
+    "actions": [
+      {
+        "type": "fill",
+        "selector": "#login-email",
+        "value": "***"
+      },
+      {
+        "type": "fill",
+        "selector": "#password",
+        "value": "***"
+      },
+      {
+        "type": "rotate",
+        "orientation": "landscape-primary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "rotate",
+        "orientation": "portrait-primary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "rotate",
+        "orientation": "landscape-secondary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "rotate",
+        "orientation": "portrait-secondary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "click",
+        "selector": "#sign-in",
+        "assert": [
+          {
+            "selector": "#login-status",
+            "text": "Signed in. Continue to profile."
+          }
+        ]
+      }
+    ]
+  },
+  "http_status": 200,
+  "finished_at": "2026-11-15T00:18:06.601608+00:00"
+}

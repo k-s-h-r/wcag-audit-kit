@@ -1,0 +1,83 @@
+from pathlib import Path
+import hashlib
+import json
+import shutil
+import subprocess
+import sys
+from urllib.parse import parse_qs,urlsplit
+import numpy as np
+from PIL import Image
+
+ROOT=Path('/workspace/wcag-audit-kit')
+RUN=Path('/tmp/wcag-focus-appearance-audit-001')
+CAL=Path('/tmp/wcag-focus-area-calibration-001')
+sys.path.insert(0,str(ROOT/'scripts'))
+import audit
+
+methods=RUN/'evidence/methods/focus-appearance'
+shutil.copytree(CAL,methods)
+shutil.copy2(__file__,methods/'record-executed.py.txt')
+meta=audit.run_meta(RUN)
+plan=audit.run_plan(RUN)
+criterion=audit.CRITERIA['2.4.13']
+assert criterion['procedure_version']=='2'
+comparisons=[]
+for case in plan['cases']:
+ if case['criterion']!='2.4.13':continue
+ variant=parse_qs(urlsplit(case['page_url']).query)['variant'][0]
+ source=methods/'captures'/variant
+ own=RUN/case['evidence_dir']
+ bound=RUN/'evidence/attached'/case['case_id']
+ inputs=bound/'input';inputs.mkdir(parents=True,exist_ok=False)
+ request=json.loads((source/'request.json').read_text())
+ request['case_id']=case['case_id']
+ matches={}
+ for a,b in [('page.png','before.png'),('focus-001.png','focused.png')]:
+  raw=(own/a).read_bytes();historical=(source/b).read_bytes()
+  assert np.array_equal(np.asarray(Image.open(own/a)),np.asarray(Image.open(source/b)))
+  matches[a]={'same_decoded_pixels':True,'core_sha256':hashlib.sha256(raw).hexdigest(),
+              'calibration_sha256':hashlib.sha256(historical).hexdigest()}
+  (inputs/b).write_bytes(raw)
+ (inputs/'request.json').write_text(json.dumps(request,ensure_ascii=False,indent=2)+'\n')
+ subprocess.run([sys.executable,str(ROOT/'scripts/focus_measure.py'),'--request',str(inputs/'request.json'),
+                  '--out',str(bound/'measurement')],check=True)
+ result=json.loads((bound/'measurement/focus-measure.json').read_text())
+ assert result['case_id']==case['case_id'] and result['wcag_judgement'] is None
+ expected_area={'good':2752,'thin':676,'similar':0}[variant]
+ assert result['qualifying_area_css_px2']==expected_area and result['reference_area_css_px2']==1280
+ prefix=str(bound.relative_to(RUN));method=str(methods.relative_to(RUN))
+ evidence=[case['evidence_dir']+'/'+x for x in ['page.png','focus-001.png','keyboard.json','inventory.json','dom.html','input-events.json']]
+ evidence += [prefix+'/measurement/'+x for x in ['focus-measure.json','request.json','before.png','focused.png']]
+ evidence += [method+'/captures/'+variant+'/capture.json',method+'/fixture.html',method+'/capture-executed.py.txt',method+'/measure-source.py.txt']
+ reasons={
+ 'good':'4pxの輪郭が実キーTabで現れる。対象240×80の参考面積1280 CSS px²に対し、同じ画素で6.5513:1の変化を持つ領域2752 CSS px²があり、条件を満たす。',
+ 'thin':'1pxの輪郭は白に対し6.5513:1で見えるが、同じ画素で3:1以上となる全領域は676 CSS px²。240×80の部品の2px外周相当1280 CSS px²を満たさず、代替の広い表示もない。線幅だけからではなく全輪郭の面積を比較した。',
+ 'similar':'未フォーカスでも青い4px輪郭があり、実キーTab後は#005bbaから#005cbbへ変わる。前後の同一画素は1.0134:1で、3:1以上となる面積は0 CSS px²。隣接白に対する強いコントラストを前後比較の代用にしない。'}
+ observed=('このURLの操作部品はExample buttonの一つだけ。全HTML/CSS/JS、DOMと実画像を確認した。'
+  'UA既定ではなくappearance:noneと著者指定の輪郭であり、著者が未変更のUA表示の例外を適用しない。'
+  '実際のTab、documentHasFocus=true、同じ240×80の位置・DPR1・1000×700表示領域を確認した。'
+  'コア収集の前後画像は別の校正実行と画素単位で同一だった。'+reasons[variant])
+ outcome='passed' if variant=='good' else 'failed'
+ judgment={'case_id':case['case_id'],'config_digest':meta['config_digest'],
+   'normative_sha256':criterion['normative_sha256'],'execution':'completed','outcome':outcome,
+   'conditions_reviewed':True,'exceptions_reviewed':True,'coverage_complete':True,
+   'steps_executed':['全ソース・DOM・画面から操作対象と著者指定の表示を一つずつ特定',
+     '未フォーカスを撮影し、実キーTabで唯一の部品へ移動。フォーカスと前後の同じ位置・表示領域を照合',
+     '実色と位置から輪郭の全画素を特定し、sRGBで同じ画素の前後の3:1以上の面積をCSS px²で計算',
+     '本文・公式解説の面積と例外を照合し、測定値と実表示からこの基準だけを判定'],
+   'tests_applied':['WCAG22:2.4.13:normative','Understanding:focus-appearance:rectangle-area',
+     'focus_measure.py:same-pixel-srgb:development-001'],
+   'observed':observed,'targets':[{'target':'button#probe (Example button)','observed':observed,
+     'expected':'未フォーカスの部品の2 CSS px外周相当以上の面積で、同じ画素のフォーカス前後のコントラストが3:1以上となる。該当する原典の例外があれば確認する。',
+     'outcome':outcome,'evidence':evidence}],
+   'method_coverage':[{'method':'keyboard','status':'executed','reason':'実際のTabでbuttonへ移動し、trustedキーイベントと実フォーカス、画面を確認した。'},
+     {'method':'visual','status':'executed','reason':'前後の実画像と全ソースから輪郭の位置・表示・全対象一つを確認した。'},
+     {'method':'measurement','status':'executed','reason':'ケース自身の画像を同一画素・sRGB・DPRで測定し、基準面積と前後の比を照合した。'}],
+   'evidence':evidence,'remaining':[]}
+ audit.record(RUN,judgment)
+ comparisons.append({'variant':variant,'case_id':case['case_id'],'outcome':outcome,'image_comparison':matches,
+    'qualifying_area_css_px2':expected_area,'reference_area_css_px2':1280,
+    'measurement':prefix+'/measurement/focus-measure.json'})
+audit.save(methods/'ledger-comparison.json',{'note':'Known-source calibration; this is not blind evaluation or a verdict for all criteria.',
+    'comparisons':comparisons})
+audit.report(RUN)

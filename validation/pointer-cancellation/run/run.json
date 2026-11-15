@@ -1,0 +1,153 @@
+{
+  "created_at": "2026-11-14T17:35:34.609543+00:00",
+  "config": {
+    "schema_version": "1",
+    "url": "http://127.0.0.1:4317",
+    "locale": "en-US",
+    "level": "AA",
+    "scope": {
+      "include": [
+        "/pointer-cancel-good.html",
+        "/pointer-cancel-bad.html"
+      ],
+      "seeds": [
+        "/pointer-cancel-good.html"
+      ],
+      "known_pages": [
+        "/pointer-cancel-bad.html"
+      ],
+      "max_pages": 2,
+      "exclude": []
+    },
+    "environments": [
+      {
+        "id": "desktop",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        },
+        "zoom": 1
+      }
+    ],
+    "states": [
+      {
+        "id": "cancel-good",
+        "paths": [
+          "/pointer-cancel-good.html"
+        ],
+        "actions": [
+          {
+            "type": "pointer_move",
+            "selector": "#append"
+          },
+          {
+            "type": "pointer_down",
+            "selector": "#append"
+          },
+          {
+            "type": "pointer_move",
+            "selector": "#cancel-area"
+          },
+          {
+            "type": "pointer_up"
+          },
+          {
+            "type": "press",
+            "key": "Escape"
+          },
+          {
+            "type": "press",
+            "key": "Control+z"
+          },
+          {
+            "type": "reload"
+          }
+        ],
+        "observe": [
+          {
+            "selector": "#count"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "0"
+          }
+        ]
+      },
+      {
+        "id": "cancel-bad",
+        "paths": [
+          "/pointer-cancel-bad.html"
+        ],
+        "actions": [
+          {
+            "type": "pointer_move",
+            "selector": "#append"
+          },
+          {
+            "type": "pointer_down",
+            "selector": "#append"
+          },
+          {
+            "type": "pointer_move",
+            "selector": "#cancel-area"
+          },
+          {
+            "type": "pointer_up"
+          },
+          {
+            "type": "press",
+            "key": "Escape"
+          },
+          {
+            "type": "press",
+            "key": "Control+z"
+          },
+          {
+            "type": "reload"
+          }
+        ],
+        "observe": [
+          {
+            "selector": "#count"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "1"
+          }
+        ]
+      },
+      {
+        "id": "commit",
+        "paths": [
+          "/pointer-cancel-good.html",
+          "/pointer-cancel-bad.html"
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#append"
+          }
+        ],
+        "observe": [
+          {
+            "selector": "#count"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "1"
+          }
+        ]
+      }
+    ],
+    "keyboard_steps": 0,
+    "input_event_limit": 10000
+  },
+  "config_digest": "5d274948a3b31f6b517da8f99b19e7c0ed9cb4f40ad17e824b63d997a84dcf66",
+  "catalog_digest": "4e3baee933947c82c6ce53dce846e55262dc3f26e86183cb2c68d7c921e6b7d2"
+}

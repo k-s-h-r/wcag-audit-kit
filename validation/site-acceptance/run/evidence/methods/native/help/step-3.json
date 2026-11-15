@@ -1,0 +1,36 @@
+{
+  "index": 3,
+  "action": {
+    "type": "reader.nextHeading",
+    "expect_contains": "Profile fields"
+  },
+  "focus_before": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:13.580779+00:00",
+  "finished_at": "2026-11-15T00:10:14.981876+00:00",
+  "focus_after": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/help",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:13.584758+00:00",
+      "line": 8927,
+      "phrase": "h",
+      "raw": "00:10:13.584758 - SPEECH OUTPUT: 'h' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:10:13.620392+00:00",
+      "line": 9125,
+      "phrase": "Profile fields heading 2",
+      "raw": "00:10:13.620392 - SPEECH OUTPUT: 'Profile fields heading 2' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": []
+}

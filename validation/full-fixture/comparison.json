@@ -1,0 +1,49 @@
+{
+  "good-run": {
+    "audit_complete": true,
+    "scope_confirmed": true,
+    "counts": {
+      "inapplicable": 90,
+      "passed": 75
+    },
+    "axe_violations_per_capture": [
+      {
+        "state": "initial",
+        "violations": 0
+      },
+      {
+        "state": "enabled",
+        "violations": 0
+      },
+      {
+        "state": "disabled-again",
+        "violations": 0
+      }
+    ]
+  },
+  "bad-run": {
+    "audit_complete": false,
+    "scope_confirmed": false,
+    "counts": {
+      "not_run": 162,
+      "failed": 3
+    },
+    "axe_violations_per_capture": [
+      {
+        "state": "initial",
+        "violations": 0
+      },
+      {
+        "state": "enabled",
+        "violations": 0
+      },
+      {
+        "state": "disabled-again",
+        "violations": 0
+      }
+    ]
+  },
+  "interpretation": "One known simple fixture received a complete AA review in the declared scope. The negative fixture has only 4.1.2 reviewed. The comparison is calibration and pipeline verification, not a blind or expert-equivalence accuracy benchmark.",
+  "on_screenshots_byte_identical": true,
+  "on_screenshot_sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+}

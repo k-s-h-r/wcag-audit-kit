@@ -1,0 +1,55 @@
+{
+  "index": 8,
+  "action": {
+    "type": "browser.press",
+    "key": "Tab"
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "email-switch"
+  },
+  "started_at": "2026-11-14T20:47:58.417293+00:00",
+  "finished_at": "2026-11-14T20:48:00.022747+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": ""
+  },
+  "url": "http://127.0.0.1:4317/reader-controls-good.html",
+  "speech": [
+    {
+      "at": "2026-11-14T20:47:58.466968+00:00",
+      "line": 4481,
+      "phrase": "Tab search button.",
+      "raw": "20:47:58.466968 - SPEECH OUTPUT: 'Tab search button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-14T20:47:58.467800+00:00",
+      "line": 4488,
+      "phrase": "opens menu",
+      "raw": "20:47:58.467800 - SPEECH OUTPUT: 'opens menu' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": [
+    {
+      "target": {
+        "selector": "#visual-state"
+      },
+      "text": "Off"
+    },
+    {
+      "target": {
+        "selector": "#email-switch",
+        "attributes": [
+          "role",
+          "aria-checked"
+        ]
+      },
+      "text": "Email notifications",
+      "attributes": {
+        "role": "checkbox",
+        "aria-checked": "false"
+      }
+    }
+  ]
+}

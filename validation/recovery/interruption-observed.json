@@ -1,0 +1,43 @@
+{
+  "simulated": "SIGTERM to only the collector process group created by this test",
+  "collector_exit_code": -15,
+  "collector_status": "running",
+  "capture_executions": [
+    "completed",
+    "blocked"
+  ],
+  "active_capture_state": "running",
+  "partial_actions_retained": 1,
+  "unvisited": [
+    "http://127.0.0.1:4317/drag-reorder-bad.html"
+  ],
+  "missing_captures": [
+    {
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "state": "initial",
+      "environment": "narrow"
+    },
+    {
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "state": "holding",
+      "environment": "narrow"
+    }
+  ],
+  "counts": {
+    "not_run": 110
+  },
+  "audit_complete": false,
+  "completed_evidence_unchanged": true,
+  "completed_evidence_sha256": {
+    "evidence/aacb00f47547--initial--desktop/dom.html": "2e6b029475a7639b9291679d6f279bea82caefe6ccd0ab686fa1b651f5bb22bd",
+    "evidence/aacb00f47547--initial--desktop/actions.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "evidence/aacb00f47547--initial--desktop/inventory.json": "7e22394919d5a85a06646481d9fb6a176bd87cd2589f1f753ae4f2a5bca616ba",
+    "evidence/aacb00f47547--initial--desktop/console.json": "0a890d24a0436c5fde581024d54f25bb2b884db71f56f358c2859c1552eb970d",
+    "evidence/aacb00f47547--initial--desktop/keyboard.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "evidence/aacb00f47547--initial--desktop/input-events.json": "5e0d1cdd4f3127ff8b8d6cda0db80c21a9da529d1a0661533f886b3e24ff23ca",
+    "evidence/aacb00f47547--initial--desktop/00-before.png": "6f7b988ecbad2562b354b73c44dd89ea8d699b610b46e15a553a61a6e5798a9f",
+    "evidence/aacb00f47547--initial--desktop/page.png": "6f7b988ecbad2562b354b73c44dd89ea8d699b610b46e15a553a61a6e5798a9f",
+    "evidence/aacb00f47547--initial--desktop/axe.json": "70ad1e8849bc1e57784b30ae0ddaaf453ecd2cc1c0cdedc836f3ab77ed5192eb",
+    "evidence/aacb00f47547--initial--desktop/accessibility-tree.json": "c8fa16a3db20907afa0172fa5887bbe79ba475490983098a33734d03fc3cb85c"
+  }
+}

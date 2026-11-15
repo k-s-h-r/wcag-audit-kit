@@ -1,0 +1,65 @@
+{
+  "case_id": "6750e5e76314--initial--desktop--2.4.2",
+  "config_digest": "501fbc6ae0d59b19d06a51dfe2977508ddba6a944b9bcf8689edc4aa09b59d68",
+  "normative_sha256": "c8ea15c57c75772ac694984252bafe819baec75f9703c5ab3da13e51455ddcf6",
+  "outcome": "passed",
+  "execution": "completed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "remaining": [],
+  "observed": "body内のtitleをブラウザーが題名として取得しており、本文の収穫時期を説明している。配置だけで不適合にしない。",
+  "steps_executed": [
+    "対象URLを独立したHTTPのトップレベル文書としてChromiumで開いた。",
+    "ブラウザーのdocument.titleと各titleの名前空間・テキストノード・順序を取得した。",
+    "本文と題名の主題・目的を比較した。"
+  ],
+  "tests_applied": [
+    "ACT/c4a8a4@01577d2f2d18a8f1f21239690fb7e0bd9aba532b14f758600369a0c3395ad4de"
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "実ブラウザーの文書と各titleの順序・名前空間・テキストを取得した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "body内のtitleをブラウザーが題名として取得しており、本文の収穫時期を説明している。配置だけで不適合にしない。"
+    }
+  ],
+  "targets": [
+    {
+      "target": "このトップレベルHTML文書の題名",
+      "expected": "ページの主題又は目的を説明する題名がある。",
+      "observed": "body内のtitleをブラウザーが題名として取得しており、本文の収穫時期を説明している。配置だけで不適合にしない。",
+      "outcome": "passed",
+      "evidence": [
+        "evidence/6750e5e76314--initial--desktop/inventory.json",
+        "evidence/6750e5e76314--initial--desktop/dom.html",
+        "evidence/6750e5e76314--initial--desktop/page.png"
+      ]
+    }
+  ],
+  "evidence": [
+    "evidence/6750e5e76314--initial--desktop/inventory.json",
+    "evidence/6750e5e76314--initial--desktop/dom.html",
+    "evidence/6750e5e76314--initial--desktop/page.png"
+  ],
+  "recorded_at": "2026-11-14T16:54:41.878522+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/6750e5e76314--initial--desktop/inventory.json",
+      "sha256": "7e1a5261bf9cde183be08367add61d8c0a9c402975248287963892c19ec7ac4f"
+    },
+    {
+      "path": "evidence/6750e5e76314--initial--desktop/dom.html",
+      "sha256": "7b1e37bfa203e06c3077db65b16b884f10295b274e6343434763f1544d975e8d"
+    },
+    {
+      "path": "evidence/6750e5e76314--initial--desktop/page.png",
+      "sha256": "000979a74d2f0730be51a460f98f356893a83e3d9d794cc3a11d73255f8b6bad"
+    }
+  ]
+}

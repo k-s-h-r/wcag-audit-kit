@@ -1,0 +1,539 @@
+{
+  "source_commit": "9a2d7f903357eb728a0f83f00db75d4f32417ab4",
+  "recorded_at": "2026-11-14T16:54:41.947188+00:00",
+  "scope": "公開期待値を参照した2ルール・18例の方法の校正。独立した精度評価や全基準・全サイトの適合判定ではない。",
+  "count": 18,
+  "matched": 18,
+  "observations": [
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "7f9f315b5041f3726662bf269613c43678af99d4",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/7f9f315b5041f3726662bf269613c43678af99d4.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/7f9f315b5041f3726662bf269613c43678af99d4.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "passed",
+      "reason": "最初のHTML titleに、Unicode White_Space以外の文字を持つテキストノードがある。",
+      "official_expected": "passed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/7f9f315b5041f3726662bf269613c43678af99d4.html/inventory.json",
+          "sha256": "a3e1eedfa99ec8de1b967d8a934376cda7785c344b78904fa7dc36e82dac3285"
+        },
+        {
+          "path": "evidence/2779a5/7f9f315b5041f3726662bf269613c43678af99d4.html/dom.html",
+          "sha256": "aae2517f6c2c4d6c7448c79a1da541640c4ac435539413bb8f5038a9926e8b30"
+        },
+        {
+          "path": "evidence/2779a5/7f9f315b5041f3726662bf269613c43678af99d4.html/page.png",
+          "sha256": "57f45d88e654eeca054ff1cc37c39a437cb6e4b6ea2a6f59cf08a6228670107a"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "64771c390e57375a822a7223362ea7bb859c0a96",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/64771c390e57375a822a7223362ea7bb859c0a96.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/64771c390e57375a822a7223362ea7bb859c0a96.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "passed",
+      "reason": "最初のHTML titleに、Unicode White_Space以外の文字を持つテキストノードがある。",
+      "official_expected": "passed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/64771c390e57375a822a7223362ea7bb859c0a96.html/inventory.json",
+          "sha256": "e355ad144915e8caf15119bc7ea135b5b211ba6107130c772e18f680cccd6148"
+        },
+        {
+          "path": "evidence/2779a5/64771c390e57375a822a7223362ea7bb859c0a96.html/dom.html",
+          "sha256": "8d20aac97fdbde891259b96b968b5e9ee6990b6e29ebffd95fe194ff2750ed8a"
+        },
+        {
+          "path": "evidence/2779a5/64771c390e57375a822a7223362ea7bb859c0a96.html/page.png",
+          "sha256": "b00c30a623869c5145e989f3923e6cfdf03b824bea48a3f1d9d3bf65a8921d6f"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "6b3d2e2147cfc618b744f2dabfaf2e66327055d7",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/6b3d2e2147cfc618b744f2dabfaf2e66327055d7.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/6b3d2e2147cfc618b744f2dabfaf2e66327055d7.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "passed",
+      "reason": "最初のHTML titleに、Unicode White_Space以外の文字を持つテキストノードがある。",
+      "official_expected": "passed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/6b3d2e2147cfc618b744f2dabfaf2e66327055d7.html/inventory.json",
+          "sha256": "012f3dc12149cf024a3874f996c884ec63b367167fcdb43e2fa2b744b858ccfd"
+        },
+        {
+          "path": "evidence/2779a5/6b3d2e2147cfc618b744f2dabfaf2e66327055d7.html/dom.html",
+          "sha256": "b427a520a8939d7f6146a1c77c9f888f01fbb89308dd15c1beab963d13dc5d06"
+        },
+        {
+          "path": "evidence/2779a5/6b3d2e2147cfc618b744f2dabfaf2e66327055d7.html/page.png",
+          "sha256": "57f45d88e654eeca054ff1cc37c39a437cb6e4b6ea2a6f59cf08a6228670107a"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "efa1e0438bb515332ec6b4d943044c336ca77fab",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/efa1e0438bb515332ec6b4d943044c336ca77fab.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/efa1e0438bb515332ec6b4d943044c336ca77fab.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "passed",
+      "reason": "最初のHTML titleに、Unicode White_Space以外の文字を持つテキストノードがある。",
+      "official_expected": "passed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/efa1e0438bb515332ec6b4d943044c336ca77fab.html/inventory.json",
+          "sha256": "22dc12059d4422943e02f48f62fb017d1d61c2722973f6942a26926eed599631"
+        },
+        {
+          "path": "evidence/2779a5/efa1e0438bb515332ec6b4d943044c336ca77fab.html/dom.html",
+          "sha256": "e2ddb7b58a62ccb6bc9592378a9a54a789bb3730e8873f2b7ca2eb19fff225a6"
+        },
+        {
+          "path": "evidence/2779a5/efa1e0438bb515332ec6b4d943044c336ca77fab.html/page.png",
+          "sha256": "57f45d88e654eeca054ff1cc37c39a437cb6e4b6ea2a6f59cf08a6228670107a"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "0ad882dffaf6edd16058119e1c513b4746b0ac27",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/0ad882dffaf6edd16058119e1c513b4746b0ac27.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/0ad882dffaf6edd16058119e1c513b4746b0ac27.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "passed",
+      "reason": "最初のHTML titleに、Unicode White_Space以外の文字を持つテキストノードがある。",
+      "official_expected": "passed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/0ad882dffaf6edd16058119e1c513b4746b0ac27.html/inventory.json",
+          "sha256": "6325d871f172f66f62f5e1b9d808f87acb4a99fcbbe9591295fb620942dfd284"
+        },
+        {
+          "path": "evidence/2779a5/0ad882dffaf6edd16058119e1c513b4746b0ac27.html/dom.html",
+          "sha256": "231fb43fd169fb6d0f48218fd87b91c2e4d485c59a2a676de75759ebfdeda9eb"
+        },
+        {
+          "path": "evidence/2779a5/0ad882dffaf6edd16058119e1c513b4746b0ac27.html/page.png",
+          "sha256": "57f45d88e654eeca054ff1cc37c39a437cb6e4b6ea2a6f59cf08a6228670107a"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "820fb18c9bb20fb1a940a0806a87c6f6e468bb5b",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/820fb18c9bb20fb1a940a0806a87c6f6e468bb5b.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/820fb18c9bb20fb1a940a0806a87c6f6e468bb5b.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "failed",
+      "reason": "最初のHTML titleが不在、又はそのテキストノードが空・空白のみ。後続のtitleで置き換えない。",
+      "official_expected": "failed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/820fb18c9bb20fb1a940a0806a87c6f6e468bb5b.html/inventory.json",
+          "sha256": "5c48494c345492ccf0b4bde5da48453d312c300e0c94349e7bb9f91b3be9fc02"
+        },
+        {
+          "path": "evidence/2779a5/820fb18c9bb20fb1a940a0806a87c6f6e468bb5b.html/dom.html",
+          "sha256": "f7799876fdcc067b46039f17ccdf12da83db28b7d3ef0b64f4c630328a9aef9e"
+        },
+        {
+          "path": "evidence/2779a5/820fb18c9bb20fb1a940a0806a87c6f6e468bb5b.html/page.png",
+          "sha256": "442e1d1a0108a075190e5512839c59790adc7dcf5a047eefc1e5a501ffbb821d"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "314d991fa5328e41f8a806bfbac84d748b41f7ed",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/314d991fa5328e41f8a806bfbac84d748b41f7ed.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/314d991fa5328e41f8a806bfbac84d748b41f7ed.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "failed",
+      "reason": "最初のHTML titleが不在、又はそのテキストノードが空・空白のみ。後続のtitleで置き換えない。",
+      "official_expected": "failed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/314d991fa5328e41f8a806bfbac84d748b41f7ed.html/inventory.json",
+          "sha256": "f6ed99cb7712f924486adb7984bc8b54f9fe1d53881dcd22e70670beadd22145"
+        },
+        {
+          "path": "evidence/2779a5/314d991fa5328e41f8a806bfbac84d748b41f7ed.html/dom.html",
+          "sha256": "3ee123927584c3d64bfb15810710982ec265544fea432e1c8c2a1410c4b6d093"
+        },
+        {
+          "path": "evidence/2779a5/314d991fa5328e41f8a806bfbac84d748b41f7ed.html/page.png",
+          "sha256": "57f45d88e654eeca054ff1cc37c39a437cb6e4b6ea2a6f59cf08a6228670107a"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "5fd6fda771cf8810eef5166464622d6979e0406e",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/5fd6fda771cf8810eef5166464622d6979e0406e.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/5fd6fda771cf8810eef5166464622d6979e0406e.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "failed",
+      "reason": "最初のHTML titleが不在、又はそのテキストノードが空・空白のみ。後続のtitleで置き換えない。",
+      "official_expected": "failed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/5fd6fda771cf8810eef5166464622d6979e0406e.html/inventory.json",
+          "sha256": "5562725cc33b68ab612948c76f8ab857aebf3c6ea227b46e9c35b29262316b95"
+        },
+        {
+          "path": "evidence/2779a5/5fd6fda771cf8810eef5166464622d6979e0406e.html/dom.html",
+          "sha256": "506a2ded1bd4bb97af6eeb9ddb08b9d04d33493ebb25fc5429bc53c64241c831"
+        },
+        {
+          "path": "evidence/2779a5/5fd6fda771cf8810eef5166464622d6979e0406e.html/page.png",
+          "sha256": "b00c30a623869c5145e989f3923e6cfdf03b824bea48a3f1d9d3bf65a8921d6f"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "a14968698b0e95b6624f187d4538e320e4fa8952",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/a14968698b0e95b6624f187d4538e320e4fa8952.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/a14968698b0e95b6624f187d4538e320e4fa8952.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "failed",
+      "reason": "最初のHTML titleが不在、又はそのテキストノードが空・空白のみ。後続のtitleで置き換えない。",
+      "official_expected": "failed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/a14968698b0e95b6624f187d4538e320e4fa8952.html/inventory.json",
+          "sha256": "39ea2897a8b5147fb62e867b55232b69303af96aed4bcdb5eb317cf3f03838c1"
+        },
+        {
+          "path": "evidence/2779a5/a14968698b0e95b6624f187d4538e320e4fa8952.html/dom.html",
+          "sha256": "d71ea801c061ca8879cd2c3c59ec320259ad007432b944fa783103a28c5db75b"
+        },
+        {
+          "path": "evidence/2779a5/a14968698b0e95b6624f187d4538e320e4fa8952.html/page.png",
+          "sha256": "57f45d88e654eeca054ff1cc37c39a437cb6e4b6ea2a6f59cf08a6228670107a"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "4eeff9c95f15e90ca5abc972079112d1ea5c3d51",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/4eeff9c95f15e90ca5abc972079112d1ea5c3d51.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/4eeff9c95f15e90ca5abc972079112d1ea5c3d51.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "failed",
+      "reason": "最初のHTML titleが不在、又はそのテキストノードが空・空白のみ。後続のtitleで置き換えない。",
+      "official_expected": "failed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/4eeff9c95f15e90ca5abc972079112d1ea5c3d51.html/inventory.json",
+          "sha256": "0a76a67ba330d7521b265951b89697c47b3ffc951c422a6dff04f048d92213ba"
+        },
+        {
+          "path": "evidence/2779a5/4eeff9c95f15e90ca5abc972079112d1ea5c3d51.html/dom.html",
+          "sha256": "26585f369625f58b9bd5f38d9d103dc30c610b5ede53a4ffe4fde2e1e45d0e36"
+        },
+        {
+          "path": "evidence/2779a5/4eeff9c95f15e90ca5abc972079112d1ea5c3d51.html/page.png",
+          "sha256": "57f45d88e654eeca054ff1cc37c39a437cb6e4b6ea2a6f59cf08a6228670107a"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "2779a5",
+      "rule_source_sha256": "98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6",
+      "rule_status": "approved",
+      "example_id": "ecc29b73e37b6a125b3fd9767068dcaa368d467a",
+      "extension": "svg",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/2779a5/ecc29b73e37b6a125b3fd9767068dcaa368d467a.svg",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/2779a5/ecc29b73e37b6a125b3fd9767068dcaa368d467a.svg",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "inapplicable",
+      "reason": "実際の応答はimage/svg+xmlで、ルートはSVG名前空間のsvg。HTML文書を対象にするこのACTルールの適用条件を満たさない。WCAG基準自体の対象外とは判定しない。",
+      "official_expected": "inapplicable",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/2779a5/ecc29b73e37b6a125b3fd9767068dcaa368d467a.svg/inventory.json",
+          "sha256": "37b432729e391e1476168553d738087e3c65128a4a23d86c939de6d8518cd166"
+        },
+        {
+          "path": "evidence/2779a5/ecc29b73e37b6a125b3fd9767068dcaa368d467a.svg/dom.html",
+          "sha256": "68dd5a7357c1a36079c198b6b6b14d127333b9c79d98a09bac0483c2c509befc"
+        },
+        {
+          "path": "evidence/2779a5/ecc29b73e37b6a125b3fd9767068dcaa368d467a.svg/page.png",
+          "sha256": "57f45d88e654eeca054ff1cc37c39a437cb6e4b6ea2a6f59cf08a6228670107a"
+        },
+        {
+          "path": "evidence/2779a5/ecc29b73e37b6a125b3fd9767068dcaa368d467a.svg/page.png.json",
+          "sha256": "aaeac0bf292ccbe19486c5e36d33cedb18ecb6f2840c36b0d4c7286a733b002c"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "c4a8a4",
+      "rule_source_sha256": "01577d2f2d18a8f1f21239690fb7e0bd9aba532b14f758600369a0c3395ad4de",
+      "rule_status": "approved",
+      "example_id": "c19c231ab5175fb62b6a74b998aec0dd965c25c5",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/c19c231ab5175fb62b6a74b998aec0dd965c25c5.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/c19c231ab5175fb62b6a74b998aec0dd965c25c5.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "passed",
+      "reason": "本文がクレメンタインの収穫時期を説明し、題名がその主題を示している。",
+      "official_expected": "passed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/c4a8a4/c19c231ab5175fb62b6a74b998aec0dd965c25c5.html/inventory.json",
+          "sha256": "4ba5c44593ec38f9d6fb19d21bee3f7efb6e1e9878a2c3ee85cdaee3b23d58ea"
+        },
+        {
+          "path": "evidence/c4a8a4/c19c231ab5175fb62b6a74b998aec0dd965c25c5.html/dom.html",
+          "sha256": "b06c92e09818d3980d54e17d6b355762590cc447d2a7cd60f910ee9dfefdc61c"
+        },
+        {
+          "path": "evidence/c4a8a4/c19c231ab5175fb62b6a74b998aec0dd965c25c5.html/page.png",
+          "sha256": "000979a74d2f0730be51a460f98f356893a83e3d9d794cc3a11d73255f8b6bad"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "c4a8a4",
+      "rule_source_sha256": "01577d2f2d18a8f1f21239690fb7e0bd9aba532b14f758600369a0c3395ad4de",
+      "rule_status": "approved",
+      "example_id": "107a5e462b4ad6dd297742a2a177e24d32d27c26",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/107a5e462b4ad6dd297742a2a177e24d32d27c26.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/107a5e462b4ad6dd297742a2a177e24d32d27c26.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "passed",
+      "reason": "最初の題名は本文のクレメンタインの収穫時期と一致する。2番目のtitleをブラウザーは題名として使っていない。",
+      "official_expected": "passed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/c4a8a4/107a5e462b4ad6dd297742a2a177e24d32d27c26.html/inventory.json",
+          "sha256": "95e89c5c85a27253a63fa698e56d03c620c35c242add11518215d12c5b722c68"
+        },
+        {
+          "path": "evidence/c4a8a4/107a5e462b4ad6dd297742a2a177e24d32d27c26.html/dom.html",
+          "sha256": "16fd6481a6c99a43aa5d74ae551693b2dd6a051c97d7a5de6df596bf640f465e"
+        },
+        {
+          "path": "evidence/c4a8a4/107a5e462b4ad6dd297742a2a177e24d32d27c26.html/page.png",
+          "sha256": "000979a74d2f0730be51a460f98f356893a83e3d9d794cc3a11d73255f8b6bad"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "c4a8a4",
+      "rule_source_sha256": "01577d2f2d18a8f1f21239690fb7e0bd9aba532b14f758600369a0c3395ad4de",
+      "rule_status": "approved",
+      "example_id": "2f9709573bf080a0feccfb2fd4b4a657383ef235",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/2f9709573bf080a0feccfb2fd4b4a657383ef235.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/2f9709573bf080a0feccfb2fd4b4a657383ef235.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "passed",
+      "reason": "body内のtitleをブラウザーが題名として取得しており、本文の収穫時期を説明している。配置だけで不適合にしない。",
+      "official_expected": "passed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/c4a8a4/2f9709573bf080a0feccfb2fd4b4a657383ef235.html/inventory.json",
+          "sha256": "7e1a5261bf9cde183be08367add61d8c0a9c402975248287963892c19ec7ac4f"
+        },
+        {
+          "path": "evidence/c4a8a4/2f9709573bf080a0feccfb2fd4b4a657383ef235.html/dom.html",
+          "sha256": "7b1e37bfa203e06c3077db65b16b884f10295b274e6343434763f1544d975e8d"
+        },
+        {
+          "path": "evidence/c4a8a4/2f9709573bf080a0feccfb2fd4b4a657383ef235.html/page.png",
+          "sha256": "000979a74d2f0730be51a460f98f356893a83e3d9d794cc3a11d73255f8b6bad"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "c4a8a4",
+      "rule_source_sha256": "01577d2f2d18a8f1f21239690fb7e0bd9aba532b14f758600369a0c3395ad4de",
+      "rule_status": "approved",
+      "example_id": "2c1397032aad720fe43dee2be0d326be56957320",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/2c1397032aad720fe43dee2be0d326be56957320.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/2c1397032aad720fe43dee2be0d326be56957320.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "failed",
+      "reason": "題名はリンゴの収穫時期だが、本文はクレメンタインの収穫時期。対象の果物が異なり、ページの主題を説明していない。",
+      "official_expected": "failed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/c4a8a4/2c1397032aad720fe43dee2be0d326be56957320.html/inventory.json",
+          "sha256": "51e307caeed035659ad7d636fa334c0411ba20d11dcd3924d04763a67b4dd9e3"
+        },
+        {
+          "path": "evidence/c4a8a4/2c1397032aad720fe43dee2be0d326be56957320.html/dom.html",
+          "sha256": "4f4ea1b8dfd14b804ab31b7c927865fa4bb13eb1553a777648910057f5fedbdd"
+        },
+        {
+          "path": "evidence/c4a8a4/2c1397032aad720fe43dee2be0d326be56957320.html/page.png",
+          "sha256": "000979a74d2f0730be51a460f98f356893a83e3d9d794cc3a11d73255f8b6bad"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "c4a8a4",
+      "rule_source_sha256": "01577d2f2d18a8f1f21239690fb7e0bd9aba532b14f758600369a0c3395ad4de",
+      "rule_status": "approved",
+      "example_id": "1844d7bce889d85a80b620468baa804eab3ff2c8",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/1844d7bce889d85a80b620468baa804eab3ff2c8.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/1844d7bce889d85a80b620468baa804eab3ff2c8.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "failed",
+      "reason": "ブラウザーが使う最初の題名は本文の主題を示していない。2番目の適切なtitleは題名として使われない。",
+      "official_expected": "failed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/c4a8a4/1844d7bce889d85a80b620468baa804eab3ff2c8.html/inventory.json",
+          "sha256": "5a7d3e4459e2fdcfebc49cef378226a07f7974a27b92224e8a6b2cb6ce0259e4"
+        },
+        {
+          "path": "evidence/c4a8a4/1844d7bce889d85a80b620468baa804eab3ff2c8.html/dom.html",
+          "sha256": "ee64c77d20d20dd86180c593c691c3e29dfb3e4c4b0249e68c3e983e9ac61d9a"
+        },
+        {
+          "path": "evidence/c4a8a4/1844d7bce889d85a80b620468baa804eab3ff2c8.html/page.png",
+          "sha256": "000979a74d2f0730be51a460f98f356893a83e3d9d794cc3a11d73255f8b6bad"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "c4a8a4",
+      "rule_source_sha256": "01577d2f2d18a8f1f21239690fb7e0bd9aba532b14f758600369a0c3395ad4de",
+      "rule_status": "approved",
+      "example_id": "4c72b3b9b06bf1edc3c959070731b65871ee0c8f",
+      "extension": "html",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/4c72b3b9b06bf1edc3c959070731b65871ee0c8f.html",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/4c72b3b9b06bf1edc3c959070731b65871ee0c8f.html",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "failed",
+      "reason": "実画面は大学サイトでのaccessibilityの検索結果。題名の大学名だけでは、検索結果という現在の目的を説明していない。",
+      "official_expected": "failed",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/c4a8a4/4c72b3b9b06bf1edc3c959070731b65871ee0c8f.html/inventory.json",
+          "sha256": "823fd18adc87c12826d84604d4a18272f82643a7993ad1934e0a47b60d6f6e59"
+        },
+        {
+          "path": "evidence/c4a8a4/4c72b3b9b06bf1edc3c959070731b65871ee0c8f.html/dom.html",
+          "sha256": "eec15ef0f6ec1abdad7c56020a3c53f54776397032b496a0e47b24829683af03"
+        },
+        {
+          "path": "evidence/c4a8a4/4c72b3b9b06bf1edc3c959070731b65871ee0c8f.html/page.png",
+          "sha256": "bd8ba3d9a99bac8a4d6a21fa663404fbd8b13b606b59e916c859d1439840dab6"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    },
+    {
+      "rule_id": "c4a8a4",
+      "rule_source_sha256": "01577d2f2d18a8f1f21239690fb7e0bd9aba532b14f758600369a0c3395ad4de",
+      "rule_status": "approved",
+      "example_id": "85469fd266d3e8706f551dcd65261709311123d0",
+      "extension": "svg",
+      "published_example_url": "https://w3.org/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/85469fd266d3e8706f551dcd65261709311123d0.svg",
+      "executed_url": "http://127.0.0.1:4317/WAI/content-assets/wcag-act-rules/testcases/c4a8a4/85469fd266d3e8706f551dcd65261709311123d0.svg",
+      "browser_version": "156.0.8078.79",
+      "observed_outcome": "inapplicable",
+      "reason": "実際の応答はimage/svg+xmlで、ルートはSVG名前空間のsvg。HTML文書を対象にするこのACTルールの適用条件を満たさない。WCAG基準自体の対象外とは判定しない。",
+      "official_expected": "inapplicable",
+      "matches_official_example": true,
+      "evidence": [
+        {
+          "path": "evidence/c4a8a4/85469fd266d3e8706f551dcd65261709311123d0.svg/inventory.json",
+          "sha256": "49b31578dc43bdce57c2528c711ac7a1462438eac337c1ee5460808f98b7ff75"
+        },
+        {
+          "path": "evidence/c4a8a4/85469fd266d3e8706f551dcd65261709311123d0.svg/dom.html",
+          "sha256": "ea920d8a676ec09033e4d2996121d85c580abc424e0090df949371eeef607102"
+        },
+        {
+          "path": "evidence/c4a8a4/85469fd266d3e8706f551dcd65261709311123d0.svg/page.png",
+          "sha256": "39e658d435ba8788400c5e9fb62476c552052570973d2e27ec016fa41a40bb08"
+        },
+        {
+          "path": "evidence/c4a8a4/85469fd266d3e8706f551dcd65261709311123d0.svg/page.png.json",
+          "sha256": "aaeac0bf292ccbe19486c5e36d33cedb18ecb6f2840c36b0d4c7286a733b002c"
+        }
+      ],
+      "whole_criterion_result": "not_inferred_from_atomic_result"
+    }
+  ]
+}

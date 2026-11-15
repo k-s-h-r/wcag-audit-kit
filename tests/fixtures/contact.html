@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>問い合わせ — auditor fixture</title>
+<style>body{font:16px/1.6 sans-serif;color:#222;background:#fff;margin:1.5rem}input,button{font:inherit;padding:.5rem}label{display:block}:focus-visible{outline:3px solid #111;outline-offset:3px}a{color:#00529b}button{background:#fff;color:#222}</style></head>
+<body><main><h1>問い合わせ</h1><form novalidate><label for="email">メールアドレス</label><input id="email" name="email" type="email" autocomplete="email" aria-describedby="error">
+<p id="error" role="alert"></p><button type="submit">内容を確認</button></form><p><a href="index.html">試験用の一覧へ戻る</a></p></main>
+<script>document.querySelector('form').addEventListener('submit',e=>{e.preventDefault();const input=document.querySelector('#email');if(!input.value){document.querySelector('#error').textContent='メールアドレスを入力してください。';input.setAttribute('aria-invalid','true');}else{document.querySelector('#error').textContent='入力を受け付けました。';input.removeAttribute('aria-invalid');}});</script></body></html>

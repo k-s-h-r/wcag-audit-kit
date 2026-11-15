@@ -1,0 +1,7 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Reorder with pointer alternatives</title>
+<link rel="stylesheet" href="drag-reorder.css">
+<main data-pointer-alternative="buttons"><h1>Reorder two records</h1>
+<p>Drag an item onto the other item, or use its move buttons. With an item focused, ArrowUp and ArrowDown also move it.</p>
+<ul id="records"><li id="alpha" draggable="true" tabindex="0"><span>Alpha</span><button id="alpha-up">Move Alpha up</button><button id="alpha-down">Move Alpha down</button></li><li id="bravo" draggable="true" tabindex="0"><span>Bravo</span><button id="bravo-up">Move Bravo up</button><button id="bravo-down">Move Bravo down</button></li></ul>
+<p>Current order: <output id="order">Alpha, Bravo</output></p></main>
+<script src="drag-reorder.js"></script></html>

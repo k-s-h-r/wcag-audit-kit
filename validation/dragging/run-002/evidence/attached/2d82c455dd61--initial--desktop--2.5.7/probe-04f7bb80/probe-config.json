@@ -1,0 +1,103 @@
+{
+  "schema_version": "1",
+  "url": "http://127.0.0.1:4317",
+  "locale": "en-US",
+  "level": "AA",
+  "scope": {
+    "include": [
+      "/drag-reorder-good.html",
+      "/drag-reorder-bad.html"
+    ],
+    "seeds": [
+      "/drag-reorder-bad.html"
+    ],
+    "known_pages": [],
+    "max_pages": 1,
+    "exclude": []
+  },
+  "environments": [
+    {
+      "id": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "zoom": 1
+    }
+  ],
+  "states": [
+    {
+      "id": "probe",
+      "paths": [
+        "/drag-reorder-bad.html"
+      ],
+      "actions": [
+        {
+          "type": "drag",
+          "selector": "#alpha",
+          "target": {
+            "selector": "#bravo"
+          },
+          "assert": [
+            {
+              "selector": "#order",
+              "text": "Bravo, Alpha"
+            }
+          ]
+        },
+        {
+          "type": "drag",
+          "selector": "#alpha",
+          "target": {
+            "selector": "#bravo"
+          },
+          "assert": [
+            {
+              "selector": "#order",
+              "text": "Alpha, Bravo"
+            }
+          ]
+        },
+        {
+          "type": "drag",
+          "selector": "#bravo",
+          "target": {
+            "selector": "#alpha"
+          },
+          "assert": [
+            {
+              "selector": "#order",
+              "text": "Bravo, Alpha"
+            }
+          ]
+        },
+        {
+          "type": "drag",
+          "selector": "#bravo",
+          "target": {
+            "selector": "#alpha"
+          },
+          "assert": [
+            {
+              "selector": "#order",
+              "text": "Alpha, Bravo"
+            }
+          ]
+        }
+      ],
+      "observe": [
+        {
+          "selector": "#order"
+        }
+      ],
+      "assert": [
+        {
+          "selector": "#order",
+          "text": "Alpha, Bravo"
+        }
+      ]
+    }
+  ],
+  "keyboard_steps": 0,
+  "input_event_limit": 10000
+}

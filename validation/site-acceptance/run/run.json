@@ -1,0 +1,384 @@
+{
+  "created_at": "2026-11-15T00:01:08.670190+00:00",
+  "config": {
+    "schema_version": "1",
+    "url": "http://127.0.0.1:4330",
+    "level": "AA",
+    "locale": "en-US",
+    "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+    "scope": {
+      "include": [
+        "/",
+        "/profile",
+        "/media",
+        "/help",
+        "/login"
+      ],
+      "exclude": [],
+      "seeds": [
+        "/"
+      ],
+      "known_pages": [
+        "/",
+        "/profile",
+        "/media",
+        "/help",
+        "/login"
+      ],
+      "max_pages": 10,
+      "same_document_fragments": [
+        "main",
+        "name",
+        "email"
+      ],
+      "same_document_fragment_reason": "Full server and app source show these are static main/field anchors. There is no hash router or fragment-dependent content."
+    },
+    "environments": [
+      {
+        "id": "desktop",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        },
+        "zoom": 1
+      },
+      {
+        "id": "narrow",
+        "viewport": {
+          "width": 320,
+          "height": 900
+        },
+        "zoom": 1
+      }
+    ],
+    "keyboard_steps": 20,
+    "focus_screenshots": false,
+    "states": [
+      {
+        "id": "anonymous",
+        "paths": [
+          "/",
+          "/profile",
+          "/media",
+          "/help",
+          "/login"
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#sign-out"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#signed-out-account",
+            "visible": true
+          },
+          {
+            "selector": "#sign-out",
+            "visible": false
+          }
+        ]
+      },
+      {
+        "id": "dialog-open",
+        "paths": [
+          "/"
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#about"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#about-dialog",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "id": "dialog-closed",
+        "paths": [
+          "/"
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#about"
+          },
+          {
+            "type": "click",
+            "selector": "#close-about"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#about-dialog",
+            "visible": false
+          },
+          {
+            "selector": "#about",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "id": "input-error",
+        "paths": [
+          "/profile"
+        ],
+        "actions": [
+          {
+            "type": "fill",
+            "selector": "#name",
+            "value": ""
+          },
+          {
+            "type": "fill",
+            "selector": "#email",
+            "value": "not-an-email"
+          },
+          {
+            "type": "click",
+            "selector": "#review"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#errors",
+            "visible": true
+          },
+          {
+            "selector": "#name-error",
+            "text": "Enter a name."
+          },
+          {
+            "selector": "#email-error",
+            "text": "Enter an email such as name@example.test."
+          }
+        ]
+      },
+      {
+        "id": "review",
+        "paths": [
+          "/profile"
+        ],
+        "actions": [
+          {
+            "type": "fill",
+            "selector": "#name",
+            "value": "Updated Demo"
+          },
+          {
+            "type": "fill",
+            "selector": "#email",
+            "value": "updated@example.test"
+          },
+          {
+            "type": "click",
+            "selector": "#review"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#review-panel",
+            "visible": true
+          },
+          {
+            "selector": "#review-name",
+            "text": "Updated Demo"
+          },
+          {
+            "selector": "#review-email",
+            "text": "updated@example.test"
+          }
+        ]
+      },
+      {
+        "id": "back-to-edit",
+        "paths": [
+          "/profile"
+        ],
+        "actions": [
+          {
+            "type": "fill",
+            "selector": "#name",
+            "value": "Updated Demo"
+          },
+          {
+            "type": "fill",
+            "selector": "#email",
+            "value": "updated@example.test"
+          },
+          {
+            "type": "click",
+            "selector": "#review"
+          },
+          {
+            "type": "click",
+            "selector": "#back"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#editor",
+            "visible": true
+          },
+          {
+            "selector": "#review-panel",
+            "visible": false
+          }
+        ]
+      },
+      {
+        "id": "completed",
+        "paths": [
+          "/profile"
+        ],
+        "actions": [
+          {
+            "type": "fill",
+            "selector": "#name",
+            "value": "Updated Demo"
+          },
+          {
+            "type": "fill",
+            "selector": "#email",
+            "value": "updated@example.test"
+          },
+          {
+            "type": "click",
+            "selector": "#review"
+          },
+          {
+            "type": "click",
+            "selector": "#confirm"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#completion",
+            "visible": true
+          },
+          {
+            "selector": "#saved-name",
+            "text": "Updated Demo"
+          },
+          {
+            "selector": "#saved-email",
+            "text": "updated@example.test"
+          }
+        ]
+      },
+      {
+        "id": "login-error",
+        "paths": [
+          "/login"
+        ],
+        "actions": [
+          {
+            "type": "fill",
+            "selector": "#login-email",
+            "value": "unknown@example.test"
+          },
+          {
+            "type": "fill",
+            "selector": "#password",
+            "value": "wrong"
+          },
+          {
+            "type": "click",
+            "selector": "#sign-in"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#login-error",
+            "text": "Use the demo email and password shown in Help."
+          }
+        ]
+      },
+      {
+        "id": "login-success",
+        "paths": [
+          "/login"
+        ],
+        "actions": [
+          {
+            "type": "fill",
+            "selector": "#login-email",
+            "value": "demo@example.test"
+          },
+          {
+            "type": "fill",
+            "selector": "#password",
+            "value": "Test-password-42!"
+          },
+          {
+            "type": "click",
+            "selector": "#sign-in"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#login-status",
+            "text": "Signed in. Continue to profile."
+          }
+        ]
+      },
+      {
+        "id": "captions-on",
+        "paths": [
+          "/media"
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#captions-toggle"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#captions-toggle[aria-pressed=true]",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "id": "video-ended",
+        "paths": [
+          "/media"
+        ],
+        "actions": [
+          {
+            "type": "click",
+            "selector": "#captions-toggle"
+          },
+          {
+            "type": "click",
+            "selector": "#play"
+          },
+          {
+            "type": "wait_for",
+            "selector": "#playback-state:text-is(\"Ended\")"
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#playback-state",
+            "text": "Ended"
+          },
+          {
+            "selector": "#captions-toggle[aria-pressed=true]",
+            "visible": true
+          }
+        ]
+      }
+    ],
+    "input_event_limit": 10000
+  },
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "catalog_digest": "f4e37a935b5002ab2ce2aecd471a3a899a255ea94ff65a14e7de9f6e4a888eb2"
+}

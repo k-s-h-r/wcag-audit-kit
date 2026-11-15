@@ -1,0 +1,46 @@
+schema_version: "1"
+url: "http://127.0.0.1:4317"
+level: AA
+scope:
+  include: ["/reader-controls-good.html"]
+  exclude: []
+  seeds: ["/reader-controls-good.html"]
+  known_pages: ["/reader-controls-good.html"]
+  max_pages: 5
+environments:
+  - id: desktop
+    viewport: {width: 1280, height: 900}
+    zoom: 1
+states:
+  - id: enabled
+    paths: ["/reader-controls-good.html"]
+    actions:
+      - type: press
+        key: Tab
+      - type: press
+        key: Space
+        assert:
+          - {selector: '#email-switch[aria-checked="true"]', visible: true}
+          - {selector: '#visual-state', text: On}
+    assert:
+      - {selector: '#email-switch[aria-checked="true"]', visible: true}
+      - {selector: '#visual-state', text: On}
+  - id: disabled-again
+    paths: ["/reader-controls-good.html"]
+    actions:
+      - type: press
+        key: Tab
+      - type: press
+        key: Space
+        assert:
+          - {selector: '#email-switch[aria-checked="true"]', visible: true}
+          - {selector: '#visual-state', text: On}
+      - type: press
+        key: Space
+        assert:
+          - {selector: '#email-switch[aria-checked="false"]', visible: true}
+          - {selector: '#visual-state', text: Off}
+    assert:
+      - {selector: '#email-switch[aria-checked="false"]', visible: true}
+      - {selector: '#visual-state', text: Off}
+keyboard_steps: 4

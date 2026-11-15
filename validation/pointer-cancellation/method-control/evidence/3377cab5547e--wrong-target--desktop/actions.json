@@ -1,0 +1,40 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "pointer_move",
+      "selector": "#cancel-area"
+    },
+    "url": "http://127.0.0.1:4317/pointer-cancel-good.html",
+    "focus": {
+      "tag": "body",
+      "id": "",
+      "text": "Append an activity entry\n\nPress the button, move to the cancellation area, and release.\n\nLog an entry\n\nEntries: 0\n\nRelease here to cancel.",
+      "name": null,
+      "rect": {
+        "x": 24,
+        "y": 24.109375,
+        "width": 720,
+        "height": 396.09375
+      },
+      "centerHitStack": [
+        {
+          "tag": "main",
+          "id": ""
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-14T17:49:05.880047+00:00",
+    "observed_at": "2026-11-14T17:49:06.032700+00:00",
+    "observations": []
+  }
+]

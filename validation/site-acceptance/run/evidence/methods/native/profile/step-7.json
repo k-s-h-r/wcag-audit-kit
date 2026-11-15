@@ -1,0 +1,75 @@
+{
+  "index": 7,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "Down"
+    ]
+  },
+  "focus_before": {
+    "tag": "div",
+    "id": "errors",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:39.346060+00:00",
+  "finished_at": "2026-11-15T00:10:40.747614+00:00",
+  "focus_after": {
+    "tag": "body",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/profile",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:39.551559+00:00",
+      "line": 8416,
+      "phrase": "List with 2 items",
+      "raw": "00:10:39.551559 - SPEECH OUTPUT: 'List with 2 items' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:39.552445+00:00",
+      "line": 8423,
+      "phrase": "• ",
+      "raw": "00:10:39.552445 - SPEECH OUTPUT: '• ' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:39.553285+00:00",
+      "line": 8431,
+      "phrase": "Enter a name. link.",
+      "raw": "00:10:39.553285 - SPEECH OUTPUT: 'Enter a name. link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "not_requested",
+  "observations": [
+    {
+      "target": {
+        "selector": "#errors"
+      },
+      "text": "Correct the following\nEnter a name.\nEnter an email such as name@example.test."
+    },
+    {
+      "target": {
+        "selector": "#name",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": "true"
+      }
+    },
+    {
+      "target": {
+        "selector": "#email",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": "true"
+      }
+    }
+  ]
+}

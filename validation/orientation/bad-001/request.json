@@ -1,0 +1,79 @@
+{
+  "case_id": "orientation-method-bad",
+  "url": "http://127.0.0.1:4317/orientation-bad.html",
+  "locale": "en-US",
+  "viewport": {
+    "width": 900,
+    "height": 600
+  },
+  "orientation": "landscape-primary",
+  "assert": [
+    {
+      "selector": "#task",
+      "visible": true
+    }
+  ],
+  "observe": [
+    {
+      "selector": "#count"
+    }
+  ],
+  "actions": [
+    {
+      "type": "click",
+      "selector": "#increment",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "viewport": {
+        "width": 600,
+        "height": 900
+      },
+      "orientation": "portrait-primary",
+      "assert": [
+        {
+          "selector": "#task",
+          "visible": false
+        },
+        {
+          "selector": "#rotation-warning",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "type": "rotate",
+      "viewport": {
+        "width": 900,
+        "height": 600
+      },
+      "orientation": "landscape-primary",
+      "assert": [
+        {
+          "selector": "#task",
+          "visible": true
+        },
+        {
+          "selector": "#count",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "type": "click",
+      "selector": "#increment",
+      "assert": [
+        {
+          "selector": "#count",
+          "text": "2"
+        }
+      ]
+    }
+  ]
+}

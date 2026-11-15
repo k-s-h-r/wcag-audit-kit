@@ -1,0 +1,59 @@
+{
+  "case_id": "f17a894c4f12--initial--desktop--2.4.2",
+  "config_digest": "501fbc6ae0d59b19d06a51dfe2977508ddba6a944b9bcf8689edc4aa09b59d68",
+  "normative_sha256": "c8ea15c57c75772ac694984252bafe819baec75f9703c5ab3da13e51455ddcf6",
+  "outcome": "failed",
+  "execution": "completed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "remaining": [],
+  "observed": "最初のHTML titleが不在、又はそのテキストノードが空・空白のみ。後続のtitleで置き換えない。",
+  "steps_executed": [
+    "対象URLを独立したHTTPのトップレベル文書としてChromiumで開いた。",
+    "ブラウザーのdocument.titleと各titleの名前空間・テキストノード・順序を取得した。",
+    "最初のHTML titleの不在又は空白を確認した。本文の見出しや後続のtitleを代わりの題名にしなかった。"
+  ],
+  "tests_applied": [
+    "ACT/2779a5@98059832644f295b49396f86594e72f6bc612d948b10339204019650184797b6"
+  ],
+  "method_coverage": [
+    {
+      "method": "dom",
+      "status": "executed",
+      "reason": "実ブラウザーの文書と各titleの順序・名前空間・テキストを取得した。"
+    },
+    {
+      "method": "semantic",
+      "status": "not_needed",
+      "reason": "最初のHTML titleが不在、又はそのテキストノードが空・空白のみ。後続のtitleで置き換えない。"
+    }
+  ],
+  "targets": [
+    {
+      "target": "このトップレベルHTML文書の題名",
+      "expected": "ページの主題又は目的を説明する題名がある。",
+      "observed": "最初のHTML titleが不在、又はそのテキストノードが空・空白のみ。後続のtitleで置き換えない。",
+      "outcome": "failed",
+      "evidence": [
+        "evidence/f17a894c4f12--initial--desktop/inventory.json",
+        "evidence/f17a894c4f12--initial--desktop/dom.html"
+      ]
+    }
+  ],
+  "evidence": [
+    "evidence/f17a894c4f12--initial--desktop/inventory.json",
+    "evidence/f17a894c4f12--initial--desktop/dom.html"
+  ],
+  "recorded_at": "2026-11-14T16:54:41.819093+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/f17a894c4f12--initial--desktop/inventory.json",
+      "sha256": "0a76a67ba330d7521b265951b89697c47b3ffc951c422a6dff04f048d92213ba"
+    },
+    {
+      "path": "evidence/f17a894c4f12--initial--desktop/dom.html",
+      "sha256": "26585f369625f58b9bd5f38d9d103dc30c610b5ede53a4ffe4fde2e1e45d0e36"
+    }
+  ]
+}

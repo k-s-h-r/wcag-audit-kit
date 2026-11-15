@@ -1,0 +1,145 @@
+[
+  {
+    "index": 1,
+    "action": {
+      "type": "fill",
+      "selector": "#login-email",
+      "value": "***"
+    },
+    "url": "http://127.0.0.1:4330/login",
+    "focus": {
+      "tag": "input",
+      "id": "login-email",
+      "documentHasFocus": true,
+      "text": "",
+      "name": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 405.734375,
+        "width": 841.625,
+        "height": 48.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "input",
+          "id": "login-email"
+        },
+        {
+          "tag": "form",
+          "id": "login-form"
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:02:20.970816+00:00",
+    "observed_at": "2026-11-15T00:02:21.082878+00:00",
+    "observations": []
+  },
+  {
+    "index": 2,
+    "action": {
+      "type": "fill",
+      "selector": "#password",
+      "value": "***"
+    },
+    "url": "http://127.0.0.1:4330/login",
+    "focus": {
+      "tag": "input",
+      "id": "password",
+      "documentHasFocus": true,
+      "text": "",
+      "name": null,
+      "rect": {
+        "x": 219.1875,
+        "y": 499.328125,
+        "width": 841.625,
+        "height": 48.796875
+      },
+      "centerHitStack": [
+        {
+          "tag": "input",
+          "id": "password"
+        },
+        {
+          "tag": "form",
+          "id": "login-form"
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:02:21.128297+00:00",
+    "observed_at": "2026-11-15T00:02:21.238295+00:00",
+    "observations": []
+  },
+  {
+    "index": 3,
+    "action": {
+      "type": "click",
+      "selector": "#sign-in"
+    },
+    "url": "http://127.0.0.1:4330/login",
+    "focus": {
+      "tag": "button",
+      "id": "sign-in",
+      "documentHasFocus": true,
+      "text": "Sign in",
+      "name": null,
+      "rect": {
+        "x": 379.046875,
+        "y": 548.125,
+        "width": 87.828125,
+        "height": 51.984375
+      },
+      "centerHitStack": [
+        {
+          "tag": "button",
+          "id": "sign-in"
+        },
+        {
+          "tag": "form",
+          "id": "login-form"
+        },
+        {
+          "tag": "main",
+          "id": "main"
+        },
+        {
+          "tag": "body",
+          "id": ""
+        },
+        {
+          "tag": "html",
+          "id": ""
+        }
+      ],
+      "note": "矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない"
+    },
+    "started_at": "2026-11-15T00:02:21.283054+00:00",
+    "observed_at": "2026-11-15T00:02:21.409238+00:00",
+    "observations": []
+  }
+]

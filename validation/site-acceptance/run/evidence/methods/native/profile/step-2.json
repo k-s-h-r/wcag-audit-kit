@@ -1,0 +1,73 @@
+{
+  "index": 2,
+  "action": {
+    "type": "reader.nextHeading",
+    "expect_contains": "Edit your profile"
+  },
+  "focus_before": {
+    "tag": "a",
+    "id": "",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:10:31.943546+00:00",
+  "finished_at": "2026-11-15T00:10:33.346011+00:00",
+  "focus_after": {
+    "tag": "main",
+    "id": "main",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/profile",
+  "speech": [
+    {
+      "at": "2026-11-15T00:10:31.948511+00:00",
+      "line": 5718,
+      "phrase": "h",
+      "raw": "00:10:31.948511 - SPEECH OUTPUT: 'h' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:10:31.988032+00:00",
+      "line": 5943,
+      "phrase": "main content",
+      "raw": "00:10:31.988032 - SPEECH OUTPUT: 'main content' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:10:31.989073+00:00",
+      "line": 5950,
+      "phrase": "Edit your profile heading 1",
+      "raw": "00:10:31.989073 - SPEECH OUTPUT: 'Edit your profile heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#errors"
+      },
+      "text": "Correct the following"
+    },
+    {
+      "target": {
+        "selector": "#name",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": null
+      }
+    },
+    {
+      "target": {
+        "selector": "#email",
+        "attributes": [
+          "aria-invalid"
+        ]
+      },
+      "text": "",
+      "attributes": {
+        "aria-invalid": null
+      }
+    }
+  ]
+}

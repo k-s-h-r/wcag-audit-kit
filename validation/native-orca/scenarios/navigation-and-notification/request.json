@@ -1,0 +1,32 @@
+{
+  "case_id": "native-orca-page-scenario-calibration",
+  "url": "http://127.0.0.1:4317/live-region-variants.html",
+  "locale": "en-US",
+  "settle_ms": 1800,
+  "observe": [
+    {
+      "selector": "#message2"
+    }
+  ],
+  "actions": [
+    {
+      "type": "browser.press",
+      "key": "Tab",
+      "expect_contains": "Save record one"
+    },
+    {
+      "type": "browser.press",
+      "key": "Tab",
+      "expect_contains": "Save record two"
+    },
+    {
+      "type": "browser.press",
+      "key": "Space",
+      "expect_contains": "Record two saved."
+    },
+    {
+      "type": "reader.nextHeading",
+      "expect_contains": "Nonatomic status"
+    }
+  ]
+}

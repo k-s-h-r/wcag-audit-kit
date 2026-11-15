@@ -1,0 +1,16 @@
+[
+  "ffmpeg",
+  "-nostdin",
+  "-hide_banner",
+  "-loglevel",
+  "error",
+  "-i",
+  "/workspace/wcag-audit-kit/tests/fixtures/media-captions/clip.webm",
+  "-map",
+  "0:a:0",
+  "-af",
+  "aresample=16000,asr=hmm=en-us:dict=cmudict-en-us.dict:lm=en-us.lm.bin,ametadata=mode=print:key=lavfi.asr.text:file=-",
+  "-f",
+  "null",
+  "-"
+]

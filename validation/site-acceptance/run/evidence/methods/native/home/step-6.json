@@ -1,0 +1,52 @@
+{
+  "index": 6,
+  "action": {
+    "type": "reader.press",
+    "keys": [
+      "space"
+    ],
+    "expect_contains": "About this demo"
+  },
+  "focus_before": {
+    "tag": "button",
+    "id": "about",
+    "documentHasFocus": true
+  },
+  "started_at": "2026-11-15T00:09:59.596976+00:00",
+  "finished_at": "2026-11-15T00:10:00.998304+00:00",
+  "focus_after": {
+    "tag": "button",
+    "id": "close-about",
+    "documentHasFocus": true
+  },
+  "url": "http://127.0.0.1:4330/",
+  "speech": [
+    {
+      "at": "2026-11-15T00:09:59.601326+00:00",
+      "line": 7570,
+      "phrase": "space",
+      "raw": "00:09:59.601326 - SPEECH OUTPUT: 'space' {'established': False}"
+    },
+    {
+      "at": "2026-11-15T00:09:59.649125+00:00",
+      "line": 7802,
+      "phrase": "About this demo All accounts and profile values are test data.",
+      "raw": "00:09:59.649125 - SPEECH OUTPUT: 'About this demo All accounts and profile values are test data.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    },
+    {
+      "at": "2026-11-15T00:09:59.650002+00:00",
+      "line": 7809,
+      "phrase": "Close button.",
+      "raw": "00:09:59.650002 - SPEECH OUTPUT: 'Close button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+    }
+  ],
+  "assertion": "matched",
+  "observations": [
+    {
+      "target": {
+        "selector": "#count"
+      },
+      "text": "1"
+    }
+  ]
+}

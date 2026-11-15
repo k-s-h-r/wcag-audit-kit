@@ -1,0 +1,13 @@
+{
+  "method": "FFmpeg PocketSphinx English ASR on a known-source synthetic calibration fixture",
+  "method_status": "not_calibrated_for_content_judgement",
+  "source_sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+  "intended_narration": "Press the blue button to save the document.",
+  "recognizer_output": "frame:181  pts:57912   pts_time:3.6195\nlavfi.asr.text=use blue are you to uganda cute\nframe:315  pts:100792  pts_time:6.2995\nlavfi.asr.text=\n",
+  "audio_input_to_agent": "unsupported: tool result stated audio content omitted because you do not support audio input",
+  "human_or_agent_listening_performed": false,
+  "speech_meaning_reviewed": false,
+  "non_speech_meaning_reviewed": false,
+  "wcag_judgement": null,
+  "note": "This recognizer did not reproduce the intended sentence. Its text must not be treated as the audio truth or used to fail the captions."
+}

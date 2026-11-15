@@ -1,0 +1,140 @@
+{
+  "events": [
+    {
+      "type": "pointerdown",
+      "isTrusted": true,
+      "documentId": "1794681308070.7-w79xt5m5h3j",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "timestamp": 297.5,
+      "target": {
+        "tag": "button",
+        "id": "alpha-down"
+      },
+      "pointerType": "mouse",
+      "button": 0,
+      "buttons": 1,
+      "x": 492,
+      "y": 249.7899932861328,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T18:35:08.371943+00:00"
+    },
+    {
+      "type": "mousedown",
+      "isTrusted": true,
+      "documentId": "1794681308070.7-w79xt5m5h3j",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "timestamp": 297.5,
+      "target": {
+        "tag": "button",
+        "id": "alpha-down"
+      },
+      "pointerType": null,
+      "button": 0,
+      "buttons": 1,
+      "x": 492,
+      "y": 249,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T18:35:08.372886+00:00"
+    },
+    {
+      "type": "dragstart",
+      "isTrusted": true,
+      "documentId": "1794681308070.7-w79xt5m5h3j",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "timestamp": 297.5,
+      "target": {
+        "tag": "li",
+        "id": "alpha"
+      },
+      "pointerType": null,
+      "button": 0,
+      "buttons": 1,
+      "x": 492,
+      "y": 249,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T18:35:08.417857+00:00"
+    },
+    {
+      "type": "pointercancel",
+      "isTrusted": true,
+      "documentId": "1794681308070.7-w79xt5m5h3j",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "timestamp": 331.3999999985099,
+      "target": {
+        "tag": "button",
+        "id": "bravo-down"
+      },
+      "pointerType": "mouse",
+      "button": 0,
+      "buttons": 0,
+      "x": 0,
+      "y": 0,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T18:35:08.419672+00:00"
+    },
+    {
+      "type": "dragover",
+      "isTrusted": true,
+      "documentId": "1794681308070.7-w79xt5m5h3j",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "timestamp": 351.0999999977648,
+      "target": {
+        "tag": "button",
+        "id": "bravo-down"
+      },
+      "pointerType": null,
+      "button": 0,
+      "buttons": 0,
+      "x": 492,
+      "y": 367,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T18:35:08.422456+00:00"
+    },
+    {
+      "type": "drop",
+      "isTrusted": true,
+      "documentId": "1794681308070.7-w79xt5m5h3j",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "timestamp": 351.3999999985099,
+      "target": {
+        "tag": "button",
+        "id": "bravo-down"
+      },
+      "pointerType": null,
+      "button": 0,
+      "buttons": 0,
+      "x": 492,
+      "y": 367,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T18:35:08.423211+00:00"
+    },
+    {
+      "type": "dragend",
+      "isTrusted": true,
+      "documentId": "1794681308070.7-w79xt5m5h3j",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "timestamp": 351.80000000074506,
+      "target": {
+        "tag": "li",
+        "id": "alpha"
+      },
+      "pointerType": null,
+      "button": 0,
+      "buttons": 0,
+      "x": 492,
+      "y": 367,
+      "expectedTargetMatched": null,
+      "is_main_frame": true,
+      "received_at": "2026-11-14T18:35:08.423681+00:00"
+    }
+  ],
+  "truncated": false,
+  "dropped": 0,
+  "note": "ブラウザー自動操作の入力イベント。物理端末の操作又はWCAG基準全体の判定ではない。"
+}

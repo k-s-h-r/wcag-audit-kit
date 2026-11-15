@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign in — Profile demo</title><link rel="stylesheet" href="/assets/app.css"></head><body>
+<a class="skip" href="#main">Skip to main content</a><header><p>Profile demo</p><nav aria-label="Main"><a href="/">Home</a><a href="/profile">Edit profile</a><a href="/media">Video instructions</a><a href="/help">Help</a><a href="/login" aria-current="page">Sign in</a></nav><button type="button" id="sign-out">Sign out</button></header>
+<main id="main" tabindex="-1"><h1>Sign in</h1><p>Use the <a href="/help">demo account in Help</a>. You can paste the email and password.</p>
+<form id="login-form"><label for="login-email">Email</label><input id="login-email" name="email" type="email" autocomplete="username" required="">
+<label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required="">
+<button id="show-password" type="button" aria-pressed="false">Show password</button><button id="sign-in" type="submit">Sign in</button></form>
+<p id="login-error" class="error" role="alert"></p><p id="login-status" role="status"></p><p><a href="/profile">Continue to profile</a></p>
+</main><footer><a href="/help">Help</a><p>Contact: example@example.test</p></footer>
+<script src="/assets/app.js"></script></body></html>

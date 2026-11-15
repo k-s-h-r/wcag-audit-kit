@@ -1,0 +1,64 @@
+{
+  "created_at": "2026-11-14T16:13:38.079543+00:00",
+  "config": {
+    "schema_version": "1",
+    "url": "http://127.0.0.1:4317",
+    "level": "AA",
+    "scope": {
+      "include": [
+        "/zoom-intermediate.html"
+      ],
+      "seeds": [
+        "/zoom-intermediate.html"
+      ],
+      "max_pages": 1,
+      "exclude": [],
+      "known_pages": []
+    },
+    "environments": [
+      {
+        "id": "zoom-125",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        },
+        "zoom": 1.25
+      },
+      {
+        "id": "zoom-200",
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        },
+        "zoom": 2
+      }
+    ],
+    "states": [
+      {
+        "id": "reset-and-resize",
+        "paths": [
+          "/zoom-intermediate.html"
+        ],
+        "actions": [
+          {
+            "type": "zoom",
+            "factor": 1
+          },
+          {
+            "type": "zoom",
+            "factor": 1.25
+          }
+        ],
+        "assert": [
+          {
+            "selector": "#download",
+            "visible": false
+          }
+        ]
+      }
+    ],
+    "keyboard_steps": 1
+  },
+  "config_digest": "02fc7f8aec22a145dea7df17ff6a0fb5a7fb4c76e5108e7b962783017739c65d",
+  "catalog_digest": "08925a53b0806d9c4eb360c066ddc748123fcbb14b164619b4722797efa033dc"
+}

@@ -1,0 +1,33 @@
+import asyncio,json,shutil,subprocess,sys
+from pathlib import Path
+from playwright.async_api import async_playwright
+ROOT=Path('/workspace/wcag-audit-kit');OUT=Path('/tmp/wcag-acceptance-extra-001')
+async def main():
+ OUT.mkdir(exist_ok=False);shutil.copy2(__file__,OUT/'executed-source.py.txt')
+ async with async_playwright() as pw:
+  b=await pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+  try:
+   p=await b.new_page(viewport={'width':320,'height':900},storage_state='/tmp/wcag-acceptance-bootstrap-002/storage-state.json')
+   await p.goto('http://127.0.0.1:4330/help',wait_until='networkidle')
+   await p.add_style_tag(content='*{line-height:1.5!important;letter-spacing:.12em!important;word-spacing:.16em!important}p{margin-bottom:2em!important}')
+   rows=[]
+   for label,keys in [('before',[]),('right',['ArrowRight','ArrowRight']),('left',['ArrowLeft','ArrowLeft'])]:
+    for key in keys:await p.keyboard.press(key)
+    await p.wait_for_timeout(300)
+    rows.append(await p.evaluate('''() => ({scrollX,scrollY,width:innerWidth,documentWidth:document.documentElement.scrollWidth,tableWidth:document.querySelector('table').getBoundingClientRect().width,text:document.querySelector('table').innerText})'''))
+    await p.screenshot(path=str(OUT/('spacing-help-'+label+'.png')))
+   assert rows[1]['scrollX']>0 and rows[2]['scrollX']==0
+   (OUT/'spacing-scroll.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n')
+  finally:await b.close()
+asyncio.run(main())
+plan=json.loads(Path('/tmp/wcag-acceptance-audit-001/plan.json').read_text())['cases']
+case=next(c for c in plan if c['page_url']=='http://127.0.0.1:4330/login' and c['state']=='initial' and c['environment']=='desktop' and c['criterion']=='4.1.3')
+request={'case_id':case['case_id'],'url':case['page_url'],'auth_state':'/tmp/wcag-acceptance-bootstrap-002/storage-state.json','locale':'en-US','settle_ms':1500,
+ 'actions':[{'type':'browser.fill','selector':'#login-email','value':'unknown@example.test'}, {'type':'browser.fill','selector':'#password','value':'wrong'},
+ {'type':'reader.press','keys':['Tab']},{'type':'reader.press','keys':['Tab']},{'type':'reader.press','keys':['space'],'expect_contains':'Use the demo email'},
+ {'type':'browser.fill','selector':'#login-email','value':'demo@example.test'},{'type':'browser.fill','selector':'#password','value':'Test-password-42!'},
+ {'type':'reader.press','keys':['Tab']},{'type':'reader.press','keys':['Tab']},{'type':'reader.press','keys':['space'],'expect_contains':'Signed in.'}]}
+p=OUT/'login-request.json';p.write_text(json.dumps(request,indent=2)+'\n')
+with (OUT/'login-stdout.txt').open('w') as so,(OUT/'login-stderr.txt').open('w') as se:
+ r=subprocess.run([sys.executable,str(ROOT/'scripts/screen_reader_native.py'),'--root','/tmp/wcag-at-root','--request',str(p),'--out',str(OUT/'login-native')],stdout=so,stderr=se)
+print(json.dumps({'login_native_exit':r.returncode,'out':str(OUT)}),flush=True)

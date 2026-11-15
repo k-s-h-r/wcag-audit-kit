@@ -1,0 +1,462 @@
+{
+  "case_id": "eed089bd8f88--initial--desktop--1.3.4",
+  "status": "collected",
+  "started_at": "2026-11-15T00:17:46.088324+00:00",
+  "request_sha256": "a3b5c769005d9bf72e7eb4205afe6173e71aa7ddaafa6949fc0a1ec350a6802e",
+  "steps": [
+    {
+      "index": 0,
+      "action": {
+        "type": "initial",
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:17:47.223890+00:00",
+      "observed_at": "2026-11-15T00:17:47.225296+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 1,
+      "action": {
+        "type": "rotate",
+        "orientation": "landscape-primary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:17:47.340185+00:00",
+      "observed_at": "2026-11-15T00:17:47.595447+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "click",
+        "selector": "#count-button",
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "1"
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:17:47.627520+00:00",
+      "observed_at": "2026-11-15T00:17:47.782548+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "rotate",
+        "orientation": "portrait-primary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:17:47.819932+00:00",
+      "observed_at": "2026-11-15T00:17:48.076408+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "metrics": {
+        "width": 600,
+        "height": 900,
+        "dpr": 1,
+        "screenWidth": 600,
+        "screenHeight": 900,
+        "type": "portrait-primary",
+        "angle": 0,
+        "portrait": true,
+        "landscape": false,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "click",
+        "selector": "#count-button",
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "2"
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:17:48.101304+00:00",
+      "observed_at": "2026-11-15T00:17:48.219699+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "metrics": {
+        "width": 600,
+        "height": 900,
+        "dpr": 1,
+        "screenWidth": 600,
+        "screenHeight": 900,
+        "type": "portrait-primary",
+        "angle": 0,
+        "portrait": true,
+        "landscape": false,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 5,
+      "action": {
+        "type": "rotate",
+        "orientation": "landscape-secondary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:17:48.248033+00:00",
+      "observed_at": "2026-11-15T00:17:48.504064+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-secondary",
+        "angle": 270,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 6,
+      "action": {
+        "type": "click",
+        "selector": "#count-button",
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "3"
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:17:48.529862+00:00",
+      "observed_at": "2026-11-15T00:17:48.668901+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-secondary",
+        "angle": 270,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 7,
+      "action": {
+        "type": "rotate",
+        "orientation": "portrait-secondary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:17:48.698836+00:00",
+      "observed_at": "2026-11-15T00:17:48.954602+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "metrics": {
+        "width": 600,
+        "height": 900,
+        "dpr": 1,
+        "screenWidth": 600,
+        "screenHeight": 900,
+        "type": "portrait-secondary",
+        "angle": 180,
+        "portrait": true,
+        "landscape": false,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 8,
+      "action": {
+        "type": "click",
+        "selector": "#count-button",
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "4"
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:17:48.984500+00:00",
+      "observed_at": "2026-11-15T00:17:49.121231+00:00",
+      "url": "http://127.0.0.1:4330/",
+      "metrics": {
+        "width": 600,
+        "height": 900,
+        "dpr": 1,
+        "screenWidth": 600,
+        "screenHeight": 900,
+        "type": "portrait-secondary",
+        "angle": 180,
+        "portrait": true,
+        "landscape": false,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "button",
+        "id": "count-button",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    }
+  ],
+  "environment": {
+    "backend": "Chromium CDP device metrics / screen orientation emulation",
+    "physical_device": false,
+    "simulation": true,
+    "browser_version": "156.0.8078.79"
+  },
+  "wcag_judgement": null,
+  "scenario": {
+    "case_id": "eed089bd8f88--initial--desktop--1.3.4",
+    "url": "http://127.0.0.1:4330/",
+    "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+    "locale": "en-US",
+    "viewport": {
+      "width": 900,
+      "height": 600
+    },
+    "orientation": "landscape-primary",
+    "assert": [
+      {
+        "selector": "#main",
+        "visible": true
+      }
+    ],
+    "actions": [
+      {
+        "type": "rotate",
+        "orientation": "landscape-primary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "click",
+        "selector": "#count-button",
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "1"
+          }
+        ]
+      },
+      {
+        "type": "rotate",
+        "orientation": "portrait-primary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "click",
+        "selector": "#count-button",
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "2"
+          }
+        ]
+      },
+      {
+        "type": "rotate",
+        "orientation": "landscape-secondary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "click",
+        "selector": "#count-button",
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "3"
+          }
+        ]
+      },
+      {
+        "type": "rotate",
+        "orientation": "portrait-secondary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "click",
+        "selector": "#count-button",
+        "assert": [
+          {
+            "selector": "#count",
+            "text": "4"
+          }
+        ]
+      }
+    ]
+  },
+  "http_status": 200,
+  "finished_at": "2026-11-15T00:17:49.224904+00:00"
+}

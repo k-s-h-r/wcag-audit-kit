@@ -1,0 +1,148 @@
+{
+  "case_id": "a9735f8c161f--commit--desktop--2.5.2",
+  "config_digest": "5d274948a3b31f6b517da8f99b19e7c0ed9cb4f40ad17e824b63d997a84dcf66",
+  "normative_sha256": "9eeba3c396aae3c07d91e598c4e4aa6a61029a23cbeadc6f7635da3b9a1eb267",
+  "outcome": "failed",
+  "execution": "completed",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "remaining": [],
+  "observed": "初期0件からは押下時点で1件へ増え、対象外で解放しても元に戻らず、Escape・Ctrl+Z・再読み込み後も残った。1件作成後も押下時点で2件になり取消できない。通常のログ追加で、打鍵の模倣や時刻精度が本質的な機能ではない。",
+  "steps_executed": [
+    "実画面とDOMから、このページの単一ポインターで操作する機能がLog an entryボタンのログ追加であることを確認した。",
+    "Chromiumのマウス入力でボタンへ移動して押下し、対象へのtrusted pointerdownを確認した。",
+    "押下したまま取消領域へ移動して解放し、各段階の件数と解放先を記録した。",
+    "Escape、Ctrl+Z、再読み込みでも状態を比較した。通常のクリックで機能することと、1件追加後の状態からの取消操作も検証した。",
+    "No Down-Event、Abort or Undo、Up Reversal、Essentialを原典と照合した。UA自身の操作をページの機能として判定していない。"
+  ],
+  "tests_applied": [
+    "WCAG-2.2/2.5.2@9eeba3c396aae3c07d91e598c4e4aa6a61029a23cbeadc6f7635da3b9a1eb267",
+    "G212/Tests@c9ea04d4f3702e92249997c11fd678777f9c03ae"
+  ],
+  "method_coverage": [
+    {
+      "method": "pointer",
+      "status": "executed",
+      "reason": "ブラウザーのマウス入力で押下・移動・解放を行い、対象とtrustedイベントを照合した。"
+    },
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "初期表示・追加済み・取消・通常実行・再読み込みの操作結果を具体的な件数で比較した。"
+    }
+  ],
+  "targets": [
+    {
+      "target": "#append — Log an entry（このページ唯一のポインター操作機能）",
+      "expected": "原典の4条件の少なくとも一つを満たし、誤ったポインター操作を防止又は所定の条件で取消・反転できる。",
+      "observed": "初期0件からは押下時点で1件へ増え、対象外で解放しても元に戻らず、Escape・Ctrl+Z・再読み込み後も残った。1件作成後も押下時点で2件になり取消できない。通常のログ追加で、打鍵の模倣や時刻精度が本質的な機能ではない。",
+      "outcome": "failed",
+      "evidence": [
+        "evidence/a9735f8c161f--cancel-bad--desktop/actions.json",
+        "evidence/a9735f8c161f--cancel-bad--desktop/input-events.json",
+        "evidence/a9735f8c161f--cancel-bad--desktop/action-002.png",
+        "evidence/a9735f8c161f--cancel-bad--desktop/page.png",
+        "evidence/a9735f8c161f--cancel-bad--desktop/inventory.json",
+        "evidence/a9735f8c161f--commit--desktop/actions.json",
+        "evidence/a9735f8c161f--commit--desktop/input-events.json",
+        "evidence/a9735f8c161f--commit--desktop/page.png",
+        "evidence/a9735f8c161f--commit--desktop/inventory.json",
+        "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/actions.json",
+        "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/input-events.json",
+        "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/action-003.png",
+        "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/page.png",
+        "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/inventory.json",
+        "evidence/a9735f8c161f--commit--desktop/dom.html",
+        "evidence/a9735f8c161f--commit--desktop/inventory.json",
+        "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/pointer-cancel-fixture.js"
+      ]
+    }
+  ],
+  "evidence": [
+    "evidence/a9735f8c161f--cancel-bad--desktop/actions.json",
+    "evidence/a9735f8c161f--cancel-bad--desktop/input-events.json",
+    "evidence/a9735f8c161f--cancel-bad--desktop/action-002.png",
+    "evidence/a9735f8c161f--cancel-bad--desktop/page.png",
+    "evidence/a9735f8c161f--cancel-bad--desktop/inventory.json",
+    "evidence/a9735f8c161f--commit--desktop/actions.json",
+    "evidence/a9735f8c161f--commit--desktop/input-events.json",
+    "evidence/a9735f8c161f--commit--desktop/page.png",
+    "evidence/a9735f8c161f--commit--desktop/inventory.json",
+    "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/actions.json",
+    "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/input-events.json",
+    "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/action-003.png",
+    "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/page.png",
+    "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/inventory.json",
+    "evidence/a9735f8c161f--commit--desktop/dom.html",
+    "evidence/a9735f8c161f--commit--desktop/inventory.json",
+    "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/pointer-cancel-fixture.js"
+  ],
+  "recorded_at": "2026-11-14T17:54:22.526582+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/a9735f8c161f--cancel-bad--desktop/actions.json",
+      "sha256": "0338df2e3dbcfd6b83e234a868261d31cc0cf98dad3ff2de3b89365ac928d5fb"
+    },
+    {
+      "path": "evidence/a9735f8c161f--cancel-bad--desktop/input-events.json",
+      "sha256": "5e05b6cf67dc04e8902f220aa85e1622b786895a55dfdaa6eb83f567efa89cec"
+    },
+    {
+      "path": "evidence/a9735f8c161f--cancel-bad--desktop/action-002.png",
+      "sha256": "ab5e8f27bad90d555ab3f7fe1521562d6eda16e08c1a92fc0c46484a59668a7e"
+    },
+    {
+      "path": "evidence/a9735f8c161f--cancel-bad--desktop/page.png",
+      "sha256": "6be4ab336a1fcb7b8aec4e2654fd84d9cccbab9fa8efa0b1b7e639306758717c"
+    },
+    {
+      "path": "evidence/a9735f8c161f--cancel-bad--desktop/inventory.json",
+      "sha256": "e03f502340b90aa4399e680508a53dd7193ff6068b7534f818ec45f0ebd891a9"
+    },
+    {
+      "path": "evidence/a9735f8c161f--commit--desktop/actions.json",
+      "sha256": "48851d1b4c2ba0e00f62e6b9d3ebda7a24d5b573aa8dc0979753cc8a5ab6ac1b"
+    },
+    {
+      "path": "evidence/a9735f8c161f--commit--desktop/input-events.json",
+      "sha256": "f6529853f0e447d819b8737effcb1dc299a31aed537c7576a10fbe3645752295"
+    },
+    {
+      "path": "evidence/a9735f8c161f--commit--desktop/page.png",
+      "sha256": "74bd7dfd0e3ed9963135fbd3d1298b918215c2e9dc3e7dd747c190a3d9626cb4"
+    },
+    {
+      "path": "evidence/a9735f8c161f--commit--desktop/inventory.json",
+      "sha256": "e03f502340b90aa4399e680508a53dd7193ff6068b7534f818ec45f0ebd891a9"
+    },
+    {
+      "path": "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/actions.json",
+      "sha256": "6e07d3f4d138fa7e746221327115327d1810f0898e4641e655465b44c2bc89ec"
+    },
+    {
+      "path": "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/input-events.json",
+      "sha256": "01e5f3418e0b97ea9c0031734a54599745fec495c93a2608b1a15dbd7781b21f"
+    },
+    {
+      "path": "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/action-003.png",
+      "sha256": "7c0dd113410dbc0872615f8a333eaeab1ec4029af2f1a1bff422739d1abe86cc"
+    },
+    {
+      "path": "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/page.png",
+      "sha256": "d8beeb57589644273c86edcd7c124bb37467cdd6231049e78d13c87e29978436"
+    },
+    {
+      "path": "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/probe-ac5642a6/evidence/a9735f8c161f--probe--desktop/inventory.json",
+      "sha256": "10686b0f39eca3e7138ad798f04ad9af311eb6b64fdfef05bd98502e1d5d90d8"
+    },
+    {
+      "path": "evidence/a9735f8c161f--commit--desktop/dom.html",
+      "sha256": "4b26cfe494bbfe9b5c1d3a65423e7cb63972664bfa2f3e14d6c9579348608a0b"
+    },
+    {
+      "path": "evidence/attached/a9735f8c161f--commit--desktop--2.5.2/pointer-cancel-fixture.js",
+      "sha256": "d02db16a2d4bd8e1a09b22c34aa918852a5be6cd0bd3ae20b5de5a9654e0739c"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "before": {
+    "url": "http://127.0.0.1:4325/focus-appearance.html?variant=good",
+    "variant": "good",
+    "focus": {
+      "id": "",
+      "tag": "body",
+      "documentHasFocus": true
+    },
+    "rect": {
+      "x": 48,
+      "y": 240.234375,
+      "width": 240,
+      "height": 80
+    },
+    "viewport": {
+      "width": 1000,
+      "height": 700,
+      "dpr": 1
+    },
+    "style": {
+      "outlineColor": "rgb(0, 0, 0)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "outlineStyle": "none",
+      "borderRadius": "0px",
+      "background": "rgb(255, 255, 255)"
+    },
+    "events": []
+  },
+  "focused": {
+    "url": "http://127.0.0.1:4325/focus-appearance.html?variant=good",
+    "variant": "good",
+    "focus": {
+      "id": "probe",
+      "tag": "button",
+      "documentHasFocus": true
+    },
+    "rect": {
+      "x": 48,
+      "y": 240.234375,
+      "width": 240,
+      "height": 80
+    },
+    "viewport": {
+      "width": 1000,
+      "height": 700,
+      "dpr": 1
+    },
+    "style": {
+      "outlineColor": "rgb(0, 91, 186)",
+      "outlineWidth": "4px",
+      "outlineOffset": "4px",
+      "outlineStyle": "solid",
+      "borderRadius": "0px",
+      "background": "rgb(255, 255, 255)"
+    },
+    "events": [
+      {
+        "type": "keydown",
+        "key": "Tab",
+        "isTrusted": true,
+        "target": ""
+      }
+    ]
+  },
+  "browser_version": "156.0.8078.79",
+  "browser_args": [
+    "--no-sandbox",
+    "--force-color-profile=srgb"
+  ],
+  "fixture_sha256": "3257241c49193ce9cf51c3acde9725640c50902a3d5e415afa290d33d610ba3c",
+  "wcag_judgement": null
+}

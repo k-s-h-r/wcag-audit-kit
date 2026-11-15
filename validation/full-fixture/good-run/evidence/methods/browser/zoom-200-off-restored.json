@@ -1,0 +1,390 @@
+{
+  "url": "http://127.0.0.1:4320/",
+  "title": "Notification setting with exposed state",
+  "lang": "en",
+  "viewport": {
+    "width": 640,
+    "height": 450,
+    "dpr": 2,
+    "scale": 1
+  },
+  "document": {
+    "width": 640,
+    "height": 450,
+    "scrollX": 0,
+    "scrollY": 0
+  },
+  "state": {
+    "text": "Off",
+    "checked": "false"
+  },
+  "focus": {
+    "tag": "button",
+    "id": "email-switch",
+    "document_has_focus": true
+  },
+  "text": "Notification settings\n\nUse the checkbox to turn email notifications on or off.\n\nEmail notificationsOff",
+  "allElements": [
+    "html",
+    "head",
+    "meta",
+    "title",
+    "style",
+    "body",
+    "main",
+    "h1",
+    "p",
+    "button",
+    "span",
+    "script"
+  ],
+  "elements": [
+    {
+      "tag": "h1",
+      "id": "",
+      "text": "Notification settings",
+      "attributes": {},
+      "rect": {
+        "x": 32,
+        "y": 32,
+        "width": 576,
+        "height": 70.3984375
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "44px",
+        "fontWeight": "700",
+        "lineHeight": "70.4px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "29.48px",
+        "borderTopColor": "rgb(0, 0, 0)",
+        "borderTopWidth": "0px",
+        "borderTopStyle": "none",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "overflow": "visible",
+        "opacity": "1"
+      },
+      "textRects": [
+        {
+          "text": "Notification settings",
+          "rects": [
+            {
+              "x": 32,
+              "y": 42,
+              "width": 422.8984375,
+              "height": 49.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "p",
+      "id": "",
+      "text": "Use the checkbox to turn email notifications on or off.",
+      "attributes": {},
+      "rect": {
+        "x": 32,
+        "y": 131.875,
+        "width": 576,
+        "height": 35.1953125
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "22px",
+        "fontWeight": "400",
+        "lineHeight": "35.2px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "22px",
+        "borderTopColor": "rgb(0, 0, 0)",
+        "borderTopWidth": "0px",
+        "borderTopStyle": "none",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "display": "block",
+        "position": "static",
+        "overflow": "visible",
+        "opacity": "1"
+      },
+      "textRects": [
+        {
+          "text": "Use the checkbox to turn email notifications on or off.",
+          "rects": [
+            {
+              "x": 32,
+              "y": 136.875,
+              "width": 516.875,
+              "height": 24.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "button",
+      "id": "email-switch",
+      "text": "Email notifications",
+      "attributes": {
+        "id": "email-switch",
+        "type": "button",
+        "role": "checkbox",
+        "aria-checked": "false"
+      },
+      "rect": {
+        "x": 32,
+        "y": 189.0703125,
+        "width": 213.3046875,
+        "height": 71.1953125
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgb(239, 239, 239)",
+        "backgroundImage": "none",
+        "fontSize": "22px",
+        "fontWeight": "400",
+        "lineHeight": "35.2px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "borderTopColor": "rgb(0, 0, 0)",
+        "borderTopWidth": "2px",
+        "borderTopStyle": "outset",
+        "outlineColor": "rgb(0, 91, 186)",
+        "outlineWidth": "4px",
+        "outlineStyle": "solid",
+        "outlineOffset": "4px",
+        "display": "inline-block",
+        "position": "static",
+        "overflow": "visible",
+        "opacity": "1"
+      },
+      "textRects": [
+        {
+          "text": "Email notifications",
+          "rects": [
+            {
+              "x": 50,
+              "y": 212.0703125,
+              "width": 177.3046875,
+              "height": 24.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "span",
+      "id": "visual-state",
+      "text": "Off",
+      "attributes": {
+        "id": "visual-state"
+      },
+      "rect": {
+        "x": 261.3046875,
+        "y": 212.0703125,
+        "width": 28.9453125,
+        "height": 24.5
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontSize": "22px",
+        "fontWeight": "400",
+        "lineHeight": "35.2px",
+        "letterSpacing": "normal",
+        "wordSpacing": "0px",
+        "marginBottom": "0px",
+        "borderTopColor": "rgb(0, 0, 0)",
+        "borderTopWidth": "0px",
+        "borderTopStyle": "none",
+        "outlineColor": "rgb(0, 0, 0)",
+        "outlineWidth": "3px",
+        "outlineStyle": "none",
+        "outlineOffset": "0px",
+        "display": "inline",
+        "position": "static",
+        "overflow": "visible",
+        "opacity": "1"
+      },
+      "textRects": [
+        {
+          "text": "Off",
+          "rects": [
+            {
+              "x": 261.3046875,
+              "y": 212.0703125,
+              "width": 28.9453125,
+              "height": 24.5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "animations": [],
+  "noExtraContent": true,
+  "pseudo": [
+    {
+      "tag": "html",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "html",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "head",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "head",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "meta",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "meta",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "title",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "title",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "style",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "style",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "body",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "body",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "main",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "main",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "h1",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "h1",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "p",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "p",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "button",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "button",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "span",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "span",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "script",
+      "p": "::before",
+      "content": "none",
+      "backgroundImage": "none"
+    },
+    {
+      "tag": "script",
+      "p": "::after",
+      "content": "none",
+      "backgroundImage": "none"
+    }
+  ],
+  "name": "zoom-200-off-restored",
+  "action": "Toggle back at the same zoom",
+  "observed_at": "2026-11-14T21:05:36.922604+00:00",
+  "state_asserted": true
+}

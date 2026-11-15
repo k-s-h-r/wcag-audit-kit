@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Edit profile — Profile demo</title><link rel="stylesheet" href="/assets/app.css"></head><body>
+<a class="skip" href="#main">Skip to main content</a><header><p>Profile demo</p><nav aria-label="Main"><a href="/">Home</a><a href="/profile" aria-current="page">Edit profile</a><a href="/media">Video instructions</a><a href="/help">Help</a><a href="/login">Sign in</a></nav><button type="button" id="sign-out">Sign out</button></header>
+<main id="main" tabindex="-1"><h1>Edit your profile</h1><p>Change your saved name and email, then review before saving. Both fields are required.</p>
+<section id="editor" hidden=""><div id="errors" class="error-box" tabindex="-1" hidden=""><h2>Correct the following</h2><ul id="error-list"></ul></div>
+<form id="profile-form" novalidate="">
+<label for="name">Name (required)</label><input id="name" name="name" autocomplete="name" required="" aria-describedby="name-error" aria-invalid="false"><p id="name-error" class="error" hidden=""></p>
+<label for="email">Email (required)</label><input id="email" name="email" type="email" autocomplete="email" required="" aria-describedby="email-error" aria-invalid="false"><p id="email-error" class="error" hidden=""></p>
+<button type="submit" id="review">Review changes</button></form></section>
+<section id="review-panel"><h2 id="review-title" tabindex="-1">Review your changes</h2><dl><dt>Name</dt><dd id="review-name">Rotated Demo</dd><dt>Email</dt><dd id="review-email">rotation@example.test</dd></dl>
+<div class="actions"><button type="button" id="back">Back to edit</button><button type="button" id="confirm">Confirm and save</button></div></section>
+<section id="completion" hidden=""><h2 id="saved-title" tabindex="-1">Profile saved</h2><dl><dt>Name</dt><dd id="saved-name"></dd><dt>Email</dt><dd id="saved-email"></dd></dl><p><a href="/profile">Edit this profile again</a></p></section>
+</main><footer><a href="/help">Help</a><p>Contact: example@example.test</p></footer>
+<script src="/assets/app.js"></script></body></html>

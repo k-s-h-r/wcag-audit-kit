@@ -1,0 +1,91 @@
+{
+  "pages": [
+    {
+      "id": "aacb00f47547",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html"
+    },
+    {
+      "id": "683248f0a5ec",
+      "url": "http://127.0.0.1:4317/intentionally-missing-http-error-page.html"
+    }
+  ],
+  "unvisited": [],
+  "errors": [],
+  "discovered": [
+    "http://127.0.0.1:4317/drag-reorder-good.html",
+    "http://127.0.0.1:4317/intentionally-missing-http-error-page.html"
+  ],
+  "captures": [
+    {
+      "key": "aacb00f47547--initial--desktop",
+      "page_id": "aacb00f47547",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "state": "initial",
+      "environment": "desktop",
+      "execution": "completed",
+      "collection_state": "finished",
+      "evidence_dir": "evidence/aacb00f47547--initial--desktop",
+      "http_status": 200,
+      "final_url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "title": "Reorder with pointer alternatives",
+      "node_count": 21,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 0,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T18:43:17.924840+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "aacb00f47547--pointer-alternative--desktop",
+      "page_id": "aacb00f47547",
+      "url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "state": "pointer-alternative",
+      "environment": "desktop",
+      "execution": "completed",
+      "collection_state": "finished",
+      "evidence_dir": "evidence/aacb00f47547--pointer-alternative--desktop",
+      "http_status": 200,
+      "final_url": "http://127.0.0.1:4317/drag-reorder-good.html",
+      "title": "Reorder with pointer alternatives",
+      "node_count": 21,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 20,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T18:43:19.169785+00:00",
+      "axe_candidates": 0,
+      "axe_incomplete": 0
+    },
+    {
+      "key": "683248f0a5ec--initial--desktop",
+      "page_id": "683248f0a5ec",
+      "url": "http://127.0.0.1:4317/intentionally-missing-http-error-page.html",
+      "state": "initial",
+      "environment": "desktop",
+      "execution": "completed",
+      "collection_state": "finished",
+      "evidence_dir": "evidence/683248f0a5ec--initial--desktop",
+      "http_status": 404,
+      "http_notice": "HTTPエラー応答の表示を収集。依頼されたページ・状態に到達したか別に確認する。",
+      "final_url": "http://127.0.0.1:4317/intentionally-missing-http-error-page.html",
+      "title": "Error response",
+      "node_count": 9,
+      "inventory_truncated": false,
+      "input_events_truncated": false,
+      "input_events": 0,
+      "browser_version": "156.0.8078.79",
+      "observed_at": "2026-11-14T18:43:19.731772+00:00",
+      "axe_candidates": 2,
+      "axe_incomplete": 0
+    }
+  ],
+  "not_a_screen_reader_test": true,
+  "collector_status": "completed",
+  "checkpoint_at": "2026-11-14T18:43:19.798914+00:00",
+  "declared_states_without_page": [],
+  "linked_pages_exhausted": true,
+  "site_inventory_confirmed": false,
+  "scope_note": "リンクをたどった範囲のみ。未リンクURL・権限別画面・未知の状態の調査は別に必要"
+}

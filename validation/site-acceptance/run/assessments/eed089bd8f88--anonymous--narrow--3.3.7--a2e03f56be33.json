@@ -1,0 +1,146 @@
+{
+  "case_id": "eed089bd8f88--anonymous--narrow--3.3.7",
+  "config_digest": "57fca47cf32c73f6be9ee9aa83a66d2f1999f6560677e2e42c6321edda1d2890",
+  "normative_sha256": "3411a308943497f2f419cc376f1f6c5d035925782d356f3a454953cb427cb4d7",
+  "execution": "completed",
+  "outcome": "inapplicable",
+  "observed": "このcaseはhttp://127.0.0.1:4330/ / anonymous / narrow。表示の主内容はHome — Profile demo。可視見出し: ['Update your demo profile', 'Example controls']。入力欄: []。同じ手続き内の別段階で既に提供した同じ情報を再入力させる機能はない。入力エラーの修正や利用者が自分で繰り返す操作を冗長な再入力へ数えていない。",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "このURL・状態の全画面、全DOM/AX、全ソースと実際の対象を本文の条件・例外に照合した",
+    "対象ページで実キー・ポインター・タッチのエミュレーション、入力エラーと修正・確認・戻る・保存、字幕と再生、認証を操作した",
+    "共有CSSと同じ要素の実測・スクリーンリーダーの観察を対応付け、通常・狭幅・実拡大・文字間隔変更の必要な証拠を比較した",
+    "この基準の対象と確認範囲を具体化し、確定できない条件は人への具体的な検査へ残した"
+  ],
+  "tests_applied": [
+    "WCAG22:3.3.7:normative",
+    "acceptance-fixture-001:page-specific-review:1"
+  ],
+  "targets": [],
+  "method_coverage": [
+    {
+      "method": "flow",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    },
+    {
+      "method": "semantic",
+      "status": "executed",
+      "reason": "このサイトの実画面・対象・全実装と、上記の実行済みの観察を照合した。観察範囲は個別の事実・証拠に記録した。"
+    }
+  ],
+  "comparison_pages": [],
+  "evidence": [
+    "evidence/eed089bd8f88--anonymous--narrow/page.png",
+    "evidence/eed089bd8f88--anonymous--narrow/inventory.json",
+    "evidence/eed089bd8f88--anonymous--narrow/dom.html",
+    "evidence/eed089bd8f88--anonymous--narrow/accessibility-tree.json",
+    "evidence/eed089bd8f88--anonymous--narrow/actions.json",
+    "evidence/eed089bd8f88--anonymous--narrow/keyboard.json",
+    "evidence/methods/browser/executed-source.py.txt",
+    "evidence/methods/browser/source/app.js",
+    "evidence/methods/browser/source/app.css",
+    "evidence/methods/browser/server.py.txt",
+    "evidence/methods/discovery/discovery.json",
+    "evidence/methods/browser/narrow/observations.json",
+    "evidence/methods/browser/narrow/000-home-initial.png",
+    "evidence/methods/browser/narrow/000-home-initial.json",
+    "evidence/methods/browser/narrow/000-home-initial-ax.json",
+    "evidence/methods/browser/narrow/005-dialog-open.png",
+    "evidence/methods/browser/narrow/005-dialog-open.json",
+    "evidence/methods/browser/narrow/005-dialog-open-ax.json",
+    "evidence/methods/browser/narrow/004-hybrid-count-six.png",
+    "evidence/methods/browser/narrow/004-hybrid-count-six.json",
+    "evidence/methods/browser/narrow/004-hybrid-count-six-ax.json"
+  ],
+  "remaining": [],
+  "recorded_at": "2026-11-15T00:48:56.308154+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/eed089bd8f88--anonymous--narrow/page.png",
+      "sha256": "e7a88886de199838ebeb8e928cf2726275c79a9713c35a98476bb7cfb80d8c7c"
+    },
+    {
+      "path": "evidence/eed089bd8f88--anonymous--narrow/inventory.json",
+      "sha256": "bcb947bf2510c770a8329767dbc5fa92958e5e649ff049ea4192e789a5f92c05"
+    },
+    {
+      "path": "evidence/eed089bd8f88--anonymous--narrow/dom.html",
+      "sha256": "c6607e7e75fe5576f1df2fbce01e2a9ea54951d6826fcbeaed810ab37b727588"
+    },
+    {
+      "path": "evidence/eed089bd8f88--anonymous--narrow/accessibility-tree.json",
+      "sha256": "43a43e4fc98637a7a069a1004fe1d6806a72e14f853ecc48f847aa1a5763fd92"
+    },
+    {
+      "path": "evidence/eed089bd8f88--anonymous--narrow/actions.json",
+      "sha256": "08fd0fb8801aa9af887f9e5db60355c9c0d6fe4a7b2bd34e96860a01b839287a"
+    },
+    {
+      "path": "evidence/eed089bd8f88--anonymous--narrow/keyboard.json",
+      "sha256": "e047cad9586a22cbaeec7508ffdf81196175b21a1e46f0afd0627c7a137717f8"
+    },
+    {
+      "path": "evidence/methods/browser/executed-source.py.txt",
+      "sha256": "aaee3ed784ac8ab0c12e6304a6eb2e65a9f9bfdb6ed80d9e337589cab42b6fac"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.js",
+      "sha256": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4"
+    },
+    {
+      "path": "evidence/methods/browser/source/app.css",
+      "sha256": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9"
+    },
+    {
+      "path": "evidence/methods/browser/server.py.txt",
+      "sha256": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75"
+    },
+    {
+      "path": "evidence/methods/discovery/discovery.json",
+      "sha256": "984a68a2d9a154010494c48277cac1158e8b08a70ed4720756f85094b5d72ea5"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/observations.json",
+      "sha256": "e907194d98c40f6532bd7ba35823c5a40874ab0e721e2879492f90c52fc56cce"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/000-home-initial.png",
+      "sha256": "8b5ea3b0c0e428028a0f95d0c0183d2eb8ba7fff1715be897121ffcbd2c124f7"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/000-home-initial.json",
+      "sha256": "1c529325cce525ea4a5e378da476bb2f4776f0e04d3861e91ab796279c930e16"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/000-home-initial-ax.json",
+      "sha256": "2d82e3c250f47b032db4c8f75a19053e79e3293281881ea0a1f0f20e6d16c579"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/005-dialog-open.png",
+      "sha256": "26900c07946136e067287958bbbf281f671a36a55d62bb0a9d4279fe7e98c0a0"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/005-dialog-open.json",
+      "sha256": "e3c49ba8c280538527a712291d2708470306225f2493dd7123f59f32ead359c6"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/005-dialog-open-ax.json",
+      "sha256": "4abd4f70338dc0f520cea24ce980a5524e6b2c1bb3859dac3a65cd02ee139b18"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/004-hybrid-count-six.png",
+      "sha256": "d39dbe67f932dc226086ff01cfe5ad5816c4ef4a07eab28ebeaa4422e9e1dc4a"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/004-hybrid-count-six.json",
+      "sha256": "b42b25998013e95ba0ad4ea92a74d5168e4f13b06b85d983bc3f93380f630e9e"
+    },
+    {
+      "path": "evidence/methods/browser/narrow/004-hybrid-count-six-ax.json",
+      "sha256": "44a896b6e0163bf4654d68336cfea8653cfe01c7e0e6cee019327a36f59b4c78"
+    }
+  ]
+}

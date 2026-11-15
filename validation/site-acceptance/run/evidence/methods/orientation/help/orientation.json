@@ -1,0 +1,282 @@
+{
+  "case_id": "0c7e301bf300--initial--desktop--1.3.4",
+  "status": "collected",
+  "started_at": "2026-11-15T00:18:02.058912+00:00",
+  "request_sha256": "cfcffd58d6c0ce29363564c4fee7d4a049902ac3947791e6e7ead7ec801606ae",
+  "steps": [
+    {
+      "index": 0,
+      "action": {
+        "type": "initial",
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:02.796779+00:00",
+      "observed_at": "2026-11-15T00:18:02.796825+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 1,
+      "action": {
+        "type": "rotate",
+        "orientation": "landscape-primary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:02.882909+00:00",
+      "observed_at": "2026-11-15T00:18:03.137855+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-primary",
+        "angle": 90,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "rotate",
+        "orientation": "portrait-primary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:03.162674+00:00",
+      "observed_at": "2026-11-15T00:18:03.418527+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "metrics": {
+        "width": 600,
+        "height": 900,
+        "dpr": 1,
+        "screenWidth": 600,
+        "screenHeight": 900,
+        "type": "portrait-primary",
+        "angle": 0,
+        "portrait": true,
+        "landscape": false,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "rotate",
+        "orientation": "landscape-secondary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:03.448343+00:00",
+      "observed_at": "2026-11-15T00:18:03.714607+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "metrics": {
+        "width": 900,
+        "height": 600,
+        "dpr": 1,
+        "screenWidth": 900,
+        "screenHeight": 600,
+        "type": "landscape-secondary",
+        "angle": 270,
+        "portrait": false,
+        "landscape": true,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "rotate",
+        "orientation": "portrait-secondary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      "started_at": "2026-11-15T00:18:03.739729+00:00",
+      "observed_at": "2026-11-15T00:18:03.999572+00:00",
+      "url": "http://127.0.0.1:4330/help",
+      "metrics": {
+        "width": 600,
+        "height": 900,
+        "dpr": 1,
+        "screenWidth": 600,
+        "screenHeight": 900,
+        "type": "portrait-secondary",
+        "angle": 180,
+        "portrait": true,
+        "landscape": false,
+        "scale": 1
+      },
+      "focus": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "observations": [],
+      "state_asserted": true
+    }
+  ],
+  "environment": {
+    "backend": "Chromium CDP device metrics / screen orientation emulation",
+    "physical_device": false,
+    "simulation": true,
+    "browser_version": "156.0.8078.79"
+  },
+  "wcag_judgement": null,
+  "scenario": {
+    "case_id": "0c7e301bf300--initial--desktop--1.3.4",
+    "url": "http://127.0.0.1:4330/help",
+    "auth_state": "/tmp/wcag-acceptance-bootstrap-002/storage-state.json",
+    "locale": "en-US",
+    "viewport": {
+      "width": 900,
+      "height": 600
+    },
+    "orientation": "landscape-primary",
+    "assert": [
+      {
+        "selector": "#main",
+        "visible": true
+      }
+    ],
+    "actions": [
+      {
+        "type": "rotate",
+        "orientation": "landscape-primary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "rotate",
+        "orientation": "portrait-primary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "rotate",
+        "orientation": "landscape-secondary",
+        "viewport": {
+          "width": 900,
+          "height": 600
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      },
+      {
+        "type": "rotate",
+        "orientation": "portrait-secondary",
+        "viewport": {
+          "width": 600,
+          "height": 900
+        },
+        "assert": [
+          {
+            "selector": "#main",
+            "visible": true
+          }
+        ]
+      }
+    ]
+  },
+  "http_status": 200,
+  "finished_at": "2026-11-15T00:18:04.085130+00:00"
+}

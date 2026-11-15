@@ -1,0 +1,106 @@
+{
+  "case_id": "e743f12ce843--enabled--desktop--2.2.1",
+  "config_digest": "61feba4fc45fa04a27c48307cbeff0f274c556f11a75a849ba2c07be86c9e5f1",
+  "normative_sha256": "c64864412e719cdbe44a1f633d9be0d97c7f5d32feeba380ca183dd1573afaae",
+  "execution": "completed",
+  "outcome": "inapplicable",
+  "conditions_reviewed": true,
+  "exceptions_reviewed": true,
+  "coverage_complete": true,
+  "steps_executed": [
+    "当該基準の本文・条件・例外を読む",
+    "全ソース・全状態のDOM・AXと実画面を調べる",
+    "適用条件と対象不在・条件不成立を照合する"
+  ],
+  "tests_applied": [
+    "WCAG22:2.2.1:normative",
+    "fixture-aa/2.2.1:page-specific-review"
+  ],
+  "observed": "このcaseはenabled。実収集で表示On、aria-checked=trueを確認。 唯一のHTML・CSS・JSと専用の静的HTTPサーバーを調べ、期限・自動失効・セッション・認証・制限時間・タイマーの処理はない。キーの間を待ってからでも切り替えられた。ブラウザーや検査器のタイムアウトを作者の時間制限へ数えていない。",
+  "targets": [],
+  "method_coverage": [
+    {
+      "method": "timing",
+      "status": "not_needed",
+      "reason": "全ソース・全状態と原典を確認した適用条件の根拠: 唯一のHTML・CSS・JSと専用の静的HTTPサーバーを調べ、期限・自動失効・セッション・認証・制限時間・タイマーの処理はない。キーの間を待ってからでも切り替えられた。ブラウザーや検査器のタイムアウトを作者の時間制限へ数えていない。"
+    },
+    {
+      "method": "flow",
+      "status": "not_needed",
+      "reason": "全ソース・全状態と原典を確認した適用条件の根拠: 唯一のHTML・CSS・JSと専用の静的HTTPサーバーを調べ、期限・自動失効・セッション・認証・制限時間・タイマーの処理はない。キーの間を待ってからでも切り替えられた。ブラウザーや検査器のタイムアウトを作者の時間制限へ数えていない。"
+    },
+    {
+      "method": "measurement",
+      "status": "not_needed",
+      "reason": "全ソース・全状態と原典を確認した適用条件の根拠: 唯一のHTML・CSS・JSと専用の静的HTTPサーバーを調べ、期限・自動失効・セッション・認証・制限時間・タイマーの処理はない。キーの間を待ってからでも切り替えられた。ブラウザーや検査器のタイムアウトを作者の時間制限へ数えていない。"
+    }
+  ],
+  "evidence": [
+    "evidence/criterion-review.json",
+    "evidence/methods/source-scope/index.html",
+    "evidence/methods/source-scope/reader-controls.js",
+    "evidence/methods/source-scope/server.py.txt",
+    "evidence/methods/source-scope/scope.json",
+    "evidence/methods/browser/observations.json",
+    "evidence/e743f12ce843--enabled--desktop/dom.html",
+    "evidence/e743f12ce843--enabled--desktop/inventory.json",
+    "evidence/e743f12ce843--enabled--desktop/page.png",
+    "evidence/e743f12ce843--enabled--desktop/accessibility-tree.json",
+    "evidence/e743f12ce843--enabled--desktop/actions.json",
+    "evidence/e743f12ce843--enabled--desktop/keyboard.json"
+  ],
+  "remaining": [],
+  "criterion_review_sha256": "b60ce0af0790ca8312a837177ca1888cdc2619f8c8c36ccdbf423fc91d31fa32",
+  "review_kind": "known controlled fixture, not a blind or professional-equivalence accuracy benchmark",
+  "recorded_at": "2026-11-14T21:19:14.705882+00:00",
+  "verified_evidence": [
+    {
+      "path": "evidence/criterion-review.json",
+      "sha256": "b60ce0af0790ca8312a837177ca1888cdc2619f8c8c36ccdbf423fc91d31fa32"
+    },
+    {
+      "path": "evidence/methods/source-scope/index.html",
+      "sha256": "d1aab119e78f3bd57043d800d717a97b5ed6885ed72279105b40daadd0efb71d"
+    },
+    {
+      "path": "evidence/methods/source-scope/reader-controls.js",
+      "sha256": "4bf2bbd7e6a26244510267d8dabcda6a04fc3f84ee94d7aede5d58b2cf9b4a8d"
+    },
+    {
+      "path": "evidence/methods/source-scope/server.py.txt",
+      "sha256": "52fe84496da10c9f4bccfe99a0c110f1a4e7f6bb8f66ee81656866029de6b4d1"
+    },
+    {
+      "path": "evidence/methods/source-scope/scope.json",
+      "sha256": "22f4d0d0413a2492431507071837909fb6eb0b007f9e1ef78bf8a98dadc5d353"
+    },
+    {
+      "path": "evidence/methods/browser/observations.json",
+      "sha256": "5a61169b7b4aad018a1e08b31040be30b81abda06321b54922a707dbd01c7afd"
+    },
+    {
+      "path": "evidence/e743f12ce843--enabled--desktop/dom.html",
+      "sha256": "827cc4a0a31ca3405d7f37a25fdf1bb5821c6dfbaca77ce82a88cfa184da77d3"
+    },
+    {
+      "path": "evidence/e743f12ce843--enabled--desktop/inventory.json",
+      "sha256": "ec1f2f55733203db025edfd800baa72c32c5d7ad8f03dcafa36af43baa7985b5"
+    },
+    {
+      "path": "evidence/e743f12ce843--enabled--desktop/page.png",
+      "sha256": "fbf9fba6a7db4e21d183bbac2fa20469943875dfbd9b28b50e8564b1aa0deae7"
+    },
+    {
+      "path": "evidence/e743f12ce843--enabled--desktop/accessibility-tree.json",
+      "sha256": "9c37484c365d347e71b759864d87e9e277f574741273f8dd7d7f654d7e874186"
+    },
+    {
+      "path": "evidence/e743f12ce843--enabled--desktop/actions.json",
+      "sha256": "24c817ad56dd1ee12f0fc26c2abd4e241240c27f104f61996bd131d39e48c47d"
+    },
+    {
+      "path": "evidence/e743f12ce843--enabled--desktop/keyboard.json",
+      "sha256": "d45e13719eeb1982a91ec576d9f7f4097d90ed8ff4846541161499139f53269e"
+    }
+  ]
+}

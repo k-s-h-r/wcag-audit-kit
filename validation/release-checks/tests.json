@@ -1,0 +1,13 @@
+{
+  "python": {
+    "command": "python3 -m unittest discover -s tests -p 'test_*.py'",
+    "tests": 67,
+    "exit_code": 0
+  },
+  "node": {
+    "command": "npm run test:screen-reader",
+    "tests": 9,
+    "exit_code": 0,
+    "note": "Adapter tests include mocks; not live Guidepup tests."
+  }
+}
