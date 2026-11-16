@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 
 import yaml
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[1] / 'skills' / 'wcag-audit-kit'
 SOURCE=ROOT/'references/sources/act'
 
 

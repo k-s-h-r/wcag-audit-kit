@@ -10,11 +10,12 @@ import sys
 import threading
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT/'scripts'))
+sys.path.insert(0,str(ROOT/'skills/wcag-audit-kit/scripts'))
 import audit
 
 
-def exercise(out):
+def exercise(out,skill_root=None):
+    skill_root=Path(skill_root or ROOT/'skills/wcag-audit-kit').resolve()
     if out.exists():raise ValueError('新しい検証出力先を指定する')
     out.mkdir(parents=True);requests=[];commands=[]
     class Handler(SimpleHTTPRequestHandler):
@@ -27,7 +28,7 @@ def exercise(out):
     base='http://127.0.0.1:'+str(server.server_port)
     url=base+'/visual-controls.html'
     def command(name,args):
-        result=subprocess.run([sys.executable,str(ROOT/'scripts/audit.py'),*args],cwd=ROOT,capture_output=True,text=True)
+        result=subprocess.run([sys.executable,str(skill_root/'scripts/audit.py'),*args],cwd=skill_root,capture_output=True,text=True)
         (out/(name+'.stdout.txt')).write_text(result.stdout);(out/(name+'.stderr.txt')).write_text(result.stderr)
         commands.append({'name':name,'args':args,'returncode':result.returncode})
         if result.returncode:raise RuntimeError(result.stderr)
@@ -84,7 +85,7 @@ def exercise(out):
                 'help_escape_returns_to_trigger':True,'help_reopens_with_enter':True,
                 'nested_image_skipped_by_budget':True,'real_screen_reader_executed':False,
                 'image_meaning_review':'The operator must inspect the captured images; this script only checks observable facts.',
-                'commands':commands}
+                'commands':commands,'skill_root':str(skill_root)}
         audit.save(out/'result.json',result);shutil.copyfile(__file__,out/'executed-source.py.txt')
         return result
     finally:
@@ -93,4 +94,5 @@ def exercise(out):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',required=True)
-    args=parser.parse_args();print(json.dumps(exercise(Path(args.out).resolve()),ensure_ascii=False,indent=2))
+    parser.add_argument('--skill-root',help='test a copied standalone skill instead of the repository runtime')
+    args=parser.parse_args();print(json.dumps(exercise(Path(args.out).resolve(),args.skill_root),ensure_ascii=False,indent=2))

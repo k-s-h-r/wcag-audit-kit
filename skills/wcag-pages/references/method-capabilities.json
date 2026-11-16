@@ -1,0 +1,183 @@
+{
+  "policy_version": "1",
+  "note": "方法の準備状況。達成基準の合否又は未知の対象への精度保証ではない。boundedも対象サイトで具体化・実行する。project_verificationとpartialは対象ごとの試行が必要。信頼できない検証は人へ引き継ぐ。",
+  "methods": [
+    {
+      "method": "dom",
+      "status": "bounded",
+      "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+      ]
+    },
+    {
+      "method": "visual",
+      "status": "bounded",
+      "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+      ]
+    },
+    {
+      "method": "semantic",
+      "status": "bounded",
+      "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+      ]
+    },
+    {
+      "method": "keyboard",
+      "status": "bounded",
+      "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+      ]
+    },
+    {
+      "method": "pointer",
+      "status": "bounded",
+      "limits": "trustedな押下・解放・取消・クリック・ドラッグと実結果を確認する。物理タッチとは分ける。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/pointer-cancellation/README.md",
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+      ]
+    },
+    {
+      "method": "flow",
+      "status": "bounded",
+      "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+      ]
+    },
+    {
+      "method": "cross-page",
+      "status": "bounded",
+      "limits": "全ページ・権限・状態を列挙し、ナビゲーション・同機能・ヘルプを比較する。代表例を全件へ広げない。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+      ]
+    },
+    {
+      "method": "measurement",
+      "status": "bounded",
+      "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+      ]
+    },
+    {
+      "method": "viewport",
+      "status": "bounded",
+      "limits": "CSS pxの表示領域を計測し実操作する。実ブラウザー拡大と混同しない。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-zoom/run-004/report.html"
+      ]
+    },
+    {
+      "method": "zoom",
+      "status": "bounded",
+      "limits": "専用X11でブラウザー自身を拡大し実測する。別OSの拡大方法・全てのページ形状を確認したわけではない。 SVGの実効的な文字拡大等は別に確認し、未確定なら引き継ぐ。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-zoom/run-004/report.html",
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+      ]
+    },
+    {
+      "method": "screen-reader",
+      "status": "bounded",
+      "limits": "Linuxの実Orcaで発話・名前・状態・見出し移動を取得した。Guidepup、VoiceOver、NVDA、全ての複雑な部品は未検証。対象環境で利用できない場合は引き継ぐ。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-orca/README.md",
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/guidepup/blocked.json",
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+      ]
+    },
+    {
+      "method": "media",
+      "status": "partial",
+      "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+      ]
+    },
+    {
+      "method": "audio",
+      "status": "human",
+      "limits": "このAIの音声入力は非対応。ASRの短い既知例に誤認識・無音の誤出力があり、音声の意味の確定には使わない。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/asr/README.md"
+      ]
+    },
+    {
+      "method": "sign-language",
+      "status": "human",
+      "limits": "対象言語の手話と原内容を全区間比較できると確認済みの手段がない。該当する手話を理解する担当へ具体的な比較を引き継ぐ。",
+      "evidence": []
+    },
+    {
+      "method": "flash-analysis",
+      "status": "human",
+      "limits": "全フレームの取得は可能だが、一般閃光・赤色閃光の閾値と面積を検証済みの分析器で評価する手段は未整備。専用の分析へ引き継ぐ。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+      ]
+    },
+    {
+      "method": "timing",
+      "status": "bounded",
+      "limits": "実時間、警告、10回の延長、無効化、失効・再認証後の保存まで測った。長期間の保存や外部認証等は別に確かめる。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+      ]
+    },
+    {
+      "method": "orientation",
+      "status": "bounded",
+      "limits": "画面・viewport・APIを一致させた縦横4種類のエミュレーションを使う。物理センサーやOSロック等は再現できない。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/orientation/README.md"
+      ]
+    },
+    {
+      "method": "motion-input",
+      "status": "human",
+      "limits": "実端末の動き・センサー・カメラ等の入力をこの環境で確実に再現する方法はない。物理端末が必要な対象は引き継ぐ。",
+      "evidence": []
+    },
+    {
+      "method": "touch",
+      "status": "bounded",
+      "limits": "Chromiumのタッチ・ハイブリッド入力を対象ごとに試す。エミュレーションを実タッチ端末の確認と呼ばない。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+      ]
+    },
+    {
+      "method": "reduced-motion",
+      "status": "bounded",
+      "limits": "実キーと実時間で通常/reduceを比較し、動きの無効化と情報・機能の保持を確認した。Chromiumの設定のエミュレーションで、物理OS・任意のcanvas等への精度保証ではない。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/reduced-motion/README.md"
+      ]
+    },
+    {
+      "method": "password-manager",
+      "status": "partial",
+      "limits": "ブラウザーの実クリップボードとCtrl+Vによる貼り付けを確認する。第三者マネージャー・全認証方式の検証とは区別する。",
+      "evidence": [
+        "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+      ]
+    },
+    {
+      "method": "reading-level",
+      "status": "human",
+      "limits": "言語ごとの教育段階と必要な補足の判定は、確認済みの方法又は専門担当を用いる。英語の数式だけで日本語を確定しない。",
+      "evidence": []
+    }
+  ]
+}

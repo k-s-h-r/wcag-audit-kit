@@ -1,0 +1,10 @@
+{
+  "case_id": "実際のcase_idへ置き換える",
+  "url": "http://127.0.0.1:4317/notifications.html",
+  "browser": "chromium",
+  "actions": [
+    { "type": "browser.click", "selector": "h1" },
+    { "type": "browser.press", "key": "Tab", "expect_contains": "Save" },
+    { "type": "browser.press", "key": "Space", "expect_contains": "Saved successfully." }
+  ]
+}

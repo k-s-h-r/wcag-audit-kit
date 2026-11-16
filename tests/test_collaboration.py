@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 from openpyxl import load_workbook
 
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'skills/wcag-audit-kit/scripts'))
 import audit
 from ledger_lock import run_lock
 import work_queue

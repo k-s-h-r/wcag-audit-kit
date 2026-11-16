@@ -1,22 +1,24 @@
 """Index recorded demonstrations without treating absence or a handoff as a pass."""
 from collections import Counter
 import json
-from pathlib import Path
 import sys
+from urllib.parse import urlsplit
 
-ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT/'scripts'))
+from skill_layout import ROOT, CANONICAL
+sys.path.insert(0,str(CANONICAL/'scripts'))
 import audit
 
 
 def build():
-    policy=audit.load(ROOT/'references/method-capabilities.json')
+    policy=audit.load(CANONICAL/'references/method-capabilities.json')
+    ref=audit.load(CANONICAL/'distribution.json')['proof_reference']
     capabilities={x['method']:x for x in policy['methods']}
     required={m for c in audit.CATALOG['criteria'] for m in c['methods']}
     if set(capabilities)!=required:raise ValueError('観察方法の方針に過不足がある')
     for value in capabilities.values():
         for path in value['evidence']:
-            if not (ROOT/path).is_file():raise ValueError('方法の証拠がない: '+path)
+            local='validation/'+urlsplit(path).path.split('/validation/',1)[1] if '/validation/' in path else path
+            if not (ROOT/local).is_file():raise ValueError('方法の証拠がない: '+path)
     current={c['id']:c for c in audit.CATALOG['criteria']}
     evidence={key:[] for key in current}
     runs=[]
@@ -51,7 +53,7 @@ def build():
         status=('both_examples' if passed and failed else 'pass_example' if passed else 'fail_example' if failed else
                 'human_handoff' if handoffs else 'unresolved' if counts['cant_tell'] else 'absence_only' if counts['inapplicable'] else 'not_demonstrated')
         for path in ['references/criteria/'+ident+'.md','references/sources/'+ident+'.md','references/tests/'+ident+'.md']:
-            if not (ROOT/path).is_file():raise ValueError('基準の手順・原典・公開Testsがない: '+ident)
+            if not (CANONICAL/path).is_file():raise ValueError('基準の手順・原典・公開Testsがない: '+ident)
         rows.append({'id':ident,'title':criterion['title'],'level':criterion['level'],
             'procedure_version':criterion['procedure_version'],'procedure_documented':True,
             'demonstration':status,'current_procedure_counts':dict(counts),
@@ -64,7 +66,7 @@ def build():
     lines=['# 達成基準ごとの手順と実証状況','',output['note'],'',
         '全86基準の本文・検査手順・公開Testsを収録している。以下は基準ごとの実対象を検査した記録の一覧。',
         '未実証や部分的な方法は、対象サイトで方法を調査して試す。信頼できる観察ができない場合は[人への引き継ぎ](human-review.md)を作る。',
-        '元のcase、手順の版、結果、証拠への索引は[JSON](../validation/coverage.json)に保存している。',
+        f'元のcase、手順の版、結果、証拠への索引は[JSON](https://github.com/k-s-h-r/wcag-audit-kit/blob/{ref}/validation/coverage.json)に保存している。',
         'この表で基準の検査済み範囲を推測せず、各記録の具体的な対象・条件・未確認を読む。','',
         '| 基準 | レベル | 手順版 | この版での実証記録 | 人へ引継ぎ |',
         '| --- | --- | --- | --- | ---: |']
@@ -74,7 +76,7 @@ def build():
         'boundedは限定した例での実行確認、partialは一部の観察のみ、project_verificationは対象での方法の試行が必要、humanは現在の環境では人への引き継ぎを準備する方法。いずれも対象サイトの適合判定ではない。','',
         '| 方法 | 状況 | 確認範囲と限界 |','| --- | --- | --- |']
     for m in capabilities.values():lines.append('| '+m['method']+' | '+m['status']+' | '+m['limits']+' |')
-    (ROOT/'references/VERIFICATION-COVERAGE.md').write_text('\n'.join(lines)+'\n')
+    (CANONICAL/'references/VERIFICATION-COVERAGE.md').write_text('\n'.join(lines)+'\n')
     print(json.dumps({'criteria':len(rows),'methods':len(capabilities),'runs':len(runs),
         'demonstrations':dict(Counter(x['demonstration'] for x in rows))},ensure_ascii=False))
 

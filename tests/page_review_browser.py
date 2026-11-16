@@ -9,7 +9,7 @@ import shutil
 import sys
 import threading
 
-ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'skills/wcag-audit-kit/scripts'))
 import audit
 import page_explorer
 

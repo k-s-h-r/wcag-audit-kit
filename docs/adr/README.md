@@ -14,3 +14,4 @@
 - [0008 全達成基準の検証分担を1つの表で示す](0008-all-criteria-verification-table.md)
 - [0009 確認観点ごとに分担と実行準備を説明する](0009-readable-verification-observations.md)
 - [0010 検証手段をモードで選び、確認観点ごとの対応表を共有する](0010-selectable-verification-modes.md)
+- [0011 配置できるスキルをskillsに揃える](0011-ready-to-use-skill-directories.md)

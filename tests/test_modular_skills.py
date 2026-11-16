@@ -10,10 +10,9 @@ import unittest
 from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT/'scripts'))
+sys.path.insert(0,str(ROOT/'skills/wcag-audit-kit/scripts'))
 import audit
 import inspection
-import install_skills
 import page_catalog
 import test_ledger as fixture
 import work_queue
@@ -170,26 +169,6 @@ class InteractionReviewTest(unittest.TestCase):
         audit.record_interactions(self.run,value)
         self.assertEqual(audit.run_plan(self.run)['interaction_reviews']['abc'],first)
         self.assertEqual(len(inspection.review_status(self.run)['pages']),2)
-
-
-class DistributionTest(unittest.TestCase):
-    def test_single_page_and_all_entrypoints_are_self_contained(self):
-        with tempfile.TemporaryDirectory() as directory:
-            base=Path(directory)
-            single=install_skills.install(base/'single',['wcag-page'])
-            self.assertEqual(single['skills'],['wcag-page'])
-            page=base/'single/wcag-page'
-            self.assertFalse((page/'validation').exists())
-            self.assertIn('name: wcag-page',(page/'SKILL.md').read_text())
-            self.assertIn('](references/visual-discovery.md)',(page/'SKILL.md').read_text())
-            self.assertEqual((page/'references/sources/wcag22.html').read_bytes(),(ROOT/'references/sources/wcag22.html').read_bytes())
-            self.assertTrue(all(path.startswith('https://github.com/') for m in json.loads((page/'references/method-capabilities.json').read_text())['methods'] for path in m['evidence']))
-            p=subprocess.run([sys.executable,'scripts/audit.py','page','--help'],cwd=page,capture_output=True,text=True)
-            self.assertEqual(p.returncode,0,p.stderr);self.assertIn('--screen-reader',p.stdout)
-            all_roles=install_skills.install(base/'all',['wcag-audit-kit'])
-            self.assertEqual(len(all_roles['skills']),4)
-            for name in all_roles['skills']:self.assertTrue((base/'all'/name/'scripts/audit.py').is_file())
-            with self.assertRaisesRegex(ValueError,'上書き'):install_skills.install(base/'single',['wcag-page'])
 
 
 if __name__=='__main__':unittest.main()

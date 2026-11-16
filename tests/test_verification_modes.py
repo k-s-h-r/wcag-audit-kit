@@ -9,7 +9,7 @@ import unittest
 from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT/'scripts'))
+sys.path.insert(0,str(ROOT/'skills/wcag-audit-kit/scripts'))
 import audit
 import verification_modes as modes
 import page_workflow
@@ -62,10 +62,11 @@ class ModeSelectionTest(unittest.TestCase):
             self.assertEqual(set(rows[ident]['support'].values()),{'no'})
 
     def test_generated_matrix_and_details_match_the_shared_definition(self):
+        sys.path.insert(0,str(ROOT/'scripts'))
         import build_mode_matrix
         value=modes.validate_catalog(modes.catalog())
         self.assertIn(build_mode_matrix.render(value),(ROOT/'README.md').read_text())
-        self.assertEqual(build_mode_matrix.details(value),(ROOT/'references/verification-checkpoints.md').read_text())
+        self.assertEqual(build_mode_matrix.details(value),(ROOT/'skills/wcag-audit-kit/references/verification-checkpoints.md').read_text())
         self.assertEqual(len(value['checkpoints']),131)
         self.assertEqual(len({r['criterion'] for r in value['checkpoints']}),86)
 

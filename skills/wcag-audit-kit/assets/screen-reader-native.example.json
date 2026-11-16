@@ -1,0 +1,15 @@
+{
+  "case_id": "実際のcase_idへ置き換える",
+  "url": "http://127.0.0.1:4317/reader-controls-good.html",
+  "locale": "en-US",
+  "settle_ms": 1800,
+  "observe": [
+    {"selector": "#visual-state"},
+    {"selector": "#email-switch", "attributes": ["role", "aria-checked"]}
+  ],
+  "actions": [
+    {"type": "browser.press", "key": "Tab", "expect_contains": "Email notifications"},
+    {"type": "browser.press", "key": "Space", "expect_contains": "checked", "expect_not_contains": ["not checked", "unchecked"]},
+    {"type": "browser.press", "key": "Space", "expect_contains": "not checked"}
+  ]
+}

@@ -15,7 +15,7 @@ import sys
 import threading
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT/'scripts'))
+sys.path.insert(0,str(ROOT/'skills/wcag-audit-kit/scripts'))
 import audit
 import page_explorer
 import page_workflow
@@ -103,7 +103,7 @@ def main(out):
                             await page.keyboard.press('ArrowRight')
                             await page.wait_for_timeout(200)
                             assert await region.evaluate('(e)=>e.scrollLeft>0'),'table not keyboard scrollable'
-                        await page.add_script_tag(path=str(ROOT/'vendor/axe.min.js'))
+                        await page.add_script_tag(path=str(ROOT/'skills/wcag-audit-kit/vendor/axe.min.js'))
                         found=await page.evaluate("async()=>{const r=await axe.run(document);return r.violations.filter(v=>v.tags.some(t=>/^wcag/.test(t)))}")
                         audit.save(out/f'report-axe-{width}.json',found)
                         assert not found,found
@@ -115,7 +115,7 @@ def main(out):
         for relative in ['scripts/audit.py','scripts/verification_modes.py','scripts/page_workflow.py','scripts/page_explorer.py',
                          'scripts/page_explorer.js','scripts/inspection.py','scripts/workbook.py','scripts/checksheet.py',
                          'references/verification-checkpoints.json','package.json','tests/verification_modes_browser.py']:
-            target=out/'implementation'/relative;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/relative,target)
+            target=out/'implementation'/relative;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile((ROOT if relative.startswith('tests/') else ROOT/'skills/wcag-audit-kit')/relative,target)
         audit.save(out/'checks.json',dict(reports_no_page_overflow=[1280,320],reports_axe_wcag_violations=0,
             summaries={r['mode']:r['screen_reader'] for r in results}))
         print(json.dumps(dict(out=str(out),modes=[dict(mode=r['mode'],screenshots=r['screenshots'],screen_reader=r['screen_reader']) for r in results]),ensure_ascii=False))

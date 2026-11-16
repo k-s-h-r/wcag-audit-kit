@@ -5,7 +5,7 @@ from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
 from openpyxl import load_workbook
 from playwright.async_api import async_playwright
-ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'skills/wcag-audit-kit/scripts'))
 import audit,checksheet,page_workflow
 root=Path(sys.argv[1]);run=root/'run'
 url=audit.run_meta(run)['config']['scope']['pages'][0]
@@ -38,7 +38,7 @@ async def main():
     if await disclosure.get_attribute('open') is None:await disclosure.locator('summary').first.click()
     await page.locator('#checksheet').evaluate('(e)=>e.scrollIntoView({block:"start"})')
     await page.screenshot(path=str(root/f'checksheet-{width}.png'))
-    await page.add_script_tag(path=str(ROOT/'vendor/axe.min.js'))
+    await page.add_script_tag(path=str(ROOT/'skills/wcag-audit-kit/vendor/axe.min.js'))
     violations=await page.evaluate('async()=>{const r=await axe.run(document,{runOnly:{type:"tag",values:["wcag2a","wcag2aa","wcag21a","wcag21aa","wcag22aa"]}});return r.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.length}))}')
     assert not violations,violations
     checks.append({'width':width,'document_horizontal_overflow':False,'axe_violations':violations})
