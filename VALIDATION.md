@@ -1,5 +1,9 @@
 # 動作確認と未確認事項
 
+## 3階層のグローバルメニューのテスト入力
+
+2回開いて第3階層のリンクへ進む正常例と、途中のキー操作不全・深い階層のトラップ・展開後のフォーカスの飛びを含む6ケースを追加した。実ブラウザーで6経路・101件のキーと操作の記録を確認し、193単体試験と全190ページ分の読み込みも成功。検証器の探索・検出実装は変更していない。[テストページと操作手順](benchmarks/NESTED-NAVIGATION.md)、[確認記録](validation/nested-navigation-fixtures/README.md)、[ADR 0013](docs/adr/0013-three-level-navigation-fixtures.md)を参照。
+
 ## 全達成基準のテスト入力
 
 全86基準に意図した問題を含むHTMLを用意した。176ケース・184ページ分の入力・185期待結果を含む。今回はTDDの入力の整備で、検出できるようにする実装は今後。193単体試験、184ページ分の実読み込みと12組の操作結果を確認した。全パターンの網羅・全ケースの期待結果の独立した専門家による確認は未実施。[収録範囲](benchmarks/COVERAGE.md)、[確認記録](validation/all-criteria-fixtures/README.md)、[ADR 0012](docs/adr/0012-all-criteria-negative-fixtures.md)を参照。

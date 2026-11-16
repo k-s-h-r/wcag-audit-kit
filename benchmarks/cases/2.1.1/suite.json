@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "2.1.1",
-  "version": "1",
+  "version": "2",
   "review": "author-defined",
   "sources": [
     "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html",
@@ -149,6 +149,94 @@
         "2.1.1-02": {
           "#control": "#feature",
           "#pointer": "#feature"
+        }
+      }
+    },
+    {
+      "id": "c04",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "keyboard-route",
+          "instructions": [
+            "初期状態からTabで「製品」へ移動してEnter、Tabで「業務支援」へ移動してEnter、Tabで第3階層の「見積管理」へ移動する。ポインターで補わずに実行する。 最後にEnterでリンク先へ移動し、URLと見積管理の見出しを確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "keyboard-route",
+          "target": "#navigation",
+          "checkpoint": "2.1.1-02",
+          "expected": "passed",
+          "rationale": "2回の展開と第3階層リンクの実行をキーだけで行い、見積管理のページへ移動できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "target_aliases": {
+        "2.1.1-02": {
+          "#level1": "#navigation",
+          "#level2": "#navigation",
+          "#leaf": "#navigation",
+          "#other-leaf": "#navigation",
+          "#close": "#navigation"
+        }
+      }
+    },
+    {
+      "id": "c05",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "keyboard-route",
+          "instructions": [
+            "初期状態からTabで「製品」へ移動してEnter、Tabで「業務支援」へ移動してEnter、Tabで第3階層の「見積管理」へ移動する。ポインターで補わずに実行する。 最後にEnterでリンク先へ移動し、URLと見積管理の見出しを確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "keyboard-route",
+          "target": "#navigation",
+          "checkpoint": "2.1.1-02",
+          "expected": "failed",
+          "rationale": "第1階層は開くが、#level2はクリック専用のdivでEnter・Spaceに応答しない。ポインターでは第3階層のリンクへ進める。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "target_aliases": {
+        "2.1.1-02": {
+          "#level1": "#navigation",
+          "#level2": "#navigation",
+          "#leaf": "#navigation",
+          "#other-leaf": "#navigation",
+          "#close": "#navigation"
         }
       }
     }

@@ -15,8 +15,8 @@ class CorpusTest(unittest.TestCase):
     def test_registered_cases_have_positive_negative_and_local_assets(self):
         data=core.corpus()
         self.assertEqual(len(data['suites']),86)
-        self.assertEqual(sum(len(s['cases']) for s in data['suites']),176)
-        self.assertEqual(sum(len(c['pages']) for s in data['suites'] for c in s['cases']),184)
+        self.assertEqual(sum(len(s['cases']) for s in data['suites']),182)
+        self.assertEqual(sum(len(c['pages']) for s in data['suites'] for c in s['cases']),190)
         for suite in data['suites']:
             outcomes={e['expected'] for c in suite['cases'] for e in c['expectations']}
             self.assertIn('failed',outcomes)
