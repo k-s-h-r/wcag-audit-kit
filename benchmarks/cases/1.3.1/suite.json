@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.3.1",
-  "version": "1",
+  "version": "3",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/1.3.1.md",
@@ -76,6 +76,240 @@
             "full": "evaluate"
           },
           "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "1.3.1.visual-table-relations",
+      "pattern_name": "見た目の表とプログラムの関係",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.3.1-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "見た目の表とプログラムの関係。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.3.1-02",
+          "expected": "failed",
+          "rationale": "見た目は表だが、行列・見出しとデータの関係を識別できない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c04",
+      "pattern": "1.3.1.visual-table-relations",
+      "pattern_name": "見た目の表とプログラムの関係",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.3.1-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "見た目の表とプログラムの関係。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.3.1-02",
+          "expected": "passed",
+          "rationale": "見た目の行列と見出しの関係をth・scopeで識別できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c05",
+      "pattern": "1.3.1.reader-structure",
+      "pattern_name": "実SRで表の関係を使えるか",
+      "pattern_variant": "a",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "1.3.1-03"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "実際のスクリーンリーダーで表を読み、見出しとデータの関係を利用できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.3.1-03",
+          "expected": "failed",
+          "rationale": "唯一の表を支援技術から隠している。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "screen-reader"
+        }
+      ],
+      "requires_environment": [
+        "real-screen-reader"
+      ]
+    },
+    {
+      "id": "c06",
+      "pattern": "1.3.1.reader-structure",
+      "pattern_name": "実SRで表の関係を使えるか",
+      "pattern_variant": "b",
+      "pages": [
+        "p06.html"
+      ],
+      "checkpoints": [
+        "1.3.1-03"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "実際のスクリーンリーダーで表を読み、見出しとデータの関係を利用できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p06.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.3.1-03",
+          "expected": "passed",
+          "rationale": "表を隠さず、見出し関係を実SRで利用するための構造がある。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "screen-reader"
+        }
+      ],
+      "requires_environment": [
+        "real-screen-reader"
+      ]
+    },
+    {
+      "id": "c07",
+      "pattern": "1.3.1.radio-group",
+      "pattern_name": "ラジオグループの質問と選択肢",
+      "pattern_variant": "a",
+      "pages": [
+        "p07.html"
+      ],
+      "checkpoints": [
+        "1.3.1-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "画面にある質問とラジオボタンの関係を、グループ名・読み上げ可能な構造・文章から確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p07.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.3.1-02",
+          "expected": "failed",
+          "rationale": "質問を支援技術から隠し、グループの名前・関係も提供しない。選択肢は、はい・いいえだけになる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c08",
+      "pattern": "1.3.1.radio-group",
+      "pattern_name": "ラジオグループの質問と選択肢",
+      "pattern_variant": "b",
+      "pages": [
+        "p08.html"
+      ],
+      "checkpoints": [
+        "1.3.1-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "画面にある質問とラジオボタンの関係を、グループ名・読み上げ可能な構造・文章から確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p08.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.3.1-02",
+          "expected": "passed",
+          "rationale": "legendで質問と選択肢をグループに関連付ける。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
         }
       ]
     }

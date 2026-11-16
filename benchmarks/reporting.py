@@ -42,7 +42,8 @@ def write(run,result):
     sheet(book,'追加の誤検出',[('criterion','基準'),('mode','モード'),('page','ページ'),('target','対象'),('checkpoint','確認観点'),('observed','観察')],result['unexpected_findings'],True)
     pending=result.get('pending_evidence_contracts',[])
     pending_columns=[('criterion','基準'),('mode','モード'),('page','ページ'),('state','状態'),('checkpoint','取得する観点'),('kind','取得期待の種類'),('status','確認状態')]
-    pending_rows=[dict(r,mode=core.modes.MODES[r['mode']]['label'],status=LABEL.get(r['status'],r['status'])) for r in pending]
+    kind_labels={'inventory':'対象の列挙','focus-sequence':'フォーカス経路','viewport':'表示幅と拡大','state-capture':'操作前後の状態','timeline':'時系列の区間','language':'指定言語','accessible-name':'名前と表示ラベル','geometry':'サイズと位置'}
+    pending_rows=[dict(r,kind=kind_labels.get(r['kind'],r['kind']),mode=core.modes.MODES[r['mode']]['label'],status=LABEL.get(r['status'],r['status'])) for r in pending]
     if pending:sheet(book,'取得期待の未確認',pending_columns,pending_rows,True)
     book.save(out/'result.xlsx');book.close()
     cells=[]

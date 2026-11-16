@@ -28,7 +28,13 @@ def main(out):
                             response=await page.goto(f'{base}/{suite["criterion"]}/{name}')
                             assert response.status==200
                             for e in case['expectations']:
-                                if e['page']==name:assert await page.locator(e['target']).count()==1,(suite['criterion'],name,e['target'])
+                                if e['page']==name:
+                                    count=await page.locator(e['target']).count()
+                                    if not count and e['state']!='initial' and case.get('fixture_probe'):continue
+                                    assert count==1,(suite['criterion'],name,e['target'])
+                            for media in await page.locator('audio[src],video[src],audio:has(source),video:has(source)').all():
+                                info=await media.evaluate("""async e=>{if(!e.readyState&&!e.error)await new Promise(resolve=>{e.addEventListener('loadedmetadata',resolve,{once:true});e.addEventListener('error',resolve,{once:true});setTimeout(resolve,3000)});return {source:e.currentSrc,readyState:e.readyState,error:e.error?.code??null}}""")
+                                assert info['error'] is None and info['readyState']>=1,(suite['criterion'],name,info)
                             checked.append([suite['criterion'],case['id'],name])
                 for i in [1,2]:
                     await page.goto(f'{base}/2.5.7/p0{i}.html')

@@ -58,8 +58,8 @@ def work(run,root,import_results=False):
     proof=core.load(run/'integrity.json')['files']
     for name,expected in proof.items():
         if name.startswith('worker/') and core.file_hash(core.local(run,name))!=expected:raise ValueError('検査担当向けのページ・タスクが変更された')
-    jobs=[j for j in task_file['jobs'] if j['criterion']=='4.1.3' and core.modes.MODES[j['mode']]['screen_reader']]
-    if not jobs:raise ValueError('実SRを使う4.1.3のジョブがありません')
+    jobs=[j for j in task_file['jobs'] if j['criterion']=='4.1.3' and core.modes.MODES[j['mode']]['screen_reader'] and j['pages'] in [['p01.html'],['p02.html']]]
+    if not jobs:raise ValueError('このworkerが扱う初版の4.1.3対照例がありません。追加パターンは別の実SR手順で確認する')
     from urllib.parse import urlsplit
     port=urlsplit(next(iter(jobs[0]['urls'].values()))).port
     http=runner.server(run/'worker/public',port);received=[]
@@ -68,7 +68,6 @@ def work(run,root,import_results=False):
     if not source.exists():shutil.copyfile(__file__,source)
     try:
         for job in jobs:
-            if job['pages'] not in [['p01.html'],['p02.html']]:raise ValueError('このworkerは収録した対照例専用です')
             area=run/'attachments'/job['id']/('native-'+uuid.uuid4().hex[:12]);area.mkdir(parents=True)
             request=make_request(job)
             core.save(area/'request.json',request)

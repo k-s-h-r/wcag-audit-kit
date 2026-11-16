@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "2.5.4",
-  "version": "1",
+  "version": "2",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/2.5.4.md",
@@ -77,6 +77,138 @@
           },
           "evidence_kind": "program"
         }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "2.5.4.physical-motion",
+      "pattern_name": "実端末の動きとUI代替",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "2.5.4-02"
+      ],
+      "states": [
+        {
+          "id": "after-device-motion",
+          "instructions": [
+            "実端末の動きとUI代替。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "after-device-motion",
+          "target": "#subject",
+          "checkpoint": "2.5.4-02",
+          "expected": "failed",
+          "rationale": "実端末の動きに対して無効化や同等のUI操作がない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "motion",
+            "x": 20
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "text": "1"
+          }
+        ]
+      },
+      "requires_environment": [
+        "physical-device-motion",
+        "sensor-permission"
+      ]
+    },
+    {
+      "id": "c04",
+      "pattern": "2.5.4.physical-motion",
+      "pattern_name": "実端末の動きとUI代替",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "2.5.4-02"
+      ],
+      "states": [
+        {
+          "id": "after-device-motion",
+          "instructions": [
+            "実端末の動きとUI代替。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "after-device-motion",
+          "target": "#subject",
+          "checkpoint": "2.5.4-02",
+          "expected": "passed",
+          "rationale": "実端末の動きに対して無効化と同じ機能のボタンがある。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "motion",
+            "x": 20
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "text": "0"
+          },
+          {
+            "action": "click",
+            "selector": "#add"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "text": "1"
+          },
+          {
+            "action": "click",
+            "selector": "#motion"
+          },
+          {
+            "action": "motion",
+            "x": 20
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "text": "2"
+          }
+        ]
+      },
+      "requires_environment": [
+        "physical-device-motion",
+        "sensor-permission"
       ]
     }
   ]

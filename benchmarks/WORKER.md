@@ -1,13 +1,13 @@
 # 検査担当へ渡す作業手順
 
-入力はworker/tasks.json又はtaskコマンドで取得した1ジョブと、公開ページ・生の検査証拠です。suite.json、oracle.snapshot.json、reports、他の担当の判定を読まずに検査します。ページのファイル名・順番から正解を推測しません。
+入力はworker/tasks.json又はtaskコマンドで取得した1ジョブと、公開ページ・生の検査証拠です。suite.json内のfixture_probe・取得期待、oracle.snapshot.json、reports、他の担当の判定を読まずに検査します。ページのファイル名・順番から正解を推測しません。
 
-1. jobのmode・pages・states・checkpoints・evidence_requirementsを確認します。対象は記載されたページと状態です。複数ページは全部確認します。必要なら管理側が保存済みページのserveを起動します。
+1. jobのmode・pages・states・checkpoints・evidence_requirements・required_environmentを確認します。対象は記載されたページと状態です。複数ページは全部確認します。必要なら管理側が保存済みページのserveを起動します。
 2. method_rootに保存されたwcag-pageの手順と参照資料を使い、まず機械結果・実操作・数値を確認します。実入力を送れたことを、機能も利用できたことへ読み替えません。
 3. AIが無効なモードでは画像や意味をAIで判断しません。AIが有効なら、必要な実画像・本文・操作結果を実際に比較します。読んでいない画像を確認済みにしません。
 4. 実SRが必要なら、対応する環境・既存アダプターで実際の操作と発話を取得します。case_idはjobのidとし、ページ・状態を揃えます。正常な対照の発話がない環境の無発話だけで失敗にしません。
 5. ページ・状態・実際の対象・確認観点ごとに観察結果をJSONへ記録します。対象はidのある論理部品のCSSセレクター又はhtmlを使います。target_aliasesがある場合は指定された論理部品へ揃えます。ページ間比較はcomparison_record_pageを代表ページにします。
-6. 観点の結論が得られた場合はpassed / failed / inapplicable、判断保留はcant_tell、未実施はnot_runにします。基準全体の合否とは別です。証拠・具体的な観察と、program / ai / screen-readerのどの方法を使ったかを残します。
+6. acquisition_checkpointsにある取得の観点は証拠を保存します。照合は未接続なのでpassed／failedとして取り込まず、取得済みという理由で適合にしません。判定の観点の結論が得られた場合はpassed / failed / inapplicable、判断保留はcant_tell、未実施はnot_runにします。基準全体の合否とは別です。証拠・具体的な観察と、program / ai / screen-readerのどの方法を使ったかを残します。
 7. 追加の画像・発話等はattachでジョブへ関連付け、実証拠のパスを指定します。作業結果をimportで提出し、未確認はそのまま残します。別の観点の結果を消す必要はありません。
 
 正解の有無で検査対象を選ばず、登録された確認観点に関係する問題を全て報告します。判断できない結果を通過に変えて作業を終えません。採点は別の担当・処理が行います。

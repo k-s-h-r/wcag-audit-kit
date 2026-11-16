@@ -114,13 +114,13 @@ def verify(run):
 
 def freeze(run,paths):
     from ledger_lock import run_lock
-    run=Path(run);locks=run/'.integrity-lock';locks.mkdir(exist_ok=True)
+    run=Path(run).resolve();locks=run/'.integrity-lock';locks.mkdir(exist_ok=True)
     # Evidence may arrive from independent jobs while another report is saved.
     # Use a separate lock so callers holding the ledger lock can append safely.
     with run_lock(locks):
         path=run/'integrity.json';proof=load(path) if path.exists() else {'files':{}}
         for p in paths:
-            name=Path(p).relative_to(run).as_posix();h=file_hash(p)
+            name=Path(p).resolve().relative_to(run).as_posix();h=file_hash(p)
             if name in proof['files'] and proof['files'][name]!=h:raise ValueError('保存済みの証拠を置き換えない: '+name)
             proof['files'][name]=h
         save(path,proof)

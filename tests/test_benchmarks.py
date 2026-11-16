@@ -15,8 +15,8 @@ class CorpusTest(unittest.TestCase):
     def test_registered_cases_have_positive_negative_and_local_assets(self):
         data=core.corpus()
         self.assertEqual(len(data['suites']),86)
-        self.assertEqual(sum(len(s['cases']) for s in data['suites']),182)
-        self.assertEqual(sum(len(c['pages']) for s in data['suites'] for c in s['cases']),190)
+        self.assertEqual(core.case_contracts.coverage(data,core.modes.catalog()['checkpoints'])['missing'],[])
+        self.assertTrue(all(len(s['cases'])>=2 for s in data['suites']))
         for suite in data['suites']:
             outcomes={e['expected'] for c in suite['cases'] for e in c['expectations']}
             self.assertIn('failed',outcomes)
@@ -60,14 +60,14 @@ class CorpusTest(unittest.TestCase):
                 before=runner.implementation_digest();path.write_text('Changed verification instructions')
                 self.assertNotEqual(before,runner.implementation_digest())
 
-    def test_all_criteria_have_negative_cases_and_unavailable_controls_are_explicit(self):
+    def test_all_criteria_have_negative_and_real_passing_controls(self):
         suites={s['criterion']:s for s in core.corpus()['suites']}
         self.assertEqual(set(suites),set(core.audit.CRITERIA))
         for sc in ['1.2.5','1.2.6','1.2.7']:
             suite=suites[sc]
-            self.assertTrue(suite['limitations'])
+            self.assertNotIn('limitations',suite)
             outcomes={e['expected'] for c in suite['cases'] for e in c['expectations']}
-            self.assertEqual(outcomes,{'failed','inapplicable'})
+            self.assertTrue({'failed','passed','inapplicable'}<=outcomes)
     def test_inline_script_navigation_cannot_reference_a_missing_page(self):
         import shutil
         with tempfile.TemporaryDirectory() as directory:
@@ -87,6 +87,21 @@ class CorpusTest(unittest.TestCase):
         item['empty_is_expected']=True;case_contracts.validate(case)
         item['expected']='passed'
         with self.assertRaises(ValueError):case_contracts.validate(case)
+    def test_all_required_families_and_generated_index_are_present(self):
+        from benchmarks.build_fixture_index import build
+        outputs,index=build()
+        self.assertEqual(len(index['checkpoints']),131)
+        self.assertFalse(index['missing_checkpoints']);self.assertFalse(index['missing_families'])
+        for name,content in outputs.items():self.assertEqual((ROOT/'benchmarks'/name).read_text(),content,name)
+        self.assertTrue(all(p['cases'] for p in index['checkpoints']))
+
+    def test_sign_language_control_has_licensed_media_and_known_utterances(self):
+        suite=core.load(ROOT/'benchmarks/cases/1.2.6/suite.json')
+        self.assertEqual(suite['material_sources'][0]['license'],'CC BY-SA 3.0')
+        self.assertTrue((ROOT/'benchmarks/cases/1.2.6/public/assets/sign.webm').is_file())
+        self.assertTrue((ROOT/'benchmarks/cases/1.2.6/materials/Hello1.ogv').is_file())
+        meanings=[c for c in suite['cases'] if c.get('pattern')=='1.2.6.sign-meaning']
+        self.assertEqual({c['expectations'][0]['expected'] for c in meanings},{'passed','failed'})
 
 
 class ScoringTest(unittest.TestCase):
@@ -294,6 +309,14 @@ class ScoringTest(unittest.TestCase):
         self.assertEqual(len(list((run/'audit-runs'/job['id']).rglob('partial.json'))),1)
         core.verify(run)
 
+    def test_relative_review_keeps_absolute_evidence_paths_inside_the_run(self):
+        import os
+        run,meta,job,p=self.make_run()
+        result=self.submit(Path(os.path.relpath(run,Path.cwd())),meta,job,[self.observation(job,p)])
+        self.assertTrue((run/result['review']).is_file())
+        self.assertEqual(core.score(run)['counts']['correct'],1)
+        self.assertTrue(all('..' not in name for name in core.load(run/'integrity.json')['files']))
+
     def test_relative_run_decodes_axe_and_keyboard_evidence(self):
         import os
         run,_,job,progress=self.make_run(mode='machine')
@@ -357,6 +380,22 @@ class NativeWorkerInterpretationTest(unittest.TestCase):
         job={'id':'screen-reader--4.1.3--c01','pages':['p01.html'],'urls':{'p01.html':'http://127.0.0.1:8000/4.1.3/p01.html'}}
         request=make_request(job);validate(request)
         self.assertIsInstance(request['actions'][0]['expect_contains'],str)
+
+    def test_native_worker_keeps_new_status_patterns_unverified(self):
+        from benchmarks.native_status import work
+        with tempfile.TemporaryDirectory() as temp:
+            run=Path(temp);jobs=[]
+            for i in range(1,4):
+                page=f'p0{i}.html'
+                jobs.append(dict(id=f'full--4.1.3--c0{i}',mode='full',criterion='4.1.3',pages=[page],urls={page:f'http://127.0.0.1:8000/4.1.3/{page}'}))
+            core.save(run/'worker/tasks.json',dict(run_id='unit',corpus_digest='unit',jobs=jobs))
+            core.freeze(run,[run/'worker/tasks.json'])
+            def blocked(root,area):core.save(area/'speech/screen-reader.json',{'status':'blocked','unit_mock':True})
+            with patch('benchmarks.native_status.runner.server'),patch('benchmarks.native_status.capture',side_effect=blocked) as capture:
+                result=work(run,'/unit/root')
+            self.assertEqual(capture.call_count,2)
+            self.assertEqual({r['job_id'] for r in result},{j['id'] for j in jobs[:2]})
+            self.assertEqual({r['outcome'] for r in result},{'cant_tell'})
 
     def test_long_archive_path_uses_short_live_unix_socket_directory(self):
         from benchmarks.native_status import capture

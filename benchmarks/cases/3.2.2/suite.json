@@ -42,7 +42,25 @@
           },
           "evidence_kind": "semantic"
         }
-      ]
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "select",
+            "selector": "#subject",
+            "value": "予約"
+          },
+          {
+            "action": "url",
+            "suffix": "/details.html"
+          },
+          {
+            "action": "check",
+            "selector": "h1",
+            "text": "予約手続き"
+          }
+        ]
+      }
     },
     {
       "id": "c02",
@@ -77,7 +95,25 @@
           },
           "evidence_kind": "semantic"
         }
-      ]
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "select",
+            "selector": "#subject",
+            "value": "予約"
+          },
+          {
+            "action": "url",
+            "suffix": "/details.html"
+          },
+          {
+            "action": "check",
+            "selector": "h1",
+            "text": "予約手続き"
+          }
+        ]
+      }
     }
   ]
 }

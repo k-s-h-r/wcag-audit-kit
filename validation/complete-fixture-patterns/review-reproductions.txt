@@ -1,0 +1,49 @@
+OLD FUNCTION: program_predictions COMMIT: a9028bcf585668da6c4b92d4c59b7be38d2f8827 TEST: test_relative_run_decodes_axe_and_keyboard_evidence SYNTHETIC UNIT EVIDENCE
+test_relative_run_decodes_axe_and_keyboard_evidence (test_benchmarks.ScoringTest.test_relative_run_decodes_axe_and_keyboard_evidence) ... ERROR
+
+======================================================================
+ERROR: test_relative_run_decodes_axe_and_keyboard_evidence (test_benchmarks.ScoringTest.test_relative_run_decodes_axe_and_keyboard_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/wcag-audit-kit-github/tests/test_benchmarks.py", line 331, in test_relative_run_decodes_axe_and_keyboard_evidence
+    result=core.program_predictions(relative,job,progress)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "a9028bcf585668da6c4b92d4c59b7be38d2f8827:benchmarks/core.py", line 224, in program_predictions
+    if receipt['status']!='completed':continue
+                                  ^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: '/tmp/tmp6xp01p64/1/audit-runs/machine--1.1.1--c01/p01/attempt/run/initial/axe.json' is not in the subpath of '../../tmp/tmp6xp01p64/1'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.008s
+
+FAILED (errors=1)
+Expected old failure confirmed.
+OLD FUNCTION: freeze COMMIT: ed9460dda9486e13dcd70ef85d9a1fb89312a151 TEST: test_relative_review_keeps_absolute_evidence_paths_inside_the_run SYNTHETIC UNIT EVIDENCE
+test_relative_review_keeps_absolute_evidence_paths_inside_the_run (test_benchmarks.ScoringTest.test_relative_review_keeps_absolute_evidence_paths_inside_the_run) ... ERROR
+
+======================================================================
+ERROR: test_relative_review_keeps_absolute_evidence_paths_inside_the_run (test_benchmarks.ScoringTest.test_relative_review_keeps_absolute_evidence_paths_inside_the_run)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/wcag-audit-kit-github/tests/test_benchmarks.py", line 315, in test_relative_review_keeps_absolute_evidence_paths_inside_the_run
+    result=self.submit(Path(os.path.relpath(run,Path.cwd())),meta,job,[self.observation(job,p)])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wcag-audit-kit-github/tests/test_benchmarks.py", line 143, in submit
+    return core.record_review(run,dict(schema_version='1',run_id=meta['run_id'],corpus_digest=meta['corpus_digest'],job_id=job['id'],observations=observations))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wcag-audit-kit-github/benchmarks/core.py", line 212, in record_review
+    freeze(run,[path,*[local(run,e['path']) for r in observations for e in r['verified_evidence']]])
+  File "ed9460dda9486e13dcd70ef85d9a1fb89312a151:benchmarks/core.py", line 123, in freeze
+    name=Path(p).resolve().relative_to(run).as_posix();h=file_hash(p)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: '/tmp/tmpwewdvwvh/1/audit-runs/ai--1.1.1--c01/p01/attempt/run/evidence/observed.json' is not in the subpath of '../../tmp/tmpwewdvwvh/1'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.007s
+
+FAILED (errors=1)
+Expected old failure confirmed.

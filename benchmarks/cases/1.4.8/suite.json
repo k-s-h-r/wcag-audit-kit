@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.4.8",
-  "version": "1",
+  "version": "2",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/1.4.8.md",
@@ -78,6 +78,132 @@
           "evidence_kind": "visual-semantic"
         }
       ]
+    },
+    {
+      "id": "c03",
+      "pattern": "1.4.8.user-presentation",
+      "pattern_name": "色・幅・揃え・間隔の調整",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.4.8-01"
+      ],
+      "states": [
+        {
+          "id": "after-customization",
+          "instructions": [
+            "文字色、背景、行幅、文字サイズを選んで反映し、揃え・間隔・内容・操作を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "after-customization",
+          "target": "#subject",
+          "checkpoint": "1.4.8-01",
+          "expected": "failed",
+          "rationale": "表示設定が操作しても表示へ反映されない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "select",
+            "selector": "#width",
+            "value": "20em"
+          },
+          {
+            "action": "click",
+            "selector": "#apply"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "css": "line-height",
+            "value": "18px"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "css": "max-width",
+            "value": "none"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c04",
+      "pattern": "1.4.8.user-presentation",
+      "pattern_name": "色・幅・揃え・間隔の調整",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.4.8-01"
+      ],
+      "states": [
+        {
+          "id": "after-customization",
+          "instructions": [
+            "文字色、背景、行幅、文字サイズを選んで反映し、揃え・間隔・内容・操作を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "after-customization",
+          "target": "#subject",
+          "checkpoint": "1.4.8-01",
+          "expected": "passed",
+          "rationale": "表示設定が実際に文字色・背景色・行幅・行高・揃え・サイズへ反映される。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "select",
+            "selector": "#width",
+            "value": "20em"
+          },
+          {
+            "action": "click",
+            "selector": "#apply"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "css": "line-height",
+            "value": "27px"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "css": "max-width",
+            "value": "360px"
+          }
+        ]
+      }
     }
   ]
 }

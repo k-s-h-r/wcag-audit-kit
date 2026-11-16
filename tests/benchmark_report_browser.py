@@ -20,7 +20,7 @@ def main(report,out):
     from openpyxl import load_workbook
     book=load_workbook(report/'result.xlsx',read_only=True,data_only=True)
     try:
-        assert book.sheetnames==['採点結果','概要','基準とモードの実測範囲','追加の誤検出']
+        assert book.sheetnames==['採点結果','概要','基準とモードの実測範囲','追加の誤検出']+(['取得期待の未確認'] if value.get('pending_evidence_contracts') else [])
         assert book['採点結果'].max_row==len(value['rows'])+1
         assert book['基準とモードの実測範囲'].max_row==87
         grades=Counter(row[9] for row in list(book['採点結果'].values)[1:])

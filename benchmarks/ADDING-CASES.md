@@ -38,12 +38,16 @@
 ## 追加後に実行する
 
 ```sh
+python3 benchmarks/build_fixture_index.py
+python3 benchmarks/build_fixture_index.py --check
 python3 benchmarks/run.py inventory
 python3 -m unittest discover -s tests -p test_benchmarks.py
 python3 tests/benchmark_fixtures_browser.py --out /project/fixture-check-new
 python3 benchmarks/run.py collect --mode all --criterion 2.4.2 --out /project/benchmark-new
 ```
 
-最後の基準番号は追加した基準に置き換えます。ケース数を固定した構造試験と、`benchmark_fixtures_browser.py`の動作確認も更新します。ページの動作確認は、検出器が問題を検出できたかの試験とは分けて記録します。
+最後の基準番号は追加した基準に置き換えます。[取得と判定の形式](FIXTURE-FORMAT.md)に従い、取得の観点にはevidence_expectationsを記録します。未接続の取得期待を判定の通過へ変えません。
+
+全131観点・必須パターンの構造試験と、`benchmark_fixtures_browser.py`の動作確認も更新します。ページの動作確認は、検出器が問題を検出できたかの試験とは分けて記録します。
 
 問題集を変えると全体のハッシュが変わります。変更前後の検出方法を比較する場合は、同じ問題集の版を両方に使います。例や正解自体の修正は、新しい版と根拠を残してから再実行します。

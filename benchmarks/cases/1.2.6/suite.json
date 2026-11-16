@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.2.6",
-  "version": "1",
+  "version": "2",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/1.2.6.md",
@@ -78,9 +78,181 @@
           "evidence_kind": "semantic"
         }
       ]
+    },
+    {
+      "id": "c03",
+      "pattern": "1.2.6.sign-meaning",
+      "pattern_name": "実際の手話素材と発話の意味",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.2.6-01",
+        "1.2.6-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "再生ボタンで発話とASL映像を同時に再生し、元の発話の情報を手話でも得られるか比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.6-02",
+          "expected": "failed",
+          "rationale": "出典がHelloとするASL素材にGoodbyeの発話を組み合わせ、意味が一致しない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        },
+        {
+          "page": "p03.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.6-01",
+          "expected": "passed",
+          "rationale": "実際のASL動画を提供し、音声と同時に再生できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#play"
+          },
+          {
+            "action": "wait",
+            "selector": "#subject",
+            "property": "currentTime",
+            "minimum": 0.3
+          },
+          {
+            "action": "check",
+            "selector": "#voice",
+            "attribute": "src",
+            "value": "assets/speech-a.wav"
+          }
+        ]
+      },
+      "requires_environment": [
+        "qualified-sign-language-comparison"
+      ]
+    },
+    {
+      "id": "c04",
+      "pattern": "1.2.6.sign-meaning",
+      "pattern_name": "実際の手話素材と発話の意味",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.2.6-01",
+        "1.2.6-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "再生ボタンで発話とASL映像を同時に再生し、元の発話の情報を手話でも得られるか比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.6-02",
+          "expected": "passed",
+          "rationale": "出典がHelloとするASL素材にHelloの発話を組み合わせる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        },
+        {
+          "page": "p04.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.6-01",
+          "expected": "passed",
+          "rationale": "実際のASL動画を提供し、音声と同時に再生できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#play"
+          },
+          {
+            "action": "wait",
+            "selector": "#subject",
+            "property": "currentTime",
+            "minimum": 0.3
+          },
+          {
+            "action": "check",
+            "selector": "#voice",
+            "attribute": "src",
+            "value": "assets/speech-b.wav"
+          }
+        ]
+      },
+      "requires_environment": [
+        "qualified-sign-language-comparison"
+      ]
     }
   ],
-  "limitations": [
-    "適合する音声解説・手話・拡張解説の正例は未整備。専門家による実素材と正解確認が必要。"
+  "material_sources": [
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Hello1.ogv",
+      "author": "E5SUON",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "original_sha1": "4cdbe7fd5034674d2879e02180499f87f43489cc",
+      "claimed_meaning": "Hello in American Sign Language; source description, not an independent interpreter review",
+      "changes": "audio removed; VP9 transcode; audiovisual player pairs a separate generated utterance"
+    },
+    {
+      "kind": "known-source-generated-utterances",
+      "generator": "ffmpeg libflite, voice slt",
+      "utterances": {
+        "assets/speech-a.wav": "Goodbye.",
+        "assets/speech-b.wav": "Hello."
+      },
+      "derived_sign_sha256": "0d5b5d03d7cfa7a3a9938abba5058c640f29c09c451aadf4df70155f44a60c0d",
+      "original_metadata_sha256": "4233bf6301012b4073b26ce5ec2dc94b63511fd00b2245fadff3cdd239c7950c"
+    }
   ]
 }

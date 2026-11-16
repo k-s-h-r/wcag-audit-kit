@@ -69,7 +69,7 @@ def prepare(run,criterion=None,selected_modes=None,port=0,config=None):
                         evidence_requirements={e['checkpoint']:{'image':e['evidence_kind']=='visual-semantic',
                             'speech':e['evidence_kind']=='screen-reader','comparison':e['evidence_kind']=='cross-page'} for e in case['expectations']},
                         comparison_record_page=case['pages'][-1] if len(case['pages'])>1 else None,
-                        evidence_root=f'audit-runs/{ident}',method_root='implementation',
+                        required_environment=case.get('requires_environment',[]),evidence_root=f'audit-runs/{ident}',method_root='implementation',
                         instruction='正解ファイルは参照せず、実ページ・操作・証拠から観点別に判定する。未実施はnot_run、確定できない場合はcant_tell。'))
         oracle={'schema_version':'1','suites':data['suites']};core.save(run/'oracle.snapshot.json',oracle)
         git=subprocess.run(['git','rev-parse','HEAD'],cwd=core.ROOT,text=True,capture_output=True)

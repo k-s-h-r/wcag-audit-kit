@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.1.1",
-  "version": "1",
+  "version": "4",
   "review": "author-defined",
   "sources": [
     "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html",
@@ -246,6 +246,430 @@
           "#numbers": "#figure"
         }
       }
+    },
+    {
+      "id": "c05",
+      "pattern": "1.1.1.background-svg-canvas",
+      "pattern_name": "背景画像・SVG・canvasの代替",
+      "pattern_variant": "a",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "1.1.1-02",
+        "1.1.1-04"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "背景画像、inline SVG、canvas、装飾のSVGを区別し、それぞれの目的・情報と代替内容を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "initial",
+          "target": "#background-chart",
+          "checkpoint": "1.1.1-04",
+          "expected": "failed",
+          "rationale": "3種類の図が半減を伝える。画像として識別する名前・代替内容がない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        },
+        {
+          "page": "p05.html",
+          "state": "initial",
+          "target": "#inline-chart",
+          "checkpoint": "1.1.1-04",
+          "expected": "failed",
+          "rationale": "3種類の図が半減を伝える。画像として識別する名前・代替内容がない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        },
+        {
+          "page": "p05.html",
+          "state": "initial",
+          "target": "#canvas-chart",
+          "checkpoint": "1.1.1-04",
+          "expected": "failed",
+          "rationale": "3種類の図が半減を伝える。画像として識別する名前・代替内容がない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "1.1.1-02",
+          "kind": "inventory",
+          "targets": [
+            "#background-chart",
+            "#inline-chart",
+            "#canvas-chart"
+          ],
+          "formats": [
+            "css-background",
+            "inline-svg",
+            "canvas"
+          ],
+          "page": "p05.html",
+          "state": "initial",
+          "rationale": "3種類の図が半減を伝える。画像として識別する名前・代替内容がない。"
+        }
+      ]
+    },
+    {
+      "id": "c06",
+      "pattern": "1.1.1.background-svg-canvas",
+      "pattern_name": "背景画像・SVG・canvasの代替",
+      "pattern_variant": "b",
+      "pages": [
+        "p06.html"
+      ],
+      "checkpoints": [
+        "1.1.1-02",
+        "1.1.1-04"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "背景画像、inline SVG、canvas、装飾のSVGを区別し、それぞれの目的・情報と代替内容を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p06.html",
+          "state": "initial",
+          "target": "#background-chart",
+          "checkpoint": "1.1.1-04",
+          "expected": "passed",
+          "rationale": "3種類の図が半減を伝える。同等の代替名がある。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        },
+        {
+          "page": "p06.html",
+          "state": "initial",
+          "target": "#inline-chart",
+          "checkpoint": "1.1.1-04",
+          "expected": "passed",
+          "rationale": "3種類の図が半減を伝える。同等の代替名がある。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        },
+        {
+          "page": "p06.html",
+          "state": "initial",
+          "target": "#canvas-chart",
+          "checkpoint": "1.1.1-04",
+          "expected": "passed",
+          "rationale": "3種類の図が半減を伝える。同等の代替名がある。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "1.1.1-02",
+          "kind": "inventory",
+          "targets": [
+            "#background-chart",
+            "#inline-chart",
+            "#canvas-chart"
+          ],
+          "formats": [
+            "css-background",
+            "inline-svg",
+            "canvas"
+          ],
+          "page": "p06.html",
+          "state": "initial",
+          "rationale": "3種類の図が半減を伝える。同等の代替名がある。"
+        }
+      ]
+    },
+    {
+      "id": "c07",
+      "pattern": "1.1.1.reader-alternative",
+      "pattern_name": "代替説明が実SRに届くか",
+      "pattern_variant": "a",
+      "pages": [
+        "p07.html"
+      ],
+      "checkpoints": [
+        "1.1.1-03"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "画像の代替を実際のスクリーンリーダーで利用できるか確認する。AXの取得だけで実発話を確認済みにしない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p07.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.1.1-03",
+          "expected": "failed",
+          "rationale": "画像と代替をAXから隠し、他の等価な説明がない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "screen-reader"
+        }
+      ],
+      "requires_environment": [
+        "real-screen-reader"
+      ]
+    },
+    {
+      "id": "c08",
+      "pattern": "1.1.1.reader-alternative",
+      "pattern_name": "代替説明が実SRに届くか",
+      "pattern_variant": "b",
+      "pages": [
+        "p08.html"
+      ],
+      "checkpoints": [
+        "1.1.1-03"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "画像の代替を実際のスクリーンリーダーで利用できるか確認する。AXの取得だけで実発話を確認済みにしない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p08.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.1.1-03",
+          "expected": "passed",
+          "rationale": "必要な代替が実SRへ提供される構造である。実発話での照合が必要。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "screen-reader"
+        }
+      ],
+      "requires_environment": [
+        "real-screen-reader"
+      ]
+    },
+    {
+      "id": "c09",
+      "pattern": "1.1.1.late-image",
+      "pattern_name": "操作後に追加される画像",
+      "pattern_variant": "a",
+      "pages": [
+        "p09.html"
+      ],
+      "checkpoints": [
+        "1.1.1-01"
+      ],
+      "states": [
+        {
+          "id": "after-load",
+          "instructions": [
+            "図表を読み込むボタンを押して追加表示を待ち、初期表示にない画像と代替を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p09.html",
+          "state": "after-load",
+          "target": "#subject",
+          "checkpoint": "1.1.1-01",
+          "expected": "failed",
+          "rationale": "初期状態にない画像が追加され、代替文がない。初期表示だけの検査では見落とす。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#load"
+          },
+          {
+            "action": "wait",
+            "selector": "#subject",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "attribute": "alt",
+            "value": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "c10",
+      "pattern": "1.1.1.late-image",
+      "pattern_name": "操作後に追加される画像",
+      "pattern_variant": "b",
+      "pages": [
+        "p10.html"
+      ],
+      "checkpoints": [
+        "1.1.1-01"
+      ],
+      "states": [
+        {
+          "id": "after-load",
+          "instructions": [
+            "図表を読み込むボタンを押して追加表示を待ち、初期表示にない画像と代替を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p10.html",
+          "state": "after-load",
+          "target": "#subject",
+          "checkpoint": "1.1.1-01",
+          "expected": "passed",
+          "rationale": "初期状態にない画像が追加され、代替文も設定される。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#load"
+          },
+          {
+            "action": "wait",
+            "selector": "#subject",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "attribute": "alt",
+            "value": "売上は100万円から50万円へ半減"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c11",
+      "pattern": "1.1.1.background-svg-canvas",
+      "pattern_name": "背景画像・SVG・canvasの代替",
+      "pattern_variant": "c",
+      "pages": [
+        "p11.html"
+      ],
+      "checkpoints": [
+        "1.1.1-02",
+        "1.1.1-04"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "背景画像、inline SVG、canvas、装飾のSVGを区別し、それぞれの目的・情報と代替内容を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p11.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.1.1-04",
+          "expected": "passed",
+          "rationale": "SVGは同じボタンの保存という表示ラベルを重複する装飾。別の名前を要求して誤検出しない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "1.1.1-02",
+          "kind": "inventory",
+          "targets": [
+            "#icon"
+          ],
+          "decorative": true,
+          "page": "p11.html",
+          "state": "initial",
+          "rationale": "SVGは同じボタンの保存という表示ラベルを重複する装飾。別の名前を要求して誤検出しない。"
+        }
+      ]
     }
   ]
 }

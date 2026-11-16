@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.2.4",
-  "version": "1",
+  "version": "2",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/1.2.4.md",
@@ -77,6 +77,126 @@
           },
           "evidence_kind": "program"
         }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "1.2.4.live-content",
+      "pattern_name": "ライブの音情報と文字代替",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.2.4-02"
+      ],
+      "states": [
+        {
+          "id": "during-stream",
+          "instructions": [
+            "配信を開始し、その場で生成される音と、同時に表示する文字代替を比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "during-stream",
+          "target": "#subject",
+          "checkpoint": "1.2.4-02",
+          "expected": "failed",
+          "rationale": "その場で生成する確認音に対して、無音だと誤って表示する。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#play"
+          },
+          {
+            "action": "wait",
+            "selector": "#caption",
+            "text": "今は無音です。"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "currentTime",
+            "minimum": 0.1
+          }
+        ]
+      },
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "id": "c04",
+      "pattern": "1.2.4.live-content",
+      "pattern_name": "ライブの音情報と文字代替",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.2.4-02"
+      ],
+      "states": [
+        {
+          "id": "during-stream",
+          "instructions": [
+            "配信を開始し、その場で生成される音と、同時に表示する文字代替を比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "during-stream",
+          "target": "#subject",
+          "checkpoint": "1.2.4-02",
+          "expected": "passed",
+          "rationale": "その場で生成する確認音に対して、1回の確認音と表示する。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#play"
+          },
+          {
+            "action": "wait",
+            "selector": "#caption",
+            "text": "確認音が1回鳴ります。"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "currentTime",
+            "minimum": 0.1
+          }
+        ]
+      },
+      "requires_environment": [
+        "audio-content-comparison"
       ]
     }
   ]

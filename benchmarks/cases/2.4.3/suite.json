@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "2.4.3",
-  "version": "2",
+  "version": "4",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/2.4.3.md",
@@ -166,6 +166,388 @@
           "#other-leaf": "#level3-panel",
           "#close": "#level3-panel",
           "#after": "#level3-panel"
+        }
+      }
+    },
+    {
+      "id": "c05",
+      "pattern": "2.4.3.focus-route-inventory",
+      "pattern_name": "実際の階層内のフォーカス経路",
+      "pattern_variant": "a",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "2.4.3-01",
+        "2.4.3-02"
+      ],
+      "states": [
+        {
+          "id": "third-level",
+          "instructions": [
+            "製品、業務支援をキーで開いて末端リンクへ移動し、各段階のフォーカス・展開状態・URLを記録する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "third-level",
+          "target": "#level3-panel",
+          "checkpoint": "2.4.3-02",
+          "expected": "failed",
+          "rationale": "3階層の循環又は本文への飛びを含む。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "2.4.3-01",
+          "kind": "focus-sequence",
+          "targets": [
+            "#level1",
+            "#level2",
+            "#leaf",
+            "#after"
+          ],
+          "capture_keys": [
+            "Tab",
+            "Enter",
+            "Tab",
+            "Enter",
+            "Tab",
+            "Escape"
+          ],
+          "page": "p05.html",
+          "state": "third-level",
+          "rationale": "3階層の循環又は本文への飛びを含む。"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "Enter"
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "Enter"
+          },
+          {
+            "action": "check",
+            "selector": "#level3-panel",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#after",
+            "focused": true
+          }
+        ]
+      },
+      "target_aliases": {
+        "2.4.3-02": {
+          "#level1": "#level3-panel",
+          "#level2": "#level3-panel",
+          "#leaf": "#level3-panel",
+          "#other-leaf": "#level3-panel",
+          "#close": "#level3-panel",
+          "#after": "#level3-panel"
+        }
+      }
+    },
+    {
+      "id": "c06",
+      "pattern": "2.4.3.focus-route-inventory",
+      "pattern_name": "実際の階層内のフォーカス経路",
+      "pattern_variant": "b",
+      "pages": [
+        "p06.html"
+      ],
+      "checkpoints": [
+        "2.4.3-01",
+        "2.4.3-02"
+      ],
+      "states": [
+        {
+          "id": "third-level",
+          "instructions": [
+            "製品、業務支援をキーで開いて末端リンクへ移動し、各段階のフォーカス・展開状態・URLを記録する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p06.html",
+          "state": "third-level",
+          "target": "#level3-panel",
+          "checkpoint": "2.4.3-02",
+          "expected": "passed",
+          "rationale": "3階層の到達・復帰の順番を保つ。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "2.4.3-01",
+          "kind": "focus-sequence",
+          "targets": [
+            "#level1",
+            "#level2",
+            "#leaf",
+            "#after"
+          ],
+          "capture_keys": [
+            "Tab",
+            "Enter",
+            "Tab",
+            "Enter",
+            "Tab",
+            "Escape"
+          ],
+          "page": "p06.html",
+          "state": "third-level",
+          "rationale": "3階層の到達・復帰の順番を保つ。"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "Enter"
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "Enter"
+          },
+          {
+            "action": "check",
+            "selector": "#level3-panel",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#level2",
+            "focused": true
+          }
+        ]
+      },
+      "target_aliases": {
+        "2.4.3-02": {
+          "#level1": "#level3-panel",
+          "#level2": "#level3-panel",
+          "#leaf": "#level3-panel",
+          "#other-leaf": "#level3-panel",
+          "#close": "#level3-panel",
+          "#after": "#level3-panel"
+        }
+      }
+    },
+    {
+      "id": "c07",
+      "pattern": "2.4.3.nested-dialog",
+      "pattern_name": "入れ子のダイアログの離脱と復帰",
+      "pattern_variant": "a",
+      "pages": [
+        "p07.html"
+      ],
+      "checkpoints": [
+        "2.4.3-02"
+      ],
+      "states": [
+        {
+          "id": "inner-dialog",
+          "instructions": [
+            "予約を編集、住所の詳細の順に開き、内側でTab・Shift+Tab・Escapeを試す。閉じた後の親・本文へのフォーカスも確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p07.html",
+          "state": "inner-dialog",
+          "target": "#subject",
+          "checkpoint": "2.4.3-02",
+          "expected": "failed",
+          "rationale": "内側を閉じるとEscapeで閉じられない、又は外側を飛び越えて本文へフォーカスが移る。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#launch"
+          },
+          {
+            "action": "click",
+            "selector": "#inner-opener"
+          },
+          {
+            "action": "check",
+            "selector": "#inner-name",
+            "focused": true
+          },
+          {
+            "action": "key",
+            "value": "Escape"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "visible": false
+          },
+          {
+            "action": "check",
+            "selector": "#outside",
+            "focused": true
+          }
+        ]
+      },
+      "target_aliases": {
+        "2.4.3-02": {
+          "#inner-name": "#subject",
+          "#building": "#subject",
+          "#inner-close": "#subject",
+          "#inner-opener": "#subject",
+          "#outside": "#subject"
+        }
+      }
+    },
+    {
+      "id": "c08",
+      "pattern": "2.4.3.nested-dialog",
+      "pattern_name": "入れ子のダイアログの離脱と復帰",
+      "pattern_variant": "b",
+      "pages": [
+        "p08.html"
+      ],
+      "checkpoints": [
+        "2.4.3-02"
+      ],
+      "states": [
+        {
+          "id": "inner-dialog",
+          "instructions": [
+            "予約を編集、住所の詳細の順に開き、内側でTab・Shift+Tab・Escapeを試す。閉じた後の親・本文へのフォーカスも確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p08.html",
+          "state": "inner-dialog",
+          "target": "#subject",
+          "checkpoint": "2.4.3-02",
+          "expected": "passed",
+          "rationale": "内側を閉じると外側の開閉ボタンへ戻り、さらに外側を閉じて起点へ戻れる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#launch"
+          },
+          {
+            "action": "click",
+            "selector": "#inner-opener"
+          },
+          {
+            "action": "check",
+            "selector": "#inner-name",
+            "focused": true
+          },
+          {
+            "action": "key",
+            "value": "Escape"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "visible": false
+          },
+          {
+            "action": "check",
+            "selector": "#inner-opener",
+            "focused": true
+          },
+          {
+            "action": "key",
+            "value": "Escape"
+          },
+          {
+            "action": "check",
+            "selector": "#outer",
+            "visible": false
+          },
+          {
+            "action": "check",
+            "selector": "#launch",
+            "focused": true
+          }
+        ]
+      },
+      "target_aliases": {
+        "2.4.3-02": {
+          "#inner-name": "#subject",
+          "#building": "#subject",
+          "#inner-close": "#subject",
+          "#inner-opener": "#subject",
+          "#outside": "#subject"
         }
       }
     }

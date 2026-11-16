@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.2.7",
-  "version": "1",
+  "version": "2",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/1.2.7.md",
@@ -78,9 +78,200 @@
           "evidence_kind": "semantic"
         }
       ]
+    },
+    {
+      "id": "c03",
+      "pattern": "1.2.7.extended-description",
+      "pattern_name": "拡張解説の内容と映像の停止・再開",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.2.7-01",
+        "1.2.7-02"
+      ],
+      "states": [
+        {
+          "id": "after-extension",
+          "instructions": [
+            "解説付きで再生し、映像が止まる区間・拡張解説・映像の再開を確認する。解説と受付コードの内容も比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "after-extension",
+          "target": "#subject",
+          "checkpoint": "1.2.7-02",
+          "expected": "failed",
+          "rationale": "拡張する時間は確保するが、解説の先頭の桁が9で、画面の7と異なる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        },
+        {
+          "page": "p03.html",
+          "state": "after-extension",
+          "target": "#subject",
+          "checkpoint": "1.2.7-01",
+          "expected": "passed",
+          "rationale": "映像を止めて拡張解説を再生し、解説終了後に映像を再開できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#play"
+          },
+          {
+            "action": "wait",
+            "selector": "#phase",
+            "text": "解説",
+            "timeout": 10000
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "paused",
+            "value": true
+          },
+          {
+            "action": "wait",
+            "selector": "#phase",
+            "text": "再開",
+            "timeout": 20000
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "paused",
+            "value": false
+          }
+        ]
+      },
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "id": "c04",
+      "pattern": "1.2.7.extended-description",
+      "pattern_name": "拡張解説の内容と映像の停止・再開",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.2.7-01",
+        "1.2.7-02"
+      ],
+      "states": [
+        {
+          "id": "after-extension",
+          "instructions": [
+            "解説付きで再生し、映像が止まる区間・拡張解説・映像の再開を確認する。解説と受付コードの内容も比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "after-extension",
+          "target": "#subject",
+          "checkpoint": "1.2.7-02",
+          "expected": "passed",
+          "rationale": "拡張する時間は確保するが、解説が画面の20桁の受付コードと一致する。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        },
+        {
+          "page": "p04.html",
+          "state": "after-extension",
+          "target": "#subject",
+          "checkpoint": "1.2.7-01",
+          "expected": "passed",
+          "rationale": "映像を止めて拡張解説を再生し、解説終了後に映像を再開できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#play"
+          },
+          {
+            "action": "wait",
+            "selector": "#phase",
+            "text": "解説",
+            "timeout": 10000
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "paused",
+            "value": true
+          },
+          {
+            "action": "wait",
+            "selector": "#phase",
+            "text": "再開",
+            "timeout": 20000
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "paused",
+            "value": false
+          }
+        ]
+      },
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
     }
   ],
-  "limitations": [
-    "適合する音声解説・手話・拡張解説の正例は未整備。専門家による実素材と正解確認が必要。"
+  "material_sources": [
+    {
+      "kind": "generated-known-source",
+      "generator": "ffmpeg libflite, slt voice; VP9 and Opus",
+      "main": "Press the blue button to save the document.",
+      "normal_visual_code": "7291",
+      "normal_description": "An access code appears. Seven, two, nine, one.",
+      "wrong_normal_description": "An access code appears. Seven, two, nine, two.",
+      "extended_visual_code": "72918304652817930462",
+      "extended_description": "The access code is seven two nine one eight three zero four six five two eight one seven nine three zero four six two.",
+      "main_duration_seconds": 2.62,
+      "description_start_seconds": 2.92,
+      "extended_video_duration_seconds": 3.22,
+      "extended_pause_after_seconds": 2.77
+    }
   ]
 }
