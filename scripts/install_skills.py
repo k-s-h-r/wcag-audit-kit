@@ -58,7 +58,7 @@ def install(destination, selected=None, ref=None):
     paths=[]
     for directory in ['scripts','references','assets','vendor']:
         paths.extend(p for p in (ROOT/directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix not in {'.pyc','.tmp'}
-                     and p.name not in {'install_skills.py','build_coverage.py'})
+                     and p.name not in {'install_skills.py','build_coverage.py','build_mode_matrix.py'})
     paths.extend(ROOT.glob('requirements*.txt'));paths.extend([ROOT/'package.json',ROOT/'package-lock.json'])
     with tempfile.TemporaryDirectory(dir=destination,prefix='.wcag-build-') as temporary:
         staging=Path(temporary)

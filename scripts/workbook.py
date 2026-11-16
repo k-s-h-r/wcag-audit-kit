@@ -215,6 +215,12 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
             filters=dict(task=task,owner=owner,page=page,page_exact=page_exact,criterion=criterion,pending=pending),
             manifest=audit.load(run/'capture-manifest.json'))
         human_sheets(book,model)
+        if result.get('verification'):
+            from verification_modes import table_rows
+            sheet(book,'モード別の確認範囲',[(k,v) for k,v in [('criterion','基準'),('title','名称'),('level','レベル'),('check','確認観点'),
+                  ('machine','機械のみ'),('ai','AI併用'),('screen-reader','SR併用'),('full','AI＋SR'),('mode','選択モード'),
+                  ('selected','選択モードの対応'),('target_level','目標レベル'),('note','制約'),('preparation','必要な準備')]],
+                  [r for r in table_rows(result['verification']) if r['criterion'] in selected_criteria],True)
         from page_workflow import grouped_machine_issues
         sheet(book,'自動検出した問題',[(k,v) for k,v in [('criterion','達成基準'),('expected','機械で確認した条件'),('target','対象要素・位置'),
               ('outcome','機械の結果'),('observed','観察'),('count','状態・経路の記録数'),('states','確認した状態・環境'),('evidence','全記録の証拠'),('note','判定範囲')]],
@@ -229,6 +235,10 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         summary += [['画像の設定',result['inspection_policy']['screenshots']],['実スクリーンリーダーの設定',result['inspection_policy']['screen_reader']],
                     ['操作・状態の調査',result['interaction_review']['status']],['操作調査の完了',result['interaction_review']['complete']]]
         summary += [['実SRの実施記録',', '.join(sorted({p['screen_reader']['status'] for p in result['interaction_review'].get('pages',{}).values()})) or 'not_recorded']]
+        if result.get('verification'):
+            from verification_modes import SR_LABELS
+            summary += [['検証モード',result['verification']['label']],['モード対応表の記号',result['verification']['legend']],
+                        ['実SRのモード実施状態',SR_LABELS[result['verification']['screen_reader_status']]]]
         summary += [['使い方','チェックシート・不適合箇所は出力条件内の閲覧用。編集しても取り込まれない。workでは検査票・対象・観察方法を編集しexcel import --checkで確認する。'],
                     ['共同作業','同じrunから配布し、調整担当が取り込む。同一runのJSONを複数端末で同時同期しない。'],
                     ['判定の注意','作業状態のdoneとWCAG適合・検証完了は別。未確認は通過に数えない。'],

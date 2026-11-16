@@ -1,13 +1,17 @@
 # 1ページを機械検査から始める
 
 ```sh
-python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page
+python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page --mode machine
 python3 scripts/audit.py page-next --run /project/run-page --page-exact https://example.com/contact
 ```
 
 page-auditは、対象URLだけで操作候補を調べ、実クリック・hover・Tab・Enter・Space・部品ごとの矢印キー等で到達した状態を収集する。状態ごとにDOM、アクセシビリティツリー、画像、実入力、axeの結果を保存する。LLMやAIサービスのAPIキーは必要ない。検証対象はテスト用環境を使い、認証が必要なら既存の設定のauth_stateを指定する。事前設定のstatesを含む設定は既存のpageで収集する。page-auditでは自動探索を使い、必要な独自シナリオをprobeで追加検査する。
 
 操作候補はネイティブ部品・ARIA・登録されたイベント・カーソル等から抽出する。開いた後に現れた候補もキューへ追加する。外観だけで操作できそうな領域の追加確認には、保存画像と位置・候補一覧を使う。候補抽出だけで全操作を発見したことにはしない。
+
+## モードを選んで進める
+
+[検証モード](verification-modes.md)のmachine / ai / screen-reader / fullを`--mode`で選ぶ。設定なしの新しいpage-auditはmachine。モードで有効な検査手段と、実際に実行した結果は区別する。page-nextは利用する観点・省く観点・理由を返す。AIによる比較はスキルの実行環境、実SRは専用アダプターで実施し、このCLIだけで両方を実行済みにはしない。モード変更は別のrunとし、resumeは保存したモードを継続する。
 
 ## 収集と再開
 
