@@ -10,3 +10,4 @@
 - [0004 人向けの達成基準チェックシート](0004-human-checksheet.md)
 - [0005 1ページの機械検査と状態探索を先行させる](0005-machine-first-page-workflow.md)
 - [0006 操作可能性を含む状態識別と追加検査の累積](0006-availability-and-cumulative-resolutions.md)
+- [0007 検証をプログラム・AI・人で分担する目安をREADMEに置く](0007-verification-responsibilities.md)
