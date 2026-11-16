@@ -12,3 +12,4 @@
 - [0006 操作可能性を含む状態識別と追加検査の累積](0006-availability-and-cumulative-resolutions.md)
 - [0007 検証をプログラム・AI・人で分担する目安をREADMEに置く](0007-verification-responsibilities.md)
 - [0008 全達成基準の検証分担を1つの表で示す](0008-all-criteria-verification-table.md)
+- [0009 確認観点ごとに分担と実行準備を説明する](0009-readable-verification-observations.md)
