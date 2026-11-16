@@ -1,0 +1,53 @@
+Traceback (most recent call last):
+  File "/workspace/wcag-audit-kit-github/benchmarks/run.py", line 68, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/wcag-audit-kit-github/benchmarks/run.py", line 33, in main
+    result=runner.collect(Path(args.out),criterion=args.criterion,selected_modes=selected,port=args.port,resume=args.resume)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wcag-audit-kit-github/benchmarks/runner.py", line 127, in collect
+    code=core.audit.main(args)
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wcag-audit-kit-github/scripts/audit.py", line 753, in main
+    make_plan(run,{'captures':[]});return run_page_audit(run,args)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wcag-audit-kit-github/scripts/audit.py", line 608, in run_page_audit
+    files=write_page_reports(run,args.url)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wcag-audit-kit-github/scripts/audit.py", line 594, in write_page_reports
+    workbook.export(run,path,page_exact=url,page_view=True)
+  File "/workspace/wcag-audit-kit-github/scripts/workbook.py", line 292, in export
+    book.save(temporary);os.link(temporary,out)
+    ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/workbook/workbook.py", line 386, in save
+    save_workbook(self, filename)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/writer/excel.py", line 294, in save_workbook
+    writer.save()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/writer/excel.py", line 275, in save
+    self.write_data()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/writer/excel.py", line 77, in write_data
+    self._write_worksheets()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/writer/excel.py", line 215, in _write_worksheets
+    self.write_worksheet(ws)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/writer/excel.py", line 200, in write_worksheet
+    writer.write()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/worksheet/_writer.py", line 358, in write
+    self.write_top()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/worksheet/_writer.py", line 101, in write_top
+    self.write_views()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/worksheet/_writer.py", line 82, in write_views
+    self.xf.send(views.to_tree())
+                 ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/descriptors/serialisable.py", line 146, in to_tree
+    for node in nodes:
+                ^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/descriptors/sequence.py", line 40, in to_tree
+    el = v.to_tree(tagname, idx)
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/descriptors/serialisable.py", line 154, in to_tree
+    node = obj.to_tree(child_tag)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/openpyxl/descriptors/serialisable.py", line 124, in to_tree
+    el = Element(tagname, attrs)
+         ^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

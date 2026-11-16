@@ -253,6 +253,17 @@ HTMLとExcelには、人向けの[達成基準チェックシート](references/
 
 [正解を伏せた公開例との比較](validation/act-held-out/README.md)では、ACTの2ルール・12例を実DOM/AXから判定し、公開期待値と12例すべてが一致しました。これはその2ルールの限定した比較で、全WCAG又は専門家によるサイト監査と同等の精度を示す数値ではありません。
 
+## 検証方法の精度と回帰を試す
+
+[基準別の問題集](benchmarks/README.md)では、1.1.1・2.1.1等のディレクトリへHTML・画像・音声と正解をまとめています。問題と正常な例、操作後の状態、複数ページを比較し、モード別の検出漏れ・誤検出・未確認をHTML・JSON・Excelへ出力します。検査担当へ正解は渡さず、実際の検証パイプラインの結果を採点します。
+
+```sh
+python3 benchmarks/run.py collect --mode all --out /project/benchmark-001
+python3 benchmarks/run.py score --run /project/benchmark-001 --strict
+```
+
+初期セットは7基準・18ケース・20ページ・27確認観点です。全86基準の問題集が完成した状態ではなく、残る79基準は未整備として表示します。前回と同じ問題集・条件で比較し、以前検出したものの見逃しや新しい誤検出を回帰として報告できます。
+
 ## 実行環境
 
 CLIにはPython 3.10以降、PyYAML、Playwright、Chromiumが必要です。既存環境があればそれを使います。

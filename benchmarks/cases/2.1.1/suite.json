@@ -1,0 +1,156 @@
+{
+  "schema_version": "1",
+  "criterion": "2.1.1",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html",
+    "../../../references/tests/2.1.1.md"
+  ],
+  "scope": "確認観点ごとの有限の対照例。基準全体の網羅・専門家による独立した正解確認を表さない。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "2.1.1-01",
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "ポインター操作とキー操作で、数量変更の機能を最初から最後まで比較する。"
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#control",
+          "checkpoint": "2.1.1-01",
+          "expected": "passed",
+          "rationale": "Tabで対象へ移動し、実キーを送出できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        },
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#control",
+          "checkpoint": "2.1.1-02",
+          "expected": "passed",
+          "rationale": "キーボードで数量を変更できる。重複したポインター専用部品の存在だけで失敗にしない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints"
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "2.1.1-01",
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "ポインター操作とキー操作で、数量変更の機能を最初から最後まで比較する。"
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#control",
+          "checkpoint": "2.1.1-01",
+          "expected": "passed",
+          "rationale": "Tabで対象へ移動し、実キーを送出できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        },
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#control",
+          "checkpoint": "2.1.1-02",
+          "expected": "failed",
+          "rationale": "focus可能でキーを送出できても、Enter/Spaceで数量が変わらない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints"
+    },
+    {
+      "id": "c03",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "ポインター操作とキー操作で、数量変更の機能を最初から最後まで比較する。"
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "initial",
+          "target": "#feature",
+          "checkpoint": "2.1.1-02",
+          "expected": "passed",
+          "rationale": "キーボードで数量を変更できる。重複したポインター専用部品の存在だけで失敗にしない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "target_aliases": {
+        "2.1.1-02": {
+          "#control": "#feature",
+          "#pointer": "#feature"
+        }
+      }
+    }
+  ]
+}

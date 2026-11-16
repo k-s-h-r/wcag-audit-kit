@@ -1,0 +1,251 @@
+{
+  "schema_version": "1",
+  "criterion": "1.1.1",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html",
+    "../../../references/tests/1.1.1.md"
+  ],
+  "scope": "確認観点ごとの有限の対照例。基準全体の網羅・専門家による独立した正解確認を表さない。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "1.1.1-01"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "初期表示を確認する。"
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#figure",
+          "checkpoint": "1.1.1-01",
+          "expected": "failed",
+          "rationale": "情報を伝えるimgにaltや他の代替名がない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        },
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#summary",
+          "checkpoint": "1.1.1-01",
+          "expected": "passed",
+          "rationale": "imgにaltがある。有無の確認だけを採点する。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        },
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#marker",
+          "checkpoint": "1.1.1-01",
+          "expected": "passed",
+          "rationale": "装飾の印に空altを設定している。空文字を欠落と同一視しない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints"
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "1.1.1-01",
+        "1.1.1-04"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "初期表示を確認する。"
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#figure",
+          "checkpoint": "1.1.1-01",
+          "expected": "passed",
+          "rationale": "altは存在する。意味の誤りを属性の欠落として扱わない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        },
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#summary",
+          "checkpoint": "1.1.1-01",
+          "expected": "passed",
+          "rationale": "altは存在する。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        },
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#figure",
+          "checkpoint": "1.1.1-04",
+          "expected": "failed",
+          "rationale": "画像は100万円から50万円へ減っているが、altが逆方向の変化を説明している。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        },
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#summary",
+          "checkpoint": "1.1.1-04",
+          "expected": "passed",
+          "rationale": "画像の数値と増減を正しく説明している。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints"
+    },
+    {
+      "id": "c03",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.1.1-04"
+      ],
+      "states": [
+        {
+          "id": "opened",
+          "instructions": [
+            "詳しい情報を開いて、画像と同じ情報が得られるか確認する。"
+          ],
+          "actions": [
+            {
+              "type": "click",
+              "selector": "#details"
+            }
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "opened",
+          "target": "#figure",
+          "checkpoint": "1.1.1-04",
+          "expected": "passed",
+          "rationale": "開いた詳細に元の数値と同じ情報がある。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "target_aliases": {
+        "1.1.1-04": {
+          "#numbers": "#figure"
+        }
+      }
+    },
+    {
+      "id": "c04",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.1.1-04"
+      ],
+      "states": [
+        {
+          "id": "opened",
+          "instructions": [
+            "詳しい情報を開いて、画像と同じ情報が得られるか確認する。"
+          ],
+          "actions": [
+            {
+              "type": "click",
+              "selector": "#details"
+            }
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "opened",
+          "target": "#figure",
+          "checkpoint": "1.1.1-04",
+          "expected": "failed",
+          "rationale": "詳細を開いても画像の数値を得られない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "target_aliases": {
+        "1.1.1-04": {
+          "#numbers": "#figure"
+        }
+      }
+    }
+  ]
+}
