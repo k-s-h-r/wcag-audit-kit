@@ -1,0 +1,38 @@
+{
+  "interrupted_status": "interrupted",
+  "preserved_file_count": 678,
+  "prior_frozen_files_unchanged": true,
+  "skipped_completed": [
+    [
+      "machine--2.4.2--c01",
+      "p01.html",
+      "audit-runs/machine--2.4.2--c01/p01/attempt-4f7e905c023c/run"
+    ],
+    [
+      "machine--2.4.2--c02",
+      "p02.html",
+      "audit-runs/machine--2.4.2--c02/p02/attempt-5ee051e9637a/run"
+    ],
+    [
+      "machine--2.4.2--c03",
+      "p03.html",
+      "audit-runs/machine--2.4.2--c03/p03/attempt-ee2c7ba7cbf0/run"
+    ],
+    [
+      "ai--2.4.2--c01",
+      "p01.html",
+      "audit-runs/ai--2.4.2--c01/p01/attempt-3a76ad063e75/run"
+    ]
+  ],
+  "retained_incomplete_attempts": [
+    {
+      "job": "ai--2.4.2--c02",
+      "page": "p02.html",
+      "earlier": "audit-runs/ai--2.4.2--c02/p02/attempt-9d7b916008af/run",
+      "resumed": "audit-runs/ai--2.4.2--c02/p02/attempt-10db99067dd6/run"
+    }
+  ],
+  "completed_resume_has_no_new_attempts": true,
+  "attempt_count": 13,
+  "final_status": "completed"
+}

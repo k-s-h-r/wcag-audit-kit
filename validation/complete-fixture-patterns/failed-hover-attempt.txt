@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/wcag-audit-kit-github/tests/expanded_fixture_browser.py", line 133, in <module>
+    parser=argparse.ArgumentParser();parser.add_argument('--out',required=True);args=parser.parse_args();main(args.out)
+                                                                                                         ^^^^^^^^^^^^^^
+  File "/workspace/wcag-audit-kit-github/tests/expanded_fixture_browser.py", line 129, in main
+    if errors:raise AssertionError(errors)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [{'criterion': '1.4.13', 'case': 'c03', 'error': 'Locator.hover: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator("#tip")\n    - locator resolved to <p id="tip">料金は1000円です。</p>\n  - attempting hover action\n    - waiting for element to be visible and stable\n    - element is visible and stable\n    - scrolling into view if needed\n    - done scrolling\n    - performing hover action\n    - <html lang="ja">…</html> intercepts pointer events\n  - retrying hover action\n    - waiting for element to be visible and stable\n    - element is not visible\n  - retrying hover action\n    - waiting 20ms\n    2 × waiting for element to be visible and stable\n      - element is not visible\n    - retrying hover action\n      - waiting 100ms\n    57 × waiting for element to be visible and stable\n       - element is not visible\n     - retrying hover action\n       - waiting 500ms\n', 'javascript_errors': []}]

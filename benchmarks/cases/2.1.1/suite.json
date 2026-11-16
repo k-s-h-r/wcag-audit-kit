@@ -1,0 +1,528 @@
+{
+  "schema_version": "1",
+  "criterion": "2.1.1",
+  "version": "3",
+  "review": "author-defined",
+  "sources": [
+    "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html",
+    "../../../references/tests/2.1.1.md"
+  ],
+  "scope": "確認観点ごとの有限の対照例。基準全体の網羅・専門家による独立した正解確認を表さない。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "2.1.1-01",
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "ポインター操作とキー操作で、数量変更の機能を最初から最後まで比較する。"
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#control",
+          "checkpoint": "2.1.1-01",
+          "expected": "passed",
+          "rationale": "Tabで対象へ移動し、実キーを送出できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        },
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#control",
+          "checkpoint": "2.1.1-02",
+          "expected": "passed",
+          "rationale": "キーボードで数量を変更できる。重複したポインター専用部品の存在だけで失敗にしない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints"
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "2.1.1-01",
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "ポインター操作とキー操作で、数量変更の機能を最初から最後まで比較する。"
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#control",
+          "checkpoint": "2.1.1-01",
+          "expected": "passed",
+          "rationale": "Tabで対象へ移動し、実キーを送出できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        },
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#control",
+          "checkpoint": "2.1.1-02",
+          "expected": "failed",
+          "rationale": "focus可能でキーを送出できても、Enter/Spaceで数量が変わらない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints"
+    },
+    {
+      "id": "c03",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "ポインター操作とキー操作で、数量変更の機能を最初から最後まで比較する。"
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "initial",
+          "target": "#feature",
+          "checkpoint": "2.1.1-02",
+          "expected": "passed",
+          "rationale": "キーボードで数量を変更できる。重複したポインター専用部品の存在だけで失敗にしない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "target_aliases": {
+        "2.1.1-02": {
+          "#control": "#feature",
+          "#pointer": "#feature"
+        }
+      }
+    },
+    {
+      "id": "c04",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "keyboard-route",
+          "instructions": [
+            "初期状態からTabで「製品」へ移動してEnter、Tabで「業務支援」へ移動してEnter、Tabで第3階層の「見積管理」へ移動する。ポインターで補わずに実行する。 最後にEnterでリンク先へ移動し、URLと見積管理の見出しを確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "keyboard-route",
+          "target": "#navigation",
+          "checkpoint": "2.1.1-02",
+          "expected": "passed",
+          "rationale": "2回の展開と第3階層リンクの実行をキーだけで行い、見積管理のページへ移動できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "target_aliases": {
+        "2.1.1-02": {
+          "#level1": "#navigation",
+          "#level2": "#navigation",
+          "#leaf": "#navigation",
+          "#other-leaf": "#navigation",
+          "#close": "#navigation"
+        }
+      }
+    },
+    {
+      "id": "c05",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "keyboard-route",
+          "instructions": [
+            "初期状態からTabで「製品」へ移動してEnter、Tabで「業務支援」へ移動してEnter、Tabで第3階層の「見積管理」へ移動する。ポインターで補わずに実行する。 最後にEnterでリンク先へ移動し、URLと見積管理の見出しを確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "keyboard-route",
+          "target": "#navigation",
+          "checkpoint": "2.1.1-02",
+          "expected": "failed",
+          "rationale": "第1階層は開くが、#level2はクリック専用のdivでEnter・Spaceに応答しない。ポインターでは第3階層のリンクへ進める。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "target_aliases": {
+        "2.1.1-02": {
+          "#level1": "#navigation",
+          "#level2": "#navigation",
+          "#leaf": "#navigation",
+          "#other-leaf": "#navigation",
+          "#close": "#navigation"
+        }
+      }
+    },
+    {
+      "id": "c06",
+      "pattern": "2.1.1.shadow-disclosure",
+      "pattern_name": "Shadow DOM内の操作と状態",
+      "pattern_variant": "a",
+      "pages": [
+        "p06.html"
+      ],
+      "checkpoints": [
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "shadow-open",
+          "instructions": [
+            "初期表示からTabでShadow DOM内の詳細へ進み、Enterで開く。内部のフォーカスと開閉状態を記録する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p06.html",
+          "state": "shadow-open",
+          "target": "#inner-action",
+          "checkpoint": "2.1.1-02",
+          "expected": "failed",
+          "rationale": "Shadow DOM内でクリックだけで開く、又は展開状態が更新されない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "deep-focus",
+            "path": [
+              "subject",
+              "inner-action"
+            ]
+          },
+          {
+            "action": "key",
+            "value": "Enter"
+          },
+          {
+            "action": "check",
+            "selector": "#inner-panel",
+            "visible": false
+          },
+          {
+            "action": "check",
+            "selector": "#inner-action",
+            "attribute": "aria-expanded",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c07",
+      "pattern": "2.1.1.shadow-disclosure",
+      "pattern_name": "Shadow DOM内の操作と状態",
+      "pattern_variant": "b",
+      "pages": [
+        "p07.html"
+      ],
+      "checkpoints": [
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "shadow-open",
+          "instructions": [
+            "初期表示からTabでShadow DOM内の詳細へ進み、Enterで開く。内部のフォーカスと開閉状態を記録する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p07.html",
+          "state": "shadow-open",
+          "target": "#inner-action",
+          "checkpoint": "2.1.1-02",
+          "expected": "passed",
+          "rationale": "Shadow DOM内でキーによる開閉と展開状態の変更を提供する。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "deep-focus",
+            "path": [
+              "subject",
+              "inner-action"
+            ]
+          },
+          {
+            "action": "key",
+            "value": "Enter"
+          },
+          {
+            "action": "check",
+            "selector": "#inner-panel",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#inner-action",
+            "attribute": "aria-expanded",
+            "value": "true"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c08",
+      "pattern": "2.1.1.tab-panels",
+      "pattern_name": "タブのフォーカス・選択・パネル",
+      "pattern_variant": "a",
+      "pages": [
+        "p08.html"
+      ],
+      "checkpoints": [
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "second-tab",
+          "instructions": [
+            "概要タブからArrowRightで料金タブへ移動してEnterを押し、フォーカス・パネル・選択状態を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p08.html",
+          "state": "second-tab",
+          "target": "#tab-b",
+          "checkpoint": "2.1.1-02",
+          "expected": "failed",
+          "rationale": "次のタブへ移動した後にキーでパネルを開けない、又は選択状態が更新されない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "ArrowRight"
+          },
+          {
+            "action": "check",
+            "selector": "#tab-b",
+            "focused": true
+          },
+          {
+            "action": "key",
+            "value": "Enter"
+          },
+          {
+            "action": "check",
+            "selector": "#panel-b",
+            "visible": false
+          },
+          {
+            "action": "check",
+            "selector": "#tab-b",
+            "attribute": "aria-selected",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c09",
+      "pattern": "2.1.1.tab-panels",
+      "pattern_name": "タブのフォーカス・選択・パネル",
+      "pattern_variant": "b",
+      "pages": [
+        "p09.html"
+      ],
+      "checkpoints": [
+        "2.1.1-02"
+      ],
+      "states": [
+        {
+          "id": "second-tab",
+          "instructions": [
+            "概要タブからArrowRightで料金タブへ移動してEnterを押し、フォーカス・パネル・選択状態を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p09.html",
+          "state": "second-tab",
+          "target": "#tab-b",
+          "checkpoint": "2.1.1-02",
+          "expected": "passed",
+          "rationale": "次のタブへ移動した後に料金パネルと選択状態を利用できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "ArrowRight"
+          },
+          {
+            "action": "check",
+            "selector": "#tab-b",
+            "focused": true
+          },
+          {
+            "action": "key",
+            "value": "Enter"
+          },
+          {
+            "action": "check",
+            "selector": "#panel-b",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#tab-b",
+            "attribute": "aria-selected",
+            "value": "true"
+          }
+        ]
+      }
+    }
+  ]
+}

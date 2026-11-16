@@ -1,0 +1,339 @@
+{
+  "schema_version": "1",
+  "criterion": "2.4.7",
+  "version": "3",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/2.4.7.md",
+    "../../../references/tests/2.4.7.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "2.4.7-02"
+      ],
+      "states": [
+        {
+          "id": "after-focus",
+          "instructions": [
+            "Tabでボタンへ移動し、現在の位置を目視する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-focus",
+          "target": "#subject",
+          "checkpoint": "2.4.7-02",
+          "expected": "failed",
+          "rationale": "背景・境界も変わらずフォーカス表示がない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "2.4.7-02"
+      ],
+      "states": [
+        {
+          "id": "after-focus",
+          "instructions": [
+            "Tabでボタンへ移動し、現在の位置を目視する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-focus",
+          "target": "#subject",
+          "checkpoint": "2.4.7-02",
+          "expected": "passed",
+          "rationale": "フォーカス輪郭を視認できる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "2.4.7.focus-before-after",
+      "pattern_name": "フォーカス前後の取得",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "2.4.7-01",
+        "2.4.7-02"
+      ],
+      "states": [
+        {
+          "id": "focused",
+          "instructions": [
+            "フォーカス前後の取得。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "focused",
+          "target": "#subject",
+          "checkpoint": "2.4.7-02",
+          "expected": "failed",
+          "rationale": "フォーカス位置の視覚的な変化がない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "2.4.7-01",
+          "kind": "state-capture",
+          "targets": [
+            "#subject"
+          ],
+          "captures": [
+            "before-focus",
+            "after-focus"
+          ],
+          "page": "p03.html",
+          "state": "focused",
+          "rationale": "フォーカス位置の視覚的な変化がない。"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "focused": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "c04",
+      "pattern": "2.4.7.focus-before-after",
+      "pattern_name": "フォーカス前後の取得",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "2.4.7-01",
+        "2.4.7-02"
+      ],
+      "states": [
+        {
+          "id": "focused",
+          "instructions": [
+            "フォーカス前後の取得。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "focused",
+          "target": "#subject",
+          "checkpoint": "2.4.7-02",
+          "expected": "passed",
+          "rationale": "フォーカス位置を輪郭で視認できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "2.4.7-01",
+          "kind": "state-capture",
+          "targets": [
+            "#subject"
+          ],
+          "captures": [
+            "before-focus",
+            "after-focus"
+          ],
+          "page": "p04.html",
+          "state": "focused",
+          "rationale": "フォーカス位置を輪郭で視認できる。"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "focused": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "c05",
+      "pattern": "2.4.7.offcanvas-hidden-focus",
+      "pattern_name": "狭い画面で隠れたメニューへのフォーカス",
+      "pattern_variant": "a",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "2.4.7-02"
+      ],
+      "states": [
+        {
+          "id": "closed-narrow-menu",
+          "instructions": [
+            "320px幅でメニューを閉じた状態からTab順をたどり、画面外のリンクへフォーカスが入らないか確認する。閉じたメニューを含む経路全体を対象とする。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "closed-narrow-menu",
+          "target": "#menu",
+          "checkpoint": "2.4.7-02",
+          "expected": "failed",
+          "rationale": "閉じたメニューが画面外のリンクへフォーカスを移す。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "viewport",
+            "width": 320,
+            "height": 640
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "focused": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "c06",
+      "pattern": "2.4.7.offcanvas-hidden-focus",
+      "pattern_name": "狭い画面で隠れたメニューへのフォーカス",
+      "pattern_variant": "b",
+      "pages": [
+        "p06.html"
+      ],
+      "checkpoints": [
+        "2.4.7-02"
+      ],
+      "states": [
+        {
+          "id": "closed-narrow-menu",
+          "instructions": [
+            "320px幅でメニューを閉じた状態からTab順をたどり、画面外のリンクへフォーカスが入らないか確認する。閉じたメニューを含む経路全体を対象とする。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p06.html",
+          "state": "closed-narrow-menu",
+          "target": "#menu",
+          "checkpoint": "2.4.7-02",
+          "expected": "passed",
+          "rationale": "閉じたメニューがTab順から除かれ、本文へ進める。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "viewport",
+            "width": 320,
+            "height": 640
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "check",
+            "selector": "#after",
+            "focused": true
+          }
+        ]
+      }
+    }
+  ]
+}

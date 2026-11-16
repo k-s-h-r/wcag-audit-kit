@@ -1,0 +1,83 @@
+{
+  "schema_version": "1",
+  "criterion": "3.3.3",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/3.3.3.md",
+    "../../../references/tests/3.3.3.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "3.3.3-01"
+      ],
+      "states": [
+        {
+          "id": "after-submit",
+          "instructions": [
+            "日付の誤入力を送信し、修正に使える提案を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-submit",
+          "target": "#subject",
+          "checkpoint": "3.3.3-01",
+          "expected": "failed",
+          "rationale": "形式が既知なのに修正方法を示さない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "3.3.3-01"
+      ],
+      "states": [
+        {
+          "id": "after-submit",
+          "instructions": [
+            "日付の誤入力を送信し、修正に使える提案を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-submit",
+          "target": "#subject",
+          "checkpoint": "3.3.3-01",
+          "expected": "passed",
+          "rationale": "具体例と必要な日付形式を提案する。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ]
+    }
+  ]
+}

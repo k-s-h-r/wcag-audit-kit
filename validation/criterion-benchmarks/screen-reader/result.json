@@ -1,0 +1,1598 @@
+{
+  "schema_version": "1",
+  "run_id": "71c3c40c1e0f4cc58c6156ffb87f2de6",
+  "corpus_digest": "fa10ba70273b00931c676d8bc5b8a0d10726bfc7106f9c0cfa0db19c3df118d2",
+  "modes": [
+    "screen-reader"
+  ],
+  "selection": [
+    "1.1.1",
+    "1.2.2",
+    "2.1.1",
+    "2.1.2",
+    "2.4.2",
+    "3.2.3",
+    "4.1.3"
+  ],
+  "configuration": {
+    "max_states": 8,
+    "max_steps": 32,
+    "max_depth": 3,
+    "max_images": 6
+  },
+  "implementation_digest": "59e4aa802419c1d6e0c2a440af881950dd35e865697a61506aea66c7f42894ee",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)"
+  },
+  "standard": "WCAG-2.2",
+  "normative_hashes": {
+    "1.1.1": "0c978f2bb7311a5fd542cf325844e6e85bf504f5fcc01ef5882156cee9f233d2",
+    "1.2.2": "e4cb55ac6b34f8aaf2bd297b08054496d889b7125e2662c7a8c1aaf1fc784283",
+    "2.1.1": "ba1639b46087cfe52fa09be54d6111501e88d454192246c016df2f626c9185a5",
+    "2.1.2": "e46730319252f14b9888de26d2929978ef21079f21a808bf197370a02b0dc8e4",
+    "2.4.2": "c8ea15c57c75772ac694984252bafe819baec75f9703c5ab3da13e51455ddcf6",
+    "3.2.3": "39f13a5916a47425753db470188507e181a38e71f4ddd7c90e0aaf72b5e2b0fe",
+    "4.1.3": "a2890c3d51dd1932e2a40f480f287f87459f965d4303159562b97f3ce6ab0128"
+  },
+  "scorer_digest": "f1bd53b9944ae4c118419e8f586f52d004a027ba8bec8c1bfcaba1f143d54378",
+  "created_at": "2026-11-16T15:59:17.054311+00:00",
+  "selected_checks_status": "incomplete",
+  "overall_status": "incomplete",
+  "counts": {
+    "correct": 10,
+    "deferred": 8,
+    "not_evaluated": 9
+  },
+  "confusion": {
+    "TP": 2,
+    "TN": 8,
+    "FP": 0
+  },
+  "precision_on_evaluated": 1.0,
+  "recall_on_evaluated": 1.0,
+  "methods_by_mode": {
+    "screen-reader": {
+      "program": 10
+    }
+  },
+  "detected_known_failures": 2,
+  "total_known_failures": 10,
+  "undetected_known_failures": 8,
+  "rows": [
+    {
+      "job_id": "screen-reader--1.1.1--c01",
+      "criterion": "1.1.1",
+      "case": "c01",
+      "mode": "screen-reader",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#figure",
+      "checkpoint": "1.1.1-01",
+      "expected": "failed",
+      "actual": "failed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TP",
+      "rationale": "情報を伝えるimgにaltや他の代替名がない。",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\"",
+      "evidence": [
+        "audit-runs/screen-reader--1.1.1--c01/p01/attempt-4051081db44a/run/evidence/3a9335d6ca53--explore-ab1e78b727bd--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / image-alt"
+    },
+    {
+      "job_id": "screen-reader--1.1.1--c01",
+      "criterion": "1.1.1",
+      "case": "c01",
+      "mode": "screen-reader",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#summary",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TN",
+      "rationale": "imgにaltがある。有無の確認だけを採点する。",
+      "observed": "<img id=\"summary\" src=\"assets/chart.svg\" alt=\"売上は4月100万円、5月50万円で半減した。\">",
+      "evidence": [
+        "audit-runs/screen-reader--1.1.1--c01/p01/attempt-4051081db44a/run/evidence/3a9335d6ca53--explore-ab1e78b727bd--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / image-alt"
+    },
+    {
+      "job_id": "screen-reader--1.1.1--c01",
+      "criterion": "1.1.1",
+      "case": "c01",
+      "mode": "screen-reader",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#marker",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TN",
+      "rationale": "装飾の印に空altを設定している。空文字を欠落と同一視しない。",
+      "observed": "<img id=\"marker\" src=\"assets/marker.svg\" alt=\"\">",
+      "evidence": [
+        "audit-runs/screen-reader--1.1.1--c01/p01/attempt-4051081db44a/run/evidence/3a9335d6ca53--explore-ab1e78b727bd--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / image-alt"
+    },
+    {
+      "job_id": "screen-reader--1.1.1--c02",
+      "criterion": "1.1.1",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#figure",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TN",
+      "rationale": "altは存在する。意味の誤りを属性の欠落として扱わない。",
+      "observed": "<img id=\"figure\" src=\"assets/chart.svg\" alt=\"売上は4月50万円から5月100万円へ倍増した。\">",
+      "evidence": [
+        "audit-runs/screen-reader--1.1.1--c02/p02/attempt-67077acba87e/run/evidence/e08acd2c4861--explore-4257ba97ea99--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / image-alt"
+    },
+    {
+      "job_id": "screen-reader--1.1.1--c02",
+      "criterion": "1.1.1",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#summary",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TN",
+      "rationale": "altは存在する。",
+      "observed": "<img id=\"summary\" src=\"assets/chart.svg\" alt=\"売上は4月100万円から5月50万円へ半減した。\">",
+      "evidence": [
+        "audit-runs/screen-reader--1.1.1--c02/p02/attempt-67077acba87e/run/evidence/e08acd2c4861--explore-4257ba97ea99--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / image-alt"
+    },
+    {
+      "job_id": "screen-reader--1.1.1--c02",
+      "criterion": "1.1.1",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#figure",
+      "checkpoint": "1.1.1-04",
+      "expected": "failed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "画像は100万円から50万円へ減っているが、altが逆方向の変化を説明している。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--1.1.1--c02",
+      "criterion": "1.1.1",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#summary",
+      "checkpoint": "1.1.1-04",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "画像の数値と増減を正しく説明している。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--1.1.1--c03",
+      "criterion": "1.1.1",
+      "case": "c03",
+      "mode": "screen-reader",
+      "page": "p03.html",
+      "state": "opened",
+      "target": "#figure",
+      "checkpoint": "1.1.1-04",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "開いた詳細に元の数値と同じ情報がある。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--1.1.1--c04",
+      "criterion": "1.1.1",
+      "case": "c04",
+      "mode": "screen-reader",
+      "page": "p04.html",
+      "state": "opened",
+      "target": "#figure",
+      "checkpoint": "1.1.1-04",
+      "expected": "failed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "詳細を開いても画像の数値を得られない。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--1.2.2--c01",
+      "criterion": "1.2.2",
+      "case": "c01",
+      "mode": "screen-reader",
+      "page": "p01.html",
+      "state": "playing-captions",
+      "target": "#media",
+      "checkpoint": "1.2.2-01",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "字幕を有効にし再生中の字幕を得られる。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--1.2.2--c02",
+      "criterion": "1.2.2",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "playing-captions",
+      "target": "#media",
+      "checkpoint": "1.2.2-01",
+      "expected": "failed",
+      "actual": "not_run",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "字幕のボタン表示だけ変わり、字幕トラックが有効にならない。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--2.1.1--c01",
+      "criterion": "2.1.1",
+      "case": "c01",
+      "mode": "screen-reader",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#control",
+      "checkpoint": "2.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TN",
+      "rationale": "Tabで対象へ移動し、実キーを送出できる。",
+      "observed": "実キーで対象へ到達し入力を送出した。機能の実行は別の観点。",
+      "evidence": [
+        "audit-runs/screen-reader--2.1.1--c01/p01/attempt-4415576bee7c/run/evidence/ad0b2610a9d4--explore-e3b7a7ef47f5--desktop/transition.json"
+      ],
+      "method": "program",
+      "source": "production key dispatch"
+    },
+    {
+      "job_id": "screen-reader--2.1.1--c01",
+      "criterion": "2.1.1",
+      "case": "c01",
+      "mode": "screen-reader",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#control",
+      "checkpoint": "2.1.1-02",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "キーボードで数量を変更できる。重複したポインター専用部品の存在だけで失敗にしない。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--2.1.1--c02",
+      "criterion": "2.1.1",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#control",
+      "checkpoint": "2.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TN",
+      "rationale": "Tabで対象へ移動し、実キーを送出できる。",
+      "observed": "実キーで対象へ到達し入力を送出した。機能の実行は別の観点。",
+      "evidence": [
+        "audit-runs/screen-reader--2.1.1--c02/p02/attempt-af4a83e0ffb4/run/evidence/4a3bf60e1472--explore-b8eec9c8cc3d--desktop/transition.json"
+      ],
+      "method": "program",
+      "source": "production key dispatch"
+    },
+    {
+      "job_id": "screen-reader--2.1.1--c02",
+      "criterion": "2.1.1",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#control",
+      "checkpoint": "2.1.1-02",
+      "expected": "failed",
+      "actual": "not_run",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "focus可能でキーを送出できても、Enter/Spaceで数量が変わらない。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--2.1.1--c03",
+      "criterion": "2.1.1",
+      "case": "c03",
+      "mode": "screen-reader",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#feature",
+      "checkpoint": "2.1.1-02",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "キーボードで数量を変更できる。重複したポインター専用部品の存在だけで失敗にしない。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--2.1.2--c01",
+      "criterion": "2.1.2",
+      "case": "c01",
+      "mode": "screen-reader",
+      "page": "p01.html",
+      "state": "opened",
+      "target": "#panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "閉じる又はEscapeで離脱できる正常なモーダル。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--2.1.2--c02",
+      "criterion": "2.1.2",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "opened",
+      "target": "#panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "actual": "not_run",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "Tab/Shift+Tab/Escapeで入力欄から離れられず、閉じる操作へも到達できない。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--2.4.2--c01",
+      "criterion": "2.4.2",
+      "case": "c01",
+      "mode": "screen-reader",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "failed",
+      "actual": "failed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TP",
+      "rationale": "ページタイトルが空。",
+      "observed": "Fix any of the following:\n  Document does not have a non-empty <title> element",
+      "evidence": [
+        "audit-runs/screen-reader--2.4.2--c01/p01/attempt-2c16a691c22f/run/evidence/b3384dbeb13a--explore-84ee1f6a9497--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / document-title"
+    },
+    {
+      "job_id": "screen-reader--2.4.2--c02",
+      "criterion": "2.4.2",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TN",
+      "rationale": "ページタイトルが存在する。",
+      "observed": "<html lang=\"ja\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>お問い合わせ</title><link rel=\"stylesheet\" href=\"assets/site.css\"></head><body><main><h1>お問い合わせ</h1><p>製品についてのお問い合わせ窓口です。</p></main>\n</body></html>",
+      "evidence": [
+        "audit-runs/screen-reader--2.4.2--c02/p02/attempt-a4692327c1fe/run/evidence/eacf6432e0fe--explore-7a1219949f19--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / document-title"
+    },
+    {
+      "job_id": "screen-reader--2.4.2--c02",
+      "criterion": "2.4.2",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-02",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "お問い合わせ窓口の目的とタイトルが合っている。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--2.4.2--c03",
+      "criterion": "2.4.2",
+      "case": "c03",
+      "mode": "screen-reader",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TN",
+      "rationale": "ページタイトルが存在する。",
+      "observed": "<html lang=\"ja\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>ログイン</title><link rel=\"stylesheet\" href=\"assets/site.css\"></head><body><main><h1>お問い合わせ</h1><p>製品についてのお問い合わせ窓口です。</p></main>\n</body></html>",
+      "evidence": [
+        "audit-runs/screen-reader--2.4.2--c03/p03/attempt-0213036b96fc/run/evidence/b4601ea8fa25--explore-b42169bfe2f6--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / document-title"
+    },
+    {
+      "job_id": "screen-reader--2.4.2--c03",
+      "criterion": "2.4.2",
+      "case": "c03",
+      "mode": "screen-reader",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-02",
+      "expected": "failed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "タイトルがログインを説明し、問い合わせページの主題・目的と合わない。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--3.2.3--c01",
+      "criterion": "3.2.3",
+      "case": "c01",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "comparison",
+      "target": "#menu",
+      "checkpoint": "3.2.3-01",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "2ページでメニューの相対順序が一致する。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--3.2.3--c02",
+      "criterion": "3.2.3",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p04.html",
+      "state": "comparison",
+      "target": "#menu",
+      "checkpoint": "3.2.3-01",
+      "expected": "failed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "2ページ目で手続きとヘルプの相対順序が逆転する。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "screen-reader--4.1.3--c01",
+      "criterion": "4.1.3",
+      "case": "c01",
+      "mode": "screen-reader",
+      "page": "p01.html",
+      "state": "after-activate",
+      "target": "#notice",
+      "checkpoint": "4.1.3-02",
+      "expected": "passed",
+      "actual": "cant_tell",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "フォーカス移動なしでstatusの更新を支援技術へ通知する。",
+      "observed": "実SRの対照発話=True、画面の記録完了=True、操作後のフォーカス=record。 操作中の通知発話=False。同じ環境の対照確認=False。",
+      "evidence": [
+        "attachments/screen-reader--4.1.3--c01/native-8db21a1ae9fa/speech/screen-reader.json"
+      ],
+      "method": "screen-reader",
+      "source": "screen-reader"
+    },
+    {
+      "job_id": "screen-reader--4.1.3--c02",
+      "criterion": "4.1.3",
+      "case": "c02",
+      "mode": "screen-reader",
+      "page": "p02.html",
+      "state": "after-activate",
+      "target": "#notice",
+      "checkpoint": "4.1.3-02",
+      "expected": "failed",
+      "actual": "cant_tell",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "見た目の更新は同じだが、通知するrole/live等がない。",
+      "observed": "実SRの対照発話=False、画面の記録完了=True、操作後のフォーカス=record。 操作中の通知発話=False。同じ環境の対照確認=False。",
+      "evidence": [
+        "attachments/screen-reader--4.1.3--c02/native-2a6a734aee3f/speech/screen-reader.json"
+      ],
+      "method": "screen-reader",
+      "source": "screen-reader"
+    }
+  ],
+  "unexpected_findings": [],
+  "criteria": [
+    {
+      "criterion": "1.1.1",
+      "title": "非テキストコンテンツ",
+      "level": "A",
+      "status": "prepared",
+      "expected_observations": 9,
+      "evaluated": 5,
+      "counts": {
+        "screen-reader": {
+          "correct": 5,
+          "deferred": 4
+        }
+      }
+    },
+    {
+      "criterion": "1.2.1",
+      "title": "音声のみ及び映像のみ (収録済)",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.2.2",
+      "title": "キャプション (収録済)",
+      "level": "A",
+      "status": "prepared",
+      "expected_observations": 2,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {
+          "not_evaluated": 2
+        }
+      }
+    },
+    {
+      "criterion": "1.2.3",
+      "title": "音声解説、又はメディアに対する代替 (収録済)",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.2.4",
+      "title": "キャプション (ライブ)",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.2.5",
+      "title": "音声解説 (収録済)",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.2.6",
+      "title": "手話 (収録済)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.2.7",
+      "title": "拡張音声解説 (収録済)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.2.8",
+      "title": "メディアに対する代替 (収録済)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.2.9",
+      "title": "音声のみ (ライブ)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.3.1",
+      "title": "情報及び関係性",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.3.2",
+      "title": "意味のあるシーケンス",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.3.3",
+      "title": "感覚的な特徴",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.3.4",
+      "title": "表示の向き",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.3.5",
+      "title": "入力目的の特定",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.3.6",
+      "title": "目的の特定",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.1",
+      "title": "色の使用",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.2",
+      "title": "音声の制御",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.3",
+      "title": "コントラスト (最低限)",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.4",
+      "title": "テキストのサイズ変更",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.5",
+      "title": "文字画像",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.6",
+      "title": "コントラスト (高度)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.7",
+      "title": "小さな背景音、又は背景音なし",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.8",
+      "title": "視覚的提示",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.9",
+      "title": "文字画像 (例外なし)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.10",
+      "title": "リフロー",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.11",
+      "title": "非テキストのコントラスト",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.12",
+      "title": "テキストの間隔",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "1.4.13",
+      "title": "ホバー又はフォーカスで表示されるコンテンツ",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.1.1",
+      "title": "キーボード",
+      "level": "A",
+      "status": "prepared",
+      "expected_observations": 5,
+      "evaluated": 2,
+      "counts": {
+        "screen-reader": {
+          "correct": 2,
+          "not_evaluated": 3
+        }
+      }
+    },
+    {
+      "criterion": "2.1.2",
+      "title": "キーボードトラップなし",
+      "level": "A",
+      "status": "prepared",
+      "expected_observations": 2,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {
+          "not_evaluated": 2
+        }
+      }
+    },
+    {
+      "criterion": "2.1.3",
+      "title": "キーボード (例外なし)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.1.4",
+      "title": "文字キーのショートカット",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.2.1",
+      "title": "タイミング調整可能",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.2.2",
+      "title": "一時停止、停止、非表示",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.2.3",
+      "title": "タイミング非依存",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.2.4",
+      "title": "割り込み",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.2.5",
+      "title": "再認証",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.2.6",
+      "title": "タイムアウト",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.3.1",
+      "title": "3 回の閃光、又は閾値以下",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.3.2",
+      "title": "3 回の閃光",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.3.3",
+      "title": "インタラクションによるアニメーション",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.1",
+      "title": "ブロックスキップ",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.2",
+      "title": "ページタイトル",
+      "level": "A",
+      "status": "prepared",
+      "expected_observations": 5,
+      "evaluated": 3,
+      "counts": {
+        "screen-reader": {
+          "correct": 3,
+          "deferred": 2
+        }
+      }
+    },
+    {
+      "criterion": "2.4.3",
+      "title": "フォーカス順序",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.4",
+      "title": "リンクの目的 (コンテキスト内)",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.5",
+      "title": "複数の手段",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.6",
+      "title": "見出し及びラベル",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.7",
+      "title": "フォーカスの可視化",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.8",
+      "title": "現在位置",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.9",
+      "title": "リンクの目的 (リンクのみ)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.10",
+      "title": "セクション見出し",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.11",
+      "title": "隠されないフォーカス (最低限)",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.12",
+      "title": "隠されないフォーカス (高度)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.4.13",
+      "title": "フォーカスの外観",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.5.1",
+      "title": "ポインタのジェスチャ",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.5.2",
+      "title": "ポインタのキャンセル",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.5.3",
+      "title": "ラベルを含む名前 (name)",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.5.4",
+      "title": "動きによる起動",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.5.5",
+      "title": "ターゲットのサイズ (高度)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.5.6",
+      "title": "入力メカニズムの共存",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.5.7",
+      "title": "ドラッグ動作",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "2.5.8",
+      "title": "ターゲットのサイズ (最低限)",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.1.1",
+      "title": "ページの言語",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.1.2",
+      "title": "一部分の言語",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.1.3",
+      "title": "一般的ではない用語",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.1.4",
+      "title": "略語",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.1.5",
+      "title": "読解レベル",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.1.6",
+      "title": "発音",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.2.1",
+      "title": "フォーカス時",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.2.2",
+      "title": "入力時",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.2.3",
+      "title": "一貫したナビゲーション",
+      "level": "AA",
+      "status": "prepared",
+      "expected_observations": 2,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {
+          "deferred": 2
+        }
+      }
+    },
+    {
+      "criterion": "3.2.4",
+      "title": "一貫した識別性",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.2.5",
+      "title": "要求による変化",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.2.6",
+      "title": "一貫したヘルプ",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.3.1",
+      "title": "エラーの特定",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.3.2",
+      "title": "ラベル又は説明",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.3.3",
+      "title": "エラー修正の提案",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.3.4",
+      "title": "誤り防止 (法的、金融、データ)",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.3.5",
+      "title": "ヘルプ",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.3.6",
+      "title": "誤り防止 (すべて)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.3.7",
+      "title": "冗長な入力項目",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.3.8",
+      "title": "アクセシブルな認証 (最低限)",
+      "level": "AA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "3.3.9",
+      "title": "アクセシブルな認証 (高度)",
+      "level": "AAA",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "4.1.2",
+      "title": "名前 (name)・役割 (role)・値 (value)",
+      "level": "A",
+      "status": "unprepared",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {}
+      }
+    },
+    {
+      "criterion": "4.1.3",
+      "title": "ステータスメッセージ",
+      "level": "AA",
+      "status": "prepared",
+      "expected_observations": 2,
+      "evaluated": 0,
+      "counts": {
+        "screen-reader": {
+          "not_evaluated": 2
+        }
+      }
+    }
+  ],
+  "notice": "作成者が定めた有限の確認観点の採点です。独立した専門家による正解確認は未実施です。未実施・モードによる省略・未整備の基準を成功に数えません。検出率は評価できた範囲と全問題の未検出数を併記します。"
+}

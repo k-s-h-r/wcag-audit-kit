@@ -1,0 +1,235 @@
+{
+  "schema_version": "1",
+  "criterion": "3.3.9",
+  "version": "3",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/3.3.9.md",
+    "../../../references/tests/3.3.9.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "3.3.9-01"
+      ],
+      "states": [
+        {
+          "id": "after-paste",
+          "instructions": [
+            "パスワードマネージャー相当の貼り付け操作が利用できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-paste",
+          "target": "#subject",
+          "checkpoint": "3.3.9-01",
+          "expected": "failed",
+          "rationale": "記憶を要求する認証で貼付けを禁止し支援や代替もない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "3.3.9-01"
+      ],
+      "states": [
+        {
+          "id": "after-paste",
+          "instructions": [
+            "パスワードマネージャー相当の貼り付け操作が利用できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-paste",
+          "target": "#subject",
+          "checkpoint": "3.3.9-01",
+          "expected": "passed",
+          "rationale": "貼付けとパスワードマネージャーを妨げない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "3.3.9.cognitive-alternative",
+      "pattern_name": "認知機能テストの代替経路",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "3.3.9-02"
+      ],
+      "states": [
+        {
+          "id": "authentication",
+          "instructions": [
+            "認知機能テストの代替経路。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "authentication",
+          "target": "#subject",
+          "checkpoint": "3.3.9-02",
+          "expected": "failed",
+          "rationale": "暗算を求める認証に代替や支援手段がない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#subject"
+          },
+          {
+            "action": "check",
+            "selector": "#state",
+            "text": "計算が必要です"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c04",
+      "pattern": "3.3.9.cognitive-alternative",
+      "pattern_name": "認知機能テストの代替経路",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "3.3.9-02"
+      ],
+      "states": [
+        {
+          "id": "authentication",
+          "instructions": [
+            "認知機能テストの代替経路。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "authentication",
+          "target": "#subject",
+          "checkpoint": "3.3.9-02",
+          "expected": "passed",
+          "rationale": "暗算を求める認証に計算不要の代替経路がある。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#alternative"
+          },
+          {
+            "action": "url",
+            "suffix": "/authenticated.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c05",
+      "pattern": "3.3.9.object-recognition-difference",
+      "pattern_name": "AAとAAAで異なる物体認識の例外",
+      "pattern_variant": "a",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "3.3.9-02"
+      ],
+      "states": [
+        {
+          "id": "authentication",
+          "instructions": [
+            "AAとAAAで異なる物体認識の例外。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "authentication",
+          "target": "#subject",
+          "checkpoint": "3.3.9-02",
+          "expected": "failed",
+          "rationale": "画像の物体を認識する課題だけがある。AAAでは物体認識の例外はなく、代替・支援もない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#subject"
+          },
+          {
+            "action": "check",
+            "selector": "#state",
+            "text": "模擬認証が完了しました"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": "1",
+  "criterion": "2.5.1",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/2.5.1.md",
+    "../../../references/tests/2.5.1.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "2.5.1-01"
+      ],
+      "states": [
+        {
+          "id": "after-activate",
+          "instructions": [
+            "二本指のピンチ以外に単一ポインターで拡大する方法を探す。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-activate",
+          "target": "#subject",
+          "checkpoint": "2.5.1-01",
+          "expected": "failed",
+          "rationale": "複数点ジェスチャー以外の代替操作がない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "2.5.1-01"
+      ],
+      "states": [
+        {
+          "id": "after-activate",
+          "instructions": [
+            "二本指のピンチ以外に単一ポインターで拡大する方法を探す。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-activate",
+          "target": "#subject",
+          "checkpoint": "2.5.1-01",
+          "expected": "passed",
+          "rationale": "単一ポインターの拡大ボタンがある。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    }
+  ]
+}

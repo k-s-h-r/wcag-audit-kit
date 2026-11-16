@@ -1,0 +1,93 @@
+{
+  "scope": "fixture sanity, not detector accuracy",
+  "observed": [
+    {
+      "criterion": "2.1.1",
+      "page": "p01.html",
+      "pointer_value": "1",
+      "keyboard_value": "1"
+    },
+    {
+      "criterion": "2.1.1",
+      "page": "p02.html",
+      "pointer_value": "1",
+      "keyboard_value": "0"
+    },
+    {
+      "criterion": "2.1.1",
+      "page": "p03.html",
+      "pointer_value": "1",
+      "keyboard_value": "1"
+    },
+    {
+      "criterion": "2.1.2",
+      "page": "p01.html",
+      "visible_after_escape": false
+    },
+    {
+      "criterion": "2.1.2",
+      "page": "p02.html",
+      "visible_after_escape": true
+    },
+    {
+      "criterion": "3.2.3",
+      "menus": [
+        [
+          "ホーム",
+          "手続き",
+          "ヘルプ"
+        ],
+        [
+          "ホーム",
+          "手続き",
+          "ヘルプ"
+        ],
+        [
+          "ホーム",
+          "手続き",
+          "ヘルプ"
+        ],
+        [
+          "ホーム",
+          "ヘルプ",
+          "手続き"
+        ]
+      ]
+    },
+    {
+      "criterion": "1.2.2",
+      "page": "p01.html",
+      "track": {
+        "mode": "showing",
+        "cues": [
+          "[Narrator] Press the blue button to save the document."
+        ],
+        "time": 1.196282
+      }
+    },
+    {
+      "criterion": "1.2.2",
+      "page": "p02.html",
+      "track": {
+        "mode": "hidden",
+        "cues": [
+          "[Narrator] Press the blue button to save the document."
+        ],
+        "time": 1.262365
+      }
+    },
+    {
+      "criterion": "4.1.3",
+      "page": "p01.html",
+      "role": "status",
+      "scope": "DOM sanity only; actual speech not inferred"
+    },
+    {
+      "criterion": "4.1.3",
+      "page": "p02.html",
+      "role": null,
+      "scope": "DOM sanity only; actual speech not inferred"
+    }
+  ],
+  "oracle_not_served": true
+}

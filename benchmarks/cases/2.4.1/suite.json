@@ -1,0 +1,83 @@
+{
+  "schema_version": "1",
+  "criterion": "2.4.1",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/2.4.1.md",
+    "../../../references/tests/2.4.1.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "2.4.1-01"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "最初のTabから反復ナビを飛ばして本文へ移動できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "2.4.1-01",
+          "expected": "failed",
+          "rationale": "反復リンク群を飛ばす手段や本文ランドマークがない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "2.4.1-01"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "最初のTabから反復ナビを飛ばして本文へ移動できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "2.4.1-01",
+          "expected": "passed",
+          "rationale": "スキップリンクから本文へ移動できる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    }
+  ]
+}
