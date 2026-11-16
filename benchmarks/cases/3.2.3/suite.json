@@ -1,0 +1,85 @@
+{
+  "schema_version": "1",
+  "criterion": "3.2.3",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html",
+    "../../../references/tests/3.2.3.md"
+  ],
+  "scope": "確認観点ごとの有限の対照例。基準全体の網羅・専門家による独立した正解確認を表さない。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html",
+        "p02.html"
+      ],
+      "checkpoints": [
+        "3.2.3-01"
+      ],
+      "states": [
+        {
+          "id": "comparison",
+          "instructions": [
+            "両方のページを確認し、繰り返す主なメニューの相対順序を比較する。"
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "comparison",
+          "target": "#menu",
+          "checkpoint": "3.2.3-01",
+          "expected": "passed",
+          "rationale": "2ページでメニューの相対順序が一致する。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "cross-page"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints"
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p03.html",
+        "p04.html"
+      ],
+      "checkpoints": [
+        "3.2.3-01"
+      ],
+      "states": [
+        {
+          "id": "comparison",
+          "instructions": [
+            "両方のページを確認し、繰り返す主なメニューの相対順序を比較する。"
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "comparison",
+          "target": "#menu",
+          "checkpoint": "3.2.3-01",
+          "expected": "failed",
+          "rationale": "2ページ目で手続きとヘルプの相対順序が逆転する。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "cross-page"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints"
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "schema_version": "1",
+  "criterion": "1.2.2",
+  "version": "2",
+  "review": "author-defined",
+  "sources": [
+    "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html",
+    "../../../references/tests/1.2.2.md",
+    "https://github.com/k-s-h-r/wcag-audit-kit/tree/adf459777fa43ea0898a95e43edf5dbdde0684b7/tests/fixtures/media-captions"
+  ],
+  "scope": "確認観点ごとの有限の対照例。基準全体の網羅・専門家による独立した正解確認を表さない。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "1.2.2-01"
+      ],
+      "states": [
+        {
+          "id": "playing-captions",
+          "instructions": [
+            "字幕を有効にして動画を実際に再生し、字幕の表示と時刻を確認する。"
+          ],
+          "actions": [
+            {
+              "type": "click",
+              "selector": "#captions"
+            },
+            {
+              "type": "click",
+              "selector": "#play"
+            }
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "playing-captions",
+          "target": "#media",
+          "checkpoint": "1.2.2-01",
+          "expected": "passed",
+          "rationale": "字幕を有効にし再生中の字幕を得られる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "target_aliases": {
+        "1.2.2-01": {
+          "#captions": "#media",
+          "#play": "#media"
+        }
+      }
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "1.2.2-01"
+      ],
+      "states": [
+        {
+          "id": "playing-captions",
+          "instructions": [
+            "字幕を有効にして動画を実際に再生し、字幕の表示と時刻を確認する。"
+          ],
+          "actions": [
+            {
+              "type": "click",
+              "selector": "#captions"
+            },
+            {
+              "type": "click",
+              "selector": "#play"
+            }
+          ]
+        }
+      ],
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "playing-captions",
+          "target": "#media",
+          "checkpoint": "1.2.2-01",
+          "expected": "failed",
+          "rationale": "字幕のボタン表示だけ変わり、字幕トラックが有効にならない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "target_aliases": {
+        "1.2.2-01": {
+          "#captions": "#media",
+          "#play": "#media"
+        }
+      }
+    },
+    {
+      "id": "c03",
+      "pattern": "1.2.2.caption-meaning-timing",
+      "pattern_name": "字幕の意味・同期・音情報",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.2.2-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "映像と音声を再生して字幕を表示し、発話・話者・意味のある音・表示時刻を比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.2-02",
+          "expected": "failed",
+          "rationale": "保存を削除、青を赤へ変えた字幕で音声の意味と合わない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "id": "c04",
+      "pattern": "1.2.2.caption-meaning-timing",
+      "pattern_name": "字幕の意味・同期・音情報",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.2.2-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "映像と音声を再生して字幕を表示し、発話・話者・意味のある音・表示時刻を比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.2-02",
+          "expected": "passed",
+          "rationale": "既知の発話・話者・確認音を対応する時刻で伝える。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "id": "c05",
+      "pattern": "1.2.2.caption-meaning-timing",
+      "pattern_name": "字幕の意味・同期・音情報",
+      "pattern_variant": "c",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "1.2.2-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "映像と音声を再生して字幕を表示し、発話・話者・意味のある音・表示時刻を比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.2-02",
+          "expected": "failed",
+          "rationale": "字幕の内容はあっても、発話より大幅に遅れて表示される。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    }
+  ],
+  "material_sources": [
+    {
+      "kind": "owned-known-source-recording",
+      "provenance_path": "tests/fixtures/media-captions/source-provenance.json",
+      "provenance_sha256": "a066b3caaad725507bed85680644e04dd40b5279b33f89bc9865aab5648558e7",
+      "utterance": "Press the blue button to save the document.",
+      "meaningful_sound": "confirmation tone",
+      "source_audio_onsets_seconds": [
+        0.5,
+        5.5
+      ]
+    }
+  ]
+}

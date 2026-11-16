@@ -1,0 +1,573 @@
+{
+  "schema_version": "1",
+  "criterion": "4.1.2",
+  "version": "3",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/4.1.2.md",
+    "../../../references/tests/4.1.2.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "4.1.2-01"
+      ],
+      "states": [
+        {
+          "id": "after-open",
+          "instructions": [
+            "展開ボタンの名前・役割と開閉後の状態を取得する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-open",
+          "target": "#subject",
+          "checkpoint": "4.1.2-01",
+          "expected": "failed",
+          "rationale": "独自部品にボタンの役割や展開状態の通知がない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "4.1.2-01"
+      ],
+      "states": [
+        {
+          "id": "after-open",
+          "instructions": [
+            "展開ボタンの名前・役割と開閉後の状態を取得する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-open",
+          "target": "#subject",
+          "checkpoint": "4.1.2-01",
+          "expected": "passed",
+          "rationale": "ボタンの名前・役割・展開状態とその変更がある。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "4.1.2.custom-state-change",
+      "pattern_name": "独自部品の状態変更",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "4.1.2-02"
+      ],
+      "states": [
+        {
+          "id": "after-activate",
+          "instructions": [
+            "独自部品の状態変更。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "after-activate",
+          "target": "#subject",
+          "checkpoint": "4.1.2-02",
+          "expected": "failed",
+          "rationale": "表示上の有効状態とaria-checked=falseのままで支援技術へ変更が伝わらない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#subject"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "attribute": "aria-checked",
+            "value": "false"
+          },
+          {
+            "action": "check",
+            "selector": "#state",
+            "text": "有効"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c04",
+      "pattern": "4.1.2.custom-state-change",
+      "pattern_name": "独自部品の状態変更",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "4.1.2-02"
+      ],
+      "states": [
+        {
+          "id": "after-activate",
+          "instructions": [
+            "独自部品の状態変更。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "after-activate",
+          "target": "#subject",
+          "checkpoint": "4.1.2-02",
+          "expected": "passed",
+          "rationale": "表示上の有効状態とaria-checkedが同じ値へ変わる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#subject"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "attribute": "aria-checked",
+            "value": "true"
+          },
+          {
+            "action": "check",
+            "selector": "#state",
+            "text": "有効"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c05",
+      "pattern": "4.1.2.shadow-disclosure",
+      "pattern_name": "Shadow DOM内の操作と状態",
+      "pattern_variant": "a",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "4.1.2-02"
+      ],
+      "states": [
+        {
+          "id": "shadow-open",
+          "instructions": [
+            "初期表示からTabでShadow DOM内の詳細へ進み、Enterで開く。内部のフォーカスと開閉状態を記録する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "shadow-open",
+          "target": "#inner-action",
+          "checkpoint": "4.1.2-02",
+          "expected": "failed",
+          "rationale": "Shadow DOM内でクリックだけで開く、又は展開状態が更新されない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#inner-action"
+          },
+          {
+            "action": "check",
+            "selector": "#inner-panel",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#inner-action",
+            "attribute": "aria-expanded",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c06",
+      "pattern": "4.1.2.shadow-disclosure",
+      "pattern_name": "Shadow DOM内の操作と状態",
+      "pattern_variant": "b",
+      "pages": [
+        "p06.html"
+      ],
+      "checkpoints": [
+        "4.1.2-02"
+      ],
+      "states": [
+        {
+          "id": "shadow-open",
+          "instructions": [
+            "初期表示からTabでShadow DOM内の詳細へ進み、Enterで開く。内部のフォーカスと開閉状態を記録する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p06.html",
+          "state": "shadow-open",
+          "target": "#inner-action",
+          "checkpoint": "4.1.2-02",
+          "expected": "passed",
+          "rationale": "Shadow DOM内でキーによる開閉と展開状態の変更を提供する。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#inner-action"
+          },
+          {
+            "action": "check",
+            "selector": "#inner-panel",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#inner-action",
+            "attribute": "aria-expanded",
+            "value": "true"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c07",
+      "pattern": "4.1.2.combobox-popup",
+      "pattern_name": "コンボボックスのポップアップ",
+      "pattern_variant": "a",
+      "pages": [
+        "p07.html"
+      ],
+      "checkpoints": [
+        "4.1.2-02"
+      ],
+      "states": [
+        {
+          "id": "combo-open",
+          "instructions": [
+            "都市入力へキーで移動し、ArrowDownで候補を開く。選択・Escapeによる取消・Tabによる離脱と支援技術へ伝わる状態を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p07.html",
+          "state": "combo-open",
+          "target": "#subject",
+          "checkpoint": "4.1.2-02",
+          "expected": "failed",
+          "rationale": "ポップアップでキーを閉じ込める、又は展開・候補の状態が支援技術に伝わらない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "ArrowDown"
+          },
+          {
+            "action": "check",
+            "selector": "#options",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "attribute": "aria-expanded",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c08",
+      "pattern": "4.1.2.combobox-popup",
+      "pattern_name": "コンボボックスのポップアップ",
+      "pattern_variant": "b",
+      "pages": [
+        "p08.html"
+      ],
+      "checkpoints": [
+        "4.1.2-02"
+      ],
+      "states": [
+        {
+          "id": "combo-open",
+          "instructions": [
+            "都市入力へキーで移動し、ArrowDownで候補を開く。選択・Escapeによる取消・Tabによる離脱と支援技術へ伝わる状態を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p08.html",
+          "state": "combo-open",
+          "target": "#subject",
+          "checkpoint": "4.1.2-02",
+          "expected": "passed",
+          "rationale": "ポップアップで展開・候補を識別でき、EscapeとTabで離脱できる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "ArrowDown"
+          },
+          {
+            "action": "check",
+            "selector": "#options",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "attribute": "aria-expanded",
+            "value": "true"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c09",
+      "pattern": "4.1.2.tab-panels",
+      "pattern_name": "タブのフォーカス・選択・パネル",
+      "pattern_variant": "a",
+      "pages": [
+        "p09.html"
+      ],
+      "checkpoints": [
+        "4.1.2-02"
+      ],
+      "states": [
+        {
+          "id": "second-tab",
+          "instructions": [
+            "概要タブからArrowRightで料金タブへ移動してEnterを押し、フォーカス・パネル・選択状態を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p09.html",
+          "state": "second-tab",
+          "target": "#tab-b",
+          "checkpoint": "4.1.2-02",
+          "expected": "failed",
+          "rationale": "次のタブへ移動した後にキーでパネルを開けない、又は選択状態が更新されない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "ArrowRight"
+          },
+          {
+            "action": "check",
+            "selector": "#tab-b",
+            "focused": true
+          },
+          {
+            "action": "key",
+            "value": "Enter"
+          },
+          {
+            "action": "check",
+            "selector": "#panel-b",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#tab-b",
+            "attribute": "aria-selected",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c10",
+      "pattern": "4.1.2.tab-panels",
+      "pattern_name": "タブのフォーカス・選択・パネル",
+      "pattern_variant": "b",
+      "pages": [
+        "p10.html"
+      ],
+      "checkpoints": [
+        "4.1.2-02"
+      ],
+      "states": [
+        {
+          "id": "second-tab",
+          "instructions": [
+            "概要タブからArrowRightで料金タブへ移動してEnterを押し、フォーカス・パネル・選択状態を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p10.html",
+          "state": "second-tab",
+          "target": "#tab-b",
+          "checkpoint": "4.1.2-02",
+          "expected": "passed",
+          "rationale": "次のタブへ移動した後に料金パネルと選択状態を利用できる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "key",
+            "value": "ArrowRight"
+          },
+          {
+            "action": "check",
+            "selector": "#tab-b",
+            "focused": true
+          },
+          {
+            "action": "key",
+            "value": "Enter"
+          },
+          {
+            "action": "check",
+            "selector": "#panel-b",
+            "visible": true
+          },
+          {
+            "action": "check",
+            "selector": "#tab-b",
+            "attribute": "aria-selected",
+            "value": "true"
+          }
+        ]
+      }
+    }
+  ]
+}

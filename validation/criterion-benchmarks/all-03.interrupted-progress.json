@@ -1,0 +1,40 @@
+{
+  "jobs": {
+    "machine--2.4.2--c01": {
+      "p01.html": {
+        "status": "completed",
+        "exit_code": 0,
+        "directory": "audit-runs/machine--2.4.2--c01/p01/attempt-4f7e905c023c/run"
+      }
+    },
+    "machine--2.4.2--c02": {
+      "p02.html": {
+        "status": "completed",
+        "exit_code": 0,
+        "directory": "audit-runs/machine--2.4.2--c02/p02/attempt-5ee051e9637a/run"
+      }
+    },
+    "machine--2.4.2--c03": {
+      "p03.html": {
+        "status": "completed",
+        "exit_code": 0,
+        "directory": "audit-runs/machine--2.4.2--c03/p03/attempt-ee2c7ba7cbf0/run"
+      }
+    },
+    "ai--2.4.2--c01": {
+      "p01.html": {
+        "status": "completed",
+        "exit_code": 0,
+        "directory": "audit-runs/ai--2.4.2--c01/p01/attempt-3a76ad063e75/run"
+      }
+    },
+    "ai--2.4.2--c02": {
+      "p02.html": {
+        "status": "interrupted",
+        "exit_code": null,
+        "directory": "audit-runs/ai--2.4.2--c02/p02/attempt-9d7b916008af/run"
+      }
+    }
+  },
+  "collection": "interrupted"
+}

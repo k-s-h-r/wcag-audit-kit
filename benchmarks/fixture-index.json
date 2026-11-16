@@ -1,0 +1,6938 @@
+{
+  "schema_version": "1",
+  "scope": "authored test inputs; not detector success or exhaustive WCAG patterns",
+  "corpus_digest": "6f132795533a8d6886cc3551873f02063ef926c4bbdb799d46bc67fd5e6b26b9",
+  "summary": {
+    "criteria": 86,
+    "cases": 304,
+    "page_entries": 312,
+    "verdict_rows": 323,
+    "acquisition_rows": 36,
+    "verdict_checkpoints": 114,
+    "acquisition_checkpoints": 17,
+    "registered_checkpoints": 131,
+    "pattern_groups": 60
+  },
+  "missing_checkpoints": [],
+  "required_families": [
+    "background-level",
+    "background-svg-canvas",
+    "caption-meaning-timing",
+    "cognitive-alternative",
+    "colour-error-state",
+    "combobox-popup",
+    "description-meaning",
+    "description-selection",
+    "disabled-then-enabled",
+    "extended-description",
+    "focus-route-inventory",
+    "iframe-trap",
+    "late-fixed-banner",
+    "late-image",
+    "live-content",
+    "long-retention",
+    "nested-dialog",
+    "object-recognition-difference",
+    "offcanvas-hidden-focus",
+    "physical-motion",
+    "physical-orientation",
+    "radio-group",
+    "reader-alternative",
+    "reader-structure",
+    "shadow-disclosure",
+    "sign-meaning",
+    "tab-panels",
+    "target-geometry",
+    "time-extension",
+    "transcript-meaning"
+  ],
+  "missing_families": [],
+  "checkpoints": [
+    {
+      "checkpoint": "1.1.1-01",
+      "criterion": "1.1.1",
+      "check": "画像や操作部品に設定された代替文・読み上げ用の名前を確認する。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c09",
+          "pages": [
+            "p09.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c10",
+          "pages": [
+            "p10.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.1.1-02",
+      "criterion": "1.1.1",
+      "check": "背景画像・SVG・図表なども検査対象に含まれているか。",
+      "cases": [
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c11",
+          "pages": [
+            "p11.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.1.1-03",
+      "criterion": "1.1.1",
+      "check": "必要な代替説明を、実際のスクリーンリーダーで利用できるか。",
+      "cases": [
+        {
+          "case": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.1.1-04",
+      "criterion": "1.1.1",
+      "check": "代替文や別の説明が、画像の目的・情報を伝えているか。",
+      "cases": [
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c11",
+          "pages": [
+            "p11.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.1-01",
+      "criterion": "1.2.1",
+      "check": "収録済みの音声のみ・映像のみのコンテンツと、代替の提供経路を確認する。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.1-02",
+      "criterion": "1.2.1",
+      "check": "代替が元の情報・順序・操作結果を伝えるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.2-01",
+      "criterion": "1.2.2",
+      "check": "字幕を選んで表示でき、再生時刻と対応付けられるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.2-02",
+      "criterion": "1.2.2",
+      "check": "発話・話者・意味のある音が、同期した字幕で伝わるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.3-01",
+      "criterion": "1.2.3",
+      "check": "音声解説又は文章による代替へ到達し、利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.3-02",
+      "criterion": "1.2.3",
+      "check": "代替で必要な映像・音声情報を得られるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.4-01",
+      "criterion": "1.2.4",
+      "check": "実際のライブ配信で字幕を表示できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.4-02",
+      "criterion": "1.2.4",
+      "check": "ライブの音声情報が字幕で伝わるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.5-01",
+      "criterion": "1.2.5",
+      "check": "音声解説を選び、全区間で再生できるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.5-02",
+      "criterion": "1.2.5",
+      "check": "元音声にない重要な映像情報が、音声解説で伝わるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.6-01",
+      "criterion": "1.2.6",
+      "check": "手話映像が提供され、利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.6-02",
+      "criterion": "1.2.6",
+      "check": "手話が元の音声情報を伝えているか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.7-01",
+      "criterion": "1.2.7",
+      "check": "必要な箇所で映像を止め、拡張した音声解説を再生できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.7-02",
+      "criterion": "1.2.7",
+      "check": "拡張した解説で必要な映像情報を得られるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.8-01",
+      "criterion": "1.2.8",
+      "check": "文章によるメディアの代替に到達し、利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.8-02",
+      "criterion": "1.2.8",
+      "check": "文章代替が全情報・順序・操作結果を伝えるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.9-01",
+      "criterion": "1.2.9",
+      "check": "ライブ音声の代替が、実際の配信中に利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.2.9-02",
+      "criterion": "1.2.9",
+      "check": "代替がライブ音声の情報を伝えるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.1-01",
+      "criterion": "1.3.1",
+      "check": "見出し・表・入力欄などの構造や関連付けが実装されているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.1-02",
+      "criterion": "1.3.1",
+      "check": "画面で分かる構造・関係が、プログラム又は文章でも分かるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.1-03",
+      "criterion": "1.3.1",
+      "check": "必要な構造・関係を、実際のスクリーンリーダーで利用できるか。",
+      "cases": [
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.2-01",
+      "criterion": "1.3.2",
+      "check": "ブラウザーが支援技術へ伝える読み順を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.2-02",
+      "criterion": "1.3.2",
+      "check": "意味が保たれる順序で読み進められるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.3-01",
+      "criterion": "1.3.3",
+      "check": "指示が形・色・位置・方向・音だけに依存していないか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.4-01",
+      "criterion": "1.3.4",
+      "check": "縦向き・横向きの両方で表示・操作できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.4-02",
+      "criterion": "1.3.4",
+      "check": "実端末のセンサーやOSの向き固定が関わる制限も確認する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.5-01",
+      "criterion": "1.3.5",
+      "check": "入力目的を表す属性が正しく記述されているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.5-02",
+      "criterion": "1.3.5",
+      "check": "指定した入力目的が、実際に集める利用者情報と合うか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.3.6-01",
+      "criterion": "1.3.6",
+      "check": "部品・アイコン・領域の目的をプログラムで識別できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.1-01",
+      "criterion": "1.4.1",
+      "check": "色による情報の候補と各状態の表示を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.1-02",
+      "criterion": "1.4.1",
+      "check": "必須・エラー・グラフ等の情報が、色以外でも伝わるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.2-01",
+      "criterion": "1.4.2",
+      "check": "3秒を超える自動再生音声に、必要な制御があるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.3-01",
+      "criterion": "1.4.3",
+      "check": "文字コントラストについて、axeが判定できる対象を検査する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.3-02",
+      "criterion": "1.4.3",
+      "check": "文字と実際の背景のコントラストが、適用される比を満たすか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.4-01",
+      "criterion": "1.4.4",
+      "check": "200%まで実際に文字を拡大できるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.4-02",
+      "criterion": "1.4.4",
+      "check": "拡大後も内容・機能を失わず利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.5-01",
+      "criterion": "1.4.5",
+      "check": "文字を含む画像の候補を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.5-02",
+      "criterion": "1.4.5",
+      "check": "文字画像への依存がなく、例外を使う場合は条件を満たすか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.6-01",
+      "criterion": "1.4.6",
+      "check": "AAAの文字コントラスト比を満たすか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.7-01",
+      "criterion": "1.4.7",
+      "check": "背景音がない、又は背景音を止める仕組みがあるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.7-02",
+      "criterion": "1.4.7",
+      "check": "20dB差の経路を使う場合、主音声と背景音の差を満たすか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.8-01",
+      "criterion": "1.4.8",
+      "check": "利用者が色・行幅・揃え・間隔を必要な条件に調整できるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.8-02",
+      "criterion": "1.4.8",
+      "check": "200%拡大後に、1行を読むための横スクロールが不要か。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.9-01",
+      "criterion": "1.4.9",
+      "check": "文字画像が、AAAで許される装飾・本質的な表示等に限られるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.10-01",
+      "criterion": "1.4.10",
+      "check": "指定した表示幅で画面とスクロールの状態を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.10-02",
+      "criterion": "1.4.10",
+      "check": "必要な狭い表示領域でも内容・機能を失わず利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.11-01",
+      "criterion": "1.4.11",
+      "check": "部品の識別・状態・図形に必要な情報が、隣接色と3:1以上か。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.12-01",
+      "criterion": "1.4.12",
+      "check": "文字間隔等を基準の値に変更しても、内容・機能を失わないか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.13-01",
+      "criterion": "1.4.13",
+      "check": "ポインターを重ねた後・フォーカス後に出る内容を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "1.4.13-02",
+      "criterion": "1.4.13",
+      "check": "表示された追加内容を消せる・上へ移動できる・必要な間表示できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.1.1-01",
+      "criterion": "2.1.1",
+      "check": "抽出した操作候補へ、キーで到達・操作できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.1.1-02",
+      "criterion": "2.1.1",
+      "check": "画面にある各機能を、キーボードで開始から完了まで利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c09",
+          "pages": [
+            "p09.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.1.2-01",
+      "criterion": "2.1.2",
+      "check": "基本のキー操作でフォーカスがどこへ移るか。",
+      "cases": [
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.1.2-02",
+      "criterion": "2.1.2",
+      "check": "開いたダイアログや入れ子の部品から、キーボードで離脱できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c09",
+          "pages": [
+            "p09.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c10",
+          "pages": [
+            "p10.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c11",
+          "pages": [
+            "p11.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c12",
+          "pages": [
+            "p12.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.1.3-01",
+      "criterion": "2.1.3",
+      "check": "軌跡依存も含め、すべての機能をキーボードで利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.1.4-01",
+      "criterion": "2.1.4",
+      "check": "文字だけのショートカットを無効化・再割当できるか、対象内だけで動くか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.2.1-01",
+      "criterion": "2.2.1",
+      "check": "時間制限を無効化又は調整する方法で、活動を続けられるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.2.1-02",
+      "criterion": "2.2.1",
+      "check": "延長する方法を採用した場合、警告と繰り返し延長の条件を満たすか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.2.2-01",
+      "criterion": "2.2.2",
+      "check": "動きや自動更新を、一時停止・停止・非表示・頻度調整できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.2.3-01",
+      "criterion": "2.2.3",
+      "check": "許される例外以外で、時間内の応答を活動の条件にしていないか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.2.4-01",
+      "criterion": "2.2.4",
+      "check": "緊急以外の割り込みを、延期又は抑制できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.2.5-01",
+      "criterion": "2.2.5",
+      "check": "再認証後もデータ・変更を失わず、活動を継続・完了できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.2.6-01",
+      "criterion": "2.2.6",
+      "check": "データ損失までの無操作時間が、利用者へ伝わるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.2.6-02",
+      "criterion": "2.2.6",
+      "check": "告知の代わりに長期保存の条件を使う場合、20時間超の保持を確認できるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.3.1-01",
+      "criterion": "2.3.1",
+      "check": "閃光の発生区間を抜けなく分析できる資料を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.3.1-02",
+      "criterion": "2.3.1",
+      "check": "閃光の回数又は一般・赤色閃光の閾値を満たすか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.3.2-01",
+      "criterion": "2.3.2",
+      "check": "1秒間の閃光が3回を超えないか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.3.3-01",
+      "criterion": "2.3.3",
+      "check": "操作による動きを無効にでき、情報・機能を保てるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.1-01",
+      "criterion": "2.4.1",
+      "check": "繰り返すブロックを飛ばす手段が利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.2-01",
+      "criterion": "2.4.2",
+      "check": "ページタイトルが設定されているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.2-02",
+      "criterion": "2.4.2",
+      "check": "タイトルがこのページの主題・目的を説明しているか。",
+      "cases": [
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.3-01",
+      "criterion": "2.4.3",
+      "check": "標準探索でのTab順と、操作後のフォーカス位置を取得する。",
+      "cases": [
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.3-02",
+      "criterion": "2.4.3",
+      "check": "各状態で意味と操作を保つ順序になっているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.4-01",
+      "criterion": "2.4.4",
+      "check": "リンクの文言と許される文脈から、目的を特定できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.5-01",
+      "criterion": "2.4.5",
+      "check": "ページを見つける複数の手段があるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "c01/start.html",
+            "c01/p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "c02/start.html",
+            "c02/p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.6-01",
+      "criterion": "2.4.6",
+      "check": "見出し・ラベルが、その部分や操作の主題・目的を説明しているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.7-01",
+      "criterion": "2.4.7",
+      "check": "標準のキー移動後に、画面がどう表示されるか取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.7-02",
+      "criterion": "2.4.7",
+      "check": "すべての操作部品・サブ部品で、フォーカス位置が見えるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.8-01",
+      "criterion": "2.4.8",
+      "check": "サイト内の現在位置を示す情報があるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.9-01",
+      "criterion": "2.4.9",
+      "check": "リンク単独で目的を識別する仕組みがあるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.10-01",
+      "criterion": "2.4.10",
+      "check": "内容がセクション見出しで整理されているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.11-01",
+      "criterion": "2.4.11",
+      "check": "作者が配置した内容により、フォーカス部品全体が隠れないか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.12-01",
+      "criterion": "2.4.12",
+      "check": "作者が配置した内容により、フォーカス部品の一部も隠れないか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.4.13-01",
+      "criterion": "2.4.13",
+      "check": "フォーカス表示が、前後のコントラストと必要な面積を満たすか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.1-01",
+      "criterion": "2.5.1",
+      "check": "複数点・軌跡依存の操作を、単純な単一ポインター操作でも行えるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.2-01",
+      "criterion": "2.5.2",
+      "check": "誤って押したときに取消・元に戻す等の条件を満たすか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.3-01",
+      "criterion": "2.5.3",
+      "check": "部品の見えるラベルと、読み上げ用の名前を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.3-02",
+      "criterion": "2.5.3",
+      "check": "見えるラベルの文字が、読み上げ用の名前に含まれるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.4-01",
+      "criterion": "2.5.4",
+      "check": "動きで起動する機能をUIでも使え、必要な動き応答を無効化できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.4-02",
+      "criterion": "2.5.4",
+      "check": "実際の動き・センサー・カメラの条件でも確認できるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.5-01",
+      "criterion": "2.5.5",
+      "check": "実際に押せる範囲が44×44 CSS px以上か、AAAの例外を満たすか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.6-01",
+      "criterion": "2.5.6",
+      "check": "利用可能な入力方式を切り替えて、機能を利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.7-01",
+      "criterion": "2.5.7",
+      "check": "ドラッグせず、単一ポインターで同じ機能を利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.8-01",
+      "criterion": "2.5.8",
+      "check": "操作対象の大きさと位置を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "2.5.8-02",
+      "criterion": "2.5.8",
+      "check": "24×24 CSS px以上か、小さい場合に間隔等の例外を満たすか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.1.1-01",
+      "criterion": "3.1.1",
+      "check": "ページの言語が、正しい形式で指定されているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.1.1-02",
+      "criterion": "3.1.1",
+      "check": "指定した言語が、ページの主たる言語と一致するか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.1.2-01",
+      "criterion": "3.1.2",
+      "check": "部分ごとに指定された言語を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.1.2-02",
+      "criterion": "3.1.2",
+      "check": "異なる言語の箇所を識別でき、実際の言語と指定が合うか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.1.3-01",
+      "criterion": "3.1.3",
+      "check": "一般的でない用語・慣用句の意味を知る仕組みがあるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.1.4-01",
+      "criterion": "3.1.4",
+      "check": "略語の意味を知る仕組みがあるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.1.5-01",
+      "criterion": "3.1.5",
+      "check": "必要な補足・易しい版へ到達できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.1.5-02",
+      "criterion": "3.1.5",
+      "check": "前期中等教育を超える読解力が必要な場合、補足等が十分か。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.1.6-01",
+      "criterion": "3.1.6",
+      "check": "発音が分からないと意味が曖昧になる語に、発音を知る仕組みがあるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.2.1-01",
+      "criterion": "3.2.1",
+      "check": "フォーカス時の画面・URL等の変化を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.2.1-02",
+      "criterion": "3.2.1",
+      "check": "フォーカスを受けるだけで、利用者の文脈が変わっていないか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.2.2-01",
+      "criterion": "3.2.2",
+      "check": "入力値の変更で文脈が変わる場合、事前に説明されているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.2.3-01",
+      "criterion": "3.2.3",
+      "check": "複数ページで繰り返すナビゲーションの相対順序が一貫しているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html",
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p03.html",
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.2.4-01",
+      "criterion": "3.2.4",
+      "check": "複数ページで同じ機能を一貫して識別できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "c01/start.html",
+            "c01/p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "c02/start.html",
+            "c02/p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.2.5-01",
+      "criterion": "3.2.5",
+      "check": "文脈の変化が利用者の要求で起こるか、無効化できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.2.6-01",
+      "criterion": "3.2.6",
+      "check": "繰り返し提供するヘルプ手段の相対順序が一貫しているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "c01/start.html",
+            "c01/p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "c02/start.html",
+            "c02/p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.1-01",
+      "criterion": "3.3.1",
+      "check": "入力エラーの項目を特定し、内容を文章で説明しているか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.2-01",
+      "criterion": "3.3.2",
+      "check": "入力欄のラベル・読み上げ用の名前・画面を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.2-02",
+      "criterion": "3.3.2",
+      "check": "利用者に必要なラベル・入力説明が表示されるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.3-01",
+      "criterion": "3.3.3",
+      "check": "修正方法が分かるエラーに、適切な修正案があるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.4-01",
+      "criterion": "3.3.4",
+      "check": "法的・金融・データ等の対象操作に、誤りを防ぐ方法があるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.5-01",
+      "criterion": "3.3.5",
+      "check": "入力の文脈に応じたヘルプを利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.6-01",
+      "criterion": "3.3.6",
+      "check": "AAAの対象となるすべての送信に、誤りを防ぐ方法があるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.7-01",
+      "criterion": "3.3.7",
+      "check": "同じ手続きの中で、既に入力した情報を再利用できるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.8-01",
+      "criterion": "3.3.8",
+      "check": "認証で貼り付け・自動入力等の支援を実際に使えるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.8-02",
+      "criterion": "3.3.8",
+      "check": "認知機能テストがある場合、AAで許される代替・支援・例外があるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.9-01",
+      "criterion": "3.3.9",
+      "check": "AAAの認証でも貼り付け・自動入力・代替認証を使えるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "3.3.9-02",
+      "criterion": "3.3.9",
+      "check": "認知機能テストがある場合、AAAの代替・支援の条件を満たすか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "4.1.2-01",
+      "criterion": "4.1.2",
+      "check": "部品の名前・役割・状態と、操作後の変化を取得する。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "4.1.2-02",
+      "criterion": "4.1.2",
+      "check": "すべての独自部品の名前・役割・設定可能な状態・変更が伝わるか。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c09",
+          "pages": [
+            "p09.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c10",
+          "pages": [
+            "p10.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "4.1.3-01",
+      "criterion": "4.1.3",
+      "check": "更新後に支援技術へ渡される情報を取得する。",
+      "cases": [
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "acquisition"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "4.1.3-02",
+      "criterion": "4.1.3",
+      "check": "対象のステータスメッセージが、フォーカスを動かさず支援技術へ伝わるか。",
+      "cases": [
+        {
+          "case": "c01",
+          "pages": [
+            "p01.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c02",
+          "pages": [
+            "p02.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        }
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "id": "1.1.1.background-svg-canvas",
+      "criterion": "1.1.1",
+      "name": "背景画像・SVG・canvasの代替",
+      "cases": [
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.1.1-04",
+              "expected": "failed"
+            },
+            {
+              "checkpoint": "1.1.1-04",
+              "expected": "failed"
+            },
+            {
+              "checkpoint": "1.1.1-04",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "1.1.1-02"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.1.1-04",
+              "expected": "passed"
+            },
+            {
+              "checkpoint": "1.1.1-04",
+              "expected": "passed"
+            },
+            {
+              "checkpoint": "1.1.1-04",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "1.1.1-02"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c11",
+          "pages": [
+            "p11.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.1.1-04",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "1.1.1-02"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.1.1.reader-alternative",
+      "criterion": "1.1.1",
+      "name": "代替説明が実SRに届くか",
+      "cases": [
+        {
+          "id": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.1.1-03",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "real-screen-reader"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.1.1-03",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "real-screen-reader"
+          ],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.1.1.late-image",
+      "criterion": "1.1.1",
+      "name": "操作後に追加される画像",
+      "cases": [
+        {
+          "id": "c09",
+          "pages": [
+            "p09.html"
+          ],
+          "states": [
+            "after-load"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.1.1-01",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c10",
+          "pages": [
+            "p10.html"
+          ],
+          "states": [
+            "after-load"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.1.1-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.2.1.transcript-meaning",
+      "criterion": "1.2.1",
+      "name": "メディア代替の意味と順序",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.1-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.1-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.2.2.caption-meaning-timing",
+      "criterion": "1.2.2",
+      "name": "字幕の意味・同期・音情報",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.2.3.transcript-meaning",
+      "criterion": "1.2.3",
+      "name": "メディア代替の意味と順序",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.3-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.3-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.2.4.live-content",
+      "criterion": "1.2.4",
+      "name": "ライブの音情報と文字代替",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "during-stream"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.4-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "during-stream"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.4-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.2.5.description-selection",
+      "criterion": "1.2.5",
+      "name": "音声解説の選択が実メディアを変えるか",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-select"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.5-01",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-select"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.5-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.2.5.description-meaning",
+      "criterion": "1.2.5",
+      "name": "音声解説が重要な映像情報と合うか",
+      "cases": [
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.5-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.5-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.2.6.sign-meaning",
+      "criterion": "1.2.6",
+      "name": "実際の手話素材と発話の意味",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.6-02",
+              "expected": "failed"
+            },
+            {
+              "checkpoint": "1.2.6-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "qualified-sign-language-comparison"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.6-02",
+              "expected": "passed"
+            },
+            {
+              "checkpoint": "1.2.6-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "qualified-sign-language-comparison"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.2.7.extended-description",
+      "criterion": "1.2.7",
+      "name": "拡張解説の内容と映像の停止・再開",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-extension"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.7-02",
+              "expected": "failed"
+            },
+            {
+              "checkpoint": "1.2.7-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-extension"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.7-02",
+              "expected": "passed"
+            },
+            {
+              "checkpoint": "1.2.7-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.2.8.transcript-meaning",
+      "criterion": "1.2.8",
+      "name": "メディア代替の意味と順序",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.8-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.8-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.2.9.live-content",
+      "criterion": "1.2.9",
+      "name": "ライブの音情報と文字代替",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "during-stream"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.9-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "during-stream"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.2.9-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-content-comparison"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.3.1.visual-table-relations",
+      "criterion": "1.3.1",
+      "name": "見た目の表とプログラムの関係",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.1-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.1-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.3.1.reader-structure",
+      "criterion": "1.3.1",
+      "name": "実SRで表の関係を使えるか",
+      "cases": [
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.1-03",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "real-screen-reader"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.1-03",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "real-screen-reader"
+          ],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.3.1.radio-group",
+      "criterion": "1.3.1",
+      "name": "ラジオグループの質問と選択肢",
+      "cases": [
+        {
+          "id": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.1-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.1-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.3.2.reading-order",
+      "criterion": "1.3.2",
+      "name": "表示と読み順の取得",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "1.3.2-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "1.3.2-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.3.4.physical-orientation",
+      "criterion": "1.3.4",
+      "name": "実端末の向き情報による利用制限",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-physical-rotation"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.4-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "physical-device-orientation",
+            "orientation-permission"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-physical-rotation"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.4-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "physical-device-orientation",
+            "orientation-permission"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.3.5.input-purpose-meaning",
+      "criterion": "1.3.5",
+      "name": "入力目的属性と実際の質問",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.5-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.3.5-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.4.1.colour-error-state",
+      "criterion": "1.4.1",
+      "name": "操作後のエラー表示を取得する",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-submit"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.1-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "1.4.1-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-submit"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.1-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "1.4.1-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.4.3.axe-flat-contrast",
+      "criterion": "1.4.3",
+      "name": "axeで判定できる通常文字の対照",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.3-01",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.3-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.4.3.disabled-then-enabled",
+      "criterion": "1.4.3",
+      "name": "無効から有効へ変わる部品のコントラスト",
+      "cases": [
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "enabled"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.3-01",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "states": [
+            "enabled"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.3-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.3-01",
+              "expected": "inapplicable"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.4.4.resize-capture",
+      "criterion": "1.4.4",
+      "name": "拡大前後の取得と内容欠落",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "text-200-percent"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.4-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "1.4.4-01"
+          ],
+          "requires_environment": [
+            "native-browser-zoom-for-final-audit"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "text-200-percent"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.4-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "1.4.4-01"
+          ],
+          "requires_environment": [
+            "native-browser-zoom-for-final-audit"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.4.5.text-image-candidates",
+      "criterion": "1.4.5",
+      "name": "背景の文字画像と通常テキスト",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.5-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "1.4.5-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.5-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "1.4.5-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.4.7.background-level",
+      "criterion": "1.4.7",
+      "name": "音声と背景音の20dB差",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.7-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-level-analysis"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.7-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "audio-level-analysis"
+          ],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "1.4.8.user-presentation",
+      "criterion": "1.4.8",
+      "name": "色・幅・揃え・間隔の調整",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-customization"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.8-01",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-customization"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.8-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.4.10.narrow-viewport",
+      "criterion": "1.4.10",
+      "name": "狭い画面の取得と横スクロール",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "narrow"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.10-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "1.4.10-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "narrow"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.10-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "1.4.10-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "1.4.13.hover-focus-capture",
+      "criterion": "1.4.13",
+      "name": "ホバーとフォーカスで出る内容",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-trigger"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.13-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "1.4.13-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-trigger"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "1.4.13-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "1.4.13-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.1.1.shadow-disclosure",
+      "criterion": "2.1.1",
+      "name": "Shadow DOM内の操作と状態",
+      "cases": [
+        {
+          "id": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "states": [
+            "shadow-open"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.1-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "states": [
+            "shadow-open"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.1-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.1.1.tab-panels",
+      "criterion": "2.1.1",
+      "name": "タブのフォーカス・選択・パネル",
+      "cases": [
+        {
+          "id": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "states": [
+            "second-tab"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.1-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c09",
+          "pages": [
+            "p09.html"
+          ],
+          "states": [
+            "second-tab"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.1-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.1.2.focus-route-inventory",
+      "criterion": "2.1.2",
+      "name": "実際の階層内のフォーカス経路",
+      "cases": [
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "third-level"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "2.1.2-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "states": [
+            "third-level"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "2.1.2-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.1.2.nested-dialog",
+      "criterion": "2.1.2",
+      "name": "入れ子のダイアログの離脱と復帰",
+      "cases": [
+        {
+          "id": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "states": [
+            "inner-dialog"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "states": [
+            "inner-dialog"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.1.2.combobox-popup",
+      "criterion": "2.1.2",
+      "name": "コンボボックスのポップアップ",
+      "cases": [
+        {
+          "id": "c09",
+          "pages": [
+            "p09.html"
+          ],
+          "states": [
+            "combo-open"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c10",
+          "pages": [
+            "p10.html"
+          ],
+          "states": [
+            "combo-open"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.1.2.iframe-trap",
+      "criterion": "2.1.2",
+      "name": "iframe内の移動と離脱",
+      "cases": [
+        {
+          "id": "c11",
+          "pages": [
+            "p11.html"
+          ],
+          "states": [
+            "frame-open"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "same-origin-frame"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c12",
+          "pages": [
+            "p12.html"
+          ],
+          "states": [
+            "frame-open"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.1.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "same-origin-frame"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.2.1.time-extension",
+      "criterion": "2.2.1",
+      "name": "警告からの延長と繰返し回数",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "extension-path"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.2.1-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "wall-clock-timing-for-final-audit"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "extension-path"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.2.1-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "wall-clock-timing-for-final-audit"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.2.6.long-retention",
+      "criterion": "2.2.6",
+      "name": "告知の代わりに20時間超保持する経路",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-21-hours"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.2.6-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "real-time-storage-retention"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-21-hours"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.2.6-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "real-time-storage-retention"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.3.1.flash-interval-coverage",
+      "criterion": "2.3.1",
+      "name": "閃光の区間と資料の欠落",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-start"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.3.1-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "2.3.1-01"
+          ],
+          "requires_environment": [
+            "flash-analysis-without-unsafe-preview"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-start"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.3.1-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "2.3.1-01"
+          ],
+          "requires_environment": [
+            "flash-analysis-without-unsafe-preview"
+          ],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "2.4.3.focus-route-inventory",
+      "criterion": "2.4.3",
+      "name": "実際の階層内のフォーカス経路",
+      "cases": [
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "third-level"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.3-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "2.4.3-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "states": [
+            "third-level"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.3-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "2.4.3-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.4.3.nested-dialog",
+      "criterion": "2.4.3",
+      "name": "入れ子のダイアログの離脱と復帰",
+      "cases": [
+        {
+          "id": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "states": [
+            "inner-dialog"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.3-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "states": [
+            "inner-dialog"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.3-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.4.7.focus-before-after",
+      "criterion": "2.4.7",
+      "name": "フォーカス前後の取得",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "focused"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.7-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "2.4.7-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "focused"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.7-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "2.4.7-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.4.7.offcanvas-hidden-focus",
+      "criterion": "2.4.7",
+      "name": "狭い画面で隠れたメニューへのフォーカス",
+      "cases": [
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "closed-narrow-menu"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.7-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "states": [
+            "closed-narrow-menu"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.7-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.4.11.late-fixed-banner",
+      "criterion": "2.4.11",
+      "name": "表示後のバナーによる隠れ",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-banner"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.11-01",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-banner"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.11-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.4.12.late-fixed-banner",
+      "criterion": "2.4.12",
+      "name": "表示後のバナーによる隠れ",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-banner"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.12-01",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-banner"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.12-01",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.5.3.label-name-acquisition",
+      "criterion": "2.5.3",
+      "name": "表示文字とアクセシブル名の取得",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.5.3-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "2.5.3-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.5.3-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "2.5.3-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "2.5.4.physical-motion",
+      "criterion": "2.5.4",
+      "name": "実端末の動きとUI代替",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-device-motion"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.5.4-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "physical-device-motion",
+            "sensor-permission"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-device-motion"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.5.4-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "physical-device-motion",
+            "sensor-permission"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.5.8.target-geometry",
+      "criterion": "2.5.8",
+      "name": "サイズと間隔の取得",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.5.8-02",
+              "expected": "failed"
+            },
+            {
+              "checkpoint": "2.5.8-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "2.5.8-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.5.8-02",
+              "expected": "passed"
+            },
+            {
+              "checkpoint": "2.5.8-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "2.5.8-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.5.8-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "2.5.8-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "3.1.1.page-language-meaning",
+      "criterion": "3.1.1",
+      "name": "指定言語と本文の主たる言語",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.1.1-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.1.1-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "3.1.2.part-language-metadata",
+      "criterion": "3.1.2",
+      "name": "部分言語の取得と意味の判定",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.1.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "3.1.2-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.1.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "3.1.2-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "3.1.5.reading-support",
+      "criterion": "3.1.5",
+      "name": "専門的な文章の補足",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.1.5-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "reading-level-review"
+          ],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.1.5-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [
+            "reading-level-review"
+          ],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "3.2.1.focus-url-capture",
+      "criterion": "3.2.1",
+      "name": "フォーカス時のURLと文脈",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-focus"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.2.1-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "3.2.1-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-focus"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.2.1-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "3.2.1-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "3.3.2.visible-label-acquisition",
+      "criterion": "3.3.2",
+      "name": "表示ラベルとアクセシブル名を別々に取得",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.3.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "3.3.2-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "initial"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.3.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "3.3.2-01"
+          ],
+          "requires_environment": [],
+          "has_browser_probe": false
+        }
+      ]
+    },
+    {
+      "id": "3.3.8.cognitive-alternative",
+      "criterion": "3.3.8",
+      "name": "認知機能テストの代替経路",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "authentication"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.3.8-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "authentication"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.3.8-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "3.3.8.object-recognition-difference",
+      "criterion": "3.3.8",
+      "name": "AAとAAAで異なる物体認識の例外",
+      "cases": [
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "authentication"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.3.8-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "3.3.9.cognitive-alternative",
+      "criterion": "3.3.9",
+      "name": "認知機能テストの代替経路",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "authentication"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.3.9-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "authentication"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.3.9-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "3.3.9.object-recognition-difference",
+      "criterion": "3.3.9",
+      "name": "AAとAAAで異なる物体認識の例外",
+      "cases": [
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "authentication"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "3.3.9-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "4.1.2.custom-state-change",
+      "criterion": "4.1.2",
+      "name": "独自部品の状態変更",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-activate"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "4.1.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-activate"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "4.1.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "4.1.2.shadow-disclosure",
+      "criterion": "4.1.2",
+      "name": "Shadow DOM内の操作と状態",
+      "cases": [
+        {
+          "id": "c05",
+          "pages": [
+            "p05.html"
+          ],
+          "states": [
+            "shadow-open"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "4.1.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c06",
+          "pages": [
+            "p06.html"
+          ],
+          "states": [
+            "shadow-open"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "4.1.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "4.1.2.combobox-popup",
+      "criterion": "4.1.2",
+      "name": "コンボボックスのポップアップ",
+      "cases": [
+        {
+          "id": "c07",
+          "pages": [
+            "p07.html"
+          ],
+          "states": [
+            "combo-open"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "4.1.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c08",
+          "pages": [
+            "p08.html"
+          ],
+          "states": [
+            "combo-open"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "4.1.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "4.1.2.tab-panels",
+      "criterion": "4.1.2",
+      "name": "タブのフォーカス・選択・パネル",
+      "cases": [
+        {
+          "id": "c09",
+          "pages": [
+            "p09.html"
+          ],
+          "states": [
+            "second-tab"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "4.1.2-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c10",
+          "pages": [
+            "p10.html"
+          ],
+          "states": [
+            "second-tab"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "4.1.2-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "4.1.3.async-status-acquisition",
+      "criterion": "4.1.3",
+      "name": "非同期の状態変化を取得する",
+      "cases": [
+        {
+          "id": "c03",
+          "pages": [
+            "p03.html"
+          ],
+          "states": [
+            "after-save"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "4.1.3-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [
+            "4.1.3-01"
+          ],
+          "requires_environment": [
+            "real-screen-reader"
+          ],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c04",
+          "pages": [
+            "p04.html"
+          ],
+          "states": [
+            "after-save"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "4.1.3-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [
+            "4.1.3-01"
+          ],
+          "requires_environment": [
+            "real-screen-reader"
+          ],
+          "has_browser_probe": true
+        }
+      ]
+    }
+  ]
+}

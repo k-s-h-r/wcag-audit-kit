@@ -1,0 +1,1049 @@
+{
+  "scope": "fixture behaviour, not detector accuracy",
+  "corpus_digest": "f4a8eaa667aacd705b7e148d70f33b5e0a897b341143d49f0ecbc693416d1ccc",
+  "results": [
+    {
+      "criterion": "2.1.1",
+      "page": "p04.html",
+      "fixture": "keyboard route, reverse route and destination confirmed"
+    },
+    {
+      "criterion": "2.1.2",
+      "page": "p03.html",
+      "fixture": "keyboard route, reverse route and destination confirmed"
+    },
+    {
+      "criterion": "2.4.3",
+      "page": "p03.html",
+      "fixture": "keyboard route, reverse route and destination confirmed"
+    },
+    {
+      "criterion": "2.1.1",
+      "page": "p05.html",
+      "fixture": "keyboard stops at level 2; pointer reaches destination"
+    },
+    {
+      "criterion": "2.1.2",
+      "page": "p04.html",
+      "fixture": "third-level trap and pointer-only escape confirmed"
+    },
+    {
+      "criterion": "2.4.3",
+      "page": "p04.html",
+      "fixture": "third level opens but focus jumps beyond navigation"
+    }
+  ],
+  "trace": [
+    {
+      "action": "load",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "before",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "other-leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Escape",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Escape",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "help",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "after",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "help",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Space",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Space",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "keyboard leaf activation: destination reached",
+      "url": "http://127.0.0.1:36453/2.1.1/destination.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": null,
+      "childExpanded": null,
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "load",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "before",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "other-leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Escape",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Escape",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "help",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "after",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "help",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Space",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Space",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p03.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "keyboard leaf activation: destination reached",
+      "url": "http://127.0.0.1:36453/2.1.2/destination.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": null,
+      "childExpanded": null,
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "load",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "before",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "other-leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Escape",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Escape",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "help",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "after",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "help",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Space",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Space",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p03.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "keyboard leaf activation: destination reached",
+      "url": "http://127.0.0.1:36453/2.4.3/destination.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": null,
+      "childExpanded": null,
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "load",
+      "url": "http://127.0.0.1:36453/2.1.1/p05.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p05.html",
+      "focus": "before",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p05.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.1.1/p05.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.1/p05.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.1.1/p05.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Space",
+      "url": "http://127.0.0.1:36453/2.1.1/p05.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "pointer opens level 2",
+      "url": "http://127.0.0.1:36453/2.1.1/p05.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "pointer leaf activation: destination reached",
+      "url": "http://127.0.0.1:36453/2.1.1/destination.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": null,
+      "childExpanded": null,
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "load",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "before",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "other-leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Escape",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Space",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "other-leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "other-leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "other-leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "other-leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "other-leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "Shift+Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "leaf",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "pointer closes trapped panel",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "help",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.1.2/p04.html",
+      "focus": "after",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "load",
+      "url": "http://127.0.0.1:36453/2.4.3/p04.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p04.html",
+      "focus": "before",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p04.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "false",
+      "childExpanded": "false",
+      "secondVisible": false,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.4.3/p04.html",
+      "focus": "level1",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Tab",
+      "url": "http://127.0.0.1:36453/2.4.3/p04.html",
+      "focus": "level2",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "false",
+      "secondVisible": true,
+      "thirdVisible": false
+    },
+    {
+      "action": "Enter",
+      "url": "http://127.0.0.1:36453/2.4.3/p04.html",
+      "focus": "after",
+      "documentHasFocus": true,
+      "rootExpanded": "true",
+      "childExpanded": "true",
+      "secondVisible": true,
+      "thirdVisible": true
+    },
+    {
+      "action": "pointer leaf activation: destination reached",
+      "url": "http://127.0.0.1:36453/2.4.3/destination.html",
+      "focus": "BODY",
+      "documentHasFocus": true,
+      "rootExpanded": null,
+      "childExpanded": null,
+      "secondVisible": false,
+      "thirdVisible": false
+    }
+  ],
+  "javascript_errors": []
+}

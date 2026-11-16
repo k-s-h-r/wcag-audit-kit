@@ -1,0 +1,83 @@
+{
+  "schema_version": "1",
+  "criterion": "1.3.6",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/1.3.6.md",
+    "../../../references/tests/1.3.6.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "1.3.6-01"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "保存のアイコンの機能をプログラムから識別できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.3.6-01",
+          "expected": "failed",
+          "rationale": "役割も名前もないクリック可能なアイコン。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "1.3.6-01"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "保存のアイコンの機能をプログラムから識別できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.3.6-01",
+          "expected": "passed",
+          "rationale": "ボタンの役割と保存の名前がある。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ]
+    }
+  ]
+}

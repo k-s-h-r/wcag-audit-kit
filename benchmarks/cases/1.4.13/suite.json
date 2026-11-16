@@ -1,0 +1,285 @@
+{
+  "schema_version": "1",
+  "criterion": "1.4.13",
+  "version": "2",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/1.4.13.md",
+    "../../../references/tests/1.4.13.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "1.4.13-02"
+      ],
+      "states": [
+        {
+          "id": "after-open",
+          "instructions": [
+            "ボタンへhover/focusし追加内容へポインター移動、Escapeで消去する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-open",
+          "target": "#subject",
+          "checkpoint": "1.4.13-02",
+          "expected": "failed",
+          "rationale": "追加内容がボタンから離れると消え、フォーカスでも表示できない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "1.4.13-02"
+      ],
+      "states": [
+        {
+          "id": "after-open",
+          "instructions": [
+            "ボタンへhover/focusし追加内容へポインター移動、Escapeで消去する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-open",
+          "target": "#subject",
+          "checkpoint": "1.4.13-02",
+          "expected": "passed",
+          "rationale": "追加内容上へ移動でき、Escapeでも消せる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "1.4.13.hover-focus-capture",
+      "pattern_name": "ホバーとフォーカスで出る内容",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.4.13-01",
+        "1.4.13-02"
+      ],
+      "states": [
+        {
+          "id": "after-trigger",
+          "instructions": [
+            "料金ボタンへポインターを重ね、追加内容上へ移動する。離れた後はキーでフォーカスし、Escapeで消去する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "after-trigger",
+          "target": "#subject",
+          "checkpoint": "1.4.13-02",
+          "expected": "failed",
+          "rationale": "追加内容がポインターを外すと消え、キーのフォーカスでは表示されない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "1.4.13-01",
+          "kind": "state-capture",
+          "targets": [
+            "#subject",
+            "#tip"
+          ],
+          "captures": [
+            "hover",
+            "focus",
+            "dismiss"
+          ],
+          "page": "p03.html",
+          "state": "after-trigger",
+          "rationale": "追加内容がポインターを外すと消え、キーのフォーカスでは表示されない。"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "hover",
+            "selector": "#subject"
+          },
+          {
+            "action": "check",
+            "selector": "#tip",
+            "visible": true
+          },
+          {
+            "action": "pointer-target",
+            "selector": "#tip"
+          },
+          {
+            "action": "check",
+            "selector": "#tip",
+            "visible": false
+          },
+          {
+            "action": "hover",
+            "selector": "h1"
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "check",
+            "selector": "#tip",
+            "visible": false
+          },
+          {
+            "action": "key",
+            "value": "Escape"
+          },
+          {
+            "action": "check",
+            "selector": "#tip",
+            "visible": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c04",
+      "pattern": "1.4.13.hover-focus-capture",
+      "pattern_name": "ホバーとフォーカスで出る内容",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.4.13-01",
+        "1.4.13-02"
+      ],
+      "states": [
+        {
+          "id": "after-trigger",
+          "instructions": [
+            "料金ボタンへポインターを重ね、追加内容上へ移動する。離れた後はキーでフォーカスし、Escapeで消去する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "after-trigger",
+          "target": "#subject",
+          "checkpoint": "1.4.13-02",
+          "expected": "passed",
+          "rationale": "追加内容がフォーカスでも表示され、上へ移動でき、Escapeで消せる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "1.4.13-01",
+          "kind": "state-capture",
+          "targets": [
+            "#subject",
+            "#tip"
+          ],
+          "captures": [
+            "hover",
+            "focus",
+            "dismiss"
+          ],
+          "page": "p04.html",
+          "state": "after-trigger",
+          "rationale": "追加内容がフォーカスでも表示され、上へ移動でき、Escapeで消せる。"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "hover",
+            "selector": "#subject"
+          },
+          {
+            "action": "check",
+            "selector": "#tip",
+            "visible": true
+          },
+          {
+            "action": "pointer-target",
+            "selector": "#tip"
+          },
+          {
+            "action": "check",
+            "selector": "#tip",
+            "visible": true
+          },
+          {
+            "action": "hover",
+            "selector": "h1"
+          },
+          {
+            "action": "key",
+            "value": "Tab"
+          },
+          {
+            "action": "check",
+            "selector": "#tip",
+            "visible": true
+          },
+          {
+            "action": "key",
+            "value": "Escape"
+          },
+          {
+            "action": "check",
+            "selector": "#tip",
+            "visible": false
+          }
+        ]
+      }
+    }
+  ]
+}

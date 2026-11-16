@@ -1,0 +1,21 @@
+
+> wcag-audit-kit@0.7.0 test:screen-reader
+> node tests/test_screen_reader.mjs
+
+✔ OSを検出しただけで対応済みにしない (1.364499ms)
+✔ WindowsとmacOSは対応するアセットで判定する (4.535976ms)
+✔ 仮想読み上げや任意の関数を検査アクションにしない (0.56316ms)
+✔ LinuxのOrcaとブラウザーには共有する専用セッションが必要 (0.381185ms)
+✔ 別originへの移動や不正な操作指定を拒否する (0.626045ms)
+✔ 前の読み上げをクリアし、空の出力を期待どおりにしない (1.211138ms)
+✔ 出力と期待値が一致してもWCAG合格は作らない (0.492253ms)
+✔ 外部ブラウザー操作はcapture中に実行して発話を取得する (0.659595ms)
+✔ not checkedをcheckedの成功として扱わない (0.582228ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20.875166

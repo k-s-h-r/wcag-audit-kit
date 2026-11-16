@@ -1,0 +1,241 @@
+{
+  "schema_version": "1",
+  "criterion": "2.2.1",
+  "version": "2",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/2.2.1.md",
+    "../../../references/tests/2.2.1.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "2.2.1-01"
+      ],
+      "states": [
+        {
+          "id": "after-start",
+          "instructions": [
+            "開始後5秒の制限を開始前に無効化して入力を続けられるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-start",
+          "target": "#subject",
+          "checkpoint": "2.2.1-01",
+          "expected": "failed",
+          "rationale": "本質的でない入力時間の制限を解除・調整・延長できない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "2.2.1-01"
+      ],
+      "states": [
+        {
+          "id": "after-start",
+          "instructions": [
+            "開始後5秒の制限を開始前に無効化して入力を続けられるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-start",
+          "target": "#subject",
+          "checkpoint": "2.2.1-01",
+          "expected": "passed",
+          "rationale": "開始前に制限を解除できる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "2.2.1.time-extension",
+      "pattern_name": "警告からの延長と繰返し回数",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "2.2.1-02"
+      ],
+      "states": [
+        {
+          "id": "extension-path",
+          "instructions": [
+            "入力を開始し、警告が出てから期限までの時間を測る。警告からの延長を少なくとも10回試す。使った時計方式も記録する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "extension-path",
+          "target": "#subject",
+          "checkpoint": "2.2.1-02",
+          "expected": "failed",
+          "rationale": "延長経路で警告から期限まで5秒しかなく、1回しか延長できない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#start"
+          },
+          {
+            "action": "repeat",
+            "times": 10,
+            "steps": [
+              {
+                "action": "tick",
+                "milliseconds": 55000
+              },
+              {
+                "action": "check",
+                "selector": "#warning",
+                "visible": true
+              },
+              {
+                "action": "click",
+                "selector": "#extend"
+              }
+            ]
+          },
+          {
+            "action": "window-value",
+            "name": "extensionCount",
+            "value": 1
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "disabled",
+            "value": true
+          }
+        ]
+      },
+      "requires_environment": [
+        "wall-clock-timing-for-final-audit"
+      ]
+    },
+    {
+      "id": "c04",
+      "pattern": "2.2.1.time-extension",
+      "pattern_name": "警告からの延長と繰返し回数",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "2.2.1-02"
+      ],
+      "states": [
+        {
+          "id": "extension-path",
+          "instructions": [
+            "入力を開始し、警告が出てから期限までの時間を測る。警告からの延長を少なくとも10回試す。使った時計方式も記録する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "extension-path",
+          "target": "#subject",
+          "checkpoint": "2.2.1-02",
+          "expected": "passed",
+          "rationale": "延長経路で20秒の警告時間があり15回まで延長できる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#start"
+          },
+          {
+            "action": "repeat",
+            "times": 10,
+            "steps": [
+              {
+                "action": "tick",
+                "milliseconds": 40000
+              },
+              {
+                "action": "check",
+                "selector": "#warning",
+                "visible": true
+              },
+              {
+                "action": "click",
+                "selector": "#extend"
+              }
+            ]
+          },
+          {
+            "action": "window-value",
+            "name": "extensionCount",
+            "value": 10
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "disabled",
+            "value": false
+          }
+        ]
+      },
+      "requires_environment": [
+        "wall-clock-timing-for-final-audit"
+      ]
+    }
+  ]
+}

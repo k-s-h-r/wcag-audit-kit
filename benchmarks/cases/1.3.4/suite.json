@@ -1,0 +1,213 @@
+{
+  "schema_version": "1",
+  "criterion": "1.3.4",
+  "version": "2",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/1.3.4.md",
+    "../../../references/tests/1.3.4.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "1.3.4-01"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "幅320高さ640と幅640高さ320で操作の可否を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.3.4-01",
+          "expected": "failed",
+          "rationale": "縦向きで必須操作が非表示となる。本質的な向きの制約はない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "1.3.4-01"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "幅320高さ640と幅640高さ320で操作の可否を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.3.4-01",
+          "expected": "passed",
+          "rationale": "両方の向きで保存できる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "1.3.4.physical-orientation",
+      "pattern_name": "実端末の向き情報による利用制限",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.3.4-02"
+      ],
+      "states": [
+        {
+          "id": "after-physical-rotation",
+          "instructions": [
+            "実端末の向き情報による利用制限。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "after-physical-rotation",
+          "target": "#subject",
+          "checkpoint": "1.3.4-02",
+          "expected": "failed",
+          "rationale": "実端末の向きに対して縦向きで本質的でない保存操作を隠す。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "orientation",
+            "angle": 0
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "visible": false
+          },
+          {
+            "action": "orientation",
+            "angle": 90
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "visible": true
+          }
+        ],
+        "simulation": "synthetic screen.orientation angle; not a physical sensor"
+      },
+      "requires_environment": [
+        "physical-device-orientation",
+        "orientation-permission"
+      ]
+    },
+    {
+      "id": "c04",
+      "pattern": "1.3.4.physical-orientation",
+      "pattern_name": "実端末の向き情報による利用制限",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.3.4-02"
+      ],
+      "states": [
+        {
+          "id": "after-physical-rotation",
+          "instructions": [
+            "実端末の向き情報による利用制限。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "after-physical-rotation",
+          "target": "#subject",
+          "checkpoint": "1.3.4-02",
+          "expected": "passed",
+          "rationale": "実端末の向きに対して両向きで保存操作を利用できる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "orientation",
+            "angle": 0
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "visible": true
+          },
+          {
+            "action": "orientation",
+            "angle": 90
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "visible": true
+          }
+        ],
+        "simulation": "synthetic screen.orientation angle; not a physical sensor"
+      },
+      "requires_environment": [
+        "physical-device-orientation",
+        "orientation-permission"
+      ]
+    }
+  ]
+}

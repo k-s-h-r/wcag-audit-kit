@@ -1,0 +1,44 @@
+{
+  "scope": "known-source fixture calibration, not detector accuracy",
+  "corpus_digest": "e6f5829adba3aad1c6aeffe000f33c272e38298f2d03c0e609dd78a0fe337820",
+  "results": [
+    {
+      "material": "1.4.7 a",
+      "source_window_db_min": 9.926319090304972,
+      "source_window_db_max": 10.066123676873799,
+      "mix_reconstruction_max_error": 4.470348358154297e-08,
+      "seconds": 5.24,
+      "scope": "separate known stems, not unknown-source separation"
+    },
+    {
+      "material": "1.4.7 b",
+      "source_window_db_min": 29.926319083934835,
+      "source_window_db_max": 30.06612367967022,
+      "mix_reconstruction_max_error": 2.9336661100387573e-08,
+      "seconds": 5.24,
+      "scope": "separate known stems, not unknown-source separation"
+    },
+    {
+      "material": "1.2.6",
+      "license": "CC BY-SA 3.0",
+      "duration": 2.4,
+      "original_hash_verified": true,
+      "derived_hash_verified": true,
+      "scope": "meaning from public source description; no independent interpreter review"
+    },
+    {
+      "material": "1.2.7 expanded.wav",
+      "audio_duration": 6.7,
+      "video_duration": 3.24,
+      "pause_after": 2.77,
+      "scope": "known utterance and time budget; browser probe checks actual pause/resume"
+    },
+    {
+      "material": "1.2.7 expanded-other.wav",
+      "audio_duration": 6.750023,
+      "video_duration": 3.24,
+      "pause_after": 2.77,
+      "scope": "known utterance and time budget; browser probe checks actual pause/resume"
+    }
+  ]
+}

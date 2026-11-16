@@ -1,0 +1,7391 @@
+{
+  "scope": "authored fixture probes, not detector accuracy or real-device/real-time/SR confirmation",
+  "corpus_digest": "6f132795533a8d6886cc3551873f02063ef926c4bbdb799d46bc67fd5e6b26b9",
+  "jobs": 78,
+  "results": [
+    {
+      "criterion": "1.1.1",
+      "case": "c09",
+      "page": "p09.html",
+      "pattern": "1.1.1.late-image",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c10",
+      "page": "p10.html",
+      "pattern": "1.1.1.late-image",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.2.4",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.2.4.live-content",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "criterion": "1.2.4",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.2.4.live-content",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "criterion": "1.2.5",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.2.5.description-selection",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.2.5",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.2.5.description-selection",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.2.6",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.2.6.sign-meaning",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "qualified-sign-language-comparison"
+      ]
+    },
+    {
+      "criterion": "1.2.6",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.2.6.sign-meaning",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "qualified-sign-language-comparison"
+      ]
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.2.7.extended-description",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.2.7.extended-description",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "criterion": "1.2.9",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.2.9.live-content",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "criterion": "1.2.9",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.2.9.live-content",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "criterion": "1.3.4",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.3.4.physical-orientation",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [
+        "orientation"
+      ],
+      "simulation": "synthetic screen.orientation angle; not a physical sensor",
+      "requires_environment": [
+        "physical-device-orientation",
+        "orientation-permission"
+      ]
+    },
+    {
+      "criterion": "1.3.4",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.3.4.physical-orientation",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [
+        "orientation"
+      ],
+      "simulation": "synthetic screen.orientation angle; not a physical sensor",
+      "requires_environment": [
+        "physical-device-orientation",
+        "orientation-permission"
+      ]
+    },
+    {
+      "criterion": "1.4.1",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.4.1.colour-error-state",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.4.1",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.4.1.colour-error-state",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.4.3",
+      "case": "c05",
+      "page": "p05.html",
+      "pattern": "1.4.3.disabled-then-enabled",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.4.3",
+      "case": "c06",
+      "page": "p06.html",
+      "pattern": "1.4.3.disabled-then-enabled",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.4.4",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.4.4.resize-capture",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [
+        "text-scale"
+      ],
+      "simulation": null,
+      "requires_environment": [
+        "native-browser-zoom-for-final-audit"
+      ]
+    },
+    {
+      "criterion": "1.4.4",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.4.4.resize-capture",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [
+        "text-scale"
+      ],
+      "simulation": null,
+      "requires_environment": [
+        "native-browser-zoom-for-final-audit"
+      ]
+    },
+    {
+      "criterion": "1.4.8",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.4.8.user-presentation",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.4.8",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.4.8.user-presentation",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.4.10",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.4.10.narrow-viewport",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.4.10",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.4.10.narrow-viewport",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "1.4.13.hover-focus-capture",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "1.4.13.hover-focus-capture",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c06",
+      "page": "p06.html",
+      "pattern": "2.1.1.shadow-disclosure",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c07",
+      "page": "p07.html",
+      "pattern": "2.1.1.shadow-disclosure",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c08",
+      "page": "p08.html",
+      "pattern": "2.1.1.tab-panels",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c09",
+      "page": "p09.html",
+      "pattern": "2.1.1.tab-panels",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "page": "p05.html",
+      "pattern": "2.1.2.focus-route-inventory",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "page": "p06.html",
+      "pattern": "2.1.2.focus-route-inventory",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c07",
+      "page": "p07.html",
+      "pattern": "2.1.2.nested-dialog",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c08",
+      "page": "p08.html",
+      "pattern": "2.1.2.nested-dialog",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c09",
+      "page": "p09.html",
+      "pattern": "2.1.2.combobox-popup",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c10",
+      "page": "p10.html",
+      "pattern": "2.1.2.combobox-popup",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c11",
+      "page": "p11.html",
+      "pattern": "2.1.2.iframe-trap",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "same-origin-frame"
+      ]
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c12",
+      "page": "p12.html",
+      "pattern": "2.1.2.iframe-trap",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "same-origin-frame"
+      ]
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "2.2.1.time-extension",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": true,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "wall-clock-timing-for-final-audit"
+      ]
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "2.2.1.time-extension",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": true,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "wall-clock-timing-for-final-audit"
+      ]
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "2.2.6.long-retention",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": true,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "real-time-storage-retention"
+      ]
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "2.2.6.long-retention",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": true,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "real-time-storage-retention"
+      ]
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c05",
+      "page": "p05.html",
+      "pattern": "2.4.3.focus-route-inventory",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c06",
+      "page": "p06.html",
+      "pattern": "2.4.3.focus-route-inventory",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c07",
+      "page": "p07.html",
+      "pattern": "2.4.3.nested-dialog",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c08",
+      "page": "p08.html",
+      "pattern": "2.4.3.nested-dialog",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "2.4.7.focus-before-after",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "2.4.7.focus-before-after",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c05",
+      "page": "p05.html",
+      "pattern": "2.4.7.offcanvas-hidden-focus",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c06",
+      "page": "p06.html",
+      "pattern": "2.4.7.offcanvas-hidden-focus",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.11",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "2.4.11.late-fixed-banner",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.11",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "2.4.11.late-fixed-banner",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.12",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "2.4.12.late-fixed-banner",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.4.12",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "2.4.12.late-fixed-banner",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "2.5.4.physical-motion",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [
+        "motion"
+      ],
+      "simulation": null,
+      "requires_environment": [
+        "physical-device-motion",
+        "sensor-permission"
+      ]
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "2.5.4.physical-motion",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [
+        "motion"
+      ],
+      "simulation": null,
+      "requires_environment": [
+        "physical-device-motion",
+        "sensor-permission"
+      ]
+    },
+    {
+      "criterion": "2.5.8",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "2.5.8.target-geometry",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "2.5.8",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "2.5.8.target-geometry",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "3.2.1",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "3.2.1.focus-url-capture",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "3.2.1",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "3.2.1.focus-url-capture",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "3.2.2",
+      "case": "c01",
+      "page": "p01.html",
+      "pattern": null,
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "3.2.2",
+      "case": "c02",
+      "page": "p02.html",
+      "pattern": null,
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "3.3.8",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "3.3.8.cognitive-alternative",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "3.3.8",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "3.3.8.cognitive-alternative",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "3.3.8",
+      "case": "c05",
+      "page": "p05.html",
+      "pattern": "3.3.8.object-recognition-difference",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "3.3.9",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "3.3.9.cognitive-alternative",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "3.3.9",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "3.3.9.cognitive-alternative",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "3.3.9",
+      "case": "c05",
+      "page": "p05.html",
+      "pattern": "3.3.9.object-recognition-difference",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "4.1.2.custom-state-change",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "4.1.2.custom-state-change",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c05",
+      "page": "p05.html",
+      "pattern": "4.1.2.shadow-disclosure",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c06",
+      "page": "p06.html",
+      "pattern": "4.1.2.shadow-disclosure",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c07",
+      "page": "p07.html",
+      "pattern": "4.1.2.combobox-popup",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c08",
+      "page": "p08.html",
+      "pattern": "4.1.2.combobox-popup",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c09",
+      "page": "p09.html",
+      "pattern": "4.1.2.tab-panels",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c10",
+      "page": "p10.html",
+      "pattern": "4.1.2.tab-panels",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": []
+    },
+    {
+      "criterion": "4.1.3",
+      "case": "c03",
+      "page": "p03.html",
+      "pattern": "4.1.3.async-status-acquisition",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "real-screen-reader"
+      ]
+    },
+    {
+      "criterion": "4.1.3",
+      "case": "c04",
+      "page": "p04.html",
+      "pattern": "4.1.3.async-status-acquisition",
+      "status": "fixture-behaviour-confirmed",
+      "virtual_clock": false,
+      "simulated_inputs": [],
+      "simulation": null,
+      "requires_environment": [
+        "real-screen-reader"
+      ]
+    }
+  ],
+  "trace": [
+    {
+      "criterion": "1.1.1",
+      "case": "c09",
+      "action": {
+        "action": "click",
+        "selector": "#load"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.1.1/p09.html",
+        "focus": [
+          "load"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c09",
+      "action": {
+        "action": "wait",
+        "selector": "#subject",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.1.1/p09.html",
+        "focus": [
+          "load"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "attribute": "alt",
+        "value": null
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.1.1/p09.html",
+        "focus": [
+          "load"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c10",
+      "action": {
+        "action": "click",
+        "selector": "#load"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.1.1/p10.html",
+        "focus": [
+          "load"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c10",
+      "action": {
+        "action": "wait",
+        "selector": "#subject",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.1.1/p10.html",
+        "focus": [
+          "load"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c10",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "attribute": "alt",
+        "value": "売上は100万円から50万円へ半減"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.1.1/p10.html",
+        "focus": [
+          "load"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.4",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#play"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.4/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.4",
+      "case": "c03",
+      "action": {
+        "action": "wait",
+        "selector": "#caption",
+        "text": "今は無音です。"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.4/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.4",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "currentTime",
+        "minimum": 0.1
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.4/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.4",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#play"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.4/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.4",
+      "case": "c04",
+      "action": {
+        "action": "wait",
+        "selector": "#caption",
+        "text": "確認音が1回鳴ります。"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.4/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.4",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "currentTime",
+        "minimum": 0.1
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.4/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.5",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#describe"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.5/p03.html",
+        "focus": [
+          "describe"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.5",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "attribute": "src",
+        "value": "assets/expanded-source.webm"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.5/p03.html",
+        "focus": [
+          "describe"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.5",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#describe"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.5/p04.html",
+        "focus": [
+          "describe"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.5",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "attribute": "src",
+        "value": "assets/expanded-described.webm"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.5/p04.html",
+        "focus": [
+          "describe"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.6",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#play"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.6/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.6",
+      "case": "c03",
+      "action": {
+        "action": "wait",
+        "selector": "#subject",
+        "property": "currentTime",
+        "minimum": 0.3
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.6/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.6",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#voice",
+        "attribute": "src",
+        "value": "assets/speech-a.wav"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.6/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.6",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#play"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.6/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.6",
+      "case": "c04",
+      "action": {
+        "action": "wait",
+        "selector": "#subject",
+        "property": "currentTime",
+        "minimum": 0.3
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.6/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.6",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#voice",
+        "attribute": "src",
+        "value": "assets/speech-b.wav"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.6/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#play"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.7/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c03",
+      "action": {
+        "action": "wait",
+        "selector": "#phase",
+        "text": "解説",
+        "timeout": 10000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.7/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "paused",
+        "value": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.7/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c03",
+      "action": {
+        "action": "wait",
+        "selector": "#phase",
+        "text": "再開",
+        "timeout": 20000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.7/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "paused",
+        "value": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.7/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#play"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.7/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c04",
+      "action": {
+        "action": "wait",
+        "selector": "#phase",
+        "text": "解説",
+        "timeout": 10000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.7/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "paused",
+        "value": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.7/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c04",
+      "action": {
+        "action": "wait",
+        "selector": "#phase",
+        "text": "再開",
+        "timeout": 20000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.7/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.7",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "paused",
+        "value": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.7/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.9",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#play"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.9/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.9",
+      "case": "c03",
+      "action": {
+        "action": "wait",
+        "selector": "#caption",
+        "text": "今は無音です。"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.9/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.9",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "currentTime",
+        "minimum": 0.1
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.9/p03.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.9",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#play"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.9/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.9",
+      "case": "c04",
+      "action": {
+        "action": "wait",
+        "selector": "#caption",
+        "text": "確認音が1回鳴ります。"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.9/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.2.9",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "currentTime",
+        "minimum": 0.1
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.2.9/p04.html",
+        "focus": [
+          "play"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.3.4",
+      "case": "c03",
+      "action": {
+        "action": "orientation",
+        "angle": 0
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.3.4/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.3.4",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.3.4/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.3.4",
+      "case": "c03",
+      "action": {
+        "action": "orientation",
+        "angle": 90
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.3.4/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.3.4",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.3.4/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.3.4",
+      "case": "c04",
+      "action": {
+        "action": "orientation",
+        "angle": 0
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.3.4/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.3.4",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.3.4/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.3.4",
+      "case": "c04",
+      "action": {
+        "action": "orientation",
+        "angle": 90
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.3.4/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.3.4",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.3.4/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#submit"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.1/p03.html",
+        "focus": [
+          "submit"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#hint",
+        "text": ""
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.1/p03.html",
+        "focus": [
+          "submit"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#submit"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.1/p04.html",
+        "focus": [
+          "submit"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#hint",
+        "text": "郵便番号は数字7桁で入力してください"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.1/p04.html",
+        "focus": [
+          "submit"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.3",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "disabled",
+        "value": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.3/p05.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.3",
+      "case": "c05",
+      "action": {
+        "action": "click",
+        "selector": "#enable"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.3/p05.html",
+        "focus": [
+          "enable"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.3",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "disabled",
+        "value": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.3/p05.html",
+        "focus": [
+          "enable"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.3",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "disabled",
+        "value": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.3/p06.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.3",
+      "case": "c06",
+      "action": {
+        "action": "click",
+        "selector": "#enable"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.3/p06.html",
+        "focus": [
+          "enable"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.3",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "disabled",
+        "value": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.3/p06.html",
+        "focus": [
+          "enable"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.4",
+      "case": "c03",
+      "action": {
+        "action": "text-scale",
+        "scale": 2
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.4/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.4",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "overflow_y": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.4/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.4",
+      "case": "c04",
+      "action": {
+        "action": "text-scale",
+        "scale": 2
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.4/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.4",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "overflow_y": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.4/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.8",
+      "case": "c03",
+      "action": {
+        "action": "select",
+        "selector": "#width",
+        "value": "20em"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.8/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.8",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#apply"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.8/p03.html",
+        "focus": [
+          "apply"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.8",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "css": "line-height",
+        "value": "18px"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.8/p03.html",
+        "focus": [
+          "apply"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.8",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "css": "max-width",
+        "value": "none"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.8/p03.html",
+        "focus": [
+          "apply"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.8",
+      "case": "c04",
+      "action": {
+        "action": "select",
+        "selector": "#width",
+        "value": "20em"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.8/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.8",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#apply"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.8/p04.html",
+        "focus": [
+          "apply"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.8",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "css": "line-height",
+        "value": "27px"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.8/p04.html",
+        "focus": [
+          "apply"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.8",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "css": "max-width",
+        "value": "360px"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.8/p04.html",
+        "focus": [
+          "apply"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.10",
+      "case": "c03",
+      "action": {
+        "action": "viewport",
+        "width": 320,
+        "height": 640
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.10/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.10",
+      "case": "c03",
+      "action": {
+        "action": "document-overflow",
+        "expected": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.10/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.10",
+      "case": "c04",
+      "action": {
+        "action": "viewport",
+        "width": 320,
+        "height": 640
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.10/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.10",
+      "case": "c04",
+      "action": {
+        "action": "document-overflow",
+        "expected": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.10/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c03",
+      "action": {
+        "action": "hover",
+        "selector": "#subject"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#tip",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c03",
+      "action": {
+        "action": "pointer-target",
+        "selector": "#tip"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#tip",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c03",
+      "action": {
+        "action": "hover",
+        "selector": "h1"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c03",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#tip",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c03",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#tip",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c04",
+      "action": {
+        "action": "hover",
+        "selector": "#subject"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#tip",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c04",
+      "action": {
+        "action": "pointer-target",
+        "selector": "#tip"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#tip",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c04",
+      "action": {
+        "action": "hover",
+        "selector": "h1"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c04",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#tip",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c04",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "1.4.13",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#tip",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/1.4.13/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p06.html",
+        "focus": [
+          "before"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p06.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c06",
+      "action": {
+        "action": "deep-focus",
+        "path": [
+          "subject",
+          "inner-action"
+        ]
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p06.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p06.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#inner-panel",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p06.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#inner-action",
+        "attribute": "aria-expanded",
+        "value": "false"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p06.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c07",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p07.html",
+        "focus": [
+          "before"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c07",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p07.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c07",
+      "action": {
+        "action": "deep-focus",
+        "path": [
+          "subject",
+          "inner-action"
+        ]
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p07.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c07",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p07.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c07",
+      "action": {
+        "action": "check",
+        "selector": "#inner-panel",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p07.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c07",
+      "action": {
+        "action": "check",
+        "selector": "#inner-action",
+        "attribute": "aria-expanded",
+        "value": "true"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p07.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c08",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p08.html",
+        "focus": [
+          "tab-a"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c08",
+      "action": {
+        "action": "key",
+        "value": "ArrowRight"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p08.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#tab-b",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p08.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c08",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p08.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#panel-b",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p08.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#tab-b",
+        "attribute": "aria-selected",
+        "value": "false"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p08.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c09",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p09.html",
+        "focus": [
+          "tab-a"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c09",
+      "action": {
+        "action": "key",
+        "value": "ArrowRight"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p09.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#tab-b",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p09.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c09",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p09.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#panel-b",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p09.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.1",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#tab-b",
+        "attribute": "aria-selected",
+        "value": "true"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.1/p09.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p05.html",
+        "focus": [
+          "before"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p05.html",
+        "focus": [
+          "level1"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p05.html",
+        "focus": [
+          "level1"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p05.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p05.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#level3-panel",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p05.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p05.html",
+        "focus": [
+          "leaf"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#leaf",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p05.html",
+        "focus": [
+          "leaf"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p05.html",
+        "focus": [
+          "leaf"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#leaf",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p05.html",
+        "focus": [
+          "leaf"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p06.html",
+        "focus": [
+          "before"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p06.html",
+        "focus": [
+          "level1"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p06.html",
+        "focus": [
+          "level1"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p06.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p06.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#level3-panel",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p06.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p06.html",
+        "focus": [
+          "leaf"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#leaf",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p06.html",
+        "focus": [
+          "leaf"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p06.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#level2",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p06.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c07",
+      "action": {
+        "action": "click",
+        "selector": "#launch"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p07.html",
+        "focus": [
+          "outer-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c07",
+      "action": {
+        "action": "click",
+        "selector": "#inner-opener"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p07.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c07",
+      "action": {
+        "action": "check",
+        "selector": "#inner-name",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p07.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c07",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p07.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c07",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p07.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c07",
+      "action": {
+        "action": "check",
+        "selector": "#inner-name",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p07.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c08",
+      "action": {
+        "action": "click",
+        "selector": "#launch"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p08.html",
+        "focus": [
+          "outer-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c08",
+      "action": {
+        "action": "click",
+        "selector": "#inner-opener"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p08.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#inner-name",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p08.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c08",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p08.html",
+        "focus": [
+          "inner-opener"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p08.html",
+        "focus": [
+          "inner-opener"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#inner-opener",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p08.html",
+        "focus": [
+          "inner-opener"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c08",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p08.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#outer",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p08.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#launch",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p08.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c09",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p09.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c09",
+      "action": {
+        "action": "key",
+        "value": "ArrowDown"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p09.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#options",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p09.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "attribute": "aria-expanded",
+        "value": "true"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p09.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c09",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p09.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#options",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p09.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c09",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p09.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p09.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c10",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p10.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c10",
+      "action": {
+        "action": "key",
+        "value": "ArrowDown"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p10.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c10",
+      "action": {
+        "action": "check",
+        "selector": "#options",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p10.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c10",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "attribute": "aria-expanded",
+        "value": "true"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p10.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c10",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p10.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c10",
+      "action": {
+        "action": "check",
+        "selector": "#options",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p10.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c10",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p10.html",
+        "focus": [
+          "after"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c10",
+      "action": {
+        "action": "check",
+        "selector": "#after",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p10.html",
+        "focus": [
+          "after"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c11",
+      "action": {
+        "action": "click",
+        "selector": "#launch"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p11.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c11",
+      "action": {
+        "action": "wait",
+        "selector": "#subject",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p11.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c11",
+      "action": {
+        "action": "frame-click",
+        "frame": "#subject",
+        "selector": "#frame-first"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p11.html",
+        "focus": [
+          "subject",
+          "frame-first"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c11",
+      "action": {
+        "action": "deep-focus",
+        "path": [
+          "subject",
+          "frame-first"
+        ]
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p11.html",
+        "focus": [
+          "subject",
+          "frame-first"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c11",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p11.html",
+        "focus": [
+          "subject",
+          "frame-last"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c11",
+      "action": {
+        "action": "deep-focus",
+        "path": [
+          "subject",
+          "frame-last"
+        ]
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p11.html",
+        "focus": [
+          "subject",
+          "frame-last"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c11",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p11.html",
+        "focus": [
+          "subject",
+          "frame-last"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c11",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "count": 1
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p11.html",
+        "focus": [
+          "subject",
+          "frame-last"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c12",
+      "action": {
+        "action": "click",
+        "selector": "#launch"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p12.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c12",
+      "action": {
+        "action": "wait",
+        "selector": "#subject",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p12.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c12",
+      "action": {
+        "action": "frame-click",
+        "frame": "#subject",
+        "selector": "#frame-first"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p12.html",
+        "focus": [
+          "subject",
+          "frame-first"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c12",
+      "action": {
+        "action": "deep-focus",
+        "path": [
+          "subject",
+          "frame-first"
+        ]
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p12.html",
+        "focus": [
+          "subject",
+          "frame-first"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c12",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p12.html",
+        "focus": [
+          "subject",
+          "frame-last"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c12",
+      "action": {
+        "action": "deep-focus",
+        "path": [
+          "subject",
+          "frame-last"
+        ]
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p12.html",
+        "focus": [
+          "subject",
+          "frame-last"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c12",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p12.html",
+        "focus": [
+          "subject",
+          "frame-last"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.1.2",
+      "case": "c12",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "count": 0
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.1.2/p12.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#start"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "start"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 55000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "start"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "start"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 55000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 55000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 55000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 55000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 55000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 55000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 55000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 55000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 55000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "repeat",
+        "times": 10,
+        "steps": [
+          {
+            "action": "tick",
+            "milliseconds": 55000
+          },
+          {
+            "action": "check",
+            "selector": "#warning",
+            "visible": true
+          },
+          {
+            "action": "click",
+            "selector": "#extend"
+          }
+        ]
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "window-value",
+        "name": "extensionCount",
+        "value": 1
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "disabled",
+        "value": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p03.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#start"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "start"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 40000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "start"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "start"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 40000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 40000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 40000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 40000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 40000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 40000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 40000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 40000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 40000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#warning",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#extend"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "repeat",
+        "times": 10,
+        "steps": [
+          {
+            "action": "tick",
+            "milliseconds": 40000
+          },
+          {
+            "action": "check",
+            "selector": "#warning",
+            "visible": true
+          },
+          {
+            "action": "click",
+            "selector": "#extend"
+          }
+        ]
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "window-value",
+        "name": "extensionCount",
+        "value": 10
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "extend"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.1",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "disabled",
+        "value": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.1/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c03",
+      "action": {
+        "action": "fill",
+        "selector": "#subject",
+        "value": "下書きの内容"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.6/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#save"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.6/p03.html",
+        "focus": [
+          "save"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c03",
+      "action": {
+        "action": "tick",
+        "milliseconds": 75600000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.6/p03.html",
+        "focus": [
+          "save"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c03",
+      "action": {
+        "action": "reload"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.6/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "value",
+        "value": ""
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.6/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c04",
+      "action": {
+        "action": "fill",
+        "selector": "#subject",
+        "value": "下書きの内容"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.6/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#save"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.6/p04.html",
+        "focus": [
+          "save"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c04",
+      "action": {
+        "action": "tick",
+        "milliseconds": 75600000
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.6/p04.html",
+        "focus": [
+          "save"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c04",
+      "action": {
+        "action": "reload"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.6/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.2.6",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "property": "value",
+        "value": "下書きの内容"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.2.6/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": true
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p05.html",
+        "focus": [
+          "before"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p05.html",
+        "focus": [
+          "level1"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p05.html",
+        "focus": [
+          "level1"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p05.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p05.html",
+        "focus": [
+          "after"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#level3-panel",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p05.html",
+        "focus": [
+          "after"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#after",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p05.html",
+        "focus": [
+          "after"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p06.html",
+        "focus": [
+          "before"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p06.html",
+        "focus": [
+          "level1"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p06.html",
+        "focus": [
+          "level1"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p06.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p06.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#level3-panel",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p06.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#level2",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p06.html",
+        "focus": [
+          "level2"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c07",
+      "action": {
+        "action": "click",
+        "selector": "#launch"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p07.html",
+        "focus": [
+          "outer-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c07",
+      "action": {
+        "action": "click",
+        "selector": "#inner-opener"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p07.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c07",
+      "action": {
+        "action": "check",
+        "selector": "#inner-name",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p07.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c07",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p07.html",
+        "focus": [
+          "outside"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c07",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p07.html",
+        "focus": [
+          "outside"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c07",
+      "action": {
+        "action": "check",
+        "selector": "#outside",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p07.html",
+        "focus": [
+          "outside"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c08",
+      "action": {
+        "action": "click",
+        "selector": "#launch"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p08.html",
+        "focus": [
+          "outer-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c08",
+      "action": {
+        "action": "click",
+        "selector": "#inner-opener"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p08.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#inner-name",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p08.html",
+        "focus": [
+          "inner-name"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c08",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p08.html",
+        "focus": [
+          "inner-opener"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p08.html",
+        "focus": [
+          "inner-opener"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#inner-opener",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p08.html",
+        "focus": [
+          "inner-opener"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c08",
+      "action": {
+        "action": "key",
+        "value": "Escape"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p08.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#outer",
+        "visible": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p08.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.3",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#launch",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.3/p08.html",
+        "focus": [
+          "launch"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c03",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c04",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c05",
+      "action": {
+        "action": "viewport",
+        "width": 320,
+        "height": 640
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p05.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p05.html",
+        "focus": [
+          "toggle"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c05",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p05.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p05.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c06",
+      "action": {
+        "action": "viewport",
+        "width": 320,
+        "height": 640
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p06.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p06.html",
+        "focus": [
+          "toggle"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c06",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p06.html",
+        "focus": [
+          "after"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.7",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#after",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.7/p06.html",
+        "focus": [
+          "after"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.11",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#show"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.11/p03.html",
+        "focus": [
+          "show"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.11",
+      "case": "c03",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.11/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.11",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.11/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.11",
+      "case": "c03",
+      "action": {
+        "action": "occlusion",
+        "selector": "#subject",
+        "expected": "all"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.11/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.11",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#show"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.11/p04.html",
+        "focus": [
+          "show"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.11",
+      "case": "c04",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.11/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.11",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.11/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.11",
+      "case": "c04",
+      "action": {
+        "action": "occlusion",
+        "selector": "#subject",
+        "expected": "none"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.11/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.12",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#show"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.12/p03.html",
+        "focus": [
+          "show"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.12",
+      "case": "c03",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.12/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.12",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.12/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.12",
+      "case": "c03",
+      "action": {
+        "action": "occlusion",
+        "selector": "#subject",
+        "expected": "partial"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.12/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.12",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#show"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.12/p04.html",
+        "focus": [
+          "show"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.12",
+      "case": "c04",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.12/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.12",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.12/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.4.12",
+      "case": "c04",
+      "action": {
+        "action": "occlusion",
+        "selector": "#subject",
+        "expected": "none"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.4.12/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c03",
+      "action": {
+        "action": "motion",
+        "x": 20
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.4/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "text": "1"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.4/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c04",
+      "action": {
+        "action": "motion",
+        "x": 20
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.4/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "text": "0"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.4/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#add"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.4/p04.html",
+        "focus": [
+          "add"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "text": "1"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.4/p04.html",
+        "focus": [
+          "add"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#motion"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.4/p04.html",
+        "focus": [
+          "motion"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c04",
+      "action": {
+        "action": "motion",
+        "x": 20
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.4/p04.html",
+        "focus": [
+          "motion"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.4",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "text": "2"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.4/p04.html",
+        "focus": [
+          "motion"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.8",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#target-a",
+        "width": 16,
+        "height": 16
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.8/p03.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "2.5.8",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#target-a",
+        "width": 28,
+        "height": 28
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/2.5.8/p04.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.2.1",
+      "case": "c03",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.2.1/details.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.2.1",
+      "case": "c03",
+      "action": {
+        "action": "url",
+        "suffix": "/details.html",
+        "unchanged": false
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.2.1/details.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.2.1",
+      "case": "c04",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.2.1/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.2.1",
+      "case": "c04",
+      "action": {
+        "action": "url",
+        "suffix": null,
+        "unchanged": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.2.1/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.2.2",
+      "case": "c01",
+      "action": {
+        "action": "select",
+        "selector": "#subject",
+        "value": "予約"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.2.2/details.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.2.2",
+      "case": "c01",
+      "action": {
+        "action": "url",
+        "suffix": "/details.html"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.2.2/details.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.2.2",
+      "case": "c01",
+      "action": {
+        "action": "check",
+        "selector": "h1",
+        "text": "予約手続き"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.2.2/details.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.2.2",
+      "case": "c02",
+      "action": {
+        "action": "select",
+        "selector": "#subject",
+        "value": "予約"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.2.2/details.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.2.2",
+      "case": "c02",
+      "action": {
+        "action": "url",
+        "suffix": "/details.html"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.2.2/details.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.2.2",
+      "case": "c02",
+      "action": {
+        "action": "check",
+        "selector": "h1",
+        "text": "予約手続き"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.2.2/details.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.8",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#subject"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.8/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.8",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#state",
+        "text": "計算が必要です"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.8/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.8",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#alternative"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.8/authenticated.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.8",
+      "case": "c04",
+      "action": {
+        "action": "url",
+        "suffix": "/authenticated.html"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.8/authenticated.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.8",
+      "case": "c05",
+      "action": {
+        "action": "click",
+        "selector": "#subject"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.8/p05.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.8",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#state",
+        "text": "模擬認証が完了しました"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.8/p05.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.9",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#subject"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.9/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.9",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#state",
+        "text": "計算が必要です"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.9/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.9",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#alternative"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.9/authenticated.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.9",
+      "case": "c04",
+      "action": {
+        "action": "url",
+        "suffix": "/authenticated.html"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.9/authenticated.html",
+        "focus": [
+          "BODY"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.9",
+      "case": "c05",
+      "action": {
+        "action": "click",
+        "selector": "#subject"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.9/p05.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "3.3.9",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#state",
+        "text": "模擬認証が完了しました"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/3.3.9/p05.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#subject"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "attribute": "aria-checked",
+        "value": "false"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c03",
+      "action": {
+        "action": "check",
+        "selector": "#state",
+        "text": "有効"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p03.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#subject"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "attribute": "aria-checked",
+        "value": "true"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c04",
+      "action": {
+        "action": "check",
+        "selector": "#state",
+        "text": "有効"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p04.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c05",
+      "action": {
+        "action": "click",
+        "selector": "#inner-action"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p05.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#inner-panel",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p05.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c05",
+      "action": {
+        "action": "check",
+        "selector": "#inner-action",
+        "attribute": "aria-expanded",
+        "value": "false"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p05.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c06",
+      "action": {
+        "action": "click",
+        "selector": "#inner-action"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p06.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#inner-panel",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p06.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c06",
+      "action": {
+        "action": "check",
+        "selector": "#inner-action",
+        "attribute": "aria-expanded",
+        "value": "true"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p06.html",
+        "focus": [
+          "subject",
+          "inner-action"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c07",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p07.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c07",
+      "action": {
+        "action": "key",
+        "value": "ArrowDown"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p07.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c07",
+      "action": {
+        "action": "check",
+        "selector": "#options",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p07.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c07",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "attribute": "aria-expanded",
+        "value": "false"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p07.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c08",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p08.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c08",
+      "action": {
+        "action": "key",
+        "value": "ArrowDown"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p08.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#options",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p08.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c08",
+      "action": {
+        "action": "check",
+        "selector": "#subject",
+        "attribute": "aria-expanded",
+        "value": "true"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p08.html",
+        "focus": [
+          "subject"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c09",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p09.html",
+        "focus": [
+          "tab-a"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c09",
+      "action": {
+        "action": "key",
+        "value": "ArrowRight"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p09.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#tab-b",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p09.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c09",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p09.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#panel-b",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p09.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c09",
+      "action": {
+        "action": "check",
+        "selector": "#tab-b",
+        "attribute": "aria-selected",
+        "value": "false"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p09.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c10",
+      "action": {
+        "action": "key",
+        "value": "Tab"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p10.html",
+        "focus": [
+          "tab-a"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c10",
+      "action": {
+        "action": "key",
+        "value": "ArrowRight"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p10.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c10",
+      "action": {
+        "action": "check",
+        "selector": "#tab-b",
+        "focused": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p10.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c10",
+      "action": {
+        "action": "key",
+        "value": "Enter"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p10.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c10",
+      "action": {
+        "action": "check",
+        "selector": "#panel-b",
+        "visible": true
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p10.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.2",
+      "case": "c10",
+      "action": {
+        "action": "check",
+        "selector": "#tab-b",
+        "attribute": "aria-selected",
+        "value": "true"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.2/p10.html",
+        "focus": [
+          "tab-b"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.3",
+      "case": "c03",
+      "action": {
+        "action": "click",
+        "selector": "#save"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.3/p03.html",
+        "focus": [
+          "save"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.3",
+      "case": "c03",
+      "action": {
+        "action": "wait",
+        "selector": "#subject",
+        "text": "保存しました"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.3/p03.html",
+        "focus": [
+          "save"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.3",
+      "case": "c04",
+      "action": {
+        "action": "click",
+        "selector": "#save"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.3/p04.html",
+        "focus": [
+          "save"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    },
+    {
+      "criterion": "4.1.3",
+      "case": "c04",
+      "action": {
+        "action": "wait",
+        "selector": "#subject",
+        "text": "保存しました"
+      },
+      "observed": {
+        "url": "http://127.0.0.1:42389/4.1.3/p04.html",
+        "focus": [
+          "save"
+        ],
+        "documentHasFocus": true
+      },
+      "virtual_clock": false
+    }
+  ],
+  "errors": []
+}

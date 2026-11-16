@@ -1,0 +1,313 @@
+{
+  "schema_version": "1",
+  "criterion": "1.4.3",
+  "version": "3",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/1.4.3.md",
+    "../../../references/tests/1.4.3.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "1.4.3-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "通常サイズの文字の前景・背景色からコントラストを測る。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.4.3-02",
+          "expected": "failed",
+          "rationale": "通常文字で白背景と#aaaは4.5:1未満。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "1.4.3-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "通常サイズの文字の前景・背景色からコントラストを測る。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.4.3-02",
+          "expected": "passed",
+          "rationale": "通常文字で白背景と#111は4.5:1以上。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "1.4.3.axe-flat-contrast",
+      "pattern_name": "axeで判定できる通常文字の対照",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.4.3-01"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "axeで判定できる通常文字の対照。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.4.3-01",
+          "expected": "failed",
+          "rationale": "通常文字のコントラストが4.5:1未満。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c04",
+      "pattern": "1.4.3.axe-flat-contrast",
+      "pattern_name": "axeで判定できる通常文字の対照",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.4.3-01"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "axeで判定できる通常文字の対照。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.4.3-01",
+          "expected": "passed",
+          "rationale": "通常文字のコントラストが4.5:1以上。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c05",
+      "pattern": "1.4.3.disabled-then-enabled",
+      "pattern_name": "無効から有効へ変わる部品のコントラスト",
+      "pattern_variant": "a",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "1.4.3-01"
+      ],
+      "states": [
+        {
+          "id": "enabled",
+          "instructions": [
+            "無効な保存ボタンを確認してから編集を開始し、有効化後の文字コントラストを改めて確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "enabled",
+          "target": "#subject",
+          "checkpoint": "1.4.3-01",
+          "expected": "failed",
+          "rationale": "有効化後の通常文字が4.5:1未満。無効時の例外を有効化後へ持ち越さない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "disabled",
+            "value": true
+          },
+          {
+            "action": "click",
+            "selector": "#enable"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "disabled",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c06",
+      "pattern": "1.4.3.disabled-then-enabled",
+      "pattern_name": "無効から有効へ変わる部品のコントラスト",
+      "pattern_variant": "b",
+      "pages": [
+        "p06.html"
+      ],
+      "checkpoints": [
+        "1.4.3-01"
+      ],
+      "states": [
+        {
+          "id": "enabled",
+          "instructions": [
+            "無効な保存ボタンを確認してから編集を開始し、有効化後の文字コントラストを改めて確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p06.html",
+          "state": "enabled",
+          "target": "#subject",
+          "checkpoint": "1.4.3-01",
+          "expected": "passed",
+          "rationale": "有効化後の通常文字が4.5:1以上。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "disabled",
+            "value": true
+          },
+          {
+            "action": "click",
+            "selector": "#enable"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "property": "disabled",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c07",
+      "pattern": "1.4.3.disabled-then-enabled",
+      "pattern_name": "無効から有効へ変わる部品のコントラスト",
+      "pattern_variant": "c",
+      "pages": [
+        "p07.html"
+      ],
+      "checkpoints": [
+        "1.4.3-01"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "無効な保存ボタンを確認してから編集を開始し、有効化後の文字コントラストを改めて確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p07.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.4.3-01",
+          "expected": "inapplicable",
+          "rationale": "無効な操作部品の文字なので、コントラストの例外である。有効化後へ例外を広げない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    }
+  ]
+}

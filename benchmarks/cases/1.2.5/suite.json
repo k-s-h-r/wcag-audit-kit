@@ -1,0 +1,285 @@
+{
+  "schema_version": "1",
+  "criterion": "1.2.5",
+  "version": "2",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/1.2.5.md",
+    "../../../references/tests/1.2.5.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "1.2.5-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "音声と映像を比較し、代替の利用条件と例外を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.5-02",
+          "expected": "failed",
+          "rationale": "元音声にない重要な映像情報の音声解説がない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "1.2.5-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "音声と映像を比較し、代替の利用条件と例外を確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.5-02",
+          "expected": "inapplicable",
+          "rationale": "対象となる同期メディアがないため非適用。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "1.2.5.description-selection",
+      "pattern_name": "音声解説の選択が実メディアを変えるか",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "1.2.5-01"
+      ],
+      "states": [
+        {
+          "id": "after-select",
+          "instructions": [
+            "音声解説を選択し、実際に再生する動画・音声が切り替わるか確認する。全区間を再生する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "after-select",
+          "target": "#subject",
+          "checkpoint": "1.2.5-01",
+          "expected": "failed",
+          "rationale": "選択によりボタンの表示だけ変わり、音声解説の動画へ切り替わらない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#describe"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "attribute": "src",
+            "value": "assets/expanded-source.webm"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c04",
+      "pattern": "1.2.5.description-selection",
+      "pattern_name": "音声解説の選択が実メディアを変えるか",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "1.2.5-01"
+      ],
+      "states": [
+        {
+          "id": "after-select",
+          "instructions": [
+            "音声解説を選択し、実際に再生する動画・音声が切り替わるか確認する。全区間を再生する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "after-select",
+          "target": "#subject",
+          "checkpoint": "1.2.5-01",
+          "expected": "passed",
+          "rationale": "選択により実際に音声解説を含む動画へ切り替わる。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ],
+      "fixture_probe": {
+        "steps": [
+          {
+            "action": "click",
+            "selector": "#describe"
+          },
+          {
+            "action": "check",
+            "selector": "#subject",
+            "attribute": "src",
+            "value": "assets/expanded-described.webm"
+          }
+        ]
+      }
+    },
+    {
+      "id": "c05",
+      "pattern": "1.2.5.description-meaning",
+      "pattern_name": "音声解説が重要な映像情報と合うか",
+      "pattern_variant": "a",
+      "pages": [
+        "p05.html"
+      ],
+      "checkpoints": [
+        "1.2.5-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "音声解説付きの映像を再生し、画面にある受付コードが解説でも同じ内容で伝わるか比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p05.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.5-02",
+          "expected": "failed",
+          "rationale": "画面の7291に対して音声解説が7292と誤って伝える。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    },
+    {
+      "id": "c06",
+      "pattern": "1.2.5.description-meaning",
+      "pattern_name": "音声解説が重要な映像情報と合うか",
+      "pattern_variant": "b",
+      "pages": [
+        "p06.html"
+      ],
+      "checkpoints": [
+        "1.2.5-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "音声解説付きの映像を再生し、画面にある受付コードが解説でも同じ内容で伝わるか比較する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p06.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.2.5-02",
+          "expected": "passed",
+          "rationale": "画面の7291に対して音声解説が7291を伝える。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "requires_environment": [
+        "audio-content-comparison"
+      ]
+    }
+  ],
+  "material_sources": [
+    {
+      "kind": "generated-known-source",
+      "generator": "ffmpeg libflite, slt voice; VP9 and Opus",
+      "main": "Press the blue button to save the document.",
+      "normal_visual_code": "7291",
+      "normal_description": "An access code appears. Seven, two, nine, one.",
+      "wrong_normal_description": "An access code appears. Seven, two, nine, two.",
+      "extended_visual_code": "72918304652817930462",
+      "extended_description": "The access code is seven two nine one eight three zero four six five two eight one seven nine three zero four six two.",
+      "main_duration_seconds": 2.62,
+      "description_start_seconds": 2.92,
+      "extended_video_duration_seconds": 3.22,
+      "extended_pause_after_seconds": 2.77
+    }
+  ]
+}

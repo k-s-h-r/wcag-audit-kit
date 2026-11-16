@@ -1,0 +1,1222 @@
+{
+  "schema_version": "1",
+  "run_id": "68eca6e76cc0492c8267a6065d8af478",
+  "corpus_digest": "e6f5829adba3aad1c6aeffe000f33c272e38298f2d03c0e609dd78a0fe337820",
+  "modes": [
+    "machine"
+  ],
+  "selection": [
+    "1.4.10",
+    "2.4.2"
+  ],
+  "configuration": {
+    "max_states": 8,
+    "max_steps": 32,
+    "max_depth": 3,
+    "max_images": 6
+  },
+  "implementation_digest": "2d01c489205e174f1dfc6eff81425ff98655191a291588f7aa1dccfc80b109a6",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)"
+  },
+  "standard": "WCAG-2.2",
+  "normative_hashes": {
+    "1.4.10": "58fcc563ae8feae8ac193c4743be78976f8520be78d31a4bf19b768ceed5a7cb",
+    "2.4.2": "c8ea15c57c75772ac694984252bafe819baec75f9703c5ab3da13e51455ddcf6"
+  },
+  "scorer_digest": "63ed26e8d8cbb98346838461ce4719059d4210ba9e1acee08279b95a960b4cd1",
+  "created_at": "2026-11-16T17:49:02.909149+00:00",
+  "selected_checks_status": "incomplete",
+  "overall_status": "incomplete",
+  "counts": {
+    "deferred": 4,
+    "not_evaluated": 2,
+    "correct": 3
+  },
+  "confusion": {
+    "TP": 1,
+    "TN": 2,
+    "FP": 0
+  },
+  "precision_on_evaluated": 1.0,
+  "recall_on_evaluated": 1.0,
+  "methods_by_mode": {
+    "machine": {
+      "program": 3
+    }
+  },
+  "detected_known_failures": 1,
+  "total_known_failures": 4,
+  "undetected_known_failures": 3,
+  "rows": [
+    {
+      "job_id": "machine--1.4.10--c01",
+      "criterion": "1.4.10",
+      "case": "c01",
+      "mode": "machine",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.4.10-02",
+      "expected": "failed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "例外でないフォームが固定幅で二方向スクロールを要する。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "machine--1.4.10--c02",
+      "criterion": "1.4.10",
+      "case": "c02",
+      "mode": "machine",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.4.10-02",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "320pxでも横スクロールなしに内容と保存を利用できる。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "machine--1.4.10--c03",
+      "criterion": "1.4.10",
+      "case": "c03",
+      "mode": "machine",
+      "page": "p03.html",
+      "state": "narrow",
+      "target": "#subject",
+      "checkpoint": "1.4.10-02",
+      "expected": "failed",
+      "actual": "not_run",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "例外でない入力内容を320px幅で利用するため横スクロールが要る。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "machine--1.4.10--c04",
+      "criterion": "1.4.10",
+      "case": "c04",
+      "mode": "machine",
+      "page": "p04.html",
+      "state": "narrow",
+      "target": "#subject",
+      "checkpoint": "1.4.10-02",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "not_evaluated",
+      "required": true,
+      "confusion": "",
+      "rationale": "320px幅で横スクロールなしに内容と操作を利用できる。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "machine--2.4.2--c01",
+      "criterion": "2.4.2",
+      "case": "c01",
+      "mode": "machine",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "failed",
+      "actual": "failed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TP",
+      "rationale": "ページタイトルが空。",
+      "observed": "Fix any of the following:\n  Document does not have a non-empty <title> element",
+      "evidence": [
+        "audit-runs/machine--2.4.2--c01/p01/attempt-f3d8b35f6e80/run/evidence/3f5dc56927c7--explore-b148360681ea--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / document-title"
+    },
+    {
+      "job_id": "machine--2.4.2--c02",
+      "criterion": "2.4.2",
+      "case": "c02",
+      "mode": "machine",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TN",
+      "rationale": "ページタイトルが存在する。",
+      "observed": "<html lang=\"ja\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>お問い合わせ</title><link rel=\"stylesheet\" href=\"assets/site.css\"></head><body><main><h1>お問い合わせ</h1><p>製品についてのお問い合わせ窓口です。</p></main>\n</body></html>",
+      "evidence": [
+        "audit-runs/machine--2.4.2--c02/p02/attempt-3874e28d8ce9/run/evidence/1475ffbebcd0--explore-161abf2df1ff--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / document-title"
+    },
+    {
+      "job_id": "machine--2.4.2--c02",
+      "criterion": "2.4.2",
+      "case": "c02",
+      "mode": "machine",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-02",
+      "expected": "passed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "お問い合わせ窓口の目的とタイトルが合っている。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    },
+    {
+      "job_id": "machine--2.4.2--c03",
+      "criterion": "2.4.2",
+      "case": "c03",
+      "mode": "machine",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "required": true,
+      "confusion": "TN",
+      "rationale": "ページタイトルが存在する。",
+      "observed": "<html lang=\"ja\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>ログイン</title><link rel=\"stylesheet\" href=\"assets/site.css\"></head><body><main><h1>お問い合わせ</h1><p>製品についてのお問い合わせ窓口です。</p></main>\n</body></html>",
+      "evidence": [
+        "audit-runs/machine--2.4.2--c03/p03/attempt-fd1df9638ab2/run/evidence/4a565e1e9b46--explore-2549d3a49630--desktop/axe.json"
+      ],
+      "method": "program",
+      "source": "production axe / document-title"
+    },
+    {
+      "job_id": "machine--2.4.2--c03",
+      "criterion": "2.4.2",
+      "case": "c03",
+      "mode": "machine",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-02",
+      "expected": "failed",
+      "actual": "not_run",
+      "grade": "deferred",
+      "required": false,
+      "confusion": "",
+      "rationale": "タイトルがログインを説明し、問い合わせページの主題・目的と合わない。",
+      "observed": "この観点の確定結果がまだ記録されていません。",
+      "evidence": [],
+      "method": "",
+      "source": ""
+    }
+  ],
+  "unexpected_findings": [],
+  "criteria": [
+    {
+      "criterion": "1.1.1",
+      "title": "非テキストコンテンツ",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.2.1",
+      "title": "音声のみ及び映像のみ (収録済)",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.2.2",
+      "title": "キャプション (収録済)",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.2.3",
+      "title": "音声解説、又はメディアに対する代替 (収録済)",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.2.4",
+      "title": "キャプション (ライブ)",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.2.5",
+      "title": "音声解説 (収録済)",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.2.6",
+      "title": "手話 (収録済)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.2.7",
+      "title": "拡張音声解説 (収録済)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.2.8",
+      "title": "メディアに対する代替 (収録済)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.2.9",
+      "title": "音声のみ (ライブ)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.3.1",
+      "title": "情報及び関係性",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.3.2",
+      "title": "意味のあるシーケンス",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.3.3",
+      "title": "感覚的な特徴",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.3.4",
+      "title": "表示の向き",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.3.5",
+      "title": "入力目的の特定",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.3.6",
+      "title": "目的の特定",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.1",
+      "title": "色の使用",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.2",
+      "title": "音声の制御",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.3",
+      "title": "コントラスト (最低限)",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.4",
+      "title": "テキストのサイズ変更",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.5",
+      "title": "文字画像",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.6",
+      "title": "コントラスト (高度)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.7",
+      "title": "小さな背景音、又は背景音なし",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.8",
+      "title": "視覚的提示",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.9",
+      "title": "文字画像 (例外なし)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.10",
+      "title": "リフロー",
+      "level": "AA",
+      "status": "prepared",
+      "expected_observations": 4,
+      "evaluated": 0,
+      "counts": {
+        "machine": {
+          "deferred": 2,
+          "not_evaluated": 2
+        }
+      }
+    },
+    {
+      "criterion": "1.4.11",
+      "title": "非テキストのコントラスト",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.12",
+      "title": "テキストの間隔",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "1.4.13",
+      "title": "ホバー又はフォーカスで表示されるコンテンツ",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.1.1",
+      "title": "キーボード",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.1.2",
+      "title": "キーボードトラップなし",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.1.3",
+      "title": "キーボード (例外なし)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.1.4",
+      "title": "文字キーのショートカット",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.2.1",
+      "title": "タイミング調整可能",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.2.2",
+      "title": "一時停止、停止、非表示",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.2.3",
+      "title": "タイミング非依存",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.2.4",
+      "title": "割り込み",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.2.5",
+      "title": "再認証",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.2.6",
+      "title": "タイムアウト",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.3.1",
+      "title": "3 回の閃光、又は閾値以下",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.3.2",
+      "title": "3 回の閃光",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.3.3",
+      "title": "インタラクションによるアニメーション",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.1",
+      "title": "ブロックスキップ",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.2",
+      "title": "ページタイトル",
+      "level": "A",
+      "status": "prepared",
+      "expected_observations": 5,
+      "evaluated": 3,
+      "counts": {
+        "machine": {
+          "correct": 3,
+          "deferred": 2
+        }
+      }
+    },
+    {
+      "criterion": "2.4.3",
+      "title": "フォーカス順序",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.4",
+      "title": "リンクの目的 (コンテキスト内)",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.5",
+      "title": "複数の手段",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.6",
+      "title": "見出し及びラベル",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.7",
+      "title": "フォーカスの可視化",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.8",
+      "title": "現在位置",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.9",
+      "title": "リンクの目的 (リンクのみ)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.10",
+      "title": "セクション見出し",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.11",
+      "title": "隠されないフォーカス (最低限)",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.12",
+      "title": "隠されないフォーカス (高度)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.4.13",
+      "title": "フォーカスの外観",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.5.1",
+      "title": "ポインタのジェスチャ",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.5.2",
+      "title": "ポインタのキャンセル",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.5.3",
+      "title": "ラベルを含む名前 (name)",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.5.4",
+      "title": "動きによる起動",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.5.5",
+      "title": "ターゲットのサイズ (高度)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.5.6",
+      "title": "入力メカニズムの共存",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.5.7",
+      "title": "ドラッグ動作",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "2.5.8",
+      "title": "ターゲットのサイズ (最低限)",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.1.1",
+      "title": "ページの言語",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.1.2",
+      "title": "一部分の言語",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.1.3",
+      "title": "一般的ではない用語",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.1.4",
+      "title": "略語",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.1.5",
+      "title": "読解レベル",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.1.6",
+      "title": "発音",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.2.1",
+      "title": "フォーカス時",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.2.2",
+      "title": "入力時",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.2.3",
+      "title": "一貫したナビゲーション",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.2.4",
+      "title": "一貫した識別性",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.2.5",
+      "title": "要求による変化",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.2.6",
+      "title": "一貫したヘルプ",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.3.1",
+      "title": "エラーの特定",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.3.2",
+      "title": "ラベル又は説明",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.3.3",
+      "title": "エラー修正の提案",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.3.4",
+      "title": "誤り防止 (法的、金融、データ)",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.3.5",
+      "title": "ヘルプ",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.3.6",
+      "title": "誤り防止 (すべて)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.3.7",
+      "title": "冗長な入力項目",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.3.8",
+      "title": "アクセシブルな認証 (最低限)",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "3.3.9",
+      "title": "アクセシブルな認証 (高度)",
+      "level": "AAA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "4.1.2",
+      "title": "名前 (name)・役割 (role)・値 (value)",
+      "level": "A",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    },
+    {
+      "criterion": "4.1.3",
+      "title": "ステータスメッセージ",
+      "level": "AA",
+      "status": "not_selected",
+      "expected_observations": 0,
+      "evaluated": 0,
+      "counts": {
+        "machine": {}
+      }
+    }
+  ],
+  "pending_evidence_contracts": [
+    {
+      "job_id": "machine--1.4.10--c03",
+      "criterion": "1.4.10",
+      "mode": "machine",
+      "page": "p03.html",
+      "state": "narrow",
+      "checkpoint": "1.4.10-01",
+      "kind": "viewport",
+      "status": "deferred"
+    },
+    {
+      "job_id": "machine--1.4.10--c04",
+      "criterion": "1.4.10",
+      "mode": "machine",
+      "page": "p04.html",
+      "state": "narrow",
+      "checkpoint": "1.4.10-01",
+      "kind": "viewport",
+      "status": "deferred"
+    }
+  ],
+  "notice_evidence": "取得期待の照合は未接続です。別表の未確認を適合・不適合の件数へ混ぜず、必要な取得期待が残る実行は未完了とします。",
+  "notice": "作成者が定めた有限の確認観点の採点です。独立した専門家による正解確認は未実施です。未実施・モードによる省略・未整備の基準を成功に数えません。検出率は評価できた範囲と全問題の未検出数を併記します。"
+}

@@ -1,0 +1,189 @@
+{
+  "schema_version": "1",
+  "criterion": "2.5.3",
+  "version": "2",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/2.5.3.md",
+    "../../../references/tests/2.5.3.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "2.5.3-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "表示された保存という文字がアクセシブル名に含まれるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "2.5.3-02",
+          "expected": "failed",
+          "rationale": "アクセシブル名が表示ラベルの保存を含まない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "2.5.3-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "表示された保存という文字がアクセシブル名に含まれるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "2.5.3-02",
+          "expected": "passed",
+          "rationale": "アクセシブル名が表示ラベルの保存を含む。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "pattern": "2.5.3.label-name-acquisition",
+      "pattern_name": "表示文字とアクセシブル名の取得",
+      "pattern_variant": "a",
+      "pages": [
+        "p03.html"
+      ],
+      "checkpoints": [
+        "2.5.3-01",
+        "2.5.3-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "表示文字とアクセシブル名の取得。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p03.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "2.5.3-02",
+          "expected": "failed",
+          "rationale": "保存という表示ラベルをアクセシブル名が含まない。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "2.5.3-01",
+          "kind": "accessible-name",
+          "targets": [
+            "#subject"
+          ],
+          "visible_label": "保存",
+          "accessible_name": "実行",
+          "page": "p03.html",
+          "state": "initial",
+          "rationale": "保存という表示ラベルをアクセシブル名が含まない。"
+        }
+      ]
+    },
+    {
+      "id": "c04",
+      "pattern": "2.5.3.label-name-acquisition",
+      "pattern_name": "表示文字とアクセシブル名の取得",
+      "pattern_variant": "b",
+      "pages": [
+        "p04.html"
+      ],
+      "checkpoints": [
+        "2.5.3-01",
+        "2.5.3-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "表示文字とアクセシブル名の取得。操作と観察から判定し、表示だけで完了としない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p04.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "2.5.3-02",
+          "expected": "passed",
+          "rationale": "アクセシブル名が保存を含む。",
+          "modes": {
+            "machine": "evaluate",
+            "ai": "evaluate",
+            "screen-reader": "evaluate",
+            "full": "evaluate"
+          },
+          "evidence_kind": "semantic"
+        }
+      ],
+      "evidence_expectations": [
+        {
+          "checkpoint": "2.5.3-01",
+          "kind": "accessible-name",
+          "targets": [
+            "#subject"
+          ],
+          "visible_label": "保存",
+          "accessible_name": "保存する",
+          "page": "p04.html",
+          "state": "initial",
+          "rationale": "アクセシブル名が保存を含む。"
+        }
+      ]
+    }
+  ]
+}
