@@ -2,7 +2,7 @@
 name: wcag-pages
 description: アクセシビリティ検証の対象URLを選定する。URL一覧・設定ファイルをそのまま使うconfiguredと、リンクから候補を得るdiscoverを扱う。ページのWCAG判定は行わない。
 metadata:
-  version: "0.6.0"
+  version: "0.7.0"
 ---
 
 # 検証するページを選ぶ

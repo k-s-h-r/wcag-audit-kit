@@ -4,6 +4,15 @@
 
 ## 1ページ又はURL一覧から始める
 
+[検証モード](verification-modes.md)を選ぶ場合は、機械検査から始めるpage-auditを使う。machine / ai / screen-reader / fullを指定できる。設定なしの新しいpage-auditはmachine。対応表の確認にはmodesを使う。
+
+```sh
+python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-contact --mode ai
+python3 scripts/audit.py modes --mode ai --criterion 1.1.1
+```
+
+設定済みの状態を収集する従来のpageと、URLを選定するpagesも利用できる。
+
 ```sh
 python3 scripts/audit.py page --url https://example.com/contact --out /project/run-contact --profile standard
 python3 scripts/audit.py pages --config /project/wcag-audit.yaml --out /project/pages.json

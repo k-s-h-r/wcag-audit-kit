@@ -94,6 +94,8 @@ def page_result(run, url, original=None):
         not any(unfinished(c) for c in rows) and not result['missing_captures'] and not result['missing_cases'] and
         not result['unvisited'] and original['scope_confirmed'] and review['complete'] and result.get('exploration',{}).get('complete',True))
     result['conformance_claim']='この1ページの記録範囲の結果です。ページ間の一貫性や手続き全体の確認は別に示します。'
+    from verification_modes import summary
+    result['verification']=summary(run,result)
     return result
 
 
@@ -105,14 +107,29 @@ def next_work(run, url, limit=5):
              (c['assessment_data'] or {}).get('remaining') or (c['assessment_data'] or {}).get('coverage_complete') is not True]
     by_id={c['id']:c for c in catalog['criteria']}
     checks=machine_checks(run)
-    return {'page':url,'audit_complete':result['audit_complete'],
+    mode=result.get('verification')
+    packets=[];unavailable=[]
+    for c in pending:
+        packet=dict(c,definition=by_id[c['criterion']],
+                    machine_results=[m for m in checks if m['criterion']==c['criterion'] and m['capture']==c['capture']])
+        if mode:
+            from verification_modes import work_checkpoint
+            points=[r for r in mode['checkpoints'] if r['criterion']==c['criterion']]
+            packet['verification_checkpoints']=[work_checkpoint(r,mode['mode']) for r in points if r['selected_support']!='no']
+            packet['skipped_checkpoints']=[dict(id=r['id'],check=r['check'],reason=r['note']) for r in points if r['selected_support']=='no']
+            if not packet['verification_checkpoints']:
+                unavailable.append({'case_id':c['case_id'],'criterion':c['criterion'],'checkpoints':packet['skipped_checkpoints']});continue
+        packets.append(packet)
+    mode_notice={k:v for k,v in mode.items() if k!='checkpoints'} if mode else None
+    return {'page':url,'audit_complete':result['audit_complete'],'verification':mode_notice,
         'exploration':{'graph_digest':graph.get('graph_digest'),'pending_routes':len(graph.get('queue',[])),'remaining':graph['remaining'],
                        'next':'page-audit --resume' if graph.get('queue') else '残る範囲の追加検査'},
         'machine_checks':dict(Counter(c['outcome'] for c in checks)),
-        'remaining_cases':len(pending),'next_cases':[dict(c,definition=by_id[c['criterion']],
-             machine_results=[m for m in checks if m['criterion']==c['criterion'] and m['capture']==c['capture']])
-             for c in pending[:max(1,limit)]],
-        'policy':'機械ルールを先に実行する。実行可能な追加検査を進め、意味・目的などの未確定部分だけを判断する。環境不足だけで人待ちにせず代替手段を調べる。'}
+        'remaining_cases':len(pending),'mode_actionable_cases':len(packets),'mode_unavailable_count':len(unavailable),
+        'mode_unavailable_cases':unavailable[:max(1,limit)],
+        'next_cases':packets[:max(1,limit)],
+        'policy':('選択モードで許可した方法だけを実行する。△は確認できる部分だけを実行し、残る判断を未確認にする。AIが無効なら画像・意味をAIで判断せず、SRが無効なら起動しない。' if mode else '')+
+                 '機械ルールを先に実行する。実行可能な追加検査を進め、意味・目的などの未確定部分だけを判断する。環境不足だけで人待ちにせず代替手段を調べる。'}
 
 
 def resolve(run, value):

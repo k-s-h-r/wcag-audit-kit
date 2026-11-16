@@ -1,0 +1,107 @@
+{
+  "version": "0.7.0",
+  "modes": [
+    {
+      "mode": "machine",
+      "states": 2,
+      "machine_checks": 133,
+      "screenshots": 0,
+      "screen_reader": "disabled",
+      "wcag_counts": {
+        "not_run": 110
+      },
+      "mode_counts": {
+        "yes": 25,
+        "partial": 50,
+        "no": 16
+      },
+      "audit_complete": false,
+      "files": {
+        "html": "machine/page-dcaf80e1ce9a-report.html",
+        "json": "machine/page-dcaf80e1ce9a-report.json",
+        "excel": "machine/page-dcaf80e1ce9a-report.xlsx"
+      }
+    },
+    {
+      "mode": "ai",
+      "states": 2,
+      "machine_checks": 133,
+      "screenshots": 2,
+      "screen_reader": "disabled",
+      "wcag_counts": {
+        "not_run": 110
+      },
+      "mode_counts": {
+        "yes": 72,
+        "no": 9,
+        "partial": 10
+      },
+      "audit_complete": false,
+      "files": {
+        "html": "ai/page-dcaf80e1ce9a-report.html",
+        "json": "ai/page-dcaf80e1ce9a-report.json",
+        "excel": "ai/page-dcaf80e1ce9a-report.xlsx"
+      }
+    },
+    {
+      "mode": "screen-reader",
+      "states": 2,
+      "machine_checks": 133,
+      "screenshots": 0,
+      "screen_reader": "not_run",
+      "wcag_counts": {
+        "not_run": 110
+      },
+      "mode_counts": {
+        "yes": 28,
+        "partial": 52,
+        "no": 11
+      },
+      "audit_complete": false,
+      "files": {
+        "html": "screen-reader/page-dcaf80e1ce9a-report.html",
+        "json": "screen-reader/page-dcaf80e1ce9a-report.json",
+        "excel": "screen-reader/page-dcaf80e1ce9a-report.xlsx"
+      }
+    },
+    {
+      "mode": "full",
+      "states": 2,
+      "machine_checks": 133,
+      "screenshots": 2,
+      "screen_reader": "not_run",
+      "wcag_counts": {
+        "not_run": 110
+      },
+      "mode_counts": {
+        "yes": 77,
+        "partial": 8,
+        "no": 6
+      },
+      "audit_complete": false,
+      "files": {
+        "html": "full/page-dcaf80e1ce9a-report.html",
+        "json": "full/page-dcaf80e1ce9a-report.json",
+        "excel": "full/page-dcaf80e1ce9a-report.xlsx"
+      }
+    }
+  ],
+  "resume_kept_mode": true,
+  "old_evidence_unchanged": 16,
+  "mode_change_rejected": true,
+  "scope": "実ブラウザーのモード別収集・作業指示・帳票。AIの内容判断と実SRの発話は今回未実施。",
+  "server_requests": [
+    "/page-workflow.html",
+    "/page-workflow.html",
+    "/page-workflow.html",
+    "/page-workflow.html",
+    "/page-workflow.html",
+    "/page-workflow.html",
+    "/page-workflow.html",
+    "/page-workflow.html",
+    "/page-workflow.html",
+    "/page-workflow.html",
+    "/page-workflow.html",
+    "/page-workflow.html"
+  ]
+}

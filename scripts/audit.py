@@ -51,6 +51,9 @@ def run_meta(run):
 
 def run_catalog(run,for_write=False):
     meta=run_meta(run);path=run/'catalog.snapshot.json'
+    if for_write and 'verification' in meta['config']:
+        from verification_modes import run_catalog as verification_catalog
+        verification_catalog(run)
     if path.exists():
         catalog=load(path)
         if digest(catalog)!=meta['catalog_digest']:
@@ -145,9 +148,11 @@ def validate_config(c):
             raise ValueError('状態の到達確認assertが必要。操作が成功しただけで状態到達としない')
     if c.get('auth_state'):
         c['auth_state']=str(Path(c['auth_state']).resolve())
-    if 'inspection' in c:
+    if 'inspection' in c and 'verification' not in c:
         from inspection import policy
         c['inspection']=policy(c['inspection'])
+    from verification_modes import configure
+    configure(c)
     return c
 
 
@@ -419,7 +424,7 @@ def outcomes(run):
     complete=complete and exploration['complete']
     from page_workflow import machine_checks
     automated=machine_checks(run) if exploration['required'] else []
-    return {'level':meta['config']['level'],'url':meta['config']['url'],'audit_complete':complete,
+    result={'level':meta['config']['level'],'url':meta['config']['url'],'audit_complete':complete,
             'conformance_claim':'この結果は記録した検査範囲についての報告です。未実施・判断保留は適合と判定していません。',
             'scope_confirmed':inventory_ok,'scope_review':scope,'unvisited':manifest['unvisited'],
             'collector_status':manifest.get('collector_status','legacy_unspecified'),
@@ -434,6 +439,9 @@ def outcomes(run):
             'observation_usage':manifest.get('inspection',{}),
             'exploration':{k:exploration[k] for k in ['required','complete','remaining']},
             'machine_checks':automated,'counts':dict(stats),'criteria':per_criterion,'cases':rows}
+    from verification_modes import summary as verification_summary
+    result['verification']=verification_summary(run,result)
+    return result
 
 
 @locked
@@ -536,6 +544,8 @@ def report(run, *, page_url=None):
             '機械検査 '+str(len(result['machine_checks']))+'件（ルール・経路の延べ件数）。問題あり '+str(machine_counts['failed'])+'、機械判定不能 '+str(machine_counts['cant_tell'])+'。</p>'
             '<p>達成基準全体の判定：'+escape('、'.join(k+' '+str(v) for k,v in criterion_counts.items()))+'。</p></section>')
         page=page.replace('</nav>','</nav>'+overview,1)
+    from verification_modes import render_html as verification_html
+    page=page.replace('</nav>','</nav>'+verification_html(result.get('verification')),1)
     for filename in ['report.json','issues.md','human-review.md','interaction-review.md']:
         page=page.replace('href="'+filename+'"','href="'+prefix+filename+'"')
     (run/(prefix+'report.html')).write_text(page)
@@ -588,6 +598,8 @@ def write_page_reports(run,url):
 def run_page_audit(run,args):
     from page_explorer import explore
     from shlex import join
+    from verification_modes import run_catalog as verification_catalog
+    verification_catalog(run)
     if run_meta(run)['config'].get('states'):
         raise ValueError('事前設定statesの収集にはpageを使う。page-auditは自動探索、追加シナリオはprobeで検査する')
     value=asyncio.run(explore(run,max_states=args.max_states,max_steps=args.max_steps,max_depth=args.max_depth))
@@ -603,7 +615,10 @@ def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     sub=parser.add_subparsers(dest='command',required=True)
     p=sub.add_parser('init');p.add_argument('--url',required=True);p.add_argument('--config',required=True)
-    p.add_argument('--profile',choices=['quick','standard','thorough'],default='standard')
+    p.add_argument('--profile',choices=['quick','standard','thorough'])
+    from verification_modes import MODES
+    p.add_argument('--mode',choices=list(MODES),default='machine')
+    p=sub.add_parser('modes');p.add_argument('--mode',choices=list(MODES),default='machine');p.add_argument('--criterion',choices=list(CRITERIA))
     sub.add_parser('doctor')
     p=sub.add_parser('rules');p.add_argument('--criterion',choices=list(CRITERIA))
     p.add_argument('--status',choices=['active','approved','proposed','deprecated','all'],default='active')
@@ -615,6 +630,7 @@ def main(argv=None):
         p.add_argument('--level',choices=list(LEVELS));p.add_argument('--profile',choices=['quick','standard','thorough'])
         p.add_argument('--screenshots',choices=['off','states','all']);p.add_argument('--screen-reader',choices=['off','optional','required'])
         p.add_argument('--max-images',type=int)
+        p.add_argument('--mode',choices=list(MODES))
         if name=='page-audit':
             p.add_argument('--resume',action='store_true')
             p.add_argument('--max-states',type=int,default=64);p.add_argument('--max-steps',type=int,default=512);p.add_argument('--max-depth',type=int,default=8)
@@ -651,6 +667,12 @@ def main(argv=None):
         if name=='report':p.add_argument('--strict',action='store_true')
     args=parser.parse_args(argv)
     try:
+        if args.command=='modes':
+            from verification_modes import catalog,validate_catalog,coverage,LEGEND
+            value=validate_catalog(catalog())
+            rows=coverage(value,args.mode or 'machine')
+            if args.criterion:rows=[r for r in rows if r['criterion']==args.criterion]
+            print(json.dumps({'modes':MODES,'legend':LEGEND,'selected_mode':args.mode,'checkpoints':rows},ensure_ascii=False,indent=2));return 0
         if args.command=='doctor':
             from native_zoom import capabilities
             print(json.dumps({'python':sys.version.split()[0], 'playwright':bool(importlib.util.find_spec('playwright')),
@@ -670,24 +692,35 @@ def main(argv=None):
         if args.command=='init':
             p=Path(args.config)
             if p.exists():raise ValueError('既存設定を上書きしない')
-            from inspection import policy
-            config=init_config(args.url);config['inspection']=policy({'profile':args.profile})
+            from verification_modes import select
+            config=select(init_config(args.url),args.mode,profile=args.profile)
+            config['environments']=[e for e in config['environments'] if e.get('zoom',1)==1]
             save(p,config);print(p);return 0
         if args.command in {'start','pages','page','page-audit'}:
             from page_catalog import read_config,select_pages
             if args.command in {'page','page-audit'}:
                 from inspection import policy
-                config=read_config(args.config) if args.config else init_config(args.url)
+                if args.config:config=read_config(args.config)
+                elif args.command=='page-audit' and args.resume:config=json.loads(json.dumps(run_meta(Path(args.out))['config']))
+                else:config=init_config(args.url)
                 if (urlsplit(config['url']).scheme,urlsplit(config['url']).netloc)!=(urlsplit(args.url).scheme,urlsplit(args.url).netloc):
                     raise ValueError('設定と単独ページのオリジンが異なる')
                 if not args.config:
                     config['environments']=[e for e in config['environments'] if e.get('zoom',1)==1]
                 config['scope'].update(mode='configured',pages=[args.url],max_pages=1)
-                choice={'profile':args.profile} if args.profile else dict(config.get('inspection',{'profile':'standard'}))
-                for key in ['screenshots','screen_reader','max_images']:
-                    value=getattr(args,key)
-                    if value is not None:choice[key]=value
-                config['inspection']=policy(choice)
+                selected_mode=args.mode or ('machine' if args.command=='page-audit' and not args.config and not args.resume else None)
+                if not selected_mode and args.profile and config.get('verification'):
+                    selected_mode=config['verification']['mode']
+                if selected_mode:
+                    from verification_modes import select
+                    select(config,selected_mode,profile=args.profile,screenshots=args.screenshots,
+                           screen_reader=args.screen_reader,max_images=args.max_images)
+                else:
+                    choice={'profile':args.profile} if args.profile else dict(config.get('inspection',{'profile':'standard'}))
+                    for key in ['screenshots','screen_reader','max_images']:
+                        value=getattr(args,key)
+                        if value is not None:choice[key]=value
+                    config['inspection']=policy(choice)
                 if args.level:config['level']=args.level
                 config=validate_config(config)
             else:config=read_config(args.config)
@@ -705,11 +738,16 @@ def main(argv=None):
                     requested=getattr(args,option)
                     if requested is not None and requested!=meta['config']['inspection'][option]:
                         raise ValueError('再開では観察設定を変更しない。新しいrunを作る')
+                if args.mode is not None and args.mode!=meta['config'].get('verification',{}).get('mode'):
+                    raise ValueError('再開では検証モードを変更しない。新しいrunを作る')
                 return run_page_audit(run,args)
             if run.exists() and any(run.iterdir()):raise ValueError('出力先は空にする。既存結果はpending/reportで再開する')
             run.mkdir(parents=True,exist_ok=True)
-            save(run/'run.json',{'created_at':datetime.now(timezone.utc).isoformat(),'config':config,
-                                 'config_digest':digest(config),'catalog_digest':digest(CATALOG)})
+            meta={'created_at':datetime.now(timezone.utc).isoformat(),'config':config,
+                  'config_digest':digest(config),'catalog_digest':digest(CATALOG)}
+            from verification_modes import snapshot as snapshot_verification
+            snapshot_verification(run,meta)
+            save(run/'run.json',meta)
             snapshot_catalog(run)
             if args.command=='page-audit':
                 make_plan(run,{'captures':[]});return run_page_audit(run,args)

@@ -2,7 +2,7 @@
 name: wcag-audit-kit
 description: WCAG 2.2の検証を利用目的に応じて進行する。1ページならwcag-page、URL選定ならwcag-pages、既存結果の集計ならwcag-reportへ振り分ける。サイト全体では共通台帳とページ別タスクで分担・中断・再開し、未確認を残して報告する。
 metadata:
-  version: "0.6.0"
+  version: "0.7.0"
 ---
 
 # WCAG検証の入口と全体進行
@@ -23,7 +23,7 @@ metadata:
 
 ## 観察の深さを決める
 
-未指定はstandard。quickは画像・実SRを省いた予備確認、standardは状態の画像とキー操作を中心とする確認、thoroughは途中の画像と実SRも求める確認。個別の希望を優先する。[設定と限界](references/inspection-profiles.md)を読む。
+検証方法は[モード](references/verification-modes.md)でmachine / ai / screen-reader / fullから選ぶ。新しい単独検証の未指定はmachine。利用者の選択を維持し、変更は新しいrunにする。モードで使わない手段を黙って有効にしない。画像の深さ・枚数は[観察設定](references/inspection-profiles.md)で調整する。モード未指定の旧runは従来の設定に従う。
 
 これは作業量の設定で、トークン数や料金の保証ではない。省略・上限・未実施を台帳へ残す。quickを「WCAG検証完了」と呼ばない。requiredのSRが使えなければ実行不能と具体的な人への確認を残す。
 
