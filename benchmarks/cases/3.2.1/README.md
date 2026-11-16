@@ -22,4 +22,4 @@ Tabで入力欄へ移動し、入力せずに文脈が変わるか確認する�
 | c04 | [p04.html](public/p04.html) | after-focus / 3.2.1-02 / `#subject` | passed: フォーカスを受けるだけで文脈を変えない。 |
 | c04 | [p04.html](public/p04.html) | after-focus / 3.2.1-01 | 取得期待。適合・不適合とは別。フォーカスを受けるだけで文脈を変えない。 |
 
-[基準の検査手順](../../../references/criteria/3.2.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/3.2.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

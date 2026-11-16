@@ -6,7 +6,7 @@ from pathlib import Path
 import sys
 import threading
 
-ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'skills/wcag-audit-kit/scripts'))
 import audit
 from page_explorer import status
 from page_workflow import machine_checks

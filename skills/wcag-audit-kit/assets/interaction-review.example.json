@@ -1,0 +1,17 @@
+{
+  "config_digest": "caseコマンドで取得した実行設定のハッシュ",
+  "page_id": "capture-manifestの実際のpage_id",
+  "base_review": null,
+  "captures": [
+    {
+      "key": "実際のcapture key",
+      "visual": {"status": "partial", "observed": "画像から調べた範囲と、まだ見ていない範囲を具体的に記す。", "evidence": ["evidence/実際のcapture/page.png"]},
+      "controls": [
+        {"id": "open-preferences", "label": "画面に見えるラベル", "location": "実画像内の位置と、対応付けた要素", "status": "unverified", "observed": "見た目から操作候補とした理由と、実際に確認した内容。", "steps": [], "evidence": ["evidence/実際のcapture/page.png"], "remaining": ["キーで開始し、開いた状態と離脱方法を確認する"]}
+      ],
+      "states_complete": false,
+      "remaining": ["開いた後のメニュー・エラー等はまだ調査していない"]
+    }
+  ],
+  "screen_reader": {"status": "skipped", "observed": "今回の設定・環境で実SRを実施していない具体的な理由を記す。", "evidence": []}
+}

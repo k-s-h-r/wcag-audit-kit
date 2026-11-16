@@ -4,7 +4,7 @@ from pathlib import Path
 from hashlib import sha256
 import json
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[1] / 'skills' / 'wcag-audit-kit'
 PROCEDURE_VERSIONS = {
     **{f'1.2.{number}': '2' for number in range(1, 10)},
     '1.4.4': '2', '2.4.2': '2', '2.4.13': '2',

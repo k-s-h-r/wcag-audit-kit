@@ -56,7 +56,7 @@ def main(report,out):
                     for _ in range(6):await page.keyboard.press('ArrowRight')
                     await page.wait_for_timeout(250)
                     if overflow:assert await region.evaluate('(e)=>e.scrollLeft>0')
-                    await page.add_script_tag(content=(ROOT/'vendor/axe.min.js').read_text())
+                    await page.add_script_tag(content=(core.RUNTIME/'vendor/axe.min.js').read_text())
                     violations=await page.evaluate("async()=> (await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}})).violations")
                     assert not violations,[v['id'] for v in violations]
                     await region.evaluate('(e)=>e.scrollLeft=0')

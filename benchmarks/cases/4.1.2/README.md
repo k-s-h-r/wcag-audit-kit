@@ -47,4 +47,4 @@
 | c09 | [p09.html](public/p09.html) | second-tab / 4.1.2-02 / `#tab-b` | failed: 次のタブへ移動した後にキーでパネルを開けない、又は選択状態が更新されない。 |
 | c10 | [p10.html](public/p10.html) | second-tab / 4.1.2-02 / `#tab-b` | passed: 次のタブへ移動した後に料金パネルと選択状態を利用できる。 |
 
-[基準の検査手順](../../../references/criteria/4.1.2.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/4.1.2.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

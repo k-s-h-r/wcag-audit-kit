@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """Render the README matrix and detailed guide from the mode checkpoint catalog."""
-from pathlib import Path
+import json
+import sys
+from skill_layout import ROOT, CANONICAL
+sys.path.insert(0,str(CANONICAL/'scripts'))
 from verification_modes import catalog,validate_catalog,SYMBOLS,MODES,LEGEND
 
-ROOT=Path(__file__).resolve().parents[1]
 
 def render(value):
+    return _render(value).replace('](references/','](skills/wcag-audit-kit/references/').replace('python3 scripts/audit.py','python3 skills/wcag-audit-kit/scripts/audit.py')
+
+def _render(value):
     head='''## モードを選ぶ
 
 検査は「機械チェックのみ」「AI併用」「スクリーンリーダー併用」「AI＋スクリーンリーダー」から選べます。すべてのモードで機械検査を先に行います。AIによる画像・文章の比較と、実際の読み上げは、それぞれ必要な場合だけ有効にします。
@@ -40,6 +45,10 @@ CLIはAIサービスへ接続しません。AI併用の判断はスキルの実�
     return head+'\n方法の実証範囲は[方法ごとの準備状況](references/method-capabilities.json)、実施済みの試験は[実証状況](references/VERIFICATION-COVERAGE.md)を参照してください。対応表と保存済みの合否は別に管理します。\n\n'
 
 def details(value):
+    ref=json.loads((CANONICAL/'distribution.json').read_text())['proof_reference']
+    return _details(value).replace('](../README.md)',f'](https://github.com/k-s-h-r/wcag-audit-kit/blob/{ref}/README.md)')
+
+def _details(value):
     text='# 確認観点ごとの処理・準備・残る判断\n\n[モードの仕様](verification-modes.md)と[READMEの対応表](../README.md)から、必要な観点を開いて使います。対応表の原本は[確認観点の定義](verification-checkpoints.json)です。記号は実施結果ではありません。\n\n'
     for r in value['checkpoints']:
         text+=f'<a id="{r["id"].replace(".", "")}"></a>\n\n## {r["id"]} {r["title"]}\n\n'
@@ -56,6 +65,6 @@ def main():
     start=text.index('## モードを選ぶ\n') if '## モードを選ぶ\n' in text else text.index('## プログラム・AI・人による検証の分担\n')
     end=text.index('## 収録した検査内容\n',start)
     path.write_text(text[:start]+render(value)+text[end:])
-    (ROOT/'references/verification-checkpoints.md').write_text(details(value))
+    (CANONICAL/'references/verification-checkpoints.md').write_text(details(value))
 
 if __name__=='__main__':main()

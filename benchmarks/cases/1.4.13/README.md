@@ -22,4 +22,4 @@
 | c04 | [p04.html](public/p04.html) | after-trigger / 1.4.13-02 / `#subject` | passed: 追加内容がフォーカスでも表示され、上へ移動でき、Escapeで消せる。 |
 | c04 | [p04.html](public/p04.html) | after-trigger / 1.4.13-01 | 取得期待。適合・不適合とは別。追加内容がフォーカスでも表示され、上へ移動でき、Escapeで消せる。 |
 
-[基準の検査手順](../../../references/criteria/1.4.13.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/1.4.13.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

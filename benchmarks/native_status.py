@@ -46,7 +46,7 @@ def capture(root,area):
     with tempfile.TemporaryDirectory(prefix='wcag-sr-',dir='/tmp') as temporary:
         runtime=Path(temporary)/'speech'
         with (area/'stdout.txt').open('w') as stdout,(area/'stderr.txt').open('w') as stderr:
-            subprocess.run([sys.executable,str(core.ROOT/'scripts/screen_reader_native.py'),'--root',str(root),
+            subprocess.run([sys.executable,str(core.RUNTIME/'scripts/screen_reader_native.py'),'--root',str(root),
                 '--request',str(area/'request.json'),'--out',str(runtime)],stdout=stdout,stderr=stderr,check=False)
         for source in runtime.rglob('*'):
             if source.is_file() and source.resolve().is_relative_to(runtime.resolve()):

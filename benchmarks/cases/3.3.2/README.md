@@ -22,4 +22,4 @@
 | c04 | [p04.html](public/p04.html) | initial / 3.3.2-02 / `#subject` | passed: 氏名のアクセシブル名はあるが、表示上のラベルもある。 |
 | c04 | [p04.html](public/p04.html) | initial / 3.3.2-01 | 取得期待。適合・不適合とは別。氏名のアクセシブル名はあるが、表示上のラベルもある。 |
 
-[基準の検査手順](../../../references/criteria/3.3.2.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/3.3.2.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

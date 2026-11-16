@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { compatibility, validateRequest, runActions, requireSharedDesktop, assertScope } from "../scripts/screen_reader_core.mjs";
+import { compatibility, validateRequest, runActions, requireSharedDesktop, assertScope } from "../skills/wcag-audit-kit/scripts/screen_reader_core.mjs";
 
 const manifest = { screenReaders: [
   { id: "orca", assets: [{ platformVersion: "7", version: "test" }] },

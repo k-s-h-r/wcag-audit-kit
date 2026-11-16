@@ -55,4 +55,4 @@
 | c09 | [p09.html](public/p09.html) | after-load / 1.1.1-01 / `#subject` | failed: 初期状態にない画像が追加され、代替文がない。初期表示だけの検査では見落とす。 |
 | c10 | [p10.html](public/p10.html) | after-load / 1.1.1-01 / `#subject` | passed: 初期状態にない画像が追加され、代替文も設定される。 |
 
-[基準の検査手順](../../../references/criteria/1.1.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/1.1.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

@@ -22,4 +22,4 @@ CSS表示順とDOM読み順を比べ、手続きの順序を確認する。
 | c04 | [p04.html](public/p04.html) | initial / 1.3.2-02 / `#subject` | passed: 利用条件を読んだ後に同意する順番を保つ。 |
 | c04 | [p04.html](public/p04.html) | initial / 1.3.2-01 | 取得期待。適合・不適合とは別。利用条件を読んだ後に同意する順番を保つ。 |
 
-[基準の検査手順](../../../references/criteria/1.3.2.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/1.3.2.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

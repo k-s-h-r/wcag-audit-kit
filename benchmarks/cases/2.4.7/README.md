@@ -31,4 +31,4 @@ Tabでボタンへ移動し、現在の位置を目視する。
 | c05 | [p05.html](public/p05.html) | closed-narrow-menu / 2.4.7-02 / `#menu` | failed: 閉じたメニューが画面外のリンクへフォーカスを移す。 |
 | c06 | [p06.html](public/p06.html) | closed-narrow-menu / 2.4.7-02 / `#menu` | passed: 閉じたメニューがTab順から除かれ、本文へ進める。 |
 
-[基準の検査手順](../../../references/criteria/2.4.7.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/2.4.7.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

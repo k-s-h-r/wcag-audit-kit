@@ -18,3 +18,5 @@
 - [0012 全達成基準に検証用の問題例を用意する](0012-all-criteria-negative-fixtures.md)
 - [0013 3階層のメニューをたどるテスト入力を追加する](0013-three-level-navigation-fixtures.md)
 - [0014 テスト関連PRを集約し、全確認観点の入力と操作パターンを拡充する](0014-complete-fixture-patterns-and-consolidate.md)
+- [0015 配置できるスキルをskillsに揃える](0015-ready-to-use-skill-directories.md)
+- [0016 最新mainのテスト基盤をスキル配置へ対応させる](0016-integrate-benchmarks-with-skill-layout.md)

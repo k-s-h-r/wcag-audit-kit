@@ -3,7 +3,7 @@ import sys
 import unittest
 from unittest.mock import AsyncMock,Mock
 
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'skills/wcag-audit-kit/scripts'))
 from browser_capture import check_state
 
 

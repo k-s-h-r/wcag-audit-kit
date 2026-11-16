@@ -22,4 +22,4 @@
 | c04 | [p04.html](public/p04.html) | initial / 1.4.5-02 / `#subject` | passed: 通常の本文をHTMLの文字として提供する。 |
 | c04 | [p04.html](public/p04.html) | initial / 1.4.5-01 | 取得期待。適合・不適合とは別。通常の本文をHTMLの文字として提供する。 |
 
-[基準の検査手順](../../../references/criteria/1.4.5.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/1.4.5.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

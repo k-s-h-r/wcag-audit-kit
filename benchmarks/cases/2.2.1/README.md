@@ -22,4 +22,4 @@
 
 必要な追加環境・確認：wall-clock-timing-for-final-audit
 
-[基準の検査手順](../../../references/criteria/2.2.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/2.2.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

@@ -20,4 +20,4 @@
 | c03 | [p03.html](public/p03.html) | initial / 1.3.5-02 / `#subject` | failed: 形式上有効なトークンでも、氏名を電子メールとして指定している。 |
 | c04 | [p04.html](public/p04.html) | initial / 1.3.5-02 / `#subject` | passed: 氏名という入力目的とnameが一致する。 |
 
-[基準の検査手順](../../../references/criteria/1.3.5.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/1.3.5.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

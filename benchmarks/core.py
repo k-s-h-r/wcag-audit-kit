@@ -12,7 +12,8 @@ import uuid
 from urllib.parse import urlsplit,unquote
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT/'scripts'))
+RUNTIME=ROOT/'skills/wcag-audit-kit'
+sys.path.insert(0,str(RUNTIME/'scripts'))
 import audit
 import verification_modes as modes
 from . import case_contracts

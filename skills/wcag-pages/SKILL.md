@@ -11,14 +11,14 @@ metadata:
 
 ## 実行ルート
 
-このSKILL.mdの場所から上位へ探し、`scripts/audit.py`と`references/catalog.json`があるディレクトリーを使う。単体配布ではこのスキルのディレクトリーが実行ルートになる。コマンドはそこから実行する。
+このSKILL.mdがあるディレクトリーを実行ルートとする。同梱の`scripts/`・`references/`・`assets/`・`vendor/`を使い、コマンドはこのディレクトリーから実行する。
 
 ## モードを選ぶ
 
 - configured：`scope.pages`又は`scope.pages_file`だけを対象にする。リンクを追わず、一覧作成だけならブラウザーも開かない。
 - discover：`seeds`と`known_pages`から初期表示のリンクをたどり、候補を集める。上限・失敗・未訪問を残す。
 
-[設定](../../references/config.md)を読み、`python3 scripts/audit.py pages --config <設定> --out <新しいpages.json>`を実行する。出力は候補又は指定対象の一覧で、WCAGの検査結果ではない。
+[設定](references/config.md)を読み、`python3 scripts/audit.py pages --config <設定> --out <新しいpages.json>`を実行する。出力は候補又は指定対象の一覧で、WCAGの検査結果ではない。
 
 ## 範囲を確かめる
 

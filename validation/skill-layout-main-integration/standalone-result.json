@@ -1,0 +1,81 @@
+{
+  "single_page_captures": 4,
+  "configured_did_not_follow_links": true,
+  "standard_images": 3,
+  "quick_images": 0,
+  "thorough_images": 2,
+  "discovered_urls": 2,
+  "div_is_not_keyboard_reachable_in_trace": true,
+  "help_escape_returns_to_trigger": true,
+  "help_reopens_with_enter": true,
+  "nested_image_skipped_by_budget": true,
+  "real_screen_reader_executed": false,
+  "image_meaning_review": "The operator must inspect the captured images; this script only checks observable facts.",
+  "commands": [
+    {
+      "name": "standard",
+      "args": [
+        "page",
+        "--url",
+        "http://127.0.0.1:35673/visual-controls.html",
+        "--config",
+        "/workspace/wcag-pr9-main-integration-01/standalone-browser/config.json",
+        "--out",
+        "/workspace/wcag-pr9-main-integration-01/standalone-browser/standard",
+        "--profile",
+        "standard",
+        "--max-images",
+        "3",
+        "--screen-reader",
+        "off"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "quick",
+      "args": [
+        "page",
+        "--url",
+        "http://127.0.0.1:35673/visual-controls.html",
+        "--config",
+        "/workspace/wcag-pr9-main-integration-01/standalone-browser/config.json",
+        "--out",
+        "/workspace/wcag-pr9-main-integration-01/standalone-browser/quick",
+        "--profile",
+        "quick",
+        "--max-images",
+        "0"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "thorough",
+      "args": [
+        "page",
+        "--url",
+        "http://127.0.0.1:35673/visual-controls.html",
+        "--config",
+        "/workspace/wcag-pr9-main-integration-01/standalone-browser/config.json",
+        "--out",
+        "/workspace/wcag-pr9-main-integration-01/standalone-browser/thorough",
+        "--profile",
+        "thorough",
+        "--max-images",
+        "2"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "discover",
+      "args": [
+        "pages",
+        "--config",
+        "/workspace/wcag-pr9-main-integration-01/standalone-browser/config.json",
+        "--out",
+        "/workspace/wcag-pr9-main-integration-01/standalone-browser/pages.json"
+      ],
+      "returncode": 0
+    }
+  ],
+  "skill_root": "/workspace/wcag-pr9-main-integration-01/standalone-wcag-page"
+}

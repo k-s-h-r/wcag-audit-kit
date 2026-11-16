@@ -22,4 +22,4 @@
 | c04 | [p04.html](public/p04.html) | initial / 3.1.2-02 / `#subject` | passed: 英語の文に対してenを指定する。 |
 | c04 | [p04.html](public/p04.html) | initial / 3.1.2-01 | 取得期待。適合・不適合とは別。英語の文に対してenを指定する。 |
 
-[基準の検査手順](../../../references/criteria/3.1.2.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/3.1.2.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

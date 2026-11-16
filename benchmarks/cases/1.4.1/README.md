@@ -22,4 +22,4 @@
 | c04 | [p04.html](public/p04.html) | after-submit / 1.4.1-02 / `#subject` | passed: エラーを枠色と項目・内容の文章で示す。 |
 | c04 | [p04.html](public/p04.html) | after-submit / 1.4.1-01 | 取得期待。適合・不適合とは別。エラーを枠色と項目・内容の文章で示す。 |
 
-[基準の検査手順](../../../references/criteria/1.4.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/1.4.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

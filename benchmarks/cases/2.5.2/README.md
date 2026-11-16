@@ -11,4 +11,4 @@
 
 作成者による対照例です。全パターンの網羅・独立した専門家による正解確認は未実施。
 
-[基準の検査手順](../../../references/criteria/2.5.2.md) / [実行方法](../../README.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/2.5.2.md) / [実行方法](../../README.md)

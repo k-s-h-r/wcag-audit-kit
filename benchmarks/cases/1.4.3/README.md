@@ -30,4 +30,4 @@ axeで判定できる通常文字の対照。操作と観察から判定し、�
 | c06 | [p06.html](public/p06.html) | enabled / 1.4.3-01 / `#subject` | passed: 有効化後の通常文字が4.5:1以上。 |
 | c07 | [p07.html](public/p07.html) | initial / 1.4.3-01 / `#subject` | inapplicable: 無効な操作部品の文字なので、コントラストの例外である。有効化後へ例外を広げない。 |
 
-[基準の検査手順](../../../references/criteria/1.4.3.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/1.4.3.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

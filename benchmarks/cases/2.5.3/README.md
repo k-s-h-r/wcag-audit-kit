@@ -22,4 +22,4 @@
 | c04 | [p04.html](public/p04.html) | initial / 2.5.3-02 / `#subject` | passed: アクセシブル名が保存を含む。 |
 | c04 | [p04.html](public/p04.html) | initial / 2.5.3-01 | 取得期待。適合・不適合とは別。アクセシブル名が保存を含む。 |
 
-[基準の検査手順](../../../references/criteria/2.5.3.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/2.5.3.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

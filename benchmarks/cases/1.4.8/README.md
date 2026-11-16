@@ -20,4 +20,4 @@
 | c03 | [p03.html](public/p03.html) | after-customization / 1.4.8-01 / `#subject` | failed: 表示設定が操作しても表示へ反映されない。 |
 | c04 | [p04.html](public/p04.html) | after-customization / 1.4.8-01 / `#subject` | passed: 表示設定が実際に文字色・背景色・行幅・行高・揃え・サイズへ反映される。 |
 
-[基準の検査手順](../../../references/criteria/1.4.8.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/1.4.8.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

@@ -12,4 +12,4 @@
 
 期待結果は作成者が定めた確認観点の対照例です。基準全体の網羅や、独立した専門家による正解の確認は表していません。モードごとの評価条件はsuite.jsonに記録し、実際に検証できた範囲は実行後の採点結果に表示します。
 
-[検査手順](../../../references/criteria/2.4.2.md) / [実行方法](../../README.md) / [ケースの追加](../../ADDING-CASES.md)
+[検査手順](../../../skills/wcag-audit-kit/references/criteria/2.4.2.md) / [実行方法](../../README.md) / [ケースの追加](../../ADDING-CASES.md)

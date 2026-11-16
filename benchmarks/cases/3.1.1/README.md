@@ -20,4 +20,4 @@ htmlの言語指定があるか確認する。
 | c03 | [p03.html](public/p03.html) | initial / 3.1.1-02 / `html` | failed: 日本語の本文に対してhtmlの言語をfrとしている。 |
 | c04 | [p04.html](public/p04.html) | initial / 3.1.1-02 / `html` | passed: 日本語の本文に対してhtmlの言語をjaとしている。 |
 
-[基準の検査手順](../../../references/criteria/3.1.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/3.1.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

@@ -15,7 +15,7 @@
 | `criterion` | ディレクトリ名と同じ達成基準番号 |
 | `review` / `sources` / `scope` | 正解の確認者、WCAG本文や試験手順の出典、問題集で扱う範囲。作成者のみの確認なら`author-defined` |
 | `cases[].id` / `pages` | `c01`等の中立なIDと、`public/`からのページの相対パス。比較するページは1ケースにまとめる |
-| `checkpoints` | [確認観点の定義](../references/verification-checkpoints.json)にあるID。基準全体の合否に広げない |
+| `checkpoints` | [確認観点の定義](../skills/wcag-audit-kit/references/verification-checkpoints.json)にあるID。基準全体の合否に広げない |
 | `states` | 状態のID、到達方法、確認する内容。`actions`は担当向けの操作情報であり、収集器が必ずその状態を探索できたという意味ではない |
 | `oracle_scope` | `exhaustive-for-listed-checkpoints`。指定観点について、そのケース内の対象と正解を列挙したことを示す |
 | `expectations` | 下表の単位で正解を記録。同じ基準に複数の対象・状態・確認観点があれば行を増やす |

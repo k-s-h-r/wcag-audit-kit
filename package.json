@@ -5,8 +5,9 @@
   "description": "Evidence-backed WCAG auditing with optional real screen reader collection",
   "type": "module",
   "scripts": {
-    "screen-reader:doctor": "node scripts/screen_reader.mjs doctor",
-    "test:screen-reader": "node tests/test_screen_reader.mjs"
+    "screen-reader:doctor": "node skills/wcag-audit-kit/scripts/screen_reader.mjs doctor",
+    "test:screen-reader": "node tests/test_screen_reader.mjs",
+    "check:skills": "python3 scripts/sync_skills.py --check"
   },
   "dependencies": {
     "@guidepup/guidepup": "0.40.0",

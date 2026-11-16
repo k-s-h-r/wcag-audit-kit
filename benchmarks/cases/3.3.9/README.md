@@ -28,4 +28,4 @@ AAとAAAで異なる物体認識の例外。操作と観察から判定し、表
 | --- | --- | --- | --- |
 | c05 | [p05.html](public/p05.html) | authentication / 3.3.9-02 / `#subject` | failed: 画像の物体を認識する課題だけがある。AAAでは物体認識の例外はなく、代替・支援もない。 |
 
-[基準の検査手順](../../../references/criteria/3.3.9.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/3.3.9.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

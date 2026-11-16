@@ -73,7 +73,7 @@ python3 benchmarks/run.py collect --mode all --out /project/bench-001
 python3 benchmarks/run.py collect --mode machine --criterion 1.1.1 --out /project/bench-alt-001
 ```
 
-実際のscripts/audit.py page-auditを使い、各ページを検査します。自動で採点へ接続するのは、現行の生データが出力するimage-alt、document-title、実キーの到達・送出だけです。別の観点はAI・実SR・個別の機械検査を実行して結果を取り込むまで未確認です。
+実際のskills/wcag-audit-kit/scripts/audit.py page-auditを使い、各ページを検査します。自動で採点へ接続するのは、現行の生データが出力するimage-alt、document-title、実キーの到達・送出だけです。別の観点はAI・実SR・個別の機械検査を実行して結果を取り込むまで未確認です。
 
 正解は先にスナップショットへ固定し、ページ・画像・音声、使用する実装・スキル・検証手順の資料と実行上限、ブラウザー等の環境、原典のハッシュも記録します。実行中断後は同じ実装で再開できます。
 

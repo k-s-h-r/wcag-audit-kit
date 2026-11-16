@@ -3,7 +3,7 @@ import math
 import sys
 import unittest
 
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'skills/wcag-audit-kit/scripts'))
 try:
     import numpy as np
     from focus_measure import analyse_arrays, reference_area

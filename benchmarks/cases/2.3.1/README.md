@@ -24,4 +24,4 @@
 
 必要な追加環境・確認：flash-analysis-without-unsafe-preview
 
-[基準の検査手順](../../../references/criteria/2.3.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/2.3.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

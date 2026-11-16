@@ -1,0 +1,34 @@
+# 試験用サイトの例。実サイトの調査結果へ置き換える。
+schema_version: "1"
+url: "http://127.0.0.1:4317"
+level: AA
+scope:
+  mode: discover
+  pages: []
+  include: ["/**"]
+  exclude: []
+  seeds: ["/"]
+  known_pages: []
+  max_pages: 100
+environments:
+  - id: desktop
+    viewport: {width: 1280, height: 900}
+    zoom: 1
+  - id: narrow
+    viewport: {width: 320, height: 900}
+    zoom: 1
+states:
+  - id: validation-error
+    paths: ["/contact.html"]
+    actions:
+      - type: click
+        selector: "button[type=submit]"
+    assert:
+      - selector: "#email[aria-invalid=true]"
+        visible: true
+keyboard_steps: 30
+inspection:
+  profile: standard
+  screenshots: states
+  screen_reader: optional
+  max_images: 12

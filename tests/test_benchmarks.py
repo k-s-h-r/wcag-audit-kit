@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'scripts'))
+sys.path.insert(0,str(ROOT))
 from benchmarks import core
 
 
@@ -53,12 +53,33 @@ class CorpusTest(unittest.TestCase):
         from benchmarks import runner
         paths=runner.source_files()
         self.assertIn(ROOT/'skills/wcag-page/SKILL.md',paths)
-        self.assertIn(ROOT/'references/tests/1.1.1.md',paths)
+        self.assertIn(core.RUNTIME/'references/tests/1.1.1.md',paths)
         with tempfile.TemporaryDirectory() as temp:
             path=Path(temp)/'SKILL.md';path.write_text('First verification instructions')
             with patch('benchmarks.runner.source_files',return_value=[path]),patch('benchmarks.core.ROOT',Path(temp)):
                 before=runner.implementation_digest();path.write_text('Changed verification instructions')
                 self.assertNotEqual(before,runner.implementation_digest())
+
+    def test_snapshot_contains_the_complete_canonical_runtime_and_entry_points(self):
+        from benchmarks import runner
+        from scripts.skill_layout import resource_files,SKILLS
+        paths=runner.source_files()
+        self.assertTrue(all(p.is_file() for p in paths))
+        self.assertTrue({core.RUNTIME/p for p in resource_files()}<=set(paths))
+        self.assertTrue({ROOT/'skills'/name/'SKILL.md' for name in SKILLS}<=set(paths))
+        self.assertNotIn(ROOT/'SKILL.md',paths)
+        self.assertNotIn(ROOT/'vendor/axe.min.js',paths)
+
+    def test_benchmark_cli_imports_runtime_in_a_fresh_process(self):
+        import subprocess
+        result=subprocess.run([sys.executable,str(ROOT/'benchmarks/run.py'),'inventory'],
+            cwd=self._temporary_working_directory(),capture_output=True,text=True)
+        self.assertEqual(result.returncode,0,result.stderr)
+        self.assertEqual(len(json.loads(result.stdout)['criteria']),86)
+
+    def _temporary_working_directory(self):
+        directory=tempfile.TemporaryDirectory();self.addCleanup(directory.cleanup)
+        return directory.name
 
     def test_all_criteria_have_negative_and_real_passing_controls(self):
         suites={s['criterion']:s for s in core.corpus()['suites']}

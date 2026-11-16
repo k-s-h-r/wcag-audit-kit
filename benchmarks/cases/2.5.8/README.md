@@ -26,4 +26,4 @@
 | c05 | [p05.html](public/p05.html) | initial / 2.5.8-02 / `#subject` | passed: 通常の文章中のインラインリンクはサイズの例外に該当する。小さいことだけで不適合にしない。 |
 | c05 | [p05.html](public/p05.html) | initial / 2.5.8-01 | 取得期待。適合・不適合とは別。通常の文章中のインラインリンクはサイズの例外に該当する。小さいことだけで不適合にしない。 |
 
-[基準の検査手順](../../../references/criteria/2.5.8.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/2.5.8.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

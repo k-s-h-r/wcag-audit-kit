@@ -40,4 +40,4 @@
 | c07 | [p07.html](public/p07.html) | initial / 1.3.1-02 / `#subject` | failed: 質問を支援技術から隠し、グループの名前・関係も提供しない。選択肢は、はい・いいえだけになる。 |
 | c08 | [p08.html](public/p08.html) | initial / 1.3.1-02 / `#subject` | passed: legendで質問と選択肢をグループに関連付ける。 |
 
-[基準の検査手順](../../../references/criteria/1.3.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
+[基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/1.3.1.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)

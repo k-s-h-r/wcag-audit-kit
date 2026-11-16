@@ -11,6 +11,7 @@ import platform
 import sys
 from importlib.metadata import version
 from . import core
+from scripts.skill_layout import resource_files
 
 
 class PublicFiles(SimpleHTTPRequestHandler):
@@ -28,12 +29,14 @@ def server(public,port=0):
 
 
 def source_files():
-    paths=[*sorted((core.ROOT/'scripts').glob('*.py')),*sorted((core.ROOT/'scripts').glob('*.js')),
-           *sorted((core.ROOT/'scripts').glob('*.mjs')),*sorted((core.ROOT/'benchmarks').glob('*.py')),
-           core.ROOT/'vendor/axe.min.js',core.ROOT/'package.json',core.ROOT/'SKILL.md',core.ROOT/'benchmarks/WORKER.md',
-           *sorted((core.ROOT/'skills').rglob('SKILL.md')),
-           *sorted(p for p in (core.ROOT/'references').rglob('*') if p.is_file())]
-    return paths
+    # Freeze the canonical runtime, including templates and dependency locks.
+    # The other three skills share these bytes and retain separate entry points.
+    paths=[*[core.RUNTIME/p for p in resource_files()],
+           *sorted((core.ROOT/'scripts').glob('*.py')),
+           *sorted((core.ROOT/'benchmarks').glob('*.py')),
+           core.ROOT/'package.json',core.ROOT/'package-lock.json',core.ROOT/'benchmarks/WORKER.md',
+           *sorted((core.ROOT/'skills').rglob('SKILL.md'))]
+    return sorted(set(paths))
 
 
 def implementation_digest():

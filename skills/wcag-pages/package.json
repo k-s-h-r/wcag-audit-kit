@@ -1,0 +1,14 @@
+{
+  "name": "wcag-audit-kit",
+  "version": "0.7.0",
+  "private": true,
+  "description": "Evidence-backed WCAG auditing with optional real screen reader collection",
+  "type": "module",
+  "scripts": {
+    "screen-reader:doctor": "node scripts/screen_reader.mjs doctor"
+  },
+  "dependencies": {
+    "@guidepup/guidepup": "0.40.0",
+    "playwright-core": "1.62.0"
+  }
+}
