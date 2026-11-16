@@ -27,12 +27,12 @@ def main(argv=None):
     try:
         if args.command=='inventory':
             value=core.corpus();ready={s['criterion']:len(s['cases']) for s in value['suites']}
-            print(json.dumps({'corpus_digest':value['digest'],'criteria':[dict(id=c['id'],title=c['title'],cases=ready.get(c['id'],0),status='prepared' if c['id'] in ready else 'unprepared') for c in core.audit.CATALOG['criteria']]},ensure_ascii=False,indent=2));return 0
+            print(json.dumps({'corpus_digest':value['digest'],'checkpoint_coverage':core.case_contracts.coverage(value,core.modes.catalog()['checkpoints']),'criteria':[dict(id=c['id'],title=c['title'],cases=ready.get(c['id'],0),status='prepared' if c['id'] in ready else 'unprepared') for c in core.audit.CATALOG['criteria']]},ensure_ascii=False,indent=2));return 0
         if args.command=='collect':
             selected=list(core.modes.MODES) if args.mode=='all' else [args.mode] if args.mode else None
             result=runner.collect(Path(args.out),criterion=args.criterion,selected_modes=selected,port=args.port,resume=args.resume)
             files=reporting.write(Path(args.out),result)
-            print(json.dumps(dict(files=files,selected_checks_status=result['selected_checks_status'],overall_status=result['overall_status'],counts=result['counts']),ensure_ascii=False,indent=2));return 0
+            print(json.dumps(dict(files=files,selected_checks_status=result['selected_checks_status'],overall_status=result['overall_status'],counts=result['counts'],pending_evidence_contracts=len(result.get('pending_evidence_contracts',[]))),ensure_ascii=False,indent=2));return 0
         if args.command=='compare':
             out=Path(args.out)
             if out.exists():raise ValueError('新しい比較結果の保存先を指定する')
@@ -57,7 +57,7 @@ def main(argv=None):
         if args.command=='import':
             print(json.dumps(core.record_review(run,core.load(args.file)),ensure_ascii=False,indent=2));return 0
         result=core.score(run);files=reporting.write(run,result)
-        print(json.dumps(dict(files=files,selected_checks_status=result['selected_checks_status'],overall_status=result['overall_status'],counts=result['counts']),ensure_ascii=False,indent=2))
+        print(json.dumps(dict(files=files,selected_checks_status=result['selected_checks_status'],overall_status=result['overall_status'],counts=result['counts'],pending_evidence_contracts=len(result.get('pending_evidence_contracts',[]))),ensure_ascii=False,indent=2))
         if not args.strict:return 0
         return 1 if result['selected_checks_status']=='failed' else 2 if result['selected_checks_status']=='incomplete' else 0
     except (ValueError,KeyError,OSError,TypeError) as error:

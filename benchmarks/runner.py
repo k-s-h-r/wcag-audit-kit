@@ -64,7 +64,7 @@ def prepare(run,criterion=None,selected_modes=None,port=0,config=None):
                     ident=f'{mode}--{suite["criterion"]}--{case["id"]}'
                     jobs.append(dict(id=ident,mode=mode,criterion=suite['criterion'],case=case['id'],pages=case['pages'],
                         urls={p:f'{base}/{suite["criterion"]}/{p}' for p in case['pages']},states=case['states'],
-                        checkpoints=case['checkpoints'],checks={p:ids[p]['check'] for p in case['checkpoints']},
+                        checkpoints=case['checkpoints'],acquisition_checkpoints=sorted({e['checkpoint'] for e in case.get('evidence_expectations',[])}-{e['checkpoint'] for e in case['expectations']}),checks={p:ids[p]['check'] for p in case['checkpoints']},
                         target_aliases=case.get('target_aliases',{}),
                         evidence_requirements={e['checkpoint']:{'image':e['evidence_kind']=='visual-semantic',
                             'speech':e['evidence_kind']=='screen-reader','comparison':e['evidence_kind']=='cross-page'} for e in case['expectations']},

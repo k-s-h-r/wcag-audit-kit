@@ -15,6 +15,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 import audit
 import verification_modes as modes
+from . import case_contracts
 
 
 def load(path):return json.loads(Path(path).read_text())
@@ -33,8 +34,18 @@ def local(root,relative):
 
 
 class Resources(HTMLParser):
-    def __init__(self):super().__init__();self.paths=[]
+    def __init__(self):super().__init__();self.paths=[];self.in_script=False
+    def script_paths(self,text):
+        patterns=[r"(?:window\.)?location(?:\.href)?\s*=\s*['\"]([^'\"]+)['\"]",r"(?:window\.)?location\.(?:assign|replace)\(\s*['\"]([^'\"]+)['\"]"]
+        for pattern in patterns:self.paths += [v for v in re.findall(pattern,text) if not v.startswith('#')]
+    def handle_endtag(self,tag):
+        if tag=='script':self.in_script=False
+    def handle_data(self,data):
+        if self.in_script:self.script_paths(data)
     def handle_starttag(self,tag,attrs):
+        if tag=='script':self.in_script=True
+        for k,v in attrs:
+            if k.startswith('on') and v:self.script_paths(v)
         self.paths += [v for k,v in attrs if k in {'src','href','poster'} and v and not v.startswith('#')]
 
 
@@ -66,6 +77,7 @@ def corpus(root=None):
                 if item['expected'] not in {'passed','failed','inapplicable'} or not item['rationale'].strip():raise ValueError('正解と根拠が必要')
                 if set(item['modes'])!=set(modes.MODES) or any(v not in {'evaluate','defer'} for v in item['modes'].values()):raise ValueError('モード別の評価条件が不正')
                 if item['evidence_kind'] not in {'program','semantic','visual-semantic','cross-page','screen-reader'}:raise ValueError('証拠の種類が不正')
+            case_contracts.validate(case)
             for point,aliases in case.get('target_aliases',{}).items():
                 if point not in case['checkpoints'] or not isinstance(aliases,dict):raise ValueError('対象の別名が確認観点に対応しない')
                 for alias,canonical in aliases.items():
@@ -81,7 +93,7 @@ def corpus(root=None):
                     parts=urlsplit(reference)
                     if parts.scheme or parts.netloc:raise ValueError('画像・音声・ページは基準内に同梱する')
                     resource=(path.parent/unquote(parts.path)).resolve()
-                    if not resource.is_relative_to(public.resolve()) or not resource.is_file():raise ValueError('公開ファイルから範囲外又は欠落した資料を参照している')
+                    if not resource.is_relative_to(public.resolve()) or not resource.is_file():raise ValueError('公開ファイルから範囲外又は欠落した資料を参照している: '+str(path)+' -> '+reference)
             files[f'{sc}/{path.relative_to(public).as_posix()}']=file_hash(path)
         suites.append(value)
     if not suites:raise ValueError('検証用のsuiteがない')
@@ -174,6 +186,7 @@ def record_review(run,value):
                 raise ValueError('観察がページ・状態・確認観点に対応しない、又は重複')
             seen.add(key)
             if row['outcome'] not in {'passed','failed','inapplicable','cant_tell','not_run'}:raise ValueError('判定の値が不正')
+            if row['checkpoint'] in job.get('acquisition_checkpoints',[]):raise ValueError('取得期待の照合は未接続です。取得した証拠を保存し、適合・不適合として取り込まない')
             method=row.get('method');mode=modes.MODES[job['mode']]
             if method not in {'program','ai','screen-reader'} or (method=='ai' and not mode['ai']) or (method=='screen-reader' and not mode['screen_reader']):raise ValueError('選択モードで使用しない判定方法')
             if not isinstance(row.get('observed'),str) or len(row['observed'].strip())<10:raise ValueError('具体的な観察が必要')
@@ -204,6 +217,7 @@ def record_review(run,value):
 
 def program_predictions(run,job,progress):
     """Decode only observations the production pipeline actually emitted."""
+    run=Path(run).resolve()
     result={}
     rule_map={'image-alt':'1.1.1-01','document-title':'2.4.2-01'}
     for page,receipt in progress['jobs'].get(job['id'],{}).items():
@@ -245,9 +259,12 @@ def score(run):
     for name in index['entries']:
         value=load(local(run,name));target=reviews.setdefault(value['job_id'],{})
         for row in value['observations']:target[observation_key(row)]=row
-    rows=[];extras=[]
+    rows=[];extras=[];pending_evidence=[]
     for job in jobs:
         predicted=program_predictions(run,job,progress);predicted.update(reviews.get(job['id'],{}))
+        for contract in oracles[job['id']].get('evidence_expectations',[]):
+            point=next(p for p in meta['mode_catalog']['checkpoints'] if p['id']==contract['checkpoint'])
+            pending_evidence.append(dict(job_id=job['id'],criterion=job['criterion'],mode=job['mode'],page=contract['page'],state=contract['state'],checkpoint=contract['checkpoint'],kind=contract['kind'],status='deferred' if point['support'][job['mode']]=='no' else 'not_evaluated'))
         expected=oracles[job['id']]['expectations'];known={observation_key(e) for e in expected}
         for e in expected:
             key=observation_key(e);actual=predicted.get(key);outcome=actual['outcome'] if actual else 'not_run'
@@ -277,16 +294,17 @@ def score(run):
     total_failures=sum(r['expected']=='failed' for r in rows)
     precision=confusion['TP']/(confusion['TP']+confusion['FP']) if confusion['TP']+confusion['FP'] else None
     recall=confusion['TP']/(confusion['TP']+confusion['FN']) if confusion['TP']+confusion['FN'] else None
-    status='failed' if grade_counts['incorrect'] or extras else 'incomplete' if grade_counts['not_evaluated'] else 'clear_for_selected_checks'
+    status='failed' if grade_counts['incorrect'] or extras else 'incomplete' if grade_counts['not_evaluated'] or any(c['status']=='not_evaluated' for c in pending_evidence) else 'clear_for_selected_checks'
     return dict(schema_version='1',run_id=meta['run_id'],corpus_digest=meta['corpus_digest'],modes=meta['modes'],
         selection=meta['selection'],configuration=meta['configuration'],implementation_digest=meta['implementation_digest'],
         environment=meta.get('environment',{}),standard=meta.get('standard','WCAG-2.2'),normative_hashes=meta.get('normative_hashes',{}),
         scorer_digest=file_hash(Path(__file__)),created_at=timestamp(),selected_checks_status=status,
-        overall_status='failed' if status=='failed' else 'incomplete' if grade_counts['not_evaluated'] or grade_counts['deferred'] else status,
+        overall_status='failed' if status=='failed' else 'incomplete' if grade_counts['not_evaluated'] or grade_counts['deferred'] or pending_evidence else status,
         counts=dict(grade_counts),confusion=dict(confusion),precision_on_evaluated=precision,recall_on_evaluated=recall,
         methods_by_mode={m:dict(Counter(r['method'] for r in rows if r['mode']==m and r['grade'] in {'correct','incorrect'})) for m in meta['modes']},
         detected_known_failures=detected,total_known_failures=total_failures,undetected_known_failures=total_failures-detected,
-        rows=rows,unexpected_findings=extras,criteria=all_criteria,
+        rows=rows,unexpected_findings=extras,criteria=all_criteria,pending_evidence_contracts=pending_evidence,
+        notice_evidence='取得期待の照合は未接続です。別表の未確認を適合・不適合の件数へ混ぜず、必要な取得期待が残る実行は未完了とします。',
         notice='作成者が定めた有限の確認観点の採点です。独立した専門家による正解確認は未実施です。未実施・モードによる省略・未整備の基準を成功に数えません。検出率は評価できた範囲と全問題の未検出数を併記します。')
 
 

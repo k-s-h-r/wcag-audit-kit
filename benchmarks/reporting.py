@@ -40,6 +40,10 @@ def write(run,result):
     sheet(book,'基準とモードの実測範囲',[('criterion','基準'),('title','名称'),('level','レベル'),('status','問題集の状態'),
           *[(m,core.modes.MODES[m]['label']) for m in result['modes']]],coverage,True)
     sheet(book,'追加の誤検出',[('criterion','基準'),('mode','モード'),('page','ページ'),('target','対象'),('checkpoint','確認観点'),('observed','観察')],result['unexpected_findings'],True)
+    pending=result.get('pending_evidence_contracts',[])
+    pending_columns=[('criterion','基準'),('mode','モード'),('page','ページ'),('state','状態'),('checkpoint','取得する観点'),('kind','取得期待の種類'),('status','確認状態')]
+    pending_rows=[dict(r,mode=core.modes.MODES[r['mode']]['label'],status=LABEL.get(r['status'],r['status'])) for r in pending]
+    if pending:sheet(book,'取得期待の未確認',pending_columns,pending_rows,True)
     book.save(out/'result.xlsx');book.close()
     cells=[]
     for row,original in zip(rows,result['rows']):
@@ -63,6 +67,9 @@ def write(run,result):
     if result['unexpected_findings']:
         extra='<h2>正解にない追加の指摘（誤検出）</h2><ul>'+''.join('<li>'+escape(r['job_id']+' / '+r['page']+' / '+r['target']+' / '+r['observed'])+'</li>' for r in result['unexpected_findings'])+'</ul>'
         html=html.replace('</main>',extra+'</main>')
+    if pending:
+        pending_html='<h2>取得期待の未確認</h2><p>'+escape(result['notice_evidence'])+'</p><div class="scroll" role="region" aria-label="取得期待の未確認" tabindex="0"><table><caption>判定の適否に含めない取得確認</caption><thead><tr>'+''.join('<th scope="col">'+escape(label)+'</th>' for _,label in pending_columns)+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+escape(str(r[k]))+'</td>' for k,_ in pending_columns)+'</tr>' for r in pending_rows)+'</tbody></table></div>'
+        html=html.replace('</main>',pending_html+'</main>')
     (out/'result.html').write_text(html)
     core.freeze(run,[p for p in out.iterdir() if p.is_file()])
     return {'json':str(out/'result.json'),'html':str(out/'result.html'),'excel':str(out/'result.xlsx')}

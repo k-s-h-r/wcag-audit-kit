@@ -68,22 +68,44 @@ class CorpusTest(unittest.TestCase):
             self.assertTrue(suite['limitations'])
             outcomes={e['expected'] for c in suite['cases'] for e in c['expectations']}
             self.assertEqual(outcomes,{'failed','inapplicable'})
+    def test_inline_script_navigation_cannot_reference_a_missing_page(self):
+        import shutil
+        with tempfile.TemporaryDirectory() as directory:
+            target=Path(directory);shutil.copytree(ROOT/'benchmarks/cases/2.4.2',target/'2.4.2')
+            page=target/'2.4.2/public/p01.html'
+            page.write_text('<html><button onclick="location.href=\'missing.html\'">次へ</button></html>')
+            with self.assertRaisesRegex(ValueError,'missing.html'):core.corpus(target)
+            page.write_text('<html><script>setTimeout(()=>location.replace("absent.html"),10)</script></html>')
+            with self.assertRaisesRegex(ValueError,'absent.html'):core.corpus(target)
+
+    def test_acquisition_contracts_cannot_contain_verdicts_or_silent_empty_lists(self):
+        from benchmarks import case_contracts
+        case=dict(pages=['p01.html'],states=[{'id':'initial'}],checkpoints=['1.1.1-02'])
+        item=dict(page='p01.html',state='initial',checkpoint='1.1.1-02',kind='inventory',targets=[],rationale='画像がない対照例。')
+        case['evidence_expectations']=[item]
+        with self.assertRaises(ValueError):case_contracts.validate(case)
+        item['empty_is_expected']=True;case_contracts.validate(case)
+        item['expected']='passed'
+        with self.assertRaises(ValueError):case_contracts.validate(case)
 
 
 class ScoringTest(unittest.TestCase):
     def setUp(self):self.temp=tempfile.TemporaryDirectory();self.counter=0
     def tearDown(self):self.temp.cleanup()
 
-    def make_run(self,mode='ai',point='1.1.1-01',kind='program',defer=False,pages=None,aliases=None):
+    def make_run(self,mode='ai',point='1.1.1-01',kind='program',defer=False,pages=None,aliases=None,contract=None):
         self.counter+=1;run=Path(self.temp.name)/str(self.counter);run.mkdir()
         sc='.'.join(point.split('.')[:2])+'.'+point.split('.')[2].split('-')[0]
         pages=pages or ['p01.html'];ident=f'{mode}--{sc}--c01'
         expected=[dict(page=pages[-1],state='initial',target=t,checkpoint=point,expected=o,rationale='対照例の期待結果を固定する。',
                        modes={m:'defer' if defer else 'evaluate' for m in core.modes.MODES},evidence_kind=kind) for t,o in [('#one','failed'),('#two','passed')]]
         case=dict(id='c01',pages=pages,checkpoints=[point],states=[{'id':'initial','instructions':['実際の対象を比較する。']}],expectations=expected)
+        if contract:
+            case['evidence_expectations']=[contract]
+            if contract['checkpoint'] not in case['checkpoints']:case['checkpoints'].append(contract['checkpoint'])
         oracle=dict(suites=[dict(criterion=sc,cases=[case])])
         job=dict(id=ident,mode=mode,criterion=sc,case='c01',pages=pages,urls={p:f'http://127.0.0.1:8000/{sc}/{p}' for p in pages},
-                 states=case['states'],checkpoints=[point],target_aliases={point:aliases or {}},evidence_requirements={point:{'image':kind=='visual-semantic','speech':kind=='screen-reader','comparison':kind=='cross-page'}})
+                 states=case['states'],checkpoints=case['checkpoints'],acquisition_checkpoints=[contract['checkpoint']] if contract else [],target_aliases={point:aliases or {}},evidence_requirements={point:{'image':kind=='visual-semantic','speech':kind=='screen-reader','comparison':kind=='cross-page'}})
         core.save(run/'oracle.snapshot.json',oracle)
         core.save(run/'worker/tasks.json',{'jobs':[job]})
         meta=dict(schema_version='1',run_id='unit-run',corpus_digest=core.digest(oracle),oracle_digest=core.digest(oracle),modes=[mode],selection=[sc],configuration={'fixture':'unit'},
@@ -271,6 +293,38 @@ class ScoringTest(unittest.TestCase):
         self.assertEqual(original.read_bytes(),old)
         self.assertEqual(len(list((run/'audit-runs'/job['id']).rglob('partial.json'))),1)
         core.verify(run)
+
+    def test_relative_run_decodes_axe_and_keyboard_evidence(self):
+        import os
+        run,_,job,progress=self.make_run(mode='machine')
+        progress['jobs'][job['id']]['p01.html']['status']='completed'
+        location=run/progress['jobs'][job['id']]['p01.html']['directory']
+        core.save(location/'initial/axe.json',{'violations':[{'id':'image-alt','nodes':[{'target':['#one'],'html':'<img>'}]}]})
+        core.save(location/'key/transition.json',{'unit':True})
+        core.save(location/'exploration.json',{'nodes':[{'route':[],'evidence_dir':'initial'}],
+            'edges':[{'route':[{'type':'key','selector':'#two'}],'evidence_dir':'key'}]})
+        job['checkpoints']+=['2.1.1-01']
+        relative=Path(os.path.relpath(run,Path.cwd()))
+        result=core.program_predictions(relative,job,progress)
+        self.assertEqual(len(result),2)
+        self.assertTrue(all(not Path(row['evidence'][0]).is_absolute() for row in result.values()))
+
+    def test_acquisition_expectations_cannot_become_a_conformance_pass(self):
+        from benchmarks import reporting
+        contract=dict(checkpoint='1.1.1-02',page='p01.html',state='initial',kind='inventory',targets=['#one'],rationale='背景画像を見落とさず取得する。')
+        run,meta,job,p=self.make_run(contract=contract)
+        self.submit(run,meta,job,[self.observation(job,p),self.observation(job,p,target='#two',outcome='passed')])
+        r=core.score(run)
+        self.assertEqual(r['counts'],{'correct':2});self.assertEqual(r['selected_checks_status'],'incomplete')
+        self.assertEqual(r['pending_evidence_contracts'][0]['status'],'not_evaluated')
+        row=self.observation(job,p);row['checkpoint']='1.1.1-02'
+        with self.assertRaisesRegex(ValueError,'未接続'):self.submit(run,meta,job,[row])
+        paths=reporting.write(run,r)
+        from openpyxl import load_workbook
+        book=load_workbook(paths['excel'],read_only=True)
+        try:self.assertIn('取得期待の未確認',book.sheetnames)
+        finally:book.close()
+        self.assertIn('判定の適否に含めない取得確認',Path(paths['html']).read_text())
 
     def test_always_reporting_success_is_not_an_accuracy_pass(self):
         run,meta,job,p=self.make_run()
