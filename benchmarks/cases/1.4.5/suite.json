@@ -1,0 +1,83 @@
+{
+  "schema_version": "1",
+  "criterion": "1.4.5",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/1.4.5.md",
+    "../../../references/tests/1.4.5.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "1.4.5-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "装飾やロゴではない本文の文字画像への依存を調べる。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.4.5-02",
+          "expected": "failed",
+          "rationale": "通常の本文をカスタマイズできない文字画像にしている。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "1.4.5-02"
+      ],
+      "states": [
+        {
+          "id": "initial",
+          "instructions": [
+            "装飾やロゴではない本文の文字画像への依存を調べる。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "initial",
+          "target": "#subject",
+          "checkpoint": "1.4.5-02",
+          "expected": "passed",
+          "rationale": "本文をHTMLテキストで提供する。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    }
+  ]
+}

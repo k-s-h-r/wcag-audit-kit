@@ -1,0 +1,83 @@
+{
+  "schema_version": "1",
+  "criterion": "2.1.3",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/2.1.3.md",
+    "../../../references/tests/2.1.3.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "2.1.3-01"
+      ],
+      "states": [
+        {
+          "id": "after-activate",
+          "instructions": [
+            "数量を増やす機能をキーだけで完了する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-activate",
+          "target": "#subject",
+          "checkpoint": "2.1.3-01",
+          "expected": "failed",
+          "rationale": "唯一の機能がクリック専用でキー操作できない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "2.1.3-01"
+      ],
+      "states": [
+        {
+          "id": "after-activate",
+          "instructions": [
+            "数量を増やす機能をキーだけで完了する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-activate",
+          "target": "#subject",
+          "checkpoint": "2.1.3-01",
+          "expected": "passed",
+          "rationale": "ネイティブボタンからEnter/Spaceで数量が増える。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": "1",
+  "criterion": "2.3.1",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/2.3.1.md",
+    "../../../references/tests/2.3.1.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "2.3.1-02"
+      ],
+      "states": [
+        {
+          "id": "after-start",
+          "instructions": [
+            "初期状態では点滅しない。開始後の全画面の光の変化を分析する。実際の再生に配慮が必要な場合は同梱の時系列資料で条件を分析し、再生を観察したとは記録しない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-start",
+          "target": "#subject",
+          "checkpoint": "2.3.1-02",
+          "expected": "failed",
+          "rationale": "1秒間に4回の全視野・高輝度差の閃光がある。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "2.3.1-02"
+      ],
+      "states": [
+        {
+          "id": "after-start",
+          "instructions": [
+            "初期状態では点滅しない。開始後の全画面の光の変化を分析する。実際の再生に配慮が必要な場合は同梱の時系列資料で条件を分析し、再生を観察したとは記録しない。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-start",
+          "target": "#subject",
+          "checkpoint": "2.3.1-02",
+          "expected": "passed",
+          "rationale": "1秒間に2回で3回を超えない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "defer",
+            "screen-reader": "defer",
+            "full": "defer"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    }
+  ]
+}

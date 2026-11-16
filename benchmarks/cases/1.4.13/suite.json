@@ -1,0 +1,83 @@
+{
+  "schema_version": "1",
+  "criterion": "1.4.13",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/1.4.13.md",
+    "../../../references/tests/1.4.13.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "1.4.13-02"
+      ],
+      "states": [
+        {
+          "id": "after-open",
+          "instructions": [
+            "ボタンへhover/focusし追加内容へポインター移動、Escapeで消去する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-open",
+          "target": "#subject",
+          "checkpoint": "1.4.13-02",
+          "expected": "failed",
+          "rationale": "追加内容がボタンから離れると消え、フォーカスでも表示できない。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "1.4.13-02"
+      ],
+      "states": [
+        {
+          "id": "after-open",
+          "instructions": [
+            "ボタンへhover/focusし追加内容へポインター移動、Escapeで消去する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-open",
+          "target": "#subject",
+          "checkpoint": "1.4.13-02",
+          "expected": "passed",
+          "rationale": "追加内容上へ移動でき、Escapeでも消せる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "visual-semantic"
+        }
+      ]
+    }
+  ]
+}

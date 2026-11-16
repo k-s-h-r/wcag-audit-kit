@@ -1,0 +1,83 @@
+{
+  "schema_version": "1",
+  "criterion": "2.5.6",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/2.5.6.md",
+    "../../../references/tests/2.5.6.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "2.5.6-01"
+      ],
+      "states": [
+        {
+          "id": "after-pointer",
+          "instructions": [
+            "マウス操作後もTab/Enterで操作を継続できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-pointer",
+          "target": "#subject",
+          "checkpoint": "2.5.6-01",
+          "expected": "failed",
+          "rationale": "ポインター使用後にキーボード入力を無効にする。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "2.5.6-01"
+      ],
+      "states": [
+        {
+          "id": "after-pointer",
+          "instructions": [
+            "マウス操作後もTab/Enterで操作を継続できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-pointer",
+          "target": "#subject",
+          "checkpoint": "2.5.6-01",
+          "expected": "passed",
+          "rationale": "入力方式を切り替えても操作できる。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    }
+  ]
+}

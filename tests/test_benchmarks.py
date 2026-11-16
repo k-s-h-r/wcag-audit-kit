@@ -14,12 +14,13 @@ from benchmarks import core
 class CorpusTest(unittest.TestCase):
     def test_registered_cases_have_positive_negative_and_local_assets(self):
         data=core.corpus()
-        self.assertEqual(len(data['suites']),7)
-        self.assertEqual(sum(len(s['cases']) for s in data['suites']),18)
-        self.assertEqual(sum(len(c['pages']) for s in data['suites'] for c in s['cases']),20)
+        self.assertEqual(len(data['suites']),86)
+        self.assertEqual(sum(len(s['cases']) for s in data['suites']),176)
+        self.assertEqual(sum(len(c['pages']) for s in data['suites'] for c in s['cases']),184)
         for suite in data['suites']:
             outcomes={e['expected'] for c in suite['cases'] for e in c['expectations']}
-            self.assertIn('passed',outcomes);self.assertIn('failed',outcomes)
+            self.assertIn('failed',outcomes)
+            self.assertTrue('passed' in outcomes or ('inapplicable' in outcomes and suite.get('limitations')))
         self.assertTrue(any(p.endswith('.webm') for p in data['public_files']))
         self.assertTrue(any(p.endswith('.wav') for p in data['public_files']))
         self.assertTrue(any(p.endswith('.svg') for p in data['public_files']))
@@ -58,6 +59,15 @@ class CorpusTest(unittest.TestCase):
             with patch('benchmarks.runner.source_files',return_value=[path]),patch('benchmarks.core.ROOT',Path(temp)):
                 before=runner.implementation_digest();path.write_text('Changed verification instructions')
                 self.assertNotEqual(before,runner.implementation_digest())
+
+    def test_all_criteria_have_negative_cases_and_unavailable_controls_are_explicit(self):
+        suites={s['criterion']:s for s in core.corpus()['suites']}
+        self.assertEqual(set(suites),set(core.audit.CRITERIA))
+        for sc in ['1.2.5','1.2.6','1.2.7']:
+            suite=suites[sc]
+            self.assertTrue(suite['limitations'])
+            outcomes={e['expected'] for c in suite['cases'] for e in c['expectations']}
+            self.assertEqual(outcomes,{'failed','inapplicable'})
 
 
 class ScoringTest(unittest.TestCase):

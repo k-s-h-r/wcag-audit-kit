@@ -1,0 +1,83 @@
+{
+  "schema_version": "1",
+  "criterion": "3.2.5",
+  "version": "1",
+  "review": "author-defined",
+  "sources": [
+    "../../../references/criteria/3.2.5.md",
+    "../../../references/tests/3.2.5.md"
+  ],
+  "scope": "1つの確認観点の対照例。基準全体の網羅・独立した専門家による正解確認は未実施。",
+  "cases": [
+    {
+      "id": "c01",
+      "pages": [
+        "p01.html"
+      ],
+      "checkpoints": [
+        "3.2.5-01"
+      ],
+      "states": [
+        {
+          "id": "after-wait",
+          "instructions": [
+            "待機だけで別ページへ移動するか、変化を無効化できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p01.html",
+          "state": "after-wait",
+          "target": "#subject",
+          "checkpoint": "3.2.5-01",
+          "expected": "failed",
+          "rationale": "利用者の要求なしにタイマーでページを変える。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "pages": [
+        "p02.html"
+      ],
+      "checkpoints": [
+        "3.2.5-01"
+      ],
+      "states": [
+        {
+          "id": "after-wait",
+          "instructions": [
+            "待機だけで別ページへ移動するか、変化を無効化できるか確認する。"
+          ]
+        }
+      ],
+      "oracle_scope": "exhaustive-for-listed-checkpoints",
+      "expectations": [
+        {
+          "page": "p02.html",
+          "state": "after-wait",
+          "target": "#subject",
+          "checkpoint": "3.2.5-01",
+          "expected": "passed",
+          "rationale": "明示的なリンク操作でのみ移動する。",
+          "modes": {
+            "machine": "defer",
+            "ai": "evaluate",
+            "screen-reader": "defer",
+            "full": "evaluate"
+          },
+          "evidence_kind": "program"
+        }
+      ]
+    }
+  ]
+}

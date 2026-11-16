@@ -15,3 +15,4 @@
 - [0009 確認観点ごとに分担と実行準備を説明する](0009-readable-verification-observations.md)
 - [0010 検証手段をモードで選び、確認観点ごとの対応表を共有する](0010-selectable-verification-modes.md)
 - [0011 達成基準別の問題集と独立した採点処理を用意する](0011-criterion-regression-corpus.md)
+- [0012 全達成基準に検証用の問題例を用意する](0012-all-criteria-negative-fixtures.md)
