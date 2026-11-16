@@ -2,7 +2,7 @@
 name: wcag-audit-kit
 description: WCAG 2.2の検証を利用目的に応じて進行する。1ページならwcag-page、URL選定ならwcag-pages、既存結果の集計ならwcag-reportへ振り分ける。サイト全体では共通台帳とページ別タスクで分担・中断・再開し、未確認を残して報告する。
 metadata:
-  version: "0.5.0"
+  version: "0.6.0"
 ---
 
 # WCAG検証の入口と全体進行
@@ -18,6 +18,8 @@ metadata:
 | 検査するページを探して | [wcag-pages](skills/wcag-pages/SKILL.md) | WCAGの判定 |
 | 結果をExcelにまとめて | [wcag-report](skills/wcag-report/SKILL.md) | 再訪問・再検査 |
 | サイト全体を確認して | 下記の全体進行 | 既存の確定URL一覧があれば抽出 |
+
+1ページの検証は[機械検査の入口](references/page-audit.md)から始める。page-auditで実操作・状態探索・axeとページ別帳票を用意し、page-nextで残りを小さく取得する。AIに都度操作や判定を考えさせる前に、実行できる機械検査・測定・既存のアダプターを使い、意味や目的等で必要な部分だけ内容判断へ回す。
 
 ## 観察の深さを決める
 

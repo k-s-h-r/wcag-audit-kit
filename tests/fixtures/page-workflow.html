@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page workflow acceptance fixture</title><style>
+body{font:18px/1.6 system-ui;margin:32px;max-width:750px;color:#172733;background:white}
+button,[role=combobox],.pointer{font:inherit;margin:8px;padding:10px;background:#075395;color:white;border:2px solid #075395;cursor:pointer}
+:focus-visible{outline:3px solid #111;outline-offset:3px} [hidden]{display:none!important}
+dialog{padding:24px} img{width:70px;height:45px}
+</style></head><body><h1>One page, multiple interaction states</h1>
+<p>Owned fixture. The pointer-only trigger and image without alt are deliberate defects.</p>
+<button type="button" id="accordion" aria-expanded="false" aria-controls="panel">Details</button>
+<section id="panel" hidden><h2>Details panel</h2><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='45'%3E%3Crect width='70' height='45' fill='red'/%3E%3C/svg%3E">
+<button type="button" id="nested" aria-expanded="false" aria-controls="nested-panel">More details</button>
+<p id="nested-panel" hidden>The nested content is now visible.</p></section>
+<button type="button" role="combobox" id="combo" aria-expanded="false" aria-controls="options" aria-label="Delivery method">Choose delivery</button>
+<ul role="listbox" id="options" aria-label="Delivery methods" hidden><li role="option" tabindex="0" id="pickup">Pick up</li><li role="option" tabindex="0" id="post">Post</li></ul>
+<button type="button" id="open-dialog">Open help</button>
+<div class="pointer" id="pointer-only">Open preferences</div>
+<dialog id="dialog"><h2>Help and preferences</h2><p>Dialog content.</p><button type="button" id="close-dialog">Close</button></dialog>
+<button type="button" id="send">Send request</button><a href="unvisited.html">Another page</a>
+<script>
+const $=s=>document.querySelector(s),panel=$('#panel'),options=$('#options'),dialog=$('#dialog');
+function reset(){panel.hidden=true;options.hidden=true;$('#nested-panel').hidden=true;$('#accordion').setAttribute('aria-expanded','false');$('#nested').setAttribute('aria-expanded','false');$('#combo').setAttribute('aria-expanded','false');if(dialog.open)dialog.close()}
+$('#accordion').onclick=()=>{const open=panel.hidden;reset();panel.hidden=!open;$('#accordion').setAttribute('aria-expanded',String(open))};
+$('#nested').onclick=()=>{const p=$('#nested-panel');p.hidden=!p.hidden;$('#nested').setAttribute('aria-expanded',String(!p.hidden))};
+function showOptions(){reset();options.hidden=false;$('#combo').setAttribute('aria-expanded','true')}
+$('#combo').onclick=showOptions;
+$('#combo').onkeydown=e=>{if(e.key==='ArrowDown'){showOptions();$('#pickup').focus();e.preventDefault()}if(e.key==='Escape')reset()};
+for(const option of options.children){function choose(){const text=option.textContent;reset();$('#combo').textContent=text;$('#combo').focus()}option.onclick=choose;option.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){choose();e.preventDefault()}if(e.key==='Escape'){reset();$('#combo').focus()}}}
+$('#open-dialog').onclick=()=>{reset();dialog.showModal()};
+$('#pointer-only').addEventListener('click',()=>{reset();dialog.showModal()});
+$('#close-dialog').onclick=()=>dialog.close();
+$('#send').onclick=()=>fetch('/write',{method:'POST',body:'should not be sent'});
+</script></body></html>
