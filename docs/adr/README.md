@@ -30,4 +30,5 @@
 - [0024 最初の2観点を変更せず2回ずつ測る](0024-record-first-machine-baselines.md)
 - [0025 ホストの起動失敗をスキルの呼び出し成功にしない](0025-keep-host-invocation-blocked.md)
 - [0026 対象固有の手順を既存fixtureの1経路で確認する](0026-execute-one-project-procedure.md)
+- [0027 URL一覧化を有限の既知サイトで先に測る](0027-measure-url-selection-before-extension.md)
 - [0036 基準値の再実行先を収集前に拒否する](0036-preserve-baselines-when-rerunning-measurements.md)
