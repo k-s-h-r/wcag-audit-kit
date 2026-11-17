@@ -1,0 +1,32 @@
+{
+  "url": "http://127.0.0.1:37175",
+  "wcag": "2.2",
+  "level": "AA",
+  "authentication": "anonymous; no authenticated routes in this owned fixture",
+  "environment": {
+    "browser": "Chromium",
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    }
+  },
+  "policy": "all known in-scope URLs, no sample",
+  "expected_candidate_paths": [
+    "/",
+    "/unlinked",
+    "/a-extra",
+    "/a",
+    "/query?view=one",
+    "/query?view=two",
+    "/app#one",
+    "/app#two",
+    "/missing",
+    "/dynamic"
+  ],
+  "excluded": [
+    "/excluded/path",
+    "http://127.0.0.1:9/foreign"
+  ],
+  "dynamic_procedure": "/dynamic initial -> reveal link -> /hidden completion -> browser back; select both endpoints and revealed state",
+  "conformance_claim": false
+}

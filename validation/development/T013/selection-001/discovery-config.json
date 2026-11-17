@@ -1,0 +1,39 @@
+{
+  "schema_version": "1",
+  "url": "http://127.0.0.1:37175",
+  "level": "AA",
+  "scope": {
+    "include": [
+      "/**"
+    ],
+    "exclude": [
+      {
+        "path": "/excluded/**",
+        "reason": "Outside agreed fixture scope"
+      }
+    ],
+    "seeds": [
+      "/"
+    ],
+    "known_pages": [
+      "/unlinked",
+      "/a-extra"
+    ],
+    "max_pages": 20,
+    "mode": "discover",
+    "pages": []
+  },
+  "environments": [
+    {
+      "id": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "zoom": 1
+    }
+  ],
+  "states": [],
+  "keyboard_steps": 30,
+  "input_event_limit": 10000
+}

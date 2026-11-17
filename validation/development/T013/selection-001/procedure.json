@@ -1,0 +1,64 @@
+{
+  "start": "http://127.0.0.1:37175/dynamic",
+  "end": "http://127.0.0.1:37175/hidden",
+  "states": [
+    {
+      "id": "initial",
+      "url": "http://127.0.0.1:37175/dynamic",
+      "links": [],
+      "action": null,
+      "proof": [
+        "initial.html",
+        "initial.png"
+      ]
+    },
+    {
+      "id": "revealed",
+      "url": "http://127.0.0.1:37175/dynamic",
+      "links": [
+        {
+          "url": "http://127.0.0.1:37175/hidden",
+          "text": "More"
+        }
+      ],
+      "action": "show",
+      "proof": [
+        "revealed.html",
+        "revealed.png"
+      ]
+    },
+    {
+      "id": "completed",
+      "url": "http://127.0.0.1:37175/hidden",
+      "links": [],
+      "action": "follow",
+      "proof": [
+        "completed.html",
+        "completed.png"
+      ]
+    },
+    {
+      "id": "returned",
+      "url": "http://127.0.0.1:37175/dynamic",
+      "links": [],
+      "action": "back",
+      "proof": [
+        "returned.html",
+        "returned.png"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "click",
+      "selector": "#show"
+    },
+    {
+      "type": "click",
+      "selector": "a[href=\"/hidden\"]"
+    }
+  ],
+  "completion": "#completion visible at /hidden",
+  "reset": "browser back; revealed link may need reopening; verify actual state",
+  "requires_separate_procedure_from_configured_initial_pages": true
+}

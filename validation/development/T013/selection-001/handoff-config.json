@@ -1,0 +1,43 @@
+{
+  "schema_version": "1",
+  "url": "http://127.0.0.1:37175",
+  "level": "AA",
+  "scope": {
+    "include": [
+      "/**"
+    ],
+    "exclude": [],
+    "seeds": [
+      "/"
+    ],
+    "known_pages": [],
+    "max_pages": 100,
+    "mode": "configured",
+    "pages": [
+      "http://127.0.0.1:37175/",
+      "http://127.0.0.1:37175/unlinked",
+      "http://127.0.0.1:37175/a-extra",
+      "http://127.0.0.1:37175/a",
+      "http://127.0.0.1:37175/query?view=one",
+      "http://127.0.0.1:37175/query?view=two",
+      "http://127.0.0.1:37175/app#one",
+      "http://127.0.0.1:37175/app#two",
+      "http://127.0.0.1:37175/missing",
+      "http://127.0.0.1:37175/dynamic",
+      "http://127.0.0.1:37175/hidden"
+    ]
+  },
+  "environments": [
+    {
+      "id": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "zoom": 1
+    }
+  ],
+  "states": [],
+  "keyboard_steps": 30,
+  "input_event_limit": 10000
+}

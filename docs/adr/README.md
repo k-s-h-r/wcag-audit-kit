@@ -39,3 +39,5 @@
 
 - [0032 画像候補の取得照合を適合判定から分離する](0032-compare-bounded-visual-inventory.md)
 - [0033 指定URLを1ページずつ実行し、同じ条件で再開する](0033-resume-configured-pages-with-separate-runs.md)
+
+- [0035 候補URLと実操作で見つけた状態を分けて選定する](0035-select-pages-and-procedure-states-from-observation.md)

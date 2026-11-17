@@ -1,0 +1,176 @@
+{
+  "pages": [
+    {
+      "url": "http://127.0.0.1:37175/",
+      "selected": true,
+      "origin": "candidate inventory",
+      "reason": "finite fixture census; retain query and fragment identities",
+      "candidate_visited": true,
+      "access": "visited by candidate selector",
+      "audit": "not_run",
+      "states": [
+        "initial"
+      ],
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:37175/unlinked",
+      "selected": true,
+      "origin": "candidate inventory",
+      "reason": "finite fixture census; retain query and fragment identities",
+      "candidate_visited": true,
+      "access": "visited by candidate selector",
+      "audit": "not_run",
+      "states": [
+        "initial"
+      ],
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:37175/a-extra",
+      "selected": true,
+      "origin": "candidate inventory",
+      "reason": "finite fixture census; retain query and fragment identities",
+      "candidate_visited": true,
+      "access": "visited by candidate selector",
+      "audit": "not_run",
+      "states": [
+        "initial"
+      ],
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:37175/a",
+      "selected": true,
+      "origin": "candidate inventory",
+      "reason": "finite fixture census; retain query and fragment identities",
+      "candidate_visited": true,
+      "access": "visited by candidate selector",
+      "audit": "not_run",
+      "states": [
+        "initial"
+      ],
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:37175/query?view=one",
+      "selected": true,
+      "origin": "candidate inventory",
+      "reason": "finite fixture census; retain query and fragment identities",
+      "candidate_visited": true,
+      "access": "visited by candidate selector",
+      "audit": "not_run",
+      "states": [
+        "initial"
+      ],
+      "type": "query variant"
+    },
+    {
+      "url": "http://127.0.0.1:37175/query?view=two",
+      "selected": true,
+      "origin": "candidate inventory",
+      "reason": "finite fixture census; retain query and fragment identities",
+      "candidate_visited": true,
+      "access": "visited by candidate selector",
+      "audit": "not_run",
+      "states": [
+        "initial"
+      ],
+      "type": "query variant"
+    },
+    {
+      "url": "http://127.0.0.1:37175/app#one",
+      "selected": true,
+      "origin": "candidate inventory",
+      "reason": "finite fixture census; retain query and fragment identities",
+      "candidate_visited": true,
+      "access": "visited by candidate selector",
+      "audit": "not_run",
+      "states": [
+        "initial"
+      ],
+      "type": "fragment variant"
+    },
+    {
+      "url": "http://127.0.0.1:37175/app#two",
+      "selected": true,
+      "origin": "candidate inventory",
+      "reason": "finite fixture census; retain query and fragment identities",
+      "candidate_visited": true,
+      "access": "visited by candidate selector",
+      "audit": "not_run",
+      "states": [
+        "initial"
+      ],
+      "type": "fragment variant"
+    },
+    {
+      "url": "http://127.0.0.1:37175/missing",
+      "selected": true,
+      "origin": "candidate inventory",
+      "reason": "finite fixture census; retain query and fragment identities",
+      "candidate_visited": true,
+      "access": "failed HTTP 404",
+      "audit": "not_run",
+      "states": [
+        "initial"
+      ],
+      "type": "document"
+    },
+    {
+      "url": "http://127.0.0.1:37175/dynamic",
+      "selected": true,
+      "origin": "candidate inventory",
+      "reason": "finite fixture census; retain query and fragment identities",
+      "candidate_visited": true,
+      "access": "visited by candidate selector",
+      "audit": "not_run",
+      "states": [
+        "initial",
+        "revealed",
+        "returned"
+      ],
+      "type": "dynamic route start"
+    },
+    {
+      "url": "http://127.0.0.1:37175/hidden",
+      "selected": true,
+      "origin": "observed revealed link at /dynamic",
+      "reason": "procedure completion page; initially undiscovered",
+      "candidate_visited": false,
+      "access": "reached via actual click",
+      "audit": "not_run",
+      "states": [
+        "initial"
+      ],
+      "type": "procedure end"
+    },
+    {
+      "url": "http://127.0.0.1:37175/excluded/path",
+      "selected": false,
+      "origin": "root link",
+      "reason": "agreed path exclusion",
+      "candidate_visited": false,
+      "access": "not visited",
+      "audit": "out_of_scope",
+      "states": [],
+      "type": "excluded"
+    },
+    {
+      "url": "http://127.0.0.1:9/foreign",
+      "selected": false,
+      "origin": "root link",
+      "reason": "different origin",
+      "candidate_visited": false,
+      "access": "not visited",
+      "audit": "out_of_scope",
+      "states": [],
+      "type": "excluded"
+    }
+  ],
+  "common_parts": {
+    "header": "same authored markup; no audit-result reuse is asserted"
+  },
+  "unvisited_distinct_from_undiscovered": true,
+  "hidden_initially_undiscovered_then_reached": true
+}
