@@ -21,4 +21,4 @@
 
 担当は新しい開発スキル、AGENTS、開発手順、ロードマップとタスクの案内、T016、新しいADRと確認記録。T015はマージの事実を照合して進捗を更新する。
 
-作成物は新しいwcag-devと各利用案内。根拠は[確認記録](../../validation/development/T016/README.md)と[ADR 0022](../adr/0022-autonomous-development-workflow.md)を参照する。独立したAIの隔離試験で、タスク追加から文書作成まで進む場面と、前提待ちで依存作業を開始しない場面を確認した。実GitHubの操作と実ホストの自然な呼び出しは別に未実証として残す。PRで採用を確認した後の通常作業は、開始可能なT001等から選択する。
+作成物は新しいwcag-devと各利用案内。根拠は[確認記録](../../validation/development/T016/README.md)と[ADR 0022](../adr/0022-autonomous-development-workflow.md)を参照する。独立したAIの隔離試験で、タスク追加から文書作成まで進む場面と、前提待ちで依存作業を開始しない場面を確認した。実GitHubの操作と実ホストの自然な呼び出しは別に未実証として残す。[PR #14](https://github.com/k-s-h-r/wcag-audit-kit/pull/14)でレビュー待ち。採用を確認した後の通常作業は、開始可能なT001等から選択する。
