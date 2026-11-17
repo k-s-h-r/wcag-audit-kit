@@ -21,7 +21,7 @@ class KeyboardUnreachable(ValueError):
 
 
 def fingerprint(value):
-    keys=('selector','tag','role','type','href','label','tabIndex','haspopup')
+    keys=('selector','tag','role','type','formAssociated','href','label','tabIndex','haspopup')
     controls=[dict({k:c.get(k) for k in keys},events=sorted(set(c.get('events',[])))) for c in value.get('controls',[])]
     state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
     return sha256(json.dumps(state,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
@@ -30,7 +30,10 @@ def fingerprint(value):
 def actions(control):
     """Keep different input paths even when their resulting states coincide."""
     selector=control['selector'];tag=control['tag'];role=control.get('role');kind=control.get('type') or ''
-    if RISK.search(control.get('label') or '') or kind in {'submit','image','file','password','hidden'}:
+    # The DOM defaults button.type to submit even outside a form. Only an
+    # explicitly observed missing form association makes that default harmless.
+    submission=kind in {'submit','image'} and control.get('formAssociated') is not False
+    if RISK.search(control.get('label') or '') or submission or kind in {'file','password','hidden'}:
         return [],'送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。'
     if tag=='a' and control.get('href') and not control['href'].startswith('#'):
         return [],'ページ移動を伴うリンク。単独ページから自動巡回しない。'

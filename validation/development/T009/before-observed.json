@@ -1,0 +1,89 @@
+{
+  "initial_controls": [
+    {
+      "selector": "#load",
+      "tag": "button",
+      "role": null,
+      "type": "submit",
+      "label": "Show details",
+      "href": null,
+      "expanded": null,
+      "tabIndex": 0,
+      "haspopup": null,
+      "events": [
+        "onclick"
+      ],
+      "rect": {
+        "x": 8,
+        "y": 79.875,
+        "width": 91.578125,
+        "height": 21
+      }
+    },
+    {
+      "selector": "#inside-submit",
+      "tag": "button",
+      "role": null,
+      "type": "submit",
+      "label": "Proceed inside form",
+      "href": null,
+      "expanded": null,
+      "tabIndex": 0,
+      "haspopup": null,
+      "events": [],
+      "rect": {
+        "x": 8,
+        "y": 100.875,
+        "width": 134.53125,
+        "height": 21
+      }
+    },
+    {
+      "selector": "#external-submit",
+      "tag": "button",
+      "role": null,
+      "type": "submit",
+      "label": "Proceed with associated form",
+      "href": null,
+      "expanded": null,
+      "tabIndex": 0,
+      "haspopup": null,
+      "events": [],
+      "rect": {
+        "x": 8,
+        "y": 121.875,
+        "width": 190.828125,
+        "height": 21
+      }
+    },
+    {
+      "selector": "#save",
+      "tag": "button",
+      "role": null,
+      "type": "submit",
+      "label": "Save changes",
+      "href": null,
+      "expanded": null,
+      "tabIndex": 0,
+      "haspopup": null,
+      "events": [],
+      "rect": {
+        "x": 202.828125,
+        "y": 121.875,
+        "width": 100.484375,
+        "height": 21
+      }
+    }
+  ],
+  "initial_deferred": [
+    "#external-submit",
+    "#inside-submit",
+    "#load",
+    "#save"
+  ],
+  "image_failure_routes": [],
+  "post_requests_received": 0,
+  "wcag_outcomes": {
+    "not_run": 55
+  }
+}

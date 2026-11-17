@@ -49,6 +49,7 @@
       .map(e => {
         const r = e.getBoundingClientRect();
         return {selector:selector(e), tag:e.localName, role:e.getAttribute('role'), type:e.type || e.getAttribute('type'),
+          formAssociated:e.form instanceof HTMLFormElement,
           label:e.getAttribute('aria-label') || e.labels?.[0]?.innerText || e.innerText?.trim().slice(0,160) || e.getAttribute('placeholder') || e.id,
           href:e.getAttribute('href'), expanded:e.getAttribute('aria-expanded'), tabIndex:e.tabIndex,
           haspopup:e.getAttribute('aria-haspopup'), events:[...(events.get(e) || []),...properties.filter(p => typeof e[p] === 'function')],
@@ -61,7 +62,8 @@
       role:e.getAttribute('role'), hidden:e.getAttribute('aria-hidden'),
       disabled:e.matches(':disabled'), ariaDisabled:e.getAttribute('aria-disabled'),
       readOnly:e.readOnly ?? null, inert:!!e.inert, tabIndex:e.tabIndex,
-      type:e.type || e.getAttribute('type'), href:e.getAttribute('href'), contentEditable:e.getAttribute('contenteditable'),
+      type:e.type || e.getAttribute('type'), formAssociated:e.form instanceof HTMLFormElement,
+      href:e.getAttribute('href'), contentEditable:e.getAttribute('contenteditable'),
       ariaControls:e.getAttribute('aria-controls'), ariaOwns:e.getAttribute('aria-owns'),
       ariaHasPopup:e.getAttribute('aria-haspopup'), ariaPressed:e.getAttribute('aria-pressed'),
       ariaChecked:e.getAttribute('aria-checked'), ariaActiveDescendant:e.getAttribute('aria-activedescendant'),
