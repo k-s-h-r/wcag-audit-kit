@@ -21,4 +21,4 @@
 
 編集範囲は開発用スキル、T015、索引と利用案内、新しいADRと確認記録。検証ランタイム、問題集、期待結果、既存T001〜T014は変更しない。
 
-作成したファイルと確認内容は[確認記録](../../validation/development/T015/README.md)と[ADR 0021](../adr/0021-development-task-skill.md)を参照する。PRのレビュー・マージと、実ホスト上の呼び出し・独立したAIの判断は未完了。次は明示的なタスク整理依頼で利用し、実際の判断結果から改善する。
+作成したファイルと確認内容は[確認記録](../../validation/development/T015/README.md)と[ADR 0021](../adr/0021-development-task-skill.md)を参照する。[PR #13](https://github.com/k-s-h-r/wcag-audit-kit/pull/13)でレビュー待ち。PRのマージと、実ホスト上の呼び出し・独立したAIの判断は未完了。次は明示的なタスク整理依頼で利用し、実際の判断結果から改善する。
