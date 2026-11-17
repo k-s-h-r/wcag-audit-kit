@@ -19,3 +19,5 @@ T017の新規runではc09/c10のclick後に画像のaxe違反・通過がある�
 ## 実行結果と引き継ぎ
 
 担当：wcag-dev、codex/t018-named-state-evidence、worktree /workspace/wcag-dev-t018。[公開条件と実証拠の対応、217試験、最終v3の4run](../../validation/development/T018/README.md)を確認した。画像7/7・タイトル3/3が2回とも一致し、限定10行の誤検出・偽の通過・未確認は0。HTML・素材・全期待判定は不変で、公開状態の説明メタデータだけ新版にした。親のレビュー修正前のv2記録も保持している。提案版G1の限定範囲は確認済み、main採用は待ち。全体の未確認・取得未接続・意味判断・実SRは残る。
+
+終了コードの説明訂正は[現在の結果](../../validation/development/T018/RESULTS.md)。原始receiptは正しく、タイトルstrict=0・画像=2、全体は双方未完了。旧記録は書き換えていない。

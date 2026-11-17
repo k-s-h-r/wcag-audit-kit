@@ -1,0 +1,51 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "benchmarks/run.py",
+    "collect",
+    "--mode",
+    "machine",
+    "--criterion",
+    "2.4.2",
+    "--out",
+    "/workspace/wcag-dev-session-20261118/T007-title-run-001"
+  ],
+  "exit_code": 0,
+  "strict_exit_code": 0,
+  "elapsed_seconds": 6.896111532001669,
+  "run_id": "2e9091f6f7b04e09a5c030e7ad8e4b1a",
+  "git_head": "6dc8d92a205cf0fc24c2cb29c00843b15e8a26d8",
+  "baseline_corpus_digest": "6f132795533a8d6886cc3551873f02063ef926c4bbdb799d46bc67fd5e6b26b9",
+  "state_metadata_revision": [
+    {
+      "criterion": "1.1.1",
+      "version_before": "4",
+      "version_after": "5",
+      "states": [
+        "c09/after-load",
+        "c10/after-load"
+      ]
+    }
+  ],
+  "baseline_implementation_digest": "904a5a62f02613cd6c6d80cfd862cfcf423bf591964fa9c17d9d18e24203cfd3",
+  "implementation_digest": "06794d03880c45f839504312865759e54199837251ac9c6231efcc056b78b6f1",
+  "corpus_digest": "c27eb953840655e3bdac2bfd751a6d25c289ed1f5039eb7e08ff86c9dee4686a",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)"
+  },
+  "configuration": {
+    "max_states": 8,
+    "max_steps": 32,
+    "max_depth": 3,
+    "max_images": 6
+  },
+  "plan_checksums_sha256": "d5b58d9bb972889550e2a94d7f8f7c5a70827c512396fdb9e58491074d6a168e",
+  "measurement_revision": "T007-inventory-v1",
+  "mode": "machine",
+  "ai_inference": false,
+  "tokens": "not applicable; no AI inference"
+}

@@ -41,10 +41,15 @@ def write(run,result):
           *[(m,core.modes.MODES[m]['label']) for m in result['modes']]],coverage,True)
     sheet(book,'追加の誤検出',[('criterion','基準'),('mode','モード'),('page','ページ'),('target','対象'),('checkpoint','確認観点'),('observed','観察')],result['unexpected_findings'],True)
     pending=result.get('pending_evidence_contracts',[])
-    pending_columns=[('criterion','基準'),('mode','モード'),('page','ページ'),('state','状態'),('checkpoint','取得する観点'),('kind','取得期待の種類'),('status','確認状態')]
+    pending_columns=[('criterion','基準'),('mode','モード'),('page','ページ'),('state','状態'),('checkpoint','取得する観点'),('kind','取得期待の種類'),('status','確認状態'),('observed','未確認の理由')]
     kind_labels={'inventory':'対象の列挙','focus-sequence':'フォーカス経路','viewport':'表示幅と拡大','state-capture':'操作前後の状態','timeline':'時系列の区間','language':'指定言語','accessible-name':'名前と表示ラベル','geometry':'サイズと位置'}
-    pending_rows=[dict(r,kind=kind_labels.get(r['kind'],r['kind']),mode=core.modes.MODES[r['mode']]['label'],status=LABEL.get(r['status'],r['status'])) for r in pending]
+    pending_rows=[dict(r,observed=r.get('observed','対応する取得照合又は証拠がありません。'),kind=kind_labels.get(r['kind'],r['kind']),mode=core.modes.MODES[r['mode']]['label'],status=LABEL.get(r['status'],r['status'])) for r in pending]
     if pending:sheet(book,'取得期待の未確認',pending_columns,pending_rows,True)
+    acquired=[r for r in result.get('acquisition_results',[]) if r['status'] in {'matched','mismatch'}]
+    acquisition_columns=[('criterion','基準'),('mode','モード'),('page','ページ'),('state','状態'),('checkpoint','取得する観点'),('status','候補一覧の照合'),('expected_targets','期待する候補'),('actual_targets','取得した候補'),('observed','確認した範囲'),('evidence','証拠')]
+    acquisition_rows=[dict(r,mode=core.modes.MODES[r['mode']]['label'],status={'matched':'候補一覧一致','mismatch':'候補一覧不一致'}[r['status']],
+        expected_targets='\n'.join(r['expected_targets']),actual_targets='\n'.join(r['actual_targets']),evidence='\n'.join(r['evidence'])) for r in acquired]
+    if acquired:sheet(book,'取得期待の照合',acquisition_columns,acquisition_rows,True)
     book.save(out/'result.xlsx');book.close()
     cells=[]
     for row,original in zip(rows,result['rows']):
@@ -71,6 +76,16 @@ def write(run,result):
     if pending:
         pending_html='<h2>取得期待の未確認</h2><p>'+escape(result['notice_evidence'])+'</p><div class="scroll" role="region" aria-label="取得期待の未確認" tabindex="0"><table><caption>判定の適否に含めない取得確認</caption><thead><tr>'+''.join('<th scope="col">'+escape(label)+'</th>' for _,label in pending_columns)+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+escape(str(r[k]))+'</td>' for k,_ in pending_columns)+'</tr>' for r in pending_rows)+'</tbody></table></div>'
         html=html.replace('</main>',pending_html+'</main>')
+    if acquired:
+        acquisition_cells=[]
+        for row,original in zip(acquisition_rows,acquired):
+            cells=[]
+            for key,_ in acquisition_columns:
+                cell='<br>'.join('<a href="../../'+escape(p,quote=True)+'">'+escape(Path(p).name)+'</a>' for p in original['evidence']) if key=='evidence' else escape(str(row[key]))
+                cells.append('<td>'+cell+'</td>')
+            acquisition_cells.append('<tr>'+''.join(cells)+'</tr>')
+        section='<h2>取得期待の照合</h2><p>これは対応形式の候補一覧の照合で、意味・装飾の目的・代替の適否の判定ではありません。</p><div class="scroll" role="region" aria-label="取得期待の照合" tabindex="0"><table><caption>適合判定に含めない候補一覧の照合</caption><thead><tr>'+''.join('<th scope="col">'+escape(label)+'</th>' for _,label in acquisition_columns)+'</tr></thead><tbody>'+''.join(acquisition_cells)+'</tbody></table></div>'
+        html=html.replace('</main>',section+'</main>')
     (out/'result.html').write_text(html)
     core.freeze(run,[p for p in out.iterdir() if p.is_file()])
     return {'json':str(out/'result.json'),'html':str(out/'result.html'),'excel':str(out/'result.xlsx')}

@@ -104,7 +104,14 @@
       ariaChecked:e.getAttribute('aria-checked'), ariaActiveDescendant:e.getAttribute('aria-activedescendant'),
       ariaModal:e.getAttribute('aria-modal'),
       styles:['color','backgroundColor'].map(k => getComputedStyle(e)[k])}));
-    return {url:location.href,title:document.title,controls,state,modal:modal ? selector(modal) : null,
+    const visualCandidates = all.filter(visible).flatMap(e => {
+      const formats=[];
+      if (/url\(/i.test(getComputedStyle(e).backgroundImage)) formats.push('css-background');
+      if (e.localName==='svg') formats.push('inline-svg');
+      if (e.localName==='canvas') formats.push('canvas');
+      return formats.length ? [{selector:selector(e),formats}] : [];
+    });
+    return {url:location.href,title:document.title,controls,state,visual_candidates:visualCandidates,modal:modal ? selector(modal) : null,
       frames:all.filter(e => e.matches('iframe,frame')).map(selector), closedRoots,
       canvases:all.filter(e => e.localName === 'canvas' && visible(e)).map(selector),
       scroll:{width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight},

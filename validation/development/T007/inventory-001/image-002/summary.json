@@ -1,0 +1,234 @@
+{
+  "selected_rows": 7,
+  "grade_counts": {
+    "correct": 7
+  },
+  "known_failures": 2,
+  "detected_failures": 2,
+  "false_passes": 0,
+  "false_positives": 0,
+  "unverified": 0,
+  "selected_checks_status": "incomplete",
+  "overall_status": "incomplete",
+  "full_counts": {
+    "correct": 7,
+    "deferred": 6,
+    "not_evaluated": 7
+  },
+  "pending_evidence_contracts": [
+    {
+      "job_id": "machine--1.1.1--c11",
+      "criterion": "1.1.1",
+      "mode": "machine",
+      "page": "p11.html",
+      "state": "initial",
+      "checkpoint": "1.1.1-02",
+      "kind": "inventory",
+      "status": "not_evaluated",
+      "observed": "未対応の取得条件：decorative。候補の目的等をこの機械照合で確定しない。"
+    }
+  ],
+  "rows": [
+    {
+      "criterion": "1.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#figure",
+      "checkpoint": "1.1.1-01",
+      "expected": "failed",
+      "actual": "failed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c01/p01/attempt-64cc873e17d8/run/evidence/ac7a48bc9656--explore-5d5773681bb4--desktop/axe.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#summary",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c01/p01/attempt-64cc873e17d8/run/evidence/ac7a48bc9656--explore-5d5773681bb4--desktop/axe.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#marker",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c01/p01/attempt-64cc873e17d8/run/evidence/ac7a48bc9656--explore-5d5773681bb4--desktop/axe.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#figure",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c02/p02/attempt-e9580184e031/run/evidence/c87fe56b3821--explore-bea13961bc9f--desktop/axe.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#summary",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c02/p02/attempt-e9580184e031/run/evidence/c87fe56b3821--explore-bea13961bc9f--desktop/axe.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c09",
+      "page": "p09.html",
+      "state": "after-load",
+      "target": "#subject",
+      "checkpoint": "1.1.1-01",
+      "expected": "failed",
+      "actual": "failed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c09/p09/attempt-c5ab84c3c199/run/evidence/e73861c993c2--explore-4f8ddc707ae5--desktop/axe.json",
+        "audit-runs/machine--1.1.1--c09/p09/attempt-c5ab84c3c199/run/evidence/e73861c993c2--explore-4f8ddc707ae5--desktop/state.json",
+        "audit-runs/machine--1.1.1--c09/p09/attempt-c5ab84c3c199/run/evidence/e73861c993c2--explore-4f8ddc707ae5--desktop/transition.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c10",
+      "page": "p10.html",
+      "state": "after-load",
+      "target": "#subject",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c10/p10/attempt-d4ac3b5c8d27/run/evidence/e7e5b273595f--explore-9f72f98adca3--desktop/axe.json",
+        "audit-runs/machine--1.1.1--c10/p10/attempt-d4ac3b5c8d27/run/evidence/e7e5b273595f--explore-9f72f98adca3--desktop/state.json",
+        "audit-runs/machine--1.1.1--c10/p10/attempt-d4ac3b5c8d27/run/evidence/e7e5b273595f--explore-9f72f98adca3--desktop/transition.json"
+      ],
+      "source": "production axe / image-alt"
+    }
+  ],
+  "unexpected_findings": [],
+  "acquisition_counts": {
+    "matched": 2,
+    "not_evaluated": 1
+  },
+  "acquisition_results": [
+    {
+      "job_id": "machine--1.1.1--c05",
+      "criterion": "1.1.1",
+      "mode": "machine",
+      "page": "p05.html",
+      "state": "initial",
+      "checkpoint": "1.1.1-02",
+      "kind": "inventory",
+      "status": "matched",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c05/p05/attempt-a8cfaa32f1dd/run/evidence/ada0880874b7--explore-c6f57b14bc38--desktop/state.json"
+      ],
+      "expected_targets": [
+        "#background-chart",
+        "#inline-chart",
+        "#canvas-chart"
+      ],
+      "actual_targets": [
+        "#background-chart",
+        "#canvas-chart",
+        "#inline-chart"
+      ],
+      "observed": "候補の対象・対応形式を照合した。意味・装飾の目的・代替の適否は判定していない。",
+      "method": "visible-css-url-svg-canvas-v1",
+      "missing": [],
+      "unexpected": [],
+      "wrong_formats": [],
+      "supported_fields": [
+        "targets",
+        "formats"
+      ]
+    },
+    {
+      "job_id": "machine--1.1.1--c06",
+      "criterion": "1.1.1",
+      "mode": "machine",
+      "page": "p06.html",
+      "state": "initial",
+      "checkpoint": "1.1.1-02",
+      "kind": "inventory",
+      "status": "matched",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c06/p06/attempt-5424a8649d5f/run/evidence/7a118bf612cb--explore-484a9378fe8b--desktop/state.json"
+      ],
+      "expected_targets": [
+        "#background-chart",
+        "#inline-chart",
+        "#canvas-chart"
+      ],
+      "actual_targets": [
+        "#background-chart",
+        "#canvas-chart",
+        "#inline-chart"
+      ],
+      "observed": "候補の対象・対応形式を照合した。意味・装飾の目的・代替の適否は判定していない。",
+      "method": "visible-css-url-svg-canvas-v1",
+      "missing": [],
+      "unexpected": [],
+      "wrong_formats": [],
+      "supported_fields": [
+        "targets",
+        "formats"
+      ]
+    },
+    {
+      "job_id": "machine--1.1.1--c11",
+      "criterion": "1.1.1",
+      "mode": "machine",
+      "page": "p11.html",
+      "state": "initial",
+      "checkpoint": "1.1.1-02",
+      "kind": "inventory",
+      "status": "not_evaluated",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c11/p11/attempt-7c5918f39476/run/evidence/b587bfafb702--explore-dee9adb98d6a--desktop/state.json"
+      ],
+      "expected_targets": [
+        "#icon"
+      ],
+      "actual_targets": [
+        "#icon"
+      ],
+      "observed": "未対応の取得条件：decorative。候補の目的等をこの機械照合で確定しない。",
+      "method": "visible-css-url-svg-canvas-v1"
+    }
+  ]
+}

@@ -367,7 +367,7 @@ class ScoringTest(unittest.TestCase):
         self.assertEqual(r['counts'],{'correct':2});self.assertEqual(r['selected_checks_status'],'incomplete')
         self.assertEqual(r['pending_evidence_contracts'][0]['status'],'not_evaluated')
         row=self.observation(job,p);row['checkpoint']='1.1.1-02'
-        with self.assertRaisesRegex(ValueError,'未接続'):self.submit(run,meta,job,[row])
+        with self.assertRaisesRegex(ValueError,'取得期待'):self.submit(run,meta,job,[row])
         paths=reporting.write(run,r)
         from openpyxl import load_workbook
         book=load_workbook(paths['excel'],read_only=True)

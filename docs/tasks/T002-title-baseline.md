@@ -34,3 +34,5 @@ T001の条件を固定し、`benchmarks/run.py collect`のmachineモードと基
 [確認記録](../../validation/development/T002/README.md)。固定3行を2回収集し、一致3・未確認0。タイトル3行は2回とも一致。主題の意味判断2行はモードによる省略であり、基準全体は未完了。 T008で帳票と残る意味判断を照合する。タイトルの機械ルール自体の修正候補はない。 実測は元のrunのまま固定し、修正は別タスク・別runへ渡す。
 
 PR：[基準値の記録 #16](https://github.com/k-s-h-r/wcag-audit-kit/pull/16)。baseはT001のブランチ（PR #15）。
+
+終了コードの説明訂正は[現在の結果](../../validation/development/T002/RESULTS.md)。原始receiptは正しく、タイトルstrict=0・画像=2、全体は双方未完了。旧記録は書き換えていない。

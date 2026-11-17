@@ -20,12 +20,18 @@ def main(report,out):
     from openpyxl import load_workbook
     book=load_workbook(report/'result.xlsx',read_only=True,data_only=True)
     try:
-        assert book.sheetnames==['採点結果','概要','基準とモードの実測範囲','追加の誤検出']+(['取得期待の未確認'] if value.get('pending_evidence_contracts') else [])
+        assert book.sheetnames==['採点結果','概要','基準とモードの実測範囲','追加の誤検出']+(['取得期待の未確認'] if value.get('pending_evidence_contracts') else [])+(['取得期待の照合'] if any(r['status'] in {'matched','mismatch'} for r in value.get('acquisition_results',[])) else [])
         assert book['採点結果'].max_row==len(value['rows'])+1
         assert book['基準とモードの実測範囲'].max_row==87
         grades=Counter(row[9] for row in list(book['採点結果'].values)[1:])
         from benchmarks.reporting import LABEL
         assert dict(grades)=={LABEL[k]:v for k,v in value['counts'].items()}
+        verified=[r for r in value.get('acquisition_results',[]) if r['status'] in {'matched','mismatch'}]
+        if verified:
+            assert book['取得期待の照合'].max_row==len(verified)+1
+            assert sum('候補一覧一致' in str(cell) for row in book['取得期待の照合'].values for cell in row)==sum(r['status']=='matched' for r in verified)
+        if value.get('pending_evidence_contracts'):
+            assert book['取得期待の未確認'].max_row==len(value['pending_evidence_contracts'])+1
     finally:book.close()
     # A private reviewer surface, separate from the answer-free worker server.
     class ReviewFiles(SimpleHTTPRequestHandler):

@@ -1,0 +1,73 @@
+{
+  "base": "6dc8d92",
+  "corpus_digest": "c27eb953840655e3bdac2bfd751a6d25c289ed1f5039eb7e08ff86c9dee4686a",
+  "baseline_implementation_digest": "3c3fcec76b5dca2fe6abaab6aa4acd8066065c56162c60b1a9ea85e3da912681",
+  "contracts": [
+    {
+      "case": "c05",
+      "checkpoint": "1.1.1-02",
+      "kind": "inventory",
+      "targets": [
+        "#background-chart",
+        "#inline-chart",
+        "#canvas-chart"
+      ],
+      "formats": [
+        "css-background",
+        "inline-svg",
+        "canvas"
+      ],
+      "page": "p05.html",
+      "state": "initial",
+      "rationale": "3種類の図が半減を伝える。画像として識別する名前・代替内容がない。"
+    },
+    {
+      "case": "c06",
+      "checkpoint": "1.1.1-02",
+      "kind": "inventory",
+      "targets": [
+        "#background-chart",
+        "#inline-chart",
+        "#canvas-chart"
+      ],
+      "formats": [
+        "css-background",
+        "inline-svg",
+        "canvas"
+      ],
+      "page": "p06.html",
+      "state": "initial",
+      "rationale": "3種類の図が半減を伝える。同等の代替名がある。"
+    },
+    {
+      "case": "c11",
+      "checkpoint": "1.1.1-02",
+      "kind": "inventory",
+      "targets": [
+        "#icon"
+      ],
+      "decorative": true,
+      "page": "p11.html",
+      "state": "initial",
+      "rationale": "SVGは同じボタンの保存という表示ラベルを重複する装飾。別の名前を要求して誤検出しない。"
+    }
+  ],
+  "method": "visible-css-url-svg-canvas-v1",
+  "supported": "initial visible DOM boxes in top document/open shadow roots; CSS url backgrounds, SVG roots, canvas",
+  "excludes": [
+    "gradients",
+    "pseudo elements",
+    "frames",
+    "closed shadow roots",
+    "image meaning",
+    "decorative purpose",
+    "all future states"
+  ],
+  "verdicts_unchanged": true,
+  "grading": {
+    "matched": "complete supported candidate identities and formats match",
+    "mismatch": "complete inventory differs",
+    "not_evaluated": "missing/partial/malformed evidence or unsupported context"
+  },
+  "outputs": "acquisition results separate from WCAG verdicts/confusion; mismatches affect strict state; unsupported kinds remain pending"
+}

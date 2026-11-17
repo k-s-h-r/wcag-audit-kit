@@ -189,7 +189,7 @@ def record_review(run,value):
                 raise ValueError('観察がページ・状態・確認観点に対応しない、又は重複')
             seen.add(key)
             if row['outcome'] not in {'passed','failed','inapplicable','cant_tell','not_run'}:raise ValueError('判定の値が不正')
-            if row['checkpoint'] in job.get('acquisition_checkpoints',[]):raise ValueError('取得期待の照合は未接続です。取得した証拠を保存し、適合・不適合として取り込まない')
+            if row['checkpoint'] in job.get('acquisition_checkpoints',[]):raise ValueError('取得期待は適合・不適合として取り込まない。対応する取得証拠の照合と分ける')
             method=row.get('method');mode=modes.MODES[job['mode']]
             if method not in {'program','ai','screen-reader'} or (method=='ai' and not mode['ai']) or (method=='screen-reader' and not mode['screen_reader']):raise ValueError('選択モードで使用しない判定方法')
             if not isinstance(row.get('observed'),str) or len(row['observed'].strip())<10:raise ValueError('具体的な観察が必要')
@@ -277,12 +277,16 @@ def score(run):
     for name in index['entries']:
         value=load(local(run,name));target=reviews.setdefault(value['job_id'],{})
         for row in value['observations']:target[observation_key(row)]=row
-    rows=[];extras=[];pending_evidence=[]
+    rows=[];extras=[];pending_evidence=[];acquired=[]
     for job in jobs:
         predicted=program_predictions(run,job,progress);predicted.update(reviews.get(job['id'],{}))
         for contract in oracles[job['id']].get('evidence_expectations',[]):
             point=next(p for p in meta['mode_catalog']['checkpoints'] if p['id']==contract['checkpoint'])
-            pending_evidence.append(dict(job_id=job['id'],criterion=job['criterion'],mode=job['mode'],page=contract['page'],state=contract['state'],checkpoint=contract['checkpoint'],kind=contract['kind'],status='deferred' if point['support'][job['mode']]=='no' else 'not_evaluated'))
+            entry=dict(job_id=job['id'],criterion=job['criterion'],mode=job['mode'],page=contract['page'],state=contract['state'],checkpoint=contract['checkpoint'],kind=contract['kind'],status='deferred' if point['support'][job['mode']]=='no' else 'not_evaluated')
+            from .acquisition import assess
+            actual=None if entry['status']=='deferred' else assess(run,job,progress,contract)
+            if actual is not None:acquired.append(dict(entry,**actual))
+            if actual is None or actual['status']=='not_evaluated':pending_evidence.append(dict(entry,observed=(actual or {}).get('observed','対応する取得照合又は証拠がありません。')))
         expected=oracles[job['id']]['expectations'];known={observation_key(e) for e in expected}
         for e in expected:
             key=observation_key(e);actual=predicted.get(key);outcome=actual['outcome'] if actual else 'not_run'
@@ -312,17 +316,17 @@ def score(run):
     total_failures=sum(r['expected']=='failed' for r in rows)
     precision=confusion['TP']/(confusion['TP']+confusion['FP']) if confusion['TP']+confusion['FP'] else None
     recall=confusion['TP']/(confusion['TP']+confusion['FN']) if confusion['TP']+confusion['FN'] else None
-    status='failed' if grade_counts['incorrect'] or extras else 'incomplete' if grade_counts['not_evaluated'] or any(c['status']=='not_evaluated' for c in pending_evidence) else 'clear_for_selected_checks'
+    status='failed' if grade_counts['incorrect'] or extras or any(a['status']=='mismatch' for a in acquired) else 'incomplete' if grade_counts['not_evaluated'] or any(c['status']=='not_evaluated' for c in pending_evidence) else 'clear_for_selected_checks'
     return dict(schema_version='1',run_id=meta['run_id'],corpus_digest=meta['corpus_digest'],modes=meta['modes'],
         selection=meta['selection'],configuration=meta['configuration'],implementation_digest=meta['implementation_digest'],
         environment=meta.get('environment',{}),standard=meta.get('standard','WCAG-2.2'),normative_hashes=meta.get('normative_hashes',{}),
-        scorer_digest=file_hash(Path(__file__)),created_at=timestamp(),selected_checks_status=status,
+        scorer_digest=digest({'core':file_hash(Path(__file__)),'acquisition':file_hash(ROOT/'benchmarks/acquisition.py'),'state_labels':file_hash(RUNTIME/'scripts/state_labels.py')}),created_at=timestamp(),selected_checks_status=status,
         overall_status='failed' if status=='failed' else 'incomplete' if grade_counts['not_evaluated'] or grade_counts['deferred'] or pending_evidence else status,
         counts=dict(grade_counts),confusion=dict(confusion),precision_on_evaluated=precision,recall_on_evaluated=recall,
         methods_by_mode={m:dict(Counter(r['method'] for r in rows if r['mode']==m and r['grade'] in {'correct','incorrect'})) for m in meta['modes']},
         detected_known_failures=detected,total_known_failures=total_failures,undetected_known_failures=total_failures-detected,
-        rows=rows,unexpected_findings=extras,criteria=all_criteria,pending_evidence_contracts=pending_evidence,
-        notice_evidence='取得期待の照合は未接続です。別表の未確認を適合・不適合の件数へ混ぜず、必要な取得期待が残る実行は未完了とします。',
+        rows=rows,unexpected_findings=extras,criteria=all_criteria,pending_evidence_contracts=pending_evidence,acquisition_results=acquired,acquisition_counts=dict(Counter(a['status'] for a in acquired)),
+        notice_evidence='画像候補の対応する形式の一覧だけを照合します。候補の意味や代替の適否とは別です。他の種類・証拠不足は未確認のまま、取得を適合・不適合の件数へ混ぜません。',
         notice='作成者が定めた有限の確認観点の採点です。独立した専門家による正解確認は未実施です。未実施・モードによる省略・未整備の基準を成功に数えません。検出率は評価できた範囲と全問題の未検出数を併記します。')
 
 
@@ -338,6 +342,13 @@ def compare(baseline,current):
         if old['grade']=='correct' and new['grade']!='correct':regressions.append(dict(key=list(key),before=old['actual'],after=new['actual']))
         elif old['grade']!='correct' and new['grade']=='correct':improvements.append(dict(key=list(key),before=old['actual'],after=new['actual']))
         elif old['grade']!='incorrect' and new['grade']=='incorrect':regressions.append(dict(key=list(key),before=old['actual'],after=new['actual']))
+    acquisition_key=lambda r:(r['job_id'],r['page'],r['state'],r['checkpoint'],r['kind'])
+    previous_acquisition={acquisition_key(r):r for r in baseline.get('acquisition_results',[])}
+    current_acquisition={acquisition_key(r):r for r in current.get('acquisition_results',[])}
+    for key in previous_acquisition.keys()|current_acquisition.keys():
+        old=previous_acquisition.get(key,{}).get('status','not_evaluated');new=current_acquisition.get(key,{}).get('status','not_evaluated')
+        if old=='matched' and new!='matched' or old!='mismatch' and new=='mismatch':regressions.append(dict(kind='acquisition',key=list(key),before=old,after=new))
+        elif old!='matched' and new=='matched':improvements.append(dict(kind='acquisition',key=list(key),before=old,after=new))
     old_extras={(r['job_id'],*observation_key(r)) for r in baseline['unexpected_findings']}
     for r in current['unexpected_findings']:
         if (r['job_id'],*observation_key(r)) not in old_extras:regressions.append(dict(key=[r['job_id'],*observation_key(r)],before='no_false_positive',after='failed'))

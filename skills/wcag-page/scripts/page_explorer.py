@@ -24,7 +24,7 @@ class KeyboardUnreachable(ValueError):
 def fingerprint(value):
     keys=('selector','tag','role','type','formAssociated','href','label','tabIndex','haspopup')
     controls=[dict({k:c.get(k) for k in keys},events=sorted(set(c.get('events',[])))) for c in value.get('controls',[])]
-    state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
+    state={'nodes':value['state'],'controls':controls,'visual_candidates':value.get('visual_candidates'),'url':value.get('url'),'title':value.get('title')}
     return sha256(json.dumps(state,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
 
 
@@ -174,6 +174,9 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     data=await page.evaluate('() => window.__wcagExplore()')
                     data['observation_wait']=settling
                     data['state_labels']=label_observations
+                    data['candidate_collection']={'method':'visible-css-url-svg-canvas-v1',
+                        'complete':not data['frames'] and not data['closedRoots'] and all(w['status']=='quiet' for w in settling),
+                        'scope':'visible DOM boxes in top document and open shadow roots; CSS URL, SVG roots, canvas; not meaning or all visual content'}
                     inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
                     audit.save(dest/'state.json',data)
                     if (env['id'],fingerprint(data)) not in seen or matched_labels:
