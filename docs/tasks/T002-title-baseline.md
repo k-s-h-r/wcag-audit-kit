@@ -34,3 +34,7 @@ T001の条件を固定し、`benchmarks/run.py collect`のmachineモードと基
 [確認記録](../../validation/development/T002/README.md)。固定3行を2回収集し、一致3・未確認0。タイトル3行は2回とも一致。主題の意味判断2行はモードによる省略であり、基準全体は未完了。 T008で帳票と残る意味判断を照合する。タイトルの機械ルール自体の修正候補はない。 実測は元のrunのまま固定し、修正は別タスク・別runへ渡す。
 
 PR：[基準値の記録 #16](https://github.com/k-s-h-r/wcag-audit-kit/pull/16)。baseはT001のブランチ（PR #15）。
+
+## レビュー後の再実行方法
+
+保存したmeasure.pyは実行原文のため再実行しない。現在の入口は[開発測定の再実行](../../validation/development/README.md)のmeasure-baseline-v2.py。記録先・run先の両方を未使用のパスで明示し、存在すれば収集前に拒否する。[拒否試験](../../validation/development/review-baseline-safety-001/observed.json)、[ADR 0036](../adr/0036-preserve-baselines-when-rerunning-measurements.md)。T002のstrictは実receiptのとおり0、T003は2。全体はどちらも未完了。
