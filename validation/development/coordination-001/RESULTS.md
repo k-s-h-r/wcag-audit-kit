@@ -1,0 +1,5 @@
+# 生成物確認の説明の訂正
+
+README.md末尾の「生成日時だけの更新」という説明は誤り。保存したcoverage-check-side-effect.diffの実際の差分には、証拠リンクを相対パスから既存の固定commit URLへ変換する変更が含まれる。日時だけの差分とは扱わない。generated-coverage.jsonはその再生成出力であり、新しい検証能力や判定の測定結果として採用していない。
+
+元のvalidation/coverage.jsonは復元済み。check-001と、その後の読み取り再確認の両方でmainのvalidation全7,329ファイルがバイト単位で一致した。保存した差分と生成物、既存READMEとチェックサムは変更せず、この文書で説明を訂正する。
