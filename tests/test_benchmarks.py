@@ -49,16 +49,20 @@ class CorpusTest(unittest.TestCase):
             p=target/'2.4.2/suite.json';v=core.load(p);v['cases']=[];core.save(p,v)
             with self.assertRaises(ValueError):core.corpus(target)
 
-    def test_verification_instruction_changes_require_a_new_implementation(self):
+    def test_verification_instructions_and_invocation_policy_affect_implementation_digest(self):
         from benchmarks import runner
         paths=runner.source_files()
         self.assertIn(ROOT/'skills/wcag-page/SKILL.md',paths)
         self.assertIn(core.RUNTIME/'references/tests/1.1.1.md',paths)
-        with tempfile.TemporaryDirectory() as temp:
-            path=Path(temp)/'SKILL.md';path.write_text('First verification instructions')
-            with patch('benchmarks.runner.source_files',return_value=[path]),patch('benchmarks.core.ROOT',Path(temp)):
-                before=runner.implementation_digest();path.write_text('Changed verification instructions')
-                self.assertNotEqual(before,runner.implementation_digest())
+        changes=[('SKILL.md','First verification instructions','Changed verification instructions'),
+                 ('agents/openai.yaml','policy:\n  allow_implicit_invocation: false\n',
+                  'policy:\n  allow_implicit_invocation: true\n')]
+        for relative,before_text,after_text in changes:
+            with self.subTest(file=relative),tempfile.TemporaryDirectory() as temp:
+                path=Path(temp)/relative;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(before_text)
+                with patch('benchmarks.runner.source_files',return_value=[path]),patch('benchmarks.core.ROOT',Path(temp)):
+                    before=runner.implementation_digest();path.write_text(after_text)
+                    self.assertNotEqual(before,runner.implementation_digest())
 
     def test_snapshot_contains_the_complete_canonical_runtime_and_entry_points(self):
         from benchmarks import runner
@@ -67,6 +71,7 @@ class CorpusTest(unittest.TestCase):
         self.assertTrue(all(p.is_file() for p in paths))
         self.assertTrue({core.RUNTIME/p for p in resource_files()}<=set(paths))
         self.assertTrue({ROOT/'skills'/name/'SKILL.md' for name in SKILLS}<=set(paths))
+        self.assertTrue({ROOT/'skills'/name/'agents/openai.yaml' for name in SKILLS}<=set(paths))
         self.assertNotIn(ROOT/'SKILL.md',paths)
         self.assertNotIn(ROOT/'vendor/axe.min.js',paths)
 

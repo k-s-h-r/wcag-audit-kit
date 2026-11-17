@@ -2,6 +2,8 @@
 
 今後の変更は作業ブランチで実施し、PRでレビューする。mainへ直接登録せず、依頼なしにPRをマージしない。
 
+着手前に[開発計画](docs/ROADMAP.md)の現在地と「次の作業」を確認する。変更によって計画の状態が変わる場合は、同じPRで完了根拠・未確認事項・次の作業を更新する。
+
 各変更には[ADR](docs/adr/README.md)を作成し、PRから参照する。変更の大きさに応じて簡潔に書いてよいが、背景、採用する方法、その影響、確認方法を残す。
 
 検査の結果を変更するときは、新しい判定を追加する。過去の原始証拠、スナップショット、判定を上書きしない。既存の検証記録は当時の定義と環境での結果として保持する。
@@ -21,6 +23,8 @@ python3 -m unittest discover -s tests -p 'test_*.py'
 
 共通の実行コードと資料は`skills/wcag-audit-kit/`を編集元とする。各スキル固有の指示は、そのスキルのSKILL.mdで編集する。共通部分を変更したら、開発者が次を実行し、各フォルダーの更新も同じPRへ含める。
 
+各スキルの`agents/openai.yaml`は固有設定として保持し、共通同期へ含めない。SKILL.mdの`disable-model-invocation`と合わせて明示呼び出しの方針を維持する。詳細は[設計方針](docs/SKILL-DESIGN.md)を参照する。
+
 ```sh
 python3 scripts/sync_skills.py
 python3 scripts/sync_skills.py --check
@@ -37,3 +41,5 @@ npm run test:screen-reader
 ```
 
 `quick_validate.py`のパスは利用環境のskill-creatorに合わせる。他の3スキルも同様に確認する。独立配置の試験は、リポジトリ外へ各フォルダーをコピーし、別の作業ディレクトリーからCLIと帳票を実行する。保存済みの判定・スナップショット・原始証拠は移動や書き換えの対象にしない。
+
+skill-creatorの簡易検査器の版によっては、Cursor・Claude Codeの`disable-model-invocation`を未知の項目として拒む。その場合は結果を記録し、この設定を削除して通過させない。リポジトリの配置試験でYAMLと設定の保持を確認し、各ホストでの実際の呼び出し動作は別に試験する。

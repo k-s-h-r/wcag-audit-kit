@@ -20,3 +20,6 @@
 - [0014 テスト関連PRを集約し、全確認観点の入力と操作パターンを拡充する](0014-complete-fixture-patterns-and-consolidate.md)
 - [0015 配置できるスキルをskillsに揃える](0015-ready-to-use-skill-directories.md)
 - [0016 最新mainのテスト基盤をスキル配置へ対応させる](0016-integrate-benchmarks-with-skill-layout.md)
+- [0017 自律検証の実測を開発の中心に置き、再開可能な計画を残す](0017-autonomous-audit-development.md)
+- [0018 1ページの機械検査から、対象範囲と検証手段を段階的に広げる](0018-machine-first-staged-audits.md)
+- [0019 4スキルの責務を明確にし、明示呼び出しと対象固有の手順を採用する](0019-skill-boundaries-and-explicit-invocation.md)
