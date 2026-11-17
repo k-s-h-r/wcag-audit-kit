@@ -37,5 +37,6 @@
 - [0031 公開された経路と到達条件で名前付き状態を確認する](0031-bind-observed-routes-to-named-states.md)
 - [0032 画像候補の取得照合を適合判定から分離する](0032-compare-bounded-visual-inventory.md)
 - [0033 指定URLを1ページずつ実行し、同じ条件で再開する](0033-resume-configured-pages-with-separate-runs.md)
+- [0035 候補URLと実操作で見つけた状態を分けて選定する](0035-select-pages-and-procedure-states-from-observation.md)
 - [0036 基準値の再実行先を収集前に拒否する](0036-preserve-baselines-when-rerunning-measurements.md)
 - [0037 帳票のセル値と証拠の対応を照合する](0037-compare-report-cells-and-evidence-associations.md)
