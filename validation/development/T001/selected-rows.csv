@@ -1,0 +1,11 @@
+criterion,case,page,state,target,checkpoint,expected
+1.1.1,c01,p01.html,initial,#figure,1.1.1-01,failed
+1.1.1,c01,p01.html,initial,#summary,1.1.1-01,passed
+1.1.1,c01,p01.html,initial,#marker,1.1.1-01,passed
+1.1.1,c02,p02.html,initial,#figure,1.1.1-01,passed
+1.1.1,c02,p02.html,initial,#summary,1.1.1-01,passed
+1.1.1,c09,p09.html,after-load,#subject,1.1.1-01,failed
+1.1.1,c10,p10.html,after-load,#subject,1.1.1-01,passed
+2.4.2,c01,p01.html,initial,html,2.4.2-01,failed
+2.4.2,c02,p02.html,initial,html,2.4.2-01,passed
+2.4.2,c03,p03.html,initial,html,2.4.2-01,passed

@@ -1,0 +1,53 @@
+[
+  {
+    "criterion": "1.1.1",
+    "case": "c05",
+    "checkpoint": "1.1.1-02",
+    "kind": "inventory",
+    "targets": [
+      "#background-chart",
+      "#inline-chart",
+      "#canvas-chart"
+    ],
+    "formats": [
+      "css-background",
+      "inline-svg",
+      "canvas"
+    ],
+    "page": "p05.html",
+    "state": "initial",
+    "rationale": "3種類の図が半減を伝える。画像として識別する名前・代替内容がない。"
+  },
+  {
+    "criterion": "1.1.1",
+    "case": "c06",
+    "checkpoint": "1.1.1-02",
+    "kind": "inventory",
+    "targets": [
+      "#background-chart",
+      "#inline-chart",
+      "#canvas-chart"
+    ],
+    "formats": [
+      "css-background",
+      "inline-svg",
+      "canvas"
+    ],
+    "page": "p06.html",
+    "state": "initial",
+    "rationale": "3種類の図が半減を伝える。同等の代替名がある。"
+  },
+  {
+    "criterion": "1.1.1",
+    "case": "c11",
+    "checkpoint": "1.1.1-02",
+    "kind": "inventory",
+    "targets": [
+      "#icon"
+    ],
+    "decorative": true,
+    "page": "p11.html",
+    "state": "initial",
+    "rationale": "SVGは同じボタンの保存という表示ラベルを重複する装飾。別の名前を要求して誤検出しない。"
+  }
+]

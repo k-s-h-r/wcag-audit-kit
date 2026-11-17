@@ -1,0 +1,16 @@
+criterion,case,page,state,target,checkpoint,expected
+1.1.1,c02,p02.html,initial,#figure,1.1.1-04,failed
+1.1.1,c02,p02.html,initial,#summary,1.1.1-04,passed
+1.1.1,c03,p03.html,opened,#figure,1.1.1-04,passed
+1.1.1,c04,p04.html,opened,#figure,1.1.1-04,failed
+1.1.1,c05,p05.html,initial,#background-chart,1.1.1-04,failed
+1.1.1,c05,p05.html,initial,#inline-chart,1.1.1-04,failed
+1.1.1,c05,p05.html,initial,#canvas-chart,1.1.1-04,failed
+1.1.1,c06,p06.html,initial,#background-chart,1.1.1-04,passed
+1.1.1,c06,p06.html,initial,#inline-chart,1.1.1-04,passed
+1.1.1,c06,p06.html,initial,#canvas-chart,1.1.1-04,passed
+1.1.1,c07,p07.html,initial,#subject,1.1.1-03,failed
+1.1.1,c08,p08.html,initial,#subject,1.1.1-03,passed
+1.1.1,c11,p11.html,initial,#subject,1.1.1-04,passed
+2.4.2,c02,p02.html,initial,html,2.4.2-02,passed
+2.4.2,c03,p03.html,initial,html,2.4.2-02,failed
