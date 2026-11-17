@@ -1,0 +1,101 @@
+# wcag-dev isolated continuation evaluation
+
+The request `進めて` was handled independently in each repository using its local `AGENTS.md` and `.agents/skills/wcag-dev/SKILL.md`. Selection was based on the roadmap, task files, Git branches, and available evidence. No other project was accessed, no agents were started, no network or remote PR operations were used, and nothing was merged.
+
+## Workspace: no_tasks
+
+Path: `/private/tmp/wcag-dev-eval-vvi8mta7/no_tasks`
+
+### Selection and work
+
+The roadmap identified one missing milestone: README instructions for `python3 app.py`, `--help`, and `APP_PORT` with default 8080. The task index contained no tasks or prerequisites. The local `wcag-dev-tasks` skill and template were therefore read as the parent skill's internal procedure. A single T001 was added and executed, rather than stopping after planning or creating multiple tasks for the same README.
+
+The README now documents Python 3 commands from the repository root, help, a POSIX-shell `APP_PORT=9090` override, and the sample's observed behavior of printing the chosen port and exiting. `app.py` was not changed.
+
+Created task: `docs/tasks/T001-startup-documentation.md`.
+
+Updated task index: `docs/tasks/README.md`.
+
+Updated roadmap: `docs/ROADMAP.md`, recording local completion, pending PR/adoption, and no additional in-scope implementation work.
+
+New decision: `docs/adr/0001-document-sample-startup.md`, with background, decision, alternatives, consequences, and validation.
+
+### Checks and evidence
+
+New run: `validation/development/T001/20261117T164911Z/` (UTC run ID; local date was 2026-11-18 JST).
+
+- `python3 app.py` with `APP_PORT` removed from the environment: exit 0, stdout `APP_PORT=8080`.
+- `python3 app.py --help`: exit 0; usage, launcher description, help, and version options present.
+- `python3 app.py` with `APP_PORT=9090`: exit 0, stdout `APP_PORT=9090`.
+- All three commands had empty stderr. Results are in `default.json`, `help.json`, `override.json`, and `cli-results.json`.
+- Local document checks covered 6 Markdown files and 8 links, task ID uniqueness, index correspondence, no prerequisite, and unchanged `app.py`: passed, recorded in `document-checks.json`.
+- `git diff --check` and `git diff --cached --check`: passed.
+- The staged documentation diff was reviewed before committing. No permanent test suite was added for this documentation-only change.
+
+### Git and remaining work
+
+Branch: `codex/document-startup`.
+
+Commit: `e69c3392a0855406dacde0990525bcd591d688a5` — `docs: document sample startup and record T001 validation`.
+
+State: clean working tree, one new commit, 10 changed/added files. `main` remains at `5599c49343ab458a0e7bfd99279f6ca9ca21dafb`.
+
+T001 is explicitly **documented and locally verified, PR not created**. There is no configured remote. Network and real remote PR operations are prohibited, so push, PR creation, external review, and adoption into main were not performed. No PR URL was invented. When those operations are available, review the branch and saved run, create the PR with a link to ADR 0001, and wait for review/adoption. No additional implementation task is justified by the milestone.
+
+## Workspace: pr_wait
+
+Path: `/private/tmp/wcag-dev-eval-vvi8mta7/pr_wait`
+
+### Selection and work
+
+The roadmap and existing tasks define one milestone: T001 prepares `docs/command-reference.md`; T002 adds a README link only after that reference is adopted into main. T001 says to resume only for a concrete unfinished change or review. None was recorded. The local feature branch and main were therefore checked rather than assuming a reported waiting PR had merged.
+
+Observed facts:
+
+- `feature/command-reference` is at `74879e08272de526a9275872eb9054cf6204d01d` and contains the reference.
+- Local `main` is at `128e07082c7624842bbccb50dbd8788a46e2d24a` and does not contain the reference.
+- The feature commit is not an ancestor of main.
+- No remote is configured; the reported external PR's existence, URL, review, and merge state cannot be confirmed.
+
+No independent in-scope task can start. T002 remains unstarted. The reference was not copied or linked from main, T001's prepared branch was not changed, and no duplicate PR or waiting task was created.
+
+Updated existing task files:
+
+- `docs/tasks/T001-command-reference.md`: preserved the original PR report, clarified unverified external state, and added branch/main facts, evidence, scope, and restart conditions.
+- `docs/tasks/T002-link-reference.md`: recorded the unresolved adoption prerequisite and kept it unstarted.
+- `docs/tasks/README.md`: aligned status and start conditions.
+
+Updated roadmap: `docs/ROADMAP.md`, with the confirmed local wait and next external verification step.
+
+New decision: `docs/adr/0001-preserve-reference-adoption-gate.md`, explaining why adoption is not assumed and why no new implementation or task is started.
+
+### Checks and evidence
+
+New run: `validation/development/T001/20261117T164911Z/`.
+
+`repository-facts.json` captures command arguments, exit codes, stdout, and stderr for:
+
+- `git rev-parse main` and `git rev-parse feature/command-reference`.
+- `git log --oneline main..feature/command-reference`: one feature-only commit.
+- `git merge-base --is-ancestor feature/command-reference main`: expected exit 1, proving no local ancestry-based adoption.
+- `git cat-file -e main:docs/command-reference.md`: expected failure, proving the reference is absent from local main even independently of ancestry.
+- `git show feature/command-reference:docs/command-reference.md`: the two-line prepared reference.
+- `git remote -v`: success with no remotes listed.
+- `git worktree list`.
+- `python3 app.py --help`: exit 0, matching the command in the prepared reference.
+
+The two expected negative Git checks are evidence of unmet prerequisites, not product test failures. Document checks covered 7 Markdown files and 8 links, T001/T002 ID uniqueness, index correspondence, unchanged `app.py`, and the adoption dependency: passed, recorded in `document-checks.json`. Both unstaged and staged whitespace checks passed. The staged documentation diff was reviewed before committing.
+
+### Git and remaining work
+
+Record branch: `codex/record-command-reference-wait`.
+
+Commit: `b11961ee8fea71c9274703fd73dbbd3dcd4213e3` — `docs: record command reference adoption prerequisite`.
+
+State: clean working tree, one local record commit, 7 changed/added files. `main` and `feature/command-reference` remain at their original hashes above. The sample README and application were not changed.
+
+This completes local state reconciliation only. It does not complete T001's adoption-dependent condition or start T002. No PR was created for the record changes because remote operations are unavailable. Next, in an authorized connected environment, verify the reported existing PR, handle any concrete review or unfinished change on that existing branch/PR, and decide where to integrate these record updates without duplicating the PR. Confirm the reference is adopted into main before starting T002. Do not merge without permission.
+
+## Limits retained
+
+Both repositories distinguish local work, remote PR/adoption, and WCAG validation. No external operation or WCAG pass is claimed. Existing source and prepared feature evidence were preserved; all new observations were stored in separate runs. The lack of network/remote capability was recorded in the task handoffs instead of treated as task success or used to invent more work.

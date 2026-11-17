@@ -25,3 +25,4 @@
 - [0019 4スキルの責務を明確にし、明示呼び出しと対象固有の手順を採用する](0019-skill-boundaries-and-explicit-invocation.md)
 - [0020 開発計画を、依存関係と担当範囲を持つ並行作業へ分解する](0020-parallel-development-tasks.md)
 - [0021 リポジトリの開発タスクを整理するスキルを.agents/skillsへ置く](0021-development-task-skill.md)
+- [0022 「進めて」でタスクの選択・実行・後続整理を進める](0022-autonomous-development-workflow.md)

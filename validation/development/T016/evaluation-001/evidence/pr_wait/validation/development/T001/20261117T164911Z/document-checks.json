@@ -1,0 +1,75 @@
+{
+  "checked_files": [
+    "README.md",
+    "docs/ROADMAP.md",
+    "docs/tasks/README.md",
+    "docs/tasks/T001-command-reference.md",
+    "docs/tasks/T002-link-reference.md",
+    "docs/adr/0001-preserve-reference-adoption-gate.md",
+    "docs/adr/README.md"
+  ],
+  "links": [
+    {
+      "source": "docs/ROADMAP.md",
+      "target": "tasks/T001-command-reference.md",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/README.md",
+      "target": "T001-command-reference.md",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/README.md",
+      "target": "T002-link-reference.md",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/T001-command-reference.md",
+      "target": "../../validation/development/T001/20261117T164911Z/repository-facts.json",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/T001-command-reference.md",
+      "target": "../../validation/development/T001/20261117T164911Z/document-checks.json",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/T001-command-reference.md",
+      "target": "../adr/0001-preserve-reference-adoption-gate.md",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/T002-link-reference.md",
+      "target": "../../validation/development/T001/20261117T164911Z/repository-facts.json",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/adr/0001-preserve-reference-adoption-gate.md",
+      "target": "../tasks/T001-command-reference.md",
+      "exists": true,
+      "inside_workspace": true
+    }
+  ],
+  "task_ids": [
+    "T001",
+    "T002"
+  ],
+  "task_ids_unique": true,
+  "all_tasks_indexed": true,
+  "app_unchanged": true,
+  "git_diff_check": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "prerequisites_consistent": true,
+  "passed": true
+}
