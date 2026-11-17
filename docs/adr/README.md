@@ -29,7 +29,5 @@
 
 - [0023 最初の機械測定を10行と既存の実行条件へ固定する](0023-freeze-first-machine-measurement.md)
 - [0024 最初の2観点を変更せず2回ずつ測る](0024-record-first-machine-baselines.md)
-- [0025 ホストの起動失敗をスキルの呼び出し成功にしない](0025-keep-host-invocation-blocked.md)
-- [0026 対象固有の手順を既存fixtureの1経路で確認する](0026-execute-one-project-procedure.md)
-- [0027 URL一覧化を有限の既知サイトで先に測る](0027-measure-url-selection-before-extension.md)
-- [0028 取得照合の範囲を選び、保存済み帳票を読み取りで比較する](0028-separate-acquisition-scope-and-report-readback.md)
+
+- [0036 基準値の再実行先を収集前に拒否する](0036-preserve-baselines-when-rerunning-measurements.md)
