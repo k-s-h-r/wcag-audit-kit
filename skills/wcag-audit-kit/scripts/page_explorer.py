@@ -71,7 +71,7 @@ async def perform(page, action):
         if not reached:raise KeyboardUnreachable('Tabで対象へ到達できない（120移動まで確認）')
         await page.keyboard.press(action['key'])
     else:raise ValueError('未対応の探索操作')
-    await page.wait_for_timeout(100)
+    return await page.evaluate('() => window.__wcagWaitForUpdates()')
 
 
 def status(run):
@@ -151,7 +151,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     else:await request_route.continue_()
                 await context.route('**/*',guard)
                 await context.route_web_socket('**/*',lambda socket:socket.close())
-                page=await context.new_page();error=None;data=None;unreachable=False;native_events=[]
+                page=await context.new_page();error=None;data=None;unreachable=False;native_events=[];settling=[]
                 async def dismiss_dialog(dialog):
                     native_events.append({'type':dialog.type,'message':dialog.message,'action':'dismiss'})
                     await dialog.dismiss()
@@ -165,9 +165,10 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 try:
                     response=await page.goto(url,wait_until='domcontentloaded',timeout=20000)
                     if response and response.status>=400:raise ValueError(f'HTTP {response.status}')
-                    await page.wait_for_timeout(150)
-                    for action in route:await perform(page,action)
+                    settling.append(await page.evaluate('() => window.__wcagWaitForUpdates()'))
+                    for action in route:settling.append(await perform(page,action))
                     data=await page.evaluate('() => window.__wcagExplore()')
+                    data['observation_wait']=settling
                     inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
                     audit.save(dest/'state.json',data)
                     if (env['id'],fingerprint(data)) not in seen:
@@ -192,7 +193,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 except Exception as exc:
                     error=str(exc);unreachable=isinstance(exc,KeyboardUnreachable)
                 finally:
-                    audit.save(dest/'transition.json',dict(job,error=error,blocked_requests=blocked,native_events=native_events))
+                    audit.save(dest/'transition.json',dict(job,error=error,blocked_requests=blocked,native_events=native_events,settling=settling))
                     audit.save(dest/'input-events.json',observer.export())
                     await context.close()
                 proof=[audit.evidence_item(run,str(p.relative_to(run))) for p in sorted(dest.iterdir()) if p.is_file()]
@@ -202,6 +203,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 if error and not unreachable:value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
                 if blocked:value['remaining'].append(f'{env["id"]}：通信又はページ移動を制限した経路がある。状態を確認する。')
                 if native_events:value['remaining'].append(f'{env["id"]}：ブラウザー標準ダイアログ・別窓・ダウンロードの分岐を追加検査する。')
+                if any(wait['status']!='quiet' for wait in settling):
+                    value['remaining'].append(f'{env["id"]}：DOMと短いタイマーの観察上限又は未観測のコールバックが残る。全非同期完了ではない。')
                 if data and not error:
                     key=(env['id'],fingerprint(data));edge['fingerprint']=key[1]
                     if key not in seen:

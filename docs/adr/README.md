@@ -34,3 +34,4 @@
 - [0027 URL一覧化を有限の既知サイトで先に測る](0027-measure-url-selection-before-extension.md)
 - [0028 取得照合の範囲を選び、保存済み帳票を読み取りで比較する](0028-separate-acquisition-scope-and-report-readback.md)
 - [0029 フォームとの実際の関連付けで送信操作を区別する](0029-inspect-real-form-association.md)
+- [0030 短い非同期更新を上限と残作業付きで観察する](0030-observe-bounded-dom-and-timeouts.md)

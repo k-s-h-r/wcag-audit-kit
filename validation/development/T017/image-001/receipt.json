@@ -1,0 +1,38 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "benchmarks/run.py",
+    "collect",
+    "--mode",
+    "machine",
+    "--criterion",
+    "1.1.1",
+    "--out",
+    "artifacts/T017/image-001"
+  ],
+  "exit_code": 0,
+  "strict_exit_code": 2,
+  "elapsed_seconds": 61.52970539499984,
+  "run_id": "621c348ba97f4e1fbc4cf5384abc1035",
+  "git_head": "1d0dd9baf43c6c02bc8d66511e4e25ffce009337",
+  "baseline_implementation_digest": "904a5a62f02613cd6c6d80cfd862cfcf423bf591964fa9c17d9d18e24203cfd3",
+  "implementation_digest": "4d639a7da78d3c6c847ce3fd6add5813cd4edd993382dc5c20e910385e53d4e8",
+  "corpus_digest": "6f132795533a8d6886cc3551873f02063ef926c4bbdb799d46bc67fd5e6b26b9",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)"
+  },
+  "configuration": {
+    "max_states": 8,
+    "max_steps": 32,
+    "max_depth": 3,
+    "max_images": 6
+  },
+  "plan_checksums_sha256": "d5b58d9bb972889550e2a94d7f8f7c5a70827c512396fdb9e58491074d6a168e",
+  "mode": "machine",
+  "ai_inference": false,
+  "tokens": "not applicable; no AI inference"
+}

@@ -1,5 +1,40 @@
 // Discovery hints supplement the AI's inspection of the actual screenshots.
 (() => {
+  // Observe short function timers without evaluating their source or changing
+  // the callback arguments. A quiet DOM is not proof that all future work ended.
+  const nativeTimeout = window.setTimeout, nativeClear = window.clearTimeout;
+  const nativeClearInterval = window.clearInterval, timers = new Map();
+  let lastChange = performance.now(), untrackedCallbacks = 0;
+  new MutationObserver(() => { lastChange = performance.now(); }).observe(document,
+    {subtree:true,childList:true,attributes:true,characterData:true});
+  window.setTimeout = function (callback, delay, ...args) {
+    if (typeof callback !== 'function') {
+      untrackedCallbacks++;
+      return nativeTimeout.call(this, callback, delay, ...args);
+    }
+    const milliseconds = Number(delay) || 0;
+    let id;
+    id = nativeTimeout.call(this, function (...values) {
+      timers.delete(id);
+      return callback.apply(this, values);
+    }, milliseconds, ...args);
+    timers.set(id, performance.now() + Math.max(0, milliseconds));
+    return id;
+  };
+  window.clearTimeout = function (id) { timers.delete(id); return nativeClear.call(this,id); };
+  window.clearInterval = function (id) { timers.delete(id); return nativeClearInterval.call(this,id); };
+  window.__wcagWaitForUpdates = async () => {
+    const start = performance.now(), deadline = start + 1500, quietMs = 150;
+    const result = status => ({status,elapsed_ms:performance.now()-start,pending_timers:timers.size,
+      untracked_callbacks:untrackedCallbacks,scope:'DOM and function timeouts; excludes intervals, network, media and animations'});
+    while (performance.now() < deadline) {
+      const soon = [...timers.values()].some(due => due <= deadline);
+      if (!soon && performance.now()-lastChange >= quietMs)
+        return result(timers.size || untrackedCallbacks ? 'bounded' : 'quiet');
+      await new Promise(resolve => nativeTimeout(resolve,25));
+    }
+    return result('timeout');
+  };
   const events = new WeakMap(), original = EventTarget.prototype.addEventListener;
   EventTarget.prototype.addEventListener = function (type, ...args) {
     if (this instanceof Element) {

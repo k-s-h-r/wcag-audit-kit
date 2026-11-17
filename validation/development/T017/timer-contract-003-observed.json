@@ -1,0 +1,36 @@
+{
+  "scope": "native timeout semantics and bounds, not full asynchronous readiness",
+  "normal": {
+    "result": {
+      "args": [
+        "one",
+        2
+      ],
+      "receiver": true
+    },
+    "wait": {
+      "status": "quiet",
+      "elapsed_ms": 154.39999999850988,
+      "pending_timers": 0,
+      "untracked_callbacks": 0,
+      "scope": "DOM and function timeouts; excludes intervals, network, media and animations"
+    }
+  },
+  "recursive_timer": {
+    "status": "timeout",
+    "elapsed_ms": 1507.5,
+    "pending_timers": 1,
+    "untracked_callbacks": 0,
+    "scope": "DOM and function timeouts; excludes intervals, network, media and animations"
+  },
+  "string_timer": {
+    "wait": {
+      "status": "bounded",
+      "elapsed_ms": 151.40000000037253,
+      "pending_timers": 0,
+      "untracked_callbacks": 1,
+      "scope": "DOM and function timeouts; excludes intervals, network, media and animations"
+    },
+    "ran": true
+  }
+}
