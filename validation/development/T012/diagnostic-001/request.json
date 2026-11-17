@@ -1,0 +1,90 @@
+{
+  "case_id": "T012-existing-live-controls",
+  "url": "http://127.0.0.1:34369/controls.html",
+  "locale": "en-US",
+  "settle_ms": 3000,
+  "observe": [
+    {
+      "selector": "#message1"
+    },
+    {
+      "selector": "#message2"
+    },
+    {
+      "selector": "#message3"
+    },
+    {
+      "selector": "#message4"
+    },
+    {
+      "selector": "#message5"
+    }
+  ],
+  "actions": [
+    {
+      "type": "reader.press",
+      "keys": [
+        "Tab"
+      ],
+      "expect_contains": "Save record one"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "space"
+      ]
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Tab"
+      ],
+      "expect_contains": "Save record two"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "space"
+      ]
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Tab"
+      ],
+      "expect_contains": "Save record three"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "space"
+      ]
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Tab"
+      ],
+      "expect_contains": "Save record four"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "space"
+      ]
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "Tab"
+      ],
+      "expect_contains": "Save record five"
+    },
+    {
+      "type": "reader.press",
+      "keys": [
+        "space"
+      ]
+    }
+  ]
+}
