@@ -1,0 +1,66 @@
+{
+  "selected_rows": 3,
+  "grade_counts": {
+    "correct": 3
+  },
+  "known_failures": 1,
+  "detected_failures": 1,
+  "false_passes": 0,
+  "false_positives": 0,
+  "unverified": 0,
+  "selected_checks_status": "clear_for_selected_checks",
+  "overall_status": "incomplete",
+  "full_counts": {
+    "correct": 3,
+    "deferred": 2
+  },
+  "pending_evidence_contracts": [],
+  "rows": [
+    {
+      "criterion": "2.4.2",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "failed",
+      "actual": "failed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--2.4.2--c01/p01/attempt-7183a8fd11f7/run/evidence/6f653afe7cdf--explore-49cb16728be8--desktop/axe.json"
+      ],
+      "source": "production axe / document-title"
+    },
+    {
+      "criterion": "2.4.2",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--2.4.2--c02/p02/attempt-0b91a787f4e2/run/evidence/193a85c1afc7--explore-2eef3af3297e--desktop/axe.json"
+      ],
+      "source": "production axe / document-title"
+    },
+    {
+      "criterion": "2.4.2",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--2.4.2--c03/p03/attempt-c6184729f9be/run/evidence/a95251ac99fa--explore-42b7b129d89d--desktop/axe.json"
+      ],
+      "source": "production axe / document-title"
+    }
+  ],
+  "unexpected_findings": []
+}
