@@ -1,0 +1,79 @@
+{
+  "positive_checks": [
+    {
+      "task": "T002",
+      "run": 1,
+      "all_verdict_cells_match": true,
+      "pending_cells_match": true,
+      "evidence_associations_match": true,
+      "verdict_rows": 5,
+      "pending_rows": 0
+    },
+    {
+      "task": "T002",
+      "run": 2,
+      "all_verdict_cells_match": true,
+      "pending_cells_match": true,
+      "evidence_associations_match": true,
+      "verdict_rows": 5,
+      "pending_rows": 0
+    },
+    {
+      "task": "T003",
+      "run": 1,
+      "all_verdict_cells_match": true,
+      "pending_cells_match": true,
+      "evidence_associations_match": true,
+      "verdict_rows": 20,
+      "pending_rows": 3
+    },
+    {
+      "task": "T003",
+      "run": 2,
+      "all_verdict_cells_match": true,
+      "pending_cells_match": true,
+      "evidence_associations_match": true,
+      "verdict_rows": 20,
+      "pending_rows": 3
+    }
+  ],
+  "negative_controls": [
+    {
+      "format": "HTML",
+      "changed": "target",
+      "rejected": true,
+      "row_count_unchanged": true
+    },
+    {
+      "format": "HTML",
+      "changed": "verdict",
+      "rejected": true,
+      "row_count_unchanged": true
+    },
+    {
+      "format": "HTML",
+      "changed": "evidence",
+      "rejected": true,
+      "row_count_unchanged": true
+    },
+    {
+      "format": "Excel",
+      "changed": "target",
+      "rejected": true,
+      "row_count_unchanged": true
+    },
+    {
+      "format": "Excel",
+      "changed": "verdict",
+      "rejected": true,
+      "row_count_unchanged": true
+    },
+    {
+      "format": "Excel",
+      "changed": "evidence",
+      "rejected": true,
+      "row_count_unchanged": true
+    }
+  ],
+  "source_reports_modified": false
+}
