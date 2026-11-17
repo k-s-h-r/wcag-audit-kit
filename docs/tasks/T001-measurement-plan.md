@@ -28,3 +28,5 @@ T002とT003が同じ条件で評価できるよう、最小限の測定計画を
 ## 今回の実行と引き継ぎ
 
 担当：wcag-devの単独実行。ブランチcodex/t001-measurement-plan、worktree /workspace/wcag-dev-t001、起点626a230。成果物は[測定計画v1](../../validation/development/T001/README.md)と[固定ファイルのハッシュ](../../validation/development/T001/checksums.json)。選択10行、除外判定15行、取得未接続3行。実測は未実施でG1は未達。T002・T003はこの計画を参照し、別worktree・別runで開始する。PR未マージの間に進める場合は、このブランチをbaseとする依存PRとして記録し、main採用済みとは扱わない。
+
+PR：[測定計画 #15](https://github.com/k-s-h-r/wcag-audit-kit/pull/15)。レビュー待ち。
