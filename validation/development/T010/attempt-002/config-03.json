@@ -1,0 +1,33 @@
+{
+  "schema_version": "1",
+  "url": "http://127.0.0.1:33517/query?view=one",
+  "level": "AA",
+  "scope": {
+    "include": [
+      "/**"
+    ],
+    "exclude": [],
+    "seeds": [
+      "/"
+    ],
+    "known_pages": [],
+    "max_pages": 100,
+    "mode": "configured",
+    "pages": [
+      "http://127.0.0.1:33517/query?view=one"
+    ]
+  },
+  "environments": [
+    {
+      "id": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "zoom": 1
+    }
+  ],
+  "states": [],
+  "keyboard_steps": 2,
+  "input_event_limit": 10000
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": "1",
+  "config_digest": "ec43b3fcc4f54e04bd3195f096eab7830cbc01853dc8f565e39048679be14351",
+  "implementation_digest": "ffdcd9191c1646ccaf554b7738d59e92875d27cfe0ca2ea50045094bc1d9fafc",
+  "queue": [
+    {
+      "environment": "desktop",
+      "route": []
+    }
+  ],
+  "nodes": [],
+  "edges": [],
+  "remaining": [],
+  "proof": [],
+  "steps": 0,
+  "running": false,
+  "manifest": {
+    "pages": [
+      {
+        "id": "bad98da2fbbb",
+        "url": "http://127.0.0.1:33517/a-extra"
+      }
+    ],
+    "captures": [],
+    "unvisited": [],
+    "errors": [],
+    "collector_status": "interrupted",
+    "declared_states_without_page": [],
+    "not_a_screen_reader_test": true,
+    "inspection": {
+      "policy": {
+        "screenshots": "states",
+        "screen_reader": "optional",
+        "max_images": 12,
+        "profile": "standard"
+      },
+      "screenshots": [],
+      "screen_reader": {
+        "requested": "optional",
+        "status": "not_run"
+      }
+    }
+  },
+  "limits": {
+    "max_states": 1,
+    "max_steps": 1,
+    "max_depth": 1
+  }
+}

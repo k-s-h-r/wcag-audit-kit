@@ -1,0 +1,243 @@
+{
+  "results": [
+    {
+      "url": "http://127.0.0.1:33517/a",
+      "run": "page-01",
+      "status": "collected",
+      "rule_results": {
+        "document-title": "passed",
+        "image-alt": "passed"
+      },
+      "page_report": "page-e3f2004f3922-report.json",
+      "remaining": [],
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/wcag-dev-t010/skills/wcag-audit-kit/scripts/audit.py",
+        "page-audit",
+        "--url",
+        "http://127.0.0.1:33517/a",
+        "--config",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/config-01.json",
+        "--out",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/page-01",
+        "--max-states",
+        "1",
+        "--max-steps",
+        "1",
+        "--max-depth",
+        "1"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.1685037480019673
+    },
+    {
+      "url": "http://127.0.0.1:33517/a-extra",
+      "run": "page-02",
+      "status": "collected",
+      "rule_results": {
+        "image-alt": "failed",
+        "document-title": "passed"
+      },
+      "page_report": "page-bad98da2fbbb-report.json",
+      "remaining": [],
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/wcag-dev-t010/skills/wcag-audit-kit/scripts/audit.py",
+        "page-audit",
+        "--url",
+        "http://127.0.0.1:33517/a-extra",
+        "--config",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/config-02.json",
+        "--out",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/page-02",
+        "--max-states",
+        "1",
+        "--max-steps",
+        "1",
+        "--max-depth",
+        "1",
+        "--resume"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.7941452279992518
+    },
+    {
+      "url": "http://127.0.0.1:33517/query?view=one",
+      "run": "page-03",
+      "status": "collected",
+      "rule_results": {
+        "document-title": "passed",
+        "image-alt": "passed"
+      },
+      "page_report": "page-775074f28ad0-report.json",
+      "remaining": [],
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/wcag-dev-t010/skills/wcag-audit-kit/scripts/audit.py",
+        "page-audit",
+        "--url",
+        "http://127.0.0.1:33517/query?view=one",
+        "--config",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/config-03.json",
+        "--out",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/page-03",
+        "--max-states",
+        "1",
+        "--max-steps",
+        "1",
+        "--max-depth",
+        "1"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.8088492000024416
+    },
+    {
+      "url": "http://127.0.0.1:33517/query?view=two",
+      "run": "page-04",
+      "status": "collected",
+      "rule_results": {
+        "document-title": "failed",
+        "image-alt": "passed"
+      },
+      "page_report": "page-a1f34641b3e1-report.json",
+      "remaining": [],
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/wcag-dev-t010/skills/wcag-audit-kit/scripts/audit.py",
+        "page-audit",
+        "--url",
+        "http://127.0.0.1:33517/query?view=two",
+        "--config",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/config-04.json",
+        "--out",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/page-04",
+        "--max-states",
+        "1",
+        "--max-steps",
+        "1",
+        "--max-depth",
+        "1"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.959227652001573
+    },
+    {
+      "url": "http://127.0.0.1:33517/app#one",
+      "run": "page-05",
+      "status": "collected",
+      "rule_results": {
+        "document-title": "passed",
+        "image-alt": "passed"
+      },
+      "page_report": "page-0ef851c53263-report.json",
+      "remaining": [],
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/wcag-dev-t010/skills/wcag-audit-kit/scripts/audit.py",
+        "page-audit",
+        "--url",
+        "http://127.0.0.1:33517/app#one",
+        "--config",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/config-05.json",
+        "--out",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/page-05",
+        "--max-states",
+        "1",
+        "--max-steps",
+        "1",
+        "--max-depth",
+        "1"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.7516782340026111
+    },
+    {
+      "url": "http://127.0.0.1:33517/app#two",
+      "run": "page-06",
+      "status": "collected",
+      "rule_results": {
+        "document-title": "passed",
+        "image-alt": "passed"
+      },
+      "page_report": "page-7d965af3b30e-report.json",
+      "remaining": [],
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/wcag-dev-t010/skills/wcag-audit-kit/scripts/audit.py",
+        "page-audit",
+        "--url",
+        "http://127.0.0.1:33517/app#two",
+        "--config",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/config-06.json",
+        "--out",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/page-06",
+        "--max-states",
+        "1",
+        "--max-steps",
+        "1",
+        "--max-depth",
+        "1"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.8195194889995037
+    },
+    {
+      "url": "http://127.0.0.1:33517/missing",
+      "run": "page-07",
+      "status": "navigation_failed",
+      "rule_results": {},
+      "page_report": null,
+      "remaining": [
+        "desktop / initial：HTTP 404"
+      ],
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/wcag-dev-t010/skills/wcag-audit-kit/scripts/audit.py",
+        "page-audit",
+        "--url",
+        "http://127.0.0.1:33517/missing",
+        "--config",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/config-07.json",
+        "--out",
+        "/workspace/wcag-dev-session-20261118/T010-attempt-002/page-07",
+        "--max-states",
+        "1",
+        "--max-steps",
+        "1",
+        "--max-depth",
+        "1"
+      ],
+      "exit_code": 2,
+      "elapsed_seconds": 0.9435998289991403
+    }
+  ],
+  "counts": {
+    "collected": 6,
+    "navigation_failed": 1,
+    "unattempted": 0
+  },
+  "interrupted_then_resumed": "http://127.0.0.1:33517/a-extra",
+  "first_page_evidence_preserved": true,
+  "interrupted_evidence_files_preserved": 2,
+  "separate_page_reports": 6,
+  "unintended_crawl": false,
+  "requests": [
+    "/a",
+    "/pixel.svg",
+    "/a-extra",
+    "/pixel.svg",
+    "/a-extra",
+    "/pixel.svg",
+    "/query?view=one",
+    "/pixel.svg",
+    "/query?view=two",
+    "/pixel.svg",
+    "/app",
+    "/pixel.svg",
+    "/app",
+    "/pixel.svg",
+    "/missing"
+  ],
+  "overall_audit_complete": false,
+  "g2_host_condition_met": false
+}

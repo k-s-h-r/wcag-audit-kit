@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/wcag-dev-t010/validation/development/T010/exercise.py", line 76, in <module>
+    assert len({audit.page_id(u) for u in urls})==7
+                ^^^^^^^^^^^^^
+AttributeError: module 'audit' has no attribute 'page_id'

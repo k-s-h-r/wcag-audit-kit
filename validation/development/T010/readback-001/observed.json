@@ -1,0 +1,83 @@
+{
+  "pages": [
+    {
+      "page": "http://127.0.0.1:33517/a",
+      "run": "page-01",
+      "checksheet_rows": 152,
+      "machine_rows": 66,
+      "excel_cells_match": true,
+      "widths": [
+        1280,
+        320
+      ],
+      "all_criterion_outcomes": "not_run",
+      "audit_complete": false
+    },
+    {
+      "page": "http://127.0.0.1:33517/a-extra",
+      "run": "page-02",
+      "checksheet_rows": 152,
+      "machine_rows": 66,
+      "excel_cells_match": true,
+      "widths": [
+        1280,
+        320
+      ],
+      "all_criterion_outcomes": "not_run",
+      "audit_complete": false
+    },
+    {
+      "page": "http://127.0.0.1:33517/query?view=one",
+      "run": "page-03",
+      "checksheet_rows": 152,
+      "machine_rows": 66,
+      "excel_cells_match": true,
+      "widths": [
+        1280,
+        320
+      ],
+      "all_criterion_outcomes": "not_run",
+      "audit_complete": false
+    },
+    {
+      "page": "http://127.0.0.1:33517/query?view=two",
+      "run": "page-04",
+      "checksheet_rows": 152,
+      "machine_rows": 66,
+      "excel_cells_match": true,
+      "widths": [
+        1280,
+        320
+      ],
+      "all_criterion_outcomes": "not_run",
+      "audit_complete": false
+    },
+    {
+      "page": "http://127.0.0.1:33517/app#one",
+      "run": "page-05",
+      "checksheet_rows": 152,
+      "machine_rows": 66,
+      "excel_cells_match": true,
+      "widths": [
+        1280,
+        320
+      ],
+      "all_criterion_outcomes": "not_run",
+      "audit_complete": false
+    },
+    {
+      "page": "http://127.0.0.1:33517/app#two",
+      "run": "page-06",
+      "checksheet_rows": 152,
+      "machine_rows": 66,
+      "excel_cells_match": true,
+      "widths": [
+        1280,
+        320
+      ],
+      "all_criterion_outcomes": "not_run",
+      "audit_complete": false
+    }
+  ],
+  "scope": "read-only HTML/JSON/workbook comparison; no criterion conformance claim"
+}

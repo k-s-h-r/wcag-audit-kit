@@ -1,0 +1,41 @@
+{
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/workspace/wcag-dev-t010/skills/wcag-audit-kit/scripts/audit.py",
+    "page-audit",
+    "--url",
+    "http://127.0.0.1:42321/a-extra",
+    "--config",
+    "/workspace/wcag-dev-session-20261118/T010-attempt-001/config-02.json",
+    "--out",
+    "/workspace/wcag-dev-session-20261118/T010-attempt-001/page-02",
+    "--max-states",
+    "1",
+    "--max-steps",
+    "1",
+    "--max-depth",
+    "1"
+  ],
+  "exit_code": -2,
+  "first_page_evidence_hashes": {
+    "evidence/2536a5e747f6--explore-fae17881114e--desktop/accessibility-tree.json": "8afb661873046a7e9b830bfdda13fb5446ad8d18f233690acafccf01a8a78218",
+    "evidence/2536a5e747f6--explore-fae17881114e--desktop/axe.json": "c4a70121e08ac09f355e74a0b441d5a36ba327d1948d7a72f1db86130832b195",
+    "evidence/2536a5e747f6--explore-fae17881114e--desktop/input-events.json": "f451d65dcecaa2cb067a8c4bf57177ae05ce566916525162669bad6f952b55ab",
+    "evidence/2536a5e747f6--explore-fae17881114e--desktop/inventory.json": "9c4e20df5b1168eff7e549af8747b3fbab7dd432f3130852547b828f411eac09",
+    "evidence/2536a5e747f6--explore-fae17881114e--desktop/keyboard.json": "f64332df10f5ec357ec43fb97248f94d4dbfb8ca467562c3db77aa7d8b81fba0",
+    "evidence/2536a5e747f6--explore-fae17881114e--desktop/page.png": "0ca38f1c6469e9af65d95f97d52577cd40267b6f76bf2748a086cf3054f0f840",
+    "evidence/2536a5e747f6--explore-fae17881114e--desktop/state.json": "d565398d3f963a8316e93aa8eea1550eec1f3550c419ede68138d6bd7d3396b8",
+    "evidence/2536a5e747f6--explore-fae17881114e--desktop/tile-000.png": "0ca38f1c6469e9af65d95f97d52577cd40267b6f76bf2748a086cf3054f0f840",
+    "evidence/2536a5e747f6--explore-fae17881114e--desktop/tiles.json": "6c5ab8252ce8eaa1461935a83e1dfe868edfbd8f5aed607fe3c4c455ae4fe3d4",
+    "evidence/2536a5e747f6--explore-fae17881114e--desktop/transition.json": "54d005b7bfe8992397778f063fe0a40ae7e1b23f37a769fdde8bec77114fb8ee"
+  },
+  "interrupted_page_evidence_hashes": {
+    "evidence/3e009c2b1628--explore-989bdb5283f8--desktop/input-events.json": "5e0d1cdd4f3127ff8b8d6cda0db80c21a9da529d1a0661533f886b3e24ff23ca",
+    "evidence/3e009c2b1628--explore-989bdb5283f8--desktop/transition.json": "a2181abfbe5d8703f1ccfe5e7bf4f884b4af52e4e0c4e3bbb8de5cf636c3f76d"
+  },
+  "requests_at_stop": [
+    "/a",
+    "/pixel.svg",
+    "/a-extra"
+  ]
+}

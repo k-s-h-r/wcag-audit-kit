@@ -1,0 +1,37 @@
+{
+  "urls": [
+    "http://127.0.0.1:42321/a",
+    "http://127.0.0.1:42321/a-extra",
+    "http://127.0.0.1:42321/query?view=one",
+    "http://127.0.0.1:42321/query?view=two",
+    "http://127.0.0.1:42321/app#one",
+    "http://127.0.0.1:42321/app#two",
+    "http://127.0.0.1:42321/missing"
+  ],
+  "mode": "machine",
+  "environments": [
+    "desktop"
+  ],
+  "max_states": 1,
+  "max_steps": 1,
+  "max_depth": 1,
+  "interruption": "SIGINT during second URL navigation; resume its run with identical config; completed first URL never rerun",
+  "expected_rules": {
+    "/a-extra": {
+      "image-alt": "failed"
+    },
+    "/query?view=two": {
+      "document-title": "failed"
+    }
+  },
+  "expected_navigation_failure": "/missing",
+  "implementation_digest": "06794d03880c45f839504312865759e54199837251ac9c6231efcc056b78b6f1",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)"
+  },
+  "scope": "configured URLs; rule-level observations, not criterion conformance"
+}

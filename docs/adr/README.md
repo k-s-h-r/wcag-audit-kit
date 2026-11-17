@@ -36,3 +36,6 @@
 - [0029 フォームとの実際の関連付けで送信操作を区別する](0029-inspect-real-form-association.md)
 - [0030 短い非同期更新を上限と残作業付きで観察する](0030-observe-bounded-dom-and-timeouts.md)
 - [0031 公開された経路と到達条件で名前付き状態を確認する](0031-bind-observed-routes-to-named-states.md)
+
+- [0032 画像候補の取得照合を適合判定から分離する](0032-compare-bounded-visual-inventory.md)
+- [0033 指定URLを1ページずつ実行し、同じ条件で再開する](0033-resume-configured-pages-with-separate-runs.md)
