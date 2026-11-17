@@ -1,0 +1,1007 @@
+{
+  "labelled_nodes": [
+    {
+      "environment": "desktop",
+      "route": [
+        {
+          "selector": "#load",
+          "type": "key",
+          "key": "Enter"
+        }
+      ],
+      "fingerprint": "729fcdb4084becb01e6b7f7ad7bf7b5e6113ea4b4d614632665cc7cc25ebdf5c",
+      "capture": "2c7289215989--explore-fc0308ef34bd--desktop",
+      "evidence_dir": "evidence/2c7289215989--explore-fc0308ef34bd--desktop",
+      "controls": [
+        {
+          "selector": "#load",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Show details",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 79.875,
+            "width": 91.578125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#inside-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed inside form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 221.6875,
+            "width": 134.53125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#external-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed with associated form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 257.6875,
+            "width": 190.828125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#save",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Save changes",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 202.828125,
+            "y": 257.6875,
+            "width": 100.484375,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#input-open",
+          "tag": "input",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "input-open",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 307.3125,
+            "y": 257.6875,
+            "width": 124.171875,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#image-open",
+          "tag": "input",
+          "role": null,
+          "type": "image",
+          "formAssociated": false,
+          "label": "image-open",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 435.484375,
+            "y": 242.6875,
+            "width": 40,
+            "height": 30
+          }
+        }
+      ],
+      "state_labels": [
+        "loaded-via-key"
+      ],
+      "deferred": [
+        {
+          "selector": "#inside-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed inside form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 221.6875,
+            "width": 134.53125,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        },
+        {
+          "selector": "#external-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed with associated form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 257.6875,
+            "width": 190.828125,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        },
+        {
+          "selector": "#save",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Save changes",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 202.828125,
+            "y": 257.6875,
+            "width": 100.484375,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "environment": "desktop",
+      "route": [],
+      "fingerprint": "5af6f7b16e37067c81ffb02fcaa9dfc1c30d3529602cd8485dc2f1c01cb60b37",
+      "capture": "2c7289215989--initial--desktop",
+      "evidence_dir": "evidence/2c7289215989--explore-1c1b2235796e--desktop",
+      "controls": [
+        {
+          "selector": "#load",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Show details",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 79.875,
+            "width": 91.578125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#inside-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed inside form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 100.875,
+            "width": 134.53125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#external-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed with associated form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 136.875,
+            "width": 190.828125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#save",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Save changes",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 202.828125,
+            "y": 136.875,
+            "width": 100.484375,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#input-open",
+          "tag": "input",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "input-open",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 307.3125,
+            "y": 136.875,
+            "width": 124.171875,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#image-open",
+          "tag": "input",
+          "role": null,
+          "type": "image",
+          "formAssociated": false,
+          "label": "image-open",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 435.484375,
+            "y": 121.875,
+            "width": 40,
+            "height": 30
+          }
+        }
+      ],
+      "state_labels": [],
+      "deferred": [
+        {
+          "selector": "#inside-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed inside form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 100.875,
+            "width": 134.53125,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        },
+        {
+          "selector": "#external-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed with associated form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 136.875,
+            "width": 190.828125,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        },
+        {
+          "selector": "#save",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Save changes",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 202.828125,
+            "y": 136.875,
+            "width": 100.484375,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        }
+      ]
+    },
+    {
+      "environment": "desktop",
+      "route": [
+        {
+          "selector": "#load",
+          "type": "click"
+        }
+      ],
+      "fingerprint": "729fcdb4084becb01e6b7f7ad7bf7b5e6113ea4b4d614632665cc7cc25ebdf5c",
+      "capture": "2c7289215989--explore-807be215fbe2--desktop",
+      "evidence_dir": "evidence/2c7289215989--explore-807be215fbe2--desktop",
+      "controls": [
+        {
+          "selector": "#load",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Show details",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 79.875,
+            "width": 91.578125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#inside-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed inside form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 221.6875,
+            "width": 134.53125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#external-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed with associated form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 257.6875,
+            "width": 190.828125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#save",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Save changes",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 202.828125,
+            "y": 257.6875,
+            "width": 100.484375,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#input-open",
+          "tag": "input",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "input-open",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 307.3125,
+            "y": 257.6875,
+            "width": 124.171875,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#image-open",
+          "tag": "input",
+          "role": null,
+          "type": "image",
+          "formAssociated": false,
+          "label": "image-open",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 435.484375,
+            "y": 242.6875,
+            "width": 40,
+            "height": 30
+          }
+        }
+      ],
+      "state_labels": [],
+      "deferred": [
+        {
+          "selector": "#inside-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed inside form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 221.6875,
+            "width": 134.53125,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        },
+        {
+          "selector": "#external-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed with associated form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 257.6875,
+            "width": 190.828125,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        },
+        {
+          "selector": "#save",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Save changes",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 202.828125,
+            "y": 257.6875,
+            "width": 100.484375,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        }
+      ]
+    },
+    {
+      "environment": "desktop",
+      "route": [
+        {
+          "selector": "#load",
+          "type": "key",
+          "key": "Enter"
+        }
+      ],
+      "fingerprint": "729fcdb4084becb01e6b7f7ad7bf7b5e6113ea4b4d614632665cc7cc25ebdf5c",
+      "capture": "2c7289215989--explore-fc0308ef34bd--desktop",
+      "evidence_dir": "evidence/2c7289215989--explore-fc0308ef34bd--desktop",
+      "controls": [
+        {
+          "selector": "#load",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Show details",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 79.875,
+            "width": 91.578125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#inside-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed inside form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 221.6875,
+            "width": 134.53125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#external-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed with associated form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 257.6875,
+            "width": 190.828125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#save",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Save changes",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 202.828125,
+            "y": 257.6875,
+            "width": 100.484375,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#input-open",
+          "tag": "input",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "input-open",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 307.3125,
+            "y": 257.6875,
+            "width": 124.171875,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#image-open",
+          "tag": "input",
+          "role": null,
+          "type": "image",
+          "formAssociated": false,
+          "label": "image-open",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 435.484375,
+            "y": 242.6875,
+            "width": 40,
+            "height": 30
+          }
+        }
+      ],
+      "state_labels": [
+        "loaded-via-key"
+      ],
+      "deferred": [
+        {
+          "selector": "#inside-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed inside form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 221.6875,
+            "width": 134.53125,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        },
+        {
+          "selector": "#external-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed with associated form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 257.6875,
+            "width": 190.828125,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        },
+        {
+          "selector": "#save",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Save changes",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 202.828125,
+            "y": 257.6875,
+            "width": 100.484375,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        }
+      ]
+    },
+    {
+      "environment": "desktop",
+      "route": [
+        {
+          "selector": "#input-open",
+          "type": "click"
+        }
+      ],
+      "fingerprint": "242a127b5e71ad714c34d818ec168f1f6b7bf234dada972390784fb22fede82f",
+      "capture": "2c7289215989--explore-512bbb845f2d--desktop",
+      "evidence_dir": "evidence/2c7289215989--explore-512bbb845f2d--desktop",
+      "controls": [
+        {
+          "selector": "#load",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Show details",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 79.875,
+            "width": 91.578125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#inside-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed inside form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 100.875,
+            "width": 134.53125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#external-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed with associated form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 121.875,
+            "width": 190.828125,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#save",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Save changes",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 202.828125,
+            "y": 121.875,
+            "width": 100.484375,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#input-open",
+          "tag": "input",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "input-open",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 307.3125,
+            "y": 121.875,
+            "width": 124.171875,
+            "height": 21
+          }
+        },
+        {
+          "selector": "#image-open",
+          "tag": "input",
+          "role": null,
+          "type": "image",
+          "formAssociated": false,
+          "label": "image-open",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [
+            "onclick"
+          ],
+          "rect": {
+            "x": 8,
+            "y": 192.875,
+            "width": 40,
+            "height": 30
+          }
+        }
+      ],
+      "state_labels": [],
+      "deferred": [
+        {
+          "selector": "#inside-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed inside form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 100.875,
+            "width": 134.53125,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        },
+        {
+          "selector": "#external-submit",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": true,
+          "label": "Proceed with associated form",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 8,
+            "y": 121.875,
+            "width": 190.828125,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        },
+        {
+          "selector": "#save",
+          "tag": "button",
+          "role": null,
+          "type": "submit",
+          "formAssociated": false,
+          "label": "Save changes",
+          "href": null,
+          "expanded": null,
+          "tabIndex": 0,
+          "haspopup": null,
+          "events": [],
+          "rect": {
+            "x": 202.828125,
+            "y": 121.875,
+            "width": 100.484375,
+            "height": 21
+          },
+          "reason": "送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。"
+        }
+      ]
+    }
+  ],
+  "remaining": [
+    "2c7289215989--explore-1c1b2235796e--desktop：画像設定又は上限で未観察の表示がある。",
+    "desktop / #inside-submit：送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。",
+    "desktop / #external-submit：送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。",
+    "desktop / #save：送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。",
+    "2c7289215989--explore-807be215fbe2--desktop：画像設定又は上限で未観察の表示がある。",
+    "2c7289215989--explore-fc0308ef34bd--desktop：画像設定又は上限で未観察の表示がある。",
+    "2c7289215989--explore-512bbb845f2d--desktop：画像設定又は上限で未観察の表示がある。",
+    "未到達の指定状態：wrong-count",
+    "未到達の指定状態：protected-submit"
+  ],
+  "post_requests_received": 0,
+  "wcag_outcomes": {
+    "not_run": 220
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "baseline_corpus_digest": "6f132795533a8d6886cc3551873f02063ef926c4bbdb799d46bc67fd5e6b26b9",
+  "corpus_digest": "c27eb953840655e3bdac2bfd751a6d25c289ed1f5039eb7e08ff86c9dee4686a",
+  "implementation_digest": "3c3fcec76b5dca2fe6abaab6aa4acd8066065c56162c60b1a9ea85e3da912681",
+  "all_expected_verdicts_unchanged": true,
+  "public_files_unchanged": 395,
+  "metadata_changes": [
+    {
+      "criterion": "1.1.1",
+      "version_before": "4",
+      "version_after": "5",
+      "states": [
+        "c09/after-load",
+        "c10/after-load"
+      ]
+    }
+  ],
+  "plan_checksums_sha256": "d5b58d9bb972889550e2a94d7f8f7c5a70827c512396fdb9e58491074d6a168e",
+  "scope": "Public operations and observable state assertions added; HTML/media and every expected verdict stay byte-identical or structurally identical.",
+  "measurement_revision": 3,
+  "supersedes": "metadata-v2.json",
+  "reason": "Parent review fixes for input activation and per-observation quiet window"
+}

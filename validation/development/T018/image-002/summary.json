@@ -1,0 +1,162 @@
+{
+  "selected_rows": 7,
+  "grade_counts": {
+    "correct": 7
+  },
+  "known_failures": 2,
+  "detected_failures": 2,
+  "false_passes": 0,
+  "false_positives": 0,
+  "unverified": 0,
+  "selected_checks_status": "incomplete",
+  "overall_status": "incomplete",
+  "full_counts": {
+    "correct": 7,
+    "deferred": 6,
+    "not_evaluated": 7
+  },
+  "pending_evidence_contracts": [
+    {
+      "job_id": "machine--1.1.1--c05",
+      "criterion": "1.1.1",
+      "mode": "machine",
+      "page": "p05.html",
+      "state": "initial",
+      "checkpoint": "1.1.1-02",
+      "kind": "inventory",
+      "status": "not_evaluated"
+    },
+    {
+      "job_id": "machine--1.1.1--c06",
+      "criterion": "1.1.1",
+      "mode": "machine",
+      "page": "p06.html",
+      "state": "initial",
+      "checkpoint": "1.1.1-02",
+      "kind": "inventory",
+      "status": "not_evaluated"
+    },
+    {
+      "job_id": "machine--1.1.1--c11",
+      "criterion": "1.1.1",
+      "mode": "machine",
+      "page": "p11.html",
+      "state": "initial",
+      "checkpoint": "1.1.1-02",
+      "kind": "inventory",
+      "status": "not_evaluated"
+    }
+  ],
+  "rows": [
+    {
+      "criterion": "1.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#figure",
+      "checkpoint": "1.1.1-01",
+      "expected": "failed",
+      "actual": "failed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c01/p01/attempt-0cd4f2830430/run/evidence/1861d42da944--explore-364c6826449c--desktop/axe.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#summary",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c01/p01/attempt-0cd4f2830430/run/evidence/1861d42da944--explore-364c6826449c--desktop/axe.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#marker",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c01/p01/attempt-0cd4f2830430/run/evidence/1861d42da944--explore-364c6826449c--desktop/axe.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#figure",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c02/p02/attempt-bdf2e8c87337/run/evidence/6f25080ae389--explore-333b0974733e--desktop/axe.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#summary",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c02/p02/attempt-bdf2e8c87337/run/evidence/6f25080ae389--explore-333b0974733e--desktop/axe.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c09",
+      "page": "p09.html",
+      "state": "after-load",
+      "target": "#subject",
+      "checkpoint": "1.1.1-01",
+      "expected": "failed",
+      "actual": "failed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c09/p09/attempt-62af39b6142e/run/evidence/0143f00cc4b3--explore-7dc702a94bfe--desktop/axe.json",
+        "audit-runs/machine--1.1.1--c09/p09/attempt-62af39b6142e/run/evidence/0143f00cc4b3--explore-7dc702a94bfe--desktop/state.json",
+        "audit-runs/machine--1.1.1--c09/p09/attempt-62af39b6142e/run/evidence/0143f00cc4b3--explore-7dc702a94bfe--desktop/transition.json"
+      ],
+      "source": "production axe / image-alt"
+    },
+    {
+      "criterion": "1.1.1",
+      "case": "c10",
+      "page": "p10.html",
+      "state": "after-load",
+      "target": "#subject",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "actual": "passed",
+      "grade": "correct",
+      "evidence": [
+        "audit-runs/machine--1.1.1--c10/p10/attempt-653df496580c/run/evidence/f1f8b0f4f74e--explore-fc6e56488cc8--desktop/axe.json",
+        "audit-runs/machine--1.1.1--c10/p10/attempt-653df496580c/run/evidence/f1f8b0f4f74e--explore-fc6e56488cc8--desktop/state.json",
+        "audit-runs/machine--1.1.1--c10/p10/attempt-653df496580c/run/evidence/f1f8b0f4f74e--explore-fc6e56488cc8--desktop/transition.json"
+      ],
+      "source": "production axe / image-alt"
+    }
+  ],
+  "unexpected_findings": []
+}

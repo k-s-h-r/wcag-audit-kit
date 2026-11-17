@@ -28,3 +28,5 @@ T007で取得の表示仕様が変わる場合は合流後に再確認する。�
 ## 実行結果と引き継ぎ
 
 担当：wcag-dev、codex/t008-report-consistency、worktree /workspace/wcag-dev-t008。[4run・28ページ報告の照合](../../validation/development/T008/README.md)。JSON・HTML・Excelと証拠は一致し、4,676元ファイルは不変。追加状態で110票になる例を含め全票not_runを保持していた。帳票コードは変更していない。T007の接続実装が変わる場合は再確認し、G1は操作後2行の不足が残るため未達。
+
+T018の最終v3でも[画像・タイトルのHTMLとExcel](../../validation/development/T018/README.md)を再確認し、選択10行の一致と全体の未確認の分離を保持している。取得照合の仕様を変更する場合は別の出力で再確認する。
