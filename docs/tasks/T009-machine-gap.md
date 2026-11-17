@@ -28,3 +28,5 @@ T002・T003の証拠から再現条件と、どの期待結果に影響するか
 ## 実行結果と分割
 
 担当：wcag-dev、codex/t009-formless-controls、worktree /workspace/wcag-dev-t009。フォーム外buttonのtype既定値による誤除外を再現・修正し、208試験と専用ページの画像取得・送信保留を確認した。[比較と新規run](../../validation/development/T009/README.md)。元の7行は5一致・2未確認のままで、操作自体は実行したが遅延画像を取り逃がすことを確認した。実測に基づいて[T017](T017-async-state-settle.md)へ分割する。親の完了を子の開始条件にしない。採点への状態対応も、取得後の証拠を見て後続へ分ける。旧runを保持し、親T009とG1は未達として残す。
+
+PR #21のレビューで見つかったフォーム外submit/image入力のfill誤分類も修正した。[追加確認](../../validation/development/T009/review-001/README.md)は209試験と両型の実キー操作、送信保留を含む。親の操作後状態の対応は引き続きT018で確認する。
