@@ -32,3 +32,5 @@ T001で固定したページ・状態・対象をmachineモードで収集する
 担当：wcag-dev単独実行。ブランチcodex/t003-image-baseline、worktree /workspace/wcag-dev-t003、起点bf7ce19。T001（PR #15）の計画へ依存する。計画ハッシュは[runs.json](../../validation/development/T003/runs.json)へ記録した。
 
 [確認記録](../../validation/development/T003/README.md)。固定7行を2回収集し、一致5・未確認2。初期5行は一致、after-loadの2行は未確認。既知の問題2行中1行だけ検出し、残る1行は未検出。偽の通過と誤検出は0行。 c09/c10のexploration.jsonでは#loadがdeferredに入り、type=submitという理由で操作されていない。フォーム外のbuttonでもDOMのtype既定値がsubmitになる。原始証拠の初期ノードにも#subjectはなく、取得段階の不足である。さらに現行program_predictionsはrouteなしのノードだけをinitialとして読むため、操作後の対応付けは別原因としてT009とT007で検討する。採点を手入力で補完していない。 実測は元のrunのまま固定し、修正は別タスク・別runへ渡す。
+
+PR：[基準値の記録 #16](https://github.com/k-s-h-r/wcag-audit-kit/pull/16)。baseはT001のブランチ（PR #15）。
