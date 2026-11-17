@@ -1,0 +1,46 @@
+{
+  "scope": "native timeout semantics and bounds, not full asynchronous readiness",
+  "normal": {
+    "result": {
+      "args": [
+        "one",
+        2
+      ],
+      "receiver": true
+    },
+    "wait": {
+      "status": "quiet",
+      "elapsed_ms": 151,
+      "pending_timers": 0,
+      "untracked_callbacks": 0,
+      "scope": "DOM and function timeouts; excludes intervals, network, media and animations"
+    }
+  },
+  "short_network_response": {
+    "wait": {
+      "status": "quiet",
+      "elapsed_ms": 227,
+      "pending_timers": 0,
+      "untracked_callbacks": 0,
+      "scope": "DOM and function timeouts; excludes intervals, network, media and animations"
+    },
+    "rendered": true
+  },
+  "recursive_timer": {
+    "status": "timeout",
+    "elapsed_ms": 1508.800000000745,
+    "pending_timers": 1,
+    "untracked_callbacks": 0,
+    "scope": "DOM and function timeouts; excludes intervals, network, media and animations"
+  },
+  "string_timer": {
+    "wait": {
+      "status": "bounded",
+      "elapsed_ms": 152.09999999776483,
+      "pending_timers": 0,
+      "untracked_callbacks": 1,
+      "scope": "DOM and function timeouts; excludes intervals, network, media and animations"
+    },
+    "ran": true
+  }
+}

@@ -29,7 +29,7 @@
       untracked_callbacks:untrackedCallbacks,scope:'DOM and function timeouts; excludes intervals, network, media and animations'});
     while (performance.now() < deadline) {
       const soon = [...timers.values()].some(due => due <= deadline);
-      if (!soon && performance.now()-lastChange >= quietMs)
+      if (!soon && performance.now()-Math.max(lastChange,start) >= quietMs)
         return result(timers.size || untrackedCallbacks ? 'bounded' : 'quiet');
       await new Promise(resolve => nativeTimeout(resolve,25));
     }
