@@ -23,5 +23,8 @@ try:
  assert '#load' not in deferred and found,value
  assert {'#inside-submit','#external-submit','#save'}<=deferred,value
  assert Handler.writes==0 and set(value['wcag_outcomes'])=={'not_run'},value
+ for target in ['#input-open','#image-open']:
+  assert any(e['route']==[{'selector':target,'type':'key','key':'Enter'}] and not e['error'] for e in graph['edges']),target
+  assert not any(any(a['selector']==target and a['type']=='fill' for a in e['route']) for e in graph['edges']),target
  print(json.dumps({'states':len(graph['nodes']),'image_failure_routes':len(found),'protected_controls':len(deferred),'post_requests':Handler.writes}))
 finally:http.shutdown();http.server_close()

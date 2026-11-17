@@ -235,6 +235,15 @@ class WorkflowTest(unittest.TestCase):
         changed=copy.deepcopy(original);changed['controls'][0]['formAssociated']=True
         self.assertNotEqual(page_explorer.fingerprint(original),page_explorer.fingerprint(changed))
 
+    def test_formless_submit_inputs_receive_activation_keys_instead_of_fill(self):
+        for kind in ['submit','image']:
+            control={'selector':'#open','tag':'input','type':kind,'label':'Open details','formAssociated':False}
+            actions,reason=page_explorer.actions(control)
+            self.assertIsNone(reason)
+            self.assertFalse(any(a['type']=='fill' for a in actions))
+            self.assertEqual({a['key'] for a in actions if a['type']=='key'},{'Enter','Space'})
+            self.assertTrue(page_explorer.actions(dict(control,formAssociated=True))[1])
+
     def test_budgets_reject_invalid_values(self):
         for values in [(True,10,2),(0,10,2),(10,10001,2),(10,10,31)]:
             with self.assertRaises(ValueError):page_explorer.validate_budget(*values)
