@@ -146,6 +146,9 @@ def validate_config(c):
             raise ValueError('各状態にはpathsとactionsが必要')
         if not state.get('assert'):
             raise ValueError('状態の到達確認assertが必要。操作が成功しただけで状態到達としない')
+    if 'exploration_labels' in c:
+        from state_labels import validate as validate_labels
+        validate_labels(c['exploration_labels'])
     if c.get('auth_state'):
         c['auth_state']=str(Path(c['auth_state']).resolve())
     if 'inspection' in c and 'verification' not in c:

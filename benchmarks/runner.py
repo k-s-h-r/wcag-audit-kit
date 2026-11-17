@@ -120,6 +120,8 @@ def collect(run,*,criterion=None,selected_modes=None,port=0,resume=False,config=
                         if pages.get(page,{}).get('status')=='completed':continue
                         location=run/'audit-runs'/job['id']/Path(page).stem/('attempt-'+uuid.uuid4().hex[:12]);location.mkdir(parents=True)
                         cfg=core.audit.init_config(url);cfg.update(environments=cfg['environments'][:1],keyboard_steps=6)
+                        labels=core.state_labels.public_specs(job['states'])
+                        if labels:cfg['exploration_labels']=labels
                         core.audit.save(location/'config.json',cfg)
                         args=['page-audit','--url',url,'--out',str(location/'run'),'--config',str(location/'config.json'),'--mode',job['mode'],
                               '--max-states',str(meta['configuration']['max_states']),'--max-steps',str(meta['configuration']['max_steps']),

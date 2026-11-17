@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.1.1",
-  "version": "4",
+  "version": "5",
   "review": "author-defined",
   "sources": [
     "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html",
@@ -521,6 +521,19 @@
           "id": "after-load",
           "instructions": [
             "図表を読み込むボタンを押して追加表示を待ち、初期表示にない画像と代替を確認する。"
+          ],
+          "actions": [
+            {
+              "selector": "#load",
+              "type": "click"
+            }
+          ],
+          "assert": [
+            {
+              "selector": "#slot img",
+              "count": 1,
+              "visible": true
+            }
           ]
         }
       ],
@@ -578,6 +591,19 @@
           "id": "after-load",
           "instructions": [
             "図表を読み込むボタンを押して追加表示を待ち、初期表示にない画像と代替を確認する。"
+          ],
+          "actions": [
+            {
+              "selector": "#load",
+              "type": "click"
+            }
+          ],
+          "assert": [
+            {
+              "selector": "#slot img",
+              "count": 1,
+              "visible": true
+            }
           ]
         }
       ],

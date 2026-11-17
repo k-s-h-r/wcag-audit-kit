@@ -11,6 +11,7 @@ from urllib.parse import urldefrag
 from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, capture_image, normalize, page_id
 from input_observation import INIT_SCRIPT, InputObserver
+import state_labels
 
 SCRIPT=(ROOT/'scripts/page_explorer.js').read_text()
 RISK=re.compile(r'delete|remove|purchase|checkout|pay\b|buy\b|logout|sign.?out|submit|send\b|save\b|削除|購入|決済|支払|送信|保存|ログアウト',re.I)
@@ -117,7 +118,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     if value.get('implementation_digest')!=implementation:raise ValueError('探索の実装が変わったため新しいrunで実行する')
     # Recompute transient status rather than persisting status()'s derived fields.
     value.pop('required',None);value.pop('complete',None)
-    value['remaining']=[r for r in value['remaining'] if not r.startswith(('探索待ち ','探索中又は'))]
+    value['remaining']=[r for r in value['remaining'] if not r.startswith(('探索待ち ','探索中又は','未到達の指定状態：'))]
+    labels=state_labels.validate(config.get('exploration_labels',[]))
     envs={e['id']:e for e in config['environments']};pid=page_id(url)
     manifest=audit.load(run/'capture-manifest.json') if (run/'capture-manifest.json').exists() else {
         'pages':[{'id':pid,'url':url}],'captures':[],'unvisited':[],'errors':[],'collector_status':'running',
@@ -167,11 +169,14 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     if response and response.status>=400:raise ValueError(f'HTTP {response.status}')
                     settling.append(await page.evaluate('() => window.__wcagWaitForUpdates()'))
                     for action in route:settling.append(await perform(page,action))
+                    label_observations=await state_labels.observe(page,route,labels)
+                    matched_labels=state_labels.verified(labels,route,label_observations)
                     data=await page.evaluate('() => window.__wcagExplore()')
                     data['observation_wait']=settling
+                    data['state_labels']=label_observations
                     inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
                     audit.save(dest/'state.json',data)
-                    if (env['id'],fingerprint(data)) not in seen:
+                    if (env['id'],fingerprint(data)) not in seen or matched_labels:
                         await images.capture(page,dest/'page.png',kind='state',full_page=data['scroll']['height']<=env['viewport']['height']*20)
                         # Actual scroll/tile captures reveal sticky/viewport-only content.
                         tiles=[]
@@ -207,10 +212,11 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     value['remaining'].append(f'{env["id"]}：DOMと短いタイマーの観察上限又は未観測のコールバックが残る。全非同期完了ではない。')
                 if data and not error:
                     key=(env['id'],fingerprint(data));edge['fingerprint']=key[1]
-                    if key not in seen:
+                    matched_labels=state_labels.verified(labels,route,data.get('state_labels',[]))
+                    if key not in seen or matched_labels:
                         state='initial' if not route else 'explore-'+attempt
                         capture_key=f'{pid}--{state}--{env["id"]}'
-                        node=dict(job,fingerprint=key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'])
+                        node=dict(job,fingerprint=key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'],state_labels=matched_labels)
                         seen[key]=node;value['nodes'].append(node)
                         manifest['captures'].append(dict(key=capture_key,page_id=pid,url=url,state=state,environment=env['id'],
                             execution='completed',collection_state='finished',evidence_dir=str(dest.relative_to(run))))
@@ -247,6 +253,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 audit.make_plan(run,manifest)
         finally:
             await browser.close()
+            found={label for node in value['nodes'] for label in node.get('state_labels',[])}
+            value['remaining'] += ['未到達の指定状態：'+label['id'] for label in labels if label['id'] not in found]
             value['running']=False
             manifest['collector_status']='completed' if not value['queue'] else 'interrupted'
             value['manifest']=manifest
