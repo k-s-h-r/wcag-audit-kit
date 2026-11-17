@@ -31,3 +31,5 @@
 - [0024 最初の2観点を変更せず2回ずつ測る](0024-record-first-machine-baselines.md)
 
 - [0036 基準値の再実行先を収集前に拒否する](0036-preserve-baselines-when-rerunning-measurements.md)
+
+- [0037 帳票のセル値と証拠の対応を照合する](0037-compare-report-cells-and-evidence-associations.md)
