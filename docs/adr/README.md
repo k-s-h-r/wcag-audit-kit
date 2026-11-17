@@ -36,5 +36,6 @@
 - [0030 短い非同期更新を上限と残作業付きで観察する](0030-observe-bounded-dom-and-timeouts.md)
 - [0031 公開された経路と到達条件で名前付き状態を確認する](0031-bind-observed-routes-to-named-states.md)
 - [0032 画像候補の取得照合を適合判定から分離する](0032-compare-bounded-visual-inventory.md)
+- [0034 実SRの正常対照と互換性の制約を新規実行で確認する](0034-calibrate-native-reader-with-live-controls.md)
 - [0036 基準値の再実行先を収集前に拒否する](0036-preserve-baselines-when-rerunning-measurements.md)
 - [0037 帳票のセル値と証拠の対応を照合する](0037-compare-report-cells-and-evidence-associations.md)
