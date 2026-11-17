@@ -1,0 +1,104 @@
+[
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "benchmarks/run.py",
+      "collect",
+      "--mode",
+      "machine",
+      "--criterion",
+      "1.1.1",
+      "--out",
+      "artifacts/T003/run-001"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 30.695200162999754,
+    "strict_exit_code": 2,
+    "run": "artifacts/T003/run-001",
+    "run_id": "fd259c8b7baa42e1b4a5e9e6e8354a2d",
+    "git_head": "bf7ce1909b9d5c23fe11f599170dab72e1a73cf8",
+    "implementation_digest": "904a5a62f02613cd6c6d80cfd862cfcf423bf591964fa9c17d9d18e24203cfd3",
+    "corpus_digest": "6f132795533a8d6886cc3551873f02063ef926c4bbdb799d46bc67fd5e6b26b9",
+    "environment": {
+      "system": "Linux",
+      "kernel": "6.18.57",
+      "python": "3.12.14",
+      "playwright": "1.62.0",
+      "chromium": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)"
+    },
+    "plan_checksums_sha256": "d5b58d9bb972889550e2a94d7f8f7c5a70827c512396fdb9e58491074d6a168e",
+    "mode": "machine",
+    "ai_inference": false,
+    "tokens": "not applicable; no AI inference",
+    "selected_summary": {
+      "selected_rows": 7,
+      "grade_counts": {
+        "correct": 5,
+        "not_evaluated": 2
+      },
+      "known_failures": 2,
+      "detected_failures": 1,
+      "false_passes": 0,
+      "false_positives": 0,
+      "unverified": 2,
+      "selected_checks_status": "incomplete",
+      "overall_status": "incomplete",
+      "full_counts": {
+        "correct": 5,
+        "deferred": 6,
+        "not_evaluated": 9
+      }
+    }
+  },
+  {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "benchmarks/run.py",
+      "collect",
+      "--mode",
+      "machine",
+      "--criterion",
+      "1.1.1",
+      "--out",
+      "artifacts/T003/run-002"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 27.984362746999977,
+    "strict_exit_code": 2,
+    "run": "artifacts/T003/run-002",
+    "run_id": "cdc3f1ce45b24e1fbf36f2f4dbf5d83e",
+    "git_head": "bf7ce1909b9d5c23fe11f599170dab72e1a73cf8",
+    "implementation_digest": "904a5a62f02613cd6c6d80cfd862cfcf423bf591964fa9c17d9d18e24203cfd3",
+    "corpus_digest": "6f132795533a8d6886cc3551873f02063ef926c4bbdb799d46bc67fd5e6b26b9",
+    "environment": {
+      "system": "Linux",
+      "kernel": "6.18.57",
+      "python": "3.12.14",
+      "playwright": "1.62.0",
+      "chromium": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)"
+    },
+    "plan_checksums_sha256": "d5b58d9bb972889550e2a94d7f8f7c5a70827c512396fdb9e58491074d6a168e",
+    "mode": "machine",
+    "ai_inference": false,
+    "tokens": "not applicable; no AI inference",
+    "selected_summary": {
+      "selected_rows": 7,
+      "grade_counts": {
+        "correct": 5,
+        "not_evaluated": 2
+      },
+      "known_failures": 2,
+      "detected_failures": 1,
+      "false_passes": 0,
+      "false_positives": 0,
+      "unverified": 2,
+      "selected_checks_status": "incomplete",
+      "overall_status": "incomplete",
+      "full_counts": {
+        "correct": 5,
+        "deferred": 6,
+        "not_evaluated": 9
+      }
+    }
+  }
+]
