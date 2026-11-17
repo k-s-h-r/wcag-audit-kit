@@ -12,6 +12,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from benchmarks import core
+from report_cell_values import benchmark_book,benchmark_html
 
 
 def main(report,out):
@@ -22,6 +23,7 @@ def main(report,out):
     try:
         assert book.sheetnames==['採点結果','概要','基準とモードの実測範囲','追加の誤検出']+(['取得期待の未確認'] if value.get('pending_evidence_contracts') else [])+(['取得期待の照合'] if any(r['status'] in {'matched','mismatch'} for r in value.get('acquisition_results',[])) else [])
         assert book['採点結果'].max_row==len(value['rows'])+1
+        benchmark_book(book,value);benchmark_html(report/'result.html',value)
         assert book['基準とモードの実測範囲'].max_row==87
         grades=Counter(row[9] for row in list(book['採点結果'].values)[1:])
         from benchmarks.reporting import LABEL
@@ -79,7 +81,7 @@ def main(report,out):
     try:asyncio.run(check())
     finally:http.shutdown();http.server_close()
     core.save(out/'observed.json',{'scope':'report presentation and workbook readback, not conformance or Microsoft Excel UI',
-        'source_report':str(report),'rows':len(value['rows']),'grade_counts':value['counts'],'checks':checks})
+        'source_report':str(report),'rows':len(value['rows']),'all_verdict_cells_and_evidence_associations_match':True,'grade_counts':value['counts'],'checks':checks})
     print('HTML, keyboard scrolling, evidence links and workbook values checked.')
 
 
