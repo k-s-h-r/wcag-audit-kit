@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import yaml
 from unittest.mock import patch
 from urllib.parse import unquote, urlsplit
 
@@ -39,6 +40,8 @@ class LayoutTest(unittest.TestCase):
                 folder = root / 'skills' / name
                 (folder / 'scripts').mkdir(parents=True)
                 (folder / 'SKILL.md').write_text(name)
+                (folder / 'agents').mkdir()
+                (folder / 'agents/openai.yaml').write_text('interface:\n  display_name: ' + name + '\n')
             (root / 'skills/wcag-page/scripts/helper.py').write_text('changed')
             extra = root / 'skills/wcag-report/scripts/obsolete.py'
             extra.write_text('obsolete')
@@ -55,6 +58,8 @@ class LayoutTest(unittest.TestCase):
                 self.assertEqual(sync_skills.synchronize(check=True), [])
                 for name in skill_layout.SKILLS[1:]:
                     self.assertEqual((root / 'skills' / name / 'SKILL.md').read_text(), name)
+                    self.assertEqual(audit.load(root / 'skills' / name / 'agents/openai.yaml'),
+                                     {'interface': {'display_name': name}})
 
     def test_local_markdown_links_resolve_without_repository_resources(self):
         for name in skill_layout.SKILLS:
@@ -79,6 +84,10 @@ class LayoutTest(unittest.TestCase):
                     folder = base / name
                     shutil.copytree(ROOT / 'skills' / name, folder,
                                     ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
+                    policy = audit.load(folder / 'agents/openai.yaml')
+                    self.assertIs(policy['policy']['allow_implicit_invocation'], False)
+                    frontmatter = yaml.safe_load((folder / 'SKILL.md').read_text().split('---', 2)[1])
+                    self.assertIs(frontmatter['disable-model-invocation'], True)
                     cli = folder / 'scripts/audit.py'
                     def command(*args, expected=0):
                         result = subprocess.run([sys.executable, str(cli), *map(str, args)],

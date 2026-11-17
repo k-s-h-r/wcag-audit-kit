@@ -11,7 +11,7 @@ import platform
 import sys
 from importlib.metadata import version
 from . import core
-from scripts.skill_layout import resource_files
+from scripts.skill_layout import resource_files,SKILLS
 
 
 class PublicFiles(SimpleHTTPRequestHandler):
@@ -30,12 +30,13 @@ def server(public,port=0):
 
 def source_files():
     # Freeze the canonical runtime, including templates and dependency locks.
-    # The other three skills share these bytes and retain separate entry points.
+    # The other three skills share these bytes but keep their entry points and policies.
     paths=[*[core.RUNTIME/p for p in resource_files()],
            *sorted((core.ROOT/'scripts').glob('*.py')),
            *sorted((core.ROOT/'benchmarks').glob('*.py')),
            core.ROOT/'package.json',core.ROOT/'package-lock.json',core.ROOT/'benchmarks/WORKER.md',
-           *sorted((core.ROOT/'skills').rglob('SKILL.md'))]
+           *sorted((core.ROOT/'skills').rglob('SKILL.md')),
+           *[core.ROOT/'skills'/name/'agents/openai.yaml' for name in SKILLS]]
     return sorted(set(paths))
 
 

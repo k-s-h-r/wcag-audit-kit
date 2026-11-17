@@ -37,8 +37,9 @@ W3Cの著作権と使用条件は、元HTMLと[ライセンス](sources/W3C-LICE
 ## スキルの設計
 
 - [Google Chrome Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/SKILL.md)：必要なガイドを取得し、作業後に照合する構成。
-- [pstack create-verification-skill](https://github.com/cursor/plugins/blob/main/pstack/skills/create-verification-skill/SKILL.md)：アプリの起動・到達・操作・証拠取得の方法をプロジェクトから調べ、手順自体を実行して確かめる構成。
-- [pstack maintain-verification-skill](https://github.com/cursor/plugins/blob/main/pstack/skills/maintain-verification-skill/SKILL.md)：説明の古さ、操作ツールの不足、製品の問題を区別する考え方。
+- [pstack create-verification-skill](https://github.com/cursor/plugins/blob/e1cc03121a0e71129a4fb730d7c5528a0a3e43c8/pstack/skills/create-verification-skill/SKILL.md)：起動・準備確認・操作・証拠・後片付けを具体化し、小さな経路を実行して手順自体を確かめる構成。
+- [pstack maintain-verification-skill](https://github.com/cursor/plugins/blob/e1cc03121a0e71129a4fb730d7c5528a0a3e43c8/pstack/skills/maintain-verification-skill/SKILL.md)：手順の古さ、操作ツールの不足、製品の問題を区別する考え方。
+- [pstackのClaude Code対応](https://github.com/cursor/plugins/blob/e1cc03121a0e71129a4fb730d7c5528a0a3e43c8/pstack/docs/harness/claude-code.md)：明示起動した処理内で、必要な補助スキルのファイルを読んで適用する構成。
 - [ACT Rules Format](https://www.w3.org/TR/act-rules-format/)と[ACT Rules](https://www.w3.org/WAI/standards-guidelines/act/rules/)：適用条件、期待結果、具体例、検査で分かる範囲の明示。独自書式はACT準拠を宣言するものではない。
 - [WCAG-EM](https://www.w3.org/WAI/test-evaluate/conformance/wcag-em/)：評価範囲、一連の利用、評価と報告の整理。
 

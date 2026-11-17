@@ -1,13 +1,16 @@
 ---
 name: wcag-report
 description: 保存済みのWCAG検証台帳をHTML・JSON・Excelへまとめる。単独ページにもサイト全体にも使う。判定・証拠の対応を確認し、未実施、未探索、観察の省略、人への確認を保持する。報告だけの依頼では再訪問・再検査を始めない。
+disable-model-invocation: true
 metadata:
-  version: "0.7.0"
+  version: "0.7.1"
 ---
 
 # 保存済みの結果を報告する
 
 入力は正本のrunと出力形式。ページ担当者の結果は同じrunへ保存してから集計する。独立したrun、異なるビルド、設定、基準版を暗黙に合算しない。
+
+利用者がこのスキルを明示して開始する。全体監査では、明示された監査の報告手順としてこのファイルを読む。保存済みの判定を読み、報告ファイルを出力する。再検査や判定の更新は担当しない。
 
 1ページの報告には`python3 scripts/audit.py page-report --run <run> --page-exact <URL>`を使う。HTML・JSON・Excelの概要・件数・票をそのページへそろえる。機械ルールと実入力の結果を達成基準全体の判定と区別し、残る探索も表示する。
 
@@ -22,7 +25,7 @@ python3 scripts/audit.py report --run <run> --strict
 python3 scripts/audit.py excel export --run <run> --mode report --out <新しいreport.xlsx>
 ```
 
-report.html、report.json、issues.md、human-review.md、interaction-review.mdを確認する。Excelは[閲覧用と作業用](references/collaboration.md)を区別する。作業用を受け取った場合は、事前確認と取り込みを済ませてから集計する。
+report.html、report.json、issues.md、human-review.md、interaction-review.mdを確認する。Excelは[閲覧用と作業用](references/collaboration.md)を区別する。作業用Excelの受領だけを理由に判定を取り込まない。取り込みが明示された場合は、全体進行による記録更新又は同資料の取り込み手順を別の更新作業として実施し、その結果を報告の入力とする。
 
 人向けには[達成基準チェックシート](references/checksheet.md)を使う。HTMLとExcelの先頭で基準ごとの適用・適合・未確認を示し、保存した対象の期待結果ごとに確認観点の行を分ける。不適合箇所の一覧にURL・状態・環境・対象要素・再現手順・証拠があることを確認する。内訳の通過を基準全体へ広げず、未実施の観点を自動作成して適合にしない。人向けシートの編集は取り込み対象ではない。
 
