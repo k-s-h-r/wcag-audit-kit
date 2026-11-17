@@ -1,0 +1,42 @@
+{
+  "python": "Python 3.9.6",
+  "checks": [
+    {
+      "name": "default",
+      "argv": [
+        "python3",
+        "app.py"
+      ],
+      "APP_PORT": "<unset>",
+      "exit_code": 0,
+      "stdout": "APP_PORT=8080\n",
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "help",
+      "argv": [
+        "python3",
+        "app.py",
+        "--help"
+      ],
+      "APP_PORT": "<unset>",
+      "exit_code": 0,
+      "stdout": "usage: app.py [-h] [--version]\n\nSample application launcher\n\noptional arguments:\n  -h, --help  show this help message and exit\n  --version   show program's version number and exit\n",
+      "stderr": "",
+      "passed": true
+    },
+    {
+      "name": "override",
+      "argv": [
+        "python3",
+        "app.py"
+      ],
+      "APP_PORT": "9090",
+      "exit_code": 0,
+      "stdout": "APP_PORT=9090\n",
+      "stderr": "",
+      "passed": true
+    }
+  ]
+}

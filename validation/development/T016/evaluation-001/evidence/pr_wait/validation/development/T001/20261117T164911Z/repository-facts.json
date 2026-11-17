@@ -1,0 +1,96 @@
+[
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "main"
+    ],
+    "exit_code": 0,
+    "stdout": "128e07082c7624842bbccb50dbd8788a46e2d24a\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "feature/command-reference"
+    ],
+    "exit_code": 0,
+    "stdout": "74879e08272de526a9275872eb9054cf6204d01d\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "log",
+      "--oneline",
+      "main..feature/command-reference"
+    ],
+    "exit_code": 0,
+    "stdout": "74879e0 Prepare command reference\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "merge-base",
+      "--is-ancestor",
+      "feature/command-reference",
+      "main"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "cat-file",
+      "-e",
+      "main:docs/command-reference.md"
+    ],
+    "exit_code": 128,
+    "stdout": "",
+    "stderr": "fatal: path 'docs/command-reference.md' does not exist in 'main'\n"
+  },
+  {
+    "argv": [
+      "git",
+      "show",
+      "feature/command-reference:docs/command-reference.md"
+    ],
+    "exit_code": 0,
+    "stdout": "# Command reference\nRun `python3 app.py --help`.\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "remote",
+      "-v"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "worktree",
+      "list"
+    ],
+    "exit_code": 0,
+    "stdout": "/private/tmp/wcag-dev-eval-vvi8mta7/pr_wait 128e070 [codex/record-command-reference-wait]\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "python3",
+      "app.py",
+      "--help"
+    ],
+    "exit_code": 0,
+    "stdout": "usage: app.py [-h] [--version]\n\nSample application launcher\n\noptional arguments:\n  -h, --help  show this help message and exit\n  --version   show program's version number and exit\n",
+    "stderr": ""
+  }
+]

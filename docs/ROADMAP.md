@@ -1,12 +1,14 @@
 # 人手を介さないWCAG検証へ進める開発計画
 
-更新日：2026-11-18。現状の確認対象：`6f3384c`（PR #11のマージ後）。
+更新日：2026-11-18。現状の確認対象：`899d3f9`（PR #12・#13の採用後）。
 
 この文書を、開発方針・現在地・次の作業の参照先とする。新しいセッションでは[AGENTS.md](../AGENTS.md)とこの文書を読み、[次の作業](#次の作業)から再開する。引き継ぎの方法は[ADR 0017](adr/0017-autonomous-audit-development.md)、機械検査から段階的に進める現在の方針は[ADR 0018](adr/0018-machine-first-staged-audits.md)に残す。
 
 4スキルの責務、明示呼び出し、pstackから取り込む対象固有の操作手順は[設計方針](SKILL-DESIGN.md)と[ADR 0019](adr/0019-skill-boundaries-and-explicit-invocation.md)に定める。呼び出し設定と手順を追加した段階であり、ホスト上の選択動作や監査精度の実測はこれから行う。
 
 実行する作業は[開発タスク](tasks/README.md)へ分解した。各タスクの状態と完了根拠は担当ファイルを参照する。並行して進める順序と調整方法は[ADR 0020](adr/0020-parallel-development-tasks.md)に記録する。
+
+通常の開発継続は「進めて」で[wcag-dev](../.agents/skills/wcag-dev/SKILL.md)を適用する。調整担当が開始可能な作業を選んで実行し、必要ならタスク整理の手順で後続を追加する。既定は1作業単位をPR作成まで進める。[ADR 0022](adr/0022-autonomous-development-workflow.md)に判断と境界を記録する。機械検査の次の作業は引き続きT001からである。
 
 ## 目指すのは、証拠に基づいて自律的に検証するスキル
 

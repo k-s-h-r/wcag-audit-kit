@@ -1,0 +1,299 @@
+diff --git a/README.md b/README.md
+index 26048d1..64e246f 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,23 @@
+ # Sample application
+-Startup documentation has not been written yet.
++
++Run these commands from the repository root with Python 3:
++
++```sh
++python3 app.py
++```
++
++The sample prints the configured port and exits. With `APP_PORT` unset, it prints `APP_PORT=8080`. It does not start a listening server.
++
++Inspect the available command options:
++
++```sh
++python3 app.py --help
++```
++
++Set `APP_PORT` for one run in a POSIX shell:
++
++```sh
++APP_PORT=9090 python3 app.py
++```
++
++This prints `APP_PORT=9090`. The default is `8080` when the environment variable is not set.
+diff --git a/docs/ROADMAP.md b/docs/ROADMAP.md
+index 6a11f64..2fd4304 100644
+--- a/docs/ROADMAP.md
++++ b/docs/ROADMAP.md
+@@ -1,2 +1,4 @@
+ # Development plan
+-The next milestone is README.md documentation for starting this sample with python3 app.py, inspecting --help, and configuring APP_PORT (default 8080). The documentation is currently missing. Only this small milestone is in scope.
++The milestone is README.md documentation for starting this sample with python3 app.py, inspecting --help, and configuring APP_PORT (default 8080). Only this small milestone is in scope.
++
++[T001](tasks/T001-startup-documentation.md) now supplies that documentation on `codex/document-startup`, with successful local command checks in a new run. It has not been adopted into main. No remote is configured, and this evaluation prohibits network and real remote PR operations, so PR creation, external review, and adoption remain pending. The next step is to create a PR when those operations become available; no additional development task is justified by the current scope.
+diff --git a/docs/adr/0001-document-sample-startup.md b/docs/adr/0001-document-sample-startup.md
+new file mode 100644
+index 0000000..840fcf6
+--- /dev/null
++++ b/docs/adr/0001-document-sample-startup.md
+@@ -0,0 +1,23 @@
++# ADR 0001: Document the sample's existing startup behavior
++
++## Background
++
++The only milestone in the development plan is missing README guidance for starting the sample, inspecting help, and configuring `APP_PORT`. There are no existing tasks or ADRs. `app.py` uses Python's standard library and prints the selected port before exiting.
++
++## Decision
++
++Create T001 as one documentation work unit. Document commands from the repository root using Python 3, help, default port 8080, and a per-command environment override. Describe the observed print-and-exit behavior. Keep the implementation unchanged. Retain command output and document checks in a new T001 run.
++
++## Alternatives
++
++- Add only a task proposal: this would leave the authorized milestone unfinished.
++- Expand the sample into a server: no such implementation change is in scope.
++- Create several tasks for the same README: the outputs and prerequisites are shared and fit one work unit.
++
++## Consequences
++
++The README can be verified against the local CLI. Local completion does not mean adoption into main or completion of a WCAG audit. A remote PR cannot be created in this evaluation because there is no remote and network/real PR operations are prohibited; the task retains that handoff explicitly.
++
++## Validation
++
++Run the default command with `APP_PORT` unset, the help command, and an override of 9090. Compare their exit codes and output with the README. Check local Markdown links, task/index correspondence, dependency facts, and whitespace. See [T001](../tasks/T001-startup-documentation.md) for the new run and results.
+diff --git a/docs/tasks/README.md b/docs/tasks/README.md
+index 320fd3d..db6b962 100644
+--- a/docs/tasks/README.md
++++ b/docs/tasks/README.md
+@@ -1,2 +1,7 @@
+ # Development tasks
+-No development tasks have been created yet. There are no pending prerequisites.
++
++| ID | Work | Prerequisites | Status |
++| --- | --- | --- | --- |
++| [T001](T001-startup-documentation.md) | README startup, help, and APP_PORT documentation | none | Locally verified; PR not created (external operations unavailable) |
++
++This is the only work unit for the milestone. No further implementation or parallel work is scheduled. PR creation and adoption remain pending; see T001 for the evidence and restart conditions.
+diff --git a/docs/tasks/T001-startup-documentation.md b/docs/tasks/T001-startup-documentation.md
+new file mode 100644
+index 0000000..cd114dc
+--- /dev/null
++++ b/docs/tasks/T001-startup-documentation.md
+@@ -0,0 +1,30 @@
++# T001: READMEに起動・ヘルプ・ポート設定を記載する
++
++状態：文書作成・ローカル確認済み、PR未作成。前提タスク：なし。親・関連タスク：なし。
++
++追加理由と根拠：[開発計画](../ROADMAP.md)の唯一の目標である起動文書が未作成で、既存タスクもないため追加した。対象は`README.md`の小さな整備に限定する。
++
++## 作業と成果物
++
++`app.py`を読み、`python3 app.py`、`python3 app.py --help`、`APP_PORT`の既定値8080と設定例をREADMEへ記載する。実際にはポート番号を表示して終了するサンプルであるため、その動作を説明する。
++
++保存先：`README.md`。検証は新規runの`validation/development/T001/20261117T164911Z/`に保存する。
++
++## 完了条件と確認
++
++- リポジトリルートから実行する起動、ヘルプ、`APP_PORT`設定のコマンドがREADMEにある。
++- 既定値8080と、コマンド実行時に値を表示して終了する動作を説明している。
++- 実際のCLI出力を新規runに保存し、文書の記述と照合する。
++- タスク、索引、ADRの参照先を確認する。外部PR作成と採用はローカル作業の完了と分けて記録する。
++
++## 担当範囲と引き継ぎ
++
++担当：このセッション。ブランチ：`codex/document-startup`。起点：`main`の`5599c49343ab458a0e7bfd99279f6ca9ca21dafb`。
++操作環境：このリポジトリの専用作業ツリー `/private/tmp/wcag-dev-eval-vvi8mta7/no_tasks`、ローカルシェル、Python 3.9.6。並行作業は行わない。
++担当ファイル：README、本タスク、タスク索引、ロードマップ、新規ADR、新規run。実装`app.py`は変更しない。
++
++成果物：[README](../../README.md)、[ADR 0001](../adr/0001-document-sample-startup.md)。
++完了根拠：[新規run](../../validation/development/T001/20261117T164911Z/cli-results.json)で、環境変数未設定時の`APP_PORT=8080`、ヘルプ表示、指定時の`APP_PORT=9090`をすべて終了コード0で確認した。文書確認は[document-checks.json](../../validation/development/T001/20261117T164911Z/document-checks.json)を参照。
++
++PR：未作成。remoteがなく、ネットワーク・実際のリモートPR操作は評価環境で禁止されている。push・外部レビュー・マージ確認は未実施。mainへの採用やWCAG検証の成功は主張しない。
++次の作業：外部操作が許可されremoteが用意されたら、本ブランチの差分と保存済みrunを確認してPRを作成し、本文からADR 0001へリンクする。レビュー・採用を待つ。このマイルストーンの追加実装タスクはない。
+diff --git a/validation/development/T001/20261117T164911Z/cli-results.json b/validation/development/T001/20261117T164911Z/cli-results.json
+new file mode 100644
+index 0000000..90eb82f
+--- /dev/null
++++ b/validation/development/T001/20261117T164911Z/cli-results.json
+@@ -0,0 +1,42 @@
++{
++  "python": "Python 3.9.6",
++  "checks": [
++    {
++      "name": "default",
++      "argv": [
++        "python3",
++        "app.py"
++      ],
++      "APP_PORT": "<unset>",
++      "exit_code": 0,
++      "stdout": "APP_PORT=8080\n",
++      "stderr": "",
++      "passed": true
++    },
++    {
++      "name": "help",
++      "argv": [
++        "python3",
++        "app.py",
++        "--help"
++      ],
++      "APP_PORT": "<unset>",
++      "exit_code": 0,
++      "stdout": "usage: app.py [-h] [--version]\n\nSample application launcher\n\noptional arguments:\n  -h, --help  show this help message and exit\n  --version   show program's version number and exit\n",
++      "stderr": "",
++      "passed": true
++    },
++    {
++      "name": "override",
++      "argv": [
++        "python3",
++        "app.py"
++      ],
++      "APP_PORT": "9090",
++      "exit_code": 0,
++      "stdout": "APP_PORT=9090\n",
++      "stderr": "",
++      "passed": true
++    }
++  ]
++}
+diff --git a/validation/development/T001/20261117T164911Z/default.json b/validation/development/T001/20261117T164911Z/default.json
+new file mode 100644
+index 0000000..239e5d1
+--- /dev/null
++++ b/validation/development/T001/20261117T164911Z/default.json
+@@ -0,0 +1,12 @@
++{
++  "name": "default",
++  "argv": [
++    "python3",
++    "app.py"
++  ],
++  "APP_PORT": "<unset>",
++  "exit_code": 0,
++  "stdout": "APP_PORT=8080\n",
++  "stderr": "",
++  "passed": true
++}
+diff --git a/validation/development/T001/20261117T164911Z/document-checks.json b/validation/development/T001/20261117T164911Z/document-checks.json
+new file mode 100644
+index 0000000..b72f4cc
+--- /dev/null
++++ b/validation/development/T001/20261117T164911Z/document-checks.json
+@@ -0,0 +1,73 @@
++{
++  "checked_files": [
++    "README.md",
++    "docs/ROADMAP.md",
++    "docs/tasks/README.md",
++    "docs/tasks/T001-startup-documentation.md",
++    "docs/adr/0001-document-sample-startup.md",
++    "docs/adr/README.md"
++  ],
++  "links": [
++    {
++      "source": "docs/ROADMAP.md",
++      "target": "tasks/T001-startup-documentation.md",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/README.md",
++      "target": "T001-startup-documentation.md",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/T001-startup-documentation.md",
++      "target": "../ROADMAP.md",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/T001-startup-documentation.md",
++      "target": "../../README.md",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/T001-startup-documentation.md",
++      "target": "../adr/0001-document-sample-startup.md",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/T001-startup-documentation.md",
++      "target": "../../validation/development/T001/20261117T164911Z/cli-results.json",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/T001-startup-documentation.md",
++      "target": "../../validation/development/T001/20261117T164911Z/document-checks.json",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/adr/0001-document-sample-startup.md",
++      "target": "../tasks/T001-startup-documentation.md",
++      "exists": true,
++      "inside_workspace": true
++    }
++  ],
++  "task_ids": [
++    "T001"
++  ],
++  "task_ids_unique": true,
++  "all_tasks_indexed": true,
++  "app_unchanged": true,
++  "git_diff_check": {
++    "exit_code": 0,
++    "stdout": "",
++    "stderr": ""
++  },
++  "prerequisites_consistent": true,
++  "passed": true
++}
+diff --git a/validation/development/T001/20261117T164911Z/help.json b/validation/development/T001/20261117T164911Z/help.json
+new file mode 100644
+index 0000000..38d92e5
+--- /dev/null
++++ b/validation/development/T001/20261117T164911Z/help.json
+@@ -0,0 +1,13 @@
++{
++  "name": "help",
++  "argv": [
++    "python3",
++    "app.py",
++    "--help"
++  ],
++  "APP_PORT": "<unset>",
++  "exit_code": 0,
++  "stdout": "usage: app.py [-h] [--version]\n\nSample application launcher\n\noptional arguments:\n  -h, --help  show this help message and exit\n  --version   show program's version number and exit\n",
++  "stderr": "",
++  "passed": true
++}
+diff --git a/validation/development/T001/20261117T164911Z/override.json b/validation/development/T001/20261117T164911Z/override.json
+new file mode 100644
+index 0000000..211ed10
+--- /dev/null
++++ b/validation/development/T001/20261117T164911Z/override.json
+@@ -0,0 +1,12 @@
++{
++  "name": "override",
++  "argv": [
++    "python3",
++    "app.py"
++  ],
++  "APP_PORT": "9090",
++  "exit_code": 0,
++  "stdout": "APP_PORT=9090\n",
++  "stderr": "",
++  "passed": true
++}

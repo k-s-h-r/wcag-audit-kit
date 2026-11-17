@@ -1,0 +1,44 @@
+{
+  "no_tasks": {
+    "initial_main": "5599c49343ab458a0e7bfd99279f6ca9ca21dafb",
+    "main_unchanged": true,
+    "final_branch": "codex/document-startup",
+    "final_commit": "e69c3392a0855406dacde0990525bcd591d688a5",
+    "working_tree_clean": true,
+    "remotes": [],
+    "task_ids": [
+      "T001"
+    ],
+    "application_and_skills_unchanged": true,
+    "patch": "no_tasks.patch",
+    "checks": "task created and work executed"
+  },
+  "pr_wait": {
+    "initial_main": "128e07082c7624842bbccb50dbd8788a46e2d24a",
+    "main_unchanged": true,
+    "final_branch": "codex/record-command-reference-wait",
+    "final_commit": "b11961ee8fea71c9274703fd73dbbd3dcd4213e3",
+    "working_tree_clean": true,
+    "remotes": [],
+    "task_ids": [
+      "T001",
+      "T002"
+    ],
+    "application_and_skills_unchanged": true,
+    "patch": "pr_wait.patch",
+    "checks": "pending adoption preserved; dependent task not executed; no new task"
+  },
+  "artifact_sha256": {
+    "agent-report.txt": "371eccdde8ad1d48bd4e680e81bb2be1111a34636aee920e8d34b82e7bc119ad",
+    "evidence/no_tasks/validation/development/T001/20261117T164911Z/cli-results.json": "c62b38ff1554d306ca37aca2a859ef606fd0187aeca28a12a1f2a42d9b550380",
+    "evidence/no_tasks/validation/development/T001/20261117T164911Z/default.json": "bf9f730da1c45b07e28ef645e2552878d38a9c6bab1e657708aeada6eab20d96",
+    "evidence/no_tasks/validation/development/T001/20261117T164911Z/document-checks.json": "2419a4cea3c360cc2841dee29a74eb65858f785c0b50fbf3b2c93a041204298e",
+    "evidence/no_tasks/validation/development/T001/20261117T164911Z/help.json": "878d4e9d9b70a92cac1aa983b5ef209245d1c7308420103a435cce3893c8866f",
+    "evidence/no_tasks/validation/development/T001/20261117T164911Z/override.json": "7d6e20d8e164fc529beb0488fdc8d7bd3e3734778ac508ff34cad318b27686db",
+    "evidence/pr_wait/validation/development/T001/20261117T164911Z/document-checks.json": "ea49272a1507b32bcacef91de56d760f7aa67443bf7f59b805f356a562fa87de",
+    "evidence/pr_wait/validation/development/T001/20261117T164911Z/repository-facts.json": "b979a4c498876cf0f381ec885c6b2b0619bf555fe9da5f9b1c48ccd6ef44a676",
+    "inputs.json": "facafb3328462863125418523574fe8983b332615d139461d55071435b851f12",
+    "no_tasks.patch": "339d112a02de8c344336ef89d91b3290a88368d789bd6fc5b866cdd318696ac2",
+    "pr_wait.patch": "aacc718a47223a27fd037dc965adf613f760ade1f66701e52fc9ee60ca71fbe2"
+  }
+}

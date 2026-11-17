@@ -1,0 +1,282 @@
+diff --git a/docs/ROADMAP.md b/docs/ROADMAP.md
+index f28385c..6e2ce69 100644
+--- a/docs/ROADMAP.md
++++ b/docs/ROADMAP.md
+@@ -1,2 +1,4 @@
+ # Development plan
+ T001 prepared a command reference on branch feature/command-reference. T002 adds documentation links after T001 is adopted. Work must not claim adoption without evidence. No other milestone is in scope.
++
++The local check confirms that T001's reference exists on that branch and is absent from main. The reported external PR cannot be verified because no remote is configured and network/real remote PR operations are prohibited here. T002 remains unstarted. There is no independent work within this milestone. Next, verify the existing PR and any review in an authorized connected environment, then confirm adoption into main before starting T002; do not merge without permission. Evidence and restart details are in [T001](tasks/T001-command-reference.md).
+diff --git a/docs/adr/0001-preserve-reference-adoption-gate.md b/docs/adr/0001-preserve-reference-adoption-gate.md
+new file mode 100644
+index 0000000..f2a0e69
+--- /dev/null
++++ b/docs/adr/0001-preserve-reference-adoption-gate.md
+@@ -0,0 +1,24 @@
++# ADR 0001: Preserve the command reference adoption prerequisite
++
++## Background
++
++T001 reports a prepared command reference and a waiting remote PR. T002 explicitly requires adoption into main before adding its README link. The evaluation has no configured remote and prohibits network and real remote PR operations. Local branch facts can be checked; external PR state cannot.
++
++## Decision
++
++Record the observed branch hashes, absence of the reference from local main, command output, and the unresolved external PR state in the existing task files and a new run. Keep T002 unstarted and retain T001's reported PR history as unverified. Use a separate local record branch. Do not modify the prepared feature branch, create a duplicate PR or task, copy unadopted content into main, or merge.
++
++## Alternatives
++
++- Treat the reported PR as merged: no available evidence supports adoption.
++- Link directly against unadopted content or stack T002: its explicit start condition disallows that, and no independent work requires it.
++- Add a new waiting task: existing T001 and T002 already capture the work and prerequisite.
++- Resume T001 implementation: there is no recorded unfinished change or concrete review feedback to address.
++
++## Consequences
++
++This session can finish local state reconciliation but cannot complete either task's adoption-dependent condition. The next session has a precise external verification step. Main, the prepared feature branch, and its original evidence remain unchanged. This is a development handoff, not a WCAG validation result.
++
++## Validation
++
++Save `git rev-parse`, the branch-only commit log, `git merge-base --is-ancestor`, the lookup for `main:docs/command-reference.md`, feature-branch document content, configured remotes, worktree inventory, and a local help command in a new run. Check task links and prerequisite consistency. See [T001](../tasks/T001-command-reference.md) for evidence and restart conditions. Real PR creation, review, and merge verification remain unperformed.
+diff --git a/docs/tasks/README.md b/docs/tasks/README.md
+index b679ad3..2ed908b 100644
+--- a/docs/tasks/README.md
++++ b/docs/tasks/README.md
+@@ -1,7 +1,9 @@
+ # Development tasks
+-| ID | Work | Prerequisites |
+-| --- | --- | --- |
+-| [T001](T001-command-reference.md) | Command reference | none |
+-| [T002](T002-link-reference.md) | Link adopted command reference | T001 |
++| ID | Work | Prerequisites | Status |
++| --- | --- | --- | --- |
++| [T001](T001-command-reference.md) | Command reference | none | Prepared on feature branch; absent from local main; reported external PR unverified |
++| [T002](T002-link-reference.md) | Link adopted command reference | T001 adopted into main | Waiting; not started |
+ 
+ Both tasks belong to the same milestone. Their files record the available evidence.
++
++No independent work is ready. Confirm the reported existing PR when external operations are available; do not create a duplicate waiting task or claim adoption. This session only records local facts on `codex/record-command-reference-wait`.
+diff --git a/docs/tasks/T001-command-reference.md b/docs/tasks/T001-command-reference.md
+index e1b4dcd..c99ec17 100644
+--- a/docs/tasks/T001-command-reference.md
++++ b/docs/tasks/T001-command-reference.md
+@@ -1,8 +1,18 @@
+ # T001: Command reference
+-状態：実装・ローカル確認済み（PRマージ待ち）。前提タスク：なし。
++状態：実装・ローカル確認済み（main未採用、報告済みPRの実在・状態は外部確認待ち）。前提タスク：なし。
+ ## 作業と成果物
+ Create docs/command-reference.md on feature/command-reference. This has been done on that branch. A remote PR was reported as waiting, but no network access is available to confirm it here.
+ ## 完了条件と確認
+ The reference must be adopted into main before consumers use it. No review feedback is recorded.
+ ## 担当範囲と引き継ぎ
+ Resume only if there is a concrete unfinished change or review. Verify branch and adoption facts.
++
++### 今回の確認と再開条件
++
++- 起点は`main`の`128e07082c7624842bbccb50dbd8788a46e2d24a`。成果物のブランチ`feature/command-reference`は`74879e08272de526a9275872eb9054cf6204d01d`で、`docs/command-reference.md`が存在する。
++- `git merge-base --is-ancestor feature/command-reference main`は終了コード1、`git cat-file -e main:docs/command-reference.md`は失敗した。ローカルmainへの採用は確認できず、参照先もmainに存在しない。
++- 保存済みPR報告は保持するが、remoteは未設定で、外部PRの実在・URL・レビュー・マージ状態は確認不能。未確認のURLは記載しない。新規・重複PRを作らず、成果物ブランチも変更しない。
++- 新規run：[repository-facts.json](../../validation/development/T001/20261117T164911Z/repository-facts.json)。上記Git操作と`python3 app.py --help`の成功出力を保存した。文書確認は[document-checks.json](../../validation/development/T001/20261117T164911Z/document-checks.json)を参照。これは外部採用やWCAG検証の成功を意味しない。
++- 今回の担当は状態確認・引き継ぎのみ。記録ブランチ`codex/record-command-reference-wait`、専用作業ツリー`/private/tmp/wcag-dev-eval-vvi8mta7/pr_wait`、ローカルシェルを使い、並行作業は行わない。新規判断は[ADR 0001](../adr/0001-preserve-reference-adoption-gate.md)に残した。
++- 次回：ネットワークとremoteが利用可能になったら、報告済みPRを照合する。具体的なレビュー・未完了変更があれば既存PRと成果物ブランチで再開する。承認なしにマージせず、mainへの採用を証拠で確認した後だけT002を開始する。
++- 今回の記録変更のPRは未作成。評価環境ではネットワーク・実際のリモートPR操作が禁止されている。外部操作再開時は既存PRの状態と照合し、記録の反映先を決める。
+diff --git a/docs/tasks/T002-link-reference.md b/docs/tasks/T002-link-reference.md
+index a03b5ae..022a85a 100644
+--- a/docs/tasks/T002-link-reference.md
++++ b/docs/tasks/T002-link-reference.md
+@@ -1,8 +1,12 @@
+ # T002: Link command reference
+-状態：未着手。前提タスク：T001。
++状態：未着手（T001のmain採用待ち）。前提タスク：T001。
+ ## 作業と成果物
+ Link docs/command-reference.md from README.md after the reference is adopted into main.
+ ## 完了条件と確認
+ The link must resolve to the adopted reference.
+ ## 担当範囲と引き継ぎ
+ This work cannot start using unadopted reference content.
++
++今回の確認：T001の成果物は`feature/command-reference`にあるが、ローカルmainには参照先がない。[T001の新規run](../../validation/development/T001/20261117T164911Z/repository-facts.json)を参照。PR・マージの外部状態も未確認のため、READMEのリンクは追加していない。
++
++再開条件：T001の参照文書がmainに採用されたことを確認し、その版を起点にREADMEへリンクして解決先を確認する。独立して開始できる作業はなく、この待ちを複製する新規タスクは作らない。
+diff --git a/validation/development/T001/20261117T164911Z/document-checks.json b/validation/development/T001/20261117T164911Z/document-checks.json
+new file mode 100644
+index 0000000..5c4dc44
+--- /dev/null
++++ b/validation/development/T001/20261117T164911Z/document-checks.json
+@@ -0,0 +1,75 @@
++{
++  "checked_files": [
++    "README.md",
++    "docs/ROADMAP.md",
++    "docs/tasks/README.md",
++    "docs/tasks/T001-command-reference.md",
++    "docs/tasks/T002-link-reference.md",
++    "docs/adr/0001-preserve-reference-adoption-gate.md",
++    "docs/adr/README.md"
++  ],
++  "links": [
++    {
++      "source": "docs/ROADMAP.md",
++      "target": "tasks/T001-command-reference.md",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/README.md",
++      "target": "T001-command-reference.md",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/README.md",
++      "target": "T002-link-reference.md",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/T001-command-reference.md",
++      "target": "../../validation/development/T001/20261117T164911Z/repository-facts.json",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/T001-command-reference.md",
++      "target": "../../validation/development/T001/20261117T164911Z/document-checks.json",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/T001-command-reference.md",
++      "target": "../adr/0001-preserve-reference-adoption-gate.md",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/tasks/T002-link-reference.md",
++      "target": "../../validation/development/T001/20261117T164911Z/repository-facts.json",
++      "exists": true,
++      "inside_workspace": true
++    },
++    {
++      "source": "docs/adr/0001-preserve-reference-adoption-gate.md",
++      "target": "../tasks/T001-command-reference.md",
++      "exists": true,
++      "inside_workspace": true
++    }
++  ],
++  "task_ids": [
++    "T001",
++    "T002"
++  ],
++  "task_ids_unique": true,
++  "all_tasks_indexed": true,
++  "app_unchanged": true,
++  "git_diff_check": {
++    "exit_code": 0,
++    "stdout": "",
++    "stderr": ""
++  },
++  "prerequisites_consistent": true,
++  "passed": true
++}
+diff --git a/validation/development/T001/20261117T164911Z/repository-facts.json b/validation/development/T001/20261117T164911Z/repository-facts.json
+new file mode 100644
+index 0000000..756580f
+--- /dev/null
++++ b/validation/development/T001/20261117T164911Z/repository-facts.json
+@@ -0,0 +1,96 @@
++[
++  {
++    "argv": [
++      "git",
++      "rev-parse",
++      "main"
++    ],
++    "exit_code": 0,
++    "stdout": "128e07082c7624842bbccb50dbd8788a46e2d24a\n",
++    "stderr": ""
++  },
++  {
++    "argv": [
++      "git",
++      "rev-parse",
++      "feature/command-reference"
++    ],
++    "exit_code": 0,
++    "stdout": "74879e08272de526a9275872eb9054cf6204d01d\n",
++    "stderr": ""
++  },
++  {
++    "argv": [
++      "git",
++      "log",
++      "--oneline",
++      "main..feature/command-reference"
++    ],
++    "exit_code": 0,
++    "stdout": "74879e0 Prepare command reference\n",
++    "stderr": ""
++  },
++  {
++    "argv": [
++      "git",
++      "merge-base",
++      "--is-ancestor",
++      "feature/command-reference",
++      "main"
++    ],
++    "exit_code": 1,
++    "stdout": "",
++    "stderr": ""
++  },
++  {
++    "argv": [
++      "git",
++      "cat-file",
++      "-e",
++      "main:docs/command-reference.md"
++    ],
++    "exit_code": 128,
++    "stdout": "",
++    "stderr": "fatal: path 'docs/command-reference.md' does not exist in 'main'\n"
++  },
++  {
++    "argv": [
++      "git",
++      "show",
++      "feature/command-reference:docs/command-reference.md"
++    ],
++    "exit_code": 0,
++    "stdout": "# Command reference\nRun `python3 app.py --help`.\n",
++    "stderr": ""
++  },
++  {
++    "argv": [
++      "git",
++      "remote",
++      "-v"
++    ],
++    "exit_code": 0,
++    "stdout": "",
++    "stderr": ""
++  },
++  {
++    "argv": [
++      "git",
++      "worktree",
++      "list"
++    ],
++    "exit_code": 0,
++    "stdout": "/private/tmp/wcag-dev-eval-vvi8mta7/pr_wait 128e070 [codex/record-command-reference-wait]\n",
++    "stderr": ""
++  },
++  {
++    "argv": [
++      "python3",
++      "app.py",
++      "--help"
++    ],
++    "exit_code": 0,
++    "stdout": "usage: app.py [-h] [--version]\n\nSample application launcher\n\noptional arguments:\n  -h, --help  show this help message and exit\n  --version   show program's version number and exit\n",
++    "stderr": ""
++  }
++]

@@ -1,0 +1,36 @@
+{
+  "common": {
+    "AGENTS.md": "# Evaluation workspace\nThis is an isolated development repository. Apply .agents/skills/wcag-dev/SKILL.md for the user request to continue development. Keep changes in this workspace. Do not use network tools, create real remote PRs, or access the original repository. There is no remote configured; do possible local work and explicitly record unavailable external operations. Work on a branch, retain saved evidence, use a new ADR for changes, and do not merge without permission.\n",
+    "docs/SKILL-DESIGN.md": "# Design\nDevelopment is scoped to this sample repository. Task planning uses the local wcag-dev-tasks skill.\n",
+    "docs/adr/README.md": "# Decision records\nUse a new numbered ADR for changes. Keep previous decisions.\n",
+    "README.md": "# Sample application\nStartup documentation has not been written yet.\n",
+    "app.py": "import argparse\nimport os\nparser = argparse.ArgumentParser(description=\"Sample application launcher\")\nparser.add_argument(\"--version\", action=\"version\", version=\"sample 1.0\")\nargs = parser.parse_args()\nprint(\"APP_PORT=\" + os.environ.get(\"APP_PORT\", \"8080\"))\n"
+  },
+  "scenarios": {
+    "no_tasks": {
+      "docs/ROADMAP.md": "# Development plan\nThe next milestone is README.md documentation for starting this sample with python3 app.py, inspecting --help, and configuring APP_PORT (default 8080). The documentation is currently missing. Only this small milestone is in scope.\n",
+      "docs/tasks/README.md": "# Development tasks\nNo development tasks have been created yet. There are no pending prerequisites.\n"
+    },
+    "pr_wait": {
+      "docs/ROADMAP.md": "# Development plan\nT001 prepared a command reference on branch feature/command-reference. T002 adds documentation links after T001 is adopted. Work must not claim adoption without evidence. No other milestone is in scope.\n",
+      "docs/tasks/README.md": "# Development tasks\n| ID | Work | Prerequisites |\n| --- | --- | --- |\n| [T001](T001-command-reference.md) | Command reference | none |\n| [T002](T002-link-reference.md) | Link adopted command reference | T001 |\n\nBoth tasks belong to the same milestone. Their files record the available evidence.\n",
+      "docs/tasks/T001-command-reference.md": "# T001: Command reference\n状態：実装・ローカル確認済み（PRマージ待ち）。前提タスク：なし。\n## 作業と成果物\nCreate docs/command-reference.md on feature/command-reference. This has been done on that branch. A remote PR was reported as waiting, but no network access is available to confirm it here.\n## 完了条件と確認\nThe reference must be adopted into main before consumers use it. No review feedback is recorded.\n## 担当範囲と引き継ぎ\nResume only if there is a concrete unfinished change or review. Verify branch and adoption facts.\n",
+      "docs/tasks/T002-link-reference.md": "# T002: Link command reference\n状態：未着手。前提タスク：T001。\n## 作業と成果物\nLink docs/command-reference.md from README.md after the reference is adopted into main.\n## 完了条件と確認\nThe link must resolve to the adopted reference.\n## 担当範囲と引き継ぎ\nThis work cannot start using unadopted reference content.\n"
+    }
+  },
+  "skill_sources": {
+    "wcag-dev": ".agents/skills/wcag-dev",
+    "wcag-dev-tasks": ".agents/skills/wcag-dev-tasks"
+  },
+  "initial_commits": {
+    "no_tasks": "5599c49343ab458a0e7bfd99279f6ca9ca21dafb",
+    "pr_wait": "128e07082c7624842bbccb50dbd8788a46e2d24a"
+  },
+  "skill_sha256": {
+    ".agents/skills/wcag-dev/SKILL.md": "ce2e00676964ff7b4b6dedba5f295e3a15dc46b03fff8b24209704a0bb28248b",
+    ".agents/skills/wcag-dev/agents/openai.yaml": "a1499d95abd8447558c535fe5554adcc3c9b988a0a39264a6283d430effe1e94",
+    ".agents/skills/wcag-dev-tasks/SKILL.md": "d6ed525bd5df8079b7b95f142f5350035ad54f94b4123e40fe7d3516f5b694a9",
+    ".agents/skills/wcag-dev-tasks/agents/openai.yaml": "a1499d95abd8447558c535fe5554adcc3c9b988a0a39264a6283d430effe1e94",
+    ".agents/skills/wcag-dev-tasks/assets/task-template.md": "318b8f9ce4ed41050d6f9f0e60e93584d665ce3663293e52b3326ca5e87c0c73"
+  }
+}

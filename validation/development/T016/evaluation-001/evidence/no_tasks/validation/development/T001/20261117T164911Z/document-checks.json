@@ -1,0 +1,73 @@
+{
+  "checked_files": [
+    "README.md",
+    "docs/ROADMAP.md",
+    "docs/tasks/README.md",
+    "docs/tasks/T001-startup-documentation.md",
+    "docs/adr/0001-document-sample-startup.md",
+    "docs/adr/README.md"
+  ],
+  "links": [
+    {
+      "source": "docs/ROADMAP.md",
+      "target": "tasks/T001-startup-documentation.md",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/README.md",
+      "target": "T001-startup-documentation.md",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/T001-startup-documentation.md",
+      "target": "../ROADMAP.md",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/T001-startup-documentation.md",
+      "target": "../../README.md",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/T001-startup-documentation.md",
+      "target": "../adr/0001-document-sample-startup.md",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/T001-startup-documentation.md",
+      "target": "../../validation/development/T001/20261117T164911Z/cli-results.json",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/tasks/T001-startup-documentation.md",
+      "target": "../../validation/development/T001/20261117T164911Z/document-checks.json",
+      "exists": true,
+      "inside_workspace": true
+    },
+    {
+      "source": "docs/adr/0001-document-sample-startup.md",
+      "target": "../tasks/T001-startup-documentation.md",
+      "exists": true,
+      "inside_workspace": true
+    }
+  ],
+  "task_ids": [
+    "T001"
+  ],
+  "task_ids_unique": true,
+  "all_tasks_indexed": true,
+  "app_unchanged": true,
+  "git_diff_check": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "prerequisites_consistent": true,
+  "passed": true
+}
