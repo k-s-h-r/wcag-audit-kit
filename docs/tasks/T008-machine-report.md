@@ -28,3 +28,7 @@ T007で取得の表示仕様が変わる場合は合流後に再確認する。�
 ## 実行結果と引き継ぎ
 
 担当：wcag-dev、codex/t008-report-consistency、worktree /workspace/wcag-dev-t008。[4run・28ページ報告の照合](../../validation/development/T008/README.md)。JSON・HTML・Excelと証拠は一致し、4,676元ファイルは不変。追加状態で110票になる例を含め全票not_runを保持していた。帳票コードは変更していない。T007の接続実装が変わる場合は再確認し、G1は操作後2行の不足が残るため未達。
+
+## レビュー後の追加照合
+
+初回の一致表現は件数・集計の確認範囲を超えていた。[訂正と追加検証](../../validation/development/T008/RESULTS.md)、[ADR 0037](../adr/0037-compare-report-cells-and-evidence-associations.md)。新しいexamine-v2.pyで4run・28ページの全セル・証拠の対応を比較した。件数を変えず対象・判定・証拠を誤らせたHTML/Excel計6否定例も拒否した。旧4,676ファイルと初回記録は不変。
