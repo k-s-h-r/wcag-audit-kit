@@ -26,8 +26,8 @@
 - [0020 開発計画を、依存関係と担当範囲を持つ並行作業へ分解する](0020-parallel-development-tasks.md)
 - [0021 リポジトリの開発タスクを整理するスキルを.agents/skillsへ置く](0021-development-task-skill.md)
 - [0022 「進めて」でタスクの選択・実行・後続整理を進める](0022-autonomous-development-workflow.md)
-
 - [0023 最初の機械測定を10行と既存の実行条件へ固定する](0023-freeze-first-machine-measurement.md)
 - [0024 最初の2観点を変更せず2回ずつ測る](0024-record-first-machine-baselines.md)
-
+- [0025 ホストの起動失敗をスキルの呼び出し成功にしない](0025-keep-host-invocation-blocked.md)
+- [0026 対象固有の手順を既存fixtureの1経路で確認する](0026-execute-one-project-procedure.md)
 - [0036 基準値の再実行先を収集前に拒否する](0036-preserve-baselines-when-rerunning-measurements.md)
