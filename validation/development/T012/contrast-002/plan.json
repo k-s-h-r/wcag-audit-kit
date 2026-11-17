@@ -1,0 +1,21 @@
+{
+  "criterion": "4.1.3",
+  "checkpoint": "4.1.3-02",
+  "mode": "screen-reader",
+  "worker": "benchmarks/native_status.py",
+  "pages": [
+    "p01.html",
+    "p02.html"
+  ],
+  "method": "existing public-task worker, real Orca; contrast calibration required before interpreting silent negative",
+  "implementation_digest": "c67d54b8c106710379068fdc4bd5b4ad5d933c8bc9d087c96e5b9c31f69b6b37",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)"
+  },
+  "private_root": "/workspace/wcag-dev-session-20261118/T012-debian-root-001",
+  "no_ai_inference": true
+}

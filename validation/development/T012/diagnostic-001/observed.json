@@ -1,0 +1,524 @@
+{
+  "status": "collected",
+  "error": null,
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "steps": [
+    {
+      "index": 1,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ],
+        "expect_contains": "Save record one"
+      },
+      "focus_after": {
+        "tag": "button",
+        "id": "save1",
+        "documentHasFocus": true
+      },
+      "speech": [
+        "tab",
+        "Save record one button."
+      ],
+      "observations": [
+        {
+          "target": {
+            "selector": "#message1"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message3"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message4"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message5"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ]
+      },
+      "focus_after": {
+        "tag": "button",
+        "id": "save1",
+        "documentHasFocus": true
+      },
+      "speech": [
+        "space"
+      ],
+      "observations": [
+        {
+          "target": {
+            "selector": "#message1"
+          },
+          "text": "Record one saved."
+        },
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message3"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message4"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message5"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ],
+        "expect_contains": "Save record two"
+      },
+      "focus_after": {
+        "tag": "button",
+        "id": "save2",
+        "documentHasFocus": true
+      },
+      "speech": [
+        "tab",
+        "Save record two button."
+      ],
+      "observations": [
+        {
+          "target": {
+            "selector": "#message1"
+          },
+          "text": "Record one saved."
+        },
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message3"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message4"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message5"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ]
+      },
+      "focus_after": {
+        "tag": "button",
+        "id": "save2",
+        "documentHasFocus": true
+      },
+      "speech": [
+        "space",
+        "Record two saved."
+      ],
+      "observations": [
+        {
+          "target": {
+            "selector": "#message1"
+          },
+          "text": "Record one saved."
+        },
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": "Record two saved."
+        },
+        {
+          "target": {
+            "selector": "#message3"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message4"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message5"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ],
+        "expect_contains": "Save record three"
+      },
+      "focus_after": {
+        "tag": "button",
+        "id": "save3",
+        "documentHasFocus": true
+      },
+      "speech": [
+        "tab",
+        "Save record three button."
+      ],
+      "observations": [
+        {
+          "target": {
+            "selector": "#message1"
+          },
+          "text": "Record one saved."
+        },
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": "Record two saved."
+        },
+        {
+          "target": {
+            "selector": "#message3"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message4"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message5"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ]
+      },
+      "focus_after": {
+        "tag": "button",
+        "id": "save3",
+        "documentHasFocus": true
+      },
+      "speech": [
+        "space",
+        "Record three saved."
+      ],
+      "observations": [
+        {
+          "target": {
+            "selector": "#message1"
+          },
+          "text": "Record one saved."
+        },
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": "Record two saved."
+        },
+        {
+          "target": {
+            "selector": "#message3"
+          },
+          "text": "Record three saved."
+        },
+        {
+          "target": {
+            "selector": "#message4"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message5"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ],
+        "expect_contains": "Save record four"
+      },
+      "focus_after": {
+        "tag": "button",
+        "id": "save4",
+        "documentHasFocus": true
+      },
+      "speech": [
+        "tab",
+        "Save record four button."
+      ],
+      "observations": [
+        {
+          "target": {
+            "selector": "#message1"
+          },
+          "text": "Record one saved."
+        },
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": "Record two saved."
+        },
+        {
+          "target": {
+            "selector": "#message3"
+          },
+          "text": "Record three saved."
+        },
+        {
+          "target": {
+            "selector": "#message4"
+          },
+          "text": ""
+        },
+        {
+          "target": {
+            "selector": "#message5"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ]
+      },
+      "focus_after": {
+        "tag": "button",
+        "id": "save4",
+        "documentHasFocus": true
+      },
+      "speech": [
+        "space",
+        "Record four saved."
+      ],
+      "observations": [
+        {
+          "target": {
+            "selector": "#message1"
+          },
+          "text": "Record one saved."
+        },
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": "Record two saved."
+        },
+        {
+          "target": {
+            "selector": "#message3"
+          },
+          "text": "Record three saved."
+        },
+        {
+          "target": {
+            "selector": "#message4"
+          },
+          "text": "Record four saved."
+        },
+        {
+          "target": {
+            "selector": "#message5"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ],
+        "expect_contains": "Save record five"
+      },
+      "focus_after": {
+        "tag": "button",
+        "id": "save5",
+        "documentHasFocus": true
+      },
+      "speech": [
+        "tab",
+        "Save record five button."
+      ],
+      "observations": [
+        {
+          "target": {
+            "selector": "#message1"
+          },
+          "text": "Record one saved."
+        },
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": "Record two saved."
+        },
+        {
+          "target": {
+            "selector": "#message3"
+          },
+          "text": "Record three saved."
+        },
+        {
+          "target": {
+            "selector": "#message4"
+          },
+          "text": "Record four saved."
+        },
+        {
+          "target": {
+            "selector": "#message5"
+          },
+          "text": ""
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ]
+      },
+      "focus_after": {
+        "tag": "button",
+        "id": "save5",
+        "documentHasFocus": true
+      },
+      "speech": [
+        "space"
+      ],
+      "observations": [
+        {
+          "target": {
+            "selector": "#message1"
+          },
+          "text": "Record one saved."
+        },
+        {
+          "target": {
+            "selector": "#message2"
+          },
+          "text": "Record two saved."
+        },
+        {
+          "target": {
+            "selector": "#message3"
+          },
+          "text": "Record three saved."
+        },
+        {
+          "target": {
+            "selector": "#message4"
+          },
+          "text": "Record four saved."
+        },
+        {
+          "target": {
+            "selector": "#message5"
+          },
+          "text": "Record five saved."
+        }
+      ]
+    }
+  ],
+  "wcag_judgement": null
+}
