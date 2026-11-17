@@ -1,0 +1,43 @@
+{
+  "schema_version": "1",
+  "kind": "page-selection",
+  "mode": "configured",
+  "base_url": "http://127.0.0.1:37587",
+  "config_digest": "84beeb366fcbaf7aa0d4b9383760837f416c8ea0620f9f56ac2ae7f612b43399",
+  "pages": [
+    {
+      "url": "http://127.0.0.1:37587/a",
+      "source": "configured",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/query?view=one",
+      "source": "configured",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/query?view=two",
+      "source": "configured",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/app#one",
+      "source": "configured",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/app#two",
+      "source": "configured",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/missing",
+      "source": "configured",
+      "visited": false
+    }
+  ],
+  "unvisited": [],
+  "errors": [],
+  "inventory_complete": false,
+  "notice": "指定URLの一覧。リンク抽出とページ検証は実行していない。サイト全体の網羅は別に確認する。"
+}

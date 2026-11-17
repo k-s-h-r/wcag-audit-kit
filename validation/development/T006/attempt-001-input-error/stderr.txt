@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/workspace/wcag-dev-t006/validation/development/T006/exercise.py", line 46, in <module>
+    try:asyncio.run(exercise())
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/wcag-dev-t006/validation/development/T006/exercise.py", line 32, in exercise
+    audit.validate_config(cfg);before=len(requests);start=time.monotonic();value=await page_catalog.select_pages(cfg);elapsed=time.monotonic()-start
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wcag-dev-t006/skills/wcag-audit-kit/scripts/audit.py", line 110, in validate_config
+    if target.username or target.password or not in_scope(url,c):raise ValueError('指定ページは認証情報を含めず対象範囲内にする')
+                                                 ^^^^^^^^^^^^^^^
+  File "/workspace/wcag-dev-t006/skills/wcag-audit-kit/scripts/browser_capture.py", line 129, in in_scope
+    excluded = any(match(p['path']) for p in config['scope'].get('exclude', []))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/wcag-dev-t006/skills/wcag-audit-kit/scripts/browser_capture.py", line 129, in <genexpr>
+    excluded = any(match(p['path']) for p in config['scope'].get('exclude', []))
+                         ~^^^^^^^^
+TypeError: string indices must be integers, not 'str'

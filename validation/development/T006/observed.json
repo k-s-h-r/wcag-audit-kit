@@ -1,0 +1,63 @@
+{
+  "scope": "URL candidates only; not WCAG inspection or site completeness",
+  "results": [
+    {
+      "scenario": "configured",
+      "pages": 6,
+      "visited": 0,
+      "unvisited": 0,
+      "errors": 0,
+      "http_requests": [],
+      "elapsed_seconds": 0.00015699699906690512
+    },
+    {
+      "scenario": "discover-full",
+      "pages": 9,
+      "visited": 9,
+      "unvisited": 0,
+      "errors": 1,
+      "http_requests": [
+        "/",
+        "/favicon.ico",
+        "/unlinked",
+        "/favicon.ico",
+        "/a",
+        "/favicon.ico",
+        "/query?view=one",
+        "/favicon.ico",
+        "/query?view=two",
+        "/favicon.ico",
+        "/app",
+        "/favicon.ico",
+        "/favicon.ico",
+        "/missing",
+        "/favicon.ico",
+        "/dynamic",
+        "/favicon.ico"
+      ],
+      "elapsed_seconds": 1.421106284000416
+    },
+    {
+      "scenario": "discover-limited",
+      "pages": 9,
+      "visited": 2,
+      "unvisited": 7,
+      "errors": 0,
+      "http_requests": [
+        "/",
+        "/favicon.ico",
+        "/unlinked",
+        "/favicon.ico"
+      ],
+      "elapsed_seconds": 0.6962999009992927
+    }
+  ],
+  "full_expected_urls": 9,
+  "dynamic_link_unfound_as_expected": true,
+  "exclusion_reasons_in_production_output": false,
+  "implementation_sha256": {
+    "page_catalog.py": "ac97efc8bc35cd9640a7854c1c5731d6ef3e1cc12577e3f18d9d4cad11794e6e",
+    "browser_capture.py": "57f73ea561b782fd9955c01843b56b8436c1ed3ed6e0e5141212f554736d0de8"
+  },
+  "source_sha256": "091f298e6f334add246bf3d0bad8fce9a10428aa616f7c48541fbf439d00799f"
+}

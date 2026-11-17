@@ -1,0 +1,66 @@
+{
+  "schema_version": "1",
+  "kind": "page-selection",
+  "mode": "discover",
+  "base_url": "http://127.0.0.1:37587",
+  "config_digest": "e600de11a61ebca49b8da8f1e2a5f9a09589b346eadeafe5b6f4e47715b547a3",
+  "pages": [
+    {
+      "url": "http://127.0.0.1:37587/",
+      "source": "configured_start",
+      "visited": true
+    },
+    {
+      "url": "http://127.0.0.1:37587/unlinked",
+      "source": "configured_start",
+      "visited": true
+    },
+    {
+      "url": "http://127.0.0.1:37587/a",
+      "source": "http://127.0.0.1:37587/",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/query?view=one",
+      "source": "http://127.0.0.1:37587/",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/query?view=two",
+      "source": "http://127.0.0.1:37587/",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/app#one",
+      "source": "http://127.0.0.1:37587/",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/app#two",
+      "source": "http://127.0.0.1:37587/",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/missing",
+      "source": "http://127.0.0.1:37587/",
+      "visited": false
+    },
+    {
+      "url": "http://127.0.0.1:37587/dynamic",
+      "source": "http://127.0.0.1:37587/",
+      "visited": false
+    }
+  ],
+  "unvisited": [
+    "http://127.0.0.1:37587/a",
+    "http://127.0.0.1:37587/query?view=one",
+    "http://127.0.0.1:37587/query?view=two",
+    "http://127.0.0.1:37587/app#one",
+    "http://127.0.0.1:37587/app#two",
+    "http://127.0.0.1:37587/missing",
+    "http://127.0.0.1:37587/dynamic"
+  ],
+  "errors": [],
+  "inventory_complete": false,
+  "notice": "初期表示のリンクから得た候補。未リンクURL、操作後、権限別画面、全状態は別に調査する。WCAGの判定はしていない。"
+}

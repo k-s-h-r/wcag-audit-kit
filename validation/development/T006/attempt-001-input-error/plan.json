@@ -1,0 +1,36 @@
+{
+  "base": "http://127.0.0.1:33159",
+  "expected_discover_urls": [
+    "http://127.0.0.1:33159/",
+    "http://127.0.0.1:33159/unlinked",
+    "http://127.0.0.1:33159/a",
+    "http://127.0.0.1:33159/query?view=one",
+    "http://127.0.0.1:33159/query?view=two",
+    "http://127.0.0.1:33159/app#one",
+    "http://127.0.0.1:33159/app#two",
+    "http://127.0.0.1:33159/missing",
+    "http://127.0.0.1:33159/dynamic"
+  ],
+  "expected_not_discovered": [
+    "http://127.0.0.1:33159/hidden"
+  ],
+  "scope_excludes": [
+    "/excluded/**"
+  ],
+  "max_pages": [
+    2,
+    20
+  ],
+  "configured_input": [
+    "/a",
+    "./a",
+    "/query?view=one",
+    "/query?view=two",
+    "/app#one",
+    "/app#two",
+    "/missing"
+  ],
+  "expected_configured_requests": 0,
+  "expected_http_failure": "http://127.0.0.1:33159/missing",
+  "expected_full_unvisited": []
+}
