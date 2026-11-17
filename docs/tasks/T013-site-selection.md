@@ -30,3 +30,5 @@ T006のURL台帳と、T010で扱った小規模サイトを使う。全件又は
 担当：wcag-dev、codex/t013-site-selection、/workspace/wcag-dev-t013。起点7f2735b。初期候補10、実操作で到達した完了ページを加え11URLを全件選定。対象外2と404を区別し、動的手順の初期・展開・完了・戻るを取得した。既存configured設定と別途procedure.jsonを引き渡す。[選定記録](../../validation/development/T013/README.md)、[ADR 0035](../adr/0035-select-pages-and-procedure-states-from-observation.md)。
 
 T014は実AIの隔離実行・T004の呼び出し成功・選択した実SR確認が揃うまで開始しない。共通部品の結果再利用、大規模な抽出手法は未実施。新しい汎用エンジンは追加していない。
+
+PR：[#26](https://github.com/k-s-h-r/wcag-audit-kit/pull/26)（未マージ）。

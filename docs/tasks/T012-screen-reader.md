@@ -30,3 +30,5 @@
 担当：wcag-dev、codex/t012-native-reader-preflight、/workspace/wcag-dev-t012。起点081d18f。31配布物を照合し専用rootへ展開、実Orca 48.1/Chromium 156で2方式の対照試験と比較ページの10入力を行った。[記録と再現](../../validation/development/T012/README.md)、[ADR 0034](../adr/0034-calibrate-native-reader-with-live-controls.md)。
 
 明示polite等3通知と5ボタン名の発話を取得。暗黙atomic statusの通知は取得できず、選択問題集の2件は両runともcant_tell。無発話を不適合へ変換しない。一時的なworker入力変更も改善を実証しないため不採用。T014へはこの制約を渡し、実SRの選択能力は未達とする。次の実測は対応する別のブラウザー・支援技術環境又は互換性の改善後、新規runで行う。
+
+PR：[#27](https://github.com/k-s-h-r/wcag-audit-kit/pull/27)（未マージ）。

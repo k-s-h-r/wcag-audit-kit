@@ -28,3 +28,5 @@
 ## 実行結果と引き継ぎ
 
 担当：wcag-dev、codex/t006-url-baseline、worktree /workspace/wcag-dev-t006。configuredは6候補・HTTPアクセス0、discoverは9候補・404が1、上限2では訪問2・未訪問7。クエリー・ハッシュを保持し、操作後だけの/hiddenは未発見。[入力・生出力・比較](../../validation/development/T006/README.md)。個別の除外理由は現出力にない。T010はこの指定一覧を再起動したサイトへ適用し、T013は失敗・未訪問・未発見・除外を分ける。動的巡回やサイトマップの実装は追加していない。
+
+PR：[#19](https://github.com/k-s-h-r/wcag-audit-kit/pull/19)（未マージ）。

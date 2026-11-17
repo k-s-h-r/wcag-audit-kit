@@ -1,6 +1,6 @@
 # T002：タイトルの存在確認を機械で測定する
 
-状態：基準値の記録完了（依存PRでレビュー待ち、G1未達）。前提タスク：T001。T003と並行できる。
+状態：基準値の記録完了（PR提案、main採用待ち。改善後の限定G1はT018参照）。前提タスク：T001。T003と並行できる。
 
 タイトルの存在を確認する`2.4.2-01`の現状を測る。タイトルがページの主題を説明するかという意味判断は、このタスクの成績に含めない。
 
@@ -38,3 +38,5 @@ PR：[基準値の記録 #16](https://github.com/k-s-h-r/wcag-audit-kit/pull/16)
 ## レビュー後の再実行方法
 
 保存したmeasure.pyは実行原文のため再実行しない。現在の入口は[開発測定の再実行](../../validation/development/README.md)のmeasure-baseline-v2.py。記録先・run先の両方を未使用のパスで明示し、存在すれば収集前に拒否する。[拒否試験](../../validation/development/review-baseline-safety-001/observed.json)、[ADR 0036](../adr/0036-preserve-baselines-when-rerunning-measurements.md)。T002のstrictは実receiptのとおり0、T003は2。全体はどちらも未完了。
+
+[strict説明の訂正](../../validation/development/T002/RESULTS.md)。旧原始証拠は変更しない。

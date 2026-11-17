@@ -30,3 +30,5 @@ T006の指定一覧を使い、成功するページと訪問に失敗するペ�
 担当：wcag-dev、codex/t010-configured-pages、/workspace/wcag-dev-t010。起点081d18f。7URL中6収集・404失敗1、未試行0。各ページにrunとHTML/JSON/Excel。SIGINTによる中断後、同一設定で2ページ目を再開し、完了済み10証拠と中断時2証拠を保持した。ルール結果と達成基準の未実施を分け、帳票6件を読み戻した。[記録](../../validation/development/T010/README.md)、[ADR 0033](../adr/0033-resume-configured-pages-with-separate-runs.md)。
 
 G2の呼び出し条件はT004待ちのため未達。新しい一括エンジンは追加していない。既存CLIを1ページずつ使う方法の評価である。次はT013の選定計画。
+
+PR：[#25](https://github.com/k-s-h-r/wcag-audit-kit/pull/25)（未マージ）。

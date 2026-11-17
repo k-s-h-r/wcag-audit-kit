@@ -33,3 +33,5 @@ T017で短い遅延画像の生データを取得できたが、採点が初期�
 PR #21のレビューで見つかったフォーム外submit/image入力のfill誤分類も修正した。[追加確認](../../validation/development/T009/review-001/README.md)は209試験と両型の実キー操作、送信保留を含む。親の操作後状態の対応は引き続きT018で確認する。
 
 T018の最終v3で固定10行が各2回一致した。[最終記録](../../validation/development/T018/README.md)。親T009の取得・状態対応の限定した完了根拠はT017・T018とレビュー修正の記録を合わせて確認する。main採用と全体の適合は別に未完了。
+
+PR：[#21](https://github.com/k-s-h-r/wcag-audit-kit/pull/21)（未マージ）。

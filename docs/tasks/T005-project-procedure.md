@@ -28,3 +28,5 @@ pstackから取り込んだ手順を、小さなローカルアプリで実際�
 ## 実行結果と引き継ぎ
 
 担当：wcag-dev、codex/t005-project-procedure、worktree /workspace/wcag-dev-t005。Profile demoの認証・編集・確認・保存・ログアウトを実行し、6段階・17リクエストと後片付けを確認した。[手順・実観察](../../validation/development/T005/README.md)。既存fixtureは不変。AIの意味判断・実SR・全経路は未実施で、T011・T012がこの手順を専用runで再利用する。
+
+PR：[#18](https://github.com/k-s-h-r/wcag-audit-kit/pull/18)（未マージ）。

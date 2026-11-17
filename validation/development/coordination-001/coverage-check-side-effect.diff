@@ -1,0 +1,2029 @@
+diff --git a/validation/coverage.json b/validation/coverage.json
+index e194dbe..f1c299d 100644
+--- a/validation/coverage.json
++++ b/validation/coverage.json
+@@ -21,7 +21,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -29,7 +29,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -37,7 +37,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         },
+         {
+@@ -45,9 +45,9 @@
+           "status": "bounded",
+           "limits": "Linuxの実Orcaで発話・名前・状態・見出し移動を取得した。Guidepup、VoiceOver、NVDA、全ての複雑な部品は未検証。対象環境で利用できない場合は引き継ぐ。",
+           "evidence": [
+-            "validation/native-orca/README.md",
+-            "validation/guidepup/blocked.json",
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-orca/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/guidepup/blocked.json",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         }
+       ],
+@@ -502,7 +502,7 @@
+           "status": "partial",
+           "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -510,7 +510,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -966,7 +966,7 @@
+           "status": "partial",
+           "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -974,7 +974,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -1440,7 +1440,7 @@
+           "status": "partial",
+           "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -1448,7 +1448,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -1903,7 +1903,7 @@
+           "status": "partial",
+           "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -1911,7 +1911,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -2367,7 +2367,7 @@
+           "status": "partial",
+           "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -2375,7 +2375,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -2828,7 +2828,7 @@
+           "status": "partial",
+           "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -2856,7 +2856,7 @@
+           "status": "partial",
+           "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -2864,7 +2864,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -2886,7 +2886,7 @@
+           "status": "partial",
+           "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -2894,7 +2894,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -2916,7 +2916,7 @@
+           "status": "partial",
+           "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -2924,7 +2924,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -2948,7 +2948,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -2956,7 +2956,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -2964,9 +2964,9 @@
+           "status": "bounded",
+           "limits": "Linuxの実Orcaで発話・名前・状態・見出し移動を取得した。Guidepup、VoiceOver、NVDA、全ての複雑な部品は未検証。対象環境で利用できない場合は引き継ぐ。",
+           "evidence": [
+-            "validation/native-orca/README.md",
+-            "validation/guidepup/blocked.json",
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-orca/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/guidepup/blocked.json",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -2974,7 +2974,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -3429,7 +3429,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -3437,7 +3437,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -3445,9 +3445,9 @@
+           "status": "bounded",
+           "limits": "Linuxの実Orcaで発話・名前・状態・見出し移動を取得した。Guidepup、VoiceOver、NVDA、全ての複雑な部品は未検証。対象環境で利用できない場合は引き継ぐ。",
+           "evidence": [
+-            "validation/native-orca/README.md",
+-            "validation/guidepup/blocked.json",
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-orca/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/guidepup/blocked.json",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -3455,7 +3455,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -3911,7 +3911,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -3919,7 +3919,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -4374,7 +4374,7 @@
+           "status": "bounded",
+           "limits": "画面・viewport・APIを一致させた縦横4種類のエミュレーションを使う。物理センサーやOSロック等は再現できない。",
+           "evidence": [
+-            "validation/orientation/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/orientation/README.md"
+           ]
+         },
+         {
+@@ -4382,7 +4382,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -4390,7 +4390,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -4846,7 +4846,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -4854,7 +4854,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -5307,7 +5307,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -5315,7 +5315,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -5339,7 +5339,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -5347,7 +5347,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -5802,7 +5802,7 @@
+           "status": "human",
+           "limits": "このAIの音声入力は非対応。ASRの短い既知例に誤認識・無音の誤出力があり、音声の意味の確定には使わない。",
+           "evidence": [
+-            "validation/media/asr/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/asr/README.md"
+           ]
+         },
+         {
+@@ -5810,8 +5810,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -5819,7 +5819,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -6275,7 +6275,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -6283,7 +6283,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -6291,8 +6291,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -6748,9 +6748,9 @@
+           "status": "bounded",
+           "limits": "専用X11でブラウザー自身を拡大し実測する。別OSの拡大方法・全てのページ形状を確認したわけではない。 SVGの実効的な文字拡大等は別に確認し、未確定なら引き継ぐ。",
+           "evidence": [
+-            "validation/native-zoom/run-004/report.html",
+-            "validation/full-fixture/README.md",
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-zoom/run-004/report.html",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -6758,7 +6758,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -6766,7 +6766,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -6774,8 +6774,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -7241,7 +7241,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -7249,7 +7249,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -7257,7 +7257,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -7710,7 +7710,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -7718,7 +7718,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -7726,8 +7726,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -7749,7 +7749,7 @@
+           "status": "human",
+           "limits": "このAIの音声入力は非対応。ASRの短い既知例に誤認識・無音の誤出力があり、音声の意味の確定には使わない。",
+           "evidence": [
+-            "validation/media/asr/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/asr/README.md"
+           ]
+         },
+         {
+@@ -7757,8 +7757,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -7780,7 +7780,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -7788,7 +7788,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -7796,9 +7796,9 @@
+           "status": "bounded",
+           "limits": "専用X11でブラウザー自身を拡大し実測する。別OSの拡大方法・全てのページ形状を確認したわけではない。 SVGの実効的な文字拡大等は別に確認し、未確定なら引き継ぐ。",
+           "evidence": [
+-            "validation/native-zoom/run-004/report.html",
+-            "validation/full-fixture/README.md",
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-zoom/run-004/report.html",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -7806,7 +7806,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -7814,8 +7814,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -7837,7 +7837,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -7845,7 +7845,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -7869,7 +7869,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -7877,7 +7877,7 @@
+           "status": "bounded",
+           "limits": "CSS pxの表示領域を計測し実操作する。実ブラウザー拡大と混同しない。",
+           "evidence": [
+-            "validation/native-zoom/run-004/report.html"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-zoom/run-004/report.html"
+           ]
+         },
+         {
+@@ -7885,7 +7885,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -8340,7 +8340,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -8348,8 +8348,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -8357,7 +8357,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         }
+       ],
+@@ -8813,7 +8813,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -8821,7 +8821,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -8829,7 +8829,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -9284,8 +9284,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -9293,8 +9293,8 @@
+           "status": "bounded",
+           "limits": "trustedな押下・解放・取消・クリック・ドラッグと実結果を確認する。物理タッチとは分ける。",
+           "evidence": [
+-            "validation/pointer-cancellation/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/pointer-cancellation/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -9302,7 +9302,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -9310,7 +9310,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -9766,8 +9766,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -9775,7 +9775,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -10240,8 +10240,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -10249,7 +10249,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -10702,8 +10702,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -10711,7 +10711,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -10735,8 +10735,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -10744,7 +10744,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -11201,7 +11201,7 @@
+           "status": "bounded",
+           "limits": "実時間、警告、10回の延長、無効化、失効・再認証後の保存まで測った。長期間の保存や外部認証等は別に確かめる。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -11209,7 +11209,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -11217,8 +11217,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -11693,7 +11693,7 @@
+           "status": "bounded",
+           "limits": "実時間、警告、10回の延長、無効化、失効・再認証後の保存まで測った。長期間の保存や外部認証等は別に確かめる。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -11701,7 +11701,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -11709,7 +11709,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -12165,7 +12165,7 @@
+           "status": "bounded",
+           "limits": "実時間、警告、10回の延長、無効化、失効・再認証後の保存まで測った。長期間の保存や外部認証等は別に確かめる。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -12173,7 +12173,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -12181,8 +12181,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -12225,7 +12225,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -12233,7 +12233,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         }
+       ],
+@@ -12258,7 +12258,7 @@
+           "status": "bounded",
+           "limits": "実時間、警告、10回の延長、無効化、失効・再認証後の保存まで測った。長期間の保存や外部認証等は別に確かめる。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -12266,7 +12266,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -12312,7 +12312,7 @@
+           "status": "bounded",
+           "limits": "実時間、警告、10回の延長、無効化、失効・再認証後の保存まで測った。長期間の保存や外部認証等は別に確かめる。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -12320,7 +12320,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -12328,7 +12328,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -12375,7 +12375,7 @@
+           "status": "human",
+           "limits": "全フレームの取得は可能だが、一般閃光・赤色閃光の閾値と面積を検証済みの分析器で評価する手段は未整備。専用の分析へ引き継ぐ。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -12383,7 +12383,7 @@
+           "status": "partial",
+           "limits": "ストリームの全復号、実プレーヤー・字幕の表示と時刻を取得する。音声・説明・代替の全内容の意味の比較は別に必要。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -12391,8 +12391,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -12845,7 +12845,7 @@
+           "status": "human",
+           "limits": "全フレームの取得は可能だが、一般閃光・赤色閃光の閾値と面積を検証済みの分析器で評価する手段は未整備。専用の分析へ引き継ぐ。",
+           "evidence": [
+-            "validation/media/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md"
+           ]
+         },
+         {
+@@ -12853,8 +12853,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -12879,7 +12879,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -12887,7 +12887,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -12895,7 +12895,7 @@
+           "status": "bounded",
+           "limits": "実キーと実時間で通常/reduceを比較し、動きの無効化と情報・機能の保持を確認した。Chromiumの設定のエミュレーションで、物理OS・任意のcanvas等への精度保証ではない。",
+           "evidence": [
+-            "validation/reduced-motion/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/reduced-motion/README.md"
+           ]
+         }
+       ],
+@@ -12941,8 +12941,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -12950,9 +12950,9 @@
+           "status": "bounded",
+           "limits": "Linuxの実Orcaで発話・名前・状態・見出し移動を取得した。Guidepup、VoiceOver、NVDA、全ての複雑な部品は未検証。対象環境で利用できない場合は引き継ぐ。",
+           "evidence": [
+-            "validation/native-orca/README.md",
+-            "validation/guidepup/blocked.json",
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-orca/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/guidepup/blocked.json",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -12960,7 +12960,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -13415,7 +13415,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -13423,7 +13423,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -13988,8 +13988,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -13997,7 +13997,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -14005,7 +14005,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -14461,7 +14461,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -14469,7 +14469,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -14926,7 +14926,7 @@
+           "status": "bounded",
+           "limits": "全ページ・権限・状態を列挙し、ナビゲーション・同機能・ヘルプを比較する。代表例を全件へ広げない。",
+           "evidence": [
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -14934,7 +14934,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -15389,7 +15389,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -15397,7 +15397,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -15852,8 +15852,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -15861,7 +15861,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         }
+       ],
+@@ -16314,7 +16314,7 @@
+           "status": "bounded",
+           "limits": "全ページ・権限・状態を列挙し、ナビゲーション・同機能・ヘルプを比較する。代表例を全件へ広げない。",
+           "evidence": [
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -16322,7 +16322,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -16344,7 +16344,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -16352,9 +16352,9 @@
+           "status": "bounded",
+           "limits": "Linuxの実Orcaで発話・名前・状態・見出し移動を取得した。Guidepup、VoiceOver、NVDA、全ての複雑な部品は未検証。対象環境で利用できない場合は引き継ぐ。",
+           "evidence": [
+-            "validation/native-orca/README.md",
+-            "validation/guidepup/blocked.json",
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-orca/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/guidepup/blocked.json",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -16362,7 +16362,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -16384,7 +16384,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -16392,7 +16392,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -16416,8 +16416,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -16425,7 +16425,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         }
+       ],
+@@ -16878,8 +16878,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -16887,7 +16887,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         }
+       ],
+@@ -16912,8 +16912,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -16921,7 +16921,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -16929,8 +16929,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -16985,8 +16985,8 @@
+           "status": "bounded",
+           "limits": "trustedな押下・解放・取消・クリック・ドラッグと実結果を確認する。物理タッチとは分ける。",
+           "evidence": [
+-            "validation/pointer-cancellation/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/pointer-cancellation/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -16994,7 +16994,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -17450,8 +17450,8 @@
+           "status": "bounded",
+           "limits": "trustedな押下・解放・取消・クリック・ドラッグと実結果を確認する。物理タッチとは分ける。",
+           "evidence": [
+-            "validation/pointer-cancellation/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/pointer-cancellation/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -17459,7 +17459,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -17974,7 +17974,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -17982,7 +17982,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -17990,7 +17990,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -18451,7 +18451,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -18904,8 +18904,8 @@
+           "status": "bounded",
+           "limits": "trustedな押下・解放・取消・クリック・ドラッグと実結果を確認する。物理タッチとは分ける。",
+           "evidence": [
+-            "validation/pointer-cancellation/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/pointer-cancellation/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -18913,8 +18913,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -18936,8 +18936,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -18945,8 +18945,8 @@
+           "status": "bounded",
+           "limits": "trustedな押下・解放・取消・クリック・ドラッグと実結果を確認する。物理タッチとは分ける。",
+           "evidence": [
+-            "validation/pointer-cancellation/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/pointer-cancellation/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -18954,7 +18954,7 @@
+           "status": "bounded",
+           "limits": "Chromiumのタッチ・ハイブリッド入力を対象ごとに試す。エミュレーションを実タッチ端末の確認と呼ばない。",
+           "evidence": [
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -18962,7 +18962,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -18988,8 +18988,8 @@
+           "status": "bounded",
+           "limits": "trustedな押下・解放・取消・クリック・ドラッグと実結果を確認する。物理タッチとは分ける。",
+           "evidence": [
+-            "validation/pointer-cancellation/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/pointer-cancellation/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -18997,7 +18997,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -19472,8 +19472,8 @@
+           "status": "bounded",
+           "limits": "trustedな押下・解放・取消・クリック・ドラッグと実結果を確認する。物理タッチとは分ける。",
+           "evidence": [
+-            "validation/pointer-cancellation/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/pointer-cancellation/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -19481,8 +19481,8 @@
+           "status": "bounded",
+           "limits": "色・寸法・同一画素・面積・時間を測る。指定した対象と色空間・DPR等の根拠を記録する。",
+           "evidence": [
+-            "validation/focus-appearance/README.md",
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -19490,7 +19490,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         }
+       ],
+@@ -19945,7 +19945,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -19953,7 +19953,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -20409,7 +20409,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -20417,7 +20417,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -20870,7 +20870,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         },
+         {
+@@ -20878,7 +20878,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -20900,7 +20900,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         },
+         {
+@@ -20908,7 +20908,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -20936,7 +20936,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -20958,7 +20958,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         },
+         {
+@@ -20966,7 +20966,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -20990,8 +20990,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -20999,7 +20999,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -21454,8 +21454,8 @@
+           "status": "bounded",
+           "limits": "実キーで移動・実行・取消・終了を確認する。Tabの列挙だけで全機能を済ませない。",
+           "evidence": [
+-            "validation/full-fixture/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -21463,8 +21463,8 @@
+           "status": "bounded",
+           "limits": "trustedな押下・解放・取消・クリック・ドラッグと実結果を確認する。物理タッチとは分ける。",
+           "evidence": [
+-            "validation/pointer-cancellation/README.md",
+-            "validation/dragging/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/pointer-cancellation/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/dragging/README.md"
+           ]
+         },
+         {
+@@ -21472,7 +21472,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         }
+       ],
+@@ -21928,7 +21928,7 @@
+           "status": "bounded",
+           "limits": "全ページ・権限・状態を列挙し、ナビゲーション・同機能・ヘルプを比較する。代表例を全件へ広げない。",
+           "evidence": [
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -21936,7 +21936,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -21944,7 +21944,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -22400,7 +22400,7 @@
+           "status": "bounded",
+           "limits": "全ページ・権限・状態を列挙し、ナビゲーション・同機能・ヘルプを比較する。代表例を全件へ広げない。",
+           "evidence": [
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -22408,7 +22408,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -22416,7 +22416,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -22869,7 +22869,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -22877,7 +22877,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -22902,7 +22902,7 @@
+           "status": "bounded",
+           "limits": "全ページ・権限・状態を列挙し、ナビゲーション・同機能・ヘルプを比較する。代表例を全件へ広げない。",
+           "evidence": [
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -22910,7 +22910,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -22918,7 +22918,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -23374,7 +23374,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -23382,7 +23382,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -23390,7 +23390,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -23845,7 +23845,7 @@
+           "status": "bounded",
+           "limits": "実画面をAIが観察する。画像の保存や幾何学的な計算だけで見え方を確定しない。",
+           "evidence": [
+-            "validation/focus-appearance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/focus-appearance/README.md"
+           ]
+         },
+         {
+@@ -23853,7 +23853,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -24309,7 +24309,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -24317,7 +24317,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -24773,7 +24773,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -24781,7 +24781,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -25234,7 +25234,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -25242,7 +25242,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -25264,7 +25264,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -25272,7 +25272,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -25297,7 +25297,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -25305,7 +25305,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -25761,7 +25761,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -25769,7 +25769,7 @@
+           "status": "partial",
+           "limits": "ブラウザーの実クリップボードとCtrl+Vによる貼り付けを確認する。第三者マネージャー・全認証方式の検証とは区別する。",
+           "evidence": [
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -25777,7 +25777,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -26230,7 +26230,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -26238,7 +26238,7 @@
+           "status": "partial",
+           "limits": "ブラウザーの実クリップボードとCtrl+Vによる貼り付けを確認する。第三者マネージャー・全認証方式の検証とは区別する。",
+           "evidence": [
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         },
+         {
+@@ -26246,7 +26246,7 @@
+           "status": "bounded",
+           "limits": "本文・目的・実画面を比較する。業務知識、原文、言語等が足りず確定できなければ専門担当へ引き継ぐ。",
+           "evidence": [
+-            "validation/act-title/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/act-title/README.md"
+           ]
+         }
+       ],
+@@ -26271,7 +26271,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -26279,7 +26279,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -26287,9 +26287,9 @@
+           "status": "bounded",
+           "limits": "Linuxの実Orcaで発話・名前・状態・見出し移動を取得した。Guidepup、VoiceOver、NVDA、全ての複雑な部品は未検証。対象環境で利用できない場合は引き継ぐ。",
+           "evidence": [
+-            "validation/native-orca/README.md",
+-            "validation/guidepup/blocked.json",
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-orca/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/guidepup/blocked.json",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         }
+       ],
+@@ -26776,7 +26776,7 @@
+           "status": "bounded",
+           "limits": "起点からエラー・修正・確定・完了まで比較する。外部決済等の実取引を自動実行する権限は含めない。",
+           "evidence": [
+-            "validation/timing/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/timing/README.md"
+           ]
+         },
+         {
+@@ -26784,7 +26784,7 @@
+           "status": "bounded",
+           "limits": "DOM・属性・全AXツリーを取得する。iframe、shadow DOM、canvas等は追加の列挙・観察が必要。",
+           "evidence": [
+-            "validation/full-fixture/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/full-fixture/README.md"
+           ]
+         },
+         {
+@@ -26792,9 +26792,9 @@
+           "status": "bounded",
+           "limits": "Linuxの実Orcaで発話・名前・状態・見出し移動を取得した。Guidepup、VoiceOver、NVDA、全ての複雑な部品は未検証。対象環境で利用できない場合は引き継ぐ。",
+           "evidence": [
+-            "validation/native-orca/README.md",
+-            "validation/guidepup/blocked.json",
+-            "validation/site-acceptance/README.md"
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/native-orca/README.md",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/guidepup/blocked.json",
++            "https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/site-acceptance/README.md"
+           ]
+         }
+       ],

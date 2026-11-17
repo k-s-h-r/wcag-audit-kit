@@ -30,3 +30,5 @@
 ## 実行結果と再開条件
 
 担当：wcag-dev、ブランチcodex/t004-host-invocation、worktree /workspace/wcag-dev-t004。Codex CLI 0.167.0-alpha.4と4スキルの設定を確認した。独立コピーした明示pageの起動試験は、app-serverのRead-only file systemによりモデル開始前に終了コード1。[記録と5場面の未実施](../../validation/development/T004/README.md)。既存利用者設定は変更していない。書き込み可能なセッション保存領域を持つ独立ホストで再実行する。呼び出し成功が必要なT011・G2は未達。機械の測定・操作手順・URL一覧化は独立して継続する。
+
+PR：[#17](https://github.com/k-s-h-r/wcag-audit-kit/pull/17)（未マージ）。
