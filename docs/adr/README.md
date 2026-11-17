@@ -30,3 +30,4 @@
 - [0023 最初の機械測定を10行と既存の実行条件へ固定する](0023-freeze-first-machine-measurement.md)
 - [0024 最初の2観点を変更せず2回ずつ測る](0024-record-first-machine-baselines.md)
 - [0025 ホストの起動失敗をスキルの呼び出し成功にしない](0025-keep-host-invocation-blocked.md)
+- [0026 対象固有の手順を既存fixtureの1経路で確認する](0026-execute-one-project-procedure.md)

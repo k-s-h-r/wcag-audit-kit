@@ -1,0 +1,144 @@
+{
+  "scope": "owned functional route, not WCAG conformance or speech",
+  "base_url": "http://127.0.0.1:37423",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/profile",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/assets/app.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/assets/app.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.ico",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/assets/app.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/assets/app.css",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/profile",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/assets/app.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/assets/app.js",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/profile",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/logout",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/profile",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/assets/app.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/assets/app.css",
+      "status": 200
+    }
+  ],
+  "observations": [
+    {
+      "step": "signed-out",
+      "url": "http://127.0.0.1:37423/profile",
+      "text": "Sign in to edit your profile\n\nYour profile is available after signing in.",
+      "focus": ""
+    },
+    {
+      "step": "signed-in",
+      "url": "http://127.0.0.1:37423/login",
+      "text": "Signed in. Continue to profile.",
+      "focus": "sign-in"
+    },
+    {
+      "step": "review",
+      "url": "http://127.0.0.1:37423/profile",
+      "text": "Review your changes\nName\nT005 Example\nEmail\nt005@example.test\nBack to edit\nConfirm and save",
+      "focus": "review-title"
+    },
+    {
+      "step": "back-to-edit",
+      "url": "http://127.0.0.1:37423/profile",
+      "text": "Name (required)\nEmail (required)\n Review changes",
+      "focus": "name"
+    },
+    {
+      "step": "saved",
+      "url": "http://127.0.0.1:37423/profile",
+      "text": "Profile saved\nName\nT005 Example\nEmail\nt005@example.test\n\nEdit this profile again",
+      "focus": "saved-title"
+    },
+    {
+      "step": "signed-out-again",
+      "url": "http://127.0.0.1:37423/profile",
+      "text": "Sign in to edit your profile\n\nYour profile is available after signing in.",
+      "focus": ""
+    }
+  ],
+  "server_closed": true,
+  "session_count_after_cleanup": 0,
+  "evidence_readable_after_cleanup": true,
+  "source_sha256": {
+    "tests/fixtures/audit_site_server.py": "78430a9fc77b2a8ae37aabf86c55b09cc4240dc713cb7a529de920c501a66d75",
+    "tests/fixtures/audit-site/app.css": "0f5391196471054be343de62851ced669360d71c332cae00f9e72857937a41d9",
+    "tests/fixtures/audit-site/app.js": "c78819b2b81db2a8062c8b6dd1e60a8b1f4e8cc8c2ea4b3e8ca25b2f875e19a4",
+    "tests/fixtures/audit-site/captions.vtt": "28975181ad43b0c77ca3bad8219db2193dbe081b99cec50b12932380338bcbae",
+    "tests/fixtures/audit-site/clip.webm": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+    "tests/fixtures/audit-site/help.html": "96715dd13df24b44cd9687371297edea1f5ef1567b9a2d4c402409d8fb6ac5bc",
+    "tests/fixtures/audit-site/home.html": "1740ac44b147ad61c3dab1bc50457c77d7850ee2c2f0af43026d8fad72e78244",
+    "tests/fixtures/audit-site/login.html": "54258e69d92824ad7ed490c103628a197c435e1ca3767545bab2ac0636fdfd2e",
+    "tests/fixtures/audit-site/media.html": "7c02403519a9727e1498970e4e9f505c50e11bc795db137298f34a43f2e98c36",
+    "tests/fixtures/audit-site/profile.html": "416864f80f147285e2624e0d995585687e36ceb0e9458927e20d47d81d957e94"
+  }
+}
