@@ -1,0 +1,121 @@
+{
+  "cli_version": "codex-cli 0.167.0-alpha.4",
+  "isolated_working_directory": "artifacts/host-probe-001",
+  "installation": ".agents/skills/ contains independent copies of all four skills",
+  "probe_prompt": "Use $wcag-page only to identify its supported verification modes. Do not browse, inspect a page, change files, or run an audit. State which skill you loaded.",
+  "probe_command": [
+    "codex",
+    "exec",
+    "--ephemeral",
+    "--json",
+    "--skip-git-repo-check",
+    "-s",
+    "read-only",
+    "-C",
+    "artifacts/host-probe-001"
+  ],
+  "exit_code": 1,
+  "status": "blocked-before-model-session",
+  "reason": "failed to initialize in-process app-server client: Read-only file system (os error 30)",
+  "settings": [
+    {
+      "name": "wcag-audit-kit",
+      "frontmatter": {
+        "name": "wcag-audit-kit",
+        "description": "WCAG 2.2の検証を利用目的に応じて進行する。1ページならwcag-page、URL選定ならwcag-pages、既存結果の集計ならwcag-reportへ振り分ける。サイト全体では共通台帳とページ別タスクで分担・中断・再開し、未確認を残して報告する。",
+        "disable-model-invocation": true,
+        "metadata": {
+          "version": "0.7.1"
+        }
+      },
+      "agent_policy": {
+        "policy": {
+          "allow_implicit_invocation": false
+        }
+      },
+      "skill_sha256": "da647a5aa1a9f508a9f3266581a5dc26fd40eb1a63200bab4fbb8c5c73b26c4e"
+    },
+    {
+      "name": "wcag-page",
+      "frontmatter": {
+        "name": "wcag-page",
+        "description": "指定した1ページをWCAG 2.2に照らして実際に検証する。開発中のページ確認にも、サイト検証のページ担当にも使う。画面から操作対象と状態を調査し、観察設定に応じて画像・キー操作・実SR等を使い、証拠付きの判定と未確認を記録する。",
+        "disable-model-invocation": true,
+        "metadata": {
+          "version": "0.7.1"
+        }
+      },
+      "agent_policy": {
+        "policy": {
+          "allow_implicit_invocation": false
+        }
+      },
+      "skill_sha256": "392b6ee20556d1074a2d126f96b064c3da99e9b1f3fee66adf7184db985b548e"
+    },
+    {
+      "name": "wcag-pages",
+      "frontmatter": {
+        "name": "wcag-pages",
+        "description": "アクセシビリティ検証のURL候補と、試験対象の選定に必要な情報を一覧化する。指定URLを使うconfiguredと、リンクから候補を得るdiscoverを扱う。ページのWCAG判定は行わない。",
+        "disable-model-invocation": true,
+        "metadata": {
+          "version": "0.7.1"
+        }
+      },
+      "agent_policy": {
+        "policy": {
+          "allow_implicit_invocation": false
+        }
+      },
+      "skill_sha256": "4afde5ed6158b2ac34ba8aa3014748b37f7c1dcd944728f38352e1f6c03c98ad"
+    },
+    {
+      "name": "wcag-report",
+      "frontmatter": {
+        "name": "wcag-report",
+        "description": "保存済みのWCAG検証台帳をHTML・JSON・Excelへまとめる。単独ページにもサイト全体にも使う。判定・証拠の対応を確認し、未実施、未探索、観察の省略、人への確認を保持する。報告だけの依頼では再訪問・再検査を始めない。",
+        "disable-model-invocation": true,
+        "metadata": {
+          "version": "0.7.1"
+        }
+      },
+      "agent_policy": {
+        "policy": {
+          "allow_implicit_invocation": false
+        }
+      },
+      "skill_sha256": "0e5f7809115efb2ec9f5cd111d51f6067f4ecafdd53515272cebfcd0c7bba2f9"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario": "explicit page skill selection",
+      "status": "not_run",
+      "reason": "Host session initialization failed; manual skill reads are not substituted."
+    },
+    {
+      "scenario": "ordinary development does not start audit",
+      "status": "not_run",
+      "reason": "Host session initialization failed; manual skill reads are not substituted."
+    },
+    {
+      "scenario": "single page does not crawl",
+      "status": "not_run",
+      "reason": "Host session initialization failed; manual skill reads are not substituted."
+    },
+    {
+      "scenario": "report only does not revisit or update verdict",
+      "status": "not_run",
+      "reason": "Host session initialization failed; manual skill reads are not substituted."
+    },
+    {
+      "scenario": "audit-kit reads child instructions",
+      "status": "not_run",
+      "reason": "Host session initialization failed; manual skill reads are not substituted."
+    }
+  ],
+  "existing_user_configuration_changed": false,
+  "audit_run_started": false,
+  "host_selection_success": false,
+  "scope": "CLI presence/configuration is separate from actual host skill selection."
+}
