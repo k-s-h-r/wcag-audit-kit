@@ -34,3 +34,7 @@ T001で固定したページ・状態・対象をmachineモードで収集する
 [確認記録](../../validation/development/T003/README.md)。固定7行を2回収集し、一致5・未確認2。初期5行は一致、after-loadの2行は未確認。既知の問題2行中1行だけ検出し、残る1行は未検出。偽の通過と誤検出は0行。 c09/c10のexploration.jsonでは#loadがdeferredに入り、type=submitという理由で操作されていない。フォーム外のbuttonでもDOMのtype既定値がsubmitになる。原始証拠の初期ノードにも#subjectはなく、取得段階の不足である。さらに現行program_predictionsはrouteなしのノードだけをinitialとして読むため、操作後の対応付けは別原因としてT009とT007で検討する。採点を手入力で補完していない。 実測は元のrunのまま固定し、修正は別タスク・別runへ渡す。
 
 PR：[基準値の記録 #16](https://github.com/k-s-h-r/wcag-audit-kit/pull/16)。baseはT001のブランチ（PR #15）。
+
+## レビュー後の再実行方法
+
+保存したmeasure.pyは実行原文のため再実行しない。現在の入口は[開発測定の再実行](../../validation/development/README.md)のmeasure-baseline-v2.py。記録先・run先の両方を未使用のパスで明示し、存在すれば収集前に拒否する。[拒否試験](../../validation/development/review-baseline-safety-001/observed.json)、[ADR 0036](../adr/0036-preserve-baselines-when-rerunning-measurements.md)。T002のstrictは実receiptのとおり0、T003は2。全体はどちらも未完了。

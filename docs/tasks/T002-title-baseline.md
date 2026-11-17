@@ -35,4 +35,6 @@ T001の条件を固定し、`benchmarks/run.py collect`のmachineモードと基
 
 PR：[基準値の記録 #16](https://github.com/k-s-h-r/wcag-audit-kit/pull/16)。baseはT001のブランチ（PR #15）。
 
-終了コードの説明訂正は[現在の結果](../../validation/development/T002/RESULTS.md)。原始receiptは正しく、タイトルstrict=0・画像=2、全体は双方未完了。旧記録は書き換えていない。
+## レビュー後の再実行方法
+
+保存したmeasure.pyは実行原文のため再実行しない。現在の入口は[開発測定の再実行](../../validation/development/README.md)のmeasure-baseline-v2.py。記録先・run先の両方を未使用のパスで明示し、存在すれば収集前に拒否する。[拒否試験](../../validation/development/review-baseline-safety-001/observed.json)、[ADR 0036](../adr/0036-preserve-baselines-when-rerunning-measurements.md)。T002のstrictは実receiptのとおり0、T003は2。全体はどちらも未完了。
