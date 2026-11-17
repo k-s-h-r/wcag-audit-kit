@@ -40,7 +40,7 @@ def actions(control):
         return [],'ページ移動を伴うリンク。単独ページから自動巡回しない。'
     base={'selector':selector}
     result=[dict(base,type='click'),dict(base,type='hover')]
-    if tag in {'input','textarea'} and kind not in {'checkbox','radio','button','reset'}:
+    if tag in {'input','textarea'} and kind not in {'checkbox','radio','button','reset','submit','image'}:
         result += [dict(base,type='fill',value='audit@example.invalid' if kind=='email' else 'Accessibility audit'),
                    dict(base,type='fill',value='')]
     else:
