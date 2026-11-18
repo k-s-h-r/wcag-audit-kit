@@ -42,9 +42,22 @@ INVENTORY = r"""() => {
    .filter(Boolean).map(h=>{try{return new URL(h,document.baseURI).href}catch{return null}}).filter(Boolean)};
 }"""
 
-FOCUS = r"""() => {const e=document.activeElement;if(!e)return null;const r=e.getBoundingClientRect();
+OPEN_FOCUS_PATH = r"""(doc) => {
+ let element=doc.activeElement;
+ const shadowHosts=[];
+ while(element?.shadowRoot?.activeElement){
+  shadowHosts.push({tag:element.localName,id:element.id});
+  element=element.shadowRoot.activeElement;
+ }
+ return {element,shadowHosts};
+}"""
+
+FOCUS = r"""(followOpenShadow=false) => {
+ const focusPath=followOpenShadow ? ("""+OPEN_FOCUS_PATH+r""")(document) : {element:document.activeElement};
+ const e=focusPath.element;if(!e)return null;const r=e.getBoundingClientRect();
  const hits=r.width&&r.height?document.elementsFromPoint(r.x+r.width/2,r.y+r.height/2).slice(0,5).map(n=>({tag:n.localName,id:n.id})):[];
  return {tag:e.localName,id:e.id,documentHasFocus:document.hasFocus(),text:(e.innerText||'').slice(0,160),name:e.getAttribute('aria-label'),
+ ...(followOpenShadow ? {shadowHosts:focusPath.shadowHosts} : {}),
  rect:{x:r.x,y:r.y,width:r.width,height:r.height},centerHitStack:hits,
  note:'矩形や中心点の重なりだけで隠れ・フォーカスの可視性を判定しない'};}"""
 

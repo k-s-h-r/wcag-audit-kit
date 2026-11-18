@@ -1,4 +1,4 @@
-"""Exercise the page-audit CLI on the six published nested-navigation fixtures."""
+"""Exercise page-audit on real keyboard paths through menus and disclosure controls."""
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
@@ -57,6 +57,45 @@ def fixtures(base):
     yield criterion, 'p04.html', [order], 'failed'
 
 
+def disclosure_dialog_fixtures():
+    accordion = route('2.1.1', 'accordion', '詳細を開閉し、次の項目へ進む', [
+        dict(key='Tab', focus='#accordion'), dict(key='Enter', focus='#accordion', visible='#panel'),
+        dict(key='Tab', focus='#nested'), dict(key='Space', focus='#nested', visible='#nested-panel'),
+        dict(key='Space', focus='#nested', hidden='#nested-panel'), dict(key='Shift+Tab', focus='#accordion'),
+        dict(key='Space', focus='#accordion', hidden='#panel'), dict(key='Tab', focus='#combo')])
+    native_dialog = route('2.4.3', 'native-dialog', 'ネイティブダイアログを閉じて起点へ戻る', [
+        dict(key='Tab', focus='#accordion'), dict(key='Tab', focus='#combo'),
+        dict(key='Tab', focus='#open-dialog'), dict(key='Enter', focus='#close-dialog', visible='#dialog'),
+        dict(key='Escape', focus='#open-dialog', hidden='#dialog')])
+    yield '2.4.3', 'page-workflow.html', [accordion, native_dialog], 'passed'
+
+    enter_focus = [dict(key='Tab', focus='#before'), dict(key='Tab', focus='#inner-action')]
+    shadow_enter = route('2.1.1', 'shadow-enter', 'Shadow DOM内の詳細をEnterで開閉する', enter_focus + [
+        dict(key='Enter', focus='#inner-action', visible='#inner-panel'),
+        dict(key='Enter', focus='#inner-action', hidden='#inner-panel'), dict(key='Tab', focus='#after')])
+    shadow_space = route('2.1.1', 'shadow-space', 'Shadow DOM内の詳細をSpaceで開閉する', enter_focus + [
+        dict(key='Space', focus='#inner-action', visible='#inner-panel'),
+        dict(key='Space', focus='#inner-action', hidden='#inner-panel'), dict(key='Tab', focus='#after')])
+    yield '2.1.1', 'p06.html', [shadow_enter, shadow_space], 'failed'
+    yield '2.1.1', 'p07.html', [shadow_enter, shadow_space], 'passed'
+
+    open_dialogs = [dict(key='Tab', focus='#launch'), dict(key='Enter', focus='#outer-name', visible='#outer'),
+                    dict(key='Tab', focus='#inner-opener'), dict(key='Enter', focus='#inner-name', visible='#subject')]
+    escape = route('2.1.2', 'escape-inner', 'Escapeで2つのダイアログを順に閉じる', open_dialogs + [
+        dict(key='Escape', focus='#inner-opener', hidden='#subject', visible='#outer'),
+        dict(key='Escape', focus='#launch', hidden='#outer'), dict(key='Tab', focus='#outside')])
+    close_button = route('2.1.2', 'dialog-close-button', '内側の閉じるボタンにTabで進み、親へ戻る', open_dialogs + [
+        dict(key='Tab', focus='#building'), dict(key='Tab', focus='#inner-close'),
+        dict(key='Enter', focus='#inner-opener', hidden='#subject', visible='#outer')])
+    yield '2.1.2', 'p07.html', [escape, close_button], 'failed'
+    yield '2.1.2', 'p08.html', [escape, close_button], 'passed'
+
+    restore = route('2.4.3', 'dialog-restore', '内側を閉じたあと外側の起点へ戻る', open_dialogs + [
+        dict(key='Escape', focus='#inner-opener', hidden='#subject', visible='#outer')])
+    yield '2.4.3', 'p07.html', [restore], 'failed'
+    yield '2.4.3', 'p08.html', [restore], 'passed'
+
+
 FAILURES = {
     'activate': ('#level2', 5, 'Enter', '#level2', '#level3-panel'),
     'open-with-space': ('#level2', 5, 'Space', '#level2', '#level3-panel'),
@@ -64,6 +103,12 @@ FAILURES = {
     'tab-out': ('#other-leaf', 8, 'Tab', '#leaf', '#help'),
     'reverse-out': ('#leaf', 7, 'Shift+Tab', '#other-leaf', '#level2'),
     'focus-order': ('#level2', 5, 'Enter', '#after', '#level2'),
+    'shadow-enter': ('#subject → #inner-action', 3, 'Enter', '#inner-action', '#inner-panel'),
+    'shadow-space': ('#subject → #inner-action', 3, 'Space', '#inner-action', '#inner-panel'),
+    'escape-inner': ('#inner-name', 5, 'Escape', '#inner-name', '#subject'),
+    'dialog-close-button': ('#building', 6, 'Tab', '#inner-name', '#inner-close'),
+    'dialog-restore': ('#inner-name', 5, 'Escape', '#outside', '#inner-opener'),
+    'shadow-host-only': ('#before', 2, 'Tab', '#inner-action', '#subject'),
 }
 
 
@@ -126,10 +171,13 @@ def read_results(run, criterion, page, checks, expected):
     assert not value['audit_complete'] and all(case['outcome'] == 'not_run' for case in value['cases'])
     for row, plan in zip(rows, checks):
         proof = audit.load(run / row['evidence'])
-        assert proof['id'] == plan['id'] and proof['outcome'] == expected
+        assert proof['id'] == plan['id'] and proof['outcome'] == expected and row['criterion'] == plan['criterion']
         steps = proof['steps']
         events = audit.load((run / row['evidence']).with_name('input-events.json'))['events']
         assert all(events[step['input_event_index'] - 1]['isTrusted'] for step in steps)
+        if plan['id'].startswith('shadow-'):
+            assert steps[1]['after']['id'] == 'inner-action'
+            assert steps[1]['after']['shadowHosts'] == [{'tag': 'div', 'id': 'subject'}]
         if expected == 'passed':
             assert len(steps) == len(plan['steps']) and all(c['matched'] for step in steps for c in step['conditions'])
             if 'destination' in plan:
@@ -139,6 +187,10 @@ def read_results(run, criterion, page, checks, expected):
             assert row['target'] == target and f'{index}手順目の {key}' in row['observed'] and missed in row['observed']
             assert steps[-1]['after']['id'] == focus[1:]
             assert steps[-1]['index'] == index and steps[-1]['key'] == key
+            if plan['id'] == 'dialog-restore':
+                assert [c['matched'] for c in steps[-1]['conditions']] == [False, True, True]
+            if plan['id'] == 'shadow-host-only':
+                assert '#subject → #inner-action' in row['observed']
     if expected == 'failed':
         html = report.with_suffix('.html').read_text()
         xlsx = sorted(run.glob('page-*-report*.xlsx'))[-1]
@@ -161,6 +213,7 @@ def main(out):
     public = out / 'public'
     for criterion in ['2.1.1', '2.1.2', '2.4.3']:
         shutil.copytree(ROOT / 'benchmarks/cases' / criterion / 'public', public / criterion)
+    shutil.copyfile(ROOT / 'tests/fixtures/page-workflow.html', public / '2.4.3/page-workflow.html')
     server = ThreadingHTTPServer(('127.0.0.1', 0), partial(Handler, directory=str(public)))
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -174,7 +227,11 @@ def main(out):
 
     try:
         with ThreadPoolExecutor(max_workers=3) as executor:
-            results = list(executor.map(check_case, fixtures(base)))
+            results = list(executor.map(check_case, [*fixtures(base), *disclosure_dialog_fixtures()]))
+        host_only = route('2.1.1', 'shadow-host-only', 'ホストと内側の実フォーカスを区別する',
+                          [dict(key='Tab', focus='#before'), dict(key='Tab', focus='#subject')])
+        host_run = execute(out / 'shadow-host-only', f'{base}/2.1.1/p07.html', [host_only])
+        read_results(host_run, '2.1.1', 'p07.html', [host_only], 'failed')
         redirect = route('2.1.1', 'redirect', '制限したリンク移動',
                          [dict(key='Tab', focus='#link'), dict(key='Enter', visible='h1')],
                          destination=f'{base}/redirect.html')
@@ -184,7 +241,7 @@ def main(out):
         assert row['outcome'] == 'cant_tell' and '/redirect.html' in Handler.requests
         assert '/unexpected.html' not in Handler.requests
         assert 'リダイレクト' in (run / row['evidence']).with_name('transition.json').read_text()
-        audit.save(out / 'observed.json', {'cases': results, 'blocked_redirect': True, 'resume_verified': True})
+        audit.save(out / 'observed.json', {'cases': results, 'host_focus_distinguished': True, 'blocked_redirect': True, 'resume_verified': True})
         print(json.dumps(results, ensure_ascii=False))
     finally:
         server.shutdown()
