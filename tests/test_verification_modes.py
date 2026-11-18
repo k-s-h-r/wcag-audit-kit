@@ -144,6 +144,12 @@ class ModeLedgerTest(unittest.TestCase):
                 'interaction_review':{'pages':{'one':{'screen_reader':{'status':'reviewed'}}}}}
         self.assertEqual(modes.summary(self.run,result)['screen_reader_status'],'partial')
 
+    def test_screen_reader_evidence_outside_report_scope_is_not_counted(self):
+        self.enable('full')
+        result={'cases':[{'page_id':'one'}],
+                'interaction_review':{'pages':{'two':{'screen_reader':{'status':'reviewed'}}}}}
+        self.assertEqual(modes.summary(self.run,result)['screen_reader_status'],'not_run')
+
     def test_saved_mode_definition_is_not_replaced_by_new_installed_availability(self):
         self.enable('ai');saved=(self.run/'verification.snapshot.json').read_bytes()
         with patch.object(modes,'catalog',side_effect=AssertionError('must read saved definition')):
@@ -179,6 +185,7 @@ class ModeLedgerTest(unittest.TestCase):
         self.assertIn('選択した検証モード：AI＋スクリーンリーダー',html)
         self.assertIn('実スクリーンリーダーの記録：未実施',html)
         self.assertEqual(result['verification']['screen_reader_status'],'not_run')
+        self.assertEqual(result['verification']['evidence_summary'],{'machine_rows':0,'images':{}})
         self.assertEqual(result['counts'],{'not_run':55})
         book=load_workbook(files['excel'])
         try:
@@ -188,8 +195,14 @@ class ModeLedgerTest(unittest.TestCase):
             rows=[dict(zip(headers,r)) for r in ws.iter_rows(min_row=2,values_only=True)]
             self.assertEqual(len(rows),131)
             for actual,expected in zip(rows,result['verification']['checkpoints']):
+                self.assertEqual(actual['確認観点ID'],expected['id'])
                 self.assertEqual(actual['基準'],expected['criterion'])
                 self.assertEqual(actual['選択モードの対応'],expected['symbol'])
+            self.assertIn('必要な準備',html)
+            summary=dict(book['概要'].iter_rows(min_row=2,values_only=True))
+            self.assertEqual(summary['機械検査の記録行'],'0件')
+            self.assertEqual(summary['画像の取得記録'],'保存 0件 / 省略 0件 / 取得エラー 0件 / 処理中 0件')
+            self.assertEqual(summary['実スクリーンリーダーの記録'],'未実施')
         finally:book.close()
 
 if __name__=='__main__':unittest.main()

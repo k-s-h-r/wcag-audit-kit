@@ -13,12 +13,14 @@ from pathlib import Path
 import shutil
 import sys
 import threading
+from collections import Counter
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'skills/wcag-audit-kit/scripts'))
 import audit
 import page_explorer
 import page_workflow
+import verification_modes
 
 
 def main(out):
@@ -40,7 +42,7 @@ def main(out):
     cfg=audit.load(out/'init-generated.json')
     assert all(e['zoom']==1 for e in cfg['environments'])
     cfg.update(environments=cfg['environments'][:1],keyboard_steps=3)
-    audit.save(out/'config.json',cfg);results=[]
+    audit.save(out/'config.json',cfg);results=[];reports={}
     try:
         for name in ['machine','ai','screen-reader','full']:
             run=out/name
@@ -55,39 +57,46 @@ def main(out):
             images=list(run.rglob('*.png'))
             assert (0<len(images)<=2) if name in {'ai','full'} else not images
             assert not list(run.rglob('screen-reader.json'))
+            evidence = mode['evidence_summary']
+            assert evidence['images'] == dict(Counter(item['status'] for item in value['observation_usage']['screenshots']))
+            assert evidence['images'].get('captured',0) == len(images)
+            assert evidence['machine_rows'] == len(value['machine_checks'])
             packet=page_workflow.next_work(run,url,limit=1)
             assert all((p['ai_instruction'] is not None)==(name in {'ai','full'}) for p in packet['next_cases'][0]['verification_checkpoints'])
             assert len(mode['checkpoints'])==131
             audit.save(out/(name+'.packet.json'),packet)
             files={'html':next(run.glob('page-*-report.html')),'json':next(run.glob('page-*-report.json')),'excel':next(run.glob('page-*-report.xlsx'))}
+            assert audit.load(files['json'])['verification'] == mode
             from openpyxl import load_workbook
             book=load_workbook(files['excel'])
             try:
                 assert book['モード別の確認範囲'].max_row==132
                 assert book.sheetnames[:2]==['チェックシート','不適合箇所']
+                actual = list(book['モード別の確認範囲'].values)
+                assert actual[0] == tuple(label for _, label in verification_modes.COVERAGE_COLUMNS)
+                assert [row[0] for row in actual[1:]] == [row['id'] for row in mode['checkpoints']]
+                expected_summary = verification_modes.report_summary_rows(mode)
+                excel_summary = dict(book['概要'].iter_rows(min_row=2,values_only=True))
+                assert all(excel_summary[label] == record for label, record in expected_summary)
+                reports[name] = (files['html'].name, actual, expected_summary)
             finally:book.close()
             results.append(dict(mode=name,states=len(page_explorer.status(run)['nodes']),machine_checks=len(value['machine_checks']),
                 screenshots=len(images),screen_reader=mode['screen_reader_status'],wcag_counts=value['counts'],
-                mode_counts=mode['counts'],audit_complete=value['audit_complete'],files={k:str(p.relative_to(out)) for k,p in files.items()}))
-        run=out/'machine';meta_before=(run/'run.json').read_bytes();old_proof=page_explorer.status(run)['proof']
-        with (out/'resume.stdout.txt').open('w') as stdout,contextlib.redirect_stdout(stdout):
-            assert audit.main(['page-audit','--url',url,'--out',str(run),'--resume','--max-states','3','--max-steps','6'])==0
-        assert (run/'run.json').read_bytes()==meta_before
-        assert audit.run_meta(run)['config']['verification']['mode']=='machine'
-        assert all(audit.evidence_item(run,p['path'])==p for p in old_proof)
-        with (out/'mode-change.stderr.txt').open('w') as stderr,contextlib.redirect_stderr(stderr):
-            assert audit.main(['page-audit','--url',url,'--out',str(run),'--resume','--mode','ai'])==1
-        assert (run/'run.json').read_bytes()==meta_before
-        audit.save(out/'summary.json',dict(version='0.7.0',modes=results,resume_kept_mode=True,
-            old_evidence_unchanged=len(old_proof),mode_change_rejected=True,
-            scope='実ブラウザーのモード別収集・作業指示・帳票。AIの内容判断と実SRの発話は今回未実施。',
-            server_requests=Handler.requests))
+                mode_counts=mode['counts'],aligned_evidence=evidence,audit_complete=value['audit_complete'],files={k:str(p.relative_to(out)) for k,p in files.items()}))
         async def inspect_report():
             from playwright.async_api import async_playwright
             async with async_playwright() as pw:
                 browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=['--no-sandbox'])
                 try:
                     page=await browser.new_page()
+                    for name, (report, expected, summary) in reports.items():
+                        await page.goto(f'http://127.0.0.1:{server.server_port}/__reports__/{name}/{report}')
+                        section = page.get_by_role('region', name=f'選択した検証モード：{verification_modes.MODES[name]["label"]}')
+                        rows = await section.locator('table tr').evaluate_all(
+                            '(rows) => rows.map(row => Array.from(row.cells, cell => cell.textContent))')
+                        assert rows == [[cell if cell is not None else '' for cell in row] for row in expected]
+                        for label, record in summary:
+                            assert await section.get_by_text(f'{label}：{record}', exact=True).count() == 1
                     for width in [1280,320]:
                         await page.set_viewport_size({'width':width,'height':900})
                         report=next((out/'full').glob('page-*-report.html'))
@@ -112,6 +121,19 @@ def main(out):
                         await page.screenshot(path=str(out/f'mode-report-{width}.png'))
                 finally:await browser.close()
         asyncio.run(inspect_report())
+        run=out/'machine';meta_before=(run/'run.json').read_bytes();old_proof=page_explorer.status(run)['proof']
+        with (out/'resume.stdout.txt').open('w') as stdout,contextlib.redirect_stdout(stdout):
+            assert audit.main(['page-audit','--url',url,'--out',str(run),'--resume','--max-states','3','--max-steps','6'])==0
+        assert (run/'run.json').read_bytes()==meta_before
+        assert audit.run_meta(run)['config']['verification']['mode']=='machine'
+        assert all(audit.evidence_item(run,p['path'])==p for p in old_proof)
+        with (out/'mode-change.stderr.txt').open('w') as stderr,contextlib.redirect_stderr(stderr):
+            assert audit.main(['page-audit','--url',url,'--out',str(run),'--resume','--mode','ai'])==1
+        assert (run/'run.json').read_bytes()==meta_before
+        audit.save(out/'summary.json',dict(version='0.7.0',modes=results,resume_kept_mode=True,
+            old_evidence_unchanged=len(old_proof),mode_change_rejected=True,
+            scope='実ブラウザーのモード別収集・作業指示・帳票。AIの内容判断と実SRの発話は今回未実施。',
+            server_requests=Handler.requests))
         for relative in ['scripts/audit.py','scripts/verification_modes.py','scripts/page_workflow.py','scripts/page_explorer.py',
                          'scripts/page_explorer.js','scripts/inspection.py','scripts/workbook.py','scripts/checksheet.py',
                          'references/verification-checkpoints.json','package.json','tests/verification_modes_browser.py']:
