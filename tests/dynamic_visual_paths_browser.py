@@ -54,6 +54,7 @@ def execute(area, url, *, hover=None, keyboard=None, pause=False):
         result = subprocess.run(command + list(arguments), capture_output=True, text=True, timeout=90)
         (area / f'{name}.log').write_text(result.stdout + result.stderr)
         assert result.returncode == 0, (url, result.stdout, result.stderr)
+        return json.loads(result.stdout.splitlines()[-1])
 
     if pause:
         run_command('paused', '--max-steps', '1')
@@ -61,8 +62,8 @@ def execute(area, url, *, hover=None, keyboard=None, pause=False):
         assert any(job.get('hover_check') == hover['id'] for job in graph['queue']), graph
         assert not any(edge.get('hover_check') for edge in graph['edges']), graph
     remaining = ['--resume'] if pause else []
-    run_command('resumed' if pause else 'first', '--max-steps', '2', *remaining)
-    return run
+    produced = run_command('resumed' if pause else 'first', '--max-steps', '2', *remaining)
+    return run, Path(produced['excel'])
 
 
 def report(run):
@@ -75,9 +76,9 @@ def report(run):
     return path, value
 
 
-def assert_report_formats(run, path, rows):
+def assert_report_formats(workbook, path, rows):
     html = path.with_suffix('.html').read_text()
-    book = load_workbook(sorted(run.glob('page-*-report*.xlsx'))[-1], read_only=True, data_only=True)
+    book = load_workbook(workbook, read_only=True, data_only=True)
     try:
         machine_rows = {tuple('' if value is None else value for value in cells)
                         for cells in book['機械検査'].values}
@@ -116,7 +117,7 @@ def trusted_input(step, events):
     return event
 
 
-def inspect_hover(run, plan, expected):
+def inspect_hover(run, workbook, plan, expected):
     path, value = report(run)
     prefix = f'ホバー経路 / {plan["id"]} / '
     rows = {row['checkpoint'].removeprefix(prefix): row for row in value['machine_checks']
@@ -134,11 +135,11 @@ def inspect_hover(run, plan, expected):
             assert steps[name]['point'], steps[name]
         escape_event = trusted_input(steps['press-escape'], events)
         assert escape_event['type'] == 'keydown' and escape_event['key'] == 'Escape', escape_event
-    assert_report_formats(run, path, list(rows.values()))
+    assert_report_formats(workbook, path, list(rows.values()))
     return expected
 
 
-def inspect_focus(run, plan, expected, status):
+def inspect_focus(run, workbook, plan, expected, status):
     path, value = report(run)
     row, = [row for row in value['machine_checks'] if row['criterion'] == FOCUS_CRITERION
             and row['checkpoint'] == f'キーボード経路 / {plan["id"]}']
@@ -159,7 +160,7 @@ def inspect_focus(run, plan, expected, status):
         assert receipt['overlay']['solidCore'] and receipt['overlay']['background'], receipt
     if expected == 'passed':
         assert receipt['exposed'] and receipt['targetCore'], receipt
-    assert_report_formats(run, path, [row])
+    assert_report_formats(workbook, path, [row])
     return {'outcome': expected, 'measurement': status}
 
 
@@ -202,11 +203,11 @@ def main(out):
             name = f'{criterion}-{page}-{plan["id"]}'
             url = f'{base}/{criterion}/{page}'
             if criterion == HOVER_CRITERION:
-                run = execute(out / name, url, hover=plan, pause=page == 'p03.html')
-                outcome = inspect_hover(run, plan, expected)
+                run, workbook = execute(out / name, url, hover=plan, pause=page == 'p03.html')
+                outcome = inspect_hover(run, workbook, plan, expected)
             else:
-                run = execute(out / name, url, keyboard=plan)
-                outcome = inspect_focus(run, plan, *expected)
+                run, workbook = execute(out / name, url, keyboard=plan)
+                outcome = inspect_focus(run, workbook, plan, *expected)
             return {'criterion': criterion, 'page': page, 'outcome': outcome}
 
         try:
