@@ -75,14 +75,21 @@ def assert_report_formats(report, row):
     for path in links:
         assert f'href="{escape(path)}"' in html or f'href="./{escape(path)}"' in html, row
 
-    book = load_workbook(report['excel'], read_only=True, data_only=True)
+    book = load_workbook(report['excel'], data_only=True)
     try:
-        header, record = book[EVIDENCE_LABEL].values
+        sheet = book[EVIDENCE_LABEL]
+        header, record = sheet.values
         values = dict(zip(header, record, strict=True))
         assert values == {'達成基準': CRITERION, '操作経路': row['name'], '対象': row['target'],
                           '環境': row['environment'], '取得状態': STATUS_LABELS[row['status']],
                           '理由': row['reason'], '入力前の画像': row['before_image'] or None,
                           '入力後の画像': row['after_image'] or None, '操作の証拠': row['evidence']}, values
+        for column in ('入力前の画像', '入力後の画像', '操作の証拠'):
+            cell = sheet.cell(row=2, column=header.index(column) + 1)
+            if cell.value:
+                assert cell.hyperlink is not None and cell.hyperlink.target == cell.value, cell
+            else:
+                assert cell.hyperlink is None, cell
     finally:
         book.close()
 
