@@ -1,3 +1,4 @@
+import math
 from pathlib import Path
 import sys
 import unittest
@@ -22,18 +23,30 @@ class HoverChecksTest(unittest.IsolatedAsyncioTestCase):
         hit = dict(point, hits_target=True)
         previous = {'status': 'visible', 'points': [hit]}
         after = {'status': 'visible', 'points': []}
-        opened = {'trigger': {'rect': {'right': 21}}}
+        opened = {'trigger': {'rect': {'right': 21}}, 'point': {'x': 29, 'y': 54}}
         record = {'steps': []}
 
         async def move(page, popup, point, observer, step):
+            step['input_event_index'] = 2
             step['input_target_matched'] = True
 
-        with (patch.object(hover_checks, 'target_state', new=AsyncMock(side_effect=[previous, after])) as state,
+        with (patch.object(hover_checks, 'target_state', new=AsyncMock(side_effect=[previous, after, after])) as state,
               patch.object(hover_checks, 'pointer_move', new=move),
+              patch.object(hover_checks, 'require_continuity', new=AsyncMock()),
               patch.object(hover_checks, 'settle', new=AsyncMock())):
             with self.assertRaises(hover_checks.Uncertain):
                 await hover_checks.transfer(Mock(), '#tip', opened, Mock(), record, Mock(), [])
         state.assert_awaited_with('#tip', at=point)
+
+    def test_transfer_points_are_bounded_and_end_at_the_configured_target(self):
+        start, end = {'x': 3, 'y': 9}, {'x': 76, 'y': 71}
+        points = hover_checks.transfer_points(start, end)
+        self.assertEqual(points[-1], end)
+        self.assertLessEqual(len(points), hover_checks.MAX_TRANSFER_SAMPLES)
+        for left, right in zip([start, *points], points):
+            self.assertLessEqual(math.dist(tuple(left.values()), tuple(right.values())), 4)
+        with self.assertRaises(hover_checks.Uncertain):
+            hover_checks.transfer_points(start, {'x': 1000, 'y': 90})
 
     def test_interrupted_path_invalidates_results_and_keeps_raw_steps(self):
         record = {'steps': [{'input_event_index': 2}], 'outcome': 'passed', 'observations': []}

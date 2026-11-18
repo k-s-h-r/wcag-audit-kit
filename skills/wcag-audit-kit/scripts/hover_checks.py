@@ -1,5 +1,6 @@
 """Observe pointer transfer and one Escape method for configured additional content."""
 import asyncio
+import math
 import re
 
 from browser_capture import OPEN_FOCUS_PATH
@@ -7,6 +8,7 @@ from keyboard_checks import matching_keydown
 
 
 ASPECTS = ('hoverable', 'dismissible')
+MAX_TRANSFER_SAMPLES = 64
 ACTIVE_ELEMENT = '() => (' + OPEN_FOCUS_PATH + ')(document).element'
 TARGET_STATE = r'''(element, {excluded, at}) => {
     const {left, right, top, bottom} = element.getBoundingClientRect();
@@ -97,6 +99,22 @@ def hidden(state):
     return state['status'] in {'absent', 'hidden'}
 
 
+def transfer_points(start, end):
+    dx, dy = (end[axis] - start[axis] for axis in ('x', 'y'))
+    # CSS integer rounding can add distance between sampled points.
+    count = math.ceil(math.hypot(dx, dy) / 2.8)
+    if not 1 <= count <= MAX_TRANSFER_SAMPLES:
+        raise Uncertain('表示までのポインター経路を観察上限内で測定できない。')
+    points = []
+    previous = start
+    for sample in range(1, count + 1):
+        point = {'x': start['x'] + round(dx * sample / count), 'y': start['y'] + round(dy * sample / count)}
+        if point != previous:
+            points.append(point)
+            previous = point
+    return points
+
+
 async def require_continuity(page, interrupted, origin):
     if interrupted() or await page.evaluate('() => [location.href, performance.timeOrigin]') != origin:
         raise Uncertain('通信・ページ移動の制限又はブラウザーの分岐で操作を中断した。')
@@ -131,6 +149,8 @@ async def pointer_move(page, locator, point, observer, step):
     from playwright.async_api import Error as BrowserError
 
     step['point'] = point
+    step.pop('input_event_index', None)
+    step.pop('input_target_matched', None)
     await locator.evaluate('''element => {
         window.__wcagExpectedPointerTarget = element;
         window.__wcagObservePointerMove = true;
@@ -171,19 +191,31 @@ async def open_popup(page, trigger, popup, observer, record, interrupted, origin
 
 
 async def transfer(page, popup, opened, observer, record, interrupted, origin):
-    step = {'action': 'move-to-popup', 'before': await target_state(popup, opened['trigger']['rect'])}
+    step = {'action': 'move-to-popup', 'before': await target_state(popup, opened['trigger']['rect']), 'samples': []}
     record['steps'].append(step)
     point = hit_point(step['before'])
     if not point:
         raise Uncertain('トリガーの外にあり、追加表示に届くポインター位置を確認できない。')
-    await pointer_move(page, popup, point, observer, step)
+    step['planned_point'] = point
+    for position in transfer_points(opened['point'], point):
+        await require_continuity(page, interrupted, origin)
+        await pointer_move(page, popup, position, observer, step)
+        result = await target_state(popup, at=position)
+        step['samples'].append(dict(point=position, input_event_index=step['input_event_index'],
+                                    input_target_matched=step['input_target_matched'], popup_status=result['status']))
+        step['after'] = result
+        if hidden(result):
+            await settle(page, step, interrupted, origin)
+            return 'failed', '追加表示に向けてポインターを移す途中で、追加表示が消えた。'
+        if result['status'] != 'visible':
+            raise Uncertain('ポインターを移す途中の追加表示の有無を確認できない。')
     await settle(page, step, interrupted, origin)
     step['after'] = await target_state(popup, at=point)
     if hidden(step['after']):
-        return 'failed', '事前に追加表示があった位置へポインターを移すと、追加表示が消えた。'
+        return 'failed', '追加表示があった位置へポインターを移したあとに、追加表示が消えた。'
     if not step['input_target_matched'] or not hit_point(step['after']):
         raise Uncertain('追加表示へのポインター到達又は移動後の表示を確認できない。')
-    return 'passed', '追加表示へポインターを移動したあとも、追加表示が残った。'
+    return 'passed', 'ポインターの経路上で表示を確認し、追加表示に到達したあとも表示が残った。'
 
 
 async def dismiss(page, trigger, popup, opened, observer, record, interrupted, origin):
