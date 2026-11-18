@@ -35,3 +35,4 @@
 - [0029 初期表示の画像要素一覧を取得期待に照合する](0029-match-initial-image-inventory-evidence.md)
 - [0030 キー入力前後の画像と、指定した外枠の画素を記録する](0030-collect-and-measure-visual-evidence.md)
 - [0031 操作対象のCSS寸法と辺間隔を取得期待に照合する](0031-match-aligned-target-geometry.md)
+- [0032 視覚情報の測定と候補収集を独立した検査で試す](0032-verify-visual-evidence-in-isolation.md)
