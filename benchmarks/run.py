@@ -11,6 +11,14 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from benchmarks import core,runner,reporting
 
 
+def print_summary(files, result):
+    summary = dict(files=files, selected_checks_status=result['selected_checks_status'],
+                   overall_status=result['overall_status'], counts=result['counts'],
+                   pending_evidence_contracts=len(result.get('pending_evidence_contracts', [])),
+                   matched_evidence_contracts=len(result.get('matched_evidence_contracts', [])))
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
+
+
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__);sub=parser.add_subparsers(dest='command',required=True)
     sub.add_parser('inventory')
@@ -32,7 +40,8 @@ def main(argv=None):
             selected=list(core.modes.MODES) if args.mode=='all' else [args.mode] if args.mode else None
             result=runner.collect(Path(args.out),criterion=args.criterion,selected_modes=selected,port=args.port,resume=args.resume)
             files=reporting.write(Path(args.out),result)
-            print(json.dumps(dict(files=files,selected_checks_status=result['selected_checks_status'],overall_status=result['overall_status'],counts=result['counts'],pending_evidence_contracts=len(result.get('pending_evidence_contracts',[]))),ensure_ascii=False,indent=2));return 0
+            print_summary(files, result)
+            return 0
         if args.command=='compare':
             out=Path(args.out)
             if out.exists():raise ValueError('新しい比較結果の保存先を指定する')
@@ -57,7 +66,7 @@ def main(argv=None):
         if args.command=='import':
             print(json.dumps(core.record_review(run,core.load(args.file)),ensure_ascii=False,indent=2));return 0
         result=core.score(run);files=reporting.write(run,result)
-        print(json.dumps(dict(files=files,selected_checks_status=result['selected_checks_status'],overall_status=result['overall_status'],counts=result['counts'],pending_evidence_contracts=len(result.get('pending_evidence_contracts',[]))),ensure_ascii=False,indent=2))
+        print_summary(files, result)
         if not args.strict:return 0
         return 1 if result['selected_checks_status']=='failed' else 2 if result['selected_checks_status']=='incomplete' else 0
     except (ValueError,KeyError,OSError,TypeError) as error:

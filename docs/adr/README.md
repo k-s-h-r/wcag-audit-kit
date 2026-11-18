@@ -32,3 +32,4 @@
 - [0026 キーボード操作後の部品の状態を証拠付きで照合する](0026-verify-widget-state-and-input-scope.md)
 - [0027 実測した文字コントラストを対象と状態ごとに採点する](0027-score-observed-text-contrast.md)
 - [0028 追加表示の操作とフォーカス先の覆いを実際の画面状態で確認する](0028-measure-hover-and-obscured-focus.md)
+- [0029 初期表示の画像要素一覧を取得期待に照合する](0029-match-initial-image-inventory-evidence.md)
