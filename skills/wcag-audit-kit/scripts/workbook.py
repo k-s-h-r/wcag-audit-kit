@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 import tempfile
 import uuid
+from urllib.parse import quote
 
 from ledger_lock import run_lock
 import work_queue as queue
@@ -22,6 +23,18 @@ CASE_COLUMNS = [
 TARGET_COLUMNS = [('case_id','検査票ID'),('index','対象番号'),('target','対象'),('expected','期待結果'),
                   ('observed','観察'),('outcome','判定'),('evidence','証拠'),('media_review','媒体の区間比較JSON')]
 METHOD_COLUMNS = [('case_id','検査票ID'),('method','観察方法'),('status','実施状況'),('reason','根拠')]
+FOCUS_EVIDENCE_TITLE = 'フォーカスの画像証拠'
+FOCUS_EVIDENCE_COLUMNS = [
+    ('criterion', '達成基準'), ('name', '操作経路'), ('target', '対象'), ('environment', '環境'),
+    ('status', '取得状態'), ('reason', '理由'), ('before_image', '入力前の画像'),
+    ('after_image', '入力後の画像'), ('evidence', '操作の証拠'),
+]
+FOCUS_EVIDENCE_FILES = {'before_image', 'after_image', 'evidence'}
+FOCUS_EVIDENCE_STATUSES = {
+    'not_run': '未実施', 'skipped': '取得省略', 'partial': '一部取得', 'captured': '取得済み',
+    'incomparable': '比較不可', 'error': '取得エラー',
+}
+
 CONTEXT = [key for key,_ in CASE_COLUMNS[:8]]
 LISTS = {'remaining','steps_executed','tests_applied','evidence','comparison_pages'}
 FLAGS = {'conditions_reviewed','exceptions_reviewed','coverage_complete'}
@@ -126,6 +139,35 @@ def sheet(book, name, columns, rows, readonly=False):
     return ws
 
 
+def focus_evidence_link(run, path, directory):
+    """Resolve a run-local evidence file relative to the exported report."""
+    parts = path.split('/')
+    if parts[0] != 'evidence' or any(part in {'', '.', '..'} or '\\' in part for part in parts):
+        return None
+    root = run.resolve()
+    target = (root / path).resolve()
+    if not target.is_relative_to(root / 'evidence') or not target.is_file():
+        return None
+    return quote(Path(os.path.relpath(target, directory)).as_posix())
+
+
+def focus_evidence_sheet(book, run, out, rows):
+    from openpyxl.styles import Font
+
+    display_rows = [dict(row, status=FOCUS_EVIDENCE_STATUSES.get(row['status'], row['status'])) for row in rows]
+    ws = sheet(book, FOCUS_EVIDENCE_TITLE, FOCUS_EVIDENCE_COLUMNS, display_rows, True)
+    ws.column_dimensions['F'].width = 44
+    for column, (key, _) in enumerate(FOCUS_EVIDENCE_COLUMNS, 1):
+        if key not in FOCUS_EVIDENCE_FILES:
+            continue
+        for index, row in enumerate(rows, 2):
+            target = focus_evidence_link(run, row[key], out.parent)
+            if target:
+                cell = ws.cell(index, column)
+                cell.hyperlink = target
+                cell.font = Font(color='00529B', underline='single')
+
+
 def human_sheets(book, model):
     from math import ceil
     from unicodedata import east_asian_width
@@ -202,7 +244,10 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         if len(cases)>MAX_CASES:raise ValueError('1万票を超える。--task、--page、--criterion等で分割して出力する')
         selected_criteria=({r['criterion'] for r in cases} if criterion or task or owner is not None or pending else
                            {c['id'] for c in result['criteria']})
-        result['machine_checks']=[c for c in result['machine_checks'] if c['criterion'] in selected_criteria and c['environment'] in {r['environment'] for r in cases}]
+        environments = {r['environment'] for r in cases}
+        result['machine_checks']=[c for c in result['machine_checks'] if c['criterion'] in selected_criteria and c['environment'] in environments]
+        focus_evidence = [row for row in result.get('focus_evidence', [])
+                          if row['criterion'] in selected_criteria and row['environment'] in environments]
         export_id=uuid.uuid4().hex
         if mode=='work':
             audit.run_catalog(run,for_write=True);queue.work(plan,create=True)
@@ -234,6 +279,8 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         sheet(book,'機械検査',[(k,v) for k,v in [('criterion','達成基準'),('checkpoint','検査'),('expected','期待結果'),
               ('outcome','機械ルールの判定'),('environment','環境'),('capture','状態・経路'),('target','対象'),('observed','観察'),('evidence','証拠'),('note','判定範囲')]],
               result['machine_checks'],True)
+        if focus_evidence:
+            focus_evidence_sheet(book, run, out, focus_evidence)
         summary=[['出力モード',mode],['サイト',result['url']],['全検査票',len(result['cases'])],['このファイルの票数',len(cases)],
                  ['検証完了',result['audit_complete']],['範囲確認',result['scope_confirmed']],
                  ['人の確認待ち',len(result['human_review_cases'])],['未訪問URL',len(result['unvisited'])]]
