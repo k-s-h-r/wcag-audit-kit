@@ -173,6 +173,8 @@ def trials():
            None, False, 'incomparable', 'target_offscreen', None)
     yield ('p06-visible', 'p06.html', '#after', focus_toggle, PHONE_SIZE, 'all',
            None, False, 'captured', None, True)
+    yield ('visible-caret', 'visible-caret.html', '#subject', [], DEFAULT_SIZE, 'all',
+           None, False, 'captured', None, True)
     yield ('page-moved', 'layout-shift.html', '#subject', [], DEFAULT_SIZE, 'all',
            None, False, 'incomparable', 'geometry_changed', None)
     yield ('without-images', 'p02.html', '#subject', [], DEFAULT_SIZE, 'off',
@@ -190,6 +192,10 @@ def main(out):
     (public / 'layout-shift.html').write_text('''<!doctype html><title>フォーカスで移動するボタン</title>
         <style>#subject:focus { margin-left: 40px; outline: 3px solid black }</style>
         <button id="subject">保存</button>''')
+    (public / 'visible-caret.html').write_text('''<!doctype html><title>入力欄のフォーカス</title>
+        <label>氏名 <input id="subject" autocomplete="off"></label>
+        <style>#subject { outline: none; border: 2px solid #333; background: white;
+            caret-animation: manual; caret-color: red; }</style>''')
     with ThreadingHTTPServer(('127.0.0.1', 0), partial(Handler, directory=str(public))) as server:
         worker = threading.Thread(target=server.serve_forever, daemon=True)
         worker.start()

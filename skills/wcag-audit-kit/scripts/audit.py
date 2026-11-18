@@ -164,6 +164,10 @@ def validate_config(c):
             if check['id'] in identifiers:
                 raise ValueError('ホバー経路には重複のないidが必要')
             identifiers.add(check['id'])
+    if 'border_checks' in c:
+        from border_contrast import validate
+
+        validate(c['border_checks'])
     if c.get('auth_state'):
         c['auth_state']=str(Path(c['auth_state']).resolve())
     if 'inspection' in c and 'verification' not in c:
@@ -771,7 +775,7 @@ def main(argv=None):
                 if args.level:config['level']=args.level
                 config=validate_config(config)
             else:config=read_config(args.config)
-            for key in ('keyboard_checks', 'hover_checks'):
+            for key in ('keyboard_checks', 'hover_checks', 'border_checks'):
                 if config.get(key) and args.command != 'page-audit':
                     raise ValueError(f'{key}はpage-auditで実行する')
             if args.command=='pages':

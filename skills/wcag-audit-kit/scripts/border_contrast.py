@@ -169,6 +169,21 @@ def pixel_result(path, data, width, expected, pairs):
                 ratio=result['ratio'], meets_3=result['meets_3'], samples=samples)
 
 
+def validate(checks):
+    if not isinstance(checks, list) or len(checks) > 20:
+        raise ValueError('border_checksには20対象まで指定できる')
+    seen = set()
+    for check in checks:
+        if not isinstance(check, dict) or set(check) != {'id', 'name', 'target'}:
+            raise ValueError('外枠の測定にはid、name、targetを指定する')
+        identifier = check['id']
+        if not isinstance(identifier, str) or not re.fullmatch(r'[a-z0-9-]{1,64}', identifier) or identifier in seen:
+            raise ValueError('外枠の測定には重複のない英小文字・数字・ハイフンのidを指定する')
+        if any(not isinstance(check[key], str) or not check[key].strip() for key in ('name', 'target')):
+            raise ValueError('外枠の測定には名前と対象を一つに絞るセレクターを指定する')
+        seen.add(identifier)
+
+
 async def observe(page, selector, images, path):
     """Run in the requested state. The caller identifies the required boundary."""
     from playwright.async_api import Error as BrowserError

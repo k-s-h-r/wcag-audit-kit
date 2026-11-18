@@ -69,6 +69,24 @@ class WorkflowTest(unittest.TestCase):
             with self.subTest(keyboard=bad), self.assertRaises(ValueError):
                 audit.validate_config(dict(config, keyboard_checks=[bad]))
 
+    def test_config_validates_focus_image_and_border_checks(self):
+        config = audit.init_config('https://example.com/')
+        focus_step = {'key': 'Tab', 'focus': '#save', 'focus_images': True}
+        keyboard = {'id': 'focus-save', 'name': 'Save button', 'criterion': '2.4.7', 'steps': [focus_step]}
+        border = {'id': 'visual-boundary', 'name': 'Input boundary', 'target': '#field'}
+        accepted = audit.validate_config(dict(config, keyboard_checks=[keyboard], border_checks=[border]))
+        self.assertEqual(accepted['keyboard_checks'], [keyboard])
+        self.assertEqual(accepted['border_checks'], [border])
+        for invalid in ([border, border], dict(border), [dict(border, target=' ')], [dict(border, selector='#field')]):
+            with self.subTest(border=invalid), self.assertRaises(ValueError):
+                audit.validate_config(dict(config, border_checks=invalid))
+        for invalid in (dict(keyboard, criterion='2.4.3'),
+                        dict(keyboard, steps=[dict(focus_step, focus_images=1)]),
+                        dict(keyboard, destination='https://example.com/next'),
+                        dict(keyboard, steps=[focus_step, {'key': 'Tab', 'focus': '#next'}])):
+            with self.subTest(keyboard=invalid), self.assertRaises(ValueError):
+                audit.validate_config(dict(config, keyboard_checks=[invalid]))
+
     def test_machine_pass_never_becomes_criterion_pass(self):
         self.graph();result=audit.outcomes(self.run)
         self.assertEqual(result['counts'],{'not_run':55})

@@ -62,6 +62,8 @@ class FocusImagePairTests(unittest.IsolatedAsyncioTestCase):
         self.mock_states(state(), state(focused=True))
         receipt = await self.capture()
         self.assertEqual(receipt['status'], 'captured')
+        self.assertEqual([call.kwargs['caret'] for call in self.page.screenshot.await_args_list],
+                         ['initial', 'initial'])
         self.assertFalse(receipt['before']['focused'])
         self.assertTrue(receipt['after']['focused'])
         for phase in ('before', 'after'):

@@ -11,6 +11,8 @@ from urllib.parse import urldefrag
 from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, capture_image, normalize, page_id
 from input_observation import INIT_SCRIPT, InputObserver
+import border_contrast
+import focus_image_pair
 import focus_occlusion
 import hover_checks
 import keyboard_checks
@@ -142,8 +144,10 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     if checkpoint.exists():status(run)
     checks={check['id']:check for check in keyboard_checks.validate(config)}
     hover_paths = {check['id']: check for check in config.get('hover_checks', [])}
+    border_paths = {check['id']: check for check in config.get('border_checks', [])}
     sources = [Path(path).read_text() for path in (
-        __file__, keyboard_checks.__file__, keyboard_frames.__file__, hover_checks.__file__, focus_occlusion.__file__)]
+        __file__, keyboard_checks.__file__, keyboard_frames.__file__, hover_checks.__file__,
+        focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__)]
     implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
     initial_jobs=[]
     for env in config['environments']:
@@ -151,6 +155,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
         initial_jobs.append(initial)
         initial_jobs.extend(dict(initial, keyboard_check=check_id) for check_id in checks)
         initial_jobs.extend(dict(initial, hover_check=check_id) for check_id in hover_paths)
+        initial_jobs.extend(dict(initial, border_check=check_id) for check_id in border_paths)
     value=audit.load(checkpoint) if checkpoint.exists() else {'schema_version':'1','config_digest':meta['config_digest'],
         'implementation_digest':implementation,
         'queue':initial_jobs,
@@ -184,13 +189,16 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 job=value['queue'][0];env=envs[job['environment']];route=job['route']
                 check=checks.get(job.get('keyboard_check'))
                 hover=hover_paths.get(job.get('hover_check'))
-                if not (check or hover) and (len(value['nodes'])>=max_states or len(route)>max_depth):break
+                border=border_paths.get(job.get('border_check'))
+                declared = check or hover or border
+                if not declared and (len(value['nodes'])>=max_states or len(route)>max_depth):break
                 check_record=dict(id=check['id'], name=check['name'], criterion=check['criterion'],
                                   outcome='cant_tell', steps=[]) if check else None
-                if check and check['criterion'] == '2.4.11':
+                if check and check['criterion'] in keyboard_checks.VISUAL_CONDITIONS:
                     check_record['target'] = check['steps'][-1]['focus']
                 hover_record = dict(id=hover['id'], name=hover['name'], trigger=hover['trigger'], popup=hover['popup'],
                                     steps=[], observations=[]) if hover else None
+                border_record = dict(border, status='cant_tell', observed='測定に必要な画像を確認できない。') if border else None
                 allowed_navigation={urldefrag(normalize(url))[0]}
                 context=await browser.new_context(viewport=env['viewport'],locale=config.get('locale','ja-JP'),storage_state=config.get('auth_state'),service_workers='block',accept_downloads=False)
                 observer=InputObserver(10000);blocked=[]
@@ -201,10 +209,10 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     navigation=request.is_navigation_request()
                     allowed_method=request.method in {'GET','HEAD','OPTIONS'}
                     allowed_document=urldefrag(normalize(request.url))[0] in allowed_navigation
-                    if not allowed_method or (navigation and not (check or hover) and not allowed_document):
+                    if not allowed_method or (navigation and not declared and not allowed_document):
                         blocked.append({'method':request.method,'url':request.url})
                         await request_route.abort()
-                    elif (check or hover) and navigation:
+                    elif declared and navigation:
                         # Playwright does not dispatch route handlers for every HTTP redirect.
                         # Fetch only the permitted document and refuse redirect responses.
                         await keyboard_checks.load_document(request_route, page, blocked, allowed_navigation, frame_scope)
@@ -225,11 +233,14 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 page.on('download',lambda download:native_events.append({'type':'download','action':'not_accepted'}))
                 attempt=uuid.uuid4().hex[:12];dest=run/'evidence'/f'{pid}--explore-{attempt}--{env["id"]}'
                 dest.mkdir(parents=True)
+                image_pair = None
+                if check and check['criterion'] == '2.4.7':
+                    image_pair = focus_image_pair.FocusImagePair(page.main_frame, check_record['target'], images, dest)
                 try:
                     response=await page.goto(url,wait_until='domcontentloaded',timeout=20000)
                     if response and response.status>=400:raise ValueError(f'HTTP {response.status}')
                     settling.append(await page.evaluate('() => window.__wcagWaitForUpdates()'))
-                    if check or hover:
+                    if declared:
                         if settling[-1]['status'] != 'quiet':
                             raise ValueError('初期表示の更新が観察範囲に収まらない')
 
@@ -238,9 +249,13 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
 
                         if hover:
                             await hover_checks.run_path(page, hover, observer, interrupted, hover_record)
+                        elif border:
+                            if interrupted():
+                                raise ValueError('通信・ページ移動の制限又はブラウザーの分岐で測定を中断した')
+                            border_record.update(await border_contrast.observe(page, border['target'], images, dest/'border-viewport.png'))
                         else:
                             await keyboard_checks.run_path(page, check, allowed_navigation, check_record, observer,
-                                                           interrupted, frame_scope)
+                                                           interrupted, frame_scope, image_pair=image_pair)
                             if check_record['steps']:
                                 measurement = check_record['steps'][-1].get('occlusion')
                                 if measurement and not interrupted():
@@ -296,11 +311,19 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     if check_record is not None:
                         if interrupted_reason:
                             check_record.update(outcome='cant_tell', reason=interrupted_reason)
+                        if image_pair is not None:
+                            if check_record['outcome'] != 'passed':
+                                image_pair.invalidate(check_record['reason'])
+                            await image_pair.close()
                         audit.save(dest/'keyboard-check.json',check_record)
                     if hover_record is not None:
                         if interrupted_reason:
                             hover_checks.invalidate(hover_record, hover, interrupted_reason)
                         audit.save(dest/'hover-check.json', hover_record)
+                    if border_record is not None:
+                        if interrupted_reason:
+                            border_record.update(status='cant_tell', observed=interrupted_reason)
+                        audit.save(dest/'border-check.json', border_record)
                     audit.save(dest/'transition.json',dict(job,error=error,blocked_requests=blocked,native_events=native_events,settling=settling))
                     audit.save(dest/'input-events.json',observer.export())
                     await context.close()
@@ -309,13 +332,19 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 edge=dict(job,error=error,evidence_dir=str(dest.relative_to(run)),blocked_requests=blocked,native_events=native_events)
                 if check and check_record['outcome']=='cant_tell':
                     value['remaining'].append(f"{env['id']} / キーボード経路 {check['name']}：{check_record['reason']}")
+                if image_pair is not None and check_record['outcome'] == 'passed':
+                    receipt = image_pair.receipt
+                    if receipt['status'] != 'captured':
+                        value['remaining'].append(f"{env['id']} / フォーカスの画像 {check['name']}：{receipt['reason']}")
                 if hover:
                     for observation in hover_record['observations']:
                         if observation['outcome'] == 'cant_tell':
                             value['remaining'].append(f"{env['id']} / ホバー経路 {hover['name']} / "
                                                       f"{observation['aspect']}：{observation['observed']}")
+                if border and border_record['status'] != 'measured':
+                    value['remaining'].append(f"{env['id']} / 外枠の測定 {border['name']}：{border_record['observed']}")
                 value['edges'].append(edge);value['steps']+=1
-                if error and not unreachable and not (check or hover):value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
+                if error and not unreachable and not declared:value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
                 if blocked:value['remaining'].append(f'{env["id"]}：通信又はページ移動を制限した経路がある。状態を確認する。')
                 if native_events:value['remaining'].append(f'{env["id"]}：ブラウザー標準ダイアログ・別窓・ダウンロードの分岐を追加検査する。')
                 if any(wait['status']!='quiet' for wait in settling):

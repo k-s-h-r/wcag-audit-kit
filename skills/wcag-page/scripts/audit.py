@@ -164,6 +164,10 @@ def validate_config(c):
             if check['id'] in identifiers:
                 raise ValueError('ホバー経路には重複のないidが必要')
             identifiers.add(check['id'])
+    if 'border_checks' in c:
+        from border_contrast import validate
+
+        validate(c['border_checks'])
     if c.get('auth_state'):
         c['auth_state']=str(Path(c['auth_state']).resolve())
     if 'inspection' in c and 'verification' not in c:
@@ -462,6 +466,31 @@ def outcomes(run):
     return result
 
 
+def focus_evidence_html(run, evidence):
+    from workbook import (FOCUS_EVIDENCE_COLUMNS, FOCUS_EVIDENCE_FILES, FOCUS_EVIDENCE_STATUSES,
+                          FOCUS_EVIDENCE_TITLE, focus_evidence_link)
+
+    rows = []
+    for row in evidence:
+        cells = []
+        for key, _ in FOCUS_EVIDENCE_COLUMNS:
+            value = FOCUS_EVIDENCE_STATUSES.get(row[key], row[key]) if key == 'status' else row[key]
+            display = escape(value)
+            if key in FOCUS_EVIDENCE_FILES:
+                target = focus_evidence_link(run, value, run)
+                if target:
+                    display = f'<a href="{escape(target)}">{display}</a>'
+            cells.append(f'<td>{display}</td>')
+        rows.append('<tr>' + ''.join(cells) + '</tr>')
+    headers = ''.join(f'<th scope="col">{label}</th>' for _, label in FOCUS_EVIDENCE_COLUMNS)
+    return (
+        f'<h2 id="focus-image-evidence">{FOCUS_EVIDENCE_TITLE}</h2>'
+        '<p>取得状態は画像を保存できた範囲を示します。達成基準の判定には画面の確認が必要です。</p>'
+        '<div class="scroll" tabindex="0" role="region" aria-labelledby="focus-image-evidence">'
+        f'<table><thead><tr>{headers}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>'
+    )
+
+
 @locked
 def report(run, *, page_url=None):
     result=outcomes(run)
@@ -554,6 +583,10 @@ def report(run, *, page_url=None):
         '<p>以下は機械ルールと実入力で検出した結果です。達成基準全体の適否とは区別しています。</p><ul>'+''.join('<li>'+escape(r)+'</li>' for r in result['exploration']['remaining'])+'</ul>'+
         ('<details open>' if page_url else '<details>')+'<summary>自動検出した問題 '+str(len(machine_rows))+'種類（同じ問題の状態別記録を集約）</summary><div class="scroll" tabindex="0" role="region" aria-label="自動検出した問題"><table><caption>追加確認が必要な機械検査の結果</caption><thead><tr>'+''.join('<th scope="col">'+s+'</th>' for s in
         ['基準','検査','状態・経路','対象','観察','機械結果','証拠'])+'</tr></thead><tbody>'+''.join(machine_rows)+'</tbody></table></div></details>')
+    focus_evidence = result.get('focus_evidence', [])
+    if focus_evidence:
+        exploration_notice += focus_evidence_html(run, focus_evidence)
+        page = page.replace('</nav>', ' / <a href="#focus-image-evidence">フォーカスの画像証拠</a></nav>', 1)
     page=page.replace('<h2 id="checksheet">',exploration_notice+'<h2 id="checksheet">')
     if page_url:
         machine_counts=Counter(c['outcome'] for c in result['machine_checks'])
@@ -742,7 +775,7 @@ def main(argv=None):
                 if args.level:config['level']=args.level
                 config=validate_config(config)
             else:config=read_config(args.config)
-            for key in ('keyboard_checks', 'hover_checks'):
+            for key in ('keyboard_checks', 'hover_checks', 'border_checks'):
                 if config.get(key) and args.command != 'page-audit':
                     raise ValueError(f'{key}はpage-auditで実行する')
             if args.command=='pages':

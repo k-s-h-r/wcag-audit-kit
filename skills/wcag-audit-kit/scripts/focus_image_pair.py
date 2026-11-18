@@ -53,7 +53,7 @@ REASONS = {
     'capture_error': '画像の取得に失敗しました。',
     'awaiting_after': 'キー入力後の画像は未取得です。',
     'interrupted': 'キー入力後の状態を確認できませんでした。',
-    'captured': '同じ表示条件で実キー入力前後の画像を取得しました。フォーカスの見え方は画像で確認してください。',
+    'captured': '同じ表示領域・スクロール位置・対象の矩形で、実キー入力前後の画像を取得しました。フォーカスの見え方は画像で確認してください。',
 }
 
 
@@ -102,7 +102,7 @@ class FocusImagePair:
 
         async def screenshot():
             pixels = await self.scope.page.screenshot(
-                type='png', full_page=False, animations='allow', caret='hide', timeout=3000)
+                type='png', full_page=False, animations='allow', caret='initial', timeout=3000)
             if pixels[:8] != b'\x89PNG\r\n\x1a\n' or len(pixels) < 24:
                 raise ValueError('PNG画像を取得できませんでした。')
             width, height = struct.unpack('>II', pixels[16:24])

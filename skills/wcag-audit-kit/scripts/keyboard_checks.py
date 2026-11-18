@@ -7,7 +7,8 @@ from browser_capture import OPEN_FOCUS_PATH, in_scope, normalize
 import keyboard_frames
 
 
-CRITERIA = {'2.1.1', '2.1.2', '2.4.3', '2.4.11', '4.1.2'}
+CRITERIA = {'2.1.1', '2.1.2', '2.4.3', '2.4.7', '2.4.11', '4.1.2'}
+VISUAL_CONDITIONS = {'2.4.7': 'focus_images', '2.4.11': 'unobscured'}
 KEYS = ('Tab', 'Shift+Tab', 'Enter', 'Space', 'Escape', 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight')
 SELECTOR_CONDITIONS = {'focus', 'visible', 'hidden'}
 MATCH_FOCUS = '(e) => e.ownerDocument.hasFocus() && (' + OPEN_FOCUS_PATH + ')(e.ownerDocument).element === e'
@@ -19,7 +20,7 @@ def nonempty(value):
 
 
 def validate_step(step):
-    if not isinstance(step, dict) or set(step) - {'key', 'attributes', 'value', 'frame', 'input_frame', 'unobscured'} - SELECTOR_CONDITIONS:
+    if not isinstance(step, dict) or set(step) - {'key', 'attributes', 'value', 'frame', 'input_frame'} - SELECTOR_CONDITIONS - set(VISUAL_CONDITIONS.values()):
         raise ValueError('手順にはkeyとfocus、visible、hidden、attributes、valueのうち少なくともいずれかの条件を指定する')
     if step.get('key') not in KEYS:
         raise ValueError('使用できるキーは' + '、'.join(KEYS))
@@ -60,7 +61,7 @@ def validate(config):
         seen.add(identifier)
         criterion = check.get('criterion')
         if not nonempty(check.get('name')) or not isinstance(criterion, str) or criterion not in CRITERIA:
-            raise ValueError('キー操作の経路名と対象基準（2.1.1、2.1.2、2.4.3、2.4.11、4.1.2）を指定する')
+            raise ValueError('キー操作の経路名と対象基準（2.1.1、2.1.2、2.4.3、2.4.7、2.4.11、4.1.2）を指定する')
         steps = check.get('steps')
         if not isinstance(steps, list) or not 1 <= len(steps) <= 40:
             raise ValueError('各キー操作経路は1〜40手順')
@@ -68,13 +69,14 @@ def validate(config):
             validate_step(step)
         if criterion == '4.1.2' and not any('attributes' in step for step in steps):
             raise ValueError('4.1.2の経路にはDOMの状態を照合するattributes条件を指定する')
-        measure = [index for index, step in enumerate(steps) if 'unobscured' in step]
-        if criterion == '2.4.11':
-            if (measure != [len(steps) - 1] or steps[-1]['unobscured'] is not True or not steps[-1].get('focus')
-                    or 'frame' in check or 'destination' in check):
-                raise ValueError('2.4.11は親文書の移動を伴わない経路の最終手順にfocusとunobscured: trueを指定する')
-        elif measure:
-            raise ValueError('unobscuredは2.4.11の経路に指定する')
+        for visual_criterion, condition in VISUAL_CONDITIONS.items():
+            positions = [index for index, step in enumerate(steps) if condition in step]
+            if criterion == visual_criterion:
+                if (positions != [len(steps) - 1] or steps[-1][condition] is not True or not steps[-1].get('focus')
+                        or 'frame' in check or 'destination' in check):
+                    raise ValueError(f'{criterion}は親文書の移動を伴わない経路の最終手順にfocusと{condition}: trueを指定する')
+            elif positions:
+                raise ValueError(f'{condition}は{visual_criterion}の経路に指定する')
         if 'destination' in check:
             destination = check['destination']
             if not nonempty(destination) or not in_scope(destination, config):
@@ -167,7 +169,7 @@ async def observe_conditions(page, step, destination, condition_scope=None, focu
     scope = page if condition_scope is None else condition_scope
     observations = []
     for kind, condition in step.items():
-        if kind in {'key', 'frame', 'input_frame', 'unobscured'}:
+        if kind in {'key', 'frame', 'input_frame'} or kind in VISUAL_CONDITIONS.values():
             continue
         if kind == 'attributes':
             for entry in condition:
@@ -192,7 +194,7 @@ def matching_keydown(event, key, main_frame=True):
             and not any(modifiers[modifier] for modifier in ('control', 'alt', 'meta')))
 
 
-async def run_path(page, check, allow_navigation, record, observer, interrupted, frame_scope):
+async def run_path(page, check, allow_navigation, record, observer, interrupted, frame_scope, image_pair=None):
     from playwright.async_api import TimeoutError as BrowserTimeout
 
     navigation_status = []
@@ -218,6 +220,11 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted,
         input_frame = frame if 'input_frame' in step else page.main_frame
         if actual_frame != input_frame:
             raise ValueError('操作前のフォーカスが指定した文書にない')
+        if step.get('focus_images'):
+            entry['focus_images'] = image_pair.receipt
+            await image_pair.before()
+            if interrupted():
+                raise ValueError('通信・ページ移動の制限又はブラウザーの分岐で写真の取得を中断した')
         start = len(observer.events)
         await page.keyboard.press(step['key'])
         if destination:
@@ -247,11 +254,15 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted,
         if any(item['status'] >= 400 for item in navigation_status):
             raise ValueError('移動先のページを正常に読み込めない')
         if not all(condition['matched'] for condition in entry['conditions']):
-            if check['criterion'] == '2.4.11':
-                record['reason'] = f'{index}手順目の到達条件が一致せず、対象のフォーカス状態を測定できなかった。'
+            if check['criterion'] in VISUAL_CONDITIONS:
+                record['reason'] = f'{index}手順目の到達条件が一致せず、対象のフォーカス状態を確認できなかった。'
             else:
                 record['outcome'] = 'failed'
             return
+        if step.get('focus_images'):
+            if interrupted():
+                raise ValueError('通信・ページ移動の制限又はブラウザーの分岐で写真の取得を中断した')
+            await image_pair.after()
         if step.get('unobscured'):
             from focus_occlusion import observe
 

@@ -23,18 +23,19 @@ class QuietHandler(SimpleHTTPRequestHandler):
 def run_check(area, url, *, mode, expected, ratio=None):
     area.mkdir()
     config = audit.init_config(url)
+    config['environments'] = config['environments'][:1]
     config['border_checks'] = [{'id': 'form-boundary', 'name': '入力欄の外枠', 'target': '#subject'}]
     config['keyboard_steps'] = 0
     config_file = area / 'config.json'
     audit.save(config_file, config)
     run = area / 'run'
     result = subprocess.run([sys.executable, str(ROOT/'skills/wcag-audit-kit/scripts/audit.py'),
-        'page-audit', '--config', str(config_file), '--out', str(run), '--mode', mode,
+        'page-audit', '--url', url, '--config', str(config_file), '--out', str(run), '--mode', mode,
         '--screenshots', 'all' if mode == 'ai' else 'off', '--max-states', '1', '--max-steps', '2'],
         capture_output=True, text=True, timeout=90)
     (area/'command.log').write_text(result.stdout + result.stderr)
     assert result.returncode == 0, result.stdout + result.stderr
-    files = json.loads(result.stdout)['files']
+    files = json.loads(result.stdout.strip().splitlines()[-1])
     report = audit.load(files['json'])
     row, = [row for row in report['machine_checks'] if row['checkpoint'] == '境界の測定 / form-boundary']
     assert row['criterion'] == '1.4.11' and row['target'] == '#subject' and row['outcome'] == expected, row
