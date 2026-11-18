@@ -218,11 +218,33 @@ def record_review(run,value):
         return {'review':path.relative_to(run).as_posix(),'observations':len(observations)}
 
 
+def axe_contrast_observation(node, outcome):
+    """Keep axe's verdict and the measurement for one reported text target."""
+    if outcome == 'cant_tell':
+        return outcome, node.get('failureSummary') or 'axeがこの対象の文字コントラストを確定できなかった。'
+    checks = [check.get('data') for group in ('any', 'all', 'none')
+              for check in node.get(group, []) if check.get('id') == 'color-contrast']
+    data = checks[0] if len(checks) == 1 and isinstance(checks[0], dict) else {}
+    ratio = data.get('contrastRatio')
+    minimum = data.get('expectedContrastRatio')
+    fields = ('fgColor', 'bgColor', 'fontSize', 'fontWeight')
+    if (type(ratio) not in (int, float) or not 1 <= ratio <= 21 or minimum not in ('3:1', '4.5:1')
+            or not all(isinstance(data.get(key), str) and data[key].strip() for key in fields)):
+        return 'cant_tell', 'axeの対象別の比・比較基準・色・文字サイズ又は太さの証拠が不足している。'
+    # The numeric ratio in axe output is rounded down for display. Its own
+    # verdict uses the unrounded value and the applicable size/weight threshold.
+    observed = (f'axeの文字コントラスト比は{ratio}:1、比較基準は{minimum}。'
+                f'前景 {data["fgColor"]}、背景 {data["bgColor"]}、文字 {data["fontSize"]}、'
+                f'太さ {data["fontWeight"]}。')
+    return outcome, observed
+
+
 def program_predictions(run,job,progress):
     """Decode only observations the production pipeline actually emitted."""
     run=Path(run).resolve()
     result={}
-    rule_map={'image-alt':'1.1.1-01','document-title':'2.4.2-01'}
+    rule_map={'image-alt':'1.1.1-01','document-title':'2.4.2-01','color-contrast':'1.4.3-01'}
+    contrast_states = {state['id'] for state in job.get('states', [])}
     for page,receipt in progress['jobs'].get(job['id'],{}).items():
         if receipt['status']!='completed':continue
         root=local(run,receipt['directory']);graph=load(root/'exploration.json')
@@ -244,14 +266,18 @@ def program_predictions(run,job,progress):
                     for rule in raw.get(group,[]):
                         point=rule_map.get(rule['id'])
                         if point not in job['checkpoints']:continue
+                        if point == '1.4.3-01' and state not in contrast_states:continue
                         for target in rule.get('nodes',[]):
                             selectors=target.get('target',[])
                             if len(selectors)!=1 or not isinstance(selectors[0],str):continue
-                            row=dict(page=page,state=state,target=selectors[0],checkpoint=point,outcome=outcome,
-                                method='program',observed=target.get('failureSummary') or target.get('html',''),
+                            actual, observed = outcome, target.get('failureSummary') or target.get('html','')
+                            if point == '1.4.3-01':
+                                actual, observed = axe_contrast_observation(target, outcome)
+                            row=dict(page=page,state=state,target=selectors[0],checkpoint=point,outcome=actual,
+                                method='program',observed=observed,
                                 evidence=proof,source='production axe / '+rule['id'])
                             key=observation_key(row);previous=result.get(key)
-                            if previous and (previous['outcome']!=outcome or previous.get('conflicting')):
+                            if previous and (previous['outcome']!=actual or previous.get('conflicting')):
                                 row.update(outcome='cant_tell',conflicting=True,observed='同じ状態・対象の機械証拠が矛盾しているため確定しない。',
                                     evidence=sorted(set(previous['evidence']+proof)))
                             result[key]=row

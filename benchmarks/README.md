@@ -73,7 +73,7 @@ python3 benchmarks/run.py collect --mode all --out /project/bench-001
 python3 benchmarks/run.py collect --mode machine --criterion 1.1.1 --out /project/bench-alt-001
 ```
 
-実際のskills/wcag-audit-kit/scripts/audit.py page-auditを使い、各ページを検査します。自動で採点へ接続するのは、現行の生データが出力するimage-alt、document-title、実キーの到達・送出だけです。別の観点はAI・実SR・個別の機械検査を実行して結果を取り込むまで未確認です。
+実際のskills/wcag-audit-kit/scripts/audit.py page-auditを使い、各ページを検査します。採点にはimage-alt、document-title、実キーの到達・送出と、1.4.3-01の文字コントラストを自動で取り込みます。文字コントラストは宣言した状態と対象が一致するaxeの測定を使います。[文字コントラストの採点条件](../docs/adr/0027-score-observed-text-contrast.md)別の観点はAI・実SR・個別の機械検査を実行して結果を取り込むまで未確認です。[文字コントラストの採点条件](../docs/adr/0027-score-observed-text-contrast.md)
 
 正解は先にスナップショットへ固定し、ページ・画像・音声、使用する実装・スキル・検証手順の資料と実行上限、ブラウザー等の環境、原典のハッシュも記録します。実行中断後は同じ実装で再開できます。
 
