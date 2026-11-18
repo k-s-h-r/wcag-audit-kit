@@ -1,17 +1,48 @@
 """Run explicitly configured keyboard paths and record observed results."""
+import json
 import re
 from urllib.parse import urldefrag
 
 from browser_capture import FOCUS, OPEN_FOCUS_PATH, in_scope, normalize
 
 
-CRITERIA = {'2.1.1', '2.1.2', '2.4.3'}
-KEYS = {'Tab', 'Shift+Tab', 'Enter', 'Space', 'Escape'}
+CRITERIA = {'2.1.1', '2.1.2', '2.4.3', '4.1.2'}
+KEYS = ('Tab', 'Shift+Tab', 'Enter', 'Space', 'Escape', 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight')
+SELECTOR_CONDITIONS = {'focus', 'visible', 'hidden'}
 MATCH_FOCUS = '(e) => e.ownerDocument.hasFocus() && (' + OPEN_FOCUS_PATH + ')(e.ownerDocument).element === e'
+TEXT_INPUT_VALUE = "(e) => e instanceof HTMLInputElement && ['text', 'search'].includes(e.type) ? e.value : null"
 
 
 def nonempty(value):
     return isinstance(value, str) and bool(value.strip())
+
+
+def validate_step(step):
+    if not isinstance(step, dict) or set(step) - {'key', 'attributes', 'value'} - SELECTOR_CONDITIONS:
+        raise ValueError('手順にはkeyとfocus、visible、hidden、attributes、valueのうち少なくともいずれかの条件を指定する')
+    if step.get('key') not in KEYS:
+        raise ValueError('使用できるキーは' + '、'.join(KEYS))
+    if len(step) < 2:
+        raise ValueError('各キー操作には少なくとも一つの到達条件を指定する')
+    if any(not nonempty(step[field]) for field in SELECTOR_CONDITIONS & step.keys()):
+        raise ValueError('focus、visible、hiddenにはセレクターを指定する')
+
+    if 'attributes' in step:
+        attributes = step['attributes']
+        if not isinstance(attributes, list) or not attributes:
+            raise ValueError('attributesには一つ以上の属性条件を指定する')
+        for condition in attributes:
+            if (not isinstance(condition, dict) or condition.keys() != {'selector', 'name', 'equals'}
+                    or not nonempty(condition['selector']) or not isinstance(condition['name'], str)
+                    or not re.fullmatch(r'aria-[a-z][a-z0-9-]*', condition['name'])
+                    or condition['equals'] is not None and not isinstance(condition['equals'], str)):
+                raise ValueError('属性条件にはselector、aria-*のname、文字列又はnullのequalsを指定する')
+
+    if 'value' in step:
+        condition = step['value']
+        if (not isinstance(condition, dict) or condition.keys() != {'selector', 'equals'}
+                or not nonempty(condition['selector']) or not isinstance(condition['equals'], str)):
+            raise ValueError('入力値条件にはselectorと文字列のequalsを指定する')
 
 
 def validate(config):
@@ -28,18 +59,14 @@ def validate(config):
         seen.add(identifier)
         criterion = check.get('criterion')
         if not nonempty(check.get('name')) or not isinstance(criterion, str) or criterion not in CRITERIA:
-            raise ValueError('キー操作の経路名と対象基準（2.1.1、2.1.2、2.4.3）を指定する')
+            raise ValueError('キー操作の経路名と対象基準（2.1.1、2.1.2、2.4.3、4.1.2）を指定する')
         steps = check.get('steps')
         if not isinstance(steps, list) or not 1 <= len(steps) <= 40:
             raise ValueError('各キー操作経路は1〜40手順')
         for step in steps:
-            if not isinstance(step, dict) or set(step) - {'key', 'focus', 'visible', 'hidden'}:
-                raise ValueError('手順にはkeyとfocus、visible、hiddenのうち少なくともいずれかの条件を指定する')
-            key = step.get('key')
-            if not isinstance(key, str) or key not in KEYS:
-                raise ValueError('使用できるキーはTab、Shift+Tab、Enter、Space、Escape')
-            if len(step) < 2 or any(not nonempty(value) for field, value in step.items() if field != 'key'):
-                raise ValueError('各キー操作にはフォーカス又は表示状態のセレクターを指定する')
+            validate_step(step)
+        if criterion == '4.1.2' and not any('attributes' in step for step in steps):
+            raise ValueError('4.1.2の経路にはDOMの状態を照合するattributes条件を指定する')
         if 'destination' in check:
             destination = check['destination']
             if not nonempty(destination) or not in_scope(destination, config):
@@ -84,24 +111,62 @@ def describe_focus(focus):
     return ' → '.join(parts)
 
 
+async def condition_target(page, selector):
+    locator = page.locator(selector)
+    count = await locator.count()
+    if count > 1:
+        raise ValueError('条件の対象を一つに絞れない: ' + selector)
+    return locator if count else None
+
+
+async def observe_condition(page, kind, condition):
+    if kind in SELECTOR_CONDITIONS:
+        selector = condition
+        locator = await condition_target(page, selector)
+        if kind == 'focus':
+            actual = locator is not None and await locator.evaluate(MATCH_FOCUS)
+        else:
+            actual = locator is not None and await locator.is_visible()
+        return {'kind': kind, 'selector': selector, 'actual': actual, 'matched': actual == (kind != 'hidden')}
+
+    selector = condition['selector']
+    locator = await condition_target(page, selector)
+    if kind == 'attribute':
+        name = condition['name']
+        actual = await locator.get_attribute(name) if locator is not None else None
+        details = {'name': name}
+    else:
+        actual = await locator.evaluate(TEXT_INPUT_VALUE) if locator is not None else None
+        if locator is not None and actual is None:
+            raise ValueError('value条件にはtext又はsearchの入力欄を指定する: ' + selector)
+        details = {}
+    expected = condition['equals']
+    return {'kind': kind, 'selector': selector, **details, 'expected': expected, 'actual': actual,
+            'found': locator is not None, 'matched': locator is not None and actual == expected}
+
+
 async def observe_conditions(page, step, destination):
     observations = []
-    for kind, selector in step.items():
+    for kind, condition in step.items():
         if kind == 'key':
             continue
-        locator = page.locator(selector)
-        count = await locator.count()
-        if count > 1:
-            raise ValueError('条件の対象を一つに絞れない: ' + selector)
-        if kind == 'focus':
-            actual = count == 1 and await locator.evaluate(MATCH_FOCUS)
+        if kind == 'attributes':
+            observations.extend([await observe_condition(page, 'attribute', entry) for entry in condition])
         else:
-            actual = count == 1 and await locator.is_visible()
-        observations.append({'kind': kind, 'selector': selector, 'actual': actual, 'matched': actual == (kind != 'hidden')})
+            observations.append(await observe_condition(page, kind, condition))
     if destination:
         observations.append({'kind': 'destination', 'selector': destination, 'actual': page.url,
                              'matched': normalize(page.url) == normalize(destination)})
     return observations
+
+
+def matching_keydown(event, key):
+    if event['type'] != 'keydown' or not event['isTrusted'] or not event['is_main_frame']:
+        return False
+    expected = '[character]' if key == 'Space' else key.split('+')[-1]
+    modifiers = event['modifiers']
+    return (event['key'] == expected and modifiers['shift'] == (key == 'Shift+Tab')
+            and not any(modifiers[modifier] for modifier in ('control', 'alt', 'meta')))
 
 
 async def run_path(page, check, allow_navigation, record, observer, interrupted):
@@ -139,12 +204,8 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted)
         entry['url'] = page.url
         entry['conditions'] = await observe_conditions(page, step, destination)
         entry['navigation'] = navigation_status.copy()
-        key = step['key'].split('+')[-1]
-        if key == 'Space':
-            key = '[character]'
         delivered = next((position for position, event in enumerate(observer.events[start:], start=start + 1)
-                          if event['type'] == 'keydown' and event['isTrusted'] and event['is_main_frame']
-                          and event['key'] == key and event['modifiers']['shift'] == (step['key'] == 'Shift+Tab')), None)
+                          if matching_keydown(event, step['key'])), None)
         if observer.dropped or delivered is None:
             raise ValueError('キー入力を文書に届けた証拠を確認できない')
         entry['input_event_index'] = delivered
@@ -158,6 +219,24 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted)
     record['outcome'] = 'passed'
 
 
+def display_value(value):
+    if value is None:
+        return 'なし'
+    if len(value) > 120:
+        value = value[:120] + '…'
+    return json.dumps(value, ensure_ascii=False)
+
+
+def describe_mismatch(condition):
+    kind, selector = condition['kind'], condition['selector']
+    if kind in {'attribute', 'value'}:
+        label = condition['name'] if kind == 'attribute' else '入力値'
+        actual = display_value(condition['actual']) if condition['found'] else '対象なし'
+        return f'{selector} の {label} が {display_value(condition["expected"])}（実際: {actual}）'
+    labels = {'focus': 'フォーカス', 'visible': '表示', 'hidden': '非表示', 'destination': '移動先'}
+    return f'{labels[kind]} {selector}'
+
+
 def report_row(record, environment, evidence):
     entry = record['steps'][-1] if record['steps'] else None
     stop = record['outcome'] != 'passed' and entry is not None
@@ -169,11 +248,14 @@ def report_row(record, environment, evidence):
     elif record.get('reason'):
         observed = record['reason']
     else:
-        labels = {'focus': 'フォーカス', 'visible': '表示', 'hidden': '非表示', 'destination': '移動先'}
-        missed = '、'.join(f'{labels[c["kind"]]} {c["selector"]}' for c in entry['conditions'] if not c['matched'])
+        missed = '、'.join(describe_mismatch(c) for c in entry['conditions'] if not c['matched'])
         observed = (f'{entry["index"]}手順目の {entry["key"]} 後に期待した{missed}を確認できない。'
                     f'実際のフォーカスは{describe_focus(entry.get("after"))}。')
+    if record['criterion'] == '4.1.2':
+        note = '指定したDOMの状態を照合した結果。アクセシブル名・役割・支援技術での通知は追加確認。'
+    else:
+        note = '指定したキー操作と到達条件の結果。達成基準全体の適否は別に確認する。'
     return dict(criterion=record['criterion'], checkpoint='キーボード経路 / '+record['id'], expected=name,
                 outcome=record['outcome'], environment=environment, capture='キーボード経路 '+record['id'],
                 state_label=f'{name} / {route}' if route else name, target=target, observed=observed,
-                evidence=evidence, source='', note='指定したキー操作と到達条件の結果。達成基準全体の適否は別に確認する。')
+                evidence=evidence, source='', note=note)
