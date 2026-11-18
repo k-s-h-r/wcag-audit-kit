@@ -35,7 +35,7 @@ class Handler(SimpleHTTPRequestHandler):
         pass
 
 
-def execute(area, url, *, hover=None, keyboard=None, pause=False):
+def execute(area, url, *, hover=None, keyboard=None, pause=False, images=False):
     area.mkdir()
     run = area / 'run'
     config = audit.init_config(url)
@@ -48,7 +48,8 @@ def execute(area, url, *, hover=None, keyboard=None, pause=False):
     audit.save(area / 'config.json', config)
     command = [sys.executable, str(ROOT / 'skills/wcag-audit-kit/scripts/audit.py'), 'page-audit',
                '--url', url, '--out', str(run), '--config', str(area / 'config.json'),
-               '--mode', 'machine', '--screenshots', 'off', '--max-states', '1', '--max-depth', '1']
+               '--mode', 'ai' if images else 'machine', '--screenshots', 'all' if images else 'off',
+               '--max-states', '1', '--max-depth', '1']
 
     def run_command(name, *arguments):
         result = subprocess.run(command + list(arguments), capture_output=True, text=True, timeout=90)
@@ -134,6 +135,13 @@ def inspect_hover(run, workbook, plan, expected):
         for name in ('hover-trigger', 'move-to-popup', 'hover-trigger-for-escape'):
             assert trusted_input(steps[name], events)['type'] in {'pointermove', 'mousemove'}, steps[name]
             assert steps[name]['point'], steps[name]
+        transfer = steps['move-to-popup']
+        samples = transfer['samples']
+        assert 1 < len(samples) <= 64 and samples[-1]['point'] == transfer['point'], transfer
+        for sample in samples:
+            assert trusted_input(sample, events)['type'] == 'pointermove', sample
+        if expected['hoverable'] == 'passed':
+            assert transfer['point'] == transfer['planned_point'], transfer
         escape_event = trusted_input(steps['press-escape'], events)
         assert escape_event['type'] == 'keydown' and escape_event['key'] == 'Escape', escape_event
     assert_report_formats(workbook, path, list(rows.values()))
@@ -161,6 +169,10 @@ def inspect_focus(run, workbook, plan, expected, status):
         assert receipt['overlay']['solidCore'] and receipt['overlay']['background'], receipt
     if expected == 'passed':
         assert receipt['exposed'] and receipt['targetCore'], receipt
+    if receipt.get('image'):
+        image = (Path(row['evidence']).parent / receipt['image']).as_posix()
+        graph = audit.load(run / 'exploration.json')
+        assert audit.evidence_item(run, image) in graph['proof']
     assert_report_formats(workbook, path, [row])
     return {'outcome': expected, 'measurement': status}
 
@@ -179,6 +191,9 @@ def cases():
         keyboard = route(FOCUS_CRITERION, 'ambiguous-cover', '前面バナーの重なりを確認する',
                          [*SHOW_BANNER, FOCUS_TARGET])
         yield FOCUS_CRITERION, page, keyboard, ('cant_tell', status)
+    keyboard = route(FOCUS_CRITERION, 'border-paint', '前面の枠画像を確認する', [FOCUS_TARGET])
+    yield FOCUS_CRITERION, 'border-image-outset.html', keyboard, ('cant_tell', 'paint_outside_hit_test')
+    yield HOVER_CRITERION, 'hover-gap.html', HOVER_PLAN, {'hoverable': 'failed', 'dismissible': 'failed'}
     missing = dict(HOVER_PLAN, id='missing-popup', popup='#missing')
     yield HOVER_CRITERION, 'p04.html', missing, {'hoverable': 'cant_tell', 'dismissible': 'cant_tell'}
 
@@ -188,12 +203,34 @@ def main(out):
     public = out / 'public'
     for criterion in (HOVER_CRITERION, FOCUS_CRITERION):
         shutil.copytree(ROOT / 'benchmarks' / 'cases' / criterion / 'public', public / criterion)
+    (public / HOVER_CRITERION / 'hover-gap.html').write_text('''<!doctype html>
+        <title>料金</title>
+        <style>
+          #subject {position:fixed; left:100px; top:100px; width:40px; height:30px}
+          #tip {position:fixed; left:220px; top:100px; width:60px; height:30px;
+                border:1px solid black; background:white}
+          #subject + #tip:not(:hover) {display:none}
+          #subject:hover + #tip {display:block}
+        </style>
+        <button id="subject">料金</button><div id="tip">1000円</div>
+    ''')
     focus_public = public / FOCUS_CRITERION
     covered = (focus_public / 'p03.html').read_text()
     marker = 'background:#eee;z-index:4'
     assert covered.count(marker) == 1
     for filename, (style, _) in AMBIGUOUS_OVERLAYS.items():
         (focus_public / filename).write_text(covered.replace(marker, f'{marker};{style}'))
+    (focus_public / 'border-image-outset.html').write_text('''<!doctype html>
+        <title>保存ボタン</title>
+        <style>
+          #subject {position:fixed; top:100px; left:100px; width:80px; height:30px;
+                    background:#f88; border:none}
+          #art {position:fixed; top:60px; left:200px; width:100px; height:110px; z-index:2;
+                border:1px solid transparent; border-image-source:linear-gradient(white,white);
+                border-image-slice:1; border-image-width:120px; border-image-outset:100px}
+        </style>
+        <button id="subject">保存</button><div id="art"></div>
+    ''')
     with ThreadingHTTPServer(('127.0.0.1', 0), partial(Handler, directory=str(public))) as server:
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
@@ -207,8 +244,10 @@ def main(out):
                 run, workbook = execute(out / name, url, hover=plan, pause=page == 'p03.html')
                 outcome = inspect_hover(run, workbook, plan, expected)
             else:
-                run, workbook = execute(out / name, url, keyboard=plan)
+                images = page == 'border-image-outset.html'
+                run, workbook = execute(out / name, url, keyboard=plan, images=images)
                 outcome = inspect_focus(run, workbook, plan, *expected)
+                assert bool(list(run.glob('evidence/*/focused-viewport.png'))) == images
             return {'criterion': criterion, 'page': page, 'outcome': outcome}
 
         try:

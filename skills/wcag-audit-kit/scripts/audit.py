@@ -152,6 +152,18 @@ def validate_config(c):
     if 'keyboard_checks' in c:
         from keyboard_checks import validate as validate_keyboard_checks
         validate_keyboard_checks(c)
+    if 'hover_checks' in c:
+        from hover_checks import validate_check
+
+        checks = c['hover_checks']
+        if not isinstance(checks, list) or len(checks) > 20:
+            raise ValueError('hover_checksには20経路まで指定できる')
+        identifiers = set()
+        for check in checks:
+            validate_check(check)
+            if check['id'] in identifiers:
+                raise ValueError('ホバー経路には重複のないidが必要')
+            identifiers.add(check['id'])
     if c.get('auth_state'):
         c['auth_state']=str(Path(c['auth_state']).resolve())
     if 'inspection' in c and 'verification' not in c:
@@ -730,8 +742,9 @@ def main(argv=None):
                 if args.level:config['level']=args.level
                 config=validate_config(config)
             else:config=read_config(args.config)
-            if config.get('keyboard_checks') and args.command != 'page-audit':
-                raise ValueError('keyboard_checksはpage-auditで実行する')
+            for key in ('keyboard_checks', 'hover_checks'):
+                if config.get(key) and args.command != 'page-audit':
+                    raise ValueError(f'{key}はpage-auditで実行する')
             if args.command=='pages':
                 out=Path(args.out)
                 if out.exists():raise ValueError('既存のURL一覧を上書きしない')

@@ -50,6 +50,18 @@ def machine_checks(run):
             path=Path(edge['evidence_dir'])/'keyboard-check.json'
             rows.append(report_row(audit.load(run/path), edge['environment'], path.as_posix()))
             continue
+        if edge.get('hover_check'):
+            path = Path(edge['evidence_dir'])/'hover-check.json'
+            record = audit.load(run/path)
+            labels_by_aspect = {'hoverable': '追加表示へポインターを移した後も表示が続く',
+                                'dismissible': 'ポインターを移さずEscapeで追加表示を閉じられる'}
+            for item in record['observations']:
+                rows.append(dict(criterion='1.4.13', checkpoint=f"ホバー経路 / {record['id']} / {item['aspect']}",
+                    expected=labels_by_aspect[item['aspect']], outcome=item['outcome'], environment=edge['environment'],
+                    capture='ホバー経路 '+record['id'], state_label=record['name'], target=item['target'],
+                    observed=item['observed'], evidence=path.as_posix(), source='',
+                    note='指定の操作と表示の結果。別の解除手段、例外、表示の持続時間は追加確認。'))
+            continue
         route=edge['route']
         # A key reached after pointer or scripted setup is evidence for that
         # mixed route, not for reaching the same state using only keys.

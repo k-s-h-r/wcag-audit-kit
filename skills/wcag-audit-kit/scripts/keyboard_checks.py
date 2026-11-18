@@ -7,7 +7,7 @@ from browser_capture import OPEN_FOCUS_PATH, in_scope, normalize
 import keyboard_frames
 
 
-CRITERIA = {'2.1.1', '2.1.2', '2.4.3', '4.1.2'}
+CRITERIA = {'2.1.1', '2.1.2', '2.4.3', '2.4.11', '4.1.2'}
 KEYS = ('Tab', 'Shift+Tab', 'Enter', 'Space', 'Escape', 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight')
 SELECTOR_CONDITIONS = {'focus', 'visible', 'hidden'}
 MATCH_FOCUS = '(e) => e.ownerDocument.hasFocus() && (' + OPEN_FOCUS_PATH + ')(e.ownerDocument).element === e'
@@ -19,7 +19,7 @@ def nonempty(value):
 
 
 def validate_step(step):
-    if not isinstance(step, dict) or set(step) - {'key', 'attributes', 'value', 'frame', 'input_frame'} - SELECTOR_CONDITIONS:
+    if not isinstance(step, dict) or set(step) - {'key', 'attributes', 'value', 'frame', 'input_frame', 'unobscured'} - SELECTOR_CONDITIONS:
         raise ValueError('手順にはkeyとfocus、visible、hidden、attributes、valueのうち少なくともいずれかの条件を指定する')
     if step.get('key') not in KEYS:
         raise ValueError('使用できるキーは' + '、'.join(KEYS))
@@ -60,7 +60,7 @@ def validate(config):
         seen.add(identifier)
         criterion = check.get('criterion')
         if not nonempty(check.get('name')) or not isinstance(criterion, str) or criterion not in CRITERIA:
-            raise ValueError('キー操作の経路名と対象基準（2.1.1、2.1.2、2.4.3、4.1.2）を指定する')
+            raise ValueError('キー操作の経路名と対象基準（2.1.1、2.1.2、2.4.3、2.4.11、4.1.2）を指定する')
         steps = check.get('steps')
         if not isinstance(steps, list) or not 1 <= len(steps) <= 40:
             raise ValueError('各キー操作経路は1〜40手順')
@@ -68,6 +68,13 @@ def validate(config):
             validate_step(step)
         if criterion == '4.1.2' and not any('attributes' in step for step in steps):
             raise ValueError('4.1.2の経路にはDOMの状態を照合するattributes条件を指定する')
+        measure = [index for index, step in enumerate(steps) if 'unobscured' in step]
+        if criterion == '2.4.11':
+            if (measure != [len(steps) - 1] or steps[-1]['unobscured'] is not True or not steps[-1].get('focus')
+                    or 'frame' in check or 'destination' in check):
+                raise ValueError('2.4.11は親文書の移動を伴わない経路の最終手順にfocusとunobscured: trueを指定する')
+        elif measure:
+            raise ValueError('unobscuredは2.4.11の経路に指定する')
         if 'destination' in check:
             destination = check['destination']
             if not nonempty(destination) or not in_scope(destination, config):
@@ -160,7 +167,7 @@ async def observe_conditions(page, step, destination, condition_scope=None, focu
     scope = page if condition_scope is None else condition_scope
     observations = []
     for kind, condition in step.items():
-        if kind in {'key', 'frame', 'input_frame'}:
+        if kind in {'key', 'frame', 'input_frame', 'unobscured'}:
             continue
         if kind == 'attributes':
             for entry in condition:
@@ -240,7 +247,21 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted,
         if any(item['status'] >= 400 for item in navigation_status):
             raise ValueError('移動先のページを正常に読み込めない')
         if not all(condition['matched'] for condition in entry['conditions']):
-            record['outcome'] = 'failed'
+            if check['criterion'] == '2.4.11':
+                record['reason'] = f'{index}手順目の到達条件が一致せず、対象のフォーカス状態を測定できなかった。'
+            else:
+                record['outcome'] = 'failed'
+            return
+        if step.get('unobscured'):
+            from focus_occlusion import observe
+
+            if interrupted():
+                raise ValueError('通信・ページ移動の制限又はブラウザーの分岐で観察を中断した')
+            measurement = await observe(condition_frame, step['focus'])
+            entry['occlusion'] = measurement
+            record['outcome'] = measurement['outcome']
+            if record['outcome'] == 'cant_tell':
+                record['reason'] = measurement['observed']
             return
     record['outcome'] = 'passed'
 
@@ -269,15 +290,20 @@ def report_row(record, environment, evidence):
     name = record['name']
     route = ' → '.join(step['key'] for step in record['steps'])
     target = describe_focus(entry.get('before')) if stop else ''
-    if record['outcome'] == 'passed':
-        observed = f'{len(record["steps"])}手順の到達条件を確認した。'
-    elif record.get('reason'):
+    if record.get('reason'):
         observed = record['reason']
+    elif entry and 'occlusion' in entry:
+        observed = entry['occlusion']['observed']
+    elif record['outcome'] == 'passed':
+        observed = f'{len(record["steps"])}手順の到達条件を確認した。'
     else:
         missed = '、'.join(describe_mismatch(c) for c in entry['conditions'] if not c['matched'])
         observed = (f'{entry["index"]}手順目の {entry["key"]} 後に期待した{missed}を確認できない。'
                     f'実際のフォーカスは{describe_focus(entry.get("after"))}。')
-    if record['criterion'] == '4.1.2':
+    if record['criterion'] == '2.4.11':
+        target = record['target']
+        note = '操作直後の重なりの結果。フォーカスを移さず再表示する手段や、別の状態は追加確認。'
+    elif record['criterion'] == '4.1.2':
         note = '指定したDOMの状態を照合した結果。アクセシブル名・役割・支援技術での通知は追加確認。'
     else:
         note = '指定したキー操作と到達条件の結果。達成基準全体の適否は別に確認する。'

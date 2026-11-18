@@ -6,9 +6,10 @@ from datetime import datetime,timezone
 INIT_SCRIPT=r"""(() => {
  const documentId=String(performance.timeOrigin)+'-'+Math.random().toString(36).slice(2);
  window.__wcagExpectedPointerTarget=null;
- const types=['pointerdown','pointerup','pointercancel','mousedown','mouseup','click',
+ const types=['pointerdown','pointerup','pointercancel','pointermove','mousedown','mouseup','click',
               'dragstart','dragover','drop','dragend','keydown','keyup'];
  for(const type of types) addEventListener(type,event=>{
+  if(type==='pointermove'&&window.__wcagObservePointerMove!==true)return;
   const path=event.composedPath(),target=path.find(n=>n?.nodeType===1);
   const data={type:event.type,isTrusted:event.isTrusted,documentId,url:location.href,
    timestamp:event.timeStamp,target:target?{tag:target.localName,id:target.id}:null,

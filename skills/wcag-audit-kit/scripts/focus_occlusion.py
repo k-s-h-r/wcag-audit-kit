@@ -71,6 +71,7 @@ OBSERVE = r"""
         const style = computed(element);
         if (!(element instanceof HTMLElement) || element.getClientRects().length !== 1
                 || !/^rgb\(\d+, \d+, \d+\)$/.test(style.backgroundColor) || style.backgroundImage !== 'none'
+                || style.borderImageSource !== 'none'
                 || !['border-box', 'padding-box', 'content-box'].includes(style.backgroundClip)
                 || !squareCorners(style)) return null;
         const inset = side => parseFloat(style['border' + side + 'Width']) +
@@ -141,8 +142,10 @@ OBSERVE = r"""
         if (target.contains(element)) continue;
         const style = computed(element);
         if (style.display === 'none' || style.visibility !== 'visible' || style.opacity === '0') continue;
+        const borderPaintOutside = style.borderImageSource !== 'none'
+            && style.borderImageOutset.split(/\s+/).some(value => parseFloat(value) > 0);
         if (generated(element) || style.boxShadow !== 'none' || style.textShadow !== 'none'
-                || style.filter !== 'none' || style.backdropFilter !== 'none') {
+                || style.filter !== 'none' || style.backdropFilter !== 'none' || borderPaintOutside) {
             return finish('paint_outside_hit_test', {unmeasured: label(element)});
         }
         if (!element.getClientRects().length) continue;
