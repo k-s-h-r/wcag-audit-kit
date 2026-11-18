@@ -44,7 +44,12 @@ def machine_checks(run):
                         observed='\n'.join(n.get('failureSummary') or n.get('html','') for n in affected),
                         evidence=path.as_posix(),source=rule.get('helpUrl',''),
                         note='機械ルールの結果。達成基準全体の適否とは区別する。'))
+    from keyboard_checks import report_row
     for index,edge in enumerate(graph.get('edges',[])):
+        if edge.get('keyboard_check'):
+            path=Path(edge['evidence_dir'])/'keyboard-check.json'
+            rows.append(report_row(audit.load(run/path), edge['environment'], path.as_posix()))
+            continue
         if not edge['route']:continue
         action=edge['route'][-1]
         if action['type'] not in {'key','press','click'}:continue

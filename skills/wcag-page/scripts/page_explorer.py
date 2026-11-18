@@ -11,6 +11,7 @@ from urllib.parse import urldefrag
 from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, capture_image, normalize, page_id
 from input_observation import INIT_SCRIPT, InputObserver
+import keyboard_checks
 import state_labels
 
 SCRIPT=(ROOT/'scripts/page_explorer.js').read_text()
@@ -109,10 +110,16 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
         raise ValueError('自動探索の環境はzoom=1にする。実ブラウザー拡大は別のprobeで検証する')
     checkpoint=run/'exploration.json'
     if checkpoint.exists():status(run)
-    implementation=sha256((SCRIPT+Path(__file__).read_text()).encode()).hexdigest()
+    checks={check['id']:check for check in keyboard_checks.validate(config)}
+    implementation=sha256((SCRIPT+Path(__file__).read_text()+Path(keyboard_checks.__file__).read_text()).encode()).hexdigest()
+    initial_jobs=[]
+    for env in config['environments']:
+        initial={'environment':env['id'],'route':[]}
+        initial_jobs.append(initial)
+        initial_jobs.extend(dict(initial, keyboard_check=check_id) for check_id in checks)
     value=audit.load(checkpoint) if checkpoint.exists() else {'schema_version':'1','config_digest':meta['config_digest'],
         'implementation_digest':implementation,
-        'queue':[{'environment':e['id'],'route':[]} for e in config['environments']],
+        'queue':initial_jobs,
         'nodes':[],'edges':[],'remaining':[],'proof':[],'steps':0}
     if value['config_digest']!=meta['config_digest']:raise ValueError('探索と設定の版が不一致')
     if value.get('implementation_digest')!=implementation:raise ValueError('探索の実装が変わったため新しいrunで実行する')
@@ -139,18 +146,31 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     async with async_playwright() as pw:
         browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=['--no-sandbox'])
         try:
-            while value['queue'] and len(value['nodes'])<max_states and value['steps']<max_steps:
+            while value['queue'] and value['steps']<max_steps:
                 job=value['queue'][0];env=envs[job['environment']];route=job['route']
-                if len(route)>max_depth:break
+                check=checks.get(job.get('keyboard_check'))
+                if not check and (len(value['nodes'])>=max_states or len(route)>max_depth):break
+                check_record=dict(id=check['id'], name=check['name'], criterion=check['criterion'],
+                                  outcome='cant_tell', steps=[]) if check else None
+                allowed_navigation={urldefrag(normalize(url))[0]}
                 context=await browser.new_context(viewport=env['viewport'],locale=config.get('locale','ja-JP'),storage_state=config.get('auth_state'),service_workers='block',accept_downloads=False)
                 observer=InputObserver(10000);blocked=[]
                 await context.expose_binding('__wcagAuditInput',observer.accept)
                 await context.add_init_script(INIT_SCRIPT);await context.add_init_script(SCRIPT)
                 async def guard(request_route):
                     request=request_route.request
-                    if request.method not in {'GET','HEAD','OPTIONS'} or (request.is_navigation_request() and urldefrag(request.url)[0]!=urldefrag(url)[0]):
-                        blocked.append({'method':request.method,'url':request.url});await request_route.abort()
-                    else:await request_route.continue_()
+                    navigation=request.is_navigation_request()
+                    allowed_method=request.method in {'GET','HEAD','OPTIONS'}
+                    allowed_document=urldefrag(normalize(request.url))[0] in allowed_navigation
+                    if not allowed_method or (navigation and not allowed_document):
+                        blocked.append({'method':request.method,'url':request.url})
+                        await request_route.abort()
+                    elif check and navigation:
+                        # Playwright does not dispatch route handlers for every HTTP redirect.
+                        # Fetch only the permitted document and refuse redirect responses.
+                        await keyboard_checks.load_document(request_route, page, blocked)
+                    else:
+                        await request_route.continue_()
                 await context.route('**/*',guard)
                 await context.route_web_socket('**/*',lambda socket:socket.close())
                 page=await context.new_page();error=None;data=None;unreachable=False;native_events=[];settling=[]
@@ -168,51 +188,65 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     response=await page.goto(url,wait_until='domcontentloaded',timeout=20000)
                     if response and response.status>=400:raise ValueError(f'HTTP {response.status}')
                     settling.append(await page.evaluate('() => window.__wcagWaitForUpdates()'))
-                    for action in route:settling.append(await perform(page,action))
-                    label_observations=await state_labels.observe(page,route,labels)
-                    matched_labels=state_labels.verified(labels,route,label_observations)
-                    data=await page.evaluate('() => window.__wcagExplore()')
-                    data['observation_wait']=settling
-                    data['state_labels']=label_observations
-                    inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
-                    audit.save(dest/'state.json',data)
-                    if (env['id'],fingerprint(data)) not in seen or matched_labels:
-                        # Capture the audited state before diagnostic scrolling changes the DOM.
-                        cdp=await context.new_cdp_session(page)
-                        audit.save(dest/'accessibility-tree.json',await cdp.send('Accessibility.getFullAXTree'));await cdp.detach()
-                        await page.evaluate((ROOT/'vendor/axe.min.js').read_text())
-                        audit.save(dest/'axe.json',await page.evaluate("async()=>await axe.run(document,{resultTypes:['violations','incomplete','passes','inapplicable']})"))
-                        if matched_labels:
-                            current_observations = await state_labels.observe(page, route, labels)
-                            still_matched = state_labels.verified(labels, route, current_observations)
-                            data['state_labels'] = [record for record in label_observations
-                                                    if not record['matched'] or record['id'] in still_matched]
-                            audit.save(dest/'state.json', data)
-                        await images.capture(page,dest/'page.png',kind='state',full_page=data['scroll']['height']<=env['viewport']['height']*20)
-                        # Actual scroll/tile captures reveal sticky/viewport-only content.
-                        tiles=[]
-                        for y in range(0,min(data['scroll']['height'],env['viewport']['height']*20),env['viewport']['height']):
-                            await page.evaluate('(y)=>scrollTo(0,y)',y);await page.wait_for_timeout(40)
-                            await images.capture(page,dest/f'tile-{len(tiles):03}.png',kind='state');tiles.append(y)
-                        audit.save(dest/'tiles.json',{'positions':tiles,'height':data['scroll']['height'],'viewport':env['viewport']})
-                        if data['scroll']['height']>env['viewport']['height']*20:value['remaining'].append(f'{env["id"]}：20画面を超える縦方向の表示を追加調査する。')
-                        if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(run)))):
-                            value['remaining'].append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
-                        trace=[]
-                        for _ in range(min(config.get('keyboard_steps',30),120)):
-                            await page.keyboard.press('Tab');trace.append(await page.evaluate(FOCUS))
-                        audit.save(dest/'keyboard.json',trace)
+                    if check:
+                        if settling[-1]['status'] != 'quiet':
+                            raise ValueError('初期表示の更新が観察範囲に収まらない')
+                        await keyboard_checks.run_path(page, check, allowed_navigation, check_record, observer,
+                                                       lambda: bool(blocked or native_events))
+                    else:
+                        for action in route:settling.append(await perform(page,action))
+                        label_observations=await state_labels.observe(page,route,labels)
+                        matched_labels=state_labels.verified(labels,route,label_observations)
+                        data=await page.evaluate('() => window.__wcagExplore()')
+                        data['observation_wait']=settling
+                        data['state_labels']=label_observations
+                        inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
+                        audit.save(dest/'state.json',data)
+                        if (env['id'],fingerprint(data)) not in seen or matched_labels:
+                            # Capture the audited state before diagnostic scrolling changes the DOM.
+                            cdp=await context.new_cdp_session(page)
+                            audit.save(dest/'accessibility-tree.json',await cdp.send('Accessibility.getFullAXTree'));await cdp.detach()
+                            await page.evaluate((ROOT/'vendor/axe.min.js').read_text())
+                            audit.save(dest/'axe.json',await page.evaluate("async()=>await axe.run(document,{resultTypes:['violations','incomplete','passes','inapplicable']})"))
+                            if matched_labels:
+                                current_observations = await state_labels.observe(page, route, labels)
+                                still_matched = state_labels.verified(labels, route, current_observations)
+                                data['state_labels'] = [record for record in label_observations
+                                                        if not record['matched'] or record['id'] in still_matched]
+                                audit.save(dest/'state.json', data)
+                            await images.capture(page,dest/'page.png',kind='state',full_page=data['scroll']['height']<=env['viewport']['height']*20)
+                            # Actual scroll/tile captures reveal sticky/viewport-only content.
+                            tiles=[]
+                            for y in range(0,min(data['scroll']['height'],env['viewport']['height']*20),env['viewport']['height']):
+                                await page.evaluate('(y)=>scrollTo(0,y)',y);await page.wait_for_timeout(40)
+                                await images.capture(page,dest/f'tile-{len(tiles):03}.png',kind='state');tiles.append(y)
+                            audit.save(dest/'tiles.json',{'positions':tiles,'height':data['scroll']['height'],'viewport':env['viewport']})
+                            if data['scroll']['height']>env['viewport']['height']*20:value['remaining'].append(f'{env["id"]}：20画面を超える縦方向の表示を追加調査する。')
+                            if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(run)))):
+                                value['remaining'].append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
+                            trace=[]
+                            for _ in range(min(config.get('keyboard_steps',30),120)):
+                                await page.keyboard.press('Tab');trace.append(await page.evaluate(FOCUS))
+                            audit.save(dest/'keyboard.json',trace)
                 except Exception as exc:
                     error=str(exc);unreachable=isinstance(exc,KeyboardUnreachable)
                 finally:
+                    if check_record is not None:
+                        if error or blocked or native_events:
+                            check_record.update(outcome='cant_tell', reason=error or '制限した通信・ページ移動又はブラウザーの分岐がある。')
+                        audit.save(dest/'keyboard-check.json',check_record)
                     audit.save(dest/'transition.json',dict(job,error=error,blocked_requests=blocked,native_events=native_events,settling=settling))
                     audit.save(dest/'input-events.json',observer.export())
                     await context.close()
                 proof=[audit.evidence_item(run,str(p.relative_to(run))) for p in sorted(dest.iterdir()) if p.is_file()]
                 value['proof'].extend(proof)
                 edge=dict(job,error=error,evidence_dir=str(dest.relative_to(run)),blocked_requests=blocked,native_events=native_events)
+                if check:
+                    edge['keyboard_check']=check['id']
+                    if check_record['outcome']=='cant_tell':
+                        value['remaining'].append(f"{env['id']} / キーボード経路 {check['name']}：{check_record['reason']}")
                 value['edges'].append(edge);value['steps']+=1
-                if error and not unreachable:value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
+                if error and not unreachable and not check:value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
                 if blocked:value['remaining'].append(f'{env["id"]}：通信又はページ移動を制限した経路がある。状態を確認する。')
                 if native_events:value['remaining'].append(f'{env["id"]}：ブラウザー標準ダイアログ・別窓・ダウンロードの分岐を追加検査する。')
                 if any(wait['status']!='quiet' for wait in settling):
