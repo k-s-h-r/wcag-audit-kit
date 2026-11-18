@@ -88,7 +88,7 @@ def assert_report_formats(report, row):
 
 
 def count_near_target_differences(before_image, after_image, rect, size):
-    x, y, width, height = (rect[key] for key in ('x', 'y', 'width', 'height'))
+    x, y, width, height = (rect[key] for key in ('left', 'top', 'width', 'height'))
     margin = 10
     bounds = (max(0, floor(x) - margin), max(0, floor(y) - margin),
               min(size[0], ceil(x + width) + margin), min(size[1], ceil(y + height) + margin))
