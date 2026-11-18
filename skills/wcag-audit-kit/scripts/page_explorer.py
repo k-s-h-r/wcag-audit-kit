@@ -12,6 +12,7 @@ from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, capture_image, normalize, page_id
 from input_observation import INIT_SCRIPT, InputObserver
 import keyboard_checks
+import keyboard_frames
 import state_labels
 
 SCRIPT=(ROOT/'scripts/page_explorer.js').read_text()
@@ -138,7 +139,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     checkpoint=run/'exploration.json'
     if checkpoint.exists():status(run)
     checks={check['id']:check for check in keyboard_checks.validate(config)}
-    implementation=sha256((SCRIPT+FOCUS+Path(__file__).read_text()+Path(keyboard_checks.__file__).read_text()).encode()).hexdigest()
+    implementation=sha256((SCRIPT+FOCUS+Path(__file__).read_text()+Path(keyboard_checks.__file__).read_text()+Path(keyboard_frames.__file__).read_text()).encode()).hexdigest()
     initial_jobs=[]
     for env in config['environments']:
         initial={'environment':env['id'],'route':[]}
@@ -189,18 +190,20 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     navigation=request.is_navigation_request()
                     allowed_method=request.method in {'GET','HEAD','OPTIONS'}
                     allowed_document=urldefrag(normalize(request.url))[0] in allowed_navigation
-                    if not allowed_method or (navigation and not allowed_document):
+                    if not allowed_method or (navigation and not check and not allowed_document):
                         blocked.append({'method':request.method,'url':request.url})
                         await request_route.abort()
                     elif check and navigation:
                         # Playwright does not dispatch route handlers for every HTTP redirect.
                         # Fetch only the permitted document and refuse redirect responses.
-                        await keyboard_checks.load_document(request_route, page, blocked)
+                        await keyboard_checks.load_document(request_route, page, blocked, allowed_navigation, frame_scope)
                     else:
                         await request_route.continue_()
                 await context.route('**/*',guard)
                 await context.route_web_socket('**/*',lambda socket:socket.close())
-                page=await context.new_page();error=None;data=None;unreachable=False;native_events=[];settling=[]
+                page=await context.new_page()
+                frame_scope=keyboard_frames.FrameScope(page, check.get('frame') if check else None)
+                error=None;data=None;unreachable=False;native_events=[];settling=[]
                 async def dismiss_dialog(dialog):
                     native_events.append({'type':dialog.type,'message':dialog.message,'action':'dismiss'})
                     await dialog.dismiss()
@@ -219,7 +222,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         if settling[-1]['status'] != 'quiet':
                             raise ValueError('初期表示の更新が観察範囲に収まらない')
                         await keyboard_checks.run_path(page, check, allowed_navigation, check_record, observer,
-                                                       lambda: bool(blocked or native_events))
+                                                       lambda: bool(blocked or native_events), frame_scope)
                     else:
                         for action in route:settling.append(await perform(page,action))
                         label_observations=await state_labels.observe(page,route,labels)

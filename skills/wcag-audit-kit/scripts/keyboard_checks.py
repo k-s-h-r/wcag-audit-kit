@@ -3,7 +3,8 @@ import json
 import re
 from urllib.parse import urldefrag
 
-from browser_capture import FOCUS, OPEN_FOCUS_PATH, in_scope, normalize
+from browser_capture import OPEN_FOCUS_PATH, in_scope, normalize
+import keyboard_frames
 
 
 CRITERIA = {'2.1.1', '2.1.2', '2.4.3', '4.1.2'}
@@ -18,11 +19,11 @@ def nonempty(value):
 
 
 def validate_step(step):
-    if not isinstance(step, dict) or set(step) - {'key', 'attributes', 'value'} - SELECTOR_CONDITIONS:
+    if not isinstance(step, dict) or set(step) - {'key', 'attributes', 'value', 'frame', 'input_frame'} - SELECTOR_CONDITIONS:
         raise ValueError('手順にはkeyとfocus、visible、hidden、attributes、valueのうち少なくともいずれかの条件を指定する')
     if step.get('key') not in KEYS:
         raise ValueError('使用できるキーは' + '、'.join(KEYS))
-    if len(step) < 2:
+    if not (SELECTOR_CONDITIONS | {'attributes', 'value'}) & step.keys():
         raise ValueError('各キー操作には少なくとも一つの到達条件を指定する')
     if any(not nonempty(step[field]) for field in SELECTOR_CONDITIONS & step.keys()):
         raise ValueError('focus、visible、hiddenにはセレクターを指定する')
@@ -51,8 +52,8 @@ def validate(config):
         raise ValueError('keyboard_checksには20経路まで指定できる')
     seen = set()
     for check in checks:
-        if not isinstance(check, dict) or set(check) - {'id', 'name', 'criterion', 'steps', 'destination'}:
-            raise ValueError('キー操作の経路はid、name、criterion、steps、任意のdestinationを指定する')
+        if not isinstance(check, dict) or set(check) - {'id', 'name', 'criterion', 'steps', 'destination', 'frame'}:
+            raise ValueError('キー操作の経路はid、name、criterion、steps、任意のdestination・frameを指定する')
         identifier = check.get('id')
         if not isinstance(identifier, str) or not re.fullmatch(r'[a-z0-9-]{1,64}', identifier) or identifier in seen:
             raise ValueError('キー操作の経路には重複のないidが必要')
@@ -73,16 +74,22 @@ def validate(config):
                 raise ValueError('リンク先は同じオリジンの対象範囲にある絶対URLを指定する')
             if steps[-1]['key'] not in {'Enter', 'Space'}:
                 raise ValueError('リンク先を確認する最後の手順にはEnter又はSpaceを指定する')
+        keyboard_frames.validate(check, config)
     return checks
 
 
-async def load_document(route, page, blocked):
+async def load_document(route, page, blocked, allowed_navigation, frame_scope):
     from playwright.async_api import Error as BrowserError
 
     request = route.request
     failure = {'method': request.method, 'url': request.url}
-    if request.method != 'GET' or request.frame != page.main_frame:
-        failure['reason'] = '指定経路ではメイン文書のGET移動だけを許可する'
+    try:
+        declared = (keyboard_frames.document_url(request.url) in allowed_navigation
+                    if request.frame == page.main_frame else await frame_scope.allows_navigation(request))
+    except BrowserError:
+        declared = False
+    if request.method != 'GET' or not declared:
+        failure['reason'] = '指定経路で宣言した文書のGET移動だけを許可する'
     else:
         try:
             response = await route.fetch(max_redirects=0, timeout=5000)
@@ -90,10 +97,13 @@ async def load_document(route, page, blocked):
             failure['reason'] = '指定した文書への接続に失敗した'
         else:
             try:
-                if not (300 <= response.status < 400 and response.headers.get('location')):
+                if 300 <= response.status < 400 and response.headers.get('location'):
+                    failure['reason'] = '指定した文書からのリダイレクトを保留した'
+                elif response.status >= 400:
+                    failure['reason'] = f'指定した文書を読み込めない（HTTP {response.status}）'
+                else:
                     await route.fulfill(response=response)
                     return
-                failure['reason'] = '指定した文書からのリダイレクトを保留した'
             finally:
                 await response.dispose()
     blocked.append(failure)
@@ -103,7 +113,8 @@ async def load_document(route, page, blocked):
 def describe_focus(focus):
     if not focus or not focus.get('documentHasFocus'):
         return 'ページ外又は確認できない位置'
-    parts = ['#' + host['id'] if host['id'] else host['tag'] for host in focus.get('shadowHosts', [])]
+    parts = [focus['frame']] if focus.get('frame') else []
+    parts.extend('#' + host['id'] if host['id'] else host['tag'] for host in focus.get('shadowHosts', []))
     if focus['id']:
         parts.append('#' + focus['id'])
     else:
@@ -119,18 +130,18 @@ async def condition_target(page, selector):
     return locator if count else None
 
 
-async def observe_condition(page, kind, condition):
+async def observe_condition(scope, kind, condition, focus_in_scope):
     if kind in SELECTOR_CONDITIONS:
         selector = condition
-        locator = await condition_target(page, selector)
+        locator = await condition_target(scope, selector)
         if kind == 'focus':
-            actual = locator is not None and await locator.evaluate(MATCH_FOCUS)
+            actual = focus_in_scope and locator is not None and await locator.evaluate(MATCH_FOCUS)
         else:
             actual = locator is not None and await locator.is_visible()
         return {'kind': kind, 'selector': selector, 'actual': actual, 'matched': actual == (kind != 'hidden')}
 
     selector = condition['selector']
-    locator = await condition_target(page, selector)
+    locator = await condition_target(scope, selector)
     if kind == 'attribute':
         name = condition['name']
         actual = await locator.get_attribute(name) if locator is not None else None
@@ -145,23 +156,28 @@ async def observe_condition(page, kind, condition):
             'found': locator is not None, 'matched': locator is not None and actual == expected}
 
 
-async def observe_conditions(page, step, destination):
+async def observe_conditions(page, step, destination, condition_scope=None, focus_in_scope=True):
+    scope = page if condition_scope is None else condition_scope
     observations = []
     for kind, condition in step.items():
-        if kind == 'key':
+        if kind in {'key', 'frame', 'input_frame'}:
             continue
         if kind == 'attributes':
-            observations.extend([await observe_condition(page, 'attribute', entry) for entry in condition])
+            for entry in condition:
+                observations.append(await observe_condition(scope, 'attribute', entry, focus_in_scope))
         else:
-            observations.append(await observe_condition(page, kind, condition))
+            observations.append(await observe_condition(scope, kind, condition, focus_in_scope))
+    if 'frame' in step:
+        for observation in observations:
+            observation['frame'] = step['frame']
     if destination:
         observations.append({'kind': 'destination', 'selector': destination, 'actual': page.url,
                              'matched': normalize(page.url) == normalize(destination)})
     return observations
 
 
-def matching_keydown(event, key):
-    if event['type'] != 'keydown' or not event['isTrusted'] or not event['is_main_frame']:
+def matching_keydown(event, key, main_frame=True):
+    if event['type'] != 'keydown' or not event['isTrusted'] or event['is_main_frame'] != main_frame:
         return False
     expected = '[character]' if key == 'Space' else key.split('+')[-1]
     modifiers = event['modifiers']
@@ -169,7 +185,7 @@ def matching_keydown(event, key):
             and not any(modifiers[modifier] for modifier in ('control', 'alt', 'meta')))
 
 
-async def run_path(page, check, allow_navigation, record, observer, interrupted):
+async def run_path(page, check, allow_navigation, record, observer, interrupted, frame_scope):
     from playwright.async_api import TimeoutError as BrowserTimeout
 
     navigation_status = []
@@ -186,11 +202,15 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted)
         destination = check.get('destination') if index == len(check['steps']) else None
         if destination:
             allow_navigation.add(urldefrag(normalize(destination))[0])
-        before = await page.evaluate(FOCUS, True)
+        frame = await frame_scope.resolve(required='input_frame' in step)
+        actual_frame, before = await frame_scope.focus(frame)
         entry = {'index': index, 'key': step['key'], 'before': before, 'expected': step}
         record['steps'].append(entry)
         if not before or not before.get('documentHasFocus'):
             raise ValueError('操作前に文書内のフォーカスを確認できない')
+        input_frame = frame if 'input_frame' in step else page.main_frame
+        if actual_frame != input_frame:
+            raise ValueError('操作前のフォーカスが指定した文書にない')
         start = len(observer.events)
         await page.keyboard.press(step['key'])
         if destination:
@@ -200,16 +220,22 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted)
             except BrowserTimeout:
                 pass
         entry['settling'] = await page.evaluate('() => window.__wcagWaitForUpdates()')
-        entry['after'] = await page.evaluate(FOCUS, True)
+        frame = await frame_scope.resolve(required='frame' in step)
+        if frame is not None:
+            entry['frame_settling'] = await frame.evaluate('() => window.__wcagWaitForUpdates()')
+        observed_frame, entry['after'] = await frame_scope.focus(frame)
         entry['url'] = page.url
-        entry['conditions'] = await observe_conditions(page, step, destination)
+        condition_frame = frame if 'frame' in step else page.main_frame
+        entry['conditions'] = await observe_conditions(page, step, destination, condition_frame,
+                                                       focus_in_scope=observed_frame == condition_frame)
         entry['navigation'] = navigation_status.copy()
         delivered = next((position for position, event in enumerate(observer.events[start:], start=start + 1)
-                          if matching_keydown(event, step['key'])), None)
+                          if observer.event_frames[position - 1] == input_frame
+                          and matching_keydown(event, step['key'], main_frame=input_frame == page.main_frame)), None)
         if observer.dropped or delivered is None:
             raise ValueError('キー入力を文書に届けた証拠を確認できない')
         entry['input_event_index'] = delivered
-        if entry['settling']['status'] != 'quiet':
+        if any(entry.get(field, {}).get('status', 'quiet') != 'quiet' for field in ('settling', 'frame_settling')):
             raise ValueError('キー操作後の更新が観察範囲に収まらない')
         if any(item['status'] >= 400 for item in navigation_status):
             raise ValueError('移動先のページを正常に読み込めない')
