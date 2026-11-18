@@ -48,7 +48,9 @@ def machine_checks(run):
     for index,edge in enumerate(graph.get('edges',[])):
         if edge.get('keyboard_check'):
             path=Path(edge['evidence_dir'])/'keyboard-check.json'
-            rows.append(report_row(audit.load(run/path), edge['environment'], path.as_posix()))
+            record = audit.load(run/path)
+            if record['criterion'] != '2.4.7':
+                rows.append(report_row(record, edge['environment'], path.as_posix()))
             continue
         if edge.get('hover_check'):
             path = Path(edge['evidence_dir'])/'hover-check.json'
@@ -61,6 +63,21 @@ def machine_checks(run):
                     capture='ホバー経路 '+record['id'], state_label=record['name'], target=item['target'],
                     observed=item['observed'], evidence=path.as_posix(), source='',
                     note='指定の操作と表示の結果。別の解除手段、例外、表示の持続時間は追加確認。'))
+            continue
+        if edge.get('border_check'):
+            path = Path(edge['evidence_dir']) / 'border-check.json'
+            record = audit.load(run/path)
+            outcome = 'cant_tell'
+            observed = record['observed']
+            if record['status'] == 'measured':
+                outcome = 'passed' if record['meets_3'] else 'failed'
+                observed = (f"外枠 {record['border']} と隣接色 {record['outside']} の比は"
+                            f"{record['ratio']:.4g}:1（基準 {record['minimum']}:1）。")
+            rows.append(dict(criterion='1.4.11', checkpoint='境界の測定 / '+record['id'],
+                expected='指定した外枠と隣接色のコントラスト比が3:1以上', outcome=outcome,
+                environment=edge['environment'], capture='外枠の測定 '+record['id'], state_label=record['name'],
+                target=record['target'], observed=observed, evidence=path.as_posix(), source='',
+                note='指定した外枠の初期表示での測定。境界の必要性、ほかの状態と達成基準全体は追加確認。'))
             continue
         route=edge['route']
         # A key reached after pointer or scripted setup is evidence for that
@@ -79,6 +96,37 @@ def machine_checks(run):
     return rows
 
 
+def focus_image_evidence(run, plans):
+    import audit
+    from page_explorer import status
+
+    checks = {plan['id']: plan for plan in plans if plan['criterion'] == '2.4.7'}
+    if not checks:
+        return []
+    graph = status(run)
+    rows = []
+    for entry in [*graph.get('edges', []), *graph.get('queue', [])]:
+        plan = checks.get(entry.get('keyboard_check'))
+        if plan is None:
+            continue
+        receipt = {}
+        evidence = ''
+        reason = '指定したキー経路は探索待ちです。'
+        if 'evidence_dir' in entry:
+            path = Path(entry['evidence_dir']) / 'keyboard-check.json'
+            evidence = path.as_posix()
+            record = audit.load(run/path)
+            if record['steps']:
+                receipt = record['steps'][-1].get('focus_images', {})
+            reason = record.get('reason') or '入力前の画像は未取得です。'
+        rows.append(dict(criterion='2.4.7', name=plan['name'], target=plan['steps'][-1]['focus'],
+                         environment=entry['environment'], status=receipt.get('status', 'not_run'),
+                         reason=receipt.get('reason', reason), evidence=evidence,
+                         before_image=receipt.get('before', {}).get('image', ''),
+                         after_image=receipt.get('after', {}).get('image', '')))
+    return rows
+
+
 def page_result(run, url, original=None):
     import audit
     from browser_capture import normalize
@@ -87,10 +135,11 @@ def page_result(run, url, original=None):
     original=original or audit.outcomes(run)
     rows=[c for c in original['cases'] if normalize(c['page_url'])==normalize(url)]
     if not rows:raise ValueError('指定ページの検査票がありません')
-    _,catalog=audit.run_catalog(run)
+    meta,catalog=audit.run_catalog(run)
     model=build(original,catalog,cases=rows,filters={'page_exact':url},manifest=audit.load(run/'capture-manifest.json'))
     statuses={r['criterion']:r['status'] for r in model['rows'] if r['kind']=='criterion'}
     result=deepcopy(original);result.update(url=url,report_scope='page',cases=rows,counts=dict(Counter(c['outcome'] for c in rows)))
+    result['focus_evidence'] = focus_image_evidence(run, meta['config'].get('keyboard_checks', []))
     for c in result['criteria']:
         c['counts']=dict(Counter(r['outcome'] for r in rows if r['criterion']==c['id']))
         c['status']={'passed':'passed_checks'}.get(statuses[c['id']],statuses[c['id']])
@@ -133,6 +182,8 @@ def next_work(run, url, limit=5):
     for c in pending:
         packet=dict(c,definition=by_id[c['criterion']],
                     machine_results=[m for m in checks if m['criterion']==c['criterion'] and m['capture']==c['capture']])
+        if c['criterion'] == '2.4.7':
+            packet['focus_evidence'] = [item for item in result['focus_evidence'] if item['environment'] == c['environment']]
         if mode:
             from verification_modes import work_checkpoint
             points=[r for r in mode['checkpoints'] if r['criterion']==c['criterion']]
