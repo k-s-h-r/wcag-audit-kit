@@ -76,6 +76,33 @@ async def perform(page, action):
     return await page.evaluate('() => window.__wcagWaitForUpdates()')
 
 
+async def record_tab_trace(page, dest, limit, blocked, native_events):
+    """Save partial Tab observations separately from the completed state capture."""
+    import audit
+    from playwright.async_api import Error as BrowserError
+
+    trace = []
+    stop = None
+    for step in range(1, limit + 1):
+        before_blocked, before_native = len(blocked), len(native_events)
+        error = None
+        try:
+            await page.keyboard.press('Tab')
+            observation = await page.evaluate(FOCUS)
+        except BrowserError as exc:
+            error = str(exc)
+        blocked_during_step = blocked[before_blocked:]
+        native_during_step = native_events[before_native:]
+        if error or blocked_during_step or native_during_step:
+            stop = {'step': step, 'key': 'Tab', 'error': error,
+                    'blocked_requests': blocked_during_step, 'native_events': native_during_step}
+            audit.save(dest/'keyboard-trace-stop.json', stop)
+            break
+        trace.append(observation)
+    audit.save(dest/'keyboard.json', trace)
+    return stop
+
+
 def status(run):
     import audit
     path=Path(run)/'exploration.json'
@@ -224,10 +251,12 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             if data['scroll']['height']>env['viewport']['height']*20:value['remaining'].append(f'{env["id"]}：20画面を超える縦方向の表示を追加調査する。')
                             if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(run)))):
                                 value['remaining'].append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
-                            trace=[]
-                            for _ in range(min(config.get('keyboard_steps',30),120)):
-                                await page.keyboard.press('Tab');trace.append(await page.evaluate(FOCUS))
-                            audit.save(dest/'keyboard.json',trace)
+                            trace_stop = await record_tab_trace(page, dest, min(config.get('keyboard_steps',30),120),
+                                                                blocked, native_events)
+                            if trace_stop:
+                                evidence = (dest/'keyboard-trace-stop.json').relative_to(run).as_posix()
+                                value['remaining'].append(f'{dest.name}：補助のTab観察は{trace_stop["step"]}回目で中断。'
+                                                          f'以降は未確認（証拠: {evidence}）。')
                 except Exception as exc:
                     error=str(exc);unreachable=isinstance(exc,KeyboardUnreachable)
                 finally:
