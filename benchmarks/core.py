@@ -362,16 +362,79 @@ def inventory_format(node, format_name):
     return isinstance(background, str) and re.fullmatch(r'url\("[^"]+"\)', background) is not None
 
 
+def css_number(value):
+    # Bounding rectangles come from Chromium doubles.
+    return type(value) in (int, float) and -2**53 <= value <= 2**53
+
+
+def geometry_contract(contract):
+    return (
+        contract['checkpoint'] == '2.5.8-01' and contract['kind'] == 'geometry'
+        and set(contract) == {'checkpoint', 'kind', 'targets', 'width', 'height', 'gap', 'page', 'state', 'rationale'}
+        and len(contract['targets']) == 2
+        and all(css_number(contract[key]) for key in ('width', 'height', 'gap'))
+        and contract['width'] > 0 and contract['height'] > 0 and contract['gap'] >= 0
+    )
+
+
+def aligned_gap(first, second):
+    # The contract supplies a single edge gap. Restrict it to aligned rows or
+    # columns so corners, diagonal distances, and overlap are unambiguous.
+    for axis, span, cross, cross_span in (
+        ('x', 'width', 'y', 'height'), ('y', 'height', 'x', 'width'),
+    ):
+        if first[cross] != second[cross] or first[cross_span] != second[cross_span]:
+            continue
+        start, end = sorted((first, second), key=lambda rect: rect[axis])
+        gap = end[axis] - (start[axis] + start[span])
+        if gap >= 0:
+            return gap, '水平' if axis == 'x' else '垂直'
+    return None
+
+
+def geometry_acquisition(row, contract, nodes, proof):
+    fields = ('x', 'y', 'width', 'height')
+    measured = []
+    for selector in contract['targets']:
+        candidates = [node for node in nodes if node.get('selector') == selector]
+        if len(candidates) != 1 or candidates[0].get('visible') is not True:
+            return dict(row, observed=f'要素一覧で表示された対象 {selector} を一つに絞れない。', evidence=proof)
+        rect = candidates[0].get('rect')
+        if (not isinstance(rect, dict) or not all(css_number(rect.get(key)) for key in fields)
+                or rect['width'] <= 0 or rect['height'] <= 0):
+            return dict(row, observed=f'対象 {selector} の矩形を測定できない。', evidence=proof)
+        measured.append(dict(target=selector, format='css-rect', rect={key: rect[key] for key in fields}))
+    first, second = (item['rect'] for item in measured)
+    distance = aligned_gap(first, second)
+    if distance is None:
+        return dict(row, observed='同じ行又は列に並ぶ、重ならない2つの矩形を確認できない。', evidence=proof)
+    gap, direction = distance
+    sizes = '、'.join(f'{item["target"]} {item["rect"]["width"]:g} × {item["rect"]["height"]:g}'
+                        for item in measured)
+    observation = f'矩形 {sizes}。{direction}の辺間隔 {gap:g} CSS px。'
+    if gap != contract['gap'] or any(
+        (rect['width'], rect['height']) != (contract['width'], contract['height']) for rect in (first, second)
+    ):
+        wanted = f'期待した両対象の寸法 {contract["width"]:g} × {contract["height"]:g}、辺間隔 {contract["gap"]:g} CSS px。'
+        return dict(row, observed=observation + wanted, evidence=proof)
+    return dict(row, status='matched', targets=measured, gap=gap, observed=observation, evidence=proof)
+
+
 def acquisition_result(run, job, progress, contract, frozen, support):
     row = dict(job_id=job['id'], criterion=job['criterion'], mode=job['mode'], page=contract['page'],
                state=contract['state'], checkpoint=contract['checkpoint'], kind=contract['kind'],
                status='deferred' if support == 'no' else 'not_evaluated')
-    fields = {'checkpoint', 'kind', 'targets', 'formats', 'page', 'state', 'rationale'}
     targets, formats = contract['targets'], contract.get('formats')
-    if (support == 'no' or row['checkpoint'] != '1.1.1-02' or row['kind'] != 'inventory'
-            or row['state'] != 'initial' or set(contract) != fields or not targets or len(set(targets)) != len(targets)
-            or not isinstance(formats, list) or len(formats) != len(targets)
-            or any(fmt not in ('css-background', 'inline-svg', 'canvas') for fmt in formats)):
+    if support == 'no' or row['state'] != 'initial' or not targets or len(set(targets)) != len(targets):
+        return row
+    geometry = geometry_contract(contract)
+    image = (
+        row['checkpoint'] == '1.1.1-02' and row['kind'] == 'inventory'
+        and set(contract) == {'checkpoint', 'kind', 'targets', 'formats', 'page', 'state', 'rationale'}
+        and isinstance(formats, list) and len(formats) == len(targets)
+        and all(fmt in ('css-background', 'inline-svg', 'canvas') for fmt in formats)
+    )
+    if not (geometry or image):
         return row
     inv, proof = initial_inventory(run, job, progress, row['page'], frozen)
     if inv is None:
@@ -380,6 +443,8 @@ def acquisition_result(run, job, progress, contract, frozen, support):
     if (inv.get('truncated') is not False or not isinstance(nodes, list) or inv.get('nodeCount') != len(nodes)
             or any(not isinstance(node, dict) for node in nodes)):
         return dict(row, observed='上限や欠落のため完全な要素一覧を確認できない。', evidence=proof)
+    if geometry:
+        return geometry_acquisition(row, contract, nodes, proof)
     expected = list(zip(targets, formats))
     matched = []
     for target, format_name in expected:
