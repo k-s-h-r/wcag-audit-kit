@@ -16,6 +16,7 @@ RUNTIME=ROOT/'skills/wcag-audit-kit'
 sys.path.insert(0,str(RUNTIME/'scripts'))
 import audit
 import verification_modes as modes
+import state_labels
 from . import case_contracts
 
 
@@ -79,6 +80,7 @@ def corpus(root=None):
                 if set(item['modes'])!=set(modes.MODES) or any(v not in {'evaluate','defer'} for v in item['modes'].values()):raise ValueError('モード別の評価条件が不正')
                 if item['evidence_kind'] not in {'program','semantic','visual-semantic','cross-page','screen-reader'}:raise ValueError('証拠の種類が不正')
             case_contracts.validate(case)
+            state_labels.public_specs(case['states'])
             for point,aliases in case.get('target_aliases',{}).items():
                 if point not in case['checkpoints'] or not isinstance(aliases,dict):raise ValueError('対象の別名が確認観点に対応しない')
                 for alias,canonical in aliases.items():
@@ -224,20 +226,35 @@ def program_predictions(run,job,progress):
     for page,receipt in progress['jobs'].get(job['id'],{}).items():
         if receipt['status']!='completed':continue
         root=local(run,receipt['directory']);graph=load(root/'exploration.json')
-        initial=[n for n in graph.get('nodes',[]) if not n['route']]
-        for node in initial:
+        labels=state_labels.public_specs(job.get('states',[]))
+        for node in graph.get('nodes',[]):
+            proof=[(root/node['evidence_dir']/'axe.json').relative_to(run).as_posix()]
+            if not node['route']:states=['initial']
+            else:
+                folder=root/node['evidence_dir'];state_file=folder/'state.json';transition_file=folder/'transition.json'
+                if not state_file.is_file() or not transition_file.is_file():continue
+                transition=load(transition_file)
+                if transition.get('route')!=node['route'] or transition.get('error') or transition.get('blocked_requests') or transition.get('native_events'):continue
+                states=state_labels.verified(labels,node['route'],load(state_file).get('state_labels',[]))
+                proof += [p.relative_to(run).as_posix() for p in [state_file,transition_file]]
+            if not states:continue
             raw=load(root/node['evidence_dir']/'axe.json')
-            for group,outcome in [('violations','failed'),('passes','passed'),('incomplete','cant_tell')]:
-                for rule in raw.get(group,[]):
-                    point=rule_map.get(rule['id'])
-                    if point not in job['checkpoints']:continue
-                    for target in rule.get('nodes',[]):
-                        selectors=target.get('target',[])
-                        if len(selectors)!=1 or not isinstance(selectors[0],str):continue
-                        row=dict(page=page,state='initial',target=selectors[0],checkpoint=point,outcome=outcome,
-                            method='program',observed=target.get('failureSummary') or target.get('html',''),
-                            evidence=[(root/node['evidence_dir']/'axe.json').relative_to(run).as_posix()],source='production axe / '+rule['id'])
-                        result[observation_key(row)]=row
+            for state in states:
+                for group,outcome in [('violations','failed'),('passes','passed'),('incomplete','cant_tell')]:
+                    for rule in raw.get(group,[]):
+                        point=rule_map.get(rule['id'])
+                        if point not in job['checkpoints']:continue
+                        for target in rule.get('nodes',[]):
+                            selectors=target.get('target',[])
+                            if len(selectors)!=1 or not isinstance(selectors[0],str):continue
+                            row=dict(page=page,state=state,target=selectors[0],checkpoint=point,outcome=outcome,
+                                method='program',observed=target.get('failureSummary') or target.get('html',''),
+                                evidence=proof,source='production axe / '+rule['id'])
+                            key=observation_key(row);previous=result.get(key)
+                            if previous and (previous['outcome']!=outcome or previous.get('conflicting')):
+                                row.update(outcome='cant_tell',conflicting=True,observed='同じ状態・対象の機械証拠が矛盾しているため確定しない。',
+                                    evidence=sorted(set(previous['evidence']+proof)))
+                            result[key]=row
         if '2.1.1-01' in job['checkpoints']:
             grouped={}
             for edge in graph.get('edges',[]):
@@ -299,7 +316,7 @@ def score(run):
     return dict(schema_version='1',run_id=meta['run_id'],corpus_digest=meta['corpus_digest'],modes=meta['modes'],
         selection=meta['selection'],configuration=meta['configuration'],implementation_digest=meta['implementation_digest'],
         environment=meta.get('environment',{}),standard=meta.get('standard','WCAG-2.2'),normative_hashes=meta.get('normative_hashes',{}),
-        scorer_digest=file_hash(Path(__file__)),created_at=timestamp(),selected_checks_status=status,
+        scorer_digest=digest({"core":file_hash(Path(__file__)),"state_labels":file_hash(Path(state_labels.__file__))}),created_at=timestamp(),selected_checks_status=status,
         overall_status='failed' if status=='failed' else 'incomplete' if grade_counts['not_evaluated'] or grade_counts['deferred'] or pending_evidence else status,
         counts=dict(grade_counts),confusion=dict(confusion),precision_on_evaluated=precision,recall_on_evaluated=recall,
         methods_by_mode={m:dict(Counter(r['method'] for r in rows if r['mode']==m and r['grade'] in {'correct','incorrect'})) for m in meta['modes']},

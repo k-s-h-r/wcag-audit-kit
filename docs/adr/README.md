@@ -26,3 +26,4 @@
 - [0020 開発計画を、依存関係と担当範囲を持つ並行作業へ分解する](0020-parallel-development-tasks.md)
 - [0021 リポジトリの開発タスクを整理するスキルを.agents/skillsへ置く](0021-development-task-skill.md)
 - [0022 「進めて」でタスクの選択・実行・後続整理を進める](0022-autonomous-development-workflow.md)
+- [0023 操作後に現れる画像の機械検査を改善する](0023-audit-images-after-interaction.md)
