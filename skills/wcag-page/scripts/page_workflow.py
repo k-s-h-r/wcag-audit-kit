@@ -50,13 +50,17 @@ def machine_checks(run):
             path=Path(edge['evidence_dir'])/'keyboard-check.json'
             rows.append(report_row(audit.load(run/path), edge['environment'], path.as_posix()))
             continue
-        if not edge['route']:continue
-        action=edge['route'][-1]
-        if action['type'] not in {'key','press','click'}:continue
+        route=edge['route']
+        # A key reached after pointer or scripted setup is evidence for that
+        # mixed route, not for reaching the same state using only keys.
+        if not route or any(step.get('type') not in {'key','press'} for step in route):continue
+        action=route[-1]
+        targeted=action['type']=='key'
         rows.append(dict(criterion='2.1.1',checkpoint='実入力 / '+action.get('key',action['type']),
-            expected='指定した対象へ実入力で到達し、操作を送出できる',
+            expected='指定した対象へTabで到達し、キーを送出できる' if targeted else '現在のフォーカスへキーを送出できる',
             outcome='cant_tell' if edge.get('blocked_requests') or edge.get('native_events') else 'failed' if edge.get('error') else 'passed',
-            environment=edge['environment'],capture=f'操作経路 {index+1}',state_label=scene(edge['route']),target=action.get('selector',''),
+            environment=edge['environment'],capture=f'操作経路 {index+1}',state_label=scene(route),
+            target=action.get('selector','') if targeted else '現在のフォーカス',
             observed=edge.get('error') or '実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。',
             evidence=edge['evidence_dir']+'/transition.json',source='',
             note='この入力経路の実行結果。キーボード操作の達成基準全体の判定ではない。'))

@@ -12,6 +12,7 @@ from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, capture_image, normalize, page_id
 from input_observation import INIT_SCRIPT, InputObserver
 import keyboard_checks
+import keyboard_frames
 import state_labels
 
 SCRIPT=(ROOT/'scripts/page_explorer.js').read_text()
@@ -76,6 +77,33 @@ async def perform(page, action):
     return await page.evaluate('() => window.__wcagWaitForUpdates()')
 
 
+async def record_tab_trace(page, dest, limit, blocked, native_events):
+    """Save partial Tab observations separately from the completed state capture."""
+    import audit
+    from playwright.async_api import Error as BrowserError
+
+    trace = []
+    stop = None
+    for step in range(1, limit + 1):
+        before_blocked, before_native = len(blocked), len(native_events)
+        error = None
+        try:
+            await page.keyboard.press('Tab')
+            observation = await page.evaluate(FOCUS)
+        except BrowserError as exc:
+            error = str(exc)
+        blocked_during_step = blocked[before_blocked:]
+        native_during_step = native_events[before_native:]
+        if error or blocked_during_step or native_during_step:
+            stop = {'step': step, 'key': 'Tab', 'error': error,
+                    'blocked_requests': blocked_during_step, 'native_events': native_during_step}
+            audit.save(dest/'keyboard-trace-stop.json', stop)
+            break
+        trace.append(observation)
+    audit.save(dest/'keyboard.json', trace)
+    return stop
+
+
 def status(run):
     import audit
     path=Path(run)/'exploration.json'
@@ -111,7 +139,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     checkpoint=run/'exploration.json'
     if checkpoint.exists():status(run)
     checks={check['id']:check for check in keyboard_checks.validate(config)}
-    implementation=sha256((SCRIPT+FOCUS+Path(__file__).read_text()+Path(keyboard_checks.__file__).read_text()).encode()).hexdigest()
+    implementation=sha256((SCRIPT+FOCUS+Path(__file__).read_text()+Path(keyboard_checks.__file__).read_text()+Path(keyboard_frames.__file__).read_text()).encode()).hexdigest()
     initial_jobs=[]
     for env in config['environments']:
         initial={'environment':env['id'],'route':[]}
@@ -162,18 +190,20 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     navigation=request.is_navigation_request()
                     allowed_method=request.method in {'GET','HEAD','OPTIONS'}
                     allowed_document=urldefrag(normalize(request.url))[0] in allowed_navigation
-                    if not allowed_method or (navigation and not allowed_document):
+                    if not allowed_method or (navigation and not check and not allowed_document):
                         blocked.append({'method':request.method,'url':request.url})
                         await request_route.abort()
                     elif check and navigation:
                         # Playwright does not dispatch route handlers for every HTTP redirect.
                         # Fetch only the permitted document and refuse redirect responses.
-                        await keyboard_checks.load_document(request_route, page, blocked)
+                        await keyboard_checks.load_document(request_route, page, blocked, allowed_navigation, frame_scope)
                     else:
                         await request_route.continue_()
                 await context.route('**/*',guard)
                 await context.route_web_socket('**/*',lambda socket:socket.close())
-                page=await context.new_page();error=None;data=None;unreachable=False;native_events=[];settling=[]
+                page=await context.new_page()
+                frame_scope=keyboard_frames.FrameScope(page, check.get('frame') if check else None)
+                error=None;data=None;unreachable=False;native_events=[];settling=[]
                 async def dismiss_dialog(dialog):
                     native_events.append({'type':dialog.type,'message':dialog.message,'action':'dismiss'})
                     await dialog.dismiss()
@@ -192,7 +222,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         if settling[-1]['status'] != 'quiet':
                             raise ValueError('初期表示の更新が観察範囲に収まらない')
                         await keyboard_checks.run_path(page, check, allowed_navigation, check_record, observer,
-                                                       lambda: bool(blocked or native_events))
+                                                       lambda: bool(blocked or native_events), frame_scope)
                     else:
                         for action in route:settling.append(await perform(page,action))
                         label_observations=await state_labels.observe(page,route,labels)
@@ -224,10 +254,12 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             if data['scroll']['height']>env['viewport']['height']*20:value['remaining'].append(f'{env["id"]}：20画面を超える縦方向の表示を追加調査する。')
                             if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(run)))):
                                 value['remaining'].append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
-                            trace=[]
-                            for _ in range(min(config.get('keyboard_steps',30),120)):
-                                await page.keyboard.press('Tab');trace.append(await page.evaluate(FOCUS))
-                            audit.save(dest/'keyboard.json',trace)
+                            trace_stop = await record_tab_trace(page, dest, min(config.get('keyboard_steps',30),120),
+                                                                blocked, native_events)
+                            if trace_stop:
+                                evidence = (dest/'keyboard-trace-stop.json').relative_to(run).as_posix()
+                                value['remaining'].append(f'{dest.name}：補助のTab観察は{trace_stop["step"]}回目で中断。'
+                                                          f'以降は未確認（証拠: {evidence}）。')
                 except Exception as exc:
                     error=str(exc);unreachable=isinstance(exc,KeyboardUnreachable)
                 finally:

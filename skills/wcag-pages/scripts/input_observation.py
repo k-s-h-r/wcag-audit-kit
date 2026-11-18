@@ -27,12 +27,14 @@ INIT_SCRIPT=r"""(() => {
 class InputObserver:
     def __init__(self,limit=10000):
         self.limit=limit;self.events=[];self.dropped=0;self.changed=asyncio.Event()
+        self.event_frames=[]
 
     def accept(self,source,event):
         if len(self.events)>=self.limit:self.dropped+=1
         else:
             self.events.append(dict(event,is_main_frame=source['frame']==source['page'].main_frame,
                                     received_at=datetime.now(timezone.utc).isoformat()))
+            self.event_frames.append(source['frame'])
         self.changed.set()
 
     async def pointer_down_after(self,index,timeout=2):
