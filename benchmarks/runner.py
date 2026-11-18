@@ -1,6 +1,8 @@
 """Run the production collector against a frozen, answer-separated fixture corpus."""
+import asyncio
 import contextlib
 from functools import partial
+from hashlib import sha256
 from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
 import shutil
@@ -10,7 +12,7 @@ import uuid
 import platform
 import sys
 from importlib.metadata import version
-from . import core
+from . import core, status_capture
 from scripts.skill_layout import resource_files,SKILLS
 
 
@@ -131,6 +133,19 @@ def collect(run,*,criterion=None,selected_modes=None,port=0,resume=False,config=
                         try:
                             with (location/'stdout.txt').open('w') as out,(location/'stderr.txt').open('w') as err,contextlib.redirect_stdout(out),contextlib.redirect_stderr(err):
                                 code=core.audit.main(args)
+                            if code == 0:
+                                plans = status_capture.plans(job['criterion'], job['checkpoints'], job['states'])
+                                for identifier, plan in plans.items():
+                                    fixture = core.local(run/'worker/public', f"{job['criterion']}/{page}")
+                                    body = fixture.read_bytes()
+                                    verified = core.load(run/'integrity.json')['files']
+                                    source_digest = sha256(body).hexdigest()
+                                    if verified.get(fixture.relative_to(run.resolve()).as_posix()) != source_digest:
+                                        raise ValueError('状態変化を取得する公開ページが変更された')
+                                    binding = dict(job_id=job['id'], page=page, mode=job['mode'], state=identifier,
+                                                   fixture_sha256=source_digest)
+                                    observed = asyncio.run(status_capture.collect(url, body, binding, plan))
+                                    core.save(location/f'status-capture-{identifier}.json', observed)
                             state='completed' if code==0 else 'error'
                         finally:
                             pages[page]={'status':state,'exit_code':code,'directory':(location/'run').relative_to(run).as_posix()}

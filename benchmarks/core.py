@@ -17,7 +17,7 @@ sys.path.insert(0,str(RUNTIME/'scripts'))
 import audit
 import verification_modes as modes
 import state_labels
-from . import case_contracts
+from . import case_contracts, status_capture
 
 
 def load(path):return json.loads(Path(path).read_text())
@@ -81,6 +81,7 @@ def corpus(root=None):
                 if item['evidence_kind'] not in {'program','semantic','visual-semantic','cross-page','screen-reader'}:raise ValueError('証拠の種類が不正')
             case_contracts.validate(case)
             state_labels.public_specs(case['states'])
+            status_capture.plans(sc, case['checkpoints'], case['states'])
             for point,aliases in case.get('target_aliases',{}).items():
                 if point not in case['checkpoints'] or not isinstance(aliases,dict):raise ValueError('対象の別名が確認観点に対応しない')
                 for alias,canonical in aliases.items():
@@ -297,34 +298,42 @@ def program_predictions(run,job,progress):
     return result
 
 
+def read_frozen(run, path, frozen):
+    name = path.resolve().relative_to(run).as_posix()
+    if name not in frozen:
+        return None
+    try:
+        value = load(path)
+    except (OSError, ValueError):
+        return None
+    return value if isinstance(value, dict) else None
+
+
+def completed_attempt(run, job, progress, page, frozen):
+    entry = progress['jobs'].get(job['id'], {}).get(page, {})
+    if entry.get('status') != 'completed' or entry.get('exit_code') != 0:
+        return None, None
+    attempt = local(run, entry.get('directory'))
+    if not attempt.is_relative_to(local(run, f'audit-runs/{job["id"]}')) or attempt.name != 'run':
+        return None, None
+    receipt_path = attempt.parent / 'receipt.json'
+    receipt = read_frozen(run, receipt_path, frozen) or {}
+    expected_receipt = dict(job_id=job['id'], page=page, mode=job['mode'], url=job['urls'][page],
+                            status='completed', exit_code=0)
+    if any(receipt.get(key) != value for key, value in expected_receipt.items()):
+        return None, None
+    return attempt, receipt_path
+
+
 def initial_inventory(run, job, progress, page, frozen):
     """Resolve a complete initial capture from this job and page only."""
-    def read_frozen(path):
-        name = path.resolve().relative_to(run).as_posix()
-        if name not in frozen:
-            return None
-        try:
-            value = load(path)
-        except (OSError, ValueError):
-            return None
-        return value if isinstance(value, dict) else None
-
-    entry = progress['jobs'].get(job['id'], {}).get(page, {})
     url = job['urls'][page]
-    if entry.get('status') != 'completed' or entry.get('exit_code') != 0:
-        return None, []
     try:
-        attempt = local(run, entry.get('directory'))
-        if not attempt.is_relative_to(local(run, f'audit-runs/{job["id"]}')) or attempt.name != 'run':
+        attempt, receipt_path = completed_attempt(run, job, progress, page, frozen)
+        if attempt is None:
             return None, []
-        receipt_path = attempt.parent / 'receipt.json'
-        receipt = read_frozen(receipt_path) or {}
-        expected_receipt = dict(job_id=job['id'], page=page, mode=job['mode'], url=url, status='completed', exit_code=0)
-        if any(receipt.get(key) != value for key, value in expected_receipt.items()):
-            return None, []
-
         manifest_path = attempt / 'capture-manifest.json'
-        manifest = read_frozen(manifest_path) or {}
+        manifest = read_frozen(run, manifest_path, frozen) or {}
         candidates = [capture for capture in manifest.get('captures', [])
                       if isinstance(capture, dict) and capture.get('url') == url and capture.get('state') == 'initial'
                       and capture.get('execution') == 'completed' and capture.get('collection_state') == 'finished']
@@ -335,7 +344,7 @@ def initial_inventory(run, job, progress, page, frozen):
         if not directory.is_relative_to(attempt / 'evidence') or directory == attempt / 'evidence':
             return None, []
         transition_path = directory / 'transition.json'
-        transition = read_frozen(transition_path) or {}
+        transition = read_frozen(run, transition_path, frozen) or {}
         settling = transition.get('settling')
         if (transition.get('route') != [] or transition.get('environment') != capture['environment']
                 or transition.get('error') or transition.get('blocked_requests') != [] or transition.get('native_events') != []
@@ -343,7 +352,7 @@ def initial_inventory(run, job, progress, page, frozen):
                 or settling[0].get('status') != 'quiet'):
             return None, []
         inventory_path = directory / 'inventory.json'
-        inventory = read_frozen(inventory_path)
+        inventory = read_frozen(run, inventory_path, frozen)
         if not inventory or inventory.get('url') != url:
             return None, []
     except (KeyError, TypeError, ValueError):
@@ -420,12 +429,72 @@ def geometry_acquisition(row, contract, nodes, proof):
     return dict(row, status='matched', targets=measured, gap=gap, observed=observation, evidence=proof)
 
 
+def match_status_capture(run, job, progress, contract, frozen, row):
+    """Match status acquisition evidence without making a speech verdict."""
+    if (set(contract) != {'checkpoint', 'kind', 'targets', 'captures', 'role_attribute', 'page', 'state', 'rationale'}
+            or len(contract['targets']) != 1 or not isinstance(contract['captures'], list)
+            or len(contract['captures']) != 2 or any(not isinstance(text, str) for text in contract['captures'])
+            or contract['captures'][0] == contract['captures'][1] or contract['role_attribute'] not in (None, 'status')):
+        return row
+    page, state = row['page'], row['state']
+    spec = status_capture.plans(job['criterion'], job['checkpoints'], job['states']).get(state)
+    if spec is None or spec['target'] != contract['targets'][0]:
+        return row
+    url = job['urls'][page]
+    try:
+        attempt, receipt_path = completed_attempt(run, job, progress, page, frozen)
+        if attempt is None or not status_capture.fixture_url(url, page):
+            return row
+        path = attempt.parent / f'status-capture-{state}.json'
+        capture = read_frozen(run, path, frozen)
+        source = local(run, f'worker/public/{job["criterion"]}/{page}')
+        source_digest = frozen.get(source.relative_to(run).as_posix())
+        if not capture or not source_digest:
+            return row
+    except (KeyError, TypeError, ValueError):
+        return row
+    proof = [p.relative_to(run).as_posix() for p in (path, receipt_path)]
+    expected_binding = dict(job_id=job['id'], page=page, mode=job['mode'], state=state, url=url, spec=spec,
+                            fixture_sha256=source_digest, not_a_screen_reader_test=True)
+    if any(capture.get(key) != value for key, value in expected_binding.items()):
+        return row
+    if (capture.get('status') != 'observed' or capture.get('requests_blocked') != []
+            or capture.get('native_events') != [] or not status_capture.trusted_click(capture.get('event'), url, spec)):
+        reason = capture.get('reason')
+        return dict(row, observed=reason if isinstance(reason, str) and reason
+                    else '通信・信頼できるクリック・表示更新の証拠を確認できない。', evidence=proof)
+    before, after = capture.get('before'), capture.get('after')
+    snapshots = (before, after)
+    if (not all(isinstance(item, dict) and item.get('visible') is True and item.get('url') == url
+                and type(item.get('backend_node_id')) is int and item['backend_node_id'] > 0
+                and isinstance(item.get('time_origin'), str) and item['time_origin']
+                and isinstance(item.get('ax_role'), str) and item['ax_role'] and 'role_attribute' in item
+                and css_number(item.get('sampled_at')) and item['sampled_at'] >= 0
+                for item in snapshots)
+            or before['backend_node_id'] != after['backend_node_id'] or before['time_origin'] != after['time_origin']
+            or not capture['event']['documentId'].startswith(before['time_origin'] + '-')
+            or not css_number(capture['event'].get('timestamp'))
+            or not before['sampled_at'] <= capture['event']['timestamp'] <= after['sampled_at']):
+        return dict(row, observed='同じ文書と要素の表示・役割を確認できない。', evidence=proof)
+    observed = f"表示 {before.get('text')} → {after.get('text')}。AXの役割 {before['ax_role']} → {after['ax_role']}。"
+    if ([item.get('text') for item in snapshots] != contract['captures']
+            or after['role_attribute'] != contract['role_attribute']
+            or (contract['role_attribute'] == 'status' and after['ax_role'] != 'status')):
+        return dict(row, observed=observed + '取得期待と一致しない。', evidence=proof)
+    return dict(row, status='matched', targets=[dict(target=spec['target'], format='state-capture')],
+                observed=observed, evidence=proof)
+
+
 def acquisition_result(run, job, progress, contract, frozen, support):
     row = dict(job_id=job['id'], criterion=job['criterion'], mode=job['mode'], page=contract['page'],
                state=contract['state'], checkpoint=contract['checkpoint'], kind=contract['kind'],
                status='deferred' if support == 'no' else 'not_evaluated')
     targets, formats = contract['targets'], contract.get('formats')
-    if support == 'no' or row['state'] != 'initial' or not targets or len(set(targets)) != len(targets):
+    if support == 'no' or not targets or len(set(targets)) != len(targets):
+        return row
+    if row['checkpoint'] == '4.1.3-01' and row['kind'] == 'state-capture':
+        return match_status_capture(run, job, progress, contract, frozen, row)
+    if row['state'] != 'initial':
         return row
     geometry = geometry_contract(contract)
     image = (
@@ -510,7 +579,7 @@ def score(run):
     return dict(schema_version='1',run_id=meta['run_id'],corpus_digest=meta['corpus_digest'],modes=meta['modes'],
         selection=meta['selection'],configuration=meta['configuration'],implementation_digest=meta['implementation_digest'],
         environment=meta.get('environment',{}),standard=meta.get('standard','WCAG-2.2'),normative_hashes=meta.get('normative_hashes',{}),
-        scorer_digest=digest({"core":file_hash(Path(__file__)),"state_labels":file_hash(Path(state_labels.__file__))}),created_at=timestamp(),selected_checks_status=status,
+        scorer_digest=digest({name:file_hash(Path(path)) for name,path in {"core":__file__,"state_labels":state_labels.__file__,"status_capture":status_capture.__file__}.items()}),created_at=timestamp(),selected_checks_status=status,
         overall_status='failed' if status=='failed' else 'incomplete' if grade_counts['not_evaluated'] or grade_counts['deferred'] or pending_evidence else status,
         counts=dict(grade_counts),confusion=dict(confusion),precision_on_evaluated=precision,recall_on_evaluated=recall,
         methods_by_mode={m:dict(Counter(r['method'] for r in rows if r['mode']==m and r['grade'] in {'correct','incorrect'})) for m in meta['modes']},
