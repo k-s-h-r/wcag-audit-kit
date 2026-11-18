@@ -28,3 +28,4 @@
 - [0022 「進めて」でタスクの選択・実行・後続整理を進める](0022-autonomous-development-workflow.md)
 - [0023 操作後に現れる画像の機械検査を改善する](0023-audit-images-after-interaction.md)
 - [0024 指定したキーボード経路の到達条件を機械で照合する](0024-check-keyboard-path-outcomes.md)
+- [0025 公開Shadow DOM内の実フォーカスをキーボード検査で照合する](0025-audit-focus-inside-open-shadow.md)

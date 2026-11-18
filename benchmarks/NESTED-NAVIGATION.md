@@ -32,7 +32,7 @@ http://127.0.0.1:8000/p04.htmlが正常な対照、p05.htmlが問題例です。
 
 各ケースの期待結果は「階層が表示された」「対象にフォーカスが移った」「リンク先へ移動した」「親や後続操作へ戻れた」を操作経路として確認します。初期状態でTabを回すだけでは、隠れた階層は確認できません。表示されたことと、キーだけで到達できたことも分けます。
 
-`tests/nested_navigation_browser.py`は、テスト入力を直接操作して正常例と問題例の動作を確認します。`tests/keyboard_checks_browser.py`は、同じ6ページを`page-audit`の指定経路で検査し、機械検査とページ別帳票を照合します。
+`tests/nested_navigation_browser.py`は、テスト入力を直接操作して正常例と問題例の動作を確認します。`tests/keyboard_checks_browser.py`は、同じ6ページ、通常のアコーディオンとネイティブダイアログ、Shadow DOM内の開閉部品、入れ子のダイアログを`page-audit`の指定経路で検査し、機械検査とページ別帳票を照合します。
 
 ```sh
 python3 tests/keyboard_checks_browser.py --out /project/new-keyboard-regression

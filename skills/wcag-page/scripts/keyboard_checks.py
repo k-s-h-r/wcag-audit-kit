@@ -2,11 +2,12 @@
 import re
 from urllib.parse import urldefrag
 
-from browser_capture import FOCUS, in_scope, normalize
+from browser_capture import FOCUS, OPEN_FOCUS_PATH, in_scope, normalize
 
 
 CRITERIA = {'2.1.1', '2.1.2', '2.4.3'}
 KEYS = {'Tab', 'Shift+Tab', 'Enter', 'Space', 'Escape'}
+MATCH_FOCUS = '(e) => e.ownerDocument.hasFocus() && (' + OPEN_FOCUS_PATH + ')(e.ownerDocument).element === e'
 
 
 def nonempty(value):
@@ -75,9 +76,12 @@ async def load_document(route, page, blocked):
 def describe_focus(focus):
     if not focus or not focus.get('documentHasFocus'):
         return 'ページ外又は確認できない位置'
+    parts = ['#' + host['id'] if host['id'] else host['tag'] for host in focus.get('shadowHosts', [])]
     if focus['id']:
-        return '#' + focus['id']
-    return focus['tag'] + (f"（{focus['text']}）" if focus.get('text') else '')
+        parts.append('#' + focus['id'])
+    else:
+        parts.append(focus['tag'] + (f"（{focus['text']}）" if focus.get('text') else ''))
+    return ' → '.join(parts)
 
 
 async def observe_conditions(page, step, destination):
@@ -90,7 +94,7 @@ async def observe_conditions(page, step, destination):
         if count > 1:
             raise ValueError('条件の対象を一つに絞れない: ' + selector)
         if kind == 'focus':
-            actual = count == 1 and await locator.evaluate('(e) => document.hasFocus() && e === document.activeElement')
+            actual = count == 1 and await locator.evaluate(MATCH_FOCUS)
         else:
             actual = count == 1 and await locator.is_visible()
         observations.append({'kind': kind, 'selector': selector, 'actual': actual, 'matched': actual == (kind != 'hidden')})
@@ -117,7 +121,7 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted)
         destination = check.get('destination') if index == len(check['steps']) else None
         if destination:
             allow_navigation.add(urldefrag(normalize(destination))[0])
-        before = await page.evaluate(FOCUS)
+        before = await page.evaluate(FOCUS, True)
         entry = {'index': index, 'key': step['key'], 'before': before, 'expected': step}
         record['steps'].append(entry)
         if not before or not before.get('documentHasFocus'):
@@ -131,7 +135,7 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted)
             except BrowserTimeout:
                 pass
         entry['settling'] = await page.evaluate('() => window.__wcagWaitForUpdates()')
-        entry['after'] = await page.evaluate(FOCUS)
+        entry['after'] = await page.evaluate(FOCUS, True)
         entry['url'] = page.url
         entry['conditions'] = await observe_conditions(page, step, destination)
         entry['navigation'] = navigation_status.copy()

@@ -111,7 +111,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     checkpoint=run/'exploration.json'
     if checkpoint.exists():status(run)
     checks={check['id']:check for check in keyboard_checks.validate(config)}
-    implementation=sha256((SCRIPT+Path(__file__).read_text()+Path(keyboard_checks.__file__).read_text()).encode()).hexdigest()
+    implementation=sha256((SCRIPT+FOCUS+Path(__file__).read_text()+Path(keyboard_checks.__file__).read_text()).encode()).hexdigest()
     initial_jobs=[]
     for env in config['environments']:
         initial={'environment':env['id'],'route':[]}
