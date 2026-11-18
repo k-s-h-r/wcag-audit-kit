@@ -11,6 +11,7 @@ from urllib.parse import urldefrag
 from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, capture_image, normalize, page_id
 from input_observation import INIT_SCRIPT, InputObserver
+import state_labels
 
 SCRIPT=(ROOT/'scripts/page_explorer.js').read_text()
 RISK=re.compile(r'delete|remove|purchase|checkout|pay\b|buy\b|logout|sign.?out|submit|send\b|save\b|削除|購入|決済|支払|送信|保存|ログアウト',re.I)
@@ -21,7 +22,7 @@ class KeyboardUnreachable(ValueError):
 
 
 def fingerprint(value):
-    keys=('selector','tag','role','type','href','label','tabIndex','haspopup')
+    keys=('selector','tag','role','type','formAssociated','href','label','tabIndex','haspopup')
     controls=[dict({k:c.get(k) for k in keys},events=sorted(set(c.get('events',[])))) for c in value.get('controls',[])]
     state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
     return sha256(json.dumps(state,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
@@ -30,13 +31,16 @@ def fingerprint(value):
 def actions(control):
     """Keep different input paths even when their resulting states coincide."""
     selector=control['selector'];tag=control['tag'];role=control.get('role');kind=control.get('type') or ''
-    if RISK.search(control.get('label') or '') or kind in {'submit','image','file','password','hidden'}:
+    # The DOM defaults button.type to submit even outside a form. Only an
+    # explicitly observed missing form association makes that default harmless.
+    submission=kind in {'submit','image'} and control.get('formAssociated') is not False
+    if RISK.search(control.get('label') or '') or submission or kind in {'file','password','hidden'}:
         return [],'送信・永続変更・認証情報等の操作。テスト用経路を追加検査する。'
     if tag=='a' and control.get('href') and not control['href'].startswith('#'):
         return [],'ページ移動を伴うリンク。単独ページから自動巡回しない。'
     base={'selector':selector}
     result=[dict(base,type='click'),dict(base,type='hover')]
-    if tag in {'input','textarea'} and kind not in {'checkbox','radio','button','reset'}:
+    if tag in {'input','textarea'} and kind not in {'checkbox','radio','button','reset','submit','image'}:
         result += [dict(base,type='fill',value='audit@example.invalid' if kind=='email' else 'Accessibility audit'),
                    dict(base,type='fill',value='')]
     else:
@@ -68,7 +72,7 @@ async def perform(page, action):
         if not reached:raise KeyboardUnreachable('Tabで対象へ到達できない（120移動まで確認）')
         await page.keyboard.press(action['key'])
     else:raise ValueError('未対応の探索操作')
-    await page.wait_for_timeout(100)
+    return await page.evaluate('() => window.__wcagWaitForUpdates()')
 
 
 def status(run):
@@ -114,7 +118,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     if value.get('implementation_digest')!=implementation:raise ValueError('探索の実装が変わったため新しいrunで実行する')
     # Recompute transient status rather than persisting status()'s derived fields.
     value.pop('required',None);value.pop('complete',None)
-    value['remaining']=[r for r in value['remaining'] if not r.startswith(('探索待ち ','探索中又は'))]
+    value['remaining']=[r for r in value['remaining'] if not r.startswith(('探索待ち ','探索中又は','未到達の指定状態：'))]
+    labels=state_labels.validate(config.get('exploration_labels',[]))
     envs={e['id']:e for e in config['environments']};pid=page_id(url)
     manifest=audit.load(run/'capture-manifest.json') if (run/'capture-manifest.json').exists() else {
         'pages':[{'id':pid,'url':url}],'captures':[],'unvisited':[],'errors':[],'collector_status':'running',
@@ -148,7 +153,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     else:await request_route.continue_()
                 await context.route('**/*',guard)
                 await context.route_web_socket('**/*',lambda socket:socket.close())
-                page=await context.new_page();error=None;data=None;unreachable=False;native_events=[]
+                page=await context.new_page();error=None;data=None;unreachable=False;native_events=[];settling=[]
                 async def dismiss_dialog(dialog):
                     native_events.append({'type':dialog.type,'message':dialog.message,'action':'dismiss'})
                     await dialog.dismiss()
@@ -162,12 +167,27 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 try:
                     response=await page.goto(url,wait_until='domcontentloaded',timeout=20000)
                     if response and response.status>=400:raise ValueError(f'HTTP {response.status}')
-                    await page.wait_for_timeout(150)
-                    for action in route:await perform(page,action)
+                    settling.append(await page.evaluate('() => window.__wcagWaitForUpdates()'))
+                    for action in route:settling.append(await perform(page,action))
+                    label_observations=await state_labels.observe(page,route,labels)
+                    matched_labels=state_labels.verified(labels,route,label_observations)
                     data=await page.evaluate('() => window.__wcagExplore()')
+                    data['observation_wait']=settling
+                    data['state_labels']=label_observations
                     inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
                     audit.save(dest/'state.json',data)
-                    if (env['id'],fingerprint(data)) not in seen:
+                    if (env['id'],fingerprint(data)) not in seen or matched_labels:
+                        # Capture the audited state before diagnostic scrolling changes the DOM.
+                        cdp=await context.new_cdp_session(page)
+                        audit.save(dest/'accessibility-tree.json',await cdp.send('Accessibility.getFullAXTree'));await cdp.detach()
+                        await page.evaluate((ROOT/'vendor/axe.min.js').read_text())
+                        audit.save(dest/'axe.json',await page.evaluate("async()=>await axe.run(document,{resultTypes:['violations','incomplete','passes','inapplicable']})"))
+                        if matched_labels:
+                            current_observations = await state_labels.observe(page, route, labels)
+                            still_matched = state_labels.verified(labels, route, current_observations)
+                            data['state_labels'] = [record for record in label_observations
+                                                    if not record['matched'] or record['id'] in still_matched]
+                            audit.save(dest/'state.json', data)
                         await images.capture(page,dest/'page.png',kind='state',full_page=data['scroll']['height']<=env['viewport']['height']*20)
                         # Actual scroll/tile captures reveal sticky/viewport-only content.
                         tiles=[]
@@ -176,10 +196,6 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             await images.capture(page,dest/f'tile-{len(tiles):03}.png',kind='state');tiles.append(y)
                         audit.save(dest/'tiles.json',{'positions':tiles,'height':data['scroll']['height'],'viewport':env['viewport']})
                         if data['scroll']['height']>env['viewport']['height']*20:value['remaining'].append(f'{env["id"]}：20画面を超える縦方向の表示を追加調査する。')
-                        cdp=await context.new_cdp_session(page)
-                        audit.save(dest/'accessibility-tree.json',await cdp.send('Accessibility.getFullAXTree'));await cdp.detach()
-                        await page.evaluate((ROOT/'vendor/axe.min.js').read_text())
-                        audit.save(dest/'axe.json',await page.evaluate("async()=>await axe.run(document,{resultTypes:['violations','incomplete','passes','inapplicable']})"))
                         if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(run)))):
                             value['remaining'].append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
                         trace=[]
@@ -189,7 +205,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 except Exception as exc:
                     error=str(exc);unreachable=isinstance(exc,KeyboardUnreachable)
                 finally:
-                    audit.save(dest/'transition.json',dict(job,error=error,blocked_requests=blocked,native_events=native_events))
+                    audit.save(dest/'transition.json',dict(job,error=error,blocked_requests=blocked,native_events=native_events,settling=settling))
                     audit.save(dest/'input-events.json',observer.export())
                     await context.close()
                 proof=[audit.evidence_item(run,str(p.relative_to(run))) for p in sorted(dest.iterdir()) if p.is_file()]
@@ -199,12 +215,15 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 if error and not unreachable:value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
                 if blocked:value['remaining'].append(f'{env["id"]}：通信又はページ移動を制限した経路がある。状態を確認する。')
                 if native_events:value['remaining'].append(f'{env["id"]}：ブラウザー標準ダイアログ・別窓・ダウンロードの分岐を追加検査する。')
+                if any(wait['status']!='quiet' for wait in settling):
+                    value['remaining'].append(f'{env["id"]}：DOMと短いタイマーの観察上限又は未観測のコールバックが残る。全非同期完了ではない。')
                 if data and not error:
                     key=(env['id'],fingerprint(data));edge['fingerprint']=key[1]
-                    if key not in seen:
+                    matched_labels=state_labels.verified(labels,route,data.get('state_labels',[]))
+                    if key not in seen or matched_labels:
                         state='initial' if not route else 'explore-'+attempt
                         capture_key=f'{pid}--{state}--{env["id"]}'
-                        node=dict(job,fingerprint=key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'])
+                        node=dict(job,fingerprint=key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'],state_labels=matched_labels)
                         seen[key]=node;value['nodes'].append(node)
                         manifest['captures'].append(dict(key=capture_key,page_id=pid,url=url,state=state,environment=env['id'],
                             execution='completed',collection_state='finished',evidence_dir=str(dest.relative_to(run))))
@@ -241,6 +260,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 audit.make_plan(run,manifest)
         finally:
             await browser.close()
+            found={label for node in value['nodes'] for label in node.get('state_labels',[])}
+            value['remaining'] += ['未到達の指定状態：'+label['id'] for label in labels if label['id'] not in found]
             value['running']=False
             manifest['collector_status']='completed' if not value['queue'] else 'interrupted'
             value['manifest']=manifest
