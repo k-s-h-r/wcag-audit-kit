@@ -16,6 +16,14 @@ MODES={
  'screen-reader':{'label':'スクリーンリーダー併用','ai':False,'screen_reader':True,'profile':'quick'},
  'full':{'label':'AI＋スクリーンリーダー','ai':True,'screen_reader':True,'profile':'thorough'},
 }
+COVERAGE_COLUMNS = [
+    ('id', '確認観点ID'), ('criterion', '基準'), ('title', '名称'), ('level', 'レベル'),
+    ('check', '確認観点'), ('machine', '機械のみ'), ('ai', 'AI併用'),
+    ('screen-reader', 'SR併用'), ('full', 'AI＋SR'), ('mode', '選択モード'),
+    ('selected', '選択モードの対応'), ('target_level', '目標レベル'),
+    ('note', '制約'), ('preparation', '必要な準備'),
+]
+IMAGE_COUNTS = {'captured': '保存', 'skipped': '省略', 'error': '取得エラー', 'started': '処理中'}
 
 
 def policy(value):
@@ -113,13 +121,17 @@ def summary(run, result=None):
     rows=coverage(value,name,meta['config']['level'])
     sr_pages=(result or {}).get('interaction_review',{}).get('pages',{})
     expected={c['page_id'] for c in (result or {}).get('cases',[])}
-    recorded={k for k,p in sr_pages.items() if p['screen_reader']['status']=='reviewed'}
+    recorded={k for k,p in sr_pages.items() if k in expected and p['screen_reader']['status']=='reviewed'}
     sr_recorded=bool(expected) and expected.issubset(recorded)
+    observations = (result or {}).get('observation_usage', {}).get('screenshots')
+    image_counts = None if observations is None else dict(Counter(item['status'] for item in observations))
+    checks = (result or {}).get('machine_checks')
     # Requested capability is distinct from observed output. No inferred AI usage.
     return {'mode':name,'label':mode['label'],'ai_allowed':mode['ai'],'screen_reader_required':mode['screen_reader'],
             'screen_reader_status':('recorded' if sr_recorded else 'partial' if recorded else 'not_run') if mode['screen_reader'] else 'disabled',
             'ai_usage':'not_inferred_from_mode','legend':LEGEND,'definition_digest':meta['verification_digest'],
             'counts':dict(Counter(r['selected_support'] for r in rows if r['target_level'])),
+            'evidence_summary': {'machine_rows': None if checks is None else len(checks), 'images': image_counts},
             'checkpoints':rows,'notice':'対応表は実行可能な方法の範囲です。○も実行前は未確認です。×・省略・環境不足をWCAGの対象外や適合にしません。'}
 
 
@@ -132,6 +144,22 @@ def table_rows(value):
                  selected=r['symbol'],mode=value['label'],target_level='対象' if r['target_level'] else '目標レベル外',
                  **{m:SYMBOLS[r['support'][m]] for m in MODES},note=plain(r['note']),preparation=plain(r['preparation']))
             for r in value['checkpoints']]
+
+
+def report_summary_rows(value):
+    """Identical labels for the report-scope counts in HTML and Excel."""
+    evidence = value.get('evidence_summary', {})
+    machine = evidence.get('machine_rows')
+    images = evidence.get('images')
+    return [
+        ('対象レベルの対応内訳', ' / '.join(f'{symbol} {value["counts"].get(key, 0)}観点'
+                                      for key, symbol in SYMBOLS.items())),
+        ('機械検査の記録行', '記録なし' if machine is None else f'{machine}件'),
+        ('画像の取得記録', '記録なし' if images is None else ' / '.join(
+            f'{label} {images.get(key, 0)}件' for key, label in IMAGE_COUNTS.items())),
+        ('AIの内容判断', '実施状況は判定の記録を確認' if value['ai_allowed'] else 'このモードでは使用しない'),
+        ('実スクリーンリーダーの記録', SR_LABELS[value['screen_reader_status']]),
+    ]
 
 
 def work_checkpoint(row, name):
@@ -147,16 +175,16 @@ def work_checkpoint(row, name):
 
 def render_html(value):
     if value is None:return ''
-    columns=[('criterion','基準'),('title','名称'),('check','確認観点'),('machine','機械のみ'),('ai','AI併用'),
-             ('screen-reader','SR併用'),('full','AI＋SR'),('selected','選択モード'),('target_level','目標レベル'),('note','制約')]
     rows=[]
     for row in table_rows(value):
-        cells=['<th scope="row" style="white-space:nowrap">'+escape(str(row[columns[0][0]]))+'</th>']
-        for key,_ in columns[1:]:
+        cells=['<th scope="row" style="white-space:nowrap">'+escape(row['id'])+'</th>']
+        for key,_ in COVERAGE_COLUMNS[1:]:
             style=' style="white-space:nowrap;text-align:center"' if key in {*MODES,'selected'} else ''
             cells.append('<td'+style+'>'+escape(str(row[key]))+'</td>')
         rows.append('<tr>'+''.join(cells)+'</tr>')
+    execution = ''.join('<p>'+escape(label)+'：'+escape(record)+'</p>'
+                        for label, record in report_summary_rows(value))
     return ('<section aria-labelledby="verification-mode"><h2 id="verification-mode">選択した検証モード：'+escape(value['label'])+'</h2>'
-            '<p>'+escape(value['legend'])+'</p><p>'+escape(value['notice'])+'</p><p>実スクリーンリーダーの記録：'+escape(SR_LABELS[value['screen_reader_status']])+'</p>'
+            '<p>'+escape(value['legend'])+'</p><p>'+escape(value['notice'])+'</p>'+execution+
             '<div role="region" aria-label="モード別の確認範囲" tabindex="0" style="max-width:100%;overflow-x:auto"><table style="min-width:1000px"><caption>モード別の確認範囲。実行結果は達成基準チェックシートを参照</caption><thead><tr>'
-            +''.join('<th scope="col" style="white-space:nowrap">'+escape(label)+'</th>' for _,label in columns)+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div></section>')
+            +''.join('<th scope="col" style="white-space:nowrap">'+escape(label)+'</th>' for _,label in COVERAGE_COLUMNS)+'</tr></thead><tbody>'+''.join(rows)+'</tbody></table></div></section>')
