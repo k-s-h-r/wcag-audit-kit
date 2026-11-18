@@ -480,6 +480,94 @@ class ScoringTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'変更された'):
             core.score(run)
 
+    def make_status_run(self, role_attribute, *, edit=None, freeze_capture=True):
+        page, state = 'p01.html', 'after-save'
+        contract = dict(checkpoint='4.1.3-01', page=page, state=state, kind='state-capture',
+                        targets=['#subject'], captures=['待機中', '保存しました'], role_attribute=role_attribute,
+                        rationale='保存後の表示と役割を取得する。')
+        run, _, job, progress = self.make_run(mode='machine', point='4.1.3-02', kind='screen-reader',
+                                              defer=True, contract=contract)
+        # Rebuild the synthetic input snapshots before freezing this specific job.
+        spec = dict(action={'type': 'click', 'selector': '#save'}, target='#subject')
+        job['states'].append(dict(id=state, status_capture=spec))
+        oracle = core.load(run/'oracle.snapshot.json')
+        oracle['suites'][0]['cases'][0]['states'] = job['states']
+        meta = core.load(run/'run.json')
+        meta.update(oracle_digest=core.digest(oracle), corpus_digest=core.digest(oracle))
+        core.save(run/'run.json', meta)
+        core.save(run/'oracle.snapshot.json', oracle)
+        core.save(run/'worker/tasks.json', {'jobs': [job]})
+        (run/'integrity.json').unlink()
+
+        entry = progress['jobs'][job['id']][page]
+        entry.update(status='completed', exit_code=0)
+        core.save(run/'progress.json', progress)
+        attempt = run/entry['directory']
+        url = job['urls'][page]
+        source = run/'worker/public/4.1.3'/page
+        source.parent.mkdir(parents=True)
+        source.write_text('<!doctype html><title>Fixture</title>')
+        core.save(attempt/'exploration.json', {'nodes': [], 'edges': []})
+        core.save(attempt.parent/'receipt.json', dict(job_id=job['id'], page=page, mode=job['mode'], url=url,
+                                                      status='completed', exit_code=0))
+        proof = attempt.parent/f'status-capture-{state}.json'
+        snapshot = dict(visible=True, backend_node_id=72, time_origin='123', url=url,
+                        role_attribute=role_attribute, ax_role=role_attribute or 'paragraph')
+        observed = dict(job_id=job['id'], page=page, state=state, spec=spec, mode=job['mode'], url=url,
+                        fixture_sha256=core.file_hash(source), not_a_screen_reader_test=True,
+                        requests_blocked=[], native_events=[], status='observed',
+                        before=dict(snapshot, text='待機中', sampled_at=15),
+                        after=dict(snapshot, text='保存しました', sampled_at=540),
+                        event=dict(type='click', isTrusted=True, is_main_frame=True, expectedTargetMatched=True,
+                                   url=url, target={'id': 'save'}, documentId='123-abc', timestamp=38))
+        if edit:
+            edit(observed)
+        core.save(proof, observed)
+        core.freeze(run, [path for path in run.rglob('*') if path.is_file() and path.name != '.audit.lock'
+                          and (freeze_capture or path != proof)])
+        return run, proof
+
+    def test_status_acquisition_matches_same_document_visible_states_without_speech(self):
+        for role in ('status', None):
+            with self.subTest(role=role):
+                run, _ = self.make_status_run(role)
+                result = core.score(run)
+                self.assertEqual(result['pending_evidence_contracts'], [])
+                match, = result['matched_evidence_contracts']
+                self.assertIn('待機中 → 保存しました', match['observed'])
+                self.assertIn(role or 'paragraph', match['observed'])
+                self.assertEqual(result['counts'], {'deferred': 2})
+                self.assertEqual(result['overall_status'], 'incomplete')
+                self.assertTrue(all(row['actual'] == 'not_run' for row in result['rows']))
+
+    def test_status_acquisition_leaves_unverified_click_or_change_unconfirmed(self):
+        edits = [
+            lambda r: r['event'].update(isTrusted=False),
+            lambda r: r['event'].update(documentId='234-other'),
+            lambda r: r['event'].update(timestamp=600),
+            lambda r: r['event'].update(target={'id': 'other'}),
+            lambda r: r['after'].update(backend_node_id=73),
+            lambda r: r['after'].update(visible=False),
+            lambda r: r['after'].update(text='待機中'),
+            lambda r: r['after'].update(ax_role='paragraph'),
+            lambda r: r.update(fixture_sha256='different'),
+            lambda r: r.update(requests_blocked=[{'url': 'http://127.0.0.1/other'}]),
+        ]
+        for edit in [None, *edits]:
+            with self.subTest(edit=edit):
+                run, _ = self.make_status_run('status', edit=edit, freeze_capture=edit is not None)
+                result = core.score(run)
+                self.assertEqual(result['matched_evidence_contracts'], [])
+                pending, = result['pending_evidence_contracts']
+                self.assertEqual(pending['status'], 'not_evaluated')
+                self.assertEqual(result['counts'], {'deferred': 2})
+
+    def test_status_acquisition_checks_frozen_receipt_integrity(self):
+        run, proof = self.make_status_run('status')
+        proof.write_text('{}')
+        with self.assertRaisesRegex(ValueError, '変更された'):
+            core.score(run)
+
     def make_geometry_run(self, size, *, edit=None, contract=None):
         contract = contract or dict(
             checkpoint='2.5.8-01', page='p01.html', state='initial', kind='geometry',

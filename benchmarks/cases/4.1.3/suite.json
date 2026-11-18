@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "4.1.3",
-  "version": "2",
+  "version": "3",
   "review": "author-defined",
   "sources": [
     "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
@@ -107,8 +107,12 @@
         {
           "id": "after-save",
           "instructions": [
-            "非同期の状態変化を取得する。操作と観察から判定し、表示だけで完了としない。"
-          ]
+            "保存するボタンを押し、非同期更新の前後で対象の表示と役割を確認する。"
+          ],
+          "status_capture": {
+            "action": {"type": "click", "selector": "#save"},
+            "target": "#subject"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -179,8 +183,12 @@
         {
           "id": "after-save",
           "instructions": [
-            "非同期の状態変化を取得する。操作と観察から判定し、表示だけで完了としない。"
-          ]
+            "保存するボタンを押し、非同期更新の前後で対象の表示と役割を確認する。"
+          ],
+          "status_capture": {
+            "action": {"type": "click", "selector": "#save"},
+            "target": "#subject"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
