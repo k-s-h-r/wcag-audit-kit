@@ -168,6 +168,7 @@ def build(result, catalog, *, cases=None, filters=None, manifest=None):
                 'この機械ルール以外の条件・対象は基準全体の行を参照。',proof,'checkpoint')
             item['judgment']={'passed':'○ 通過（機械）','failed':'× 問題あり（機械）','inapplicable':'— 対象なし（機械）','unverified':'未確定（機械）'}[status]
             item['locations']=preview([m.get('state_label',m['capture'])+' / '+m['environment']+' / '+m['target'] for m in entries if m['outcome'] in {'failed','cant_tell'}],destination='自動検出した問題')
+            item['machine_issues_link'] = bool(item['locations'])
             rows.append(item)
     labels={'task':'タスク','owner':'担当','page':'URLに含む文字','page_exact':'対象URL','criterion':'対象基準'}
     selections=[f'{labels[k]}：{v}' for k,v in filters.items() if k in labels and v is not None]
@@ -197,6 +198,8 @@ def html_table(columns, rows, *, failures=False):
             content=escape(str(row.get(key,''))).replace('\n','<br>')
             if key=='locations' and row.get('failure_ids'):
                 content+=f'<br><a href="#failure-{row["failure_ids"][0]}">不適合箇所の詳細</a>'
+            elif key=='locations' and row.get('machine_issues_link'):
+                content+='<br><a href="#machine-results">自動検出した問題の詳細</a>'
             if key=='evidence':
                 paths=row.get('evidence_paths',[])
                 content='<br>'.join(f'<a href="./{quote(p,safe="/")}">{escape(p)}</a>' for p in paths)

@@ -162,10 +162,16 @@ def human_sheets(book, model):
                                       for line in str(cell.value or '').split('\n')))
                 if row.get('kind')=='criterion':cell.font=Font(bold=True)
                 if key=='judgment':cell.fill=PatternFill('solid',fgColor=palette[row['status']])
-                if key=='locations' and row.get('failure_ids'):
-                    target=failure_rows[row['failure_ids'][0]]
-                    cell.hyperlink=Hyperlink(ref=cell.coordinate,location=f"'不適合箇所'!A{target}",display=cell.value)
-                    cell.font=Font(color='00529B',underline='single')
+                if key=='locations':
+                    location = None
+                    if row.get('failure_ids'):
+                        target = failure_rows[row['failure_ids'][0]]
+                        location = f"'不適合箇所'!A{target}"
+                    elif row.get('machine_issues_link'):
+                        location = "'自動検出した問題'!A1"
+                    if location:
+                        cell.hyperlink = Hyperlink(ref=cell.coordinate, location=location, display=cell.value)
+                        cell.font = Font(color='00529B', underline='single')
             ws.row_dimensions[index].height=min(409,height*15)
         ws.freeze_panes='D7';ws.auto_filter.ref=f'A6:{get_column_letter(len(columns))}{max(6,ws.max_row)}'
         ws.protection.autoFilter=False

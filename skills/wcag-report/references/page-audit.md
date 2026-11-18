@@ -49,7 +49,29 @@ python3 scripts/audit.py page-audit --url https://example.com/contact --out /pro
 }
 ```
 
-`criterion`は2.1.1、2.1.2、2.4.3から選ぶ。各手順にTab、Shift+Tab、Enter、Space、Escapeのいずれかと、`focus`、`visible`、`hidden`の少なくとも一つを指定する。条件には対象を一つに絞れるセレクターを使う。開いたShadow DOMでは、内側の要素を指定できる。証拠にはホストから実際のフォーカス先までを記録する。閉じたShadow DOMやiframe内は追加検査に残す。1経路は40操作までで、20経路まで指定できる。経路ごとに初期表示から始め、最初に期待と異なった操作、操作前後のフォーカス、期待結果を保存する。経路の実行は`--max-steps`の累計に含まれる。
+`criterion`は2.1.1、2.1.2、2.4.3、4.1.2から選ぶ。各手順にTab、Shift+Tab、Enter、Space、Escape、上下左右の矢印キーのいずれかと、少なくとも一つの到達条件を指定する。条件には対象を一つに絞れるセレクターを使う。開いたShadow DOMでは、内側の要素を指定できる。証拠にはホストから実際のフォーカス先までを記録する。閉じたShadow DOMと、対象を宣言できないiframeは追加検査に残す。1経路は40操作までで、20経路まで指定できる。経路ごとに初期表示から始め、最初に期待と異なった操作、操作前後のフォーカス、期待結果を保存する。経路の実行は`--max-steps`の累計に含まれる。
+
+コンボボックスでは、DOMのフォーカスが入力欄に留まったまま候補の位置が変わる。`focus`と、候補位置を表す`aria-activedescendant`の値をそれぞれ指定する。同じ方法でタブの`aria-selected`や開閉部品の`aria-expanded`も確認できる。4.1.2の経路には`attributes`条件を含め、指定したDOM属性の結果として読む。
+
+```json
+{
+  "key": "ArrowDown",
+  "focus": "#city",
+  "visible": "#options",
+  "attributes": [
+    {"selector": "#city", "name": "aria-expanded", "equals": "true"},
+    {"selector": "#city", "name": "aria-activedescendant", "equals": "osaka"}
+  ]
+}
+```
+
+`attributes`の`equals`は文字列で指定する。要素が存在し、属性がなくなったことを確かめるには`null`を指定する。選択後のテキスト入力欄は`"value": {"selector": "#city", "equals": "大阪"}`で現在の値を照合できる。検査結果に観察した値が残るので、テストデータを使う。
+
+iframeの出入りを確認するには、経路の `frame` に例として `{"selector":"#dialog-frame","url":"https://example.test/dialog.html"}` を指定する。直接の子で同じオリジンの文書を一つ宣言できる。設定の対象範囲にある実際の文書URLを指定する。
+
+- キーを押す前のフォーカスが子文書内にある手順に `"input_frame": "#dialog-frame"` を指定する。省略時は親文書へ届いた実キーを確認する。
+- キーを押した後の条件を子文書内で確認する手順に `"frame": "#dialog-frame"` を指定する。省略時は親文書の条件を確認する。子文書からEscapeで閉じて親に戻る手順なら、`input_frame` だけを指定する。
+- 宣言した子文書や実際の入力先を確認できない場合は判定を保留する。別オリジン、アクセスできないsandbox、リダイレクトによる移動はこの経路の対象外。
 
 リンクを実行する経路では、同じオリジンかつ対象範囲内の絶対URLを`destination`に指定できる。最後のEnter又はSpaceで指定した文書へのGET移動を許可し、到達したURLとその手順の表示条件を照合する。指定外への移動、リダイレクト、確認できない入力や更新は判断保留として扱う。
 
