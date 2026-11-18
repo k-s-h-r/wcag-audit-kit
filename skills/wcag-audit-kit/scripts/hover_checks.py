@@ -10,7 +10,7 @@ from keyboard_checks import matching_keydown
 ASPECTS = ('hoverable', 'dismissible')
 MAX_TRANSFER_SAMPLES = 64
 ACTIVE_ELEMENT = '() => (' + OPEN_FOCUS_PATH + ')(document).element'
-TARGET_STATE = r'''(element, {excluded, at}) => {
+TARGET_STATE = r'''(element, {excluded, at, near}) => {
     const {left, right, top, bottom} = element.getBoundingClientRect();
     const rect = {left, right, top, bottom};
     const state = (status, points = []) => ({status, rect, points});
@@ -37,6 +37,16 @@ TARGET_STATE = r'''(element, {excluded, at}) => {
     const candidates = at ? [at] : fractions.flatMap(dx => fractions.map(dy => ({
         x: Math.floor(x0 + (x1 - x0) * dx), y: Math.floor(y0 + (y1 - y0) * dy)
     })));
+    if (near) {
+        // A wide block can have a close edge even when its center is far away.
+        const lowX = Math.ceil(x0), highX = Math.ceil(x1) - 1;
+        const lowY = Math.ceil(y0), highY = Math.ceil(y1) - 1;
+        const xs = [Math.max(lowX, Math.min(highX, near.x)), lowX, highX];
+        const ys = [Math.max(lowY, Math.min(highY, near.y)), lowY, highY];
+        candidates.push(...xs.flatMap(x => ys.map(y => ({x, y}))));
+        const distance = ({x, y}) => Math.hypot(x - near.x, y - near.y);
+        candidates.sort((left, right) => distance(left) - distance(right));
+    }
     const points = [];
     for (const {x, y} of candidates) {
         if (x < x0 || x >= x1 || y < y0 || y >= y1) continue;
@@ -81,13 +91,13 @@ def invalidate(record, check, reason):
                   observations=[observation(check, aspect, 'cant_tell', reason) for aspect in ASPECTS])
 
 
-async def target_state(locator, excluded=None, at=None):
+async def target_state(locator, excluded=None, at=None, near=None):
     count = await locator.count()
     if count > 1:
         raise Uncertain('セレクターに一致する対象を一つに絞れない。')
     if not count:
         return {'status': 'absent', 'rect': None, 'points': []}
-    return await locator.evaluate(TARGET_STATE, {'excluded': excluded, 'at': at}, timeout=1200)
+    return await locator.evaluate(TARGET_STATE, {'excluded': excluded, 'at': at, 'near': near}, timeout=1200)
 
 
 def hit_point(state):
@@ -191,7 +201,8 @@ async def open_popup(page, trigger, popup, observer, record, interrupted, origin
 
 
 async def transfer(page, popup, opened, observer, record, interrupted, origin):
-    step = {'action': 'move-to-popup', 'before': await target_state(popup, opened['trigger']['rect']), 'samples': []}
+    before = await target_state(popup, excluded=opened['trigger']['rect'], near=opened['point'])
+    step = {'action': 'move-to-popup', 'before': before, 'samples': []}
     record['steps'].append(step)
     point = hit_point(step['before'])
     if not point:
