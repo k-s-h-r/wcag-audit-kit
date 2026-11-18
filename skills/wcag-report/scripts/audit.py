@@ -149,6 +149,9 @@ def validate_config(c):
     if 'exploration_labels' in c:
         from state_labels import validate as validate_labels
         validate_labels(c['exploration_labels'])
+    if 'keyboard_checks' in c:
+        from keyboard_checks import validate as validate_keyboard_checks
+        validate_keyboard_checks(c)
     if c.get('auth_state'):
         c['auth_state']=str(Path(c['auth_state']).resolve())
     if 'inspection' in c and 'verification' not in c:
@@ -727,6 +730,8 @@ def main(argv=None):
                 if args.level:config['level']=args.level
                 config=validate_config(config)
             else:config=read_config(args.config)
+            if config.get('keyboard_checks') and args.command != 'page-audit':
+                raise ValueError('keyboard_checksはpage-auditで実行する')
             if args.command=='pages':
                 out=Path(args.out)
                 if out.exists():raise ValueError('既存のURL一覧を上書きしない')

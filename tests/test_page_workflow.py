@@ -31,6 +31,21 @@ class WorkflowTest(unittest.TestCase):
             'edges':[],'running':False,'proof':[audit.evidence_item(self.run,'evidence/abc/axe.json')],'steps':1}
         audit.save(self.run/'exploration.json',graph);return graph
 
+    def test_keyboard_check_rejects_out_of_scope_destinations_and_unsupported_keys(self):
+        url = 'https://example.com/menu'
+        config = audit.init_config(url)
+        config['scope']['exclude'] = [{'path': '/excluded', 'reason': 'outside the audit'}]
+        route = {'id': 'menu', 'name': 'Open submenu', 'criterion': '2.1.1',
+                 'steps': [{'key': 'Enter', 'visible': '#submenu'}]}
+        config['keyboard_checks'] = [route]
+        self.assertEqual(audit.validate_config(config)['keyboard_checks'], [route])
+        for destination in ['https://outside.example/link', 'https://example.com/excluded', '/local']:
+            with self.subTest(destination=destination), self.assertRaisesRegex(ValueError, 'リンク先'):
+                audit.validate_config(dict(config, keyboard_checks=[dict(route, destination=destination)]))
+        for steps in [[{'key': 'Control+l', 'focus': '#menu'}], [{'key': 'Tab'}]]:
+            with self.subTest(steps=steps), self.assertRaises(ValueError):
+                audit.validate_config(dict(config, keyboard_checks=[dict(route, steps=steps)]))
+
     def test_machine_pass_never_becomes_criterion_pass(self):
         self.graph();result=audit.outcomes(self.run)
         self.assertEqual(result['counts'],{'not_run':55})

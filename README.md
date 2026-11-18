@@ -55,6 +55,8 @@ python3 skills/wcag-audit-kit/scripts/audit.py page-audit --url https://example.
 
 この入口は指定URLだけで開閉・選択・入れ子などの状態を探索し、実クリック・キー操作と各状態のaxeを実行します。探索・機械検査・ページ別HTML・JSON・Excelの出力にAIサービスやAPIキーは必要ありません。途中で止めたキューは再開できます。[1ページの実行手順](skills/wcag-audit-kit/references/page-audit.md)を参照してください。
 
+操作順と到達条件が分かっているメニューでは、`keyboard_checks`を設定して再現できます。期待どおりに開かない、次の項目へ移れない、閉じたあとに親へ戻れない場合、食い違ったキーとフォーカスをページ別帳票に出します。[キーボード経路の設定例](skills/wcag-audit-kit/references/page-audit.md#既知のキーボード操作を検査する)
+
 機械結果と、達成基準全体の適否は区別します。自動ルールで決まらない意味や目的、未探索の内容、必要な実SR等は追加検査に残します。`page-next`で次の票と機械結果・手順を取得し、利用できる道具から確認を進めます。`page-report`でそのページだけの結果を更新できます。既存の`page`は事前設定の状態を収集する入口として保持します。
 
 検証に使う手段は[モード](skills/wcag-audit-kit/references/verification-modes.md)、画像の深さ・枚数は[観察設定](skills/wcag-audit-kit/references/inspection-profiles.md)で選べます。モードで使わない手段、画像の省略・上限・未探索は未確認として残します。トークン数や料金を保証する設定とは区別します。
