@@ -189,7 +189,7 @@ def record_review(run,value):
                 raise ValueError('観察がページ・状態・確認観点に対応しない、又は重複')
             seen.add(key)
             if row['outcome'] not in {'passed','failed','inapplicable','cant_tell','not_run'}:raise ValueError('判定の値が不正')
-            if row['checkpoint'] in job.get('acquisition_checkpoints',[]):raise ValueError('取得期待の照合は未接続です。取得した証拠を保存し、適合・不適合として取り込まない')
+            if row['checkpoint'] in job.get('acquisition_checkpoints',[]):raise ValueError('取得した証拠を保存し、取得期待を適合・不適合として取り込まない')
             method=row.get('method');mode=modes.MODES[job['mode']]
             if method not in {'program','ai','screen-reader'} or (method=='ai' and not mode['ai']) or (method=='screen-reader' and not mode['screen_reader']):raise ValueError('選択モードで使用しない判定方法')
             if not isinstance(row.get('observed'),str) or len(row['observed'].strip())<10:raise ValueError('具体的な観察が必要')
@@ -297,18 +297,121 @@ def program_predictions(run,job,progress):
     return result
 
 
+def initial_inventory(run, job, progress, page, frozen):
+    """Resolve a complete initial capture from this job and page only."""
+    def read_frozen(path):
+        name = path.resolve().relative_to(run).as_posix()
+        if name not in frozen:
+            return None
+        try:
+            value = load(path)
+        except (OSError, ValueError):
+            return None
+        return value if isinstance(value, dict) else None
+
+    entry = progress['jobs'].get(job['id'], {}).get(page, {})
+    url = job['urls'][page]
+    if entry.get('status') != 'completed' or entry.get('exit_code') != 0:
+        return None, []
+    try:
+        attempt = local(run, entry.get('directory'))
+        if not attempt.is_relative_to(local(run, f'audit-runs/{job["id"]}')) or attempt.name != 'run':
+            return None, []
+        receipt_path = attempt.parent / 'receipt.json'
+        receipt = read_frozen(receipt_path) or {}
+        expected_receipt = dict(job_id=job['id'], page=page, mode=job['mode'], url=url, status='completed', exit_code=0)
+        if any(receipt.get(key) != value for key, value in expected_receipt.items()):
+            return None, []
+
+        manifest_path = attempt / 'capture-manifest.json'
+        manifest = read_frozen(manifest_path) or {}
+        candidates = [capture for capture in manifest.get('captures', [])
+                      if isinstance(capture, dict) and capture.get('url') == url and capture.get('state') == 'initial'
+                      and capture.get('execution') == 'completed' and capture.get('collection_state') == 'finished']
+        if len(candidates) != 1:
+            return None, []
+        capture = candidates[0]
+        directory = local(attempt, capture['evidence_dir'])
+        if not directory.is_relative_to(attempt / 'evidence') or directory == attempt / 'evidence':
+            return None, []
+        transition_path = directory / 'transition.json'
+        transition = read_frozen(transition_path) or {}
+        settling = transition.get('settling')
+        if (transition.get('route') != [] or transition.get('environment') != capture['environment']
+                or transition.get('error') or transition.get('blocked_requests') != [] or transition.get('native_events') != []
+                or not isinstance(settling, list) or len(settling) != 1 or not isinstance(settling[0], dict)
+                or settling[0].get('status') != 'quiet'):
+            return None, []
+        inventory_path = directory / 'inventory.json'
+        inventory = read_frozen(inventory_path)
+        if not inventory or inventory.get('url') != url:
+            return None, []
+    except (KeyError, TypeError, ValueError):
+        return None, []
+    return inventory, [p.relative_to(run).as_posix() for p in (inventory_path, transition_path, manifest_path, receipt_path)]
+
+
+def inventory_format(node, format_name):
+    svg = 'http://www.w3.org/2000/svg'
+    html = 'http://www.w3.org/1999/xhtml'
+    if format_name == 'inline-svg':
+        return node.get('tag') == 'svg' and node.get('namespace') == svg
+    if format_name == 'canvas':
+        return node.get('tag') == 'canvas' and node.get('namespace') == html
+    background = node.get('backgroundImage')
+    return isinstance(background, str) and re.fullmatch(r'url\("[^"]+"\)', background) is not None
+
+
+def acquisition_result(run, job, progress, contract, frozen, support):
+    row = dict(job_id=job['id'], criterion=job['criterion'], mode=job['mode'], page=contract['page'],
+               state=contract['state'], checkpoint=contract['checkpoint'], kind=contract['kind'],
+               status='deferred' if support == 'no' else 'not_evaluated')
+    fields = {'checkpoint', 'kind', 'targets', 'formats', 'page', 'state', 'rationale'}
+    targets, formats = contract['targets'], contract.get('formats')
+    if (support == 'no' or row['checkpoint'] != '1.1.1-02' or row['kind'] != 'inventory'
+            or row['state'] != 'initial' or set(contract) != fields or not targets or len(set(targets)) != len(targets)
+            or not isinstance(formats, list) or len(formats) != len(targets)
+            or any(fmt not in ('css-background', 'inline-svg', 'canvas') for fmt in formats)):
+        return row
+    inv, proof = initial_inventory(run, job, progress, row['page'], frozen)
+    if inv is None:
+        return dict(row, observed='同じページの初期状態に対応する保存済み証拠を確認できない。')
+    nodes = inv.get('nodes')
+    if (inv.get('truncated') is not False or not isinstance(nodes, list) or inv.get('nodeCount') != len(nodes)
+            or any(not isinstance(node, dict) for node in nodes)):
+        return dict(row, observed='上限や欠落のため完全な要素一覧を確認できない。', evidence=proof)
+    expected = list(zip(targets, formats))
+    matched = []
+    for target, format_name in expected:
+        candidates = [node for node in nodes if node.get('selector') == target]
+        if (len(candidates) == 1 and candidates[0].get('visible') is True
+                and isinstance(candidates[0].get('tag'), str) and isinstance(candidates[0].get('namespace'), str)
+                and inventory_format(candidates[0], format_name)):
+            node = candidates[0]
+            matched.append(dict(target=target, format=format_name, tag=node['tag'], namespace=node.get('namespace'),
+                                background_image=node.get('backgroundImage')))
+    if len(matched) < len(expected):
+        found = {item['target'] for item in matched}
+        missing = '、'.join(f'{target} ({fmt})' for target, fmt in expected if target not in found)
+        return dict(row, observed='対象の特定、表示又は形式を確認できない: ' + missing, evidence=proof)
+    return dict(row, status='matched', targets=matched, evidence=proof,
+                observed='初期状態の要素一覧で全対象と形式を確認した。')
+
+
 def score(run):
     run=Path(run);meta,progress=verify(run);oracles=oracle_jobs(run);jobs=tasks(run);reviews={}
     index=load(run/'review-index.json') if (run/'review-index.json').exists() else {'entries':[]}
     for name in index['entries']:
         value=load(local(run,name));target=reviews.setdefault(value['job_id'],{})
         for row in value['observations']:target[observation_key(row)]=row
-    rows=[];extras=[];pending_evidence=[]
+    rows=[];extras=[];pending_evidence=[];matched_evidence=[]
+    frozen=load(run/'integrity.json')['files']
     for job in jobs:
         predicted=program_predictions(run,job,progress);predicted.update(reviews.get(job['id'],{}))
         for contract in oracles[job['id']].get('evidence_expectations',[]):
             point=next(p for p in meta['mode_catalog']['checkpoints'] if p['id']==contract['checkpoint'])
-            pending_evidence.append(dict(job_id=job['id'],criterion=job['criterion'],mode=job['mode'],page=contract['page'],state=contract['state'],checkpoint=contract['checkpoint'],kind=contract['kind'],status='deferred' if point['support'][job['mode']]=='no' else 'not_evaluated'))
+            acquisition = acquisition_result(run.resolve(), job, progress, contract, frozen, point['support'][job['mode']])
+            (matched_evidence if acquisition['status'] == 'matched' else pending_evidence).append(acquisition)
         expected=oracles[job['id']]['expectations'];known={observation_key(e) for e in expected}
         for e in expected:
             key=observation_key(e);actual=predicted.get(key);outcome=actual['outcome'] if actual else 'not_run'
@@ -348,7 +451,8 @@ def score(run):
         methods_by_mode={m:dict(Counter(r['method'] for r in rows if r['mode']==m and r['grade'] in {'correct','incorrect'})) for m in meta['modes']},
         detected_known_failures=detected,total_known_failures=total_failures,undetected_known_failures=total_failures-detected,
         rows=rows,unexpected_findings=extras,criteria=all_criteria,pending_evidence_contracts=pending_evidence,
-        notice_evidence='取得期待の照合は未接続です。別表の未確認を適合・不適合の件数へ混ぜず、必要な取得期待が残る実行は未完了とします。',
+        matched_evidence_contracts=matched_evidence,
+        notice_evidence='取得の一致・未確認を別表に記録します。必要な取得期待が残る実行は未完了とします。取得の一致は達成基準の適合判定に含めません。',
         notice='作成者が定めた有限の確認観点の採点です。独立した専門家による正解確認は未実施です。未実施・モードによる省略・未整備の基準を成功に数えません。検出率は評価できた範囲と全問題の未検出数を併記します。')
 
 
@@ -367,5 +471,20 @@ def compare(baseline,current):
     old_extras={(r['job_id'],*observation_key(r)) for r in baseline['unexpected_findings']}
     for r in current['unexpected_findings']:
         if (r['job_id'],*observation_key(r)) not in old_extras:regressions.append(dict(key=[r['job_id'],*observation_key(r)],before='no_false_positive',after='failed'))
+
+    def acquisitions(report):
+        rows = report.get('matched_evidence_contracts', []) + report.get('pending_evidence_contracts', [])
+        return {(r['job_id'], r['page'], r['state'], r['checkpoint'], r['kind']): r['status'] for r in rows}
+
+    old_acquisitions, new_acquisitions = acquisitions(baseline), acquisitions(current)
+    if old_acquisitions.keys() != new_acquisitions.keys():
+        raise ValueError('比較対象の取得期待が異なる')
+    for key, before_status in old_acquisitions.items():
+        after_status = new_acquisitions[key]
+        change = dict(key=list(key), kind='acquisition', before=before_status, after=after_status)
+        if before_status == 'matched' and after_status != 'matched':
+            regressions.append(change)
+        elif before_status != 'matched' and after_status == 'matched':
+            improvements.append(change)
     return dict(status='regressions' if regressions else 'no_regressions',regressions=regressions,improvements=improvements,
                 current_quality=current['overall_status'],notice='新しい劣化がないことと、問題集を全て確認できたことは別です。')

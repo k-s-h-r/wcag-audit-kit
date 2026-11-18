@@ -19,13 +19,24 @@ def main(report,out):
     value=core.load(report/'result.json')
     from openpyxl import load_workbook
     book=load_workbook(report/'result.xlsx',read_only=True,data_only=True)
+    acquisition_sections=[('取得期待の一致',value.get('matched_evidence_contracts',[])),
+                          ('取得期待の未確認',value.get('pending_evidence_contracts',[]))]
     try:
-        assert book.sheetnames==['採点結果','概要','基準とモードの実測範囲','追加の誤検出']+(['取得期待の未確認'] if value.get('pending_evidence_contracts') else [])
+        assert book.sheetnames==['採点結果','概要','基準とモードの実測範囲','追加の誤検出']+[name for name,rows in acquisition_sections if rows]
         assert book['採点結果'].max_row==len(value['rows'])+1
         assert book['基準とモードの実測範囲'].max_row==87
         grades=Counter(row[9] for row in list(book['採点結果'].values)[1:])
         from benchmarks.reporting import LABEL
         assert dict(grades)=={LABEL[k]:v for k,v in value['counts'].items()}
+        for name,rows in acquisition_sections:
+            if not rows:continue
+            header,*workbook_rows=list(book[name].values)
+            assert len(workbook_rows)==len(rows)
+            for expected,observed in zip(rows,workbook_rows):
+                assert observed[header.index('ページ')]==expected['page']
+                assert observed[header.index('確認状態')]==LABEL[expected['status']]
+                paths=observed[header.index('証拠')] if '証拠' in header else ''
+                assert (paths or '').splitlines()==expected.get('evidence',[])
     finally:book.close()
     # A private reviewer surface, separate from the answer-free worker server.
     class ReviewFiles(SimpleHTTPRequestHandler):
@@ -49,6 +60,16 @@ def main(report,out):
                     assert await page.title()=='基準別の検出試験'
                     assert await page.locator('table').nth(0).locator('tbody tr').count()==len(value['rows'])
                     assert await page.locator('table').nth(1).locator('tbody tr').count()==86
+                    for name,rows in acquisition_sections:
+                        acquisition_region=page.get_by_role('region',name=name,exact=True)
+                        assert await acquisition_region.count()==bool(rows)
+                        if not rows:continue
+                        assert await acquisition_region.locator('tbody tr').count()==len(rows)
+                        for source in rows:
+                            for evidence in source.get('evidence',[]):
+                                link=acquisition_region.locator('a[href="../../'+evidence+'"]')
+                                assert await link.count()>=1
+                                assert (await page.request.get(await link.first.evaluate('(e)=>e.href'))).ok
                     assert await page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
                     region=page.get_by_role('region',name='観点ごとの採点',exact=True)
                     overflow=await region.evaluate('(e)=>e.scrollWidth>e.clientWidth')

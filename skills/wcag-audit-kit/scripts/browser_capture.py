@@ -20,7 +20,7 @@ INVENTORY = r"""() => {
    if(n.parentElement)s+=':nth-child('+([...n.parentElement.children].indexOf(n)+1)+')';out.unshift(s)}return 'html>'+out.join('>')};
  const list=nodes.slice(0,limit).map(e=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();
   const labels=e.labels?[...e.labels].map(l=>l.textContent.trim()):[];
-  return {selector:selector(e),tag:e.localName,id:e.id,role:e.getAttribute('role'),
+  return {selector:selector(e),tag:e.localName,namespace:e.namespaceURI,id:e.id,role:e.getAttribute('role'),
    text:(e.textContent||'').trim().slice(0,800),ariaLabel:e.getAttribute('aria-label'),
    labelledby:e.getAttribute('aria-labelledby'),describedby:e.getAttribute('aria-describedby'),
    alt:e.getAttribute('alt'),src:e.getAttribute('src'),href:e.getAttribute('href'),
