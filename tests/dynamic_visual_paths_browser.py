@@ -24,6 +24,10 @@ HOVER_PLAN = {'id': 'price-tip', 'name': '料金の追加表示へ移動しEscap
 FOCUS_TARGET = {'key': 'Tab', 'focus': '#subject', 'unobscured': True}
 SHOW_BANNER = [{'key': 'Tab', 'focus': '#show'},
                {'key': 'Enter', 'focus': '#show', 'visible': '#banner'}]
+AMBIGUOUS_OVERLAYS = {
+    'no-pointer-events.html': ('pointer-events:none', 'paint_outside_hit_test'),
+    'translucent-banner.html': ('opacity:.5', 'insufficient_paint_evidence'),
+}
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -134,7 +138,7 @@ def inspect_hover(run, plan, expected):
     return expected
 
 
-def inspect_focus(run, plan, expected):
+def inspect_focus(run, plan, expected, status):
     path, value = report(run)
     row, = [row for row in value['machine_checks'] if row['criterion'] == FOCUS_CRITERION
             and row['checkpoint'] == f'キーボード経路 / {plan["id"]}']
@@ -147,10 +151,16 @@ def inspect_focus(run, plan, expected):
         assert event['type'] == 'keydown' and event['key'] == condition['key'], event
     step = proof['steps'][-1]
     assert step['after']['id'] == 'subject', step
-    assert step['occlusion']['outcome'] == expected, step
-    assert step['occlusion']['observed'] and step['occlusion']['raw'], step
+    receipt = step['occlusion']
+    assert receipt['outcome'] == expected and receipt['observed'], step
+    assert receipt['status'] == status and receipt['rect'] and receipt['viewport'], receipt
+    assert len(receipt['samples']) == 9, receipt
+    if expected == 'failed':
+        assert receipt['overlay']['solidCore'] and receipt['overlay']['background'], receipt
+    if expected == 'passed':
+        assert receipt['exposed'] and receipt['targetCore'], receipt
     assert_report_formats(run, path, [row])
-    return expected
+    return {'outcome': expected, 'measurement': status}
 
 
 def cases():
@@ -161,7 +171,12 @@ def cases():
         yield HOVER_CRITERION, page, HOVER_PLAN, expectation
         steps = [*SHOW_BANNER, FOCUS_TARGET] if number > 2 else [FOCUS_TARGET]
         keyboard = route(FOCUS_CRITERION, 'focused-button', 'キーボードで保存ボタンを表示する', steps)
-        yield FOCUS_CRITERION, page, keyboard, outcome
+        status = 'entirely_covered' if outcome == 'failed' else 'partly_visible'
+        yield FOCUS_CRITERION, page, keyboard, (outcome, status)
+    for page, (_, status) in AMBIGUOUS_OVERLAYS.items():
+        keyboard = route(FOCUS_CRITERION, 'ambiguous-cover', '前面バナーの重なりを確認する',
+                         [*SHOW_BANNER, FOCUS_TARGET])
+        yield FOCUS_CRITERION, page, keyboard, ('cant_tell', status)
     missing = dict(HOVER_PLAN, id='missing-popup', popup='#missing')
     yield HOVER_CRITERION, 'p04.html', missing, {'hoverable': 'cant_tell', 'dismissible': 'cant_tell'}
 
@@ -171,6 +186,12 @@ def main(out):
     public = out / 'public'
     for criterion in (HOVER_CRITERION, FOCUS_CRITERION):
         shutil.copytree(ROOT / 'benchmarks' / 'cases' / criterion / 'public', public / criterion)
+    focus_public = public / FOCUS_CRITERION
+    covered = (focus_public / 'p03.html').read_text()
+    marker = 'background:#eee;z-index:4'
+    assert covered.count(marker) == 1
+    for filename, (style, _) in AMBIGUOUS_OVERLAYS.items():
+        (focus_public / filename).write_text(covered.replace(marker, f'{marker};{style}'))
     with ThreadingHTTPServer(('127.0.0.1', 0), partial(Handler, directory=str(public))) as server:
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
@@ -185,7 +206,7 @@ def main(out):
                 outcome = inspect_hover(run, plan, expected)
             else:
                 run = execute(out / name, url, keyboard=plan)
-                outcome = inspect_focus(run, plan, expected)
+                outcome = inspect_focus(run, plan, *expected)
             return {'criterion': criterion, 'page': page, 'outcome': outcome}
 
         try:
