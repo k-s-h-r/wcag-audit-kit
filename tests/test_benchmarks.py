@@ -375,11 +375,12 @@ class ScoringTest(unittest.TestCase):
         finally:book.close()
         self.assertIn('判定の適否に含めない取得確認',Path(paths['html']).read_text())
 
-    def make_inventory_run(self, *, alter=None, freeze_inventory=True):
+    def make_inventory_run(self, *, alter=None, freeze_inventory=True, point='1.1.1-01', contract=None):
         page = 'p01.html'
-        run,meta,job,progress = self.make_run(mode='machine',contract=dict(
+        contract = contract or dict(
             checkpoint='1.1.1-02',page=page,state='initial',kind='inventory',
-            targets=['#art','#vector','#plot'],formats=['css-background','inline-svg','canvas'],rationale='画像形式を照合する。'))
+            targets=['#art','#vector','#plot'],formats=['css-background','inline-svg','canvas'],rationale='画像形式を照合する。')
+        run,meta,job,progress = self.make_run(mode='machine', point=point, contract=contract)
         entry = progress['jobs'][job['id']][page]
         entry.update(status='completed',exit_code=0)
         core.save(run/'progress.json',progress)
@@ -478,6 +479,93 @@ class ScoringTest(unittest.TestCase):
         inventory.write_text('{}')
         with self.assertRaisesRegex(ValueError,'変更された'):
             core.score(run)
+
+    def make_geometry_run(self, size, *, edit=None, contract=None):
+        contract = contract or dict(
+            checkpoint='2.5.8-01', page='p01.html', state='initial', kind='geometry',
+            targets=['#a', '#b'], width=size, height=size, gap=2, rationale='矩形の寸法と辺間隔を照合する。')
+
+        def geometry(files, attempt, folder):
+            inventory = files[folder/'inventory.json']
+            inventory.update(nodeCount=2, nodes=[
+                dict(selector='#a', visible=True, rect=dict(x=30, y=113.703125, width=size, height=size)),
+                dict(selector='#b', visible=True, rect=dict(x=32+size, y=113.703125, width=size, height=size)),
+            ])
+            if edit:
+                edit(inventory)
+
+        return self.make_inventory_run(point='2.5.8-02', contract=contract, alter=geometry)
+
+    def test_geometry_records_actual_dimensions_without_a_size_verdict(self):
+        from benchmarks import reporting
+        from openpyxl import load_workbook
+
+        for size in (16, 28):
+            with self.subTest(size=size):
+                run,*_ = self.make_geometry_run(size)
+                result = core.score(run)
+                self.assertEqual(result['counts'], {'not_evaluated': 2})
+                self.assertEqual(result['pending_evidence_contracts'], [])
+                (matched,) = result['matched_evidence_contracts']
+                self.assertEqual(matched['gap'], 2)
+                self.assertEqual(matched['targets'], [
+                    dict(target='#a', format='css-rect', rect=dict(x=30, y=113.703125, width=size, height=size)),
+                    dict(target='#b', format='css-rect', rect=dict(x=32+size, y=113.703125, width=size, height=size)),
+                ])
+                paths = reporting.write(run, result)
+                html = Path(paths['html']).read_text()
+                self.assertIn('辺間隔 2 CSS px', html)
+                self.assertIn('href="../../'+matched['evidence'][0]+'"', html)
+                book = load_workbook(paths['excel'], read_only=True)
+                try:
+                    headers, observations = book['取得期待の一致'].values
+                    self.assertIn(f'#a {size} × {size}', observations[headers.index('観察')])
+                    self.assertIn(matched['evidence'][0], observations[headers.index('証拠')])
+                finally:
+                    book.close()
+
+    def test_geometry_measures_a_reversed_vertical_gap(self):
+        def vertical(inventory):
+            first, second = inventory['nodes']
+            first['rect'].update(y=38)
+            second['rect'].update(x=30, y=20)
+
+        run,*_ = self.make_geometry_run(16, edit=vertical)
+        (matched,) = core.score(run)['matched_evidence_contracts']
+        self.assertEqual(matched['gap'], 2)
+        self.assertIn('垂直の辺間隔', matched['observed'])
+
+    def test_geometry_requires_unique_well_formed_aligned_expected_rectangles(self):
+        edits = {
+            'wrong gap': lambda inv: inv['nodes'][1]['rect'].update(x=49),
+            'wrong size': lambda inv: inv['nodes'][1]['rect'].update(width=17),
+            'overlap': lambda inv: inv['nodes'][1]['rect'].update(x=45),
+            'staggered': lambda inv: inv['nodes'][1]['rect'].update(y=114.703125),
+            'non-finite': lambda inv: inv['nodes'][1]['rect'].update(x=float('nan')),
+            'boolean': lambda inv: inv['nodes'][1]['rect'].update(width=True),
+            'zero-size': lambda inv: inv['nodes'][1]['rect'].update(width=0),
+            'duplicate': lambda inv: inv.update(nodes=[*inv['nodes'], inv['nodes'][1]], nodeCount=3),
+            'hidden': lambda inv: inv['nodes'][1].update(visible=False),
+            'truncated': lambda inv: inv.update(truncated=True),
+        }
+        for label,edit in edits.items():
+            with self.subTest(label=label):
+                run,*_ = self.make_geometry_run(16, edit=edit)
+                result = core.score(run)
+                self.assertEqual(result['matched_evidence_contracts'], [])
+                (pending,) = result['pending_evidence_contracts']
+                self.assertEqual(pending['status'], 'not_evaluated')
+                self.assertTrue(pending['observed'])
+                self.assertTrue(pending['evidence'])
+
+    def test_geometry_leaves_inline_context_for_review(self):
+        inline = dict(checkpoint='2.5.8-01', page='p01.html', state='initial', kind='geometry',
+                      targets=['#a'], context='inline-in-paragraph', expected_height_below=24, rationale='文中のリンクを確認する。')
+        run,*_ = self.make_geometry_run(16, contract=inline)
+        result = core.score(run)
+        self.assertEqual(result['matched_evidence_contracts'], [])
+        (pending,) = result['pending_evidence_contracts']
+        self.assertEqual(pending['status'], 'not_evaluated')
 
     def test_always_reporting_success_is_not_an_accuracy_pass(self):
         run,meta,job,p=self.make_run()
