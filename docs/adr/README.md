@@ -30,3 +30,4 @@
 - [0024 指定したキーボード経路の到達条件を機械で照合する](0024-check-keyboard-path-outcomes.md)
 - [0025 公開Shadow DOM内の実フォーカスをキーボード検査で照合する](0025-audit-focus-inside-open-shadow.md)
 - [0026 キーボード操作後の部品の状態を証拠付きで照合する](0026-verify-widget-state-and-input-scope.md)
+- [0027 実測した文字コントラストを対象と状態ごとに採点する](0027-score-observed-text-contrast.md)
