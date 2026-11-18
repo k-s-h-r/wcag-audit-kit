@@ -46,6 +46,29 @@ class WorkflowTest(unittest.TestCase):
             with self.subTest(steps=steps), self.assertRaises(ValueError):
                 audit.validate_config(dict(config, keyboard_checks=[dict(route, steps=steps)]))
 
+    def test_visual_checks_validate_dedicated_scope(self):
+        config = audit.init_config('https://example.com/')
+        hover = {'id': 'price-tip', 'name': 'Price information', 'trigger': '#price', 'popup': '#tip'}
+        focus_step = {'key': 'Tab', 'focus': '#save', 'unobscured': True}
+        keyboard = {'id': 'focus-save', 'name': 'Save button', 'criterion': '2.4.11', 'steps': [focus_step]}
+        accepted = audit.validate_config(dict(config, hover_checks=[hover], keyboard_checks=[keyboard]))
+        self.assertEqual(accepted['hover_checks'], [hover])
+        self.assertEqual(accepted['keyboard_checks'], [keyboard])
+
+        for bad in ([hover, hover], {'route': hover}, [dict(hover, popup='#price')], [dict(hover, trigger=' ')]):
+            with self.subTest(hover=bad), self.assertRaises(ValueError):
+                audit.validate_config(dict(config, hover_checks=bad))
+        for bad in (
+            dict(keyboard, steps=[{'key': 'Tab', 'focus': '#save'}]),
+            dict(keyboard, steps=[dict(focus_step, unobscured=1)]),
+            dict(keyboard, steps=[focus_step, {'key': 'Tab', 'focus': '#next'}]),
+            dict(keyboard, criterion='2.4.3'),
+            dict(keyboard, destination='https://example.com/next'),
+            dict(keyboard, frame={'selector': 'iframe', 'url': 'https://example.com/child'}),
+        ):
+            with self.subTest(keyboard=bad), self.assertRaises(ValueError):
+                audit.validate_config(dict(config, keyboard_checks=[bad]))
+
     def test_machine_pass_never_becomes_criterion_pass(self):
         self.graph();result=audit.outcomes(self.run)
         self.assertEqual(result['counts'],{'not_run':55})
