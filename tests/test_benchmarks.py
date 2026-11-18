@@ -367,13 +367,117 @@ class ScoringTest(unittest.TestCase):
         self.assertEqual(r['counts'],{'correct':2});self.assertEqual(r['selected_checks_status'],'incomplete')
         self.assertEqual(r['pending_evidence_contracts'][0]['status'],'not_evaluated')
         row=self.observation(job,p);row['checkpoint']='1.1.1-02'
-        with self.assertRaisesRegex(ValueError,'未接続'):self.submit(run,meta,job,[row])
+        with self.assertRaisesRegex(ValueError,'取得期待を適合・不適合として取り込まない'):self.submit(run,meta,job,[row])
         paths=reporting.write(run,r)
         from openpyxl import load_workbook
         book=load_workbook(paths['excel'],read_only=True)
         try:self.assertIn('取得期待の未確認',book.sheetnames)
         finally:book.close()
         self.assertIn('判定の適否に含めない取得確認',Path(paths['html']).read_text())
+
+    def make_inventory_run(self, *, alter=None, freeze_inventory=True):
+        page = 'p01.html'
+        run,meta,job,progress = self.make_run(mode='machine',contract=dict(
+            checkpoint='1.1.1-02',page=page,state='initial',kind='inventory',
+            targets=['#art','#vector','#plot'],formats=['css-background','inline-svg','canvas'],rationale='画像形式を照合する。'))
+        entry = progress['jobs'][job['id']][page]
+        entry.update(status='completed',exit_code=0)
+        core.save(run/'progress.json',progress)
+        attempt = run/entry['directory']
+        env = 'desktop'
+        url = job['urls'][page]
+        folder = attempt/'evidence'/'initial'
+        html = 'http://www.w3.org/1999/xhtml'
+        svg = 'http://www.w3.org/2000/svg'
+        files = {
+            attempt.parent/'receipt.json': dict(job_id=job['id'],page=page,mode=job['mode'],url=url,status='completed',exit_code=0),
+            attempt/'capture-manifest.json': {'captures':[dict(url=url,state='initial',execution='completed',collection_state='finished',
+                                                              environment=env,evidence_dir='evidence/initial')]},
+            attempt/'exploration.json': {'nodes': [], 'edges': []},
+            folder/'transition.json': dict(environment=env,route=[],error=None,blocked_requests=[],native_events=[],
+                                          settling=[{'status':'quiet'}]),
+            folder/'inventory.json': dict(url=url,nodeCount=3,truncated=False,nodes=[
+                dict(selector='#art',tag='p',namespace=html,visible=True,backgroundImage='url("http://127.0.0.1/image.png")'),
+                dict(selector='#vector',tag='svg',namespace=svg,visible=True),
+                dict(selector='#plot',tag='canvas',namespace=html,visible=True)]),
+        }
+        if alter:
+            alter(files,attempt,folder)
+        for path,value in files.items():
+            core.save(path,value)
+        core.freeze(run,[path for path in files if freeze_inventory or path.name!='inventory.json'])
+        return run,meta,job,progress,folder/'inventory.json'
+
+    def test_acquisition_matches_complete_initial_inventory_without_adding_a_verdict(self):
+        from benchmarks import reporting
+        from openpyxl import load_workbook
+        run,meta,job,progress,_ = self.make_inventory_run()
+        result = core.score(run)
+        self.assertEqual(result['counts'],{'not_evaluated':2})
+        self.assertEqual(result['pending_evidence_contracts'],[])
+        self.assertEqual(result['selected_checks_status'],'incomplete')
+        (match,) = result['matched_evidence_contracts']
+        self.assertEqual(match['status'],'matched')
+        self.assertEqual([r['format'] for r in match['targets']],['css-background','inline-svg','canvas'])
+        self.assertEqual({Path(path).name for path in match['evidence']},
+                         {'inventory.json','transition.json','capture-manifest.json','receipt.json'})
+        self.submit(run,meta,job,[self.observation(job,progress),self.observation(job,progress,target='#two',outcome='passed')])
+        result = core.score(run)
+        self.assertEqual(result['counts'],{'correct':2})
+        self.assertEqual(result['selected_checks_status'],'clear_for_selected_checks')
+        files = reporting.write(run,result)
+        book = load_workbook(files['excel'],read_only=True)
+        try:
+            row = tuple(next(book['取得期待の一致'].values))  # Header precedes the acquisition-only values.
+            self.assertIn('取得した対象',row)
+            values = list(book['取得期待の一致'].values)[1]
+            self.assertIn('#vector (inline-svg)', values[row.index('取得した対象')])
+            self.assertIn(match['evidence'][0], values[row.index('証拠')])
+        finally:
+            book.close()
+        self.assertIn('href="../../'+match['evidence'][0]+'"',Path(files['html']).read_text())
+
+    def test_acquisition_leaves_partial_or_unbound_inventory_unconfirmed(self):
+        def edit_inventory(edit):
+            return lambda files,attempt,folder: edit(files[folder/'inventory.json'])
+
+        edits = {
+            'truncated':edit_inventory(lambda inv:inv.update(truncated=True)),
+            'missing':edit_inventory(lambda inv:(inv['nodes'].pop(),inv.update(nodeCount=2))),
+            'duplicate':edit_inventory(lambda inv:(inv['nodes'].append(inv['nodes'][0]),inv.update(nodeCount=4))),
+            'wrong format':edit_inventory(lambda inv:inv['nodes'][0].update(backgroundImage='none')),
+            'wrong namespace':edit_inventory(lambda inv:inv['nodes'][1].update(namespace='http://www.w3.org/1999/xhtml')),
+            'old evidence':edit_inventory(lambda inv:inv['nodes'][1].pop('namespace')),
+            'hidden':edit_inventory(lambda inv:inv['nodes'][2].update(visible=False)),
+            'wrong url':edit_inventory(lambda inv:inv.update(url='http://127.0.0.1:8000/1.1.1/p02.html')),
+            'wrong state':lambda files,attempt,folder:files[attempt/'capture-manifest.json']['captures'][0].update(state='after'),
+            'wrong transition':lambda files,attempt,folder:files[folder/'transition.json'].update(route=[{'type':'click'}]),
+            'different environment':lambda files,attempt,folder:files[folder/'transition.json'].update(environment='mobile'),
+            'settling limit':lambda files,attempt,folder:files[folder/'transition.json'].update(settling=[{'status':'timeout'}]),
+            'foreign receipt':lambda files,attempt,folder:files[attempt.parent/'receipt.json'].update(job_id='other'),
+        }
+        for case,edit in [*edits.items(),('unfrozen',None)]:
+            with self.subTest(case=case):
+                run,*_ = self.make_inventory_run(alter=edit,freeze_inventory=case!='unfrozen')
+                result = core.score(run)
+                self.assertEqual(result['matched_evidence_contracts'],[])
+                (pending,) = result['pending_evidence_contracts']
+                self.assertEqual(pending['status'],'not_evaluated')
+                self.assertTrue(pending['observed'])
+
+    def test_acquisition_integrity_and_comparison_are_independent_of_verdicts(self):
+        run,*_,inventory = self.make_inventory_run()
+        matched = core.score(run)
+        partial_run,*_ = self.make_inventory_run(freeze_inventory=False)
+        partial = core.score(partial_run)
+        self.assertEqual(matched['counts'],partial['counts'])
+        regression = core.compare(matched,partial)
+        self.assertEqual(regression['status'],'regressions')
+        self.assertEqual(regression['regressions'][0]['kind'],'acquisition')
+        self.assertEqual(core.compare(partial,matched)['improvements'][0]['after'],'matched')
+        inventory.write_text('{}')
+        with self.assertRaisesRegex(ValueError,'変更された'):
+            core.score(run)
 
     def test_always_reporting_success_is_not_an_accuracy_pass(self):
         run,meta,job,p=self.make_run()

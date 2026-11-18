@@ -6,9 +6,27 @@ import uuid
 from . import core
 
 LABEL={'correct':'正解と一致','incorrect':'正解と不一致','not_evaluated':'未確認','deferred':'モードで省略',
-       'passed':'この観点は問題なし','failed':'この観点に問題あり','inapplicable':'この観点の対象外','cant_tell':'判断保留','not_run':'未実施'}
+       'passed':'この観点は問題なし','failed':'この観点に問題あり','inapplicable':'この観点の対象外','cant_tell':'判断保留','not_run':'未実施',
+       'matched':'取得期待と一致'}
 COLS=[('criterion','基準'),('case','ケース'),('mode','モード'),('page','ページ'),('state','状態'),('target','対象'),('checkpoint','確認観点'),
       ('expected','正解'),('actual','検査結果'),('grade','採点'),('method','判定に用いた方法'),('observed','観察'),('rationale','正解の根拠'),('evidence','証拠')]
+
+
+def evidence_links(paths):
+    return '<br>'.join('<a href="../../'+escape(p,quote=True)+'">'+escape(Path(p).name)+'</a>' for p in paths)
+
+
+def acquisition_html(title, columns, rows, notice):
+    heads = ''.join('<th scope="col">'+escape(label)+'</th>' for _,label in columns)
+    body = []
+    for row in rows:
+        cells = [evidence_links(row.get(key, [])) if key == 'evidence' else escape(str(row.get(key, '')))
+                 for key,_ in columns]
+        body.append('<tr>'+''.join('<td>'+value+'</td>' for value in cells)+'</tr>')
+    return ('<h2>'+title+'</h2><p>'+escape(notice)+'</p><div class="scroll" role="region" aria-label="'+title+'" tabindex="0">'
+            '<table><caption>判定の適否に含めない取得確認</caption><thead><tr>'+heads+'</tr></thead><tbody>'
+            +''.join(body)+'</tbody></table></div>')
+
 
 def write(run,result):
     from workbook import sheet
@@ -40,18 +58,26 @@ def write(run,result):
     sheet(book,'基準とモードの実測範囲',[('criterion','基準'),('title','名称'),('level','レベル'),('status','問題集の状態'),
           *[(m,core.modes.MODES[m]['label']) for m in result['modes']]],coverage,True)
     sheet(book,'追加の誤検出',[('criterion','基準'),('mode','モード'),('page','ページ'),('target','対象'),('checkpoint','確認観点'),('observed','観察')],result['unexpected_findings'],True)
-    pending=result.get('pending_evidence_contracts',[])
-    pending_columns=[('criterion','基準'),('mode','モード'),('page','ページ'),('state','状態'),('checkpoint','取得する観点'),('kind','取得期待の種類'),('status','確認状態')]
+    acquisition_columns=[('criterion','基準'),('mode','モード'),('page','ページ'),('state','状態'),('checkpoint','取得する観点'),
+                         ('kind','取得期待の種類'),('status','確認状態'),('target','取得した対象'),('observed','観察'),('evidence','証拠')]
     kind_labels={'inventory':'対象の列挙','focus-sequence':'フォーカス経路','viewport':'表示幅と拡大','state-capture':'操作前後の状態','timeline':'時系列の区間','language':'指定言語','accessible-name':'名前と表示ラベル','geometry':'サイズと位置'}
-    pending_rows=[dict(r,kind=kind_labels.get(r['kind'],r['kind']),mode=core.modes.MODES[r['mode']]['label'],status=LABEL.get(r['status'],r['status'])) for r in pending]
-    if pending:sheet(book,'取得期待の未確認',pending_columns,pending_rows,True)
+    acquisition_sections = []
+    for key,title in [('matched_evidence_contracts','取得期待の一致'), ('pending_evidence_contracts','取得期待の未確認')]:
+        source = result.get(key, [])
+        columns = [column for column in acquisition_columns if column[0] != 'target' or key == 'matched_evidence_contracts']
+        if not source:
+            continue
+        acquisition_rows = [dict(r, kind=kind_labels.get(r['kind'],r['kind']), mode=core.modes.MODES[r['mode']]['label'],
+                                 status=LABEL.get(r['status'],r['status']),
+                                 target='、'.join(f'{i["target"]} ({i["format"]})' for i in r.get('targets', []))) for r in source]
+        sheet(book,title,columns,[dict(r,evidence='\n'.join(r.get('evidence',[]))) for r in acquisition_rows],True)
+        acquisition_sections.append(acquisition_html(title,columns,acquisition_rows,result['notice_evidence']))
     book.save(out/'result.xlsx');book.close()
     cells=[]
     for row,original in zip(rows,result['rows']):
         columns=[]
         for k,_ in COLS:
-            value=('<br>'.join('<a href="../../'+escape(p,quote=True)+'">'+escape(Path(p).name)+'</a>' for p in original['evidence'])
-                   if k=='evidence' else escape(str(row[k])))
+            value=evidence_links(original['evidence']) if k=='evidence' else escape(str(row[k]))
             columns.append('<td>'+value+'</td>')
         cells.append('<tr>'+''.join(columns)+'</tr>')
     coverage_rows=[]
@@ -68,9 +94,8 @@ def write(run,result):
     if result['unexpected_findings']:
         extra='<h2>正解にない追加の指摘（誤検出）</h2><ul>'+''.join('<li>'+escape(r['job_id']+' / '+r['page']+' / '+r['target']+' / '+r['observed'])+'</li>' for r in result['unexpected_findings'])+'</ul>'
         html=html.replace('</main>',extra+'</main>')
-    if pending:
-        pending_html='<h2>取得期待の未確認</h2><p>'+escape(result['notice_evidence'])+'</p><div class="scroll" role="region" aria-label="取得期待の未確認" tabindex="0"><table><caption>判定の適否に含めない取得確認</caption><thead><tr>'+''.join('<th scope="col">'+escape(label)+'</th>' for _,label in pending_columns)+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+escape(str(r[k]))+'</td>' for k,_ in pending_columns)+'</tr>' for r in pending_rows)+'</tbody></table></div>'
-        html=html.replace('</main>',pending_html+'</main>')
+    if acquisition_sections:
+        html=html.replace('</main>',''.join(acquisition_sections)+'</main>')
     (out/'result.html').write_text(html)
     core.freeze(run,[p for p in out.iterdir() if p.is_file()])
     return {'json':str(out/'result.json'),'html':str(out/'result.html'),'excel':str(out/'result.xlsx')}
