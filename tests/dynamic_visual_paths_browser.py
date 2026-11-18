@@ -88,10 +88,11 @@ def assert_report_formats(workbook, path, rows):
             assert tuple(row[key] for key in ('criterion', 'checkpoint', 'expected', 'outcome', 'environment',
                                               'capture', 'target', 'observed', 'evidence', 'note')) in machine_rows, row
             assert f'href="./{row["evidence"]}"' in html, row
+            fields = [row[key] for key in ('expected', 'target', 'observed')]
             matching_issue_rows = [cells for cells in issue_rows if row['evidence'] in cells
-                                   and row['target'] in cells and row['observed'] in cells]
+                                   and all(field in cells for field in fields)]
             matching_html = [cells for cells in grouped_html if f'href="{row["evidence"]}"' in cells
-                             and escape(row['target']) in cells and escape(row['observed']) in cells]
+                             and all(escape(field) in cells for field in fields)]
             if row['outcome'] in {'failed', 'cant_tell'}:
                 assert len(matching_html) == len(matching_issue_rows) == 1, row
             else:
