@@ -7,8 +7,8 @@ from browser_capture import OPEN_FOCUS_PATH, in_scope, normalize
 import keyboard_frames
 
 
-CRITERIA = {'2.1.1', '2.1.2', '2.4.3', '2.4.7', '2.4.11', '4.1.2'}
-VISUAL_CONDITIONS = {'2.4.7': 'focus_images', '2.4.11': 'unobscured'}
+CRITERIA = {'1.4.11', '2.1.1', '2.1.2', '2.4.3', '2.4.7', '2.4.11', '4.1.2'}
+VISUAL_CONDITIONS = {'1.4.11': 'focus_contrast', '2.4.7': 'focus_images', '2.4.11': 'unobscured'}
 KEYS = ('Tab', 'Shift+Tab', 'Enter', 'Space', 'Escape', 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight')
 SELECTOR_CONDITIONS = {'focus', 'visible', 'hidden'}
 MATCH_FOCUS = '(e) => e.ownerDocument.hasFocus() && (' + OPEN_FOCUS_PATH + ')(e.ownerDocument).element === e'
@@ -61,7 +61,7 @@ def validate(config):
         seen.add(identifier)
         criterion = check.get('criterion')
         if not nonempty(check.get('name')) or not isinstance(criterion, str) or criterion not in CRITERIA:
-            raise ValueError('キー操作の経路名と対象基準（2.1.1、2.1.2、2.4.3、2.4.7、2.4.11、4.1.2）を指定する')
+            raise ValueError('キー操作の経路名と対象基準（1.4.11、2.1.1、2.1.2、2.4.3、2.4.7、2.4.11、4.1.2）を指定する')
         steps = check.get('steps')
         if not isinstance(steps, list) or not 1 <= len(steps) <= 40:
             raise ValueError('各キー操作経路は1〜40手順')
@@ -77,6 +77,8 @@ def validate(config):
                     raise ValueError(f'{criterion}は親文書の移動を伴わない経路の最終手順にfocusと{condition}: trueを指定する')
             elif positions:
                 raise ValueError(f'{condition}は{visual_criterion}の経路に指定する')
+        if criterion == '1.4.11' and steps[-1]['key'] not in {'Tab', 'Shift+Tab'}:
+            raise ValueError('フォーカス枠を測る経路はTab又はShift+Tabで終える')
         if 'destination' in check:
             destination = check['destination']
             if not nonempty(destination) or not in_scope(destination, config):
@@ -194,7 +196,8 @@ def matching_keydown(event, key, main_frame=True):
             and not any(modifiers[modifier] for modifier in ('control', 'alt', 'meta')))
 
 
-async def run_path(page, check, allow_navigation, record, observer, interrupted, frame_scope, image_pair=None):
+async def run_path(page, check, allow_navigation, record, observer, interrupted, frame_scope, *,
+                   image_pair=None, focus_outline=None):
     from playwright.async_api import TimeoutError as BrowserTimeout
 
     navigation_status = []
@@ -225,6 +228,8 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted,
             await image_pair.before()
             if interrupted():
                 raise ValueError('通信・ページ移動の制限又はブラウザーの分岐で写真の取得を中断した')
+        if step.get('focus_contrast'):
+            await focus_outline.before()
         start = len(observer.events)
         await page.keyboard.press(step['key'])
         if destination:
@@ -263,6 +268,16 @@ async def run_path(page, check, allow_navigation, record, observer, interrupted,
             if interrupted():
                 raise ValueError('通信・ページ移動の制限又はブラウザーの分岐で写真の取得を中断した')
             await image_pair.after()
+        if step.get('focus_contrast'):
+            if interrupted():
+                raise ValueError('通信・ページ移動の制限又はブラウザーの分岐で測定を中断した')
+            measurement = await focus_outline.measure()
+            entry['outline'] = measurement
+            if measurement['status'] == 'measured':
+                record['outcome'] = 'passed' if measurement['meets_3'] else 'failed'
+            else:
+                record['reason'] = measurement['observed']
+            return
         if step.get('unobscured'):
             from focus_occlusion import observe
 
@@ -301,8 +316,12 @@ def report_row(record, environment, evidence):
     name = record['name']
     route = ' → '.join(step['key'] for step in record['steps'])
     target = describe_focus(entry.get('before')) if stop else ''
+    outline = entry.get('outline', {}) if entry else {}
     if record.get('reason'):
         observed = record['reason']
+    elif outline.get('status') == 'measured':
+        observed = (f"フォーカス枠 {outline['border']} と隣接色 {outline['outside']} の比は"
+                    f"{outline['ratio']:.6g}:1（基準 {outline['minimum']}:1）。")
     elif entry and 'occlusion' in entry:
         observed = entry['occlusion']['observed']
     elif record['outcome'] == 'passed':
@@ -311,14 +330,20 @@ def report_row(record, environment, evidence):
         missed = '、'.join(describe_mismatch(c) for c in entry['conditions'] if not c['matched'])
         observed = (f'{entry["index"]}手順目の {entry["key"]} 後に期待した{missed}を確認できない。'
                     f'実際のフォーカスは{describe_focus(entry.get("after"))}。')
-    if record['criterion'] == '2.4.11':
+    if record['criterion'] == '1.4.11':
+        target = record['target']
+        note = '指定した経路で表示された枠の測定。ほかの背景・表示状態や達成基準全体の判定は追加確認。'
+    elif record['criterion'] == '2.4.11':
         target = record['target']
         note = '操作直後の重なりの結果。フォーカスを移さず再表示する手段や、別の状態は追加確認。'
     elif record['criterion'] == '4.1.2':
         note = '指定したDOMの状態を照合した結果。アクセシブル名・役割・支援技術での通知は追加確認。'
     else:
         note = '指定したキー操作と到達条件の結果。達成基準全体の適否は別に確認する。'
-    return dict(criterion=record['criterion'], checkpoint='キーボード経路 / '+record['id'], expected=name,
+    row = dict(criterion=record['criterion'], checkpoint='キーボード経路 / '+record['id'], expected=name,
                 outcome=record['outcome'], environment=environment, capture='キーボード経路 '+record['id'],
                 state_label=f'{name} / {route}' if route else name, target=target, observed=observed,
                 evidence=evidence, source='', note=note)
+    if record['criterion'] == '1.4.11':
+        row['focus_outline'] = outline
+    return row

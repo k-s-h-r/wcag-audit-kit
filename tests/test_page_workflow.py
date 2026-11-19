@@ -87,6 +87,19 @@ class WorkflowTest(unittest.TestCase):
             with self.subTest(keyboard=invalid), self.assertRaises(ValueError):
                 audit.validate_config(dict(config, keyboard_checks=[invalid]))
 
+    def test_config_validates_focus_contrast_tab_paths(self):
+        config = audit.init_config('https://example.com/')
+        step = {'key': 'Shift+Tab', 'focus': '#save', 'focus_contrast': True}
+        check = {'id': 'focus-save', 'name': 'Save button', 'criterion': '1.4.11', 'steps': [step]}
+        self.assertEqual(audit.validate_config(dict(config, keyboard_checks=[check]))['keyboard_checks'], [check])
+        for invalid in (dict(check, criterion='2.4.7'),
+                        dict(check, steps=[dict(step, key='Enter')]),
+                        dict(check, steps=[dict(step, focus_contrast=1)]),
+                        dict(check, steps=[step, {'key': 'Tab', 'focus': '#next'}]),
+                        dict(check, frame={'selector': 'iframe', 'url': 'https://example.com/child'})):
+            with self.subTest(check=invalid), self.assertRaises(ValueError):
+                audit.validate_config(dict(config, keyboard_checks=[invalid]))
+
     def test_machine_pass_never_becomes_criterion_pass(self):
         self.graph();result=audit.outcomes(self.run)
         self.assertEqual(result['counts'],{'not_run':55})

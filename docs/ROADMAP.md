@@ -90,7 +90,7 @@ G1はT001で事前に選んだ機械検査10行で達成した。T010では指�
 
 T014で見つかったスキップリンクの誤検出は、生成セレクターの親子関係と、フォーカス移動先を操作候補に含める条件を修正した。次に適用範囲を広げるときは、より複雑な操作後の状態と、数値や方向だけに絞れない画像の代替説明を別の対象で測る。[ADR 0057](adr/0057-match-exploration-targets-to-dom-parents.md)
 
-機械検査の報告では、キーボード経路の実行エラーと、実Tabで対象へ到達できなかった結果を分ける。次は、実Tabでフォーカスした単色の枠と隣接色のコントラストを測る。[ADR 0058](adr/0058-separate-keyboard-route-errors-from-results.md) [Issue #59](https://github.com/k-s-h-r/wcag-audit-kit/issues/59)
+機械検査の報告では、キーボード経路の実行エラーと、実Tabで対象へ到達できなかった結果を分ける。指定経路の実Tab後に現れる単色の枠は、背景ごとのコントラスト比を機械モードで報告できる。次にこの測定を広げるときは、複数色をまたぐ枠の比較箇所と回帰条件を整理する。[ADR 0058](adr/0058-separate-keyboard-route-errors-from-results.md) [ADR 0059](adr/0059-measure-adjacent-focus-outline-colors.md) [Issue #59](https://github.com/k-s-h-r/wcag-audit-kit/issues/59)
 
 [T012](tasks/T012-screen-reader.md)では、同じ環境でボタンの読み上げと操作後の画面を照合し、Orcaの通知あり・なしを区別した。Orca 48.1の保存通知と51.1の記録通知を別のrunで検証し、各2例で期待と一致した。[再実行方法](adr/0044-verify-record-notification-contrast.md)
 

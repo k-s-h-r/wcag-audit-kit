@@ -612,6 +612,23 @@ def report(run, *, page_url=None):
         '<p>以下は機械ルールと実入力で検出した結果です。達成基準全体の適否とは区別しています。</p><ul>'+''.join('<li>'+escape(r)+'</li>' for r in result['exploration']['remaining'])+'</ul>'+
         ('<details open>' if page_url else '<details>')+'<summary>自動検出した問題 '+str(len(machine_rows))+'種類（同じ問題の状態別記録を集約）</summary><div class="scroll" tabindex="0" role="region" aria-label="自動検出した問題"><table><caption>追加確認が必要な機械検査の結果</caption><thead><tr>'+''.join('<th scope="col">'+s+'</th>' for s in
         ['基準','検査','状態・経路','対象','観察','機械結果','証拠'])+'</tr></thead><tbody>'+''.join(machine_rows)+'</tbody></table></div></details>')
+    outlines = [row for row in result['machine_checks'] if 'focus_outline' in row]
+    if outlines:
+        labels = {'passed': '通過（機械）', 'failed': '問題あり（機械）', 'cant_tell': '機械判定不能'}
+        rows = []
+        for row in outlines:
+            cells = [row['state_label'] + ' / ' + row['environment'], row['target'], row['observed'], labels[row['outcome']]]
+            links = f'<a href="{escape(row["evidence"], quote=True)}">操作・測定ログ</a>'
+            image = row['focus_outline'].get('source')
+            if image:
+                links += f' / <a href="{escape(image, quote=True)}">測定画像</a>'
+            rows.append('<tr>'+''.join(f'<td>{escape(value)}</td>' for value in cells)+f'<td>{links}</td></tr>')
+        exploration_notice += ('<details open><summary>1.4.11 フォーカス枠のコントラスト</summary>'
+            '<div class="scroll" tabindex="0" role="region" aria-label="フォーカス枠のコントラスト">'
+            '<table><caption>指定した状態でのフォーカス枠と隣接色の測定</caption><thead><tr>'
+            '<th scope="col">状態・経路</th><th scope="col">対象</th><th scope="col">観察</th>'
+            '<th scope="col">機械結果</th><th scope="col">証拠</th></tr></thead><tbody>'
+            + ''.join(rows) + '</tbody></table></div></details>')
     focus_evidence = result.get('focus_evidence', [])
     if focus_evidence:
         exploration_notice += focus_evidence_html(run, focus_evidence)

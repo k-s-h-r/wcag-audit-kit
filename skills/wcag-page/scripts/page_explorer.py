@@ -241,9 +241,12 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 attempt=uuid.uuid4().hex[:12];dest=run/'evidence'/f'{pid}--explore-{attempt}--{env["id"]}'
                 dest.mkdir(parents=True)
                 image_pair = None
+                focus_outline = None
                 structure_observation = None
                 if check and check['criterion'] == '2.4.7':
                     image_pair = focus_image_pair.FocusImagePair(page.main_frame, check_record['target'], images, dest)
+                if check and check['criterion'] == '1.4.11':
+                    focus_outline = border_contrast.FocusOutline(page, check_record['target'], run, dest/'focus-outline.png')
                 try:
                     response=await page.goto(url,wait_until='domcontentloaded',timeout=20000)
                     if response and response.status>=400:raise ValueError(f'HTTP {response.status}')
@@ -263,7 +266,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             border_record.update(await border_contrast.observe(page, border['target'], images, dest/'border-viewport.png'))
                         else:
                             await keyboard_checks.run_path(page, check, allowed_navigation, check_record, observer,
-                                                           interrupted, frame_scope, image_pair=image_pair)
+                                                           interrupted, frame_scope, image_pair=image_pair,
+                                                           focus_outline=focus_outline)
                             if check_record['steps']:
                                 measurement = check_record['steps'][-1].get('occlusion')
                                 if measurement and not interrupted():
@@ -350,6 +354,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             if check_record['outcome'] != 'passed':
                                 image_pair.invalidate(check_record['reason'])
                             await image_pair.close()
+                        if focus_outline is not None:
+                            await focus_outline.close()
                         audit.save(dest/'keyboard-check.json',check_record)
                     if hover_record is not None:
                         if interrupted_reason:
