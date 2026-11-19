@@ -7,6 +7,12 @@ import re
 
 EVIDENCE_FILE = 'visual-structure.json'
 CHECKPOINT = '1.3.1-02'
+REPORT_TITLE = '見出し・リストの確認候補'
+REPORT_COLUMNS = (
+    ('criterion', '達成基準'), ('environment', '環境'), ('scope', '指定範囲'),
+    ('status', '観察結果'), ('target', '対象要素'), ('observed', '表示された文言・理由'),
+    ('evidence', '元の証拠'),
+)
 
 
 def validate_scope(value):
@@ -199,3 +205,26 @@ def report_evidence(run, graph):
         observed.append(dict(value, criterion='1.3.1', checkpoint=CHECKPOINT, capture=node['capture'],
                              environment=node['environment'], evidence=path.as_posix()))
     return observed
+
+
+def display_text(value):
+    return re.sub(r'[\x00-\x1f\x7f]', ' ', value)[:240]
+
+
+def display_rows(observations):
+    for row in observations:
+        context = {key: display_text(row[key]) for key in ('criterion', 'environment', 'scope')}
+        context['evidence'] = row['evidence']
+        if not row['candidates']:
+            if row['status'] == 'not_observed':
+                yield dict(context, status='観察できず', observed=display_text(row['reason']))
+            else:
+                yield dict(context, status='候補なし', observed='今回の表示範囲と検出条件で確認。')
+        for candidate in row['candidates']:
+            heading = candidate['kind'] == 'heading'
+            targets = [candidate['target']] if heading else candidate['targets']
+            summary = ' / '.join(display_text(item['selector']) for item in targets[:3])
+            if len(targets) > 3:
+                summary += f'（先頭3件 / 全{len(targets)}件）'
+            yield dict(context, status='見出し候補' if heading else 'リスト候補', target=summary,
+                       observed=' / '.join(display_text(item['text']) for item in targets[:3]))

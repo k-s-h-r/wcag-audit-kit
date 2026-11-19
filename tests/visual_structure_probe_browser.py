@@ -73,12 +73,22 @@ def page_audit_case(area, url, selector, expected):
     graph = page_explorer.status(run)
     rows = report_evidence(run, graph)
     assert not list(run.glob('evidence/*/*.png'))
-    report = audit.load(json.loads(command.stdout.strip().splitlines()[-1])['json'])
+    from openpyxl import load_workbook
+    from visual_structure import REPORT_TITLE
+
+    files = json.loads(command.stdout.strip().splitlines()[-1])
+    report = audit.load(files['json'])
+    rendered = Path(files['html']).read_text()
+    workbook = load_workbook(files['excel'])
     assert next(row for row in report['criteria'] if row['id'] == '1.3.1')['status'] == 'unverified'
     assert all(row['outcome'] == 'not_run' for row in report['cases'] if row['criterion'] == '1.3.1')
     if selector is None:
         assert rows == []
+        assert 'visual_structure_evidence' not in report
+        assert REPORT_TITLE not in rendered and REPORT_TITLE not in workbook.sheetnames
+        workbook.close()
         return {'status': 'disabled'}
+    assert report['visual_structure_evidence'] == rows
     row, = rows
     assert row['criterion'] == '1.3.1' and row['checkpoint'] == '1.3.1-02'
     assert row['scope'] == selector and row['status'] == expected
@@ -88,6 +98,17 @@ def page_audit_case(area, url, selector, expected):
     assert report_evidence(run, dict(graph, proof=[])) == []
     assert 'outcome' not in row
     assert not any(item['evidence'] == row['evidence'] for item in report['machine_checks'])
+    assert REPORT_TITLE in rendered and f'href="{row["evidence"]}"' in rendered
+    worksheet = workbook[REPORT_TITLE]
+    expected_rows = max(len(row['candidates']), 1)
+    assert worksheet.max_row == expected_rows + 1
+    assert all(worksheet.cell(index, 7).hyperlink.target == row['evidence'] for index in range(2, 2 + expected_rows))
+    workbook.close()
+    from page_workflow import next_work
+
+    packets = next_work(run, url, limit=55)['next_cases']
+    packet, = [item for item in packets if item['criterion'] == '1.3.1']
+    assert packet['visual_structure_evidence'] == rows
     if selector == '#scope':
         heading, bullets = row['candidates']
         assert heading['kind'] == 'heading' and heading['target']['selector'] == '#scope-title'
