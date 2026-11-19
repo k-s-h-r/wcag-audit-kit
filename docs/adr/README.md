@@ -53,3 +53,4 @@
 - [0047 共通部品の同じコントラスト測定をまとめて参照する](0047-reference-shared-contrast-observations.md)
 - [0048 指定範囲の見出し・リスト候補が変わった状態を保存する](0048-distinguish-scoped-visual-candidate-changes.md)
 - [0049 ローカルモデルのツール呼び出しを予備試験として扱う](0049-bound-local-model-tool-preflight.md)
+- [0050 帳票の出力と検証の完了を報告JSONで確認する](0050-report-page-audit-status-from-json.md)
