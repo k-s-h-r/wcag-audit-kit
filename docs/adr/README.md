@@ -39,3 +39,4 @@
 - [0033 操作後の状態取得とモードごとの実施記録を帳票へ出す](0033-record-status-acquisition-and-mode-evidence.md)
 - [0034 URL抽出ではリダイレクト先を送信前に照合する](0034-check-discovery-redirects-before-request.md)
 - [0035 明示した文字の測定証拠を問題集の採点に使う](0035-grade-opt-in-text-paint-evidence.md)
+- [0036 最初の10行の実測に基づき、指定URLの検査へ進む](0036-pass-the-limited-machine-gate.md)
