@@ -125,6 +125,11 @@ def machine_checks(run):
                 note='指定した文字列の初期表示での測定。基準の例外や、ほかの文字列・状態は追加確認。'))
             continue
         route=edge['route']
+        if edge.get('dialog_focus'):
+            from dialog_focus import EVIDENCE_FILE, report_row as dialog_row
+
+            path = Path(edge['evidence_dir']) / EVIDENCE_FILE
+            rows.append(dialog_row(audit.load(run/path), edge['environment'], path.as_posix(), scene(route), f'操作経路 {index+1}'))
         # A key reached after pointer or scripted setup is evidence for that
         # mixed route, not for reaching the same state using only keys.
         if not route or any(step.get('type') not in {'key','press'} for step in route):continue

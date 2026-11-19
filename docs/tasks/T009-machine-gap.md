@@ -142,3 +142,11 @@ HTML・JSON・Excelと文字周辺に絞った証拠画像を照合し、1.4.3�
 `codex/compare-visual-structure-roles`（起点 `b02e90d`）で、対象を段落と中黒から、テキスト主体の `div`、連番・ハイフンを使うリスト、見た目が整列した簡単な表へ広げた。変更前に候補がなかった対照5例で候補が出た。同じ見た目のHTML・ARIAの表は、ブラウザーが表・行・セル・列見出しの関係を認識していたため候補から外れた。見出しセルの役割が一つ不足したARIAの例では、そのセルのセレクターが残った。
 
 機械モードのHTML・JSON・Excelと後続の検査票で、対象、認識された役割、証拠を照合した。1.3.1全体の判定は未確認のまま保持した。Chromiumの位置と役割の対照、操作後の状態の試験、Pythonの278試験が通過した。レビューで指摘された確認票の割り当てを修正し、4スキルすべてで構造の手順が1.3.1-02だけに入り、画像の代替テキスト用の1.1.1-04は従来の手順と一致することを確認した。次は、表示上よく似た表とカードの追加対照を使い、候補が増えすぎる条件を確認する。[ADR 0062と再実行方法](../adr/0062-compare-visual-structure-with-browser-roles.md) [PR #64](https://github.com/k-s-h-r/wcag-audit-kit/pull/64) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29)
+
+## ダイアログ後のフォーカスと表・カードの候補を検証する
+
+`codex/observe-dialog-focus-and-table-cards`（起点 `ac894fe`）で、操作を宣言せずモーダルを開く入力、Escape、閉じた後のTabをChromiumで追った。開いたボタンへ戻る例、別の位置に移る例、Escapeで開いたままの例、同じIDの別要素に置き換わる例を区別した。HTML・JSON・Excelで各入力の証拠とフォーカス先を照合した。次は閉じるボタン経由の復帰を検証する。[ADR 0063](../adr/0063-observe-focus-after-dismissing-modal.md) [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
+
+表と同じ画素で見えるカードについて、後続行が独立した記事として認識される対照を候補から外した。役割不明の同じ配置と、記事を支援技術から隠した対照は候補に残った。HTML・ARIAの表と役割が不足する表も再検証した。両方のChromium回帰試験とPythonの278試験が通った。[ADR 0064](../adr/0064-use-framed-articles-to-narrow-table-candidates.md) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29) [PR #65](https://github.com/k-s-h-r/wcag-audit-kit/pull/65)
+
+合流前のレビューで、次のTabに動きがない場合を機械判定不能とし、タイマーが残る経路でも既存のEscapeを試すようにした。ブラウザーが複数のロール候補から表と認識した対照も、表の照合に残した。計6件のダイアログ対照と、表・カード、フォーカス移動時の通信制限、Python 278件を再検証した。[ADR 0063](../adr/0063-observe-focus-after-dismissing-modal.md) [ADR 0064](../adr/0064-use-framed-articles-to-narrow-table-candidates.md)

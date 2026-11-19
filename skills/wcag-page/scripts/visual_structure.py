@@ -139,6 +139,23 @@ STRUCTURES = r"""
         return {...item, box: {left, right, top, bottom}};
     }
 
+    function separateCards(group, elements) {
+        if (group.matches('table, [role="table"], [role="grid"], [role="treegrid"]')) return false;
+        // Require both an independent article and visible separation in each data row.
+        return elements.slice(1).every((row, index) => {
+            if (!row.matches('article, [role="article"]')) return false;
+            const style = getComputedStyle(row);
+            const rounded = ['TopLeft', 'TopRight', 'BottomLeft', 'BottomRight']
+                .every(corner => parseFloat(style['border' + corner + 'Radius']) >= 4);
+            const outlined = ['Top', 'Right', 'Bottom', 'Left']
+                .every(side => parseFloat(style['border' + side + 'Width']) >= 1 &&
+                    style['border' + side + 'Style'] === 'solid' &&
+                    style['border' + side + 'Color'].startsWith('rgb('));
+            return rounded && outlined &&
+                row.getBoundingClientRect().top - elements[index].getBoundingClientRect().bottom >= 8;
+        });
+    }
+
     function tableGroup(group) {
         const rowGroup = 'thead, tbody, tfoot, [role="rowgroup"]';
         if (group.children.length > 8 || group.matches(rowGroup)) return null;
@@ -171,7 +188,7 @@ STRUCTURES = r"""
             return Math.abs(cell.box.left - title.box.left) > 3 || Math.abs(cell.box.right - title.box.right) > 3 ||
                    title.font[2] < cell.font[2] + 150;
         }))) return null;
-        return {selector: path(group), rows};
+        return {selector: path(group), rows, separate_cards: separateCards(group, elements)};
     }
 
     const scopeContext = [];
@@ -242,7 +259,9 @@ def candidate_shape(snapshot):
     for paragraph in (snapshot or {}).get('line_lists', []):
         shapes.extend(['list-lines', marker, paragraph['selector'], *[item['line'] for item in run]]
                       for marker, run in bullet_runs(paragraph['lines']))
-    shapes.extend(['table', table['selector'], *[cell['selector'] for row in table['rows'] for cell in row['cells']]]
+    shapes.extend(['table', table['selector'],
+                   *[cell['selector'] for row in table['rows'] for cell in row['cells']],
+                   bool(table.get('separate_cards'))]
                   for table in (snapshot or {}).get('tables', []))
     return shapes
 
@@ -290,7 +309,11 @@ async def table_candidate(session, root, table):
                 missing.append(cell['selector'])
             observed_cells.append(dict(cell, accessibility=actual))
         observed_rows.append(dict(row, accessibility=owner, cells=observed_cells))
-    if missing:
+    card_articles = table.get('separate_cards') and group['role'] not in TABLE_ROLES and all(
+        row['accessibility']['role'] == 'article' and not row['accessibility']['ignored']
+        for row in observed_rows[1:]
+    )
+    if missing and not card_articles:
         return {'kind': 'table', 'target': table['selector'], 'accessibility': group, 'rows': observed_rows,
                 'unmatched_roles': missing}
 
