@@ -45,3 +45,4 @@
 - [0039 見た目の見出し・リストを確認候補として記録する](0039-record-visual-structure-review-candidates.md)
 - [0040 実スクリーンリーダー検査で既存のOrcaを維持する](0040-preserve-existing-orca-processes.md)
 - [0041 ポインターを離したときに反応する要素を探索する](0041-discover-inline-pointer-release.md)
+- [0042 Orcaの発話と直後に続く付加情報を読み取る](0042-index-orca-speech-with-adjacent-metadata.md)
