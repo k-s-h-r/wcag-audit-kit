@@ -15,6 +15,24 @@ def now():
     return datetime.now(timezone.utc).isoformat()
 
 
+def orca_command(root, work, tty, env):
+    executable = str(root / 'usr/bin/orca')
+    try:
+        help_output = subprocess.run([executable, '--help'], env=env, check=True,
+                                     capture_output=True, text=True, timeout=10).stdout
+    except subprocess.SubprocessError as error:
+        raise ValueError('Orcaの起動オプションを確認できない。展開済みパッケージを確認する。') from error
+
+    options = set(re.findall(r'(?<![\w-])--[a-z][a-z-]*\b', help_output))
+    if '--debug-file' not in options:
+        raise ValueError('選択したOrcaではデバッグログを収集できない。')
+    command = [executable, '--debug-file', tty]
+    for option, value in (('--user-prefs', str(work / 'prefs')), ('--enable', 'speech'), ('--disable', 'braille')):
+        if option in options:
+            command.extend([option, value])
+    return command
+
+
 class NativeOrcaRuntime:
     def __init__(self, root, output):
         self.root = Path(root).resolve()
@@ -74,9 +92,7 @@ class NativeOrcaRuntime:
         asyncio.get_running_loop().add_reader(self.master, self.drain)
         # Orca's --replace terminates every Orca process owned by this account,
         # including instances outside this private display and D-Bus session.
-        reader = self.launch([str(root / 'usr/bin/orca'), '--debug-file',
-            os.ttyname(self.slave), '--user-prefs', str(work / 'prefs'), '--enable', 'speech',
-            '--disable', 'braille'], 'orca')
+        reader = self.launch(orca_command(root, work, os.ttyname(self.slave), env), 'orca')
         await asyncio.sleep(3)
         if reader.poll() is not None:
             raise ValueError('Orcaが起動後に終了した。別のOrcaが起動していると検証を中断する。詳細はorca.stdoutを確認してください。')
