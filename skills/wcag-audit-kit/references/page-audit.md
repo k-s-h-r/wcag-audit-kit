@@ -32,6 +32,13 @@ python3 scripts/audit.py shared-contrast --batch /project/run-pages --target '#s
 
 JSONの `groups` に、同じ条件・内容の測定と、その測定を持つ各ページの証拠が出る。値が異なる測定は別グループになる。未着手・収集失敗・判定不能などは `unavailable` に理由を残す。各ページで取得した初期表示のaxe測定を読む機能で、ページごとの判定は検査票で確認する。
 
+1ページを起点に参照するには、バッチ台帳にあるURLと、比較元とは別の新しい保存先を指定する。参照HTMLから、このページと同じ測定、異なる測定、未確認理由、元の証拠を追える。
+
+```sh
+python3 scripts/audit.py shared-contrast --batch /project/run-pages --target '#shared-help' --environment desktop \
+  --page-exact 'https://example.test/products' --out /project/products-contrast.html
+```
+
 ## 見た目の見出し・リストを確認する
 
 1.3.1の確認で、段落を見出しやリストに見せている箇所を探すときは、設定の `visual_structure_scope` に主文書の領域を一つ指定する。例えば `"visual_structure_scope": "#article"` を設定して `page-audit` を実行する。既存のrunに追加する場合は、新しいrunとして検査する。
