@@ -172,6 +172,9 @@ def validate_config(c):
         from visual_structure import validate_scope
 
         validate_scope(c['visual_structure_scope'])
+    if 'visual_structure_states' in c and (
+            'visual_structure_scope' not in c or c['visual_structure_states'] not in ('initial', 'explored')):
+        raise ValueError('visual_structure_statesを使う場合はvisual_structure_scopeを指定し、initial又はexploredを選ぶ')
     if c.get('auth_state'):
         c['auth_state']=str(Path(c['auth_state']).resolve())
     if 'inspection' in c and 'verification' not in c:

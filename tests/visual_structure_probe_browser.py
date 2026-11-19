@@ -17,7 +17,7 @@ SCRIPTS = ROOT / 'skills/wcag-audit-kit/scripts'
 sys.path.insert(0, str(SCRIPTS))
 import audit
 import page_explorer
-from visual_structure import collect, report_evidence
+from visual_structure import REPORT_COLUMNS, REPORT_TITLE, collect, report_evidence
 
 
 BODY = '営業時間中にお越しの方は、最初に入口の受付までお進みください。'
@@ -55,28 +55,33 @@ class QuietHandler(SimpleHTTPRequestHandler):
         pass
 
 
-def page_audit_case(area, url, selector, expected):
+def run_page_audit(area, url, selector, *, states=None, max_states=1, max_steps=1):
     area.mkdir()
     config = audit.init_config(url)
     config['environments'] = config['environments'][:1]
     config['keyboard_steps'] = 0
     if selector is not None:
         config['visual_structure_scope'] = selector
+    if states is not None:
+        config['visual_structure_states'] = states
     config_path = area/'config.json'
     audit.save(config_path, config)
     run = area/'run'
     command = subprocess.run([sys.executable, str(SCRIPTS/'audit.py'), 'page-audit', '--url', url,
         '--config', str(config_path), '--out', str(run), '--mode', 'machine', '--screenshots', 'off',
-        '--max-states', '1', '--max-steps', '1'], capture_output=True, text=True, timeout=90)
+        '--max-states', str(max_states), '--max-steps', str(max_steps)], capture_output=True, text=True, timeout=90)
     (area/'command.log').write_text(command.stdout + command.stderr)
     assert command.returncode == 0, command.stdout + command.stderr
+    assert not list(run.glob('evidence/*/*.png'))
+    return run, json.loads(command.stdout.strip().splitlines()[-1])
+
+
+def page_audit_case(area, url, selector, expected):
+    from openpyxl import load_workbook
+
+    run, files = run_page_audit(area, url, selector)
     graph = page_explorer.status(run)
     rows = report_evidence(run, graph)
-    assert not list(run.glob('evidence/*/*.png'))
-    from openpyxl import load_workbook
-    from visual_structure import REPORT_TITLE
-
-    files = json.loads(command.stdout.strip().splitlines()[-1])
     report = audit.load(files['json'])
     rendered = Path(files['html']).read_text()
     workbook = load_workbook(files['excel'])
@@ -103,7 +108,7 @@ def page_audit_case(area, url, selector, expected):
     worksheet = workbook[REPORT_TITLE]
     expected_rows = max(len(row['candidates']), 1)
     assert worksheet.max_row == expected_rows + 1
-    assert all(worksheet.cell(index, 7).hyperlink.target == row['evidence'] for index in range(2, 2 + expected_rows))
+    assert all(worksheet.cell(index, len(REPORT_COLUMNS)).hyperlink.target == row['evidence'] for index in range(2, 2 + expected_rows))
     workbook.close()
     from page_workflow import next_work
 
@@ -143,6 +148,92 @@ def page_audit_cases(out):
                      ('disabled', None, 'disabled')]
             return {name: page_audit_case(out/name, url, selector, expected)
                     for name, selector, expected in cases}
+        finally:
+            server.shutdown()
+            thread.join()
+
+
+def operation_cases(out):
+    import re
+    from openpyxl import load_workbook
+    from page_workflow import next_work
+
+    out.mkdir()
+    public = out/'public'
+    public.mkdir()
+    items = ''.join(f'<p id="item-{i}">・{text}</p>' for i, text in enumerate(ITEMS, 1))
+    (public/'index.html').write_text(f'''<!doctype html><html lang="ja"><head><meta charset="utf-8">
+        <title>1.3.1 操作後の構造候補</title><style>{STYLE}</style></head><body><main>
+        <div id="open" onclick="document.getElementById('scope').hidden=false">詳細を表示</div>
+        <section id="scope" class="group" hidden>
+        <p id="title" class="heading">{LABEL}</p><p>{BODY}</p><hr>{items}
+        <p id="semantic-title" class="heading" role="heading" aria-level="2">問い合わせ窓口</p>
+        <p>{BODY}</p></section></main></body></html>''')
+    # On-mouse markup reveals the same target as the usual one-page explorer.
+    with ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=str(public))) as server:
+        thread = Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        url = f'http://127.0.0.1:{server.server_port}/index.html'
+        try:
+            cases = [('explored', '#scope', 'explored', 2), ('default-initial', '#scope', None, 2),
+                     ('budget-initial', '#scope', 'explored', 1), ('disabled', None, None, 2)]
+            summary = {}
+            for name, selector, setting, max_states in cases:
+                run, files = run_page_audit(out/name, url, selector, states=setting,
+                                            max_states=max_states, max_steps=5)
+                graph = page_explorer.status(run)
+                report = audit.load(files['json'])
+                rows = report_evidence(run, graph)
+                summary[name] = {'nodes': len(graph['nodes']), 'steps': graph['steps'],
+                                 'candidate_kinds': [[candidate['kind'] for candidate in row['candidates']] for row in rows]}
+                audit.save(out/'operation-observed.json', summary)
+                assert len(graph['nodes']) == max_states, graph
+                assert all(row['outcome'] == 'not_run' for row in report['cases'] if row['criterion'] == '1.3.1')
+                if not selector:
+                    assert rows == [] and 'visual_structure_evidence' not in report
+                    continue
+                assert report['visual_structure_evidence'] == rows
+                assert rows[0]['capture'] == graph['nodes'][0]['capture']
+                assert rows[0]['status'] == 'collected' and not rows[0]['candidates']
+                if name != 'explored':
+                    assert len(rows) == 1
+                    continue
+                initial, opened = rows
+                trigger_route = [{'type': 'click', 'selector': '#open'}]
+                node = graph['nodes'][1]
+                assert initial['route'] == [] and opened['route'] == trigger_route == node['route']
+                assert opened['capture'] == node['capture'] and opened['status'] == 'collected'
+                assert audit.evidence_item(run, opened['evidence']) in graph['proof']
+                events_path = Path(node['evidence_dir'])/'input-events.json'
+                assert audit.evidence_item(run, events_path.as_posix()) in graph['proof']
+                events = audit.load(run/events_path)['events']
+                assert any(event['type'] == 'click' and event['isTrusted'] and event['is_main_frame']
+                           and event['target']['id'] == 'open' for event in events)
+                heading, bullets = opened['candidates']
+                assert heading['kind'] == 'heading' and heading['target']['selector'] == '#title'
+                assert bullets['kind'] == 'list'
+                assert [item['selector'] for item in bullets['targets']] == ['#item-1', '#item-2', '#item-3']
+                assert not any(item['evidence'] == opened['evidence'] for item in report['machine_checks'])
+                assert all('outcome' not in item for item in opened['candidates'])
+                packets = next_work(run, url, limit=200)['next_cases']
+                matching = [packet for packet in packets if packet['criterion'] == '1.3.1'
+                            and packet['capture'] == opened['capture']]
+                assert [packet['visual_structure_evidence'] for packet in matching] == [[opened]]
+                rendered = Path(files['html']).read_text()
+                table_rows = re.findall(r'<tr>(.*?)</tr>', rendered, re.S)
+                assert any('クリック #open' in text and '#title' in text and f'href="{opened["evidence"]}"' in text
+                           for text in table_rows)
+                workbook = load_workbook(files['excel'])
+                try:
+                    worksheet = workbook[REPORT_TITLE]
+                    state_column = [key for key, _ in REPORT_COLUMNS].index('state') + 1
+                    assert worksheet.cell(2, state_column).value == '初期表示'
+                    for index in [3, 4]:
+                        assert worksheet.cell(index, state_column).value == 'クリック #open'
+                        assert worksheet.cell(index, len(REPORT_COLUMNS)).hyperlink.target == opened['evidence']
+                finally:
+                    workbook.close()
+            return summary
         finally:
             server.shutdown()
             thread.join()
@@ -190,6 +281,7 @@ async def main(out):
     results = page_audit_cases(out)
     audit.save(out/'page-audit-observed.json', results)
     print(json.dumps(results, ensure_ascii=False))
+    print(json.dumps(operation_cases(out/'operations'), ensure_ascii=False))
 
 
 if __name__ == '__main__':

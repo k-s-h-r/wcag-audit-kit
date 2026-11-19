@@ -9,7 +9,8 @@ EVIDENCE_FILE = 'visual-structure.json'
 CHECKPOINT = '1.3.1-02'
 REPORT_TITLE = '見出し・リストの確認候補'
 REPORT_COLUMNS = (
-    ('criterion', '達成基準'), ('environment', '環境'), ('scope', '指定範囲'),
+    ('criterion', '達成基準'), ('environment', '環境'), ('state', '表示状態・操作'),
+    ('scope', '指定範囲'),
     ('status', '観察結果'), ('target', '対象要素'), ('observed', '表示された文言・理由'),
     ('evidence', '元の証拠'),
 )
@@ -190,20 +191,34 @@ async def observe(page, scope):
     return dict(result, status='collected')
 
 
+def state_description(route):
+    names = {'click': 'クリック', 'hover': 'ホバー', 'key': 'キー', 'press': 'キー',
+             'fill': '入力', 'scroll': 'スクロール'}
+    if not route:
+        return '初期表示'
+    steps = []
+    for action in route:
+        kind = action['type']
+        if kind == 'scroll':
+            steps.append(f"{names[kind]} ({action['x']}, {action['y']})")
+        else:
+            steps.append(' '.join([names[kind], action.get('selector', ''), action.get('key', '')]).strip())
+    return ' → '.join(steps)
+
+
 def report_evidence(run, graph):
-    """Read candidate observations attached to initial captures in a verified graph."""
+    """Read candidate observations attached to exported captures in a verified graph."""
     run = Path(run)
     proof = {item['path'] for item in graph.get('proof', [])}
     observed = []
     for node in graph.get('nodes', []):
-        if node['route']:
-            continue
         path = Path(node['evidence_dir']) / EVIDENCE_FILE
         if path.as_posix() not in proof:
             continue
         value = json.loads((run / path).read_text())
         observed.append(dict(value, criterion='1.3.1', checkpoint=CHECKPOINT, capture=node['capture'],
-                             environment=node['environment'], evidence=path.as_posix()))
+                             environment=node['environment'], route=node['route'],
+                             state=state_description(node['route']), evidence=path.as_posix()))
     return observed
 
 
@@ -213,7 +228,7 @@ def display_text(value):
 
 def display_rows(observations):
     for row in observations:
-        context = {key: display_text(row[key]) for key in ('criterion', 'environment', 'scope')}
+        context = {key: display_text(row[key]) for key in ('criterion', 'environment', 'state', 'scope')}
         context['evidence'] = row['evidence']
         if not row['candidates']:
             if row['status'] == 'not_observed':
