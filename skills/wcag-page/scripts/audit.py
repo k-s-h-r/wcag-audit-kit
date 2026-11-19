@@ -717,6 +717,8 @@ def main(argv=None):
     p.add_argument('--batch', required=True, type=Path)
     p.add_argument('--target', required=True)
     p.add_argument('--environment', required=True)
+    p.add_argument('--page-exact', help='HTML参照に表示するバッチ内のURL')
+    p.add_argument('--out', type=Path, help='ページ別の参照HTMLを新規出力する')
     for name in ['page','page-audit']:
         p=sub.add_parser(name);p.add_argument('--url',required=True);p.add_argument('--out',required=True);p.add_argument('--config')
         p.add_argument('--level',choices=list(LEVELS));p.add_argument('--profile',choices=['quick','standard','thorough'])
@@ -797,7 +799,13 @@ def main(argv=None):
         if args.command == 'shared-contrast':
             from shared_contrast import compare
 
+            if (args.page_exact is None) != (args.out is None):
+                raise ValueError('--page-exactと--outを一緒に指定する')
             result = compare(args.batch, target=args.target, environment=args.environment)
+            if args.out is not None:
+                from shared_contrast_report import export_page_html
+                path = export_page_html(args.batch, result, url=args.page_exact, out=args.out)
+                result = {'html': str(path)}
             print(json.dumps(result, ensure_ascii=False, indent=2))
             return 0
         if args.command in {'start','pages','page','page-audit'}:
