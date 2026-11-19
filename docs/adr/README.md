@@ -37,3 +37,4 @@
 - [0031 操作対象のCSS寸法と辺間隔を取得期待に照合する](0031-match-aligned-target-geometry.md)
 - [0032 視覚情報の測定と候補収集を独立した検査で試す](0032-verify-visual-evidence-in-isolation.md)
 - [0033 操作後の状態取得とモードごとの実施記録を帳票へ出す](0033-record-status-acquisition-and-mode-evidence.md)
+- [0034 URL抽出ではリダイレクト先を送信前に照合する](0034-check-discovery-redirects-before-request.md)
