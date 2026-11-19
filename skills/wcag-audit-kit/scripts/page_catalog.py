@@ -49,21 +49,43 @@ async def select_pages(config):
     async with async_playwright() as pw:
         browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=['--no-sandbox'])
         try:
-            context=await browser.new_context(storage_state=config.get('auth_state'))
+            context=await browser.new_context(storage_state=config.get('auth_state'), service_workers='block')
             page=await context.new_page()
+            session = await context.new_cdp_session(page)
+            main_frame = (await session.send('Page.getFrameTree'))['frameTree']['frame']['id']
+            blocked = False
+
+            async def check_document(event):
+                nonlocal blocked
+                request_id = {'requestId': event['requestId']}
+                if event['frameId'] == main_frame and not in_scope(event['request']['url'], config):
+                    blocked = True
+                    await session.send('Fetch.failRequest', dict(request_id, errorReason='BlockedByClient'))
+                else:
+                    await session.send('Fetch.continueRequest', request_id)
+
+            # Playwright routes the first URL in a redirect chain. Chromium's
+            # request-stage interception also checks subsequent document hops.
+            session.on('Fetch.requestPaused', check_document)
+            await session.send('Fetch.enable', {'patterns': [{'resourceType': 'Document', 'requestStage': 'Request'}]})
+
             while queue and len(seen)<config['scope']['max_pages']:
                 url=queue.pop(0)
                 if url in seen or not in_scope(url,config):continue
                 seen.add(url);known[url]['visited']=True
+                blocked = False
                 try:
                     response=await page.goto(url,wait_until='domcontentloaded',timeout=30000)
-                    if not in_scope(page.url,config):raise ValueError('範囲外へのリダイレクト')
+                    if blocked or not in_scope(page.url,config):raise ValueError('範囲外へのリダイレクト')
                     if response and response.status>=400:raise ValueError('HTTP '+str(response.status))
-                    for link in await page.locator('a[href]').evaluate_all('(items)=>items.map(a=>a.href)'):
+                    links = await page.locator('a[href]').evaluate_all('(items)=>items.map(a=>a.href)')
+                    if blocked or not in_scope(page.url,config):raise ValueError('範囲外へのリダイレクト')
+                    for link in links:
                         target=normalize(link,config)
                         if in_scope(target,config) and target not in known:
                             known[target]={'url':target,'source':url,'visited':False};queue.append(target)
-                except Exception as exc:errors.append({'url':url,'error':str(exc)})
+                except Exception as exc:
+                    errors.append({'url': url, 'error': '範囲外へのリダイレクト' if blocked else str(exc)})
         finally:await browser.close()
     return {'schema_version':'1','kind':'page-selection','mode':'discover','base_url':config['url'],
             'config_digest':audit.digest(config),'pages':list(known.values()),
