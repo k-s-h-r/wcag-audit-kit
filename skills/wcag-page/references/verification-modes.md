@@ -38,7 +38,9 @@ inspection:
 python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-ai-detail --mode ai --profile thorough --max-images 30
 ```
 
-machine／screen-readerで画像を有効にする、ai／fullで画像をoff又は上限0にする、モードと矛盾する実SR設定を指定する場合はエラーにします。検査途中のモード変更は行わず、変更した検査は別のrunに保存します。`--resume`では保存したモードを継続し、別の`--mode`を指定すると停止します。
+machine／screen-readerで標準の画像収集を有効にする、ai／fullで標準の画像収集をoff又は上限0にする、モードと矛盾する実SR設定を指定する場合はエラーにします。検査途中のモード変更は行わず、変更した検査は別のrunに保存します。`--resume`では保存したモードを継続し、別の`--mode`を指定すると停止します。
+
+1.4.11のフォーカス枠は、[経路に測定を明示した場合](page-audit.md#フォーカス枠と隣接色を測る)に限り、すべてのモードで枠周辺のPNGを1経路・1環境につき最大1枚保存します。RGB値の数値計測に使います。
 
 ## 各段階を実行し、実施済みと省略を分ける
 

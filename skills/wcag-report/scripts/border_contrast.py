@@ -1,8 +1,8 @@
-"""Measure a declared exterior border against the pixels immediately outside it."""
+"""Measure a declared exterior border or focus outline against its adjacent pixels."""
 
 from contextlib import suppress
 from importlib.util import find_spec
-from math import floor
+from math import ceil, floor
 from pathlib import Path
 import re
 
@@ -10,7 +10,7 @@ from measure import contrast
 
 
 DETAILS = r"""
-(element) => {
+(element, focused) => {
     const hold = reason => ({reason});
     if (window !== window.top || element.getRootNode() !== document || !element.isConnected
             || element.childElementCount || element.shadowRoot
@@ -18,11 +18,20 @@ DETAILS = r"""
                 opacityProperty: true, visibilityProperty: true
             })) return hold('主文書内の表示されている単一の部品を確認できない。');
 
+    const style = getComputedStyle(element);
+    if (focused && (!document.hasFocus() || document.activeElement !== element
+            || !element.matches(':focus-visible')))
+        return hold('実キー操作を受けた対象がフォーカス表示の状態にない。');
+    const offset = focused ? parseFloat(style.outlineOffset) : 0;
+    if (!Number.isInteger(offset) || offset < 0 || offset > 32)
+        return hold('外側にあるフォーカス枠の間隔を確定できない。');
+    const extent = focused ? offset + parseFloat(style.outlineWidth) : 0;
     const rect = element.getBoundingClientRect();
+    const edges = [rect.left - extent, rect.top - extent, rect.right + extent, rect.bottom + extent];
     const viewport = window.visualViewport;
     if (!viewport || viewport.scale !== 1 || viewport.offsetTop !== 0 || viewport.offsetLeft !== 0
             || element.getClientRects().length !== 1) return hold('表示範囲と対象の座標を対応付けられない。');
-    const outer = {left: rect.left - 2, top: rect.top - 2, right: rect.right + 2, bottom: rect.bottom + 2};
+    const outer = {left: edges[0] - 2, top: edges[1] - 2, right: edges[2] + 2, bottom: edges[3] + 2};
     if (outer.left < 0 || outer.top < 0 || outer.right > document.documentElement.clientWidth
             || outer.bottom > document.documentElement.clientHeight)
         return hold('外枠とその外側の画素が画面内に収まらない。');
@@ -38,9 +47,9 @@ DETAILS = r"""
         const style = getComputedStyle(node, pseudo);
         return !['none', 'normal'].includes(style.content) && style.display !== 'none';
     });
-    const outsidePaint = style => style.boxShadow !== 'none' || style.textShadow !== 'none'
+    const outsidePaint = (style, allowOutline = false) => style.boxShadow !== 'none' || style.textShadow !== 'none'
         || style.filter !== 'none' || style.backdropFilter !== 'none'
-        || style.outlineStyle !== 'none'
+        || !allowOutline && style.outlineStyle !== 'none'
         || style.borderImageSource !== 'none'
             && style.borderImageOutset.split(/\s+/).some(value => parseFloat(value) > 0);
     const parents = new Set(), ancestry = [];
@@ -53,7 +62,7 @@ DETAILS = r"""
                 || style.transform !== 'none' || style.translate !== 'none' || style.rotate !== 'none'
                 || style.scale !== 'none' || style.perspective !== 'none' || style.zoom !== '1'
                 || style.mixBlendMode !== 'normal' || style.contain !== 'none'
-                || style.contentVisibility !== 'visible' || outsidePaint(style) || generated(node))
+                || style.contentVisibility !== 'visible' || outsidePaint(style, focused && node === element) || generated(node))
             return hold('同じ条件で不透明な単色の枠と外側を確認できない。');
         const area = node.getBoundingClientRect();
         ancestry.push([node.localName, style.backgroundColor, style.color,
@@ -76,7 +85,6 @@ DETAILS = r"""
         if (overlaps) return hold('別の要素が対象とその外側に重なる。');
     }
 
-    const style = getComputedStyle(element);
     if (style.borderImageSource !== 'none'
             || ['TopLeft', 'TopRight', 'BottomLeft', 'BottomRight']
                 .some(corner => style['border' + corner + 'Radius'] !== '0px'))
@@ -84,13 +92,14 @@ DETAILS = r"""
     const borders = ['Top', 'Right', 'Bottom', 'Left'].map(side =>
         ['Width', 'Style', 'Color'].map(property => style['border' + side + property]));
     return {
-        rect: [rect.left, rect.top, rect.right, rect.bottom],
+        rect: edges,
         viewport: [window.innerWidth, window.innerHeight],
         scroll: [window.scrollX, window.scrollY],
         dpr: window.devicePixelRatio,
         url: location.href,
         document_start: performance.timeOrigin,
-        border: borders, ancestry
+        border: borders, ancestry,
+        ...(focused ? {outline: [style.outlineWidth, style.outlineStyle, style.outlineColor, style.outlineOffset]} : {})
     };
 }
 """
@@ -101,6 +110,13 @@ WATCH_CHANGES = """() => {
     return watcher;
 }"""
 
+BEFORE_FOCUS = """element => {
+    const style = getComputedStyle(element);
+    return {focused: document.activeElement === element, url: location.href,
+        document_start: performance.timeOrigin,
+        outline: [style.outlineWidth, style.outlineStyle, style.outlineColor, style.outlineOffset]};
+}"""
+
 
 def as_hex(channels):
     return '#%02x%02x%02x' % channels
@@ -108,9 +124,14 @@ def as_hex(channels):
 
 def border_definition(data):
     width, style, color = data['border'][0]
+    if any(side != [width, style, color] for side in data['border']):
+        raise ValueError('四辺で同じ幅の不透明な単色の実線枠を確認できない。')
+    return solid_line(width, style, color)
+
+
+def solid_line(width, style, color):
     channels = re.fullmatch(r'rgb\((\d+), (\d+), (\d+)\)', color)
-    if (any(side != [width, style, color] for side in data['border'])
-            or style != 'solid' or not re.fullmatch(r'[1-9]\d*px', width) or not channels):
+    if style != 'solid' or not re.fullmatch(r'[1-9]\d*px', width) or not channels:
         raise ValueError('四辺で同じ幅の不透明な単色の実線枠を確認できない。')
     width = int(width[:-2])
     if width > 32:
@@ -190,7 +211,7 @@ async def observe(page, selector, images, path):
 
     output = {'target': selector}
     path = Path(path)
-    watcher = target = None
+    target = None
     if images.policy['screenshots'] != 'all':
         return dict(output, status='skipped', observed='画像設定がall以外のため外枠の画像を取得しなかった。')
     if not find_spec('PIL'):
@@ -200,32 +221,110 @@ async def observe(page, selector, images, path):
         if await locator.count() != 1 or await locator.is_disabled(timeout=1500):
             raise ValueError('無効な部品、又は対象を一つに特定できない。')
         target = await locator.element_handle(timeout=1500)
-        watcher = await page.evaluate_handle(WATCH_CHANGES)
-        first = await target.evaluate(DETAILS)
+        async def capture(_):
+            return await images.capture_with(path, 'detail', lambda: page.screenshot(
+                path=str(path), scale='css', caret='initial', timeout=5000))
+
+        return await measure_target(page, locator, target, path, images.run, capture, output)
+    except (BrowserError, OSError, ValueError) as problem:
+        return dict(output, status='cant_tell', observed=str(problem))
+    finally:
+        if target:
+            with suppress(BrowserError):
+                await target.dispose()
+
+
+async def measure_target(page, locator, target, path, run, capture, output, *, before=None):
+    from playwright.async_api import Error as BrowserError
+
+    watcher = await page.evaluate_handle(WATCH_CHANGES)
+    focused = before is not None
+    try:
+        first = await target.evaluate(DETAILS, focused)
         if 'reason' in first:
             raise ValueError(first['reason'])
-        width, expected = border_definition(first)
-        pairs = strip_pairs(first['rect'], width)
-        if not await images.capture_with(path, 'detail', lambda: page.screenshot(
-                path=str(path), scale='css', caret='initial', timeout=5000)):
+        rect = first['rect']
+        geometry = first
+        clip = None
+        if focused:
+            if any(before[key] != first[key] for key in ('document_start', 'url')):
+                raise ValueError('キー入力前後で同じ文書を確認できない。')
+            if before['focused'] or before['outline'] == first['outline']:
+                raise ValueError('キー入力で現れるフォーカス枠を確認できない。')
+            width, expected = solid_line(*first['outline'][:3])
+            left, top = floor(rect[0]) - 1, floor(rect[1]) - 1
+            size = [ceil(rect[2]) + 1 - left, ceil(rect[3]) + 1 - top]
+            clip = dict(x=left, y=top, width=size[0], height=size[1])
+            geometry = dict(first, clip=clip)
+            data = {'viewport': size}
+            rect = [edge - origin for edge, origin in zip(rect, (left, top, left, top))]
+        else:
+            width, expected = border_definition(first)
+            data = first
+        pairs = strip_pairs(rect, width)
+        if not await capture(clip):
             return dict(output, status='skipped', observed='画像の設定又は取得上限により外枠の画像を取得しなかった。')
-        output['source'] = path.relative_to(images.run).as_posix()
-        output['geometry'] = first
-        second = await target.evaluate(DETAILS)
+        output['source'] = path.relative_to(run).as_posix()
+        output['geometry'] = geometry
+        second = await target.evaluate(DETAILS, focused)
         changed = await watcher.evaluate(
             'watcher => {const changed = watcher.changed || watcher.takeRecords().length > 0; watcher.disconnect(); return changed;}'
         )
         if changed or first != second or await locator.count() != 1 or not await locator.evaluate(
                 '(selected, original) => selected === original', target, timeout=1500):
             raise ValueError('画像取得の前後で部品、画面、又はDOMの状態が変わった。')
-        return dict(output, **pixel_result(path, first, width, expected, pairs))
-    except (BrowserError, OSError, ValueError) as problem:
-        return dict(output, status='cant_tell', observed=str(problem))
+        return dict(output, **pixel_result(path, data, width, expected, pairs))
     finally:
-        if watcher:
+        with suppress(BrowserError):
+            await watcher.evaluate('watcher => watcher.disconnect()')
+            await watcher.dispose()
+
+
+class FocusOutline:
+    def __init__(self, page, selector, run, path):
+        self.page = page
+        self.selector = selector
+        self.run = run
+        self.path = path
+        self.target = None
+        self.baseline = None
+        self.reason = None
+
+    async def before(self):
+        from playwright.async_api import Error as BrowserError
+
+        if not find_spec('PIL'):
+            self.reason = 'PNGの画素を調べるにはrequirements-analysis.txtのPillowが必要。'
+            return
+        try:
+            locator = self.page.locator(self.selector)
+            if await locator.count() != 1 or await locator.is_disabled(timeout=1500):
+                raise ValueError('無効な部品、又はキー入力前の対象を一つに特定できない。')
+            self.target = await locator.element_handle(timeout=1500)
+            self.baseline = await self.target.evaluate(BEFORE_FOCUS)
+        except (BrowserError, ValueError) as problem:
+            self.reason = str(problem)
+
+    async def measure(self):
+        from playwright.async_api import Error as BrowserError
+
+        output = dict(target=self.selector, before=self.baseline)
+        if self.reason:
+            return dict(output, status='cant_tell', observed=self.reason)
+
+        async def capture(clip):
+            await self.page.screenshot(path=str(self.path), clip=clip, scale='css', caret='initial', timeout=5000)
+            return True
+
+        try:
+            return await measure_target(self.page, self.page.locator(self.selector), self.target,
+                                        self.path, self.run, capture, output, before=self.baseline)
+        except (BrowserError, OSError, ValueError) as problem:
+            return dict(output, status='cant_tell', observed=str(problem))
+
+    async def close(self):
+        from playwright.async_api import Error as BrowserError
+
+        if self.target:
             with suppress(BrowserError):
-                await watcher.evaluate('watcher => watcher.disconnect()')
-                await watcher.dispose()
-        if target:
-            with suppress(BrowserError):
-                await target.dispose()
+                await self.target.dispose()
