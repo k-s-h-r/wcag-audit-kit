@@ -1,10 +1,14 @@
 """Check generated targets and keyboard evidence against a local Chromium fixture."""
 
 import argparse
+from html import escape
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+import re
 import sys
 from threading import Thread
+
+from openpyxl import load_workbook
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'skills/wcag-audit-kit/scripts'))
@@ -27,6 +31,7 @@ HTML = '''<!doctype html>
   <div id="event" tabindex="-1" onpointerup="this.textContent='操作後'">ポインター操作</div>
   <div id="cursor" tabindex="-1" style="cursor:pointer">ポインターの見た目</div>
   <div id="component"></div>
+  <div id="overlap-host"><div id="lookalike"><button type="button">ライト側</button></div></div>
 </main>
 <footer><a href="/other#footer">受付</a></footer>
 <script>
@@ -35,6 +40,8 @@ shadow.innerHTML = `<div id="group">
   <button type="button" onclick="this.textContent='第1ボタン操作後'">第1ボタン</button>
   <div><button type="button">第2ボタン</button></div>
 </div>`;
+document.getElementById('overlap-host').attachShadow({mode:'open'}).innerHTML =
+  '<div id="lookalike"><button type="button">シャドウの同形ボタン</button></div>';
 </script>
 </body></html>'''.encode()
 
@@ -74,6 +81,8 @@ def run(out):
     url = f'http://127.0.0.1:{server.server_port}/'
     config = audit.init_config(url)
     config.update(environments=config['environments'][:1], keyboard_steps=8)
+    config['keyboard_checks'] = [{'id': 'missing-result', 'name': '操作後の表示を確認', 'criterion': '2.1.1',
+        'steps': [{'key': 'Tab', 'focus': 'a[href="#main"]'}, {'key': 'Enter', 'visible': '#missing-panel'}]}]
     config_path = out / 'config.json'
     target = out / 'run'
     audit.save(config_path, config)
@@ -101,8 +110,41 @@ def run(out):
         rows = [row for row in audit.load(report)['machine_checks'] if row['criterion'] == '2.1.1']
         assert all(row['target'] not in {'#main', '#passive'} for row in rows)
         assert any(row['target'] == link and row['outcome'] == 'passed' for row in rows)
-        assert any(row['target'] == '#event' and row['outcome'] == 'failed' for row in rows)
-        print('Real skip-link input, open shadow input and passive destination exclusion verified.')
+        ambiguous = labels['シャドウの同形ボタン']
+        observed = {}
+        for selector, expected in ((ambiguous, 'cant_tell'), ('#event', 'failed')):
+            row, = [item for item in rows if item['target'] == selector and item['checkpoint'] == '実入力 / Enter']
+            transition = target / row['evidence']
+            record = audit.load(transition)
+            events = audit.load(transition.with_name('input-events.json'))['events']
+            keys = {event['key'] for event in events if event['type'] == 'keydown' and event['isTrusted']}
+            if selector == ambiguous:
+                assert 'strict mode violation' in record['error'] and not keys, (row, keys)
+            else:
+                assert 'Tab' in keys and 'Enter' not in keys and record['keyboard_unreachable_step'] == 1, (row, keys)
+            observed[selector] = (row, expected)
+        assert all(row['outcome'] == expected for row, expected in observed.values()), observed
+
+        mismatch, = [row for row in rows if row['checkpoint'] == 'キーボード経路 / missing-result']
+        receipt = audit.load(target / mismatch['evidence'])
+        assert mismatch['outcome'] == 'failed' and receipt['steps'][-1]['input_event_index']
+        assert any(not item['matched'] for item in receipt['steps'][-1]['conditions'])
+
+        report_html, = target.glob('page-*-report.html')
+        html_rows = re.findall(r'<tr>.*?</tr>', report_html.read_text(), re.DOTALL)
+        findings = ((ambiguous, '機械判定不能'), ('#event', '問題あり（機械）'),
+                    ('#missing-panel', '問題あり（機械）'))
+        for marker, label in findings:
+            assert any(escape(marker) in row and label in row for row in html_rows), (marker, label)
+        report_excel, = target.glob('page-*-report.xlsx')
+        workbook = load_workbook(report_excel, read_only=True)
+        try:
+            issue_rows = list(workbook['自動検出した問題'].values)
+            for marker, label in findings:
+                assert any(label in row and any(marker in str(cell) for cell in row) for row in issue_rows), (marker, label)
+        finally:
+            workbook.close()
+        print('Real keyboard input, unreachable target, pre-input locator error and report formats verified.')
     finally:
         server.shutdown()
         server.server_close()
