@@ -56,13 +56,16 @@ def machine_checks(run):
             path = Path(edge['evidence_dir'])/'hover-check.json'
             record = audit.load(run/path)
             labels_by_aspect = {'hoverable': '追加表示へポインターを移した後も表示が続く',
-                                'dismissible': 'ポインターを移さずEscapeで追加表示を閉じられる'}
+                                'dismissible': 'ポインターを移さずEscapeで追加表示を閉じられる',
+                                'persistent': 'トリガーにポインターを置く間、指定した時間だけ追加表示が続く'}
             for item in record['observations']:
                 rows.append(dict(criterion='1.4.13', checkpoint=f"ホバー経路 / {record['id']} / {item['aspect']}",
                     expected=labels_by_aspect[item['aspect']], outcome=item['outcome'], environment=edge['environment'],
                     capture='ホバー経路 '+record['id'], state_label=record['name'], target=item['target'],
                     observed=item['observed'], evidence=path.as_posix(), source='',
-                    note='指定の操作と表示の結果。別の解除手段、例外、表示の持続時間は追加確認。'))
+                    note=('指定した時間内の観察。情報が有効でなくなる条件や、他の時間・操作は追加確認。'
+                          if item['aspect'] == 'persistent'
+                          else '指定の操作と表示の結果。別の解除手段、例外、表示の持続時間は追加確認。')))
             continue
         if edge.get('border_check'):
             path = Path(edge['evidence_dir']) / 'border-check.json'

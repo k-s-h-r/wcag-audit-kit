@@ -21,6 +21,13 @@ HOVER_CRITERION = '1.4.13'
 FOCUS_CRITERION = '2.4.11'
 HOVER_PLAN = {'id': 'price-tip', 'name': '料金の追加表示へ移動しEscapeで閉じる',
               'trigger': '#subject', 'popup': '#tip'}
+PERSISTENCE_PLAN = dict(HOVER_PLAN, id='price-tip-hold', persistence_ms=600)
+PERSISTENCE_CASES = {
+    'persistence-stable.html': ('passed', ''),
+    'persistence-auto-hide.html': ('failed', 'tip.hidden = true'),
+    'persistence-focus-change.html': ('cant_tell', 'document.querySelector("#other").focus()'),
+    'persistence-content-change.html': ('cant_tell', "tip.textContent = '更新済み'; tip.hidden = true"),
+}
 FOCUS_TARGET = {'key': 'Tab', 'focus': '#subject', 'unobscured': True}
 SHOW_BANNER = [{'key': 'Tab', 'focus': '#show'},
                {'key': 'Enter', 'focus': '#show', 'visible': '#banner'}]
@@ -148,6 +155,34 @@ def inspect_hover(run, workbook, plan, expected):
     return expected
 
 
+def inspect_persistence(run, workbook, plan, expected):
+    path, value = report(run)
+    prefix = f'ホバー経路 / {plan["id"]} / '
+    rows = {row['checkpoint'].removeprefix(prefix): row for row in value['machine_checks']
+            if row['criterion'] == HOVER_CRITERION and row['checkpoint'].startswith(prefix)}
+    assert set(rows) == {'persistent', 'hoverable', 'dismissible'}, rows
+    row = rows['persistent']
+    assert row['outcome'] == expected and row['target'] == plan['popup'], row
+    proof, events = load_proof(run, row['evidence'])
+    step, = [step for step in proof['steps'] if step['action'] == 'hold-trigger']
+    assert trusted_input(step, events)['type'] == 'pointermove', step
+    assert step['samples'] and step['duration_ms'] == plan['persistence_ms'], step
+    if expected == 'passed':
+        assert step['samples'][-1]['elapsed_ms'] >= step['duration_ms'], step
+        assert all(sample['popup_status'] == 'visible' and sample['focus_unchanged']
+                   and sample['trigger_hovered'] for sample in step['samples']), step
+    if expected == 'failed':
+        assert 0 < step['visibility_lost_ms'] < step['duration_ms'], step
+        assert step['samples'][-1]['popup_status'] == 'hidden', step
+        assert step['samples'][-1]['focus_unchanged'] and step['samples'][-1]['trigger_hovered'], step
+        assert rows['dismissible']['outcome'] == 'cant_tell', rows
+    if expected == 'cant_tell':
+        last = step['samples'][-1]
+        assert not last['focus_unchanged'] or 'text' in last['changed'], step
+    assert_report_formats(workbook, path, list(rows.values()))
+    return dict(outcome=expected, samples=len(step['samples']), visibility_lost_ms=step.get('visibility_lost_ms'))
+
+
 def inspect_focus(run, workbook, plan, expected, status):
     path, value = report(run)
     row, = [row for row in value['machine_checks'] if row['criterion'] == FOCUS_CRITERION
@@ -194,6 +229,9 @@ def cases():
     keyboard = route(FOCUS_CRITERION, 'border-paint', '前面の枠画像を確認する', [FOCUS_TARGET])
     yield FOCUS_CRITERION, 'border-image-outset.html', keyboard, ('cant_tell', 'paint_outside_hit_test')
     yield HOVER_CRITERION, 'hover-gap.html', HOVER_PLAN, {'hoverable': 'failed', 'dismissible': 'failed'}
+    for page, (outcome, _) in PERSISTENCE_CASES.items():
+        yield HOVER_CRITERION, page, PERSISTENCE_PLAN, outcome
+
     missing = dict(HOVER_PLAN, id='missing-popup', popup='#missing')
     yield HOVER_CRITERION, 'p04.html', missing, {'hoverable': 'cant_tell', 'dismissible': 'cant_tell'}
 
@@ -214,6 +252,16 @@ def main(out):
         </style>
         <button id="subject">料金</button><div id="tip">1000円</div>
     ''')
+    persistence_source = (public / HOVER_CRITERION / 'p04.html').read_text()
+    for name, (_, changes) in PERSISTENCE_CASES.items():
+        # Start the change only after the first trusted pointer entry on the trigger.
+        fixture = persistence_source.replace('</body>', '<button id="other">他の操作</button></body>')
+        if changes:
+            script = (f'<script>subject.addEventListener("mouseenter", () => '
+                      f'setTimeout(() => {{ {changes} }}, 280), {{once:true}})</script>')
+            fixture = fixture.replace('</body>', script + '</body>')
+        (public / HOVER_CRITERION / name).write_text(fixture)
+
     focus_public = public / FOCUS_CRITERION
     covered = (focus_public / 'p03.html').read_text()
     marker = 'background:#eee;z-index:4'
@@ -242,7 +290,8 @@ def main(out):
             url = f'{base}/{criterion}/{page}'
             if criterion == HOVER_CRITERION:
                 run, workbook = execute(out / name, url, hover=plan, pause=page == 'p03.html')
-                outcome = inspect_hover(run, workbook, plan, expected)
+                inspector = inspect_persistence if page in PERSISTENCE_CASES else inspect_hover
+                outcome = inspector(run, workbook, plan, expected)
             else:
                 images = page == 'border-image-outset.html'
                 run, workbook = execute(out / name, url, keyboard=plan, images=images)
