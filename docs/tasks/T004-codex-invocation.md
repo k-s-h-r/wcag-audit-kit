@@ -30,3 +30,5 @@
 ## 現在の環境での再試行
 
 4スキルの`allow_implicit_invocation: false`を確認し、独立した作業ディレクトリーの`.agents/skills/`に配置した。Codex CLI 0.167.0-alpha.4で`codex exec --ephemeral --json --skip-git-repo-check -s read-only -C <検証ディレクトリー>`を使い、`$wcag-page`の明示呼び出しを試した。アプリサーバーの初期化が読み取り専用ファイルシステムで停止し、終了コード1、JSONL出力は0行だった。実ホストのスキル選択や監査動作は未実施。次はセッションを初期化できる隔離環境で、単独の呼び出しから再試行する。
+
+CLIのSQLiteとログを一時ディレクトリーに分けて再試行した。SQLiteは準備できたが、起動時に書き込みを要求する`installation_id`を現在のCodexホームに作れず、アプリサーバーは応答を返さなかった。実ホストの選択は保留のままとする。[Codex CLI 0.167.0-alpha.4の実装](https://github.com/openai/codex/blob/rust-v0.167.0-alpha.4/codex-rs/core/src/installation_id.rs#L17-L25)
