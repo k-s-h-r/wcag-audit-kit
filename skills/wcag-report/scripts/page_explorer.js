@@ -72,6 +72,16 @@
       const r = e.getBoundingClientRect(), s = getComputedStyle(e);
       return !!(r.width && r.height && s.visibility !== 'hidden' && s.display !== 'none');
     };
+    const horizontalTab = e => {
+      if (e?.getAttribute('role') !== 'tab') return false;
+      const list = e.closest('[role="tablist"]');
+      const orientation = list?.getAttribute('aria-orientation');
+      return orientation === null || orientation === 'horizontal';
+    };
+    let focused = document.activeElement;
+    while (focused?.shadowRoot?.activeElement) focused = focused.shadowRoot.activeElement;
+    const focusedTab = horizontalTab(focused) && visible(focused) ? selector(focused) : null;
+    const recordedFocus = focusedTab ? focused : document.activeElement;
     const modal = all.filter(e => (e.matches('dialog[open]') || e.getAttribute('aria-modal') === 'true') && visible(e)).at(-1);
     const properties=['onclick','onmousedown','onpointerdown','onpointerup','onpointerenter','onmouseover','onkeydown','onchange','oninput'];
     // Negative tabindex also marks passive programmatic focus destinations.
@@ -91,6 +101,7 @@
           label:e.getAttribute('aria-label') || e.labels?.[0]?.innerText || e.innerText?.trim().slice(0,160) || e.getAttribute('placeholder') || e.id,
           href:e.getAttribute('href'), expanded:e.getAttribute('aria-expanded'), tabIndex:e.tabIndex,
           haspopup:e.getAttribute('aria-haspopup'), events:[...(events.get(e) || []),...properties.filter(p => typeof e[p] === 'function')],
+          ...(horizontalTab(e) ? {horizontalTab:true} : {}),
           rect:{x:r.x + scrollX,y:r.y + scrollY,width:r.width,height:r.height}};
       });
     const state = all.filter(visible).map(e => ({selector:selector(e), tag:e.localName,
@@ -111,7 +122,8 @@
       frames:all.filter(e => e.matches('iframe,frame')).map(selector), closedRoots,
       canvases:all.filter(e => e.localName === 'canvas' && visible(e)).map(selector),
       scroll:{width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight},
-      focus:{selector:document.activeElement ? selector(document.activeElement) : '',text:document.activeElement?.innerText?.slice(0,160),
-        outline:document.activeElement ? ['outlineStyle','outlineWidth','outlineColor'].map(k => getComputedStyle(document.activeElement)[k]) : []}};
+      ...(focusedTab ? {focused_horizontal_tab:focusedTab} : {}),
+      focus:{selector:recordedFocus ? selector(recordedFocus) : '',text:recordedFocus?.innerText?.slice(0,160),
+        outline:recordedFocus ? ['outlineStyle','outlineWidth','outlineColor'].map(k => getComputedStyle(recordedFocus)[k]) : []}};
   };
 })();

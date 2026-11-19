@@ -114,8 +114,14 @@ def machine_checks(run):
         targeted=action['type']=='key'
         evidence = edge['evidence_dir'] + '/transition.json'
         outcome, observed = keyboard_route_result(run, edge, evidence)
+        if outcome == 'passed' and edge.get('focus_after'):
+            observed += f"入力後のフォーカスは {edge['focus_after']}。"
+        if action.get('focused_only'):
+            expected = '先行操作で対象にフォーカスが移った状態でキーを送出できる'
+        else:
+            expected = '指定した対象へTabで到達し、キーを送出できる' if targeted else '現在のフォーカスへキーを送出できる'
         rows.append(dict(criterion='2.1.1',checkpoint='実入力 / '+action.get('key',action['type']),
-            expected='指定した対象へTabで到達し、キーを送出できる' if targeted else '現在のフォーカスへキーを送出できる',
+            expected=expected,
             outcome=outcome,
             environment=edge['environment'],capture=f'操作経路 {index+1}',state_label=scene(route),
             target=action.get('selector','') if targeted else '現在のフォーカス',
