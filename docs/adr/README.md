@@ -55,3 +55,4 @@
 - [0049 ローカルモデルのツール呼び出しを予備試験として扱う](0049-bound-local-model-tool-preflight.md)
 - [0050 帳票の出力と検証の完了を報告JSONで確認する](0050-report-page-audit-status-from-json.md)
 - [0051 共通部品の測定をページ別の参照HTMLで読めるようにする](0051-export-page-shared-contrast-reference.md)
+- [0052 改行で並べた箇条書きを確認候補に含める](0052-observe-break-separated-list-candidates.md)
