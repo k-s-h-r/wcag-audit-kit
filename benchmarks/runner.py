@@ -12,7 +12,7 @@ import uuid
 import platform
 import sys
 from importlib.metadata import version
-from . import core, status_capture
+from . import core, status_capture, text_paint_evidence
 from scripts.skill_layout import resource_files,SKILLS
 
 
@@ -51,11 +51,18 @@ def environment():
             'playwright':version('playwright'),'chromium':subprocess.run([shutil.which('chromium') or 'chromium','--version'],capture_output=True,text=True,check=True).stdout.strip()}
 
 
-def prepare(run,criterion=None,selected_modes=None,port=0,config=None):
+def prepare(run,criterion=None,selected_modes=None,port=0,config=None,*,text_paint=False):
     run=Path(run);data=core.corpus();selected_modes=selected_modes or ['machine']
     chosen=[s for s in data['suites'] if not criterion or s['criterion'] in criterion]
     if criterion and set(criterion)!={s['criterion'] for s in chosen}:raise ValueError('指定基準はまだ問題集に登録されていません')
     if any(m not in core.modes.MODES for m in selected_modes):raise ValueError('モードが不正')
+    configuration = dict(config or {'max_states':8,'max_steps':32,'max_depth':3,'max_images':6})
+    if 'text_paint_images' in configuration:
+        raise ValueError('文字の画素測定は--text-paintで指定する')
+    if text_paint:
+        if not set(selected_modes) <= text_paint_evidence.MODES or '1.4.3' not in {s['criterion'] for s in chosen}:
+            raise ValueError('--text-paintにはai又はfullモードと1.4.3を含む対象が必要')
+        configuration['text_paint_images'] = text_paint_evidence.IMAGE_BUDGET
     if run.exists() and any(run.iterdir()):raise ValueError('新しい出力先を指定する。再開は--resume')
     run.mkdir(parents=True,exist_ok=True);public=run/'worker/public'
     for suite in data['suites']:
@@ -81,7 +88,7 @@ def prepare(run,criterion=None,selected_modes=None,port=0,config=None):
         git=subprocess.run(['git','rev-parse','HEAD'],cwd=core.ROOT,text=True,capture_output=True)
         metadata=dict(schema_version='1',run_id=uuid.uuid4().hex,created_at=core.timestamp(),corpus_digest=data['digest'],
             oracle_digest=core.digest(oracle),modes=selected_modes,selection=[s['criterion'] for s in chosen],port=http.server_port,
-            configuration=config or {'max_states':8,'max_steps':32,'max_depth':3,'max_images':6},
+            configuration=configuration,
             implementation_digest=implementation_digest(),git_head=git.stdout.strip(),working_tree=True,
             environment=environment(),
             standard=core.audit.CATALOG['standard'],normative_hashes={s['criterion']:core.audit.CRITERIA[s['criterion']]['normative_sha256'] for s in chosen},
@@ -100,7 +107,7 @@ def prepare(run,criterion=None,selected_modes=None,port=0,config=None):
         http.shutdown();http.server_close();raise
 
 
-def collect(run,*,criterion=None,selected_modes=None,port=0,resume=False,config=None):
+def collect(run,*,criterion=None,selected_modes=None,port=0,resume=False,config=None,text_paint=False):
     from ledger_lock import run_lock
     run=Path(run)
     if resume:
@@ -109,9 +116,12 @@ def collect(run,*,criterion=None,selected_modes=None,port=0,resume=False,config=
         if meta['environment']!=environment():raise ValueError('実行環境が変わった。別runへ記録する')
         if criterion and set(criterion)!=set(meta['selection']):raise ValueError('再開時に対象基準を変えない')
         if selected_modes and selected_modes!=meta['modes']:raise ValueError('再開時にモードを変えない')
-        if config and config!=meta['configuration']:raise ValueError('再開時に実行上限を変えない')
+        saved_configuration = dict(meta['configuration'])
+        if text_paint != (saved_configuration.pop('text_paint_images', None) is not None):
+            raise ValueError('再開時に--text-paintの指定を変えない')
+        if config and config!=saved_configuration:raise ValueError('再開時に実行上限を変えない')
         http=server(run/'worker/public',meta['port'])
-    else:meta,http=prepare(run,criterion,selected_modes,port,config)
+    else:meta,http=prepare(run,criterion,selected_modes,port,config,text_paint=text_paint)
     try:
         with run_lock(run):
             try:
@@ -146,6 +156,7 @@ def collect(run,*,criterion=None,selected_modes=None,port=0,resume=False,config=
                                                    fixture_sha256=source_digest)
                                     observed = asyncio.run(status_capture.collect(url, body, binding, plan))
                                     core.save(location/f'status-capture-{identifier}.json', observed)
+                                text_paint_evidence.collect(run, meta, job, page, location)
                             state='completed' if code==0 else 'error'
                         finally:
                             pages[page]={'status':state,'exit_code':code,'directory':(location/'run').relative_to(run).as_posix()}
