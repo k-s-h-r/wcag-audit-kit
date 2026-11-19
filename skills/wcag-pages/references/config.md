@@ -37,7 +37,7 @@ scope:
   max_pages: 100
 ```
 
-configuredではseeds・known_pagesからの巡回や、表示されたリンクの追跡をしない。max_pagesで処理しきれなかった指定URLは未訪問へ残る。pagesコマンドで一覧だけ作る場合は全指定URLを返し、ブラウザーを開かない。pages_fileは読込時に一覧と元ファイルのハッシュへ解決してrunへ保存する。
+configuredではseeds・known_pagesからの巡回や、表示されたリンクの追跡をしない。`start` ではmax_pagesで処理しきれなかった指定URLが未訪問へ残る。`pages` はブラウザーを開かず全指定URLを返す。`page-batch` は全指定URLを台帳に載せ、1回の処理件数を `--max-pages-this-run` で指定できる。pages_fileは読込時に一覧と元ファイルのハッシュへ解決してrunへ保存する。
 
 discoverは既存のseeds・known_pagesから初期表示のリンクをたどる。どちらのモードも、リンクがない画面や操作後の状態まで発見した証明にはならない。
 

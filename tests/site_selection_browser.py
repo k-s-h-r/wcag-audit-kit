@@ -188,6 +188,96 @@ async def observe(base, storage_file):
             await browser.close()
 
 
+def select_targets(out, base, anonymous, authenticated, procedure, profile_states):
+    auth_pages = {row['url']: row for row in authenticated['pages']}
+    assert set(auth_pages) == {base + path for path in (*PUBLIC, HISTORY)}
+    assert auth_pages[base + HISTORY]['source'] == base + '/'
+    assert authenticated['errors'] == anonymous['errors'] and not authenticated['unvisited']
+
+    selected = [dict(url=row['url'], access='failed_http_404' if row['url'] == base + MISSING else 'visited',
+                     source=row['source'], reason='finite in-scope fixture census',
+                     states=['initial', 'revealed', 'returned'] if row['url'] == base + '/' else ['initial'],
+                     session='authenticated' if row['url'] == base + HISTORY else 'anonymous',
+                     audit='not_run') for row in anonymous['pages'] + [auth_pages[base + HISTORY]]]
+    profile = next(row for row in selected if row['url'] == base + '/profile')
+    profile['states'] = [sample['state'] for sample in profile_states]
+    selected.append(dict(url=base + COMPLETION, source='observed operation', access='reached_after_operation',
+                         reason='completion target of the observed procedure', states=['completed'],
+                         session='anonymous', audit='not_run'))
+
+    # Lead with the targets that exercise the authenticated, discovered-by-operation,
+    # and failed branches of the handoff. The URL list also retains all pending targets.
+    priorities = {base + path: position for position, path in enumerate((HISTORY, COMPLETION, MISSING))}
+    selected.sort(key=lambda row: priorities.get(row['url'], len(priorities)))
+    urls = [row['url'] for row in selected]
+    assert {state['url'] for state in procedure} <= set(urls)
+    write_json(out / 'selected-urls.json', {'pages': urls})
+    return selected
+
+
+def verify_page_proof(batch_dir, row, heading):
+    run = (batch_dir / row['run']).resolve()
+    assert run.is_relative_to(batch_dir.resolve())
+    run_config = json.loads((run / 'run.json').read_text())['config']
+    assert run_config['scope']['pages'] == [row['url']]
+    paths = {key: (batch_dir / path).resolve() for key, path in row['reports'].items()}
+    assert set(paths) == {'html', 'json', 'excel'}
+    assert all(path.is_file() and path.is_relative_to(run) for path in paths.values())
+    report = json.loads(paths['json'].read_text())
+    assert report['url'] == row['url'] and report['verification']['mode'] == 'machine'
+    assert report['audit_complete'] is row['audit_complete'] is False
+    receipts = json.loads((run / 'capture-manifest.json').read_text())
+    initial = next(item for item in receipts['captures'] if item['state'] == 'initial')
+    evidence_path = Path(initial['evidence_dir']) / 'inventory.json'
+    path = (run / evidence_path).resolve()
+    assert path.is_relative_to(run)
+    inventory = json.loads(path.read_text())
+    assert inventory['url'] == row['url']
+    assert any(node['tag'] == 'h1' and node['text'].strip() == heading for node in inventory['nodes'])
+    proof = {'path': evidence_path.as_posix(), 'sha256': sha256(path.read_bytes()).hexdigest()}
+    assert proof in json.loads((run / 'exploration.json').read_text())['proof']
+    return dict(url=row['url'], run=row['run'], reports=row['reports'], proof=proof)
+
+
+def run_authenticated_batch(out, base, server, auth_file, selected):
+    handoff = config(base)
+    handoff['scope'].update(mode='configured', pages_file='selected-urls.json')
+    requests = server.observed_requests
+    before = len(requests)
+    configured = run_selection(out, 'handoff', handoff)
+    assert len(requests) == before
+    assert [row['url'] for row in configured['pages']] == [row['url'] for row in selected]
+    assert all(row == {'url': row['url'], 'source': 'configured', 'visited': False} for row in configured['pages'])
+
+    handoff['scope']['pages_file'] = str((out / 'selected-urls.json').resolve())
+    handoff['auth_state'] = str(auth_file)
+    handoff['keyboard_steps'] = 1
+    settings = auth_file.with_name('batch-config.json')
+    write_json(settings, handoff)
+    batch = out / 'batch'
+    process = subprocess.run([sys.executable, str(SKILL / 'scripts/audit.py'), 'page-batch',
+                              '--config', str(settings), '--out', str(batch),
+                              '--max-pages-this-run', '3'],
+                             capture_output=True, text=True, timeout=90)
+    assert process.returncode == 0, (process.stdout, process.stderr)
+    summary = json.loads(process.stdout)
+    value = json.loads((batch / 'page-batch.json').read_text())
+    rows = value['pages']
+    assert [row['url'] for row in rows] == [row['url'] for row in configured['pages']]
+    assert summary['counts'] == value['counts'] == {'completed': 2, 'failed': 1, 'pending': 6, 'interrupted': 0}
+    assert summary['all_pages_attempted'] is False and value['inputs']['auth_state_sha256']
+    assert [row['status'] for row in rows] == ['completed', 'completed', 'failed'] + ['pending'] * 6
+    assert 'HTTP 404' in rows[2]['reason'] and not rows[2].get('reports')
+    assert all(not (batch / row['run']).exists() for row in rows[3:])
+    visits = [item for item in requests[before:] if item[1] != '/favicon.ico']
+    assert visits == [('GET', HISTORY, 200), ('GET', '/procedure-done', 200), ('GET', MISSING, 404)], visits
+    proof = [verify_page_proof(batch, row, heading)
+             for row, heading in zip(rows[:2], ('Account history', 'Procedure complete'), strict=True)]
+    assert len({item['run'] for item in proof}) == 2
+    assert len({item['proof']['sha256'] for item in proof}) == 2
+    return dict(manifest='batch/page-batch.json', counts=value['counts'], proof=proof)
+
+
 def main(out):
     out.mkdir(parents=True, exist_ok=False)
     server, worker = start_server(SelectionFixture)
@@ -207,46 +297,24 @@ def main(out):
             authenticated_config = config(base)
             authenticated_config['auth_state'] = str(auth_file)
             authenticated = run_selection(out, 'authenticated', authenticated_config, Path(scratch) / 'config.json')
-        auth_pages = {row['url']: row for row in authenticated['pages']}
-        assert set(auth_pages) == {base + path for path in (*PUBLIC, HISTORY)}
-        assert auth_pages[base + HISTORY]['source'] == base + '/'
-        assert authenticated['errors'] == anonymous['errors'] and not authenticated['unvisited']
-
-        selected = [dict(url=row['url'], access='failed_http_404' if row['url'] == base + MISSING else 'visited',
-                         source=row['source'], reason='finite in-scope fixture census',
-                         states=['initial', 'revealed', 'returned'] if row['url'] == base + '/' else ['initial'],
-                         session='authenticated' if row['url'] == base + HISTORY else 'anonymous',
-                         audit='not_run') for row in anonymous['pages'] + [auth_pages[base + HISTORY]]]
-        profile = next(row for row in selected if row['url'] == base + '/profile')
-        profile['states'] = [sample['state'] for sample in profile_states]
-        selected.append(dict(url=base + COMPLETION, source='observed operation', access='reached_after_operation',
-                             reason='completion target of the observed procedure', states=['completed'],
-                             session='anonymous', audit='not_run'))
+            selected = select_targets(out, base, anonymous, authenticated, procedure, profile_states)
+            batch = run_authenticated_batch(out, base, server, auth_file, selected)
         excluded = [{'url': base + EXCLUDED, 'reason': 'outside fixture scope'}]
         assert not any(path == EXCLUDED for _, path, _ in server.observed_requests)
         assert sum(method == 'POST' for method, _, _ in server.observed_requests) == 1
-
-        handoff = config(base)
-        handoff['scope'].update(mode='configured', pages_file='selected-urls.json')
-        write_json(out / 'selected-urls.json', {'pages': [row['url'] for row in selected]})
-        before = len(server.observed_requests)
-        configured = run_selection(out, 'handoff', handoff)
-        assert len(server.observed_requests) == before
-        assert [row['url'] for row in configured['pages']] == [row['url'] for row in selected]
-        assert all(row == {'url': row['url'], 'source': 'configured', 'visited': False} for row in configured['pages'])
-        assert {state['url'] for state in procedure} <= {row['url'] for row in selected}
 
         report = {
             'scope': config(base), 'browser': browser, 'selection_policy': 'all known fixture URLs within scope',
             'pages': selected, 'excluded': excluded, 'procedure': procedure, 'shared_footer': components,
             'profile_states': profile_states,
-            'anonymous_candidates': len(anonymous['pages']), 'authenticated_candidates': len(auth_pages),
-            'not_yet_visited': limited['unvisited'], 'configured_pages': len(configured['pages']),
-            'site_conformance': None,
+            'anonymous_candidates': len(anonymous['pages']), 'authenticated_candidates': len(authenticated['pages']),
+            'not_yet_visited': limited['unvisited'], 'configured_pages': len(selected),
+            'authenticated_batch': batch, 'site_conformance': None,
         }
         write_json(out / 'selection-packet.json', report)
-        print(json.dumps({key: report[key] for key in ('anonymous_candidates', 'authenticated_candidates',
-                                                      'configured_pages', 'site_conformance')}))
+        summary = {key: report[key] for key in ('anonymous_candidates', 'authenticated_candidates',
+                                                'configured_pages', 'site_conformance')}
+        print(json.dumps({**summary, 'batch': batch['counts']}, ensure_ascii=False))
     finally:
         stop_server(server, worker)
         site.SESSIONS.clear()

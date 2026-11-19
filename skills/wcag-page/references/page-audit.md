@@ -9,6 +9,19 @@ page-auditは、対象URLだけで操作候補を調べ、実クリック・hove
 
 操作候補はネイティブ部品・ARIA・登録されたイベント・カーソル等から抽出する。開いた後に現れた候補もキューへ追加する。外観だけで操作できそうな領域の追加確認には、保存画像と位置・候補一覧を使う。候補抽出だけで全操作を発見したことにはしない。
 
+## 指定URL一覧を順に検査する
+
+[設定](config.md)の `scope.mode` を `configured` にし、`scope.pages` 又は `scope.pages_file` に確定した一覧を指定する。検証モードは `machine`。自動探索用に既定の等倍環境を用意し、事前定義の `states` は空にする。URLは一覧の順に処理する。リンク巡回は行わない。
+
+```sh
+python3 scripts/audit.py page-batch --config /project/wcag.yml --out /project/run-pages --max-pages-this-run 10
+python3 scripts/audit.py page-batch --config /project/wcag.yml --out /project/run-pages --resume --max-pages-this-run 10
+```
+
+`--max-pages-this-run` は1回に処理する件数で、省略すると残りをすべて処理する。停止後や上限到達後の再開には同じ設定・一覧・認証状態・検査の版を使う。`page-batch.json` からURLごとのHTML・JSON・Excel、未着手・中断・失敗理由を確認できる。404など収集できなかったURLは失敗として残し、続くURLへ進む。
+
+`completed` はページ別帳票ができたことを表す。未探索の経路数、達成基準の判定件数、検証の完了状況は別の項目に記録する。帳票があるページの残りを検査する場合は、そのページのrunを使って `page-audit --resume` や `page-next` を実行する。バッチの台帳は帳票を作った時点の記録として残る。
+
 ## モードを選んで進める
 
 [検証モード](verification-modes.md)のmachine / ai / screen-reader / fullを`--mode`で選ぶ。設定なしの新しいpage-auditはmachine。モードで有効な検査手段と、実際に実行した結果は区別する。page-nextは利用する観点・省く観点・理由を返す。AIによる比較はスキルの実行環境、実SRは専用アダプターで実施し、このCLIだけで両方を実行済みにはしない。モード変更は別のrunとし、resumeは保存したモードを継続する。

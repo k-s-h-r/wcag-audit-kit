@@ -19,7 +19,7 @@ metadata:
 | 利用者の依頼 | 使うスキル | 省略できる段階 |
 | --- | --- | --- |
 | このページを確認して | [wcag-page](../wcag-page/SKILL.md) | URL抽出とサイト全体の準備 |
-| この一覧のページを確認して | wcag-pageを指定ページごとに使う | リンク巡回 |
+| この一覧のページを確認して | machineはpage-batch、他のモードはwcag-pageを指定ページごとに使う | リンク巡回 |
 | 検査するページを探して | [wcag-pages](../wcag-pages/SKILL.md) | WCAGの判定 |
 | 結果をExcelにまとめて | [wcag-report](../wcag-report/SKILL.md) | 再訪問・再検査 |
 | 作業用Excelの判定を取り込んで | 本スキルで[記録の更新](references/collaboration.md)を行い、wcag-reportで報告する | 再訪問・再検査 |
@@ -36,7 +36,7 @@ metadata:
 ## サイト全体を順に進める
 
 1. URL一覧が確定済みならconfiguredを使う。未確定ならwcag-pagesの手順で候補を作る。本スキルが対象範囲・全件又は抽出・採用と除外の理由・必要な一連の手続きを記録し、試験対象を定める。候補抽出をサイトの網羅確認に置き換えない。
-2. `scripts/audit.py`と`references/catalog.json`があるディレクトリーを実行ルートとする。新しい設定・runを作り、全対象のURL・状態・環境を保存する。収集方法は[実行コマンド](references/commands.md)を使う。
+2. `scripts/audit.py`と`references/catalog.json`があるディレクトリーを実行ルートとする。新しい設定・runを作り、全対象のURL・状態・環境を保存する。確定済みの一覧をmachineで進める場合は[page-batchの手順](references/page-audit.md#指定url一覧を順に検査する)を使う。その他の収集は[実行コマンド](references/commands.md)を使う。
 3. サイトは1つのrunを正本にする。[タスク](references/collaboration.md)をページごとに作り、今回の担当と件数を限定する。
 4. wcag-pageの手順へrun、対象URL、タスクID、モード、予算、状態・環境、必要な到達手順を渡す。認証・起動・複雑な操作が必要なら[対象固有の手順](references/methods.md#対象固有の操作手順を実行して確かめる)を先に確かめる。判定・操作調査票・残作業を同じ台帳へ保存する。別のAIエージェントの起動は、この構成だけを理由に行わない。同じブラウザー・認証・試験データを複数担当で同時に操作しない。
 5. 中断前に記録を保存する。次回は`tasks list`と`pending --task ...`から再開する。1回の応答へ全ページの画像・本文・全基準を読み込まない。
