@@ -61,6 +61,16 @@ class ModeSelectionTest(unittest.TestCase):
         for ident in ['1.2.6-02','2.3.1-02','3.1.5-02']:
             self.assertEqual(set(rows[ident]['support'].values()),{'no'})
 
+    def test_structure_instructions_are_attached_to_the_structure_work_item(self):
+        rows = {row['id']: row for row in modes.coverage(modes.catalog(), 'ai')}
+        structure = modes.work_checkpoint(rows['1.3.1-02'], 'ai')
+        alternative = modes.work_checkpoint(rows['1.1.1-04'], 'ai')
+        self.assertIn('ブラウザーが認識した役割', structure['program'])
+        self.assertIn('`visual_structure_scope`', structure['preparation'])
+        self.assertIn('保存した証拠を開き', alternative['preparation'])
+        self.assertIn('画像・周辺の文章と代替説明を比較', alternative['ai_instruction'])
+        self.assertNotIn('見た目の構造の確認', alternative['preparation'])
+
     def test_generated_matrix_and_details_match_the_shared_definition(self):
         sys.path.insert(0,str(ROOT/'scripts'))
         import build_mode_matrix
