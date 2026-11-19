@@ -22,6 +22,7 @@ import visual_structure
 
 SCRIPT=(ROOT/'scripts/page_explorer.js').read_text()
 RISK=re.compile(r'delete|remove|purchase|checkout|pay\b|buy\b|logout|sign.?out|submit|send\b|save\b|削除|購入|決済|支払|送信|保存|ログアウト',re.I)
+TAB_UNREACHABLE = 'Tabで対象へ到達できない（120移動まで確認）'
 
 
 class KeyboardUnreachable(ValueError):
@@ -78,7 +79,7 @@ async def perform(page, action):
         for _ in range(120):
             if await target.evaluate('(e)=>e===e.getRootNode().activeElement'):reached=True;break
             await page.keyboard.press('Tab')
-        if not reached:raise KeyboardUnreachable('Tabで対象へ到達できない（120移動まで確認）')
+        if not reached:raise KeyboardUnreachable(TAB_UNREACHABLE)
         await page.keyboard.press(action['key'])
     else:raise ValueError('未対応の探索操作')
     return await page.evaluate('() => window.__wcagWaitForUpdates()')
@@ -227,7 +228,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 await context.route_web_socket('**/*',lambda socket:socket.close())
                 page=await context.new_page()
                 frame_scope=keyboard_frames.FrameScope(page, check.get('frame') if check else None)
-                error=None;data=None;unreachable=False;native_events=[];settling=[]
+                error=None;data=None;native_events=[];settling=[]
+                action_index = unreachable_step = None
                 async def dismiss_dialog(dialog):
                     native_events.append({'type':dialog.type,'message':dialog.message,'action':'dismiss'})
                     await dialog.dismiss()
@@ -274,7 +276,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                         if captured:
                                             measurement['image'] = screenshot.name
                     else:
-                        for action in route:settling.append(await perform(page,action))
+                        for action_index, action in enumerate(route, 1):
+                            settling.append(await perform(page, action))
                         label_observations=await state_labels.observe(page,route,labels)
                         matched_labels=state_labels.verified(labels,route,label_observations)
                         data=await page.evaluate('() => window.__wcagExplore()')
@@ -333,8 +336,11 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                 evidence = (dest/'keyboard-trace-stop.json').relative_to(run).as_posix()
                                 value['remaining'].append(f'{dest.name}：補助のTab観察は{trace_stop["step"]}回目で中断。'
                                                           f'以降は未確認（証拠: {evidence}）。')
+                except KeyboardUnreachable as exc:
+                    error = str(exc)
+                    unreachable_step = action_index
                 except Exception as exc:
-                    error=str(exc);unreachable=isinstance(exc,KeyboardUnreachable)
+                    error = str(exc) or type(exc).__name__
                 finally:
                     interrupted_reason = error or ('制限した通信・ページ移動又はブラウザーの分岐がある。' if blocked or native_events else None)
                     if check_record is not None:
@@ -358,12 +364,15 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             structure_observation = visual_structure.not_observed(visual_scope, interrupted_reason)
                         if structure_observation is not None:
                             audit.save(dest/visual_structure.EVIDENCE_FILE, structure_observation)
-                    audit.save(dest/'transition.json',dict(job,error=error,blocked_requests=blocked,native_events=native_events,settling=settling))
+                    edge = dict(job, error=error, blocked_requests=blocked, native_events=native_events)
+                    if unreachable_step is not None:
+                        edge['keyboard_unreachable_step'] = unreachable_step
+                    audit.save(dest/'transition.json', dict(edge, settling=settling))
                     audit.save(dest/'input-events.json',observer.export())
                     await context.close()
                 proof=[audit.evidence_item(run,str(p.relative_to(run))) for p in sorted(dest.iterdir()) if p.is_file()]
                 value['proof'].extend(proof)
-                edge=dict(job,error=error,evidence_dir=str(dest.relative_to(run)),blocked_requests=blocked,native_events=native_events)
+                edge['evidence_dir'] = str(dest.relative_to(run))
                 if check and check_record['outcome']=='cant_tell':
                     value['remaining'].append(f"{env['id']} / キーボード経路 {check['name']}：{check_record['reason']}")
                 if image_pair is not None and check_record['outcome'] == 'passed':
@@ -378,7 +387,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 if border and border_record['status'] != 'measured':
                     value['remaining'].append(f"{env['id']} / 外枠の測定 {border['name']}：{border_record['observed']}")
                 value['edges'].append(edge);value['steps']+=1
-                if error and not unreachable and not declared:value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
+                if error and unreachable_step != len(route) and not declared:
+                    value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
                 if blocked:value['remaining'].append(f'{env["id"]}：通信又はページ移動を制限した経路がある。状態を確認する。')
                 if native_events:value['remaining'].append(f'{env["id"]}：ブラウザー標準ダイアログ・別窓・ダウンロードの分岐を追加検査する。')
                 if any(wait['status']!='quiet' for wait in settling):

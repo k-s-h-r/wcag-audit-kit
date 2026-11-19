@@ -7,6 +7,7 @@ from openpyxl import load_workbook
 import test_ledger as fixture
 import audit
 import page_workflow
+from page_explorer import TAB_UNREACHABLE
 
 
 def action(kind, selector, **details):
@@ -50,7 +51,7 @@ class KeyboardReportScopeTest(unittest.TestCase):
 
         files = audit.write_page_reports(self.run, self.config['url'])
         checks = audit.load(files['json'])['machine_checks']
-        self.assertEqual([(row['target'], row['outcome']) for row in checks], [('#keyboard-only', 'failed')])
+        self.assertEqual([(row['target'], row['outcome']) for row in checks], [('#keyboard-only', 'cant_tell')])
         self.assertEqual(checks[0]['evidence'], 'evidence/keyboard/transition.json')
         self.assertEqual(graph_path.read_bytes(), original)
 
@@ -90,3 +91,25 @@ class KeyboardReportScopeTest(unittest.TestCase):
         self.assertEqual(checks[0]['target'], '#opener')
         self.assertEqual(checks[1]['target'], '現在のフォーカス')
         self.assertEqual(checks[3]['evidence'], 'evidence/explicit/keyboard-check.json')
+
+    def test_unreachable_is_attributed_to_the_attempted_step(self):
+        first = action('key', '#opener', key='Enter')
+        last = action('key', '#nested', key='Space')
+        route = [first, last]
+        quiet = [{'status': 'quiet'}]
+        graph = self.save_graph([
+            self.edge('last', route, error=TAB_UNREACHABLE, keyboard_unreachable_step=2),
+            self.edge('prefix', route, error=TAB_UNREACHABLE, keyboard_unreachable_step=1),
+            self.edge('legacy-last', route, error=TAB_UNREACHABLE, settling=quiet * 2),
+            self.edge('legacy-prefix', route, error=TAB_UNREACHABLE, settling=quiet),
+            self.edge('legacy-unverified', route, error=TAB_UNREACHABLE),
+            self.edge('blocked-last', route, error=TAB_UNREACHABLE, keyboard_unreachable_step=2,
+                      native_events=[{'type': 'dialog'}]),
+        ])
+        original = graph.read_bytes()
+        checks = page_workflow.machine_checks(self.run)
+        self.assertEqual([row['outcome'] for row in checks],
+                         ['failed', 'cant_tell', 'failed', 'cant_tell', 'cant_tell', 'cant_tell'])
+        self.assertIn('1手順目', checks[1]['observed'])
+        self.assertIn('1手順目', checks[3]['observed'])
+        self.assertEqual(graph.read_bytes(), original)

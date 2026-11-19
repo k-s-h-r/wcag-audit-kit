@@ -90,6 +90,8 @@ G1はT001で事前に選んだ機械検査10行で達成した。T010では指�
 
 T014で見つかったスキップリンクの誤検出は、生成セレクターの親子関係と、フォーカス移動先を操作候補に含める条件を修正した。次に適用範囲を広げるときは、より複雑な操作後の状態と、数値や方向だけに絞れない画像の代替説明を別の対象で測る。[ADR 0057](adr/0057-match-exploration-targets-to-dom-parents.md)
 
+機械検査の報告では、キーボード経路の実行エラーと、実Tabで対象へ到達できなかった結果を分ける。次は、実Tabでフォーカスした単色の枠と隣接色のコントラストを測る。[ADR 0058](adr/0058-separate-keyboard-route-errors-from-results.md) [Issue #59](https://github.com/k-s-h-r/wcag-audit-kit/issues/59)
+
 [T012](tasks/T012-screen-reader.md)では、同じ環境でボタンの読み上げと操作後の画面を照合し、Orcaの通知あり・なしを区別した。Orca 48.1の保存通知と51.1の記録通知を別のrunで検証し、各2例で期待と一致した。[再実行方法](adr/0044-verify-record-notification-contrast.md)
 
 [T005：対象固有の手順](tasks/T005-project-procedure.md)と[T006：URL一覧化](tasks/T006-url-inventory.md)はローカル例で再実行した。URL抽出では最上位文書の除外先へのリダイレクトを送信前に止める。[T013](tasks/T013-site-selection.md)ではローカルサイトの選定一覧を `page-batch` に渡した。選定9件のうち帳票2件、404の失敗1件、未着手6件を確認した。[T004：Codexの呼び出し](tasks/T004-codex-invocation.md)では隔離した実Codexで本文展開、指定1ページの検査、保存済み結果の再出力、子の手順を読んだ後の指定2ページの検査を確認した。ローカルモデルの最終回答には誤った完了表現や時間切れがあり、実行範囲と帳票に沿った回答の再試験が残る。後続の修正・複数ページ・AI・実SRは、[一覧の開始条件と合流条件](tasks/README.md)に従う。各担当のPRは担当タスクの進捗を更新し、段階や次の作業が変わる合流時にこの文書を更新する。

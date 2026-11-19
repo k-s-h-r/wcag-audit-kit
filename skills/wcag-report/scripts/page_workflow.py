@@ -18,6 +18,30 @@ def grouped_machine_issues(checks):
         outcome='問題あり（機械）' if g['outcome']=='failed' else '機械判定不能') for g in groups.values()]
 
 
+def keyboard_route_result(run, edge, evidence):
+    import audit
+    from page_explorer import TAB_UNREACHABLE
+
+    error = edge.get('error')
+    if edge.get('blocked_requests') or edge.get('native_events'):
+        return 'cant_tell', error or '通信・ページ移動の制限又はブラウザーの分岐があり、実入力の結果を確認できない。'
+    if not error:
+        return 'passed', '実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。'
+
+    route = edge['route']
+    step = edge.get('keyboard_unreachable_step')
+    if 'keyboard_unreachable_step' not in edge and error == TAB_UNREACHABLE and (run / evidence).is_file():
+        # Older receipts saved the initial wait and one wait per completed action.
+        settled = audit.load(run / evidence).get('settling')
+        if isinstance(settled, list):
+            step = len(settled)
+    if type(step) is int and 0 < step <= len(route) and route[step - 1]['type'] == 'key':
+        if step == len(route):
+            return 'failed', error
+        return 'cant_tell', f'{step}手順目で停止したため、最後の入力は未確認。{error}'
+    return 'cant_tell', f'実入力の結果を確認できない。{error}'
+
+
 def machine_checks(run):
     import audit
     from page_explorer import status
@@ -88,13 +112,14 @@ def machine_checks(run):
         if not route or any(step.get('type') not in {'key','press'} for step in route):continue
         action=route[-1]
         targeted=action['type']=='key'
+        evidence = edge['evidence_dir'] + '/transition.json'
+        outcome, observed = keyboard_route_result(run, edge, evidence)
         rows.append(dict(criterion='2.1.1',checkpoint='実入力 / '+action.get('key',action['type']),
             expected='指定した対象へTabで到達し、キーを送出できる' if targeted else '現在のフォーカスへキーを送出できる',
-            outcome='cant_tell' if edge.get('blocked_requests') or edge.get('native_events') else 'failed' if edge.get('error') else 'passed',
+            outcome=outcome,
             environment=edge['environment'],capture=f'操作経路 {index+1}',state_label=scene(route),
             target=action.get('selector','') if targeted else '現在のフォーカス',
-            observed=edge.get('error') or '実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。',
-            evidence=edge['evidence_dir']+'/transition.json',source='',
+            observed=observed,evidence=evidence,source='',
             note='この入力経路の実行結果。キーボード操作の達成基準全体の判定ではない。'))
     return rows
 
