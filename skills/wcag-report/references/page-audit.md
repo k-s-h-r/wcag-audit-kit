@@ -11,6 +11,17 @@ page-auditは、対象URLだけで操作候補を調べ、実クリック・hove
 
 直接 `wcag-page` に新規検査を頼む場合、適合レベル、検査モード、標準の証拠画像のうち未指定の設定を開始前に聞く。CLIを直接使う場合は各オプションで指定する。上の例では機械検査を行い、PC幅とスマホ相当の幅で、操作する前のページ全体を1枚ずつ保存する。ほかの撮影範囲と枚数上限は[観察設定](inspection-profiles.md)を参照する。
 
+## 初期画面の結果を先に返す
+
+```sh
+python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page --mode machine --screenshots initial --initial-only
+python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page --resume --explore
+```
+
+直接の `wcag-page` は1行目で初期画面の結果を先に返す。各環境でページを読み込み、axeと設定に応じた初期画像を記録する。操作候補のキュー、Tab入力、診断用のスクロール、設定済みの追加手順は2行目で実行する。初期状態の証拠と判定を保持し、追加の結果は同じレポートに反映する。HTMLとJSONでは操作探索が未実施の間、その状態を表示する。初期画面の収集を中断した場合は `--resume --initial-only` で続きから収集できる。
+
+補助CLIで `--initial-only` を選ばず新しいrunを開始する場合は、従来どおり初回から操作も探索する。
+
 ## 指定URL一覧を順に検査する
 
 [設定](config.md)の `scope.mode` を `configured` にし、`scope.pages` 又は `scope.pages_file` に確定した一覧を指定する。検証モードは `machine`。自動探索用に既定の等倍環境を用意し、事前定義の `states` は空にする。URLは一覧の順に処理する。リンク巡回は行わない。

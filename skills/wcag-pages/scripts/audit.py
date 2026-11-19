@@ -471,7 +471,8 @@ def outcomes(run):
             'unassigned_remaining_cases':unassigned,
             'inspection_policy':policy(meta['config'].get('inspection')),'interaction_review':interactions,
             'observation_usage':manifest.get('inspection',{}),
-            'exploration':{k:exploration[k] for k in ['required','complete','remaining']},
+            'exploration':{**{k:exploration[k] for k in ['required','complete','remaining']},
+                           'deferred': exploration.get('deferred', False)},
             'machine_checks':automated,'counts':dict(stats),'criteria':per_criterion,'cases':rows}
     if 'visual_structure_scope' in meta['config']:
         from visual_structure import report_evidence
@@ -704,6 +705,7 @@ def render_reports(run, *, page_url=None):
     if mode_details:
         mode_details = '<details><summary>検査モードの仕様</summary>' + mode_details + '</details>'
     exploration = result['exploration']['remaining']
+    deferred_notice = '<p>初期画面の機械検査を収集しました。操作探索は未実施です。</p>' if result['exploration'].get('deferred') else ''
     exploration_details = (
         '<details id="exploration-details"><summary>自動探索で残った操作・状態</summary><ul>'
         + ''.join(f'<li>{escape(item)}</li>' for item in exploration) + '</ul></details>'
@@ -754,7 +756,7 @@ def render_reports(run, *, page_url=None):
 <div class="scope" role="region" aria-label="{scope_heading}">
 <p><strong>{complete}</strong>{f' · {escape(mode)}' if mode else ''}</p>
 <p>{len(selected)} 件の表示状態・環境を収集。{escape(environments)}</p>
-</div>
+{deferred_notice}</div>
 <nav aria-label="レポート内の移動"><ul>
 <li><a href="#failures">修正箇所</a></li><li><a href="#performed">実施結果</a></li>
 <li><a href="#remaining">残る確認</a></li><li><a href="#details">詳細と元データ</a></li>
@@ -855,12 +857,19 @@ def run_page_audit(run,args):
     verification_catalog(run)
     if run_meta(run)['config'].get('states'):
         raise ValueError('事前設定statesの収集にはpageを使う。page-auditは自動探索、追加シナリオはprobeで検査する')
-    value=asyncio.run(explore(run,max_states=args.max_states,max_steps=args.max_steps,max_depth=args.max_depth))
+    value = asyncio.run(explore(run, max_states=args.max_states, max_steps=args.max_steps, max_depth=args.max_depth,
+                                initial_only=args.initial_only, start_exploration=args.explore))
     if not run_plan(run)['cases']:
         print(json.dumps({'exploration':value['remaining'],'error':'収集に成功した状態がありません'},ensure_ascii=False));return 2
     files=write_page_reports(run,args.url)
-    print(json.dumps(dict(files,explored_states=len(value['nodes']),pending_routes=len(value['queue']),
-                         next_command=join(['python3','scripts/audit.py','page-next','--run',args.out,'--page-exact',args.url])),ensure_ascii=False))
+    deferred = value.get('deferred', False)
+    summary = dict(files, explored_states=len(value['nodes']), pending_routes=0 if deferred else len(value['queue']),
+                   operation_exploration_deferred=deferred,
+                   next_command=join(['python3', 'scripts/audit.py', 'page-next', '--run', args.out, '--page-exact', args.url]))
+    if deferred:
+        summary['explore_command'] = join(['python3', 'scripts/audit.py', 'page-audit', '--url', args.url,
+                                           '--out', args.out, '--resume', '--explore'])
+    print(json.dumps(summary, ensure_ascii=False))
     return 0
 
 
@@ -896,6 +905,9 @@ def main(argv=None):
         p.add_argument('--mode',choices=list(MODES))
         if name=='page-audit':
             p.add_argument('--resume',action='store_true')
+            stage = p.add_mutually_exclusive_group()
+            stage.add_argument('--initial-only', action='store_true', help='初期画面だけを機械検査する')
+            stage.add_argument('--explore', action='store_true', help='操作探索を実行する')
             p.add_argument('--max-states',type=int,default=64);p.add_argument('--max-steps',type=int,default=512);p.add_argument('--max-depth',type=int,default=8)
     p=sub.add_parser('tasks');actions=p.add_subparsers(dest='task_action',required=True)
     for action in ['create','list','claim']:

@@ -150,3 +150,11 @@ HTML・JSON・Excelと文字周辺に絞った証拠画像を照合し、1.4.3�
 表と同じ画素で見えるカードについて、後続行が独立した記事として認識される対照を候補から外した。役割不明の同じ配置と、記事を支援技術から隠した対照は候補に残った。HTML・ARIAの表と役割が不足する表も再検証した。両方のChromium回帰試験とPythonの278試験が通った。[ADR 0064](../adr/0064-use-framed-articles-to-narrow-table-candidates.md) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29) [PR #65](https://github.com/k-s-h-r/wcag-audit-kit/pull/65)
 
 合流前のレビューで、次のTabに動きがない場合を機械判定不能とし、タイマーが残る経路でも既存のEscapeを試すようにした。ブラウザーが複数のロール候補から表と認識した対照も、表の照合に残した。計6件のダイアログ対照と、表・カード、フォーカス移動時の通信制限、Python 278件を再検証した。[ADR 0063](../adr/0063-observe-focus-after-dismissing-modal.md) [ADR 0064](../adr/0064-use-framed-articles-to-narrow-table-candidates.md)
+
+## 初期画面の検査と任意の操作探索
+
+担当は `codex/initial-page-audit-first`。起点は [PR #67](https://github.com/k-s-h-r/wcag-audit-kit/pull/67) の `716364f`。直接の `wcag-page` は初期画面の帳票を先に返し、操作探索を選んだときは同じrunへ追加する。リンク内の文字などで、親のポインター挙動だけを引き継ぐ子はまとめる。独立した操作や委譲先の候補も判別する。[ADR 0068](../adr/0068-defer-single-page-operation-exploration.md)
+
+`tests/initial_page_audit_browser.py --out <新しい保存先>` で、PC幅とスマホ相当の幅の初期取得が各1回、操作キュー・Tabログなしで結果を返すことを確認した。操作探索を追加すると、展開後にだけ現れる画像の代替文の指摘が同じ帳票に入り、初期証拠のハッシュは一致した。リンク内の文言30件を同じリンクへまとめ、独立したハンドラー・カーソルだけの部品・イベントの委譲先は候補に残った。初期収集の中断・再開も検証した。
+
+全体画像と再開、Shadow DOMと探索範囲、横並びタブのChromium回帰と、ローカルでの範囲外遷移の除外を確認した。単体試験は281件中270件成功、環境依存で11件スキップ。公開サイトの再検査とCodex上の初期結果の案内は今回未実施。次は先行PR #67のレビューと合流を確認し、この変更のレビューに対応する。
