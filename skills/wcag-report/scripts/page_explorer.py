@@ -9,7 +9,7 @@ import uuid
 from urllib.parse import urldefrag
 
 from ledger_lock import run_lock
-from browser_capture import FOCUS, INVENTORY, ROOT, capture_image, normalize, page_id
+from browser_capture import FOCUS, INVENTORY, ROOT, SOFTWARE_COMPOSITING, capture_image, normalize, page_id
 from input_observation import INIT_SCRIPT, InputObserver
 import border_contrast
 import dialog_focus
@@ -208,6 +208,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     with run_lock(run):audit.save(checkpoint,value);audit.save(run/'capture-manifest.json',manifest)
     async with async_playwright() as pw:
         browser_args = ['--no-sandbox']
+        if images.policy['screenshots'] != 'off':
+            browser_args.append(SOFTWARE_COMPOSITING)
         if text_paths:
             browser_args.append('--force-color-profile=srgb')
         browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=browser_args)
@@ -382,8 +384,9 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                                         if not record['matched'] or record['id'] in still_matched]
                                 audit.save(dest/'state.json', data)
                             initial_only = images.policy['screenshots'] == 'initial'
-                            await images.capture(page, dest/'page.png', kind='state' if route else 'initial', label=action_label,
-                                                 full_page=not initial_only and data['scroll']['height'] <= env['viewport']['height']*20)
+                            full_page = not route or data['scroll']['height'] <= env['viewport']['height'] * 20
+                            await images.capture(page, dest/'page.png', kind='state' if route else 'initial',
+                                                 label=action_label, full_page=full_page)
                             # Actual scroll/tile captures reveal sticky/viewport-only content.
                             tiles = []
                             if not initial_only:
@@ -392,9 +395,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                     await images.capture(page, dest/f'tile-{len(tiles):03}.png', kind='state', label=action_label)
                                     tiles.append(y)
                             audit.save(dest/'tiles.json',{'positions':tiles,'height':data['scroll']['height'],'viewport':env['viewport']})
-                            if initial_only and data['scroll']['height']>env['viewport']['height']:
-                                value['remaining'].append(f'{env["id"]}：初期画面の外にある表示は画像で未確認。')
-                            if not initial_only and data['scroll']['height']>env['viewport']['height']*20:value['remaining'].append(f'{env["id"]}：20画面を超える縦方向の表示を追加調査する。')
+                            if not initial_only and data['scroll']['height'] > env['viewport']['height'] * 20:
+                                value['remaining'].append(f'{env["id"]}：21画面目以降はスクロール後の表示を追加調査する。')
                             if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(run)))):
                                 value['remaining'].append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
                             trace_stop = await record_tab_trace(page, dest, min(config.get('keyboard_steps',30),120),

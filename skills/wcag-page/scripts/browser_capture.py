@@ -12,6 +12,8 @@ from urllib.parse import urljoin, urlsplit, urlunsplit
 from collection_checkpoint import CollectionCheckpoint, save_json_atomic
 
 ROOT = Path(__file__).resolve().parents[1]
+# A GPU texture can clip the content of a tall screenshot while leaving a full-size PNG.
+SOFTWARE_COMPOSITING = '--disable-gpu-compositing'
 
 INVENTORY = r"""() => {
  const nodes=[...document.querySelectorAll('*')], limit=15000;
@@ -166,7 +168,10 @@ async def collect(config, run_dir):
     known = set(queue)
     with CollectionCheckpoint(config, run_dir, manifest, queue, seen, known, in_scope) as checkpoint:
         async with async_playwright() as pw:
-            browser = await pw.chromium.launch(executable_path=shutil.which('chromium'), args=['--no-sandbox'])
+            browser_args = ['--no-sandbox']
+            if images.policy['screenshots'] != 'off':
+                browser_args.append(SOFTWARE_COMPOSITING)
+            browser = await pw.chromium.launch(executable_path=shutil.which('chromium'), args=browser_args)
             try:
                 for url_index in range(config['scope']['max_pages']):
                     if not queue:
@@ -286,7 +291,7 @@ async def collect(config, run_dir):
                                 inv = await page.evaluate(INVENTORY)
                                 kind = 'initial' if state['id'] == 'initial' else 'state'
                                 await images.capture(page, dest/'page.png', kind=kind, label=state['id'] if kind == 'state' else None,
-                                                     full_page=images.policy['screenshots'] != 'initial', native_zoom=native_zoom)
+                                                     full_page=True, native_zoom=native_zoom)
                                 (dest/'dom.html').write_text(await page.content())
                                 (dest/'inventory.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2))
                                 cdp = await context.new_cdp_session(page)

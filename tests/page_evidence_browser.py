@@ -1,6 +1,7 @@
 """Check machine-only screenshot choices and report links in Chromium."""
 import argparse
 import asyncio
+from base64 import b64encode
 import contextlib
 from hashlib import sha256
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -22,7 +23,9 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
     def do_GET(self):
-        filler = '<p style="margin-top:1800px">Below the first viewport</p>' if self.path == '/long' else ''
+        spacer = 24000 if self.path == '/long' else 1800
+        filler = (f'<p style="margin:{spacer}px 0 0;height:28px;background:#ff0080">'
+                  'Below the first viewport</p>')
         page = f"""<!doctype html>
 <html lang="en"><head><title>Image evidence</title></head><body><main>
 <h1>Image evidence</h1>
@@ -56,6 +59,10 @@ def result(root):
     return run, files, images
 
 
+def png_size(path):
+    return unpack('>II', path.read_bytes()[16:24])
+
+
 async def check_report(files, paths):
     from playwright.async_api import async_playwright
 
@@ -75,6 +82,18 @@ async def check_report(files, paths):
             for href in hrefs:
                 await page.goto(href)
                 assert await page.locator('img').evaluate('(image) => image.complete && image.naturalWidth > 0')
+                png = Path(unquote(urlsplit(href).path)).read_bytes()
+                bottom_pixel = await page.evaluate('''async (data) => {
+                    const image = new Image();
+                    image.src = 'data:image/png;base64,' + data;
+                    await image.decode();
+                    const canvas = document.createElement('canvas');
+                    canvas.width = canvas.height = 1;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(image, image.width - 20, image.height - 16, 1, 1, 0, 0, 1, 1);
+                    return Array.from(ctx.getImageData(0, 0, 1, 1).data);
+                }''', b64encode(png).decode('ascii'))
+                assert bottom_pixel == [255, 0, 128, 255], (href, bottom_pixel)
         finally:
             await browser.close()
 
@@ -98,9 +117,16 @@ def main(out):
         run, files, images = result(out / 'initial')
         assert audit.run_meta(run)['config']['level'] == 'A'
         assert len(images) == 2 and all(item['kind'] == 'initial' for item in images)
-        dimensions = {item['environment']: unpack('>II', (run / item['path']).read_bytes()[16:24]) for item in images}
-        assert dimensions == {'desktop': (1280, 900), 'narrow': (320, 900)}, dimensions
-        assert page_explorer.status(run)['steps'] > 2
+        graph = page_explorer.status(run)
+        initial_states = [node for node in graph['nodes'] if not node['route']]
+        page_sizes = {}
+        for node in initial_states:
+            scroll = audit.load(run / node['evidence_dir'] / 'state.json')['scroll']
+            page_sizes[node['environment']] = (scroll['width'], scroll['height'])
+        assert len(page_sizes) == 2 and all(height > 20 * 900 for _, height in page_sizes.values())
+        dimensions = {item['environment']: png_size(run / item['path']) for item in images}
+        assert dimensions == page_sizes, dimensions
+        assert graph['steps'] > 2
         paths = {(run / item['path']).resolve() for item in images}
         asyncio.run(check_report(files, paths))
 
@@ -131,6 +157,8 @@ def main(out):
             run, _, images = result(out / choice)
             assert audit.run_meta(run)['config']['inspection']['screenshots'] == choice
             kinds = {item['kind'] for item in images}
+            baselines = [item for item in images if item['kind'] == 'initial']
+            assert len(baselines) == 1 and png_size(run / baselines[0]['path'])[1] > 900
             assert kinds >= {'initial', 'state'}, kinds
             if choice == 'all':
                 assert kinds >= {'action-before', 'action-after'}, kinds
@@ -138,19 +166,25 @@ def main(out):
                            for item in images if item['kind'] == 'action-before')
                 pairs = {}
                 for item in images:
-                    pairs.setdefault((run / item['path']).parent, set()).add(item['kind'])
+                    image_path = run / item['path']
+                    if item['kind'].startswith('action-'):
+                        assert png_size(image_path) == (1280, 900)
+                    pairs.setdefault(image_path.parent, set()).add(item['kind'])
                 assert any({'action-before', 'action-after'} <= captured for captured in pairs.values())
             else:
                 assert kinds == {'initial', 'state'}, kinds
 
-        config['states'] = [{'id': 'opened', 'paths': ['/short'],
+        config['states'] = [{'id': 'opened', 'paths': ['/long'],
                              'actions': [{'type': 'click', 'selector': 'button'}],
                              'assert': [{'selector': '#result', 'visible': True}]}]
         audit.save(short_config, config)
-        invoke(out, 'declared', ['page', '--url', short_url, '--config', str(short_config),
+        invoke(out, 'declared', ['page', '--url', url, '--config', str(short_config),
                                  '--out', str(out / 'declared')] + common)
-        run, _, images = result(out / 'declared')
+        run, files, images = result(out / 'declared')
         assert len(images) == 1 and images[0]['kind'] == 'initial'
+        path = (run / images[0]['path']).resolve()
+        assert png_size(path) == page_sizes['desktop']
+        asyncio.run(check_report(files, {path}))
         assert {item['state'] for item in audit.load(run / 'capture-manifest.json')['captures']} == {'initial', 'opened'}
     finally:
         server.shutdown()
