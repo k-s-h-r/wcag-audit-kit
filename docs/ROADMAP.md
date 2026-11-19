@@ -90,7 +90,9 @@ G1はT001で事前に選んだ機械検査10行で達成した。T010では指�
 
 T014で見つかったスキップリンクの誤検出は、生成セレクターの親子関係と、フォーカス移動先を操作候補に含める条件を修正した。次に適用範囲を広げるときは、より複雑な操作後の状態と、数値や方向だけに絞れない画像の代替説明を別の対象で測る。[ADR 0057](adr/0057-match-exploration-targets-to-dom-parents.md)
 
-横並びタブを自動探索で左右キーから操作できる。移動したフォーカスを起点にEnter・Spaceも試し、開いたパネル内の問題を経路付きで記録する。指定した初期表示の1行の文字は、1.4.3の画素計測で文字色、背景色、比と閾値を報告できる。次は、幅の狭い画面で中黒リストの項目が折り返す例を通常の段落と比較する。[ADR 0060](adr/0060-explore-horizontal-tab-keyboard-states.md) [ADR 0061](adr/0061-measure-rendered-text-in-single-page-audits.md) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29)
+横並びタブを自動探索で左右キーから操作できる。移動したフォーカスを起点にEnter・Spaceも試し、開いたパネル内の問題を経路付きで記録する。指定した初期表示の1行の文字は、1.4.3の画素計測で文字色、背景色、比と閾値を報告できる。[ADR 0060](adr/0060-explore-horizontal-tab-keyboard-states.md) [ADR 0061](adr/0061-measure-rendered-text-in-single-page-audits.md)
+
+1.3.1は、指定領域の見出し・リスト・簡単な表を画面上の配置から拾い、Chromiumが認識した役割を帳票に出す。次は見た目がよく似た表とカードの対照を増やし、候補の絞り込みに使える特徴を測る。[ADR 0062](adr/0062-compare-visual-structure-with-browser-roles.md) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29)
 
 機械検査の報告では、キーボード経路の実行エラーと、実Tabで対象へ到達できなかった結果を分ける。指定経路の実Tab後に現れる単色の枠は、背景ごとのコントラスト比を機械モードで報告できる。次にこの測定を広げるときは、複数色をまたぐ枠の比較箇所と回帰条件を整理する。[ADR 0058](adr/0058-separate-keyboard-route-errors-from-results.md) [ADR 0059](adr/0059-measure-adjacent-focus-outline-colors.md) [Issue #59](https://github.com/k-s-h-r/wcag-audit-kit/issues/59)
 
