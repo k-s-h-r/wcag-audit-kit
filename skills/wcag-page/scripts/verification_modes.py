@@ -42,10 +42,8 @@ def configure(config):
     # The mode controls SR use independently of the image-depth profile.
     choice.setdefault('screen_reader','required' if mode['screen_reader'] else 'off')
     p=inspection_policy(choice)
-    if not mode['ai'] and (p['screenshots']!='off' or p['max_images']!=0):
-        raise ValueError('machine／screen-readerモードではscreenshots=off、max_images=0。画像を使う場合はai又はfullを選ぶ')
-    if mode['ai'] and (p['screenshots']=='off' or p['max_images']==0):
-        raise ValueError('ai／fullモードでは画像を使う。screenshots=states又はall、max_imagesは1以上')
+    if (p['screenshots'] == 'off') != (p['max_images'] == 0):
+        raise ValueError('撮影しない場合はmax_images=0、撮影する場合はmax_imagesを1以上にする')
     expected='required' if mode['screen_reader'] else 'off'
     if p['screen_reader']!=expected:
         raise ValueError('選択モードとscreen_readerの設定が矛盾している。SR併用はrequired、それ以外はoff')
@@ -58,7 +56,6 @@ def select(config, name, *, profile=None, screenshots=None, screen_reader=None, 
     mode=MODES[policy({'mode':name})['mode']]
     config['verification']={'mode':name}
     choice={'profile':profile or mode['profile'],'screen_reader':'required' if mode['screen_reader'] else 'off'}
-    if not mode['ai']:choice.update(screenshots='off',max_images=0)
     for key,value in [('screenshots',screenshots),('screen_reader',screen_reader),('max_images',max_images)]:
         if value is not None:choice[key]=value
     config['inspection']=choice

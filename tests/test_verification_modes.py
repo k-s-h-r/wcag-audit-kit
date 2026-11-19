@@ -26,11 +26,23 @@ class ModeSelectionTest(unittest.TestCase):
                 self.assertEqual(c['verification']['mode'],name)
 
     def test_conflicting_explicit_options_are_rejected(self):
-        for name,options in [('machine',{'screenshots':'states'}),('ai',{'screen_reader':'required'}),
+        for name,options in [('machine',{'max_images':1}),('ai',{'screen_reader':'required'}),
                              ('screen-reader',{'screen_reader':'off'}),('full',{'max_images':0})]:
             with self.subTest(mode=name),self.assertRaises(ValueError):
                 modes.select(audit.init_config('http://example.test'),name,**options)
         with self.assertRaises(ValueError):modes.policy({'mode':'ai','ai':False})
+
+    def test_all_screenshot_choices_are_independent_of_verification_mode(self):
+        limits = {'off': 0, 'initial': 12, 'states': 12, 'all': 60}
+        for name, mode in modes.MODES.items():
+            for setting, limit in limits.items():
+                with self.subTest(mode=name, screenshots=setting):
+                    config = modes.select(audit.init_config('http://example.test'), name, screenshots=setting)
+                    config = audit.validate_config(config)
+                    self.assertEqual(config['verification']['mode'], name)
+                    self.assertEqual(config['inspection']['screen_reader'], 'required' if mode['screen_reader'] else 'off')
+                    self.assertEqual(config['inspection']['screenshots'], setting)
+                    self.assertEqual(config['inspection']['max_images'], limit)
 
     def test_image_depth_does_not_silently_enable_screen_reader(self):
         c=modes.select(audit.init_config('http://example.test'),'ai',profile='thorough',max_images=30)

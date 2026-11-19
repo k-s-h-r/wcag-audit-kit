@@ -22,7 +22,7 @@ python3 scripts/audit.py page-audit --url https://example.com/contact --out /pro
 python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-full --mode full
 ```
 
-- `machine`：AIで内容を判断せず、スクリーンリーダーも使いません。画像の収集は省き、機械ルール・実操作・数値計測を進めます。設定なしで新しく`page-audit`を始める場合の既定です。
+- `machine`：AIで内容を判断せず、スクリーンリーダーも使いません。機械ルール・実操作・数値計測を進めます。設定なしで新しく `page-audit` を始める場合の既定で、標準の画像収集を有効にするには `--screenshots` を指定します。
 - `ai`：機械検査に加え、画像の代替文・見た目・文章の目的等を、スキルを使うAIが実際の証拠と比較します。実スクリーンリーダーは使いません。
 - `screen-reader`：機械検査に加え、実際のスクリーンリーダーで操作・発話を確認します。AIで画像や意味を判断しません。対応するOS・ブラウザー・支援技術と、ページ専用の操作手順が必要です。
 - `full`：機械検査・AIによる内容判断・実スクリーンリーダーのすべてを使います。音声の聴取・手話・閃光分析等、現在の手段が不足する確認は残ります。

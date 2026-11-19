@@ -30,7 +30,7 @@ AIが実行できる検査を進め、環境制約、信頼できる方法の不
 - 保存済み結果の報告：`skills/wcag-report/`だけを配置します。
 - サイト全体の進行：4フォルダーすべてを配置します。`wcag-audit-kit`から他の3スキルを使います。
 
-各フォルダーには`SKILL.md`、実行時の補助コード、資料、テンプレート、依存関係の一覧が入っています。登録方法や呼び出しの表記はAI環境に従います。登録後は、その環境のスキル選択機能で`wcag-page`等を選び、「このURLをWCAG 2.2 AAで検証して、Excelで報告して」と依頼します。以下のCLIコマンドを利用者が毎回入力する必要はありません。
+各フォルダーには`SKILL.md`、実行時の補助コード、資料、テンプレート、依存関係の一覧が入っています。登録方法や呼び出しの表記はAI環境に従います。登録後は、その環境のスキル選択機能で`wcag-page`等を選び、「このURLをWCAG 2.2 AAで検証して、Excelで報告して」と依頼します。直接 `wcag-page` に新規検査を依頼すると、適合レベル・検査モード・標準の証拠画像のうち、指定されていない設定を実行前にまとめて聞きます。「おまかせ」なら未指定の項目にAA・機械のみ・初期表示だけを使います。
 
 4つとも明示呼び出し専用です。Cursor・Claude Code向けには`disable-model-invocation: true`、Codex向けには同梱の`agents/openai.yaml`へ`policy.allow_implicit_invocation: false`を設定しています。通常の開発依頼から監査を自動開始させず、`/wcag-page`又は`$wcag-page`等で選んで始めます。呼び出し表記は利用環境に従ってください。全体監査を選んだ後は、必要な子スキルのファイルを内部手順として読み進めます。
 
@@ -50,7 +50,7 @@ AIはスキルの指示を読み、必要な補助コードを使って操作・
 以下はリポジトリのルートから補助CLIを直接実行する例です。AIからスキルを呼び出す通常の利用と、補助CLIだけを実行する利用を区別します。
 
 ```sh
-python3 skills/wcag-audit-kit/scripts/audit.py page-audit --url https://example.com/contact --out /project/run-contact --mode machine
+python3 skills/wcag-audit-kit/scripts/audit.py page-audit --url https://example.com/contact --out /project/run-contact --level AA --mode machine --screenshots initial
 ```
 
 この入口は指定URLだけで開閉・選択・入れ子などの状態を探索し、実クリック・キー操作と各状態のaxeを実行します。探索・機械検査・ページ別HTML・JSON・Excelの出力にAIサービスやAPIキーは必要ありません。途中で止めたキューは再開できます。[1ページの実行手順](skills/wcag-audit-kit/references/page-audit.md)を参照してください。
@@ -65,7 +65,7 @@ python3 skills/wcag-audit-kit/scripts/audit.py page-batch --config /project/wcag
 
 機械結果と、達成基準全体の適否は区別します。自動ルールで決まらない意味や目的、未探索の内容、必要な実SR等は追加検査に残します。`page-next`で次の票と機械結果・手順を取得し、利用できる道具から確認を進めます。`page-report`でそのページだけの結果を更新できます。既存の`page`は事前設定の状態を収集する入口として保持します。
 
-検証に使う手段は[モード](skills/wcag-audit-kit/references/verification-modes.md)、画像の深さ・枚数は[観察設定](skills/wcag-audit-kit/references/inspection-profiles.md)で選べます。モードで使わない手段、画像の省略・上限・未探索は未確認として残します。トークン数や料金を保証する設定とは区別します。
+検証に使う手段は[モード](skills/wcag-audit-kit/references/verification-modes.md)、画像の撮影範囲と枚数は[観察設定](skills/wcag-audit-kit/references/inspection-profiles.md)で選べます。機械検査でも、撮らない・初期表示だけ・表示状態ごと・操作途中も、から選べます。モードで使わない手段、画像の省略・上限・未探索は未確認として残します。トークン数や料金を保証する設定とは区別します。
 
 サイト全体では1つのrunを正本とし、同じwcag-pageでページ別タスクを検査します。集計はその正本をwcag-reportへ渡します。
 
@@ -82,7 +82,7 @@ python3 skills/wcag-audit-kit/scripts/audit.py page-audit --url https://example.
 python3 skills/wcag-audit-kit/scripts/audit.py page-audit --url https://example.com/contact --out /project/run-full --mode full
 ```
 
-- `machine`：AIで内容を判断せず、スクリーンリーダーも使いません。画像の収集は省き、機械ルール・実操作・数値計測を進めます。設定なしで新しく`page-audit`を始める場合の既定です。
+- `machine`：AIで内容を判断せず、スクリーンリーダーも使いません。機械ルール・実操作・数値計測を進めます。設定なしで新しく `page-audit` を始める場合の既定で、標準の画像収集を有効にするには `--screenshots` を指定します。
 - `ai`：機械検査に加え、画像の代替文・見た目・文章の目的等を、スキルを使うAIが実際の証拠と比較します。実スクリーンリーダーは使いません。
 - `screen-reader`：機械検査に加え、実際のスクリーンリーダーで操作・発話を確認します。AIで画像や意味を判断しません。対応するOS・ブラウザー・支援技術と、ページ専用の操作手順が必要です。
 - `full`：機械検査・AIによる内容判断・実スクリーンリーダーのすべてを使います。音声の聴取・手話・閃光分析等、現在の手段が不足する確認は残ります。

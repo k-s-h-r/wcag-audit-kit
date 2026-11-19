@@ -4,13 +4,13 @@
 
 ## 使う手段を指定する
 
-- `machine`は機械ルール・実操作・数値計測を使います。AIによる画像・文章の意味の判断と、実スクリーンリーダーは省きます。標準の画像収集はoff、画像上限は0です。
+- `machine`は機械ルール・実操作・数値計測を使います。AIによる画像・文章の意味の判断と、実スクリーンリーダーは省きます。標準の画像収集の既定はoffです。
 - `ai`は機械検査とAIによる画像・文章・操作結果の比較を使います。スクリーンリーダーはoffです。画像は既定で状態ごと、上限12枚です。
-- `screen-reader`は機械検査と実スクリーンリーダーを使います。AIによる内容判断と標準の画像収集は省きます。スクリーンリーダーの確認はrequiredです。
+- `screen-reader`は機械検査と実スクリーンリーダーを使います。AIによる内容判断は省きます。標準の画像収集の既定はoff、スクリーンリーダーの確認はrequiredです。
 - `full`は機械検査・AIによる内容判断・実スクリーンリーダーを使います。画像は既定で操作途中も含め、上限60枚です。スクリーンリーダーの確認はrequiredです。
 
 ```sh
-python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-machine --mode machine
+python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-machine --mode machine --screenshots initial
 python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-ai --mode ai
 python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-sr --mode screen-reader
 python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-full --mode full
@@ -38,7 +38,7 @@ inspection:
 python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-ai-detail --mode ai --profile thorough --max-images 30
 ```
 
-machine／screen-readerで標準の画像収集を有効にする、ai／fullで標準の画像収集をoff又は上限0にする、モードと矛盾する実SR設定を指定する場合はエラーにします。検査途中のモード変更は行わず、変更した検査は別のrunに保存します。`--resume`では保存したモードを継続し、別の`--mode`を指定すると停止します。
+どのモードでも撮影範囲は `off`・`initial`・`states`・`all` から選べます。撮影する場合の上限は1枚以上です。AI併用で `off` を選んだ場合も文章などは確認でき、画像が必要な観点は証拠が揃うまで未確認です。モードと矛盾する実SR設定はエラーになります。モード・適合レベル・撮影設定を変更した検査は別のrunに保存します。`--resume` では保存した設定を使います。
 
 [1.4.11のフォーカス枠](page-audit.md#フォーカス枠と隣接色を測る)と[1.4.3の文字](page-audit.md#指定した文字のコントラストを画素で測る)は、測定を明示した場合にすべてのモードで周辺を切り出したPNGを保存します。フォーカス枠は1経路・1環境につき最大1枚、文字は1対象・1環境につき最大7枚です。RGB値の数値計測に使います。
 

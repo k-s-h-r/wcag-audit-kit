@@ -9,7 +9,7 @@ import uuid
 from urllib.parse import urldefrag
 
 from ledger_lock import run_lock
-from browser_capture import FOCUS, INVENTORY, ROOT, capture_image, normalize, page_id
+from browser_capture import FOCUS, INVENTORY, ROOT, SOFTWARE_COMPOSITING, capture_image, normalize, page_id
 from input_observation import INIT_SCRIPT, InputObserver
 import border_contrast
 import dialog_focus
@@ -25,6 +25,7 @@ import visual_structure
 SCRIPT=(ROOT/'scripts/page_explorer.js').read_text()
 RISK=re.compile(r'delete|remove|purchase|checkout|pay\b|buy\b|logout|sign.?out|submit|send\b|save\b|削除|購入|決済|支払|送信|保存|ログアウト',re.I)
 TAB_UNREACHABLE = 'Tabで対象へ到達できない（120移動まで確認）'
+ACTION_LABELS = {'click': 'クリック', 'hover': 'ホバー', 'fill': '入力', 'scroll': 'スクロール'}
 HORIZONTAL_TAB_ARROWS = ('ArrowRight', 'ArrowLeft')
 
 
@@ -207,12 +208,21 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     with run_lock(run):audit.save(checkpoint,value);audit.save(run/'capture-manifest.json',manifest)
     async with async_playwright() as pw:
         browser_args = ['--no-sandbox']
+        if images.policy['screenshots'] != 'off':
+            browser_args.append(SOFTWARE_COMPOSITING)
         if text_paths:
             browser_args.append('--force-color-profile=srgb')
         browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=browser_args)
         try:
             while value['queue'] and value['steps']<max_steps:
                 job=value['queue'][0];env=envs[job['environment']];route=job['route']
+                images.environment = env['id']
+                action_label = None
+                if route:
+                    last = route[-1]
+                    operation = last.get('key') or ACTION_LABELS[last['type']]
+                    target = last['selector']
+                    action_label = f'{operation}（{target}）' if target != 'body' else operation
                 check=checks.get(job.get('keyboard_check'))
                 hover=hover_paths.get(job.get('hover_check'))
                 border=border_paths.get(job.get('border_check'))
@@ -313,14 +323,24 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                             measurement['image'] = screenshot.name
                     else:
                         for action_index, action in enumerate(route, 1):
+                            capture_action = (
+                                images.policy['screenshots'] == 'all' and action_index == len(route)
+                                and not blocked and not native_events
+                            )
                             if dialog_observation:
                                 if phase == 'tab' and (blocked or native_events or any(
                                         wait['status'] != 'quiet' for wait in settling)):
                                     raise ValueError('ダイアログを調べる経路で通信制限又は表示の更新が続いた。')
                                 await dialog_observation.before(action_index, action)
+                            if capture_action:
+                                await images.capture(page, dest/'action-before.png', kind='action-before',
+                                                     label=action_label, best_effort=True)
                             settling.append(await perform(page, action))
                             if dialog_observation:
                                 await dialog_observation.after(action_index)
+                            if capture_action and not blocked and not native_events:
+                                await images.capture(page, dest/'action-after.png', kind='action-after',
+                                                     label=action_label, best_effort=True)
                         label_observations=await state_labels.observe(page,route,labels)
                         matched_labels=state_labels.verified(labels,route,label_observations)
                         data=await page.evaluate('() => window.__wcagExplore()')
@@ -363,14 +383,20 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                 data['state_labels'] = [record for record in label_observations
                                                         if not record['matched'] or record['id'] in still_matched]
                                 audit.save(dest/'state.json', data)
-                            await images.capture(page,dest/'page.png',kind='state',full_page=data['scroll']['height']<=env['viewport']['height']*20)
+                            initial_only = images.policy['screenshots'] == 'initial'
+                            full_page = not route or data['scroll']['height'] <= env['viewport']['height'] * 20
+                            await images.capture(page, dest/'page.png', kind='state' if route else 'initial',
+                                                 label=action_label, full_page=full_page)
                             # Actual scroll/tile captures reveal sticky/viewport-only content.
-                            tiles=[]
-                            for y in range(0,min(data['scroll']['height'],env['viewport']['height']*20),env['viewport']['height']):
-                                await page.evaluate('(y)=>scrollTo(0,y)',y);await page.wait_for_timeout(40)
-                                await images.capture(page,dest/f'tile-{len(tiles):03}.png',kind='state');tiles.append(y)
+                            tiles = []
+                            if not initial_only:
+                                for y in range(0,min(data['scroll']['height'],env['viewport']['height']*20),env['viewport']['height']):
+                                    await page.evaluate('(y)=>scrollTo(0,y)',y);await page.wait_for_timeout(40)
+                                    await images.capture(page, dest/f'tile-{len(tiles):03}.png', kind='state', label=action_label)
+                                    tiles.append(y)
                             audit.save(dest/'tiles.json',{'positions':tiles,'height':data['scroll']['height'],'viewport':env['viewport']})
-                            if data['scroll']['height']>env['viewport']['height']*20:value['remaining'].append(f'{env["id"]}：20画面を超える縦方向の表示を追加調査する。')
+                            if not initial_only and data['scroll']['height'] > env['viewport']['height'] * 20:
+                                value['remaining'].append(f'{env["id"]}：21画面目以降はスクロール後の表示を追加調査する。')
                             if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(run)))):
                                 value['remaining'].append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
                             trace_stop = await record_tab_trace(page, dest, min(config.get('keyboard_steps',30),120),

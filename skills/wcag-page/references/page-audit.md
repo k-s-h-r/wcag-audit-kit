@@ -1,13 +1,15 @@
 # 1ページを機械検査から始める
 
 ```sh
-python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page --mode machine
+python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page --level AA --mode machine --screenshots initial
 python3 scripts/audit.py page-next --run /project/run-page --page-exact https://example.com/contact
 ```
 
-page-auditは、対象URLだけで操作候補を調べ、実クリック・hover・Tab・Enter・Space・部品ごとの矢印キー等で到達した状態を収集する。状態ごとにDOM、アクセシビリティツリー、画像、実入力、axeの結果を保存する。LLMやAIサービスのAPIキーは必要ない。検証対象はテスト用環境を使い、認証が必要なら既存の設定のauth_stateを指定する。事前設定のstatesを含む設定は既存のpageで収集する。page-auditでは自動探索を使い、必要な独自シナリオをprobeで追加検査する。
+page-auditは、対象URLだけで操作候補を調べ、実クリック・hover・Tab・Enter・Space・部品ごとの矢印キー等で到達した状態を収集する。状態ごとにDOM、アクセシビリティツリー、実入力、axeの結果を保存する。画像は指定した撮影範囲に従う。LLMやAIサービスのAPIキーは必要ない。検証対象はテスト用環境を使い、認証が必要なら既存の設定のauth_stateを指定する。事前設定のstatesを含む設定は既存のpageで収集する。page-auditでは自動探索を使い、必要な独自シナリオをprobeで追加検査する。
 
 操作候補はネイティブ部品・ARIA・登録されたイベント・カーソル等から抽出する。開いた後に現れた候補もキューへ追加する。外観だけで操作できそうな領域の追加確認には、保存画像と位置・候補一覧を使う。候補抽出だけで全操作を発見したことにはしない。
+
+直接 `wcag-page` に新規検査を頼む場合、適合レベル、検査モード、標準の証拠画像のうち未指定の設定を開始前に聞く。CLIを直接使う場合は各オプションで指定する。上の例では機械検査を行い、PC幅とスマホ相当の幅で、操作する前のページ全体を1枚ずつ保存する。ほかの撮影範囲と枚数上限は[観察設定](inspection-profiles.md)を参照する。
 
 ## 指定URL一覧を順に検査する
 
@@ -150,7 +152,7 @@ iframeの出入りを確認するには、経路の `frame` に例として `{"s
 
 2.4.7では、`keyboard_checks`の最終操作に `"focus": "#subject", "focus_images": true` を指定し、主文書の同じ対象を比較する。キー入力の前後で、表示領域・スクロール位置・対象の矩形とフォーカスを記録する。画面外、位置の変化、対象の差し替えなどで比較できない場合は、取得できた画像と理由を残す。
 
-`ai`又は`full`で`--screenshots all`を選び、画像上限に2枚分の空きを確保する。HTML・Excelの「フォーカスの画像証拠」には画像と操作ログへのリンクが出る。画像取得の成否からフォーカス表示の適否は判定しない。
+検査モードにかかわらず `--screenshots all` を選び、画像上限に2枚分の空きを確保する。HTML・Excelの「フォーカスの画像証拠」には画像と操作ログへのリンクが出る。画像取得の成否からフォーカス表示の適否は判定しない。
 
 ## フォーカス先が覆われる状態を調べる
 
@@ -182,7 +184,7 @@ iframeの出入りを確認するには、経路の `frame` に例として `{"s
 {"border_checks": [{"id": "name-border", "name": "氏名の入力欄の外枠", "target": "#name"}]}
 ```
 
-`ai`又は`full`の`screenshots=all`で、画像上限内に1枚を取得する。PNGの解析には`requirements-analysis.txt`のPillowを使う。4辺が同じ単色の直線枠で、周りに重なりがなく、隣接する画素も単色のときに比を求める。対象の枠に対する3:1の比較結果と測定画像を記録する。ほかの状態と境界が必要な理由も確認する。
+検査モードにかかわらず `screenshots=all` で、画像上限内に1枚を取得する。PNGの解析には`requirements-analysis.txt`のPillowを使う。4辺が同じ単色の直線枠で、周りに重なりがなく、隣接する画素も単色のときに比を求める。対象の枠に対する3:1の比較結果と測定画像を記録する。ほかの状態と境界が必要な理由も確認する。
 
 ## 指定した文字のコントラストを画素で測る
 
