@@ -1,12 +1,14 @@
 """Resumable single-page state exploration. Observations are never WCAG verdicts."""
 import asyncio
+from collections import Counter
+from contextlib import suppress
 from hashlib import sha256
 import json
 from pathlib import Path
 import re
 import shutil
 import uuid
-from urllib.parse import urldefrag
+from urllib.parse import urldefrag, urlsplit
 
 from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, SOFTWARE_COMPOSITING, capture_image, normalize, page_id
@@ -77,7 +79,67 @@ def validate_budget(states, steps, depth):
         if type(value) is not int or not 1<=value<=limit:raise ValueError(f'{name}は1〜{limit}の整数')
 
 
-async def perform(page, action):
+KEY_STATE = r'''element => {
+    const details = element.parentElement;
+    return {
+        connected: element.isConnected,
+        document: performance.timeOrigin,
+        state: {
+            open: element.matches('summary') && details?.matches('details') ? details.open : null,
+            expanded: element.getAttribute('aria-expanded'),
+            pressed: element.getAttribute('aria-pressed'),
+            checked: element.matches('input[type=checkbox], input[type=radio]')
+                ? element.checked : element.getAttribute('aria-checked'),
+            selected: element.getAttribute('aria-selected'),
+            selectedIndex: element.matches('select') ? element.selectedIndex : null,
+        }
+    };
+}'''
+
+
+def is_telemetry(request, page_url):
+    if request.method != 'POST' or request.is_navigation_request() or request.resource_type not in {'ping', 'fetch', 'xhr'}:
+        return False
+    target = urlsplit(request.url)
+    page = urlsplit(page_url)
+    analytics_hosts = {'www.google-analytics.com', 'www.google.com'}
+    return (target.scheme == 'https' and target.netloc in analytics_hosts and target.path == '/g/collect'
+            or (target.scheme, target.netloc) == (page.scheme, page.netloc) and target.path == '/cdn-cgi/rum')
+
+
+async def press_observed_key(page, target, action, observer, effect):
+    from playwright.async_api import Error as BrowserError
+
+    handle = None
+    before = None
+    with suppress(BrowserError):
+        handle = await target.element_handle(timeout=1000)
+        if handle is not None:
+            await handle.evaluate('(e) => { window.__wcagExpectedInputTarget = e; }')
+            before = await handle.evaluate(KEY_STATE)
+    first_event = len(observer.events)
+    try:
+        await page.keyboard.press(action['key'])
+        wait = await page.evaluate('() => window.__wcagWaitForUpdates()')
+        if handle is not None and before and wait['status'] == 'quiet':
+            with suppress(BrowserError):
+                after = await handle.evaluate(KEY_STATE)
+                if before['connected'] and after['connected'] and before['document'] == after['document']:
+                    event_index = next((index for index in range(first_event, len(observer.events))
+                        if observer.events[index].get('expectedTargetMatched') is True
+                        and keyboard_checks.matching_keydown(observer.events[index], action['key'])), None)
+                    if event_index is not None:
+                        effect.update(event_index=event_index, before=before['state'], after=after['state'])
+        return wait
+    finally:
+        if handle is not None:
+            with suppress(BrowserError):
+                await handle.evaluate('() => { window.__wcagExpectedInputTarget = null; }')
+            with suppress(BrowserError):
+                await handle.dispose()
+
+
+async def perform(page, action, *, observer=None, key_effect=None):
     target=page.locator(action['selector'])
     if action['type']=='scroll':await page.evaluate('(p)=>scrollTo(p.x,p.y)',action)
     elif action['type']=='press':await page.keyboard.press(action['key'])
@@ -95,6 +157,8 @@ async def perform(page, action):
                 raise ValueError('再生した経路で次のキー操作に必要なフォーカスを確認できない')
             await page.keyboard.press('Tab')
         if not reached:raise KeyboardUnreachable(TAB_UNREACHABLE)
+        if key_effect is not None:
+            return await press_observed_key(page, target, action, observer, key_effect)
         await page.keyboard.press(action['key'])
     else:raise ValueError('未対応の探索操作')
     return await page.evaluate('() => window.__wcagWaitForUpdates()')
@@ -127,6 +191,131 @@ async def record_tab_trace(page, dest, limit, blocked, native_events):
     return stop
 
 
+async def observe_scroll_and_tab(page, dest, data, env, images, label, limit, blocked, native_events, remaining):
+    import audit
+
+    # Actual scroll/tile captures reveal sticky/viewport-only content.
+    tiles = []
+    if images.policy['screenshots'] != 'initial':
+        for y in range(0,min(data['scroll']['height'],env['viewport']['height']*20),env['viewport']['height']):
+            await page.evaluate('(y)=>scrollTo(0,y)',y);await page.wait_for_timeout(40)
+            await images.capture(page, dest/f'tile-{len(tiles):03}.png', kind='state', label=label)
+            tiles.append(y)
+    audit.save(dest/'tiles.json',{'positions':tiles,'height':data['scroll']['height'],'viewport':env['viewport']})
+    if images.policy['screenshots'] != 'initial' and data['scroll']['height'] > env['viewport']['height'] * 20:
+        remaining.append(f'{env["id"]}：21画面目以降はスクロール後の表示を追加調査する。')
+    if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(images.run))+'/')):
+        remaining.append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
+    trace_stop = await record_tab_trace(page, dest, limit, blocked, native_events)
+    if trace_stop:
+        evidence = (dest/'keyboard-trace-stop.json').relative_to(images.run).as_posix()
+        remaining.append(f'{dest.name}：補助のTab観察は{trace_stop["step"]}回目で中断。'
+                                  f'以降は未確認（証拠: {evidence}）。')
+
+
+QUICK_PENDING_PER_ENVIRONMENT = 12
+HOVER_EVENTS = {'mouseover', 'mouseenter', 'mousemove', 'mouseout', 'mouseleave',
+                'pointerover', 'pointerenter', 'pointermove', 'pointerout', 'pointerleave'}
+
+
+def quick_candidates(control, candidates, focused_tab):
+    hover = control.get('haspopup') not in (None, '', 'false') or HOVER_EVENTS.intersection(control['events'])
+    tab_index = control.get('tabIndex')
+    keyboard = (tab_index is not None and tab_index >= 0) or control['selector'] == focused_tab
+    preferred_key = 'Space' if control['type'] in {'checkbox', 'radio'} or control['role'] in {
+        'checkbox', 'radio', 'switch'
+    } else 'Enter'
+    for action in candidates:
+        if action['type'] == 'hover' and not hover:
+            continue
+        if action['type'] == 'key':
+            if not keyboard:
+                continue
+            key = action['key']
+            if key in {'Enter', 'Space'} and key != preferred_key and not control.get('horizontalTab'):
+                continue
+        yield action
+
+
+def control_signature(control):
+    return {key: item for key, item in control.items() if key != 'rect'}
+
+
+def queue_state_actions(value, node, data, env, queued, done, *, quick=False, parent=None, max_depth=30):
+    route = node['route']
+    capture_key = node['capture']
+    env_id = env['id']
+    focused_tab = data.get('focused_horizontal_tab')
+    always_observe = {route[-1]['selector'], focused_tab} if route else set()
+    previous_controls = {control['selector']: control_signature(control) for control in (parent or {}).get('controls', [])}
+    omitted = Counter(value.get('omitted_candidates', {}))
+    pending = sum(job['environment'] == env_id and bool(job['route']) and job['route'] != route
+                  for job in value['queue'])
+
+    def enqueue(action, *, dialog_focus=None, newly_available=False):
+        nonlocal pending
+        path = route + [action]
+        ident = json.dumps([env_id, path], sort_keys=True)
+        if ident in queued or ident in done:
+            return
+        if len(path) > (max_depth if quick else 30):
+            if quick:
+                omitted['depth'] += 1
+            else:
+                value['remaining'].append(f'{capture_key}：深さ30を超える経路の追加検査が必要。')
+            return
+        if quick and pending >= QUICK_PENDING_PER_ENVIRONMENT and not dialog_focus:
+            omitted['frontier'] += 1
+            return
+        job = {'environment': env_id, 'route': path}
+        if dialog_focus:
+            job['dialog_focus'] = dialog_focus
+        if newly_available:
+            job['newly_available'] = True
+        value['queue'].append(job)
+        queued.add(ident)
+        pending += 1
+
+    if data['modal']:
+        enqueue({'type': 'press', 'selector': 'body', 'key': 'Escape'}, dialog_focus='escape')
+    controls = data['controls']
+    if quick:
+        def priority(control):
+            opens_content = (control['tag'] == 'summary' or control['expanded'] is not None
+                             or control['role'] in {'combobox', 'tab', 'menuitem', 'treeitem'}
+                             or control['haspopup'] not in (None, '', 'false'))
+            return control['selector'] in previous_controls, not opens_content
+
+        controls = sorted(controls, key=priority)
+    for control in controls:
+        selector = control['selector']
+        candidates, reason = actions(control, focused_tab)
+        if quick and selector not in always_observe and previous_controls.get(selector) == control_signature(control):
+            omitted['unchanged_control'] += len(candidates)
+            continue
+        if reason:
+            node.setdefault('deferred', []).append(dict(control, reason=reason))
+            value['remaining'].append(f'{env_id} / {selector}：{reason}')
+        if quick:
+            selected = list(quick_candidates(control, candidates, focused_tab))
+            omitted['input_variations'] += len(candidates) - len(selected)
+            candidates = selected
+        newly_available = quick and bool(route) and selector not in previous_controls
+        for action in candidates:
+            enqueue(action, newly_available=newly_available)
+
+    # A real scroll can reveal lazy content even if the initial screenshot was full-page.
+    positions = {(0, env['viewport']['height']),
+                 (0, max(0, data['scroll']['height'] - env['viewport']['height'])),
+                 (max(0, data['scroll']['width'] - env['viewport']['width']), 0)}
+    if not quick or not route:
+        for x, y in sorted(positions - {(0, 0)}):
+            if x or data['scroll']['height'] > env['viewport']['height']:
+                enqueue({'type': 'scroll', 'selector': 'body', 'x': x, 'y': y})
+    if quick:
+        value['omitted_candidates'] = {key: count for key, count in omitted.items() if count}
+
+
 def status(run):
     import audit
     path=Path(run)/'exploration.json'
@@ -135,7 +324,12 @@ def status(run):
     graph_digest=audit.digest(value)
     for item in value.get('proof',[]):
         if audit.evidence_item(Path(run),item['path'])!=item:raise ValueError('探索の証拠が変更された：'+item['path'])
-    remaining=[f"探索待ち {len(value['queue'])}経路"] if value['queue'] else []
+    if value.get('deferred'):
+        remaining = ['操作探索は未実施。必要なときに追加で開始できる。']
+        if value['queue']:
+            remaining.append(f"初期状態の収集待ち {len(value['queue'])}環境")
+    else:
+        remaining = [f"探索待ち {len(value['queue'])}経路"] if value['queue'] else []
     resolved=set()
     pointer=audit.run_plan(Path(run)).get('exploration_review')
     if pointer:
@@ -145,15 +339,19 @@ def status(run):
         for proof in review['verified_evidence']:
             if audit.evidence_item(Path(run),proof['path'])!=proof:raise ValueError('追加検査の証拠が変更された')
         if review['graph_digest']==graph_digest:resolved={r['item'] for r in review.get('resolutions',[])}
+    if omitted := sum(value.get('omitted_candidates', {}).values()):
+        remaining.append(f'簡易探索で省略した操作候補は{omitted}件。必要な操作は個別に確認する。')
     remaining += [r for r in value.get('remaining',[]) if r not in resolved]
-    if value.get('running'):remaining.append('探索中又は途中停止。page-audit --resumeで再開する。')
+    if value.get('running'):
+        resume_option = ' --initial-only' if value.get('deferred') else ''
+        remaining.append(f'探索中又は途中停止。page-audit --resume{resume_option}で再開する。')
     return dict(value,graph_digest=graph_digest,required=True,complete=not remaining and bool(value['nodes']),remaining=remaining)
 
 
-async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
+async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, initial_only=False,
+                   start_exploration=False, quick_explore=False):
     import audit
     from playwright.async_api import async_playwright
-    validate_budget(max_states,max_steps,max_depth)
     run=Path(run);meta,_=audit.run_catalog(run,for_write=True);config=meta['config'];url=config['scope']['pages'][0]
     if config['scope'].get('mode')!='configured' or len(config['scope']['pages'])!=1:
         raise ValueError('探索はconfiguredの1ページで実行する')
@@ -172,20 +370,35 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
         visual_structure.__file__)]
     implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
-    initial_jobs=[]
-    for env in config['environments']:
-        initial={'environment':env['id'],'route':[]}
-        initial_jobs.append(initial)
-        initial_jobs.extend(dict(initial, keyboard_check=check_id) for check_id in checks)
-        initial_jobs.extend(dict(initial, hover_check=check_id) for check_id in hover_paths)
-        initial_jobs.extend(dict(initial, border_check=check_id) for check_id in border_paths)
-        initial_jobs.extend(dict(initial, text_check=check_id) for check_id in text_paths)
+    initial_jobs = [{'environment': env['id'], 'route': []} for env in config['environments']]
+    declared_jobs = {'keyboard_check': checks, 'hover_check': hover_paths,
+                     'border_check': border_paths, 'text_check': text_paths}
+    full_jobs = []
+    for initial in initial_jobs:
+        full_jobs.append(initial)
+        for field, checks_by_id in declared_jobs.items():
+            full_jobs.extend(dict(initial, **{field: check_id}) for check_id in checks_by_id)
     value=audit.load(checkpoint) if checkpoint.exists() else {'schema_version':'1','config_digest':meta['config_digest'],
         'implementation_digest':implementation,
-        'queue':initial_jobs,
+        'queue': initial_jobs if initial_only else full_jobs, 'deferred': initial_only,
         'nodes':[],'edges':[],'remaining':[],'proof':[],'steps':0}
     if value['config_digest']!=meta['config_digest']:raise ValueError('探索と設定の版が不一致')
     if value.get('implementation_digest')!=implementation:raise ValueError('探索の実装が変わったため新しいrunで実行する')
+    if initial_only and not value.get('deferred'):
+        raise ValueError('操作探索を開始済みのrunでは初期状態だけの収集に戻せない')
+    if value.get('deferred') and not (initial_only or start_exploration):
+        raise ValueError('操作探索を開始するには --resume --explore を指定する')
+    if quick_explore and checkpoint.exists() and not (value.get('deferred') or value.get('quick_explore')):
+        raise ValueError('通常の操作探索を開始済みのrunでは簡易探索に切り替えられない')
+    quick = value.get('quick_explore', False) or quick_explore
+    value['quick_explore'] = quick
+    if max_states is None:
+        max_states = 16 if quick else 64
+    if max_steps is None:
+        max_steps = 24 if quick else 512
+    if max_depth is None:
+        max_depth = 3 if quick else 8
+    validate_budget(max_states, max_steps, max_depth)
     # Recompute transient status rather than persisting status()'s derived fields.
     value.pop('required',None);value.pop('complete',None)
     value['remaining']=[r for r in value['remaining'] if not r.startswith(('探索待ち ','探索中又は','未到達の指定状態：'))]
@@ -201,8 +414,21 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     images.summary['screenshots']=previous
     images.counts[pid]=sum(i['status'] in {'started','captured','error'} for i in previous)
     seen={(n['environment'],n['fingerprint']):n for n in value['nodes']}
+    captured_routes = {json.dumps([node['environment'], node['route']], sort_keys=True): node for node in value['nodes']}
+    operation_counts = Counter(edge['environment'] for edge in value['edges'] if edge['route'])
     done={json.dumps([e['environment'],e['route']],sort_keys=True) for e in value['edges']}
     queued={json.dumps([j['environment'],j['route']],sort_keys=True) for j in value['queue']}
+    if value.get('deferred') and start_exploration:
+        observed = {node['environment']: node for node in value['nodes']}
+        value['queue'] = [
+            dict(job, initial_input=True) if job['environment'] in observed and job in initial_jobs else job
+            for job in full_jobs
+        ]
+        queued = {json.dumps([job['environment'], job['route']], sort_keys=True) for job in value['queue']}
+        for env_name, node in observed.items():
+            data = audit.load(run / node['evidence_dir'] / 'state.json')
+            queue_state_actions(value, node, data, envs[env_name], queued, done, quick=quick, max_depth=max_depth)
+        value['deferred'] = False
     value['running']=True;value['manifest']=manifest
     value['limits']={'max_states':max_states,'max_steps':max_steps,'max_depth':max_depth}
     with run_lock(run):audit.save(checkpoint,value);audit.save(run/'capture-manifest.json',manifest)
@@ -215,6 +441,15 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
         browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=browser_args)
         try:
             while value['queue'] and value['steps']<max_steps:
+                if quick and value['queue'][0]['route'] and not value['queue'][0].get('dialog_focus'):
+                    # Keep both viewports represented before pursuing more paths in either.
+                    index = min(range(len(value['queue'])), key=lambda i: (
+                        bool(value['queue'][i]['route']),
+                        operation_counts[value['queue'][i]['environment']],
+                        not value['queue'][i].get('newly_available'),
+                        len(value['queue'][i]['route']),
+                    ))
+                    value['queue'].insert(0, value['queue'].pop(index))
                 job=value['queue'][0];env=envs[job['environment']];route=job['route']
                 images.environment = env['id']
                 action_label = None
@@ -227,8 +462,9 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 hover=hover_paths.get(job.get('hover_check'))
                 border=border_paths.get(job.get('border_check'))
                 text_check = text_paths.get(job.get('text_check'))
+                initial_input = job.get('initial_input')
                 declared = check or hover or border or text_check
-                if not declared and (len(value['nodes'])>=max_states or len(route)>max_depth):break
+                if not (declared or initial_input) and (len(value['nodes'])>=max_states or len(route)>max_depth):break
                 check_record=dict(id=check['id'], name=check['name'], criterion=check['criterion'],
                                   outcome='cant_tell', steps=[]) if check else None
                 if check and check['criterion'] in keyboard_checks.VISUAL_CONDITIONS:
@@ -249,7 +485,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     allowed_method=request.method in {'GET','HEAD','OPTIONS'}
                     allowed_document=urldefrag(normalize(request.url))[0] in allowed_navigation
                     if freeze_requests or not allowed_method or (navigation and not declared and not allowed_document):
-                        blocked.append({'method':request.method,'url':request.url})
+                        blocked.append({'method': request.method, 'url': request.url,
+                                        'telemetry': not freeze_requests and is_telemetry(request, url)})
                         await request_route.abort()
                     elif declared and navigation:
                         # Playwright does not dispatch route handlers for every HTTP redirect.
@@ -268,6 +505,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 frame_scope=keyboard_frames.FrameScope(page, check.get('frame') if check else None)
                 error=None;data=None;native_events=[];settling=[]
                 action_index = unreachable_step = None
+                key_effect = {}
                 async def dismiss_dialog(dialog):
                     native_events.append({'type':dialog.type,'message':dialog.message,'action':'dismiss'})
                     await dialog.dismiss()
@@ -288,6 +526,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 try:
                     response=await page.goto(url,wait_until='domcontentloaded',timeout=20000)
                     if response and response.status>=400:raise ValueError(f'HTTP {response.status}')
+                    if page.url.startswith('chrome-error:'):
+                        raise ValueError('Chromiumのエラー画面を検査範囲から除外した。')
                     settling.append(await page.evaluate('() => window.__wcagWaitForUpdates()'))
                     if declared:
                         if settling[-1]['status'] != 'quiet':
@@ -321,6 +561,10 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                     else:
                                         if captured:
                                             measurement['image'] = screenshot.name
+                    elif initial_input:
+                        current = await page.evaluate('() => window.__wcagExplore()')
+                        await observe_scroll_and_tab(page, dest, current, env, images, None,
+                            min(config.get('keyboard_steps', 30), 120), blocked, native_events, value['remaining'])
                     else:
                         for action_index, action in enumerate(route, 1):
                             capture_action = (
@@ -335,12 +579,17 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             if capture_action:
                                 await images.capture(page, dest/'action-before.png', kind='action-before',
                                                      label=action_label, best_effort=True)
-                            settling.append(await perform(page, action))
+                            observe_key = (action_index == len(route) and action['type'] == 'key'
+                                           and all(step['type'] in {'key', 'press'} for step in route))
+                            settling.append(await perform(page, action, observer=observer,
+                                                         key_effect=key_effect if observe_key else None))
                             if dialog_observation:
                                 await dialog_observation.after(action_index)
                             if capture_action and not blocked and not native_events:
                                 await images.capture(page, dest/'action-after.png', kind='action-after',
                                                      label=action_label, best_effort=True)
+                        if page.url.startswith('chrome-error:'):
+                            raise ValueError('Chromiumのエラー画面を検査範囲から除外した。')
                         label_observations=await state_labels.observe(page,route,labels)
                         matched_labels=state_labels.verified(labels,route,label_observations)
                         data=await page.evaluate('() => window.__wcagExplore()')
@@ -383,28 +632,12 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                 data['state_labels'] = [record for record in label_observations
                                                         if not record['matched'] or record['id'] in still_matched]
                                 audit.save(dest/'state.json', data)
-                            initial_only = images.policy['screenshots'] == 'initial'
                             full_page = not route or data['scroll']['height'] <= env['viewport']['height'] * 20
                             await images.capture(page, dest/'page.png', kind='state' if route else 'initial',
                                                  label=action_label, full_page=full_page)
-                            # Actual scroll/tile captures reveal sticky/viewport-only content.
-                            tiles = []
                             if not initial_only:
-                                for y in range(0,min(data['scroll']['height'],env['viewport']['height']*20),env['viewport']['height']):
-                                    await page.evaluate('(y)=>scrollTo(0,y)',y);await page.wait_for_timeout(40)
-                                    await images.capture(page, dest/f'tile-{len(tiles):03}.png', kind='state', label=action_label)
-                                    tiles.append(y)
-                            audit.save(dest/'tiles.json',{'positions':tiles,'height':data['scroll']['height'],'viewport':env['viewport']})
-                            if not initial_only and data['scroll']['height'] > env['viewport']['height'] * 20:
-                                value['remaining'].append(f'{env["id"]}：21画面目以降はスクロール後の表示を追加調査する。')
-                            if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(run)))):
-                                value['remaining'].append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
-                            trace_stop = await record_tab_trace(page, dest, min(config.get('keyboard_steps',30),120),
-                                                                blocked, native_events)
-                            if trace_stop:
-                                evidence = (dest/'keyboard-trace-stop.json').relative_to(run).as_posix()
-                                value['remaining'].append(f'{dest.name}：補助のTab観察は{trace_stop["step"]}回目で中断。'
-                                                          f'以降は未確認（証拠: {evidence}）。')
+                                await observe_scroll_and_tab(page, dest, data, env, images, action_label,
+                                    min(config.get('keyboard_steps', 30), 120), blocked, native_events, value['remaining'])
                 except KeyboardUnreachable as exc:
                     error = str(exc)
                     unreachable_step = action_index
@@ -449,6 +682,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         if structure_observation is not None:
                             audit.save(dest/visual_structure.EVIDENCE_FILE, structure_observation)
                     edge = dict(job, error=error, blocked_requests=blocked, native_events=native_events)
+                    if key_effect:
+                        edge['key_effect'] = key_effect
                     if data and not interrupted_reason and route and route[-1].get('key') in HORIZONTAL_TAB_ARROWS:
                         edge['focus_after'] = data['focus']['selector']
                     if unreachable_step is not None:
@@ -480,7 +715,10 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         and dialog_observation.record['status'] == 'closed'):
                     path = route + [{'type': 'press', 'selector': 'body', 'key': 'Tab'}]
                     ident = json.dumps([env['id'], path], sort_keys=True)
-                    if len(path) > 30:
+                    if quick and len(path) > max_depth:
+                        omitted = value.setdefault('omitted_candidates', {})
+                        omitted['depth'] = omitted.get('depth', 0) + 1
+                    elif len(path) > 30:
                         value['remaining'].append(f'{dest.name}：閉じた後のTabは深さ30の上限で未実施。')
                     elif ident not in queued and ident not in done:
                         followup = dict(environment=env['id'], route=path, dialog_focus='tab')
@@ -490,9 +728,12 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             value['queue'].append(followup)
                         queued.add(ident)
                 value['edges'].append(edge);value['steps']+=1
+                if route:
+                    operation_counts[env['id']] += 1
                 if error and unreachable_step != len(route) and not declared:
                     value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
-                if blocked:value['remaining'].append(f'{env["id"]}：通信又はページ移動を制限した経路がある。状態を確認する。')
+                if any(request.get('telemetry') is not True for request in blocked):
+                    value['remaining'].append(f'{env["id"]}：通信又はページ移動を制限した経路がある。状態を確認する。')
                 if native_events:value['remaining'].append(f'{env["id"]}：ブラウザー標準ダイアログ・別窓・ダウンロードの分岐を追加検査する。')
                 if any(wait['status']!='quiet' for wait in settling):
                     value['remaining'].append(f'{env["id"]}：DOMと短いタイマーの観察上限又は未観測のコールバックが残る。全非同期完了ではない。')
@@ -508,32 +749,10 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             execution='completed',collection_state='finished',evidence_dir=str(dest.relative_to(run))))
                         for feature in ['frames','canvases','closedRoots']:
                             if data[feature]:value['remaining'].append(f'{capture_key}：{feature}の内部を追加検査する。')
-                        if data['modal']:
-                            job_id=json.dumps([env['id'],route+[{'type':'press','selector':'body','key':'Escape'}]],sort_keys=True)
-                            if job_id not in queued:
-                                value['queue'].append(dict(environment=env['id'],
-                                    route=route+[{'type':'press','selector':'body','key':'Escape'}], dialog_focus='escape'))
-                                queued.add(job_id)
-                        for control in data['controls']:
-                            candidates,reason=actions(control, data.get('focused_horizontal_tab'))
-                            if reason:
-                                node.setdefault('deferred',[]).append(dict(control,reason=reason))
-                                value['remaining'].append(f'{env["id"]} / {control["selector"]}：{reason}')
-                            for action in candidates:
-                                path=route+[action];ident=json.dumps([env['id'],path],sort_keys=True)
-                                if ident in queued or ident in done:continue
-                                if len(path)>30:
-                                    value['remaining'].append(f'{capture_key}：深さ30を超える経路の追加検査が必要。');continue
-                                value['queue'].append({'environment':env['id'],'route':path});queued.add(ident)
-                        # Scrolling itself can reveal lazy content and trigger events.
-                        positions=[(0,env['viewport']['height']),(0,max(0,data['scroll']['height']-env['viewport']['height'])),
-                                   (max(0,data['scroll']['width']-env['viewport']['width']),0)]
-                        for x,y in set(positions)-{(0,0)}:
-                            if len(route)>=30:continue
-                            if x==0 and data['scroll']['height']<=env['viewport']['height']:continue
-                            path=route+[{'type':'scroll','selector':'body','x':x,'y':y}]
-                            ident=json.dumps([env['id'],path],sort_keys=True)
-                            if ident not in queued:value['queue'].append({'environment':env['id'],'route':path});queued.add(ident)
+                        if not initial_only:
+                            parent = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True)) if route else None
+                            queue_state_actions(value, node, data, env, queued, done, quick=quick, parent=parent, max_depth=max_depth)
+                        captured_routes[json.dumps([env['id'], route], sort_keys=True)] = node
                 value['queue'].pop(0);value['remaining']=list(dict.fromkeys(value['remaining']))
                 value['manifest']=manifest
                 with run_lock(run):
@@ -542,7 +761,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
         finally:
             await browser.close()
             found={label for node in value['nodes'] for label in node.get('state_labels',[])}
-            value['remaining'] += ['未到達の指定状態：'+label['id'] for label in labels if label['id'] not in found]
+            if not initial_only:
+                value['remaining'] += ['未到達の指定状態：'+label['id'] for label in labels if label['id'] not in found]
             value['running']=False
             manifest['collector_status']='completed' if not value['queue'] else 'interrupted'
             value['manifest']=manifest

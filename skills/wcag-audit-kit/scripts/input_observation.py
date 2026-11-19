@@ -5,7 +5,7 @@ from datetime import datetime,timezone
 
 INIT_SCRIPT=r"""(() => {
  const documentId=String(performance.timeOrigin)+'-'+Math.random().toString(36).slice(2);
- window.__wcagExpectedPointerTarget=null;
+ window.__wcagExpectedInputTarget=null;
  const types=['pointerdown','pointerup','pointercancel','pointermove','mousedown','mouseup','click',
               'dragstart','dragover','drop','dragend','keydown','keyup'];
  for(const type of types) addEventListener(type,event=>{
@@ -15,7 +15,7 @@ INIT_SCRIPT=r"""(() => {
    timestamp:event.timeStamp,target:target?{tag:target.localName,id:target.id}:null,
    pointerType:event.pointerType??null,button:event.button??null,buttons:event.buttons??null,
    x:event.clientX??null,y:event.clientY??null,
-   expectedTargetMatched:window.__wcagExpectedPointerTarget===null?null:path.includes(window.__wcagExpectedPointerTarget)};
+   expectedTargetMatched:window.__wcagExpectedInputTarget===null?null:path.includes(window.__wcagExpectedInputTarget)};
   if(event instanceof KeyboardEvent){
    data.key=event.key.length===1?'[character]':event.key;
    data.modifiers={control:event.ctrlKey,alt:event.altKey,shift:event.shiftKey,meta:event.metaKey};
@@ -73,7 +73,7 @@ async def pointer_action(page,action,observer):
             await locator_for(page,action).hover(**options)
     elif kind=='pointer_down':
         # Set only the observer's expected element; do not move or focus it.
-        await locator_for(page,action).evaluate('(element)=>{window.__wcagExpectedPointerTarget=element}')
+        await locator_for(page,action).evaluate('(element)=>{window.__wcagExpectedInputTarget=element}')
         index=len(observer.events)
         await page.mouse.down(button=action.get('button','left'))
         await observer.pointer_down_after(index)

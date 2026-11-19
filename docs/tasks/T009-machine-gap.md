@@ -150,3 +150,25 @@ HTML・JSON・Excelと文字周辺に絞った証拠画像を照合し、1.4.3�
 表と同じ画素で見えるカードについて、後続行が独立した記事として認識される対照を候補から外した。役割不明の同じ配置と、記事を支援技術から隠した対照は候補に残った。HTML・ARIAの表と役割が不足する表も再検証した。両方のChromium回帰試験とPythonの278試験が通った。[ADR 0064](../adr/0064-use-framed-articles-to-narrow-table-candidates.md) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29) [PR #65](https://github.com/k-s-h-r/wcag-audit-kit/pull/65)
 
 合流前のレビューで、次のTabに動きがない場合を機械判定不能とし、タイマーが残る経路でも既存のEscapeを試すようにした。ブラウザーが複数のロール候補から表と認識した対照も、表の照合に残した。計6件のダイアログ対照と、表・カード、フォーカス移動時の通信制限、Python 278件を再検証した。[ADR 0063](../adr/0063-observe-focus-after-dismissing-modal.md) [ADR 0064](../adr/0064-use-framed-articles-to-narrow-table-candidates.md)
+
+## 初期画面の検査と任意の操作探索
+
+担当は `codex/initial-page-audit-first`。起点は [PR #67](https://github.com/k-s-h-r/wcag-audit-kit/pull/67) の `716364f`。直接の `wcag-page` は初期画面の帳票を先に返し、操作探索を選んだときは同じrunへ追加する。リンク内の文字などで、親のポインター挙動だけを引き継ぐ子はまとめる。独立した操作や委譲先の候補も判別する。[ADR 0068](../adr/0068-defer-single-page-operation-exploration.md)
+
+`tests/initial_page_audit_browser.py --out <新しい保存先>` で、PC幅とスマホ相当の幅の初期取得が各1回、操作キュー・Tabログなしで結果を返すことを確認した。操作探索を追加すると、展開後にだけ現れる画像の代替文の指摘が同じ帳票に入り、初期証拠のハッシュは一致した。リンク内の文言30件を同じリンクへまとめ、独立したハンドラー・カーソルだけの部品・イベントの委譲先は候補に残った。初期収集の中断・再開も検証した。
+
+全体画像と再開、Shadow DOMと探索範囲、横並びタブのChromium回帰と、ローカルでの範囲外遷移の除外を確認した。単体試験は281件中270件成功、環境依存で11件スキップ。公開サイトの再検査とCodex上の初期結果の案内は今回未実施。次は先行PR #67のレビューと合流を確認し、この変更のレビューに対応する。
+
+[PR #68](https://github.com/k-s-h-r/wcag-audit-kit/pull/68)でレビュー中。
+
+### 初期報告から自動で簡易探索を続ける
+
+[PR #68](https://github.com/k-s-h-r/wcag-audit-kit/pull/68)の同じブランチで、初期検査後に簡易探索まで自動で実行する方式へ切り替えた。開閉部品と新しく見える部品を優先し、変化のない別部品との組み合わせを抑える。候補上限や省いた操作を未確認として残す。[ADR 0069](../adr/0069-run-a-short-operation-sweep-automatically.md)
+
+ローカルのChromiumで、40個のボタンより後ろの入れ子の目次を両幅で開き、展開後の指摘を帳票で確認した。24ステップで14状態、保留8経路。閉じた目次の内側は、開く前の候補から外れた。既存の入れ子、Shadow DOM、操作前後の画面証拠の回帰試験も実行した。単体試験は281件中270件成功、環境依存で11件スキップ。公開サイトの再検査とCodex上の対話はいずれも今回未実施。次は先行PRとともにレビュー結果を確認する。
+
+### 計測通信がある場合の実キー入力
+
+[PR #68](https://github.com/k-s-h-r/wcag-audit-kit/pull/68)で、計測通信だけの遮断を記録したうえで、対象への実キー入力と状態変化が確認できる実入力を通過とする。ローカルのChromiumでは目次が開いた経路は通過、状態が変わらない操作と機能のPOSTも遮断された操作は保留。POSTはサーバーに届かなかった。対象サイトの保存済みrunは診断にのみ使い、今回の試験はローカルで実施した。[ADR 0070](../adr/0070-separate-telemetry-blocks-from-keyboard-results.md)
+
+ネイティブの折りたたみと `aria-expanded` のボタンの双方で、計測通信だけのときに操作を通過とした。探索対象とポインター入力のChromium回帰を確認し、単体試験は283件中272件成功、環境依存で11件スキップ。次はPRのレビュー結果を確認する。

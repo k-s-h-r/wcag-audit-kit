@@ -19,12 +19,37 @@ def grouped_machine_issues(checks):
         outcome='問題あり（機械）' if g['outcome']=='failed' else '機械判定不能') for g in groups.values()]
 
 
+def verified_key_effect(run, edge, evidence):
+    import audit
+    from keyboard_checks import matching_keydown
+
+    effect = edge.get('key_effect')
+    if not effect or effect['before'] == effect['after']:
+        return False
+    path = run / Path(evidence).with_name('input-events.json')
+    if not path.is_file():
+        return False
+    log = audit.load(path)
+    index = effect['event_index']
+    if log.get('truncated') or type(index) is not int or not 0 <= index < len(log['events']):
+        return False
+    event = log['events'][index]
+    return (event.get('expectedTargetMatched') is True
+            and matching_keydown(event, edge['route'][-1]['key']))
+
+
 def keyboard_route_result(run, edge, evidence):
     import audit
     from page_explorer import TAB_UNREACHABLE
 
     error = edge.get('error')
-    if edge.get('blocked_requests') or edge.get('native_events'):
+    blocked = edge.get('blocked_requests', [])
+    if blocked or edge.get('native_events'):
+        telemetry_only = bool(blocked) and all(request.get('telemetry') is True for request in blocked)
+        if not error and not edge.get('native_events') and telemetry_only:
+            if verified_key_effect(run, edge, evidence):
+                return 'passed', '指定した対象へ実入力が届き、操作前後の状態が変わったことを記録した。遮断したのは計測通信。'
+            return 'cant_tell', '計測通信を遮断した状態で、対象の状態変化を入力ログと照合できなかった。'
         return 'cant_tell', error or '通信・ページ移動の制限又はブラウザーの分岐があり、実入力の結果を確認できない。'
     if not error:
         return 'passed', '実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。'
@@ -290,9 +315,14 @@ def next_work(run, url, limit=5):
                 unavailable.append({'case_id':c['case_id'],'criterion':c['criterion'],'checkpoints':packet['skipped_checkpoints']});continue
         packets.append(packet)
     mode_notice={k:v for k,v in mode.items() if k!='checkpoints'} if mode else None
+    deferred = graph.get('deferred', False)
+    if deferred:
+        next_action = 'page-audit --resume --initial-only' if graph['queue'] else 'page-audit --resume --quick-explore'
+    else:
+        next_action = 'page-audit --resume' if graph.get('queue') else '残る範囲の追加検査'
     return {'page':url,'evidence_base':str(run),'audit_complete':result['audit_complete'],'verification':mode_notice,
-        'exploration':{'graph_digest':graph.get('graph_digest'),'pending_routes':len(graph.get('queue',[])),'remaining':graph['remaining'],
-                       'next':'page-audit --resume' if graph.get('queue') else '残る範囲の追加検査'},
+        'exploration':{'graph_digest':graph.get('graph_digest'),'pending_routes':0 if deferred else len(graph.get('queue',[])),
+                       'remaining':graph['remaining'],'next':next_action,'deferred':deferred},
         'machine_checks':dict(Counter(c['outcome'] for c in checks)),
         'remaining_cases':len(pending),'mode_actionable_cases':len(packets),'mode_unavailable_count':len(unavailable),
         'mode_unavailable_cases':unavailable[:max(1,limit)],

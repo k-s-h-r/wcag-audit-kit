@@ -1,5 +1,6 @@
 """Regression checks for keyboard evidence in the page reports."""
 from pathlib import Path
+from types import SimpleNamespace
 import unittest
 
 from openpyxl import load_workbook
@@ -7,7 +8,7 @@ from openpyxl import load_workbook
 import test_ledger as fixture
 import audit
 import page_workflow
-from page_explorer import TAB_UNREACHABLE
+from page_explorer import TAB_UNREACHABLE, is_telemetry
 
 
 def action(kind, selector, **details):
@@ -91,6 +92,39 @@ class KeyboardReportScopeTest(unittest.TestCase):
         self.assertEqual(checks[0]['target'], '#opener')
         self.assertEqual(checks[1]['target'], '現在のフォーカス')
         self.assertEqual(checks[3]['evidence'], 'evidence/explicit/keyboard-check.json')
+
+    def test_telemetry_requires_a_known_endpoint_and_non_navigation_post(self):
+        page = 'https://www.example.com/contact'
+        cases = [
+            ('https://www.google-analytics.com/g/collect?v=2', 'POST', 'ping', False, True),
+            ('https://www.google.com/g/collect', 'POST', 'fetch', False, True),
+            ('https://www.example.com/cdn-cgi/rum', 'POST', 'xhr', False, True),
+            ('https://www.example.com/cdn-cgi/rum', 'POST', 'document', True, False),
+            ('https://other.example.com/cdn-cgi/rum', 'POST', 'ping', False, False),
+            ('https://www.google-analytics.com.evil.test/g/collect', 'POST', 'ping', False, False),
+            ('https://www.google.com/g/collect', 'GET', 'fetch', False, False),
+            ('https://www.example.com/submit', 'POST', 'fetch', False, False),
+        ]
+        for url, method, resource, navigation, expected in cases:
+            with self.subTest(url=url, method=method, resource=resource):
+                request = SimpleNamespace(url=url, method=method, resource_type=resource,
+                                          is_navigation_request=lambda: navigation)
+                self.assertEqual(is_telemetry(request, page), expected)
+
+    def test_recorded_effect_requires_the_trusted_key_on_the_target(self):
+        key = action('key', '#opener', key='Enter')
+        routes = []
+        for name, trusted, matched in [('trusted', True, True), ('synthetic', False, True),
+                                       ('wrong-target', True, False)]:
+            routes.append(self.edge(name, [key], blocked_requests=[{'method': 'POST', 'telemetry': True}],
+                                    key_effect={'before': {'open': False}, 'after': {'open': True}, 'event_index': 0}))
+            entry = {'type': 'keydown', 'isTrusted': trusted, 'is_main_frame': True, 'key': 'Enter',
+                     'expectedTargetMatched': matched,
+                     'modifiers': {'shift': False, 'control': False, 'alt': False, 'meta': False}}
+            self.save_evidence(f'evidence/{name}/input-events.json', {'events': [entry], 'truncated': False})
+        self.save_graph(routes)
+        self.assertEqual([row['outcome'] for row in page_workflow.machine_checks(self.run)],
+                         ['passed', 'cant_tell', 'cant_tell'])
 
     def test_unreachable_is_attributed_to_the_attempted_step(self):
         first = action('key', '#opener', key='Enter')

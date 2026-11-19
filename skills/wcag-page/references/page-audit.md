@@ -11,6 +11,17 @@ page-auditは、対象URLだけで操作候補を調べ、実クリック・hove
 
 直接 `wcag-page` に新規検査を頼む場合、適合レベル、検査モード、標準の証拠画像のうち未指定の設定を開始前に聞く。CLIを直接使う場合は各オプションで指定する。上の例では機械検査を行い、PC幅とスマホ相当の幅で、操作する前のページ全体を1枚ずつ保存する。ほかの撮影範囲と枚数上限は[観察設定](inspection-profiles.md)を参照する。
 
+## 初期画面の結果を先に返す
+
+```sh
+python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page --mode machine --screenshots initial --initial-only
+python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page --resume --quick-explore
+```
+
+直接の `wcag-page` は1行目で初期画面の結果を先に共有し、続けて2行目を自動で実行する。各環境のaxeと設定に応じた初期画像を保ち、操作後に得た結果を同じレポートに反映する。簡易探索では根拠のある操作や新しく現れた部品を優先し、各環境で通常の保留経路を最大12件に絞る。既定の上限は累計24ステップ、16状態、経路の深さ3。未実施の候補は省略数と理由を記録する。HTMLとJSONでは操作探索が未実施の間、その状態を表示する。初期画面の収集を中断した場合は `--resume --initial-only` で続きから収集できる。
+
+補助CLIから通常の自動探索を使う場合、新規runは従来の呼び出しを使え、初期結果だけを収集したrunには `--resume --explore` を使える。
+
 ## 指定URL一覧を順に検査する
 
 [設定](config.md)の `scope.mode` を `configured` にし、`scope.pages` 又は `scope.pages_file` に確定した一覧を指定する。検証モードは `machine`。自動探索用に既定の等倍環境を用意し、事前定義の `states` は空にする。URLは一覧の順に処理する。リンク巡回は行わない。
@@ -76,6 +87,8 @@ python3 scripts/audit.py page-audit --url https://example.com/contact --out /pro
 ```
 
 探索はexploration.jsonへ保存する。再開時に過去の証拠のハッシュと探索実装の版を確認し、完了した経路と判定を保持する。探索中の状態は新しい証拠ディレクトリーへ保存し、既存の画像・判定を上書きしない。同じrunの探索を同時に2つ動かすことはできない。探索の実装が更新された場合は新しいrunを作る。画像の設定と上限は[観察設定](inspection-profiles.md)に従う。画像上限を変えて別の観察を行う場合も、新しいrunで記録する。
+
+自動探索の実入力の記録では、既知の計測通信だけを遮断した場合も、対象への実キー入力と操作前後の状態変化をログで照合できれば、その操作の結果を記録する。通信の遮断記録も残す。
 
 自動探索では、送信・保存・削除・認証情報などの操作と別ページへの移動を保留する。書き込みメソッドの通信、WebSocket、ページ外へのナビゲーションを制限する。これだけで任意の本番サイトの副作用を防げる保証にはしない。必要なフォーム送信などは、テスト環境の明示した経路で既存のprobeを使い、結果を追加する。iframe、closed shadow DOM、canvas等の内部、画像を省略した表示、深さや画面数の上限は、追加検査の対象として残す。
 

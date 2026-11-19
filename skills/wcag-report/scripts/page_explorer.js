@@ -64,6 +64,8 @@
     return root.host ? `${selector(root.host)} ${path}` : path;
   };
   const visible = e => {
+    // Descendants of closed details can have layout boxes without being rendered.
+    if (e.checkVisibility && !e.checkVisibility()) return false;
     const r = e.getBoundingClientRect(), s = getComputedStyle(e);
     return !!(r.width && r.height && s.visibility !== 'hidden' && s.display !== 'none');
   };
@@ -95,14 +97,27 @@
     const recordedFocus = focusedTab ? focused : document.activeElement;
     const modal = all.filter(e => (e.matches('dialog[open]') || e.getAttribute('aria-modal') === 'true') && visible(e)).at(-1);
     const properties=['onclick','onmousedown','onpointerdown','onpointerup','onpointerenter','onmouseover','onkeydown','onchange','oninput'];
+    const eligible = all.filter(e => visible(e) && (!modal || e === modal || modal.contains(e)) &&
+      !e.matches(':disabled') && e.getAttribute('aria-disabled') !== 'true');
+    const semanticControl = e => e.matches('button,a[href],input,select,textarea,summary,[contenteditable=true]') ||
+      /^(button|combobox|listbox|option|tab|checkbox|radio|menuitem|slider|switch|treeitem)$/.test(e.getAttribute('role'));
     // Negative tabindex also marks passive programmatic focus destinations.
-    const controls = all.filter(e => visible(e) && (!modal || e === modal || modal.contains(e)) &&
-      (e.matches('button,a[href],input,select,textarea,summary,[contenteditable=true],[onclick],[onmouseover]') ||
-        (e.hasAttribute('tabindex') && e.tabIndex >= 0) ||
-        /^(button|combobox|listbox|option|tab|checkbox|radio|menuitem|slider|switch|treeitem)$/.test(e.getAttribute('role')) ||
-        getComputedStyle(e).cursor === 'pointer' || properties.some(p => typeof e[p] === 'function') ||
-        [...(events.get(e) || [])].some(t => /click|pointer|mouse|key|change|input/.test(t))))
-      .filter(e => !e.matches(':disabled') && e.getAttribute('aria-disabled') !== 'true')
+    const explicitControls = new Set(eligible.filter(e =>
+      semanticControl(e) || e.matches('[onclick],[onmouseover]') ||
+      (e.hasAttribute('tabindex') && e.tabIndex >= 0) ||
+      properties.some(p => typeof e[p] === 'function') ||
+      [...(events.get(e) || [])].some(t => /click|pointer|mouse|key|change|input/.test(t))));
+    const parent = e => e.assignedSlot || e.parentElement || e.getRootNode().host;
+    const inheritsControlCursor = e => {
+      for (let ancestor = parent(e); ancestor; ancestor = parent(ancestor)) {
+        if (getComputedStyle(ancestor).cursor !== 'pointer') return false;
+        if (semanticControl(ancestor)) return true;
+      }
+      return false;
+    };
+    const pointerOnly = eligible.filter(e => !explicitControls.has(e) && getComputedStyle(e).cursor === 'pointer' &&
+      (e.style?.cursor === 'pointer' || !inheritsControlCursor(e)));
+    const controls = [...explicitControls, ...pointerOnly]
       .filter(e => !(e.getAttribute('role') === 'listbox' && e.tabIndex < 0 && e.id &&
         all.some(c => c.getAttribute('role') === 'combobox' && (c.getAttribute('aria-controls') || '').split(/\s+/).includes(e.id))))
       .map(e => {
