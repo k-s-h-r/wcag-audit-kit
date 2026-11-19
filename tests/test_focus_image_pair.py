@@ -48,9 +48,9 @@ class FocusImagePairTests(unittest.IsolatedAsyncioTestCase):
         await self.pair.close()
         return self.pair.receipt
 
-    async def test_mode_and_total_budget_skip_both_images(self):
-        for config, reason in [(('off', 0), 'screenshots_off'), (('states', 2), 'states_only'),
-                               (('all', 1), 'image_limit')]:
+    async def test_screenshot_setting_and_total_budget_skip_both_images(self):
+        for config, reason in [(('off', 0), 'screenshots_off'), (('initial', 2), 'initial_only'),
+                               (('states', 2), 'states_only'), (('all', 1), 'image_limit')]:
             self.initialize(*config)
             receipt = await self.capture()
             self.assertEqual((receipt['status'], receipt['reason_code']), ('skipped', reason))

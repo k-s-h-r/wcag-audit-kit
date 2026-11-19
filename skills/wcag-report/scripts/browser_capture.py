@@ -180,6 +180,7 @@ async def collect(config, run_dir):
                     manifest['pages'].append({'id': pid, 'url': url})
                     states = [{'id': 'initial', 'actions': []}] + [s for s in config.get('states', []) if urlsplit(url).path in s['paths']]
                     for env in config['environments']:
+                        images.environment = env['id']
                         for state in states:
                             key = f"{pid}--{state['id']}--{env['id']}"
                             dest = run_dir / 'evidence' / key
@@ -230,7 +231,8 @@ async def collect(config, run_dir):
                                     if shutil.which('ffmpeg'):
                                         try:await images.capture_with(dest/'native-desktop.png','detail',lambda:native_display.screenshot(dest/'native-desktop.png'))
                                         except Exception as exc:(dest/'native-desktop-error.txt').write_text(str(exc))
-                                await images.capture(page,dest/'00-before.png',full_page=True,native_zoom=native_zoom)
+                                await images.capture(page, dest/'00-before.png', kind='action-before',
+                                                     label=state['id'], native_zoom=native_zoom)
                                 for i, action in enumerate(state['actions'], 1):
                                     action_started=datetime.now(timezone.utc).isoformat()
                                     if action['type'] == 'press':
@@ -270,7 +272,8 @@ async def collect(config, run_dir):
                                                     'url':page.url,'focus':await page.evaluate(FOCUS),
                                                     'started_at':action_started,'observed_at':datetime.now(timezone.utc).isoformat(),
                                                     'observations':await observe_targets(page,state.get('observe',[]))})
-                                    await images.capture(page,dest/f'action-{i:03}.png',full_page=True,native_zoom=native_zoom)
+                                    await images.capture(page, dest/f'action-{i:03}.png', kind='action-after',
+                                                         label=f'{state["id"]} · 操作{i}', native_zoom=native_zoom)
                                     if action.get('assert'):
                                         actions[-1]['action_asserted']=False
                                         await check_state(page,action['assert'])
@@ -281,7 +284,9 @@ async def collect(config, run_dir):
                                 if state.get('assert'):
                                     await check_state(page,state['assert'])
                                 inv = await page.evaluate(INVENTORY)
-                                await images.capture(page,dest/'page.png',kind='state',full_page=True,native_zoom=native_zoom)
+                                kind = 'initial' if state['id'] == 'initial' else 'state'
+                                await images.capture(page, dest/'page.png', kind=kind, label=state['id'] if kind == 'state' else None,
+                                                     full_page=images.policy['screenshots'] != 'initial', native_zoom=native_zoom)
                                 (dest/'dom.html').write_text(await page.content())
                                 (dest/'inventory.json').write_text(json.dumps(inv,ensure_ascii=False,indent=2))
                                 cdp = await context.new_cdp_session(page)
@@ -302,7 +307,7 @@ async def collect(config, run_dir):
                                     focus = await page.evaluate(FOCUS)
                                     focus_trace.append({'index':i+1,'key':'Tab','url':page.url,'focus':focus})
                                     if config.get('focus_screenshots', True):
-                                        await images.capture(page,dest/f'focus-{i+1:03}.png',native_zoom=native_zoom)
+                                        await images.capture(page, dest/f'focus-{i+1:03}.png', kind='focus', native_zoom=native_zoom)
                                 save_json_atomic(dest/'actions.json', actions)
                                 (dest/'keyboard.json').write_text(json.dumps(focus_trace,ensure_ascii=False,indent=2))
                                 save_json_atomic(dest/'console.json', logs)

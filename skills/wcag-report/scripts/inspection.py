@@ -1,6 +1,9 @@
 """Explicit observation choices; image counts are not LLM token measurements."""
 from pathlib import Path
 
+SCREENSHOT_LIMITS = {'off': 0, 'initial': 12, 'states': 12, 'all': 60}
+SCREENSHOT_LABELS = {'off': '撮らない', 'initial': '初期表示だけ', 'states': '表示状態ごと', 'all': '操作途中も撮る'}
+
 PROFILES = {
     'quick': {'screenshots':'off','screen_reader':'off','max_images':0},
     'standard': {'screenshots':'states','screen_reader':'optional','max_images':12},
@@ -16,7 +19,10 @@ def policy(value=None):
     name=value.get('profile','standard')
     if name not in PROFILES:raise ValueError('profileはquick、standard、thorough')
     result=dict(PROFILES[name],profile=name);result.update(value)
-    if result['screenshots'] not in {'off','states','all'}:raise ValueError('screenshotsはoff、states、all')
+    if result['screenshots'] not in SCREENSHOT_LIMITS:
+        raise ValueError('screenshotsはoff、initial、states、all')
+    if 'max_images' not in value:
+        result['max_images'] = SCREENSHOT_LIMITS[result['screenshots']]
     if result['screen_reader'] not in {'off','optional','required'}:raise ValueError('screen_readerはoff、optional、required')
     if type(result['max_images']) is not int or not 0<=result['max_images']<=10000:
         raise ValueError('max_imagesは0〜10000')
@@ -26,16 +32,22 @@ def policy(value=None):
 class ImageBudget:
     def __init__(self, config, run, manifest, capture):
         self.policy=policy(config.get('inspection'));self.run=Path(run);self.capture_fn=capture
-        self.page='';self.counts={}
+        self.page='';self.environment='';self.counts={}
         self.summary={'policy':self.policy,'screenshots':[],
                       'screen_reader':{'requested':self.policy['screen_reader'],'status':'not_run'}}
         manifest['inspection']=self.summary
 
-    async def capture_with(self, path, kind, callback):
+    async def capture_with(self, path, kind, callback, *, label=None):
         value={'path':str(Path(path).relative_to(self.run)),'page_id':self.page,'kind':kind}
+        if self.environment:
+            value['environment'] = self.environment
+        if label:
+            value['label'] = label
+        setting = self.policy['screenshots']
         reason=None
-        if self.policy['screenshots']=='off':reason='screenshots_off'
-        elif kind!='state' and self.policy['screenshots']=='states':reason='states_only'
+        if setting=='off':reason='screenshots_off'
+        elif setting=='initial' and kind!='initial':reason='initial_only'
+        elif setting=='states' and kind not in {'initial','state'}:reason='states_only'
         elif self.policy['max_images'] is not None and self.counts.get(self.page,0)>=self.policy['max_images']:reason='image_limit'
         if reason:
             value.update(status='skipped',reason=reason);self.summary['screenshots'].append(value);return False
@@ -46,8 +58,13 @@ class ImageBudget:
         except Exception:
             value['status']='error';raise
 
-    async def capture(self, page, path, *, kind='detail', **kwargs):
-        return await self.capture_with(path,kind,lambda:self.capture_fn(page,path,**kwargs))
+    async def capture(self, page, path, *, kind='detail', label=None, best_effort=False, **kwargs):
+        try:
+            return await self.capture_with(path, kind, lambda: self.capture_fn(page, path, **kwargs), label=label)
+        except Exception:
+            if not best_effort:
+                raise
+            return False
 
 
 def validate_review(run, value):

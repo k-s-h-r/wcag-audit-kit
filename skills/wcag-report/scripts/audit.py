@@ -628,8 +628,25 @@ def render_reports(run, *, page_url=None):
     observations=report_rows(result)
     observation_rows=''.join('<tr>'+''.join('<td>'+escape(str(value))+'</td>' for value in
         [o['url'],o['capture'],o['label'],o['visual'],o['status'],o['observed'],o['remaining'],o['screen_reader']])+'</tr>' for o in observations)
-    images=result['observation_usage'].get('screenshots',[])
-    captured=sum(i['status']=='captured' for i in images);skipped=sum(i['status']=='skipped' for i in images)
+    from inspection import SCREENSHOT_LABELS
+    images = [item for item in result['observation_usage'].get('screenshots', []) if item['status'] == 'captured']
+    image_setting = SCREENSHOT_LABELS[result['inspection_policy']['screenshots']]
+    image_details = ''
+    if images:
+        image_labels = {'initial': '初期表示', 'state': '表示状態', 'action-before': '操作前',
+                        'action-after': '操作後', 'focus': 'フォーカス', 'detail': '操作の証拠'}
+        image_links = []
+        for item in images:
+            environment = item.get('environment')
+            when = image_labels.get(item.get('kind'), '画面の証拠')
+            if item.get('label'):
+                when += ' · ' + item['label']
+            if environment:
+                when += ' · ' + environment_names.get(environment, environment)
+            path = run / item['path']
+            image_links.append('<li>' + link(path, f'{when}（{path.name}）') + '</li>')
+        image_details = (f'<details id="evidence-images"><summary>画面の証拠画像（{len(images)}枚）</summary>'
+                         '<ul>' + ''.join(image_links) + '</ul></details>')
     reader_labels = {'reviewed': '実施', 'partial': '一部実施', 'skipped': '未実施'}
     readers = '、'.join(sorted({reader_labels[p['screen_reader']['status']]
                                for p in result['interaction_review'].get('pages', {}).values()})) or '記録なし'
@@ -674,7 +691,7 @@ def render_reports(run, *, page_url=None):
             '<th scope="col">機械結果</th><th scope="col">証拠</th></tr></thead><tbody>'
             + ''.join(rows) + '</tbody></table></div></details>')
     focus_evidence = result.get('focus_evidence', [])
-    evidence_nav = ''
+    evidence_nav = '<li><a href="#evidence-images">画面の証拠画像</a></li>' if images else ''
     if focus_evidence:
         evidence_nav += '<li><a href="#focus-image-evidence">フォーカスの画像証拠</a></li>'
         measurements_html += focus_evidence_html(run, focus_evidence, files.html.parent)
@@ -743,9 +760,9 @@ def render_reports(run, *, page_url=None):
 <li><a href="#remaining">残る確認</a></li><li><a href="#details">詳細と元データ</a></li>
 {evidence_nav}</ul></nav>
 <section>{checksheet.render_failures(human_model, proof_href)}{machine_findings}</section>
-<section>{checksheet.render_summary(human_model, proof_href)}{measurements_html}</section>
+<section>{checksheet.render_summary(human_model, proof_href)}{image_details}{measurements_html}</section>
 <section>{checksheet.render_remaining(human_model, exploration)}{exploration_details}
-<p>画像の取得 {captured} 件。実スクリーンリーダーの記録 {escape(readers)}。</p>
+<p>標準の証拠画像 {escape(image_setting)} · 保存 {len(images)} 枚。実スクリーンリーダーの記録 {escape(readers)}。</p>
 <p>ページ・状態・適合要件の範囲 {escape(inventory)}</p>
 <p>{link(files.handoff, '人に引き継ぐ確認')} · {link(files.interactions, '操作調査の記録')}</p></section>
 <section><h2 id="details">詳細と元データ</h2>
@@ -870,10 +887,11 @@ def main(argv=None):
     p.add_argument('--environment', required=True)
     p.add_argument('--page-exact', help='HTML参照に表示するバッチ内のURL')
     p.add_argument('--out', type=Path, help='ページ別の参照HTMLを新規出力する')
+    from inspection import SCREENSHOT_LIMITS
     for name in ['page','page-audit']:
         p=sub.add_parser(name);p.add_argument('--url',required=True);p.add_argument('--out',required=True);p.add_argument('--config')
         p.add_argument('--level',choices=list(LEVELS));p.add_argument('--profile',choices=['quick','standard','thorough'])
-        p.add_argument('--screenshots',choices=['off','states','all']);p.add_argument('--screen-reader',choices=['off','optional','required'])
+        p.add_argument('--screenshots', choices=SCREENSHOT_LIMITS);p.add_argument('--screen-reader',choices=['off','optional','required'])
         p.add_argument('--max-images',type=int)
         p.add_argument('--mode',choices=list(MODES))
         if name=='page-audit':
@@ -980,6 +998,8 @@ def main(argv=None):
                            screen_reader=args.screen_reader,max_images=args.max_images)
                 else:
                     choice={'profile':args.profile} if args.profile else dict(config.get('inspection',{'profile':'standard'}))
+                    if args.screenshots is not None and args.screenshots != choice.get('screenshots'):
+                        choice.pop('max_images', None)
                     for key in ['screenshots','screen_reader','max_images']:
                         value=getattr(args,key)
                         if value is not None:choice[key]=value
@@ -1002,6 +1022,8 @@ def main(argv=None):
                 meta=run_meta(run)
                 if meta['config']['scope']['pages']!=[args.url]:raise ValueError('再開先のページURLが異なる')
                 if args.config and digest(config)!=meta['config_digest']:raise ValueError('再開では設定を変更しない。変更した検査は新しいrunへ保存する')
+                if args.level is not None and args.level != meta['config']['level']:
+                    raise ValueError('再開では適合レベルを変更しない。新しいrunを作る')
                 for option in ['screenshots','screen_reader','max_images','profile']:
                     requested=getattr(args,option)
                     if requested is not None and requested!=meta['config']['inspection'][option]:

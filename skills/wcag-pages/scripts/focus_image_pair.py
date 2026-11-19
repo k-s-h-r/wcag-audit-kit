@@ -39,7 +39,8 @@ FRAME = ('url', 'time_origin')
 FOCUS = ('document_focused', 'focused', 'focus_visible')
 REASONS = {
     'not_started': 'キー入力前の画像は未取得です。',
-    'screenshots_off': 'この検証モードでは画像を取得しません。',
+    'screenshots_off': '撮影しない設定のためフォーカス画像はありません。',
+    'initial_only': '初期表示だけを撮る設定のためフォーカス画像はありません。',
     'states_only': '現在の画像設定は探索状態の画像だけを取得します。',
     'image_limit': '画像の上限までに前後2枚を取得できません。',
     'unsupported_frame': '主文書以外のフォーカス画像は取得できません。',
@@ -118,7 +119,7 @@ class FocusImagePair:
     async def before(self):
         policy = self.images.policy
         if policy['screenshots'] != 'all':
-            code = 'screenshots_off' if policy['screenshots'] == 'off' else 'states_only'
+            code = {'off': 'screenshots_off', 'initial': 'initial_only', 'states': 'states_only'}[policy['screenshots']]
             self._result('skipped', code)
             return
         limit = policy['max_images']
