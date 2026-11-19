@@ -27,6 +27,8 @@ metadata:
 
 1ページの検証は[機械検査の入口](references/page-audit.md)から始める。page-auditで実操作・状態探索・axeとページ別帳票を用意し、page-nextで残りを小さく取得する。AIに都度操作や判定を考えさせる前に、実行できる機械検査・測定・既存のアダプターを使い、意味や目的等で必要な部分だけ内容判断へ回す。
 
+`page-batch`で作った帳票を渡すときは、`page-batch.json`で対象URLと処理状況を確認する。完了行の`reports`をバッチ保存先から解決し、実在するファイルのパスを案内する。未着手・中断・失敗は台帳の状態を伝える。検証の完了状況は各ページの報告JSONの`audit_complete`を使う。
+
 ## 観察の深さを決める
 
 検証方法は[モード](references/verification-modes.md)でmachine / ai / screen-reader / fullから選ぶ。新しい単独検証の未指定はmachine。利用者の選択を維持し、変更は新しいrunにする。モードで使わない手段を黙って有効にしない。画像の深さ・枚数は[観察設定](references/inspection-profiles.md)で調整する。モード未指定の旧runは従来の設定に従う。

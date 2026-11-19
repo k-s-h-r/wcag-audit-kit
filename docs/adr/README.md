@@ -57,3 +57,4 @@
 - [0051 共通部品の測定をページ別の参照HTMLで読めるようにする](0051-export-page-shared-contrast-reference.md)
 - [0052 改行で並べた箇条書きを確認候補に含める](0052-observe-break-separated-list-candidates.md)
 - [0053 図の情報を読み取ってから代替説明と比べる](0053-observe-chart-before-assessing-alternatives.md)
+- [0054 バッチの帳票を台帳と照合してから案内する](0054-check-batch-report-files-before-handoff.md)
