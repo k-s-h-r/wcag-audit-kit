@@ -53,7 +53,10 @@ def capture(root,area):
                 target=area/'speech'/source.relative_to(runtime);target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)
 
 
-def work(run,root,import_results=False):
+def work(run,root,import_results=False,*,save_pair=False):
+    if save_pair:
+        from benchmarks.native_save_pair import replay
+        return replay(run, root, capture, import_results)
     run=Path(run);task_file=core.load(run/'worker/tasks.json')
     proof=core.load(run/'integrity.json')['files']
     for name,expected in proof.items():
@@ -96,10 +99,12 @@ def work(run,root,import_results=False):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--run',required=True);parser.add_argument('--root',required=True)
-    parser.add_argument('--import-results',action='store_true');args=parser.parse_args()
+    parser.add_argument('--import-results',action='store_true')
+    parser.add_argument('--save-pair',action='store_true',help='明示した保存通知の対照を新しいrunで実行する')
+    args=parser.parse_args()
     try:
         import json
-        print(json.dumps(work(args.run,args.root,args.import_results),ensure_ascii=False,indent=2));return 0
+        print(json.dumps(work(args.run,args.root,args.import_results,save_pair=args.save_pair),ensure_ascii=False,indent=2));return 0
     except (ValueError,OSError) as error:print('ERROR:',error,file=sys.stderr);return 1
 
 if __name__=='__main__':raise SystemExit(main())
