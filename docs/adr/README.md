@@ -42,3 +42,5 @@
 - [0036 最初の10行の実測に基づき、指定URLの検査へ進む](0036-pass-the-limited-machine-gate.md)
 - [0037 無効ボタン、表示の持続、保存通知を条件付きで検査する](0037-verify-three-bounded-criterion-observations.md)
 - [0038 指定URL一覧をページ単位で検査し、途中から再開する](0038-resume-configured-page-audits.md)
+- [0039 見た目の見出し・リストを確認候補として記録する](0039-record-visual-structure-review-candidates.md)
+- [0040 実スクリーンリーダー検査で既存のOrcaを維持する](0040-preserve-existing-orca-processes.md)

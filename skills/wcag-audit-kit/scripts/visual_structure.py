@@ -1,5 +1,24 @@
 """Collect 1.3.1 review candidates from a declared region in Chromium."""
+import asyncio
+import json
+from pathlib import Path
 import re
+
+
+EVIDENCE_FILE = 'visual-structure.json'
+CHECKPOINT = '1.3.1-02'
+REPORT_TITLE = '見出し・リストの確認候補'
+REPORT_COLUMNS = (
+    ('criterion', '達成基準'), ('environment', '環境'), ('scope', '指定範囲'),
+    ('status', '観察結果'), ('target', '対象要素'), ('observed', '表示された文言・理由'),
+    ('evidence', '元の証拠'),
+)
+
+
+def validate_scope(value):
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError('visual_structure_scopeには対象範囲のCSSセレクターを指定する。')
+    return value
 
 
 PARAGRAPHS = r"""
@@ -132,8 +151,7 @@ async def accessible_semantics(session, root, selector):
 
 async def collect(page, scope_selector):
     """Suggest visible paragraph structures for review without assigning a verdict."""
-    if not isinstance(scope_selector, str) or not scope_selector.strip():
-        raise ValueError('対象範囲のセレクターを指定する。')
+    validate_scope(scope_selector)
     snapshot = await page.evaluate(PARAGRAPHS, scope_selector)
     candidates = []
     session = await page.context.new_cdp_session(page)
@@ -154,3 +172,59 @@ async def collect(page, scope_selector):
         raise ValueError('候補とアクセシビリティ情報の取得中にページ又は対象範囲が変わった。')
     return {'scope': scope_selector, 'url': snapshot['url'], 'viewport': snapshot['viewport'],
             'candidates': candidates}
+
+
+def not_observed(scope, reason):
+    return {'scope': scope, 'status': 'not_observed', 'reason': reason, 'candidates': []}
+
+
+async def observe(page, scope):
+    from playwright.async_api import Error as PlaywrightError
+
+    try:
+        result = await asyncio.wait_for(collect(page, scope), timeout=5)
+    except TimeoutError:
+        return not_observed(scope, '対象範囲の観察が5秒以内に完了しなかった。')
+    except (PlaywrightError, ValueError) as error:
+        return not_observed(scope, str(error).partition('\n')[0] or '対象範囲を観察できなかった。')
+    return dict(result, status='collected')
+
+
+def report_evidence(run, graph):
+    """Read candidate observations attached to initial captures in a verified graph."""
+    run = Path(run)
+    proof = {item['path'] for item in graph.get('proof', [])}
+    observed = []
+    for node in graph.get('nodes', []):
+        if node['route']:
+            continue
+        path = Path(node['evidence_dir']) / EVIDENCE_FILE
+        if path.as_posix() not in proof:
+            continue
+        value = json.loads((run / path).read_text())
+        observed.append(dict(value, criterion='1.3.1', checkpoint=CHECKPOINT, capture=node['capture'],
+                             environment=node['environment'], evidence=path.as_posix()))
+    return observed
+
+
+def display_text(value):
+    return re.sub(r'[\x00-\x1f\x7f]', ' ', value)[:240]
+
+
+def display_rows(observations):
+    for row in observations:
+        context = {key: display_text(row[key]) for key in ('criterion', 'environment', 'scope')}
+        context['evidence'] = row['evidence']
+        if not row['candidates']:
+            if row['status'] == 'not_observed':
+                yield dict(context, status='観察できず', observed=display_text(row['reason']))
+            else:
+                yield dict(context, status='候補なし', observed='今回の表示範囲と検出条件で確認。')
+        for candidate in row['candidates']:
+            heading = candidate['kind'] == 'heading'
+            targets = [candidate['target']] if heading else candidate['targets']
+            summary = ' / '.join(display_text(item['selector']) for item in targets[:3])
+            if len(targets) > 3:
+                summary += f'（先頭3件 / 全{len(targets)}件）'
+            yield dict(context, status='見出し候補' if heading else 'リスト候補', target=summary,
+                       observed=' / '.join(display_text(item['text']) for item in targets[:3]))

@@ -139,7 +139,7 @@ def sheet(book, name, columns, rows, readonly=False):
     return ws
 
 
-def focus_evidence_link(run, path, directory):
+def evidence_link(run, path, directory):
     """Resolve a run-local evidence file relative to the exported report."""
     parts = path.split('/')
     if parts[0] != 'evidence' or any(part in {'', '.', '..'} or '\\' in part for part in parts):
@@ -161,11 +161,25 @@ def focus_evidence_sheet(book, run, out, rows):
         if key not in FOCUS_EVIDENCE_FILES:
             continue
         for index, row in enumerate(rows, 2):
-            target = focus_evidence_link(run, row[key], out.parent)
+            target = evidence_link(run, row[key], out.parent)
             if target:
                 cell = ws.cell(index, column)
                 cell.hyperlink = target
                 cell.font = Font(color='00529B', underline='single')
+
+
+def visual_structure_sheet(book, run, out, observations):
+    from openpyxl.styles import Font
+    from visual_structure import REPORT_COLUMNS, REPORT_TITLE, display_rows
+
+    rows = list(display_rows(observations))
+    ws = sheet(book, REPORT_TITLE, REPORT_COLUMNS, rows, True)
+    for index, row in enumerate(rows, 2):
+        target = evidence_link(run, row['evidence'], out.parent)
+        if target:
+            cell = ws.cell(index, len(REPORT_COLUMNS))
+            cell.hyperlink = target
+            cell.font = Font(color='00529B', underline='single')
 
 
 def human_sheets(book, model):
@@ -279,6 +293,10 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
               result['machine_checks'],True)
         if focus_evidence:
             focus_evidence_sheet(book, run, out, focus_evidence)
+        captures = {case['capture'] for case in cases if case['criterion'] == '1.3.1'}
+        structure_evidence = [row for row in result.get('visual_structure_evidence', []) if row['capture'] in captures]
+        if structure_evidence:
+            visual_structure_sheet(book, run, out, structure_evidence)
         summary=[['出力モード',mode],['サイト',result['url']],['全検査票',len(result['cases'])],['このファイルの票数',len(cases)],
                  ['検証完了',result['audit_complete']],['範囲確認',result['scope_confirmed']],
                  ['人の確認待ち',len(result['human_review_cases'])],['未訪問URL',len(result['unvisited'])]]

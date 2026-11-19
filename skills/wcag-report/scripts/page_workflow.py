@@ -153,6 +153,9 @@ def page_result(run, url, original=None):
         result[key]=[r for r in result[key] if normalize(r['url'] if isinstance(r,dict) else r)==normalize(url)]
     page_captures=[c for c in audit.load(run/'capture-manifest.json')['captures'] if c['page_id'] in pids]
     captures={c['key'] for c in page_captures}
+    if 'visual_structure_evidence' in result:
+        result['visual_structure_evidence'] = [item for item in result['visual_structure_evidence']
+                                               if item['capture'] in captures]
     result['missing_cases']=[i for i in result['missing_cases'] if i.rsplit('--',1)[0] in captures]
     result['collection_complete']=bool(page_captures) and not result['missing_captures'] and all(c.get('collection_state','finished')=='finished' for c in page_captures)
     result['collector_status']='completed' if result['collection_complete'] else 'interrupted'
@@ -187,6 +190,9 @@ def next_work(run, url, limit=5):
                     machine_results=[m for m in checks if m['criterion']==c['criterion'] and m['capture']==c['capture']])
         if c['criterion'] == '2.4.7':
             packet['focus_evidence'] = [item for item in result['focus_evidence'] if item['environment'] == c['environment']]
+        if c['criterion'] == '1.3.1' and 'visual_structure_evidence' in result:
+            packet['visual_structure_evidence'] = [item for item in result['visual_structure_evidence']
+                                                   if item['capture'] == c['capture']]
         if mode:
             from verification_modes import work_checkpoint
             points=[r for r in mode['checkpoints'] if r['criterion']==c['criterion']]
