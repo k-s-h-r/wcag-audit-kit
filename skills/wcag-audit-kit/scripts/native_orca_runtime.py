@@ -72,12 +72,14 @@ class NativeOrcaRuntime:
         os.set_blocking(self.master, False)
         self.log = (work / 'orca-debug.log').open('wb', buffering=0)
         asyncio.get_running_loop().add_reader(self.master, self.drain)
-        reader = self.launch([str(root / 'usr/bin/orca'), '--replace', '--debug-file',
+        # Orca's --replace terminates every Orca process owned by this account,
+        # including instances outside this private display and D-Bus session.
+        reader = self.launch([str(root / 'usr/bin/orca'), '--debug-file',
             os.ttyname(self.slave), '--user-prefs', str(work / 'prefs'), '--enable', 'speech',
             '--disable', 'braille'], 'orca')
         await asyncio.sleep(3)
         if reader.poll() is not None:
-            raise ValueError('Orcaが起動後に終了した')
+            raise ValueError('Orcaが起動後に終了した。別のOrcaが起動していると検証を中断する。詳細はorca.stdoutを確認してください。')
         package_path = root / 'package-manifest.json'
         packages = json.loads(package_path.read_text()) if package_path.exists() else {}
         if packages:
