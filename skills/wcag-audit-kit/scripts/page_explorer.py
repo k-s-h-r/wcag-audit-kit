@@ -283,6 +283,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
                         capture_structure = visual_scope and (not route or observe_explored_structure)
                         prepared_structure = None
+                        structure_deadline = None
                         if capture_structure:
                             if blocked or native_events:
                                 prepared_structure = visual_structure.not_observed(
@@ -294,7 +295,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                 prepared_structure = visual_structure.not_observed(
                                     visual_scope, '表示の更新が観察範囲に収まらない。')
                             elif observe_explored_structure:
-                                prepared_structure = await visual_structure.snapshot(page, visual_scope)
+                                structure_deadline = asyncio.get_running_loop().time() + visual_structure.OBSERVATION_SECONDS
+                                prepared_structure = await visual_structure.snapshot(page, visual_scope, deadline=structure_deadline)
                                 shape = visual_structure.candidate_shape(prepared_structure)
                                 if shape:
                                     data['visual_structure_shape'] = shape
@@ -302,7 +304,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         state_key = (env['id'], fingerprint(data))
                         if state_key not in seen or matched_labels:
                             if capture_structure:
-                                structure_observation = await visual_structure.observe(page, visual_scope, prepared_structure)
+                                structure_observation = await visual_structure.observe(
+                                    page, visual_scope, prepared_structure, deadline=structure_deadline)
                             # Capture the audited state before diagnostic scrolling changes the DOM.
                             cdp=await context.new_cdp_session(page)
                             audit.save(dest/'accessibility-tree.json',await cdp.send('Accessibility.getFullAXTree'));await cdp.detach()

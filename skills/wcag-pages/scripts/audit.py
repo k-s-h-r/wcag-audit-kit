@@ -713,6 +713,10 @@ def main(argv=None):
     p=sub.add_parser('page-batch');p.add_argument('--config',required=True);p.add_argument('--out',required=True)
     p.add_argument('--resume',action='store_true')
     p.add_argument('--max-pages-this-run',type=int)
+    p = sub.add_parser('shared-contrast', help='ページ別の機械検査にある同じコントラスト観察をまとめる')
+    p.add_argument('--batch', required=True, type=Path)
+    p.add_argument('--target', required=True)
+    p.add_argument('--environment', required=True)
     for name in ['page','page-audit']:
         p=sub.add_parser(name);p.add_argument('--url',required=True);p.add_argument('--out',required=True);p.add_argument('--config')
         p.add_argument('--level',choices=list(LEVELS));p.add_argument('--profile',choices=['quick','standard','thorough'])
@@ -790,6 +794,12 @@ def main(argv=None):
                                       limit=args.max_pages_this_run, audit_page=main)
             print(json.dumps(summary, ensure_ascii=False))
             return code
+        if args.command == 'shared-contrast':
+            from shared_contrast import compare
+
+            result = compare(args.batch, target=args.target, environment=args.environment)
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 0
         if args.command in {'start','pages','page','page-audit'}:
             from page_catalog import read_config,select_pages
             if args.command in {'page','page-audit'}:

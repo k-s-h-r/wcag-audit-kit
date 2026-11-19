@@ -7,6 +7,7 @@ import re
 
 EVIDENCE_FILE = 'visual-structure.json'
 CHECKPOINT = '1.3.1-02'
+OBSERVATION_SECONDS = 5
 REPORT_TITLE = '見出し・リストの確認候補'
 REPORT_COLUMNS = (
     ('criterion', '達成基準'), ('environment', '環境'), ('state', '表示状態・操作'),
@@ -188,26 +189,27 @@ def not_observed(scope, reason):
     return {'scope': scope, 'status': 'not_observed', 'reason': reason, 'candidates': []}
 
 
-async def bounded_observation(scope, operation):
+async def bounded_observation(scope, operation, *, deadline=None):
     from playwright.async_api import Error as PlaywrightError
 
+    timeout = OBSERVATION_SECONDS if deadline is None else max(0, deadline - asyncio.get_running_loop().time())
     try:
-        return await asyncio.wait_for(operation, timeout=5)
+        return await asyncio.wait_for(operation, timeout=timeout)
     except TimeoutError:
         return not_observed(scope, '対象範囲の観察が5秒以内に完了しなかった。')
     except (PlaywrightError, ValueError) as error:
         return not_observed(scope, str(error).partition('\n')[0] or '対象範囲を観察できなかった。')
 
 
-async def snapshot(page, scope):
+async def snapshot(page, scope, *, deadline=None):
     """Prepare the configured region before deduplication, without querying the AX tree."""
-    return await bounded_observation(scope, page.evaluate(PARAGRAPHS, scope))
+    return await bounded_observation(scope, page.evaluate(PARAGRAPHS, scope), deadline=deadline)
 
 
-async def observe(page, scope, prepared=None):
+async def observe(page, scope, prepared=None, *, deadline=None):
     if prepared is not None and prepared.get('status') == 'not_observed':
         return prepared
-    result = await bounded_observation(scope, collect(page, scope, snapshot=prepared))
+    result = await bounded_observation(scope, collect(page, scope, snapshot=prepared), deadline=deadline)
     result.setdefault('status', 'collected')
     return result
 
