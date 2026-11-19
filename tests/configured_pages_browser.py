@@ -68,6 +68,7 @@ def fixture():
 
 
 def hashes(run):
+    run = audit.run_layout.ledger(run)
     return {path.relative_to(run).as_posix(): sha256(path.read_bytes()).hexdigest()
             for path in (run/'evidence').rglob('*') if path.is_file()}
 
@@ -119,6 +120,7 @@ def check_reports(run, url, path, result):
     assert report['counts'] == {'not_run': 55}
     assert all(case['page_url'] == url and case['page_id'] == page_id(url) for case in report['cases'])
     assert escape(url) in files['html'].read_text()
+    run = audit.run_layout.ledger(run)
     graph = audit.load(run/'exploration.json')
     assert len(graph['nodes']) == 1
     node = graph['nodes'][0]
@@ -167,7 +169,7 @@ def main(out):
             if index == 1:
                 first = hashes(out/'page-01')
                 interrupt(args, out, entered, release)
-                graph = audit.load(run/'exploration.json')
+                graph = audit.load(audit.run_layout.ledger(run)/'exploration.json')
                 assert first and not graph['nodes'] and graph['queue']
                 partial = hashes(run)
                 assert partial, 'interruption should preserve evidence'
@@ -181,9 +183,9 @@ def main(out):
                 result = invoke(args, out, run.name)
             if path == '/missing':
                 assert result.returncode == 2, result.stderr
-                graph = audit.load(run/'exploration.json')
+                graph = audit.load(audit.run_layout.ledger(run)/'exploration.json')
                 assert not graph['nodes'] and any('404' in item for item in graph['remaining']), graph
-                assert not list(run.glob('page-*-report.json'))
+                assert not (run/'data/report.json').exists()
                 reports.append({'url': url, 'status': 'navigation_failed', 'reason': 'HTTP 404'})
             else:
                 reports.append(check_reports(run, url, path, result))

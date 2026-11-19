@@ -61,7 +61,7 @@ def verify(out, url, variant):
             assert opener['type'] == 'click' and opener['target']['id'] == 'open' and opener['isTrusted']
             event = events[receipt['escape_event_index'] - 1]
             assert event['key'] == 'Escape' and event['isTrusted']
-            assert row['observed'] in html and f'href="{proof}"' in html
+            assert row['observed'] in html and f'href="{audit.run_layout.href(Path(files["html"]), run / proof)}"' in html
             assert any(proof in cells and row['observed'] in cells for cells in sheet)
             if variant == 'stayed':
                 assert receipt['after_escape']['modals'] == ['#notice'] and row['outcome'] == 'cant_tell'

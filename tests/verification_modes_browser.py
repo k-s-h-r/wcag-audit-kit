@@ -51,6 +51,7 @@ def main(out):
             if name in {'ai','full'}:command+=['--max-images','2']
             with (out/(name+'.stdout.txt')).open('w') as stdout,contextlib.redirect_stdout(stdout):
                 assert audit.main(command)==0
+            run=audit.run_layout.ledger(run)
             value=page_workflow.page_result(run,url);mode=value['verification']
             assert mode['mode']==name and mode['screen_reader_status']==('not_run' if name in {'screen-reader','full'} else 'disabled')
             assert not value['audit_complete'] and set(value['counts'])=={'not_run'}
@@ -65,7 +66,8 @@ def main(out):
             assert all((p['ai_instruction'] is not None)==(name in {'ai','full'}) for p in packet['next_cases'][0]['verification_checkpoints'])
             assert len(mode['checkpoints'])==131
             audit.save(out/(name+'.packet.json'),packet)
-            files={'html':next(run.glob('page-*-report.html')),'json':next(run.glob('page-*-report.json')),'excel':next(run.glob('page-*-report.xlsx'))}
+            paths = audit.run_layout.report_files(run, single=True)
+            files = {name: getattr(paths, name) for name in ('html','json','excel')}
             assert audit.load(files['json'])['verification'] == mode
             from openpyxl import load_workbook
             book=load_workbook(files['excel'])
@@ -78,7 +80,7 @@ def main(out):
                 expected_summary = verification_modes.report_summary_rows(mode)
                 excel_summary = dict(book['概要'].iter_rows(min_row=2,values_only=True))
                 assert all(excel_summary[label] == record for label, record in expected_summary)
-                reports[name] = (files['html'].name, actual, expected_summary)
+                reports[name] = (files['html'].relative_to(out / name).as_posix(), actual, expected_summary)
             finally:book.close()
             results.append(dict(mode=name,states=len(page_explorer.status(run)['nodes']),machine_checks=len(value['machine_checks']),
                 screenshots=len(images),screen_reader=mode['screen_reader_status'],wcag_counts=value['counts'],
@@ -91,6 +93,7 @@ def main(out):
                     page=await browser.new_page()
                     for name, (report, expected, summary) in reports.items():
                         await page.goto(f'http://127.0.0.1:{server.server_port}/__reports__/{name}/{report}')
+                        await page.get_by_text('検査モードの仕様', exact=True).click()
                         section = page.get_by_role('region', name=f'選択した検証モード：{verification_modes.MODES[name]["label"]}')
                         rows = await section.locator('table tr').evaluate_all(
                             '(rows) => rows.map(row => Array.from(row.cells, cell => cell.textContent))')
@@ -99,11 +102,13 @@ def main(out):
                             assert await section.get_by_text(f'{label}：{record}', exact=True).count() == 1
                     for width in [1280,320]:
                         await page.set_viewport_size({'width':width,'height':900})
-                        report=next((out/'full').glob('page-*-report.html'))
-                        await page.goto(f'http://127.0.0.1:{server.server_port}/__reports__/full/{report.name}')
+                        report='reports/report.html'
+                        await page.goto(f'http://127.0.0.1:{server.server_port}/__reports__/full/{report}')
+                        await page.get_by_text('検査モードの仕様', exact=True).click()
                         await page.locator('#verification-mode').scroll_into_view_if_needed()
                         assert await page.evaluate('document.documentElement.scrollWidth<=innerWidth'),width
                         region=page.get_by_role('region',name='モード別の確認範囲',exact=True)
+                        await page.get_by_text('検査モードの仕様', exact=True).focus()
                         for _ in range(40):
                             await page.keyboard.press('Tab')
                             if await region.evaluate('(e)=>e===document.activeElement'):break
@@ -121,7 +126,7 @@ def main(out):
                         await page.screenshot(path=str(out/f'mode-report-{width}.png'))
                 finally:await browser.close()
         asyncio.run(inspect_report())
-        run=out/'machine';meta_before=(run/'run.json').read_bytes();old_proof=page_explorer.status(run)['proof']
+        run=audit.run_layout.ledger(out/'machine');meta_before=(run/'run.json').read_bytes();old_proof=page_explorer.status(run)['proof']
         with (out/'resume.stdout.txt').open('w') as stdout,contextlib.redirect_stdout(stdout):
             assert audit.main(['page-audit','--url',url,'--out',str(run),'--resume','--max-states','3','--max-steps','6'])==0
         assert (run/'run.json').read_bytes()==meta_before

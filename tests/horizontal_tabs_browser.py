@@ -33,7 +33,7 @@ def collect_and_verify(out, url, variant, baseline):
     (out/'command.log').write_text(result.stdout + result.stderr)
     assert result.returncode == 0, result.stdout + result.stderr
     files = json.loads(result.stdout.strip().splitlines()[-1])
-    return verify(run, files, variant, baseline)
+    return verify(audit.run_layout.ledger(run), files, variant, baseline)
 
 
 def verify(run, files, variant, baseline):
@@ -104,7 +104,7 @@ def verify(run, files, variant, baseline):
             assert row['target'] == str([image]), row
             assert all(step['key'] in row['state_label'] for step in edge['route']), row
             assert audit.evidence_item(run, row['evidence']) in graph['proof']
-            assert image in html and f'href="{row["evidence"]}"' in html
+            assert image in html and f'href="{audit.run_layout.href(Path(files["html"]), run / row["evidence"])}"' in html
             assert any(row['target'] in cells and row['evidence'] in cells for cells in sheet)
     finally:
         book.close()

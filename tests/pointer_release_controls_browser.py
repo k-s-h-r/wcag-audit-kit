@@ -27,6 +27,7 @@ def verify(out, url):
     audit.save(settings, config)
     assert audit.main(['page-audit', '--url', url, '--config', str(settings), '--mode', 'machine',
                        '--out', str(run), '--max-states', '10', '--max-steps', '18', '--max-depth', '2']) == 0
+    run = audit.run_layout.ledger(run)
     graph = audit.load(run/'exploration.json')
     initial = next(node for node in graph['nodes'] if not node['route'])
     controls = {control['selector']: control for control in initial['controls']}
@@ -55,7 +56,7 @@ def verify(out, url):
             image_findings.append(node)
     assert [node['route'] for node in image_findings] == [nested], image_findings
     image_node, = image_findings
-    report = audit.load(run/f'page-{page_id(url)}-report.json')
+    report = audit.load(audit.run_layout.report_files(run, single=True).json)
     image_row, = [row for row in report['machine_checks']
                   if row['checkpoint'] == 'axe / image-alt' and row['outcome'] == 'failed']
     assert image_row['criterion'] == '1.1.1' and image_row['target'] == "['#nested-image']", image_row

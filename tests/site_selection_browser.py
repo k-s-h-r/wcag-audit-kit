@@ -18,6 +18,8 @@ from url_selection_browser import ROOT, start_server, stop_server, write_json
 
 
 SKILL = ROOT / 'skills/wcag-audit-kit'
+sys.path.insert(0, str(SKILL / 'scripts'))
+from run_layout import ledger
 VIEWPORT = {'width': 1280, 'height': 900}
 COMPLETION = '/procedure-done?flow=selected#receipt'
 HISTORY = '/account/history'
@@ -218,7 +220,7 @@ def select_targets(out, base, anonymous, authenticated, procedure, profile_state
 def verify_page_proof(batch_dir, row, heading):
     run = (batch_dir / row['run']).resolve()
     assert run.is_relative_to(batch_dir.resolve())
-    run_config = json.loads((run / 'run.json').read_text())['config']
+    run_config = json.loads((ledger(run) / 'run.json').read_text())['config']
     assert run_config['scope']['pages'] == [row['url']]
     paths = {key: (batch_dir / path).resolve() for key, path in row['reports'].items()}
     assert set(paths) == {'html', 'json', 'excel'}
@@ -226,6 +228,7 @@ def verify_page_proof(batch_dir, row, heading):
     report = json.loads(paths['json'].read_text())
     assert report['url'] == row['url'] and report['verification']['mode'] == 'machine'
     assert report['audit_complete'] is row['audit_complete'] is False
+    run = ledger(run)
     receipts = json.loads((run / 'capture-manifest.json').read_text())
     initial = next(item for item in receipts['captures'] if item['state'] == 'initial')
     evidence_path = Path(initial['evidence_dir']) / 'inventory.json'

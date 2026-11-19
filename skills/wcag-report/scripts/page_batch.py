@@ -11,6 +11,7 @@ import audit
 from browser_capture import page_id
 from collection_checkpoint import save_json_atomic
 from ledger_lock import run_lock
+from run_layout import ledger
 from page_catalog import configured_urls, read_config
 from verification_modes import select
 
@@ -96,7 +97,7 @@ def run_page(out, value, row, config, audit_page):
     if run.is_dir() and any(run.iterdir()):
         if row['status'] != 'interrupted':
             raise ValueError('未実行のページの保存先に既存ファイルがある')
-        if not (run/'run.json').is_file():
+        if not (ledger(run)/'run.json').is_file():
             row.setdefault('previous_runs', []).append(row['run'])
             row['attempt'] += 1
             row['run'] = run_ref(row['id'], row['attempt'])
@@ -114,7 +115,7 @@ def run_page(out, value, row, config, audit_page):
     if auth_digest(config) != value['inputs']['auth_state_sha256']:
         raise ValueError('認証状態が変更された')
     command = ['page-audit', '--url', row['url'], '--config', str(path), '--out', str(run)]
-    if (run/'run.json').is_file():
+    if (ledger(run)/'run.json').is_file():
         command.append('--resume')
     row['status'] = 'interrupted'
     row.pop('reason', None)

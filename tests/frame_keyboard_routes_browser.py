@@ -29,7 +29,7 @@ def exit_plan(base, document):
 
 
 def read_result(run):
-    report = next(run.glob('page-*-report.json'))
+    report = audit.run_layout.report_files(audit.run_layout.ledger(run), single=True).json
     value = audit.load(report)
     row, = [r for r in value['machine_checks'] if r['checkpoint'] == 'キーボード経路 / iframe-escape']
     evidence = run / row['evidence']
@@ -106,11 +106,11 @@ def main(out):
                 assert step['after']['frame'] == FRAME and step['after']['id'] == 'frame-last'
                 assert row['target'] == '#subject → #frame-last'
                 assert '5手順目の Escape' in row['observed']
-                html = report.with_suffix('.html').read_text()
+                html = audit.run_layout.report_files(audit.run_layout.ledger(run), single=True).html.read_text()
                 matches = [part for part in re.findall(r'<tr>(.*?)</tr>', html, re.S)
-                           if f'href="{row["evidence"]}"' in part]
+                           if f'href="{audit.run_layout.href(audit.run_layout.report_files(run, single=True).html, run / row["evidence"])}"' in part]
                 assert len(matches) == 1 and row['target'] in matches[0]
-                book = load_workbook(next(run.glob('page-*-report*.xlsx')), read_only=True, data_only=True)
+                book = load_workbook(audit.run_layout.report_files(audit.run_layout.ledger(run), single=True).excel, read_only=True, data_only=True)
                 try:
                     assert any(row['evidence'] in cells and row['target'] in cells and row['observed'] in cells
                                for cells in book['自動検出した問題'].values)

@@ -27,6 +27,7 @@ def run(out):
             path=out/(name+'.json');audit.save(path,config);target=out/name
             assert audit.main(['page-audit','--url',url,'--config',str(path),'--out',str(target),
                 '--max-states','12','--max-steps','6' if name=='narrow' else '20','--max-depth','1'])==0
+            target=audit.run_layout.ledger(target)
             graph=status(target)
             assert graph['nodes'];assert all(n['environment']==name for n in graph['nodes'])
             if name=='native':

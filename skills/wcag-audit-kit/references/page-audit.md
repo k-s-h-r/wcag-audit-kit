@@ -230,6 +230,8 @@ python3 scripts/audit.py resolve-exploration --run /project/run-page --file /pro
 python3 scripts/audit.py page-report --run /project/run-page --page-exact https://example.com/contact
 ```
 
-page-auditの終了時にも同じ出力を作る。run直下のpage-識別子-report.html / .json / .xlsxがページ単位の結果。HTMLとExcelのチェックシートには、基準全体の判定、確認観点、機械検査の内訳を表示する。自動検出した問題の表は、同じ問題の状態別記録を集約し、全状態と証拠を保持する。Excelの機械検査シートには、機械結果と実入力の全記録を出す。概要・件数・検査票もそのページだけを集計する。更新時のExcelは別名で保存する。元のrun全体のreport.html等は変更しない。
+新規の単独ページ検査では、`page` と `page-audit` の終了時に `reports/report.html`、`reports/report.xlsx`、`data/report.json` を作る。HTMLの冒頭で修正箇所、実施結果、残る確認を読む。機械ルールの結果は基準全体の判定と区別する。モードの仕様、個別の検査票、証拠のリンクは詳細から参照できる。
+
+`page-report` で再集計すると、公開用の帳票を同じ保存先に更新する。複数ページのrunでは、個別ページの結果を `reports/pages/<ページID>/` と `data/pages/<ページID>/` に置く。元の操作ログと測定は `work/evidence/` に置く。提出する証拠パスは従来どおり `evidence/…` で、処理用JSONでは `evidence_base` が基準になる。CLIの `--run` には `--out` で指定したフォルダーを渡す。従来形式のrunでは従来の参照先と出力名を使う。
 
 この仕組みの実行成功は、機械検査と帳票作成を終えた意味。WCAG検証完了には、予定した検査票の未実施・判断保留・未網羅、探索・画面観察、必要な読み上げ等の未確認と適合要件の確認が残っていないことが必要。状態を有限個試しただけで、任意のページの全状態を網羅したとは表明しない。

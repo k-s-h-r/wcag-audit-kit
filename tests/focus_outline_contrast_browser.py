@@ -64,6 +64,7 @@ def run_check(out, url):
     (out/'command.log').write_text(result.stdout + result.stderr)
     assert result.returncode == 0, result.stdout + result.stderr
     files = json.loads(result.stdout.strip().splitlines()[-1])
+    run = audit.run_layout.ledger(run)
     report = audit.load(files['json'])
     graph = audit.load(run/'exploration.json')
     assert next(entry for entry in report['criteria'] if entry['id'] == '1.4.11')['status'] == 'unverified'
@@ -93,7 +94,7 @@ def run_check(out, url):
             assert measurement['border'] == '#000000' and measurement['outside'] == background
             assert measurement['minimum'] == 3 and abs(measurement['ratio'] - ratio) < 0.0001
             assert audit.evidence_item(run, measurement['source']) in graph['proof']
-            assert f'href="{measurement["source"]}"' in html
+            assert f'href="{audit.run_layout.href(Path(files["html"]), run / measurement["source"])}"' in html
             with Image.open(run / measurement['source']) as image:
                 assert image.size == (172, 56), image.size
     finally:

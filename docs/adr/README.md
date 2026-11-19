@@ -68,3 +68,4 @@
 - [0062 見た目の構造をブラウザーの役割と照合する](0062-compare-visual-structure-with-browser-roles.md)
 - [0063 Escapeでダイアログを閉じた後のフォーカスを追う](0063-observe-focus-after-dismissing-modal.md)
 - [0064 独立したカードを表候補から絞り込む](0064-use-framed-articles-to-narrow-table-candidates.md)
+- [0065 ページ検査の結果を修正担当者が使える形で出力する](0065-publish-readable-audit-results.md)

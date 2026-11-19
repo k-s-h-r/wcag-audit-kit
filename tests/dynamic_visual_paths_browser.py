@@ -66,16 +66,16 @@ def execute(area, url, *, hover=None, keyboard=None, pause=False, images=False):
 
     if pause:
         run_command('paused', '--max-steps', '1')
-        graph = audit.load(run / 'exploration.json')
+        graph = audit.load(audit.run_layout.ledger(run) / 'exploration.json')
         assert any(job.get('hover_check') == hover['id'] for job in graph['queue']), graph
         assert not any(edge.get('hover_check') for edge in graph['edges']), graph
     remaining = ['--resume'] if pause else []
     produced = run_command('resumed' if pause else 'first', '--max-steps', '2', *remaining)
-    return run, Path(produced['excel'])
+    return audit.run_layout.ledger(run), Path(produced['excel'])
 
 
 def report(run):
-    path = next(run.glob('page-*-report.json'))
+    path = audit.run_layout.report_files(run, single=True).json
     value = audit.load(path)
     assert not value['audit_complete']
     assert all(case['outcome'] == 'not_run' for case in value['cases'])
@@ -85,7 +85,8 @@ def report(run):
 
 
 def assert_report_formats(workbook, path, rows):
-    html = path.with_suffix('.html').read_text()
+    html_path = workbook.with_suffix('.html')
+    html = html_path.read_text()
     book = load_workbook(workbook, read_only=True, data_only=True)
     try:
         machine_rows = {tuple('' if value is None else value for value in cells)
@@ -95,11 +96,11 @@ def assert_report_formats(workbook, path, rows):
         for row in rows:
             assert tuple(row[key] for key in ('criterion', 'checkpoint', 'expected', 'outcome', 'environment',
                                               'capture', 'target', 'observed', 'evidence', 'note')) in machine_rows, row
-            assert f'href="./{row["evidence"]}"' in html, row
+            assert f'href="{audit.run_layout.href(html_path, audit.run_layout.ledger(path.parent.parent) / row["evidence"])}"' in html, row
             fields = [row[key] for key in ('expected', 'target', 'observed')]
             matching_issue_rows = [cells for cells in issue_rows if row['evidence'] in cells
                                    and all(field in cells for field in fields)]
-            matching_html = [cells for cells in grouped_html if f'href="{row["evidence"]}"' in cells
+            matching_html = [cells for cells in grouped_html if f'href="{audit.run_layout.href(html_path, audit.run_layout.ledger(path.parent.parent) / row["evidence"])}"' in cells
                              and all(escape(field) in cells for field in fields)]
             if row['outcome'] in {'failed', 'cant_tell'}:
                 assert len(matching_html) == len(matching_issue_rows) == 1, row
@@ -110,7 +111,7 @@ def assert_report_formats(workbook, path, rows):
 
 
 def load_proof(run, relative_path):
-    graph = audit.load(run / 'exploration.json')
+    graph = audit.load(audit.run_layout.ledger(run) / 'exploration.json')
     assert audit.evidence_item(run, relative_path) in graph['proof'], relative_path
     path = run / relative_path
     events = audit.load(path.with_name('input-events.json'))
@@ -206,7 +207,7 @@ def inspect_focus(run, workbook, plan, expected, status):
         assert receipt['exposed'] and receipt['targetCore'], receipt
     if receipt.get('image'):
         image = (Path(row['evidence']).parent / receipt['image']).as_posix()
-        graph = audit.load(run / 'exploration.json')
+        graph = audit.load(audit.run_layout.ledger(run) / 'exploration.json')
         assert audit.evidence_item(run, image) in graph['proof']
     assert_report_formats(workbook, path, [row])
     return {'outcome': expected, 'measurement': status}

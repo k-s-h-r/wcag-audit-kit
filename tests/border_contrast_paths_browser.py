@@ -36,6 +36,7 @@ def run_check(area, url, *, mode, expected, ratio=None):
     (area/'command.log').write_text(result.stdout + result.stderr)
     assert result.returncode == 0, result.stdout + result.stderr
     files = json.loads(result.stdout.strip().splitlines()[-1])
+    run = audit.run_layout.ledger(run)
     report = audit.load(files['json'])
     row, = [row for row in report['machine_checks'] if row['checkpoint'] == '境界の測定 / form-boundary']
     assert row['criterion'] == '1.4.11' and row['target'] == '#subject' and row['outcome'] == expected, row
@@ -51,7 +52,7 @@ def run_check(area, url, *, mode, expected, ratio=None):
     else:
         assert proof['status'] == 'cant_tell', proof
     html = Path(files['html']).read_text()
-    assert f'href="./{row["evidence"]}"' in html
+    assert f'href="{audit.run_layout.href(Path(files["html"]), run / row["evidence"])}"' in html
     book = load_workbook(files['excel'], read_only=True, data_only=True)
     try:
         assert any(row['evidence'] in cells and row['observed'] in cells and row['target'] in cells

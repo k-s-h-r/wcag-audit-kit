@@ -44,6 +44,7 @@ def run(out):
         path=out/'config.json';audit.save(path,config);target=out/'run'
         assert audit.main(['page-audit','--url',url,'--out',str(target),'--config',str(path),
             '--max-images','30','--max-states','12','--max-steps','100','--max-depth','2'])==0
+        target=audit.run_layout.ledger(target)
         graph=page_explorer.status(target)
         nodes=[n for n in graph['nodes'] if any(s['selector']=='#details' for s in audit.load(target/n['evidence_dir']/'state.json')['state'])]
         assert nodes,'content behind the enabled control was not explored'

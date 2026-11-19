@@ -31,6 +31,7 @@ def run(out):
     try:
         common=['page-audit','--url',url,'--out',str(target),'--config',str(path),'--max-images','400','--max-states','150','--max-depth','5']
         assert audit.main(common+['--max-steps','100','--max-depth','1'])==0
+        target=audit.run_layout.ledger(target)
         before=status(target);old_proof=before['proof'].copy();first_steps=before['steps']
         assert before['queue']
         assert audit.main(common+['--resume','--max-steps','1000'])==0

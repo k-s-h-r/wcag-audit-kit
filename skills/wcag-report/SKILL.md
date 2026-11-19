@@ -27,7 +27,7 @@ python3 scripts/audit.py report --run <run> --strict
 python3 scripts/audit.py excel export --run <run> --mode report --out <新しいreport.xlsx>
 ```
 
-report.html、report.json、issues.md、human-review.md、interaction-review.mdを確認する。Excelは[閲覧用と作業用](references/collaboration.md)を区別する。作業用Excelの受領だけを理由に判定を取り込まない。取り込みが明示された場合は、全体進行による記録更新又は同資料の取り込み手順を別の更新作業として実施し、その結果を報告の入力とする。
+`reports/report.html`を閲覧用の入口とする。処理用の結果は`data/report.json`、引き継ぎと操作調査は`reports/details/`にある。従来形式のrunでは直下の帳票を参照する。Excelは[閲覧用と作業用](references/collaboration.md)を区別する。作業用Excelの受領だけを理由に判定を取り込まない。取り込みが明示された場合は、全体進行による記録更新又は同資料の取り込み手順を別の更新作業として実施し、その結果を報告の入力とする。
 
 人向けには[達成基準チェックシート](references/checksheet.md)を使う。HTMLとExcelの先頭で基準ごとの適用・適合・未確認を示し、保存した対象の期待結果ごとに確認観点の行を分ける。不適合箇所の一覧にURL・状態・環境・対象要素・再現手順・証拠があることを確認する。内訳の通過を基準全体へ広げず、未実施の観点を自動作成して適合にしない。人向けシートの編集は取り込み対象ではない。
 

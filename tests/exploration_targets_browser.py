@@ -89,6 +89,8 @@ def run(out):
     try:
         assert audit.main(['page-audit', '--mode', 'machine', '--url', url, '--out', str(target),
                            '--config', str(config_path), '--max-depth', '1', '--max-steps', '50']) == 0
+        target = audit.run_layout.ledger(target)
+        files = audit.run_layout.report_files(target, single=True)
         graph = status(target)
         initial, = [node for node in graph['nodes'] if not node['route']]
         controls = {control['selector']: control for control in initial['controls']}
@@ -106,7 +108,7 @@ def run(out):
         enter_evidence(target, graph, labels['第2ボタン'])
         assert '/other' not in requests
 
-        report, = target.glob('page-*-report.json')
+        report = files.json
         rows = [row for row in audit.load(report)['machine_checks'] if row['criterion'] == '2.1.1']
         assert all(row['target'] not in {'#main', '#passive'} for row in rows)
         assert any(row['target'] == link and row['outcome'] == 'passed' for row in rows)
@@ -130,13 +132,13 @@ def run(out):
         assert mismatch['outcome'] == 'failed' and receipt['steps'][-1]['input_event_index']
         assert any(not item['matched'] for item in receipt['steps'][-1]['conditions'])
 
-        report_html, = target.glob('page-*-report.html')
+        report_html = files.html
         html_rows = re.findall(r'<tr>.*?</tr>', report_html.read_text(), re.DOTALL)
         findings = ((ambiguous, '機械判定不能'), ('#event', '問題あり（機械）'),
                     ('#missing-panel', '問題あり（機械）'))
         for marker, label in findings:
             assert any(escape(marker) in row and label in row for row in html_rows), (marker, label)
-        report_excel, = target.glob('page-*-report.xlsx')
+        report_excel = files.excel
         workbook = load_workbook(report_excel, read_only=True)
         try:
             issue_rows = list(workbook['自動検出した問題'].values)

@@ -55,19 +55,20 @@ def exercise(out,skill_root=None):
         command('standard',['page','--url',url,'--config',str(path),'--out',str(out/'standard'),
                             '--profile','standard','--max-images','3','--screen-reader','off'])
         standard_requests=list(requests);requests.clear()
-        manifest=audit.load(out/'standard/capture-manifest.json')
+        standard=audit.run_layout.ledger(out/'standard')
+        manifest=audit.load(standard/'capture-manifest.json')
         assert len(manifest['captures'])==4 and all(c['execution']=='completed' for c in manifest['captures'])
         assert len(list((out/'standard').rglob('*.png')))==3
         assert not any('visual-linked.html' in p for p in standard_requests)
         assert any(i.get('reason')=='image_limit' for i in manifest['inspection']['screenshots'])
         initial=next(c for c in manifest['captures'] if c['state']=='initial')
-        inventory=audit.load(out/'standard'/initial['evidence_dir']/'inventory.json')
+        inventory=audit.load(standard/initial['evidence_dir']/'inventory.json')
         div=next(n for n in inventory['nodes'] if n['id']=='preferences-trigger')
         assert div['tag']=='div' and div['role'] is None and div['tabIndex']==-1
-        keyboard=audit.load(out/'standard'/initial['evidence_dir']/'keyboard.json')
+        keyboard=audit.load(standard/initial['evidence_dir']/'keyboard.json')
         assert all(e['focus']['id']!='preferences-trigger' for e in keyboard)
         help_capture=next(c for c in manifest['captures'] if c['state']=='help')
-        actions=audit.load(out/'standard'/help_capture['evidence_dir']/'actions.json')
+        actions=audit.load(standard/help_capture['evidence_dir']/'actions.json')
         assert actions[1]['focus']['id']=='help-trigger' and actions[1]['action_asserted']
         assert actions[2]['focus']['id']=='more'
         config['states']=[];audit.save(path,config)
@@ -75,7 +76,7 @@ def exercise(out,skill_root=None):
             command(profile,['page','--url',url,'--config',str(path),'--out',str(out/profile),
                              '--profile',profile,'--max-images',limit])
             assert len(list((out/profile).rglob('*.png')))==expected
-            assert not audit.outcomes(out/profile)['audit_complete']
+            assert not audit.outcomes(audit.run_layout.ledger(out/profile))['audit_complete']
         requests.clear();config['scope']['seeds']=['/visual-controls.html'];config['scope']['max_pages']=3;audit.save(path,config)
         command('discover',['pages','--config',str(path),'--out',str(out/'pages.json')])
         selection=audit.load(out/'pages.json')
