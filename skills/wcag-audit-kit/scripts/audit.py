@@ -676,6 +676,9 @@ def main(argv=None):
     p=sub.add_parser('rule');p.add_argument('--id',required=True)
     p=sub.add_parser('start');p.add_argument('--config',required=True);p.add_argument('--out',required=True)
     p=sub.add_parser('pages');p.add_argument('--config',required=True);p.add_argument('--out',required=True)
+    p=sub.add_parser('page-batch');p.add_argument('--config',required=True);p.add_argument('--out',required=True)
+    p.add_argument('--resume',action='store_true')
+    p.add_argument('--max-pages-this-run',type=int)
     for name in ['page','page-audit']:
         p=sub.add_parser(name);p.add_argument('--url',required=True);p.add_argument('--out',required=True);p.add_argument('--config')
         p.add_argument('--level',choices=list(LEVELS));p.add_argument('--profile',choices=['quick','standard','thorough'])
@@ -747,6 +750,12 @@ def main(argv=None):
             config=select(init_config(args.url),args.mode,profile=args.profile)
             config['environments']=[e for e in config['environments'] if e.get('zoom',1)==1]
             save(p,config);print(p);return 0
+        if args.command == 'page-batch':
+            from page_batch import run as run_batch
+            code, summary = run_batch(args.config, args.out, resume=args.resume,
+                                      limit=args.max_pages_this_run, audit_page=main)
+            print(json.dumps(summary, ensure_ascii=False))
+            return code
         if args.command in {'start','pages','page','page-audit'}:
             from page_catalog import read_config,select_pages
             if args.command in {'page','page-audit'}:
