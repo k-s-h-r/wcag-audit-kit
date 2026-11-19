@@ -50,3 +50,5 @@
 - [0044 空の通知領域の対照を実Orcaの発話で検査する](0044-verify-record-notification-contrast.md)
 - [0045 操作後の表示から見出しとリストの候補を記録する](0045-observe-visual-structure-after-operation.md)
 - [0046 隔離したCodexでスキルの発見と入力への展開を確かめる](0046-measure-codex-skill-dispatch-offline.md)
+- [0047 共通部品の同じコントラスト測定をまとめて参照する](0047-reference-shared-contrast-observations.md)
+- [0048 指定範囲の見出し・リスト候補が変わった状態を保存する](0048-distinguish-scoped-visual-candidate-changes.md)

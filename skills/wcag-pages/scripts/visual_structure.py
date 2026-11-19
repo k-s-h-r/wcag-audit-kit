@@ -7,6 +7,7 @@ import re
 
 EVIDENCE_FILE = 'visual-structure.json'
 CHECKPOINT = '1.3.1-02'
+OBSERVATION_SECONDS = 5
 REPORT_TITLE = '見出し・リストの確認候補'
 REPORT_COLUMNS = (
     ('criterion', '達成基準'), ('environment', '環境'), ('state', '表示状態・操作'),
@@ -136,6 +137,14 @@ def bullet_runs(paragraphs):
         marker = current_marker
 
 
+def candidate_shape(snapshot):
+    """Identify changes in likely structures without comparing entire layouts."""
+    paragraphs = snapshot.get('paragraphs', []) if snapshot is not None else []
+    shapes = [['heading', title['selector'], body['selector']] for title, body in heading_pairs(paragraphs)]
+    shapes.extend(['list', marker, *[item['selector'] for item in run]] for marker, run in bullet_runs(paragraphs))
+    return shapes
+
+
 async def accessible_semantics(session, root, selector):
     found = await session.send('DOM.querySelector', {'nodeId': root, 'selector': selector})
     if not found['nodeId']:
@@ -150,10 +159,11 @@ async def accessible_semantics(session, root, selector):
     return {'role': role, 'ignored': node['ignored'], 'inside_list': parent is not None}
 
 
-async def collect(page, scope_selector):
+async def collect(page, scope_selector, snapshot=None):
     """Suggest visible paragraph structures for review without assigning a verdict."""
     validate_scope(scope_selector)
-    snapshot = await page.evaluate(PARAGRAPHS, scope_selector)
+    if snapshot is None:
+        snapshot = await page.evaluate(PARAGRAPHS, scope_selector)
     candidates = []
     session = await page.context.new_cdp_session(page)
     try:
@@ -179,16 +189,29 @@ def not_observed(scope, reason):
     return {'scope': scope, 'status': 'not_observed', 'reason': reason, 'candidates': []}
 
 
-async def observe(page, scope):
+async def bounded_observation(scope, operation, *, deadline=None):
     from playwright.async_api import Error as PlaywrightError
 
+    timeout = OBSERVATION_SECONDS if deadline is None else max(0, deadline - asyncio.get_running_loop().time())
     try:
-        result = await asyncio.wait_for(collect(page, scope), timeout=5)
+        return await asyncio.wait_for(operation, timeout=timeout)
     except TimeoutError:
         return not_observed(scope, '対象範囲の観察が5秒以内に完了しなかった。')
     except (PlaywrightError, ValueError) as error:
         return not_observed(scope, str(error).partition('\n')[0] or '対象範囲を観察できなかった。')
-    return dict(result, status='collected')
+
+
+async def snapshot(page, scope, *, deadline=None):
+    """Prepare the configured region before deduplication, without querying the AX tree."""
+    return await bounded_observation(scope, page.evaluate(PARAGRAPHS, scope), deadline=deadline)
+
+
+async def observe(page, scope, prepared=None, *, deadline=None):
+    if prepared is not None and prepared.get('status') == 'not_observed':
+        return prepared
+    result = await bounded_observation(scope, collect(page, scope, snapshot=prepared), deadline=deadline)
+    result.setdefault('status', 'collected')
+    return result
 
 
 def state_description(route):

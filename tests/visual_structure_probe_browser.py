@@ -239,6 +239,68 @@ def operation_cases(out):
             thread.join()
 
 
+def typography_cases(out):
+    out.mkdir()
+    public = out/'public'
+    public.mkdir()
+    (public/'index.html').write_text(f'''<!doctype html><html lang="ja"><head><meta charset="utf-8">
+        <title>1.3.1 操作後の文字装飾</title><style>{STYLE}</style></head><body><main>
+        <button type="button" id="enlarge"
+                onclick="document.styleSheets[0].insertRule('#title {{ font: bold 24px/1.5 sans-serif; }}')">表示変更</button>
+        <section id="scope"><p id="title">{LABEL}</p><p>{BODY}</p></section>
+        <section id="unaffected"><p>補足の説明</p><p>{BODY}</p></section>
+        </main></body></html>''')
+    with ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=str(public))) as server:
+        thread = Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        url = f'http://127.0.0.1:{server.server_port}/index.html'
+        try:
+            cases = [('explored', '#scope', 'explored', 8), ('outside-scope', '#unaffected', 'explored', 8),
+                     ('initial', '#scope', None, 8), ('disabled', None, None, 8),
+                     ('budget-initial', '#scope', 'explored', 1)]
+            summary = {}
+            for name, scope, setting, max_states in cases:
+                run, files = run_page_audit(out/name, url, scope, states=setting, max_states=max_states, max_steps=5)
+                graph = page_explorer.status(run)
+                report = audit.load(files['json'])
+                trigger_route = [{'type': 'click', 'selector': '#enlarge'}]
+                initial = graph['nodes'][0]
+                triggered = next((edge for edge in graph['edges'] if edge['route'] == trigger_route), None)
+                nodes = [initial] + ([triggered] if triggered else [])
+                candidates = [c['target']['selector'] for row in report.get('visual_structure_evidence', [])
+                              for c in row['candidates']]
+                variants = [audit.load(run/entry['evidence_dir']/'state.json') for entry in nodes]
+                assert len({page_explorer.fingerprint(dict(data, visual_structure_shape=[])) for data in variants}) == 1
+                text_styles = [next((item['fontSize'], item['fontWeight']) for item in inventory['nodes']
+                                    if item['id'] == 'title')
+                               for inventory in (audit.load(run/entry['evidence_dir']/'inventory.json') for entry in nodes)]
+                assert text_styles == ([('16px', '400'), ('24px', '700')] if triggered else [('16px', '400')])
+                summary[name] = {'nodes': len(graph['nodes']), 'steps': graph['steps'],
+                                 'candidates': candidates, 'text_styles': text_styles}
+                audit.save(out/'typography-observed.json', summary)
+                assert all(item['outcome'] == 'not_run' for item in report['cases'] if item['criterion'] == '1.3.1')
+                if name == 'explored':
+                    assert len(graph['nodes']) == 2 and graph['nodes'][1]['route'] == trigger_route
+                    variant = graph['nodes'][1]
+                    assert variant['fingerprint'] == page_explorer.fingerprint(variants[1])
+                    assert variant['fingerprint'] != initial['fingerprint']
+                    assert candidates == ['#title']
+                    _, candidate_state = report['visual_structure_evidence']
+                    assert candidate_state['capture'] == variant['capture']
+                    assert audit.evidence_item(run, candidate_state['evidence']) in graph['proof']
+                    events = audit.load(run/triggered['evidence_dir']/'input-events.json')['events']
+                    assert any(event['isTrusted'] and event['type'] == 'click' and event['target']['id'] == 'enlarge'
+                               for event in events)
+                    assert f'href="{candidate_state["evidence"]}"' in Path(files['html']).read_text()
+                else:
+                    assert len(graph['nodes']) == 1 and candidates == []
+                assert graph['steps'] == (1 if name == 'budget-initial' else 5)
+            return summary
+        finally:
+            server.shutdown()
+            thread.join()
+
+
 async def main(out):
     if out.exists():
         raise ValueError('試験結果には新しい保存先を指定する。')
@@ -282,6 +344,7 @@ async def main(out):
     audit.save(out/'page-audit-observed.json', results)
     print(json.dumps(results, ensure_ascii=False))
     print(json.dumps(operation_cases(out/'operations'), ensure_ascii=False))
+    print(json.dumps(typography_cases(out/'typography'), ensure_ascii=False))
 
 
 if __name__ == '__main__':
