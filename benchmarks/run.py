@@ -24,6 +24,7 @@ def main(argv=None):
     sub.add_parser('inventory')
     p=sub.add_parser('collect');p.add_argument('--out',required=True);p.add_argument('--mode',choices=[*core.modes.MODES,'all'])
     p.add_argument('--criterion',action='append',choices=list(core.audit.CRITERIA));p.add_argument('--port',type=int,default=0);p.add_argument('--resume',action='store_true')
+    p.add_argument('--text-paint',action='store_true',help='ai/fullの指定済み静的文字に、通常検査と別枠で最大7枚を使う')
     for name in ['serve','score','import','attach','task']:
         p=sub.add_parser(name);p.add_argument('--run',required=True)
         if name in {'import','attach'}:p.add_argument('--file',required=True)
@@ -38,7 +39,8 @@ def main(argv=None):
             print(json.dumps({'corpus_digest':value['digest'],'checkpoint_coverage':core.case_contracts.coverage(value,core.modes.catalog()['checkpoints']),'criteria':[dict(id=c['id'],title=c['title'],cases=ready.get(c['id'],0),status='prepared' if c['id'] in ready else 'unprepared') for c in core.audit.CATALOG['criteria']]},ensure_ascii=False,indent=2));return 0
         if args.command=='collect':
             selected=list(core.modes.MODES) if args.mode=='all' else [args.mode] if args.mode else None
-            result=runner.collect(Path(args.out),criterion=args.criterion,selected_modes=selected,port=args.port,resume=args.resume)
+            result=runner.collect(Path(args.out),criterion=args.criterion,selected_modes=selected,port=args.port,
+                                  resume=args.resume,text_paint=args.text_paint)
             files=reporting.write(Path(args.out),result)
             print_summary(files, result)
             return 0

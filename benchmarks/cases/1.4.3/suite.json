@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.4.3",
-  "version": "4",
+  "version": "5",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/1.4.3.md",
@@ -20,6 +20,7 @@
       "states": [
         {
           "id": "initial",
+          "text_paint_target": "#subject",
           "instructions": [
             "通常サイズの文字の前景・背景色からコントラストを測る。"
           ]
@@ -55,6 +56,7 @@
       "states": [
         {
           "id": "initial",
+          "text_paint_target": "#subject",
           "instructions": [
             "通常サイズの文字の前景・背景色からコントラストを測る。"
           ]

@@ -1,4 +1,5 @@
 import copy
+from importlib.util import find_spec
 import json
 from pathlib import Path
 import sys
@@ -526,6 +527,125 @@ class ScoringTest(unittest.TestCase):
         core.freeze(run, [path for path in run.rglob('*') if path.is_file() and path.name != '.audit.lock'
                           and (freeze_capture or path != proof)])
         return run, proof
+
+    def make_text_paint_run(self, *, mode='ai', enabled=True, weight=400, change=None):
+        from PIL import Image
+        from measure import contrast
+        from benchmarks import text_paint_evidence as method, text_paint_probe as probe
+
+        run, meta, job, progress = self.make_run(mode=mode, point=method.CHECKPOINT)
+        page = job['pages'][0]
+        job['states'][0]['text_paint_target'] = '#one'
+        oracle = core.load(run/'oracle.snapshot.json')
+        oracle['suites'][0]['cases'][0]['states'] = job['states']
+        meta.update(oracle_digest=core.digest(oracle), corpus_digest=core.digest(oracle))
+        if enabled:
+            meta['configuration']['text_paint_images'] = method.IMAGE_BUDGET
+        core.save(run/'run.json', meta)
+        core.save(run/'oracle.snapshot.json', oracle)
+        core.save(run/'worker/tasks.json', {'jobs': [job]})
+        (run/'integrity.json').unlink()
+
+        source = run/'worker/public/1.4.3'/page
+        source.parent.mkdir(parents=True)
+        source.write_text('<!doctype html><p id="one">Pink</p>')
+        entry = progress['jobs'][job['id']][page]
+        entry.update(status='completed', exit_code=0)
+        core.save(run/'progress.json', progress)
+        attempt = run/entry['directory']
+        core.save(attempt/'exploration.json', {'nodes': [], 'edges': []})
+        core.save(attempt.parent/'receipt.json', dict(job_id=job['id'], page=page, mode=mode, url=job['urls'][page],
+                                                      status='completed', exit_code=0))
+        output = attempt.parent/method.DIRECTORY
+        output.mkdir()
+        receipt = method.binding(meta, job, page, '#one', core.file_hash(source))
+        fill = 'rgb(119, 119, 119)'
+        frame_colors = {'transparent': (255, 255, 255), 'black': (0, 0, 0), 'white': (255, 255, 255)}
+        frames = {}
+        for stage, color in probe.CAPTURE_STAGES.items():
+            path = output/f'{stage}.png'
+            with Image.new('RGB', tuple(probe.VIEWPORT.values()), 'white') as image:
+                image.putpixel((20, 20), frame_colors.get(stage, (119, 119, 119)))
+                image.save(path)
+            frames[stage] = dict(path=path.name, fill=color or fill, sha256=core.file_hash(path))
+        ratio = contrast('#777777', '#ffffff')['ratio']
+        threshold = 3 if weight >= 700 else 4.5
+        measurement = dict(status='measured', scope=probe.RESULT_SCOPE, target='#one', source=source.name,
+                           source_sha256=core.file_hash(source), blocked_requests=[], frames=frames,
+                           image_limit=method.IMAGE_BUDGET, range_css_px=[18, 18, 8, 8],
+                           viewport_css_px=list(probe.VIEWPORT.values()), scroll_css_px=[0, 0],
+                           browser='unit fixture', foreground='#777777', background='#ffffff',
+                           font_css_px=20, font_weight=weight, ratio=ratio, threshold=threshold,
+                           threshold_met=ratio >= threshold)
+        if change is not None:
+            change(receipt, measurement, output)
+        core.save(output/'receipt.json', receipt)
+        core.save(output/'result.json', measurement)
+        core.freeze(run, [run/'run.json', run/'oracle.snapshot.json', run/'worker/tasks.json', source,
+                          *[p for p in (run/'audit-runs').rglob('*') if p.is_file()]])
+        return run, output
+
+    @unittest.skipUnless(find_spec('PIL'), 'Pillow is optional')
+    def test_text_paint_recomputes_unrounded_ratio_and_font_threshold(self):
+        normal, _ = self.make_text_paint_run()
+        row = core.score(normal)['rows'][0]
+        self.assertEqual((row['actual'], row['grade'], row['method']), ('failed', 'correct', 'program'))
+        self.assertIn('4.478089', row['observed'])
+        self.assertEqual(sum(path.endswith('.png') for path in row['evidence']), 7)
+        bold, _ = self.make_text_paint_run(weight=700)
+        self.assertEqual(core.score(bold)['rows'][0]['actual'], 'passed')
+
+    @unittest.skipUnless(find_spec('PIL'), 'Pillow is optional')
+    def test_text_paint_binds_result_and_frame_provenance(self):
+        mutations = [
+            lambda receipt, data, out: receipt.update(run_id='foreign'),
+            lambda receipt, data, out: receipt.update(state='after-click'),
+            lambda receipt, data, out: data.update(target='#two'),
+            lambda receipt, data, out: data.update(viewport_css_px=[1280, 800]),
+            lambda receipt, data, out: data.update(source_sha256='foreign'),
+            lambda receipt, data, out: data.update(ratio=4.5, threshold_met=True),
+            lambda receipt, data, out: data.update(font_css_px=float('nan')),
+            lambda receipt, data, out: data.update(status='hold', reason={'unexpected': 'type'}),
+            lambda receipt, data, out: data['frames'].pop('restored'),
+            lambda receipt, data, out: data['frames']['black'].update(sha256='wrong'),
+            lambda receipt, data, out: (out/'restored.png').unlink(),
+            lambda receipt, data, out: data['frames']['restored'].update(path='original.png'),
+        ]
+        for i, mutation in enumerate(mutations):
+            with self.subTest(mutation=i):
+                run, _ = self.make_text_paint_run(change=mutation)
+                self.assertEqual(core.score(run)['rows'][0]['grade'], 'not_evaluated')
+
+    @unittest.skipUnless(find_spec('PIL'), 'Pillow is optional')
+    def test_text_paint_does_not_grade_without_image_mode_or_opt_in(self):
+        for mode, enabled in [('machine', True), ('screen-reader', True), ('ai', False)]:
+            with self.subTest(mode=mode, enabled=enabled):
+                run, _ = self.make_text_paint_run(mode=mode, enabled=enabled)
+                self.assertEqual(core.score(run)['rows'][0]['grade'], 'not_evaluated')
+
+    @unittest.skipUnless(find_spec('PIL'), 'Pillow is optional')
+    def test_text_paint_frozen_image_tampering_is_rejected(self):
+        run, output = self.make_text_paint_run()
+        (output/'black.png').write_bytes(b'modified')
+        with self.assertRaisesRegex(ValueError, '変更された'):
+            core.score(run)
+
+    def test_text_paint_opt_in_cannot_be_added_to_resume_or_machine(self):
+        from benchmarks import runner
+
+        with self.assertRaisesRegex(ValueError, 'ai又はfull'), patch('benchmarks.runner.server') as server:
+            runner.collect(Path(self.temp.name)/'machine', criterion=['1.4.3'], selected_modes=['machine'], text_paint=True)
+        server.assert_not_called()
+        run, meta, _, _ = self.make_run(mode='ai', point='1.4.3-02')
+        meta.update(implementation_digest=runner.implementation_digest(), environment={'unit': 'environment'})
+        core.save(run/'run.json', meta)
+        integrity = core.load(run/'integrity.json')
+        integrity['files']['run.json'] = core.file_hash(run/'run.json')
+        core.save(run/'integrity.json', integrity)
+        with patch('benchmarks.runner.environment', return_value=meta['environment']), patch('benchmarks.runner.server') as server:
+            with self.assertRaisesRegex(ValueError, '--text-paint'):
+                runner.collect(run, resume=True, text_paint=True)
+        server.assert_not_called()
 
     def test_status_acquisition_matches_same_document_visible_states_without_speech(self):
         for role in ('status', None):

@@ -20,12 +20,13 @@ from measure import contrast
 
 
 DOCUMENT_URL = 'https://text-paint-fixture.invalid/source.html'
+RESULT_SCOPE = '1.4.3-02 text-paint measurement on the specified static fixture'
 POLICY = "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; sandbox allow-same-origin"
 CAPTURE_STAGES = {
     'original': None, 'original-repeat': None, 'transparent': 'rgba(0, 0, 0, 0)',
     'black': 'rgb(0, 0, 0)', 'white': 'rgb(255, 255, 255)', 'restored': None, 'restored-repeat': None,
 }
-VIEWPORT = {'width': 1280, 'height': 800}
+VIEWPORT = {'width': 1280, 'height': 900}
 ALLOWED_ELEMENTS = {
     'html', 'head', 'meta', 'title', 'style', 'body', 'main', 'section', 'article', 'header', 'footer',
     'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'span', 'label', 'strong', 'em', 'b', 'i', 'br',
@@ -63,7 +64,8 @@ STATE = r"""(e) => {
   const fill = s.getPropertyValue('-webkit-text-fill-color');
   const usesUniformFontAndFill = ['::first-letter', '::first-line'].every(pseudo => {
     const style = getComputedStyle(e, pseudo);
-    return ['font-size', 'font-weight', 'font-family', 'font-style', 'opacity', 'text-shadow',
+    return ['font-size', 'font-weight', 'font-family', 'font-style', 'font-size-adjust', 'font-variation-settings',
+      'opacity', 'text-shadow',
       'text-decoration-line', '-webkit-text-fill-color', '-webkit-text-stroke-width']
       .every(property => style.getPropertyValue(property) === s.getPropertyValue(property));
   });
@@ -87,6 +89,9 @@ STATE = r"""(e) => {
     if (c.contentVisibility !== 'visible' || c.willChange !== 'auto') reasons.push('composited-content');
     if (c.getPropertyValue('text-decoration-line') !== 'none') reasons.push('text-decoration');
     if (!i) {
+      for (const [property, initial] of [['font-size-adjust', 'none'], ['font-variation-settings', 'normal']]) {
+        if (c.getPropertyValue(property) !== initial) reasons.push(property);
+      }
       if (c.getPropertyValue('-webkit-text-stroke-width') !== '0px') reasons.push('text-stroke');
       if (c.textOverflow !== 'clip') reasons.push('text-overflow');
       if (node.getClientRects().length !== 1) reasons.push('fragmentation');
@@ -192,6 +197,8 @@ def validate_target(first):
         raise Held('unsupported_visibility_or_focus')
     if not RGB.fullmatch(first['fill']):
         raise Held('target_fill_is_not_opaque_rgb')
+    if not re.fullmatch(r'(?:[1-9][0-9]{0,2}|1000)', first['font'][1]):
+        raise Held('requires_plain_font_weight')
     if first['viewport'][2] != 1 or first['viewport'][5:] != [0, 0, 1]:
         raise Held('requires_fixed_dpr1_viewport')
     x, y, width, height = first['rangeRects'][0]
@@ -304,7 +311,7 @@ def probe(source, selector, output, max_images):
     result = {
         'source': source.name, 'source_sha256': sha256(raw).hexdigest(), 'target': selector, 'frames': {},
         'image_limit': max_images, 'blocked_requests': [],
-        'scope': '1.4.3-02 text-paint measurement on the specified static fixture',
+        'scope': RESULT_SCOPE,
     }
     output.mkdir(exist_ok=False)
     try:
@@ -321,7 +328,7 @@ def probe(source, selector, output, max_images):
                 '--disable-background-networking', '--disable-component-update', '--force-color-profile=srgb',
             ])
             result['browser'] = browser.version
-            context = browser.new_context(viewport=VIEWPORT, device_scale_factor=1, service_workers='block',
+            context = browser.new_context(viewport=VIEWPORT, device_scale_factor=1, locale='ja-JP', service_workers='block',
                                           accept_downloads=False)
             page = context.new_page()
             served = False

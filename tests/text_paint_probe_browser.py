@@ -76,6 +76,9 @@ def main(out):
                     '<p id="subject">Available to reserve</p><span aria-hidden="true"></span>'),
         'fill-changes-layout': (plain + 'p[style]{margin-left:15px}', None),
         'mixed-font': (plain + 'p::first-letter{font-size:18px}', None),
+        'font-size-adjust': ('main{background:white}p{font:400 24px sans-serif;color:#777;font-size-adjust:.25}', None),
+        'font-weight-variation': ('main{background:white}p{font:700 20px sans-serif;color:#777;font-variation-settings:"wght" 400}', None),
+        'fractional-font-weight': ('main{background:white}p{font:699.5 20px sans-serif;color:#777}', None),
         'script': (plain, '<p id="subject">Available to reserve</p><script>document.body.remove()</script>'),
         'duplicate': (plain, '<p id="subject">Available</p><p id="subject">To reserve</p>'),
     }

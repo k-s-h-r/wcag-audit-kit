@@ -75,6 +75,9 @@ python3 benchmarks/run.py collect --mode machine --criterion 1.1.1 --out /projec
 
 実際のskills/wcag-audit-kit/scripts/audit.py page-auditを使い、各ページを検査します。採点にはimage-alt、document-title、実キーの到達・送出と、1.4.3-01の文字コントラストを自動で取り込みます。文字コントラストは宣言した状態と対象が一致するaxeの測定を使います。別の観点はAI・実SR・個別の機械検査を実行して結果を取り込むまで未確認です。[文字コントラストの採点条件](../docs/adr/0027-score-observed-text-contrast.md)
 
+1.4.3-02の静的な対象は、`python3 benchmarks/run.py collect --mode ai --criterion 1.4.3 --text-paint --out <新しい保存先>`で追加測定できます。`full`でも指定でき、通常の画像上限とは別に対象ごとに7枚を使います。機械のみ・SR併用のモードでは指定できません。根拠が不足した測定は未確認です。[測定と採点の条件](../docs/adr/0035-grade-opt-in-text-paint-evidence.md)
+
+
 正解は先にスナップショットへ固定し、ページ・画像・音声、使用する実装・スキル・検証手順の資料と実行上限、ブラウザー等の環境、原典のハッシュも記録します。実行中断後は同じ実装で再開できます。
 
 ```sh
