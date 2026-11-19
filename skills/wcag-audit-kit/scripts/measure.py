@@ -3,6 +3,22 @@
 import argparse
 import json
 import math
+import re
+
+
+def validate_targets(checks, option, label):
+    if not isinstance(checks, list) or len(checks) > 20:
+        raise ValueError(f'{option}には20対象まで指定できる')
+    seen = set()
+    for check in checks:
+        if not isinstance(check, dict) or set(check) != {'id', 'name', 'target'}:
+            raise ValueError(f'{label}にはid、name、targetを指定する')
+        identifier = check['id']
+        if not isinstance(identifier, str) or not re.fullmatch(r'[a-z0-9-]{1,64}', identifier) or identifier in seen:
+            raise ValueError(f'{label}には重複のない英小文字・数字・ハイフンのidを指定する')
+        if any(not isinstance(check[key], str) or not check[key].strip() for key in ('name', 'target')):
+            raise ValueError(f'{label}には名前と対象を一つに絞るセレクターを指定する')
+        seen.add(identifier)
 
 
 def luminance(hex_color):

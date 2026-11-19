@@ -87,6 +87,15 @@ class WorkflowTest(unittest.TestCase):
             with self.subTest(keyboard=invalid), self.assertRaises(ValueError):
                 audit.validate_config(dict(config, keyboard_checks=[invalid]))
 
+    def test_config_validates_text_contrast_targets(self):
+        config = audit.init_config('https://example.com/')
+        target = {'id': 'notice', 'name': 'Notice text', 'target': '#notice'}
+        accepted = audit.validate_config(dict(config, text_contrast_checks=[target]))
+        self.assertEqual(accepted['text_contrast_checks'], [target])
+        for invalid in ([target, target], [dict(target, name='')], [dict(target, target=None)], [dict(target, state='after')]):
+            with self.subTest(targets=invalid), self.assertRaises(ValueError):
+                audit.validate_config(dict(config, text_contrast_checks=invalid))
+
     def test_config_validates_focus_contrast_tab_paths(self):
         config = audit.init_config('https://example.com/')
         step = {'key': 'Shift+Tab', 'focus': '#save', 'focus_contrast': True}

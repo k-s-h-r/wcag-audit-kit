@@ -18,6 +18,7 @@ import hover_checks
 import keyboard_checks
 import keyboard_frames
 import state_labels
+import text_paint
 import visual_structure
 
 SCRIPT=(ROOT/'scripts/page_explorer.js').read_text()
@@ -161,11 +162,13 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     checks={check['id']:check for check in keyboard_checks.validate(config)}
     hover_paths = {check['id']: check for check in config.get('hover_checks', [])}
     border_paths = {check['id']: check for check in config.get('border_checks', [])}
+    text_paths = {check['id']: check for check in config.get('text_contrast_checks', [])}
     visual_scope = config.get('visual_structure_scope')
     observe_explored_structure = config.get('visual_structure_states') == 'explored'
     sources = [Path(path).read_text() for path in (
         __file__, keyboard_checks.__file__, keyboard_frames.__file__, hover_checks.__file__,
-        focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, visual_structure.__file__)]
+        focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
+        visual_structure.__file__)]
     implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
     initial_jobs=[]
     for env in config['environments']:
@@ -174,6 +177,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
         initial_jobs.extend(dict(initial, keyboard_check=check_id) for check_id in checks)
         initial_jobs.extend(dict(initial, hover_check=check_id) for check_id in hover_paths)
         initial_jobs.extend(dict(initial, border_check=check_id) for check_id in border_paths)
+        initial_jobs.extend(dict(initial, text_check=check_id) for check_id in text_paths)
     value=audit.load(checkpoint) if checkpoint.exists() else {'schema_version':'1','config_digest':meta['config_digest'],
         'implementation_digest':implementation,
         'queue':initial_jobs,
@@ -201,14 +205,18 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     value['limits']={'max_states':max_states,'max_steps':max_steps,'max_depth':max_depth}
     with run_lock(run):audit.save(checkpoint,value);audit.save(run/'capture-manifest.json',manifest)
     async with async_playwright() as pw:
-        browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=['--no-sandbox'])
+        browser_args = ['--no-sandbox']
+        if text_paths:
+            browser_args.append('--force-color-profile=srgb')
+        browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=browser_args)
         try:
             while value['queue'] and value['steps']<max_steps:
                 job=value['queue'][0];env=envs[job['environment']];route=job['route']
                 check=checks.get(job.get('keyboard_check'))
                 hover=hover_paths.get(job.get('hover_check'))
                 border=border_paths.get(job.get('border_check'))
-                declared = check or hover or border
+                text_check = text_paths.get(job.get('text_check'))
+                declared = check or hover or border or text_check
                 if not declared and (len(value['nodes'])>=max_states or len(route)>max_depth):break
                 check_record=dict(id=check['id'], name=check['name'], criterion=check['criterion'],
                                   outcome='cant_tell', steps=[]) if check else None
@@ -217,17 +225,19 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 hover_record = dict(id=hover['id'], name=hover['name'], trigger=hover['trigger'], popup=hover['popup'],
                                     steps=[], observations=[]) if hover else None
                 border_record = dict(border, status='cant_tell', observed='測定に必要な画像を確認できない。') if border else None
+                text_record = dict(text_check, status='hold', observed='測定に必要な状態を確認できない。') if text_check else None
                 allowed_navigation={urldefrag(normalize(url))[0]}
                 context=await browser.new_context(viewport=env['viewport'],locale=config.get('locale','ja-JP'),storage_state=config.get('auth_state'),service_workers='block',accept_downloads=False)
                 observer=InputObserver(10000);blocked=[]
                 await context.expose_binding('__wcagAuditInput',observer.accept)
                 await context.add_init_script(INIT_SCRIPT);await context.add_init_script(SCRIPT)
+                freeze_requests = False
                 async def guard(request_route):
                     request=request_route.request
                     navigation=request.is_navigation_request()
                     allowed_method=request.method in {'GET','HEAD','OPTIONS'}
                     allowed_document=urldefrag(normalize(request.url))[0] in allowed_navigation
-                    if not allowed_method or (navigation and not declared and not allowed_document):
+                    if freeze_requests or not allowed_method or (navigation and not declared and not allowed_document):
                         blocked.append({'method':request.method,'url':request.url})
                         await request_route.abort()
                     elif declared and navigation:
@@ -239,6 +249,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 await context.route('**/*',guard)
                 await context.route_web_socket('**/*',lambda socket:socket.close())
                 page=await context.new_page()
+                if text_check:
+                    await page.add_init_script(f'({text_paint.LOAD_OBSERVER})()')
                 frame_scope=keyboard_frames.FrameScope(page, check.get('frame') if check else None)
                 error=None;data=None;native_events=[];settling=[]
                 action_index = unreachable_step = None
@@ -276,6 +288,10 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             if interrupted():
                                 raise ValueError('通信・ページ移動の制限又はブラウザーの分岐で測定を中断した')
                             border_record.update(await border_contrast.observe(page, border['target'], images, dest/'border-viewport.png'))
+                        elif text_check:
+                            freeze_requests = True
+                            if not interrupted():
+                                text_record.update(await text_paint.observe(page, text_check, dest, interrupted))
                         else:
                             await keyboard_checks.run_path(page, check, allowed_navigation, check_record, observer,
                                                            interrupted, frame_scope, image_pair=image_pair,
@@ -377,6 +393,13 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         if interrupted_reason:
                             border_record.update(status='cant_tell', observed=interrupted_reason)
                         audit.save(dest/'border-check.json', border_record)
+                    if text_record is not None:
+                        if interrupted_reason:
+                            if text_record.get('reason') != 'resource_request_blocked':
+                                text_record.update(status='hold', reason='measurement_interrupted', observed=interrupted_reason)
+                            for field in ('ratio', 'threshold', 'threshold_met'):
+                                text_record.pop(field, None)
+                        audit.save(dest/'text-contrast.json', text_record)
                     if structure_observation is not None or (visual_scope and not (declared or route)):
                         if interrupted_reason:
                             structure_observation = visual_structure.not_observed(visual_scope, interrupted_reason)
@@ -406,6 +429,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                                       f"{observation['aspect']}：{observation['observed']}")
                 if border and border_record['status'] != 'measured':
                     value['remaining'].append(f"{env['id']} / 外枠の測定 {border['name']}：{border_record['observed']}")
+                if text_check and text_record['status'] != 'measured':
+                    value['remaining'].append(f"{env['id']} / 文字の測定 {text_check['name']}：{text_record['observed']}")
                 value['edges'].append(edge);value['steps']+=1
                 if error and unreachable_step != len(route) and not declared:
                     value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
