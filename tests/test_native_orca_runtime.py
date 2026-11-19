@@ -6,7 +6,24 @@ import unittest
 from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'skills/wcag-audit-kit/scripts'))
-from native_orca_runtime import NativeOrcaRuntime
+from native_orca_runtime import NativeOrcaRuntime, orca_command
+
+
+class OrcaCommandTest(unittest.TestCase):
+    def test_legacy_preference_and_audio_options_are_kept(self):
+        with patch('native_orca_runtime.subprocess.run') as run:
+            run.return_value.stdout = '[-d | --debug-file=FILE] [--user-prefs=DIR] [--enable=AUDIO] [--disable=AUDIO]'
+            root = Path('/packages')
+            self.assertEqual(orca_command(root, Path('/evidence'), '/dev/pts/4', {}), [
+                '/packages/usr/bin/orca', '--debug-file', '/dev/pts/4', '--user-prefs', '/evidence/prefs',
+                '--enable', 'speech', '--disable', 'braille',
+            ])
+
+    def test_removed_options_are_omitted(self):
+        with patch('native_orca_runtime.subprocess.run') as run:
+            run.return_value.stdout = '--debug-file DEBUG_FILE, --replace, --enable-debug'
+            command = orca_command(Path('/packages'), Path('/evidence'), '/dev/pts/4', {})
+            self.assertEqual(command, ['/packages/usr/bin/orca', '--debug-file', '/dev/pts/4'])
 
 
 class NativeOrcaStartupTest(unittest.IsolatedAsyncioTestCase):
@@ -25,9 +42,10 @@ class NativeOrcaStartupTest(unittest.IsolatedAsyncioTestCase):
             with (
                 patch.dict(os.environ),
                 patch('native_orca_runtime.NativeDisplay') as display,
-                patch('native_orca_runtime.subprocess.run'),
+                patch('native_orca_runtime.subprocess.run') as run,
                 patch('native_orca_runtime.asyncio.sleep'),
             ):
+                run.return_value.stdout = '--debug-file DEBUG_FILE'
                 display.return_value.env = {}
                 runtime = NativeOrcaRuntime(root, output)
                 reader = Mock()

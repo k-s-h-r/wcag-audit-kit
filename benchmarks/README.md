@@ -126,13 +126,14 @@ python3 benchmarks/run.py score --run /project/bench-001 --strict
 
 判定は分割して取り込めます。同じ観点の更新は履歴を残し、別の観点を追加したときに前の結果を消しません。取り込み処理では、方法の申告、対象との対応、実在ファイルとハッシュを検証します。実行者がAIか人かまでは技術的に証明しません。
 
-4.1.3の収録例には、既存のネイティブOrcaアダプターを使う専用workerもあります。用意済みの対応環境で明示して実行します。OSへ自動インストールは行いません。
+4.1.3の収録例には、ネイティブOrcaアダプターを使う専用workerがあります。各対照は新しいrunで実行します。空の領域へ「記録しました。」を出す対照は `--record-pair`、既存の「待機中」を「保存しました」に変える対照は `--save-pair` を指定します。
 
 ```sh
-python3 benchmarks/native_status.py --run /project/bench-001 --root /project/prepared-debian-root --import-results
+python3 benchmarks/run.py collect --mode screen-reader --criterion 4.1.3 --out /project/bench-status-record
+python3 benchmarks/native_status.py --run /project/bench-status-record --root /project/prepared-debian-root --record-pair --import-results
 ```
 
-同じモード・環境の対照例で通知とボタン名の発話を取得できなければ、無発話をページの不適合にしません。音声録音ではなく、実Orcaが生成した発話ログを確認します。ライブのUnixソケットは短い一時パスで実行し、証拠はジョブ配下へバイトを変えず保存します。
+同じモード・環境の対照例で通知、対象ボタンの発話とフォーカス、画面の更新を確認できた場合に採点します。別の対照を選んだrunでは、残る2例は未評価です。実Orcaが生成した発話ログを確認します。ライブのUnixソケットは短い一時パスで実行し、証拠はジョブ配下へバイトを変えず保存します。
 
 ## 「すべて検出」と回帰を分ける
 

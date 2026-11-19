@@ -3,6 +3,7 @@ import argparse
 import asyncio
 import hashlib
 import json
+import os
 from pathlib import Path
 import platform
 import subprocess
@@ -191,8 +192,17 @@ def main():
         print('ERROR: このネイティブOrcaアダプターはLinux専用', file=sys.stderr)
         return 2
     if not args.inside_private_dbus:
+        package_root = args.root.resolve()
+        share = package_root / 'usr/share'
+        schemas = share / 'glib-2.0/schemas'
+        env = dict(os.environ)
+        if (package_root != Path('/') and (schemas / 'org.gnome.Orca.gschema.xml').is_file()
+                and (schemas / 'gschemas.compiled').is_file()):
+            data_dirs = env.get('XDG_DATA_DIRS') or '/usr/local/share:/usr/share'
+            env['XDG_DATA_DIRS'] = os.pathsep.join(dict.fromkeys([str(share), *data_dirs.split(os.pathsep)]))
+            env['GSETTINGS_SCHEMA_DIR'] = str(schemas)
         return subprocess.call(['dbus-run-session', '--', sys.executable, str(Path(__file__).resolve()),
-                                *sys.argv[1:], '--inside-private-dbus'])
+                                *sys.argv[1:], '--inside-private-dbus'], env=env)
     try:
         return asyncio.run(run(args))
     except (ValueError, FileNotFoundError) as error:

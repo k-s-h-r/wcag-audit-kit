@@ -1,4 +1,4 @@
-"""Grade the declared save-notification contrast after an opt-in Orca replay."""
+"""Grade a bounded status-message contrast after an opt-in Orca replay."""
 from datetime import datetime
 from pathlib import Path
 import re
@@ -9,14 +9,24 @@ import uuid
 from . import core, runner, status_capture
 
 CHECKPOINT = '4.1.3-02'
+RECORD_PAGES = {'p01.html', 'p02.html'}
+RECORD_ACTION = {'type': 'click', 'selector': '#record'}
 ENVIRONMENT = ('system', 'kernel', 'reader', 'reader_version', 'debian_package',
                'browser', 'browser_version', 'backend', 'audio_output', 'debug_capture')
 
 
-def request_for(job, page, plan):
+def request_for(job, page, plan, *, record_pair=False):
+    preparation = [{'type': 'reader.press', 'keys': ['Tab']}]
+    if record_pair:
+        preparation = [
+            {'type': 'browser.click', 'selector': 'h1'},
+            {'type': 'reader.press', 'keys': ['Escape']},
+            {'type': 'browser.press', 'key': 'Tab'},
+            {'type': 'reader.press', 'keys': ['KP_Enter']},
+        ]
     return {
         'case_id': job['id'], 'url': job['urls'][page], 'locale': 'ja-JP', 'settle_ms': 3000,
-        'actions': [{'type': 'reader.press', 'keys': ['Tab']}, {'type': 'reader.press', 'keys': ['space']}],
+        'actions': [*preparation, {'type': 'reader.press', 'keys': ['space']}],
         'observe': [{'selector': plan['action']['selector']},
                     {'selector': plan['target'], 'attributes': ['role', 'aria-live', 'aria-atomic']}],
     }
@@ -26,7 +36,13 @@ def phrase_text(value):
     return re.sub(r'\s+', '', normalize('NFKC', value)).rstrip('.。').casefold()
 
 
-def check_receipt(request, request_hash, receipt, log, log_hash):
+def record_button_speech(utterances, button):
+    if not utterances or utterances[0] not in {'enter', 'エンター'}:
+        return False
+    return any(utterances[1:] in ([button, role], [button + role]) for role in ('button', 'ボタン'))
+
+
+def check_receipt(request, request_hash, receipt, log, log_hash, *, record_pair=False):
     """Re-index the adapter's private output. Application text only chooses what to look for."""
     from orca_log import speech_in_window
 
@@ -42,14 +58,17 @@ def check_receipt(request, request_hash, receipt, log, log_hash):
             return None
         start, end = (datetime.fromisoformat(receipt[key]) for key in ('started_at', 'finished_at'))
         rows = receipt['observations']
-        if len(rows) != 2:
+        if len(rows) != (5 if record_pair else 2):
             return None
         trigger, status = request['observe']
         focused = {'tag': 'button', 'id': trigger['selector'][1:], 'documentHasFocus': True}
+        body = {'tag': 'body', 'id': '', 'documentHasFocus': True}
+        expected_focus = [body, body, focused, focused, focused] if record_pair else [focused, focused]
         phases = []
-        for index, (row, action) in enumerate(zip(rows, request['actions'], strict=True), 1):
+        for index, (row, action, focus) in enumerate(zip(rows, request['actions'], expected_focus, strict=True), 1):
             if (row['index'] != index or row['action'] != action or row['url'] != request['url']
-                    or row['focus_after'] != focused or (index == 2 and row['focus_before'] != focused)
+                    or row['focus_after'] != focus
+                    or (index > 1 and row['focus_before'] != expected_focus[index-2])
                     or row['focus_before']['documentHasFocus'] is not True):
                 return None
             first, last = (datetime.fromisoformat(row[key]) for key in ('started_at', 'finished_at'))
@@ -69,10 +88,17 @@ def check_receipt(request, request_hash, receipt, log, log_hash):
                 return None
             phases.append((phrase_text(button_row['text']), phrase_text(status_row['text']),
                            attributes['role'], [phrase_text(entry['phrase']) for entry in speech]))
-        (button, before, role, first_speech), (button_after, after, role_after, last_speech) = phases
-        if (not button or button_after != button or not before or not after or before == after or role != role_after
-                or not any(utterance in {button + 'button', button + 'ボタン'} for utterance in first_speech)
-                or after in first_speech):
+        button, before, role, first_speech = phases[0]
+        _, after, _, last_speech = phases[-1]
+        if (not button or not after or before == after or any(
+                name != button or current_role != role for name, _, current_role, _ in phases)):
+            return None
+        if record_pair:
+            if (any(text or after in speech for _, text, _, speech in phases[:-1])
+                    or not record_button_speech(phases[-2][3], button)):
+                return None
+        elif (not before or not any(utterance in {button + 'button', button + 'ボタン'} for utterance in first_speech)
+              or after in first_speech):
             return None
         return {'environment': {key: environment[key] for key in ENVIRONMENT}, 'button': button,
                 'before': before, 'after': after, 'role': role, 'activation_speech': last_speech}
@@ -80,7 +106,7 @@ def check_receipt(request, request_hash, receipt, log, log_hash):
         return None
 
 
-def calibrate(observations):
+def calibrate(observations, *, record_pair=False):
     """Both pages must form one matched pair before classifying the silent page."""
     if len(observations) != 2 or any(value is None for value in observations):
         return ['cant_tell'] * len(observations)
@@ -91,13 +117,16 @@ def calibrate(observations):
         return ['cant_tell'] * 2
     positive, negative = sorted(observations, key=lambda value: value['role'] is None)
     key_echo = {'space', 'スペース'}
+    positive_words = positive['activation_speech']
+    if record_pair and (len(positive_words) != 2 or positive_words[0] not in key_echo):
+        return ['cant_tell'] * 2
     if ([word for word in positive['activation_speech'] if word not in key_echo] != [positive['after']]
             or len(negative['activation_speech']) != 1 or negative['activation_speech'][0] not in key_echo):
         return ['cant_tell'] * 2
     return ['passed' if value['role'] == 'status' else 'failed' for value in observations]
 
 
-def public_inputs(run):
+def public_inputs(run, *, record_pair=False):
     proof = core.load(run/'integrity.json')['files']
     for name, expected in proof.items():
         if (name == 'run.json' or name.startswith('worker/')) and core.file_hash(core.local(run, name)) != expected:
@@ -114,13 +143,22 @@ def public_inputs(run):
     for job in tasks['jobs']:
         if job['criterion'] != '4.1.3' or job['mode'] not in modes or CHECKPOINT not in job['checkpoints']:
             continue
-        if '4.1.3-01' not in job['checkpoints'] or not any('status_capture' in state for state in job['states']):
-            continue
-        page, = job['pages']
-        (state, plan), = status_capture.plans(job['criterion'], job['checkpoints'], job['states']).items()
+        if record_pair:
+            if len(job['pages']) != 1 or job['pages'][0] not in RECORD_PAGES:
+                continue
+            page, = job['pages']
+            if (job['checkpoints'] != [CHECKPOINT] or len(job['states']) != 1
+                    or job['states'][0]['id'] != 'after-activate' or job['states'][0].get('actions') != [RECORD_ACTION]):
+                raise ValueError('記録通知の試験は公開作業票の固定した操作を使う')
+            state, plan = 'after-activate', {'action': RECORD_ACTION, 'target': '#notice'}
+        else:
+            if '4.1.3-01' not in job['checkpoints'] or not any('status_capture' in state for state in job['states']):
+                continue
+            page, = job['pages']
+            (state, plan), = status_capture.plans(job['criterion'], job['checkpoints'], job['states']).items()
         source = f'worker/public/4.1.3/{page}'
         if source not in proof or not status_capture.fixture_url(job['urls'][page], page):
-            raise ValueError('保存通知の試験は固定したローカルの公開ページを使う')
+            raise ValueError('状態通知の試験は固定したローカルの公開ページを使う')
         groups[job['mode']].append((job, page, state, plan, source))
     if not groups or any(len(rows) != 2 or rows[0][1] == rows[1][1] or rows[0][2:4] != rows[1][2:4]
                          for rows in groups.values()):
@@ -132,23 +170,24 @@ def public_inputs(run):
     return tasks, groups, port, proof
 
 
-def read_observation(request, area):
+def read_observation(request, area, *, record_pair=False):
     request_path = area/'request.json'
     receipt_path = area/'speech/screen-reader.json'
     log_path = area/'speech/orca-debug.log'
     try:
         return check_receipt(request, core.file_hash(request_path), core.load(receipt_path),
-                             log_path.read_text(errors='replace'), core.file_hash(log_path))
+                             log_path.read_text(errors='replace'), core.file_hash(log_path), record_pair=record_pair)
     except (OSError, ValueError, UnicodeError):
         return None
 
 
-def replay(run, root, capture, import_results):
+def replay(run, root, capture, import_results, *, record_pair=False):
     run = Path(run).resolve()
-    tasks, groups, port, frozen = public_inputs(run)
-    claim = run/'native-save-pair'
-    if (run/'review-index.json').exists() or claim.exists():
-        raise ValueError('保存通知を試すには、取り込み前の新しいrunを使う')
+    tasks, groups, port, frozen = public_inputs(run, record_pair=record_pair)
+    pair_name = 'record' if record_pair else 'save'
+    claim = run/f'native-{pair_name}-pair'
+    if any((run/name).exists() for name in ('review-index.json', 'native-save-pair', 'native-record-pair')):
+        raise ValueError('状態通知を試すには、取り込み前の新しいrunを使う')
     http = runner.server(run/'worker/public', port)
     try:
         claim.mkdir()
@@ -156,15 +195,15 @@ def replay(run, root, capture, import_results):
         for mode in sorted(groups):
             paired = []
             for job, page, state, plan, source in groups[mode]:
-                area = run/'attachments'/job['id']/('native-save-'+uuid.uuid4().hex[:12])
+                area = run/'attachments'/job['id']/f'native-{pair_name}-{uuid.uuid4().hex[:12]}'
                 area.mkdir(parents=True)
-                request = request_for(job, page, plan)
+                request = request_for(job, page, plan, record_pair=record_pair)
                 request_path = area/'request.json'
                 core.save(request_path, request)
                 capture(root, area)
-                observation = read_observation(request, area)
+                observation = read_observation(request, area, record_pair=record_pair)
                 paired.append((job, page, state, plan, source, area, observation))
-            outcomes = calibrate([row[-1] for row in paired])
+            outcomes = calibrate([row[-1] for row in paired], record_pair=record_pair)
             evidence = []
             for job, page, state, plan, source, area, observation in paired:
                 paths = [p for p in (area/'request.json', area/'speech/screen-reader.json',
@@ -182,7 +221,7 @@ def replay(run, root, capture, import_results):
                                   checkpoint=CHECKPOINT, outcome=outcome, method='screen-reader', evidence=paths,
                                   observed={'passed':'同じ対象の更新をOrcaの操作後の発話で確認した。',
                                             'failed':'同じ環境の対照は発話し、この操作ではキーの発話だけだった。',
-                                            'cant_tell':'保存後の発話と対照を同じ条件で確認できなかった。'}[outcome])])
+                                            'cant_tell':'操作後の発話と対照を同じ条件で確認できなかった。'}[outcome])])
                 core.save(area/'prediction.json', prediction)
                 outputs.append((area, prediction, outcome))
                 created.extend(path for path in area.rglob('*') if path.is_file())
