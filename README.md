@@ -55,6 +55,12 @@ python3 skills/wcag-audit-kit/scripts/audit.py page-audit --url https://example.
 
 この入口は指定URLだけで開閉・選択・入れ子などの状態を探索し、実クリック・キー操作と各状態のaxeを実行します。探索・機械検査・ページ別HTML・JSON・Excelの出力にAIサービスやAPIキーは必要ありません。途中で止めたキューは再開できます。[1ページの実行手順](skills/wcag-audit-kit/references/page-audit.md)を参照してください。
 
+確定済みのURL一覧を機械検査するには、設定を `scope.mode: configured` にして `scope.pages` 又は `scope.pages_file` を指定します。次の例は1回につき最大10ページを処理します。続きは同じ設定と出力先に `--resume` を付けて実行します。[指定URL一覧の実行手順](skills/wcag-audit-kit/references/page-audit.md#指定url一覧を順に検査する)
+
+```sh
+python3 skills/wcag-audit-kit/scripts/audit.py page-batch --config /project/wcag.yml --out /project/run-pages --max-pages-this-run 10
+```
+
 操作順と到達条件が分かっているメニューでは、`keyboard_checks`を設定して再現できます。期待どおりに開かない、次の項目へ移れない、閉じたあとに親へ戻れない場合、食い違ったキーとフォーカスをページ別帳票に出します。[キーボード経路の設定例](skills/wcag-audit-kit/references/page-audit.md#既知のキーボード操作を検査する)
 
 機械結果と、達成基準全体の適否は区別します。自動ルールで決まらない意味や目的、未探索の内容、必要な実SR等は追加検査に残します。`page-next`で次の票と機械結果・手順を取得し、利用できる道具から確認を進めます。`page-report`でそのページだけの結果を更新できます。既存の`page`は事前設定の状態を収集する入口として保持します。
@@ -308,6 +314,7 @@ CLIはAIの判断に必要な証拠と検査票を用意します。CLIを1回�
 | `report.html` | 達成基準・確認観点ごとのチェックシート、不適合箇所、ページ・状態・環境別の検査票 |
 | Excel（出力先を指定） | 先頭に人向けチェックシート・不適合箇所、後ろに検査票・対象等の詳細シート |
 | `report.json` | 全検査の結果、証拠、未実施・判断保留を含むデータ |
+| `page-batch.json` | 指定URLの順序、処理状況、失敗理由、ページ別のHTML・JSON・Excelへの参照 |
 | `issues.md` | 修正担当向けの対象要素、再現手順、期待結果、観察結果 |
 | `human-review.md` | 人に必要な知識・環境、試した方法、対象ごとの残る操作・判定条件・証拠 |
 | `evidence/` | 画面、DOM、ツリー、操作ログ、測定結果等 |
