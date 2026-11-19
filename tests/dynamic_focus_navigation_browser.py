@@ -41,8 +41,10 @@ def explore_case(out, base, name):
     result = subprocess.run(command, capture_output=True, text=True, timeout=60)
     (area / 'log.txt').write_text(result.stdout + result.stderr)
     assert result.returncode == 0, (name, result.stdout, result.stderr)
-    report_path = next(run.glob('page-*-report.json'))
-    assert report_path.with_suffix('.html').is_file() and next(run.glob('page-*-report.xlsx')).is_file()
+    run = audit.run_layout.ledger(run)
+    files = audit.run_layout.report_files(run, single=True)
+    report_path = files.json
+    assert files.html.is_file() and files.excel.is_file()
     report = audit.load(report_path)
     assert not report['audit_complete'] and all(case['outcome'] == 'not_run' for case in report['cases'])
     graph = audit.load(run / 'exploration.json')
@@ -61,7 +63,7 @@ def explore_case(out, base, name):
         evidence_path = stop_path.relative_to(run).as_posix()
         reason = next(text for text in report['exploration']['remaining'] if evidence_path in text)
         assert '補助のTab観察は1回目で中断' in reason
-        assert evidence_path in report_path.with_suffix('.html').read_text()
+        assert evidence_path in files.html.read_text()
         assert audit.evidence_item(run, evidence_path) in graph['proof']
         inputs = audit.load(proof / 'input-events.json')['events']
         assert any(event.get('key') == 'Tab' and event['type'] == 'keydown' and event['isTrusted']

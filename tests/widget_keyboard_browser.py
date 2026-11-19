@@ -91,12 +91,13 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 def assert_formats(run, report, issues):
-    html = report.with_suffix('.html').read_text()
-    workbook = load_workbook(next(run.glob('page-*-report*.xlsx')), read_only=True, data_only=True)
+    paths = audit.run_layout.report_files(run, single=True)
+    html = paths.html.read_text()
+    workbook = load_workbook(paths.excel, read_only=True, data_only=True)
     try:
         rows = list(workbook['自動検出した問題'].values)
         for issue in issues:
-            tag = f'href="{issue["evidence"]}"'
+            tag = f'href="{audit.run_layout.href(paths.html, run / issue["evidence"])}"'
             matches = [unescape(row) for row in re.findall(r'<tr>(.*?)</tr>', html, re.S) if tag in row]
             assert len(matches) == 1 and issue['observed'] in matches[0] and issue['target'] in matches[0], issue
             assert any(issue['observed'] in row and issue['target'] in row and issue['evidence'] in row for row in rows), issue
@@ -105,7 +106,7 @@ def assert_formats(run, report, issues):
 
 
 def inspect_report(run, plans, expected_failures):
-    report = next(run.glob('page-*-report.json'))
+    report = audit.run_layout.report_files(audit.run_layout.ledger(run), single=True).json
     result = json.loads(report.read_text())
     rows = {row['checkpoint'].split(' / ')[1]: row for row in result['machine_checks']
             if row['checkpoint'].startswith('キーボード経路 / ')}

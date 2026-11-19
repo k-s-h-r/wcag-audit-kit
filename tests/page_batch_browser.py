@@ -15,6 +15,8 @@ from openpyxl import load_workbook
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIT = ROOT/'skills/wcag-audit-kit/scripts/audit.py'
+sys.path.insert(0, str(AUDIT.parent))
+from run_layout import ledger
 PATHS = ['/first', '/slow?state=one', '/missing', '/tail?state=two#detail']
 
 
@@ -32,6 +34,7 @@ def manifest(batch):
 
 
 def proof(run):
+    run = ledger(run)
     return {item.relative_to(run).as_posix(): sha256(item.read_bytes()).hexdigest()
             for item in (run/'evidence').rglob('*') if item.is_file()}
 

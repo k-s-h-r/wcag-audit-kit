@@ -8,7 +8,7 @@ from work_queue import unfinished
 
 COLUMNS = [('criterion','達成基準'),('title','達成基準名'),('level','レベル'),
            ('checkpoint','確認観点'),('applicability','適用'),('judgment','適合'),
-           ('locations','不適合箇所'),('notes','確認結果・注記'),
+           ('locations','不適合箇所'),('notes','確認結果'),
            ('remaining','残る確認'),('evidence','証拠・判定記録')]
 FAILURE_COLUMNS = [('id','箇所ID'),('criterion','達成基準'),('checkpoint','確認観点'),
                    ('page_url','ページURL'),('state','ページ状態'),('environment','環境'),
@@ -22,6 +22,28 @@ GUIDANCE = ('「基準全体」は出力範囲の集計です。確認観点の�
 STATUS = {'passed':'○ 適合','failed':'× 不適合','inapplicable':'— 非適用',
           'unverified':'未確認','out_of_target_level':'目標レベル外'}
 OUTCOME = {'passed':'適合','failed':'不適合','inapplicable':'非適用','cant_tell':'判断保留','not_run':'未実施'}
+
+
+AXE_LABELS = {
+    'image-alt': '画像の代替テキスト',
+    'role-img-alt': '画像の役割を持つ要素の名前',
+    'svg-img-alt': 'SVG画像の名前',
+    'color-contrast': '文字のコントラスト',
+    'video-caption': '動画の字幕トラック',
+    'link-in-text-block': '本文のリンクを色以外で識別できるか',
+    'document-title': 'ページタイトルの有無',
+    'bypass': '繰り返しを避ける手段',
+    'link-name': 'リンクの名前',
+    'button-name': 'ボタンの名前',
+    'html-has-lang': 'ページの言語指定',
+    'html-lang-valid': 'ページの言語コード',
+    'meta-viewport': 'ブラウザーの拡大を制限する指定',
+}
+
+
+def machine_label(checkpoint):
+    rule = checkpoint.removeprefix('axe / ')
+    return AXE_LABELS.get(rule, checkpoint)
 
 
 def unique(values):
@@ -44,9 +66,9 @@ def verdict(outcomes, pending=False):
     return 'passed'
 
 
-def applicable(outcomes, status):
+def applicable(outcomes, status, observed=False):
     if status=='out_of_target_level':return '目標レベル外'
-    if any(o in {'passed','failed'} for o in outcomes):return 'あり'
+    if observed or any(o in {'passed','failed'} for o in outcomes):return 'あり'
     if status=='inapplicable':return 'なし'
     return '未確認'
 
@@ -90,9 +112,13 @@ def build(result, catalog, *, cases=None, filters=None, manifest=None):
     if result.get('report_scope')=='page':filters=dict(page_exact=result['url'],**{k:v for k,v in filters.items() if k!='page_exact'})
     restricted=bool(filters.get('task') or filters.get('owner') is not None or filters.get('pending'))
     ids={c['criterion'] for c in cases}
+    scope_captures = {c['capture'] for c in cases}
+    machine_by_criterion = defaultdict(list)
+    for item in result.get('machine_checks', []):
+        if not item.get('page_url') or item['capture'] in scope_captures:
+            machine_by_criterion[item['criterion']].append(item)
     criteria=[c for c in result['criteria'] if (not filters.get('criterion') or c['id']==filters['criterion'])
               and (not restricted or c['id'] in ids)]
-    definitions={c['id']:c for c in catalog['criteria']}
     grouped=defaultdict(list)
     for case in cases:grouped[case['criterion']].append(case)
     rows=[];failures=[]
@@ -113,40 +139,59 @@ def build(result, catalog, *, cases=None, filters=None, manifest=None):
         outcomes=[c['outcome'] for c in selected]
         gaps=scope_gaps(result,sc,filters,manifest)
         pending=[c for c in selected if unfinished(c)]
+        assessments = [c['assessment_data'] for c in selected if c['assessment_data']]
+        checks = machine_by_criterion[sc]
+        observed_target = any(t['outcome'] != 'inapplicable' for a in assessments if a['execution'] == 'completed'
+                              for t in a.get('targets', []))
+        observed_target |= any(item.get('target_count', 0) and item['outcome'] != 'inapplicable' for item in checks)
+        # A measured result and a criterion verdict answer different questions.
+        outcomes_by_check = defaultdict(set)
+        for item in checks:
+            outcomes_by_check[item['outcome']].add(item['checkpoint'])
+        machine_notes = []
+        for outcome, title in (('failed', '指摘あり'), ('cant_tell', '要確認'), ('passed', '通過'), ('inapplicable', '対象なし')):
+            if outcomes_by_check[outcome]:
+                labels = sorted(outcomes_by_check[outcome], key=lambda name: (machine_label(name) == name, name))
+                names = '、'.join(machine_label(name) for name in labels[:2])
+                suffix = f'、ほか{len(labels)-2}項目' if len(labels) > 2 else ''
+                machine_notes.append(f'機械検査で{title}（{names}{suffix}）')
+        samples = [item['observed'] for item in checks
+                   if item['outcome'] == 'passed' and '測定値の最低' in item['observed']]
+        if samples and not any('コントラスト比' in a['observed'] for a in assessments):
+            machine_notes += samples[:1]
         state=('out_of_target_level' if criterion['status']=='out_of_target_level' else
                verdict(outcomes,bool(pending or gaps)))
         if state=='out_of_target_level':gaps=[];pending=[]
-        remaining=[]
-        for case in pending:
-            a=case['assessment_data'] or {}
-            if result.get('report_scope')=='page' and not a:continue
-            reasons=a.get('remaining',[]) or [
-                '未実施。対象を列挙し、条件・例外・必要な観察方法を検査する。' if not a else
-                '判断・対象の網羅又は必要な観察が未完了。判定記録を確認する。']
-            remaining.extend(context(case)+'：'+reason for reason in reasons)
-        not_run=sum(c['assessment_data'] is None for c in pending)
-        if result.get('report_scope')=='page' and not_run:
-            remaining.insert(0,f'達成基準の判定が未記録 {not_run}票。状態・環境別の検査票で追加検査する。')
-        if not selected and state!='out_of_target_level':remaining.append('この基準の検査票・判定がありません。')
+        remaining=unique(reason for a in assessments for reason in a.get('remaining', []))
+        unrecorded = [c for c in pending if c['assessment_data'] is None]
+        if unrecorded and (result.get('report_scope') == 'page' or filters.get('page_exact')):
+            remaining.append('基準の検査は未実施。' if not assessments else '一部の表示状態・環境で判定が未記録。')
+        elif unrecorded:
+            remaining.extend(f'{context(c)}：基準の検査は未実施。' for c in unrecorded)
+        if not selected and state!='out_of_target_level':remaining.append('この基準の検査記録がありません。')
+        if pending and not remaining:
+            remaining.append('検査範囲または必要な確認方法が未確定。')
         remaining+=gaps
-        evidence=unique(c['assessment'] for c in selected)
-        counts=Counter(outcomes)
-        notes='、'.join(f'{OUTCOME[k]} {n}票' for k,n in counts.items()) or '検査票なし'
-        if pending or gaps:notes+='。未確認あり。'
-        if state=='inapplicable':
-            notes+='。非適用の根拠：'+preview([(c['assessment_data'] or {}).get('observed','') for c in selected],2)
+        evidence=unique([c['assessment'] for c in selected] + [m['evidence'] for m in checks])
+        observed = preview((a['observed'] for a in assessments), limit=2, destination='詳細記録')
+        notes = '\n'.join(part for part in [observed, *machine_notes] if part)
+        if state == 'inapplicable' and notes:
+            notes='非適用の根拠：'+notes
+        if state == 'failed' and pending and notes:
+            notes+='。未確認あり。'
         base=dict(criterion=sc,title=criterion['title'],level=criterion['level'])
-        def row(checkpoint,status,values,locations,notes,remaining,evidence,kind):
+        def row(checkpoint,status,values,locations,notes,remaining,evidence,kind,observed=False):
             judgment=STATUS[status]
             if kind=='criterion' and status=='failed' and remaining:judgment+='\n未確認あり'
             return dict(base,checkpoint=checkpoint,status=status,kind=kind,
-                applicability=applicable(values,status),judgment=judgment,
+                applicability=applicable(values,status,observed),judgment=judgment,
                 locations=preview([f"{f['id']} {f['page_url']} / {f['state']} / {f['environment']} / {f['target']}" for f in locations],
                                   destination='不適合箇所の一覧'),failure_ids=[f['id'] for f in locations],
                 notes=notes,remaining=remaining,evidence=preview(evidence),evidence_paths=evidence[:3])
-        expected=definitions[sc].get('expectation','')
-        notes+='\n'+expected if expected else ''
-        rows.append(row('基準全体（出力範囲）',state,outcomes,sc_failures,notes,preview(remaining),evidence,'criterion'))
+        rows.append(dict(row('基準全体',state,outcomes,sc_failures,notes,preview(remaining),evidence,'criterion',
+                             observed_target), normative_url=criterion['normative_url'],
+                         recorded_observation=bool(assessments), only_rule_not_applicable=bool(
+                             outcomes_by_check and set(outcomes_by_check) == {'inapplicable'} and not assessments)))
         # Each actual comparison is its own row, even when a criterion is only
         # partly tested. Operational recipe steps are not treated as requirements.
         for point,entries in points.items():
@@ -156,16 +201,15 @@ def build(result, catalog, *, cases=None, filters=None, manifest=None):
             related=unique(c['assessment'] for c,_ in entries)
             observations=preview([f"{context(c)} / {t['target']}：{t['observed']}" for c,t in entries])
             note=f'記録した対象 {len(entries)}件の内訳。\n'+observations
-            remainder='同じ基準に未確認あり。基準全体の行を参照。' if remaining else ''
+            remainder=''
             rows.append(row(point,status,values,locations,note,remainder,related,'checkpoint'))
-        checks=[m for m in result.get('machine_checks',[]) if m['criterion']==sc]
         points=unique(m['checkpoint'] for m in checks)
         points.sort(key=lambda p:min({'failed':0,'cant_tell':1,'passed':2,'inapplicable':3}[m['outcome']] for m in checks if m['checkpoint']==p))
         for point in points:
             entries=[m for m in checks if m['checkpoint']==point];values=[m['outcome'] for m in entries]
             status=verdict(values);proof=unique(m['evidence'] for m in entries)
             item=row('機械検査 / '+entries[0]['expected'],status,values,[],point+'\n'+preview([m.get('state_label',m['capture'])+' / '+m['environment']+' / '+m['target']+'：'+m['observed'] for m in entries]),
-                'この機械ルール以外の条件・対象は基準全体の行を参照。',proof,'checkpoint')
+                'この機械ルール以外の条件・対象は基準全体の行を参照。',proof,'checkpoint',any(m.get('target_count', 0) for m in entries))
             item['judgment']={'passed':'○ 通過（機械）','failed':'× 問題あり（機械）','inapplicable':'— 対象なし（機械）','unverified':'未確定（機械）'}[status]
             item['locations']=preview([m.get('state_label',m['capture'])+' / '+m['environment']+' / '+m['target'] for m in entries if m['outcome'] in {'failed','cant_tell'}],destination='自動検出した問題')
             item['machine_issues_link'] = bool(item['locations'])
@@ -174,7 +218,7 @@ def build(result, catalog, *, cases=None, filters=None, manifest=None):
     selections=[f'{labels[k]}：{v}' for k,v in filters.items() if k in labels and v is not None]
     if filters.get('pending'):selections.append('未完了票のみ')
     scope=('選択した検査票のみ' if restricted else '選択したページの全状態・環境' if filters.get('page') or filters.get('page_exact') else 'run全体')
-    scope+=f' / 目標 WCAG 2.2 {result["level"]} / {len(cases)}票'
+    scope+=f' / 目標 WCAG 2.2 {result["level"]}'
     if result.get('report_scope')=='page':scope='1ページ / '+result['url']+scope[scope.index(' / 目標'):]
     if selections:scope+=' / '+', '.join(selections)
     notices=[]
@@ -184,7 +228,9 @@ def build(result, catalog, *, cases=None, filters=None, manifest=None):
     return dict(rows=rows,failures=failures,scope=scope,notices=notices,legend=LEGEND,guidance=GUIDANCE)
 
 
-def html_table(columns, rows, *, failures=False):
+def html_table(columns, rows, *, failures=False, proof_href=None):
+    if proof_href is None:
+        proof_href = lambda path: './' + quote(path, safe='/')
     widths={'criterion':6,'title':11,'level':4,'checkpoint':14,'applicability':6,'judgment':8,
             'locations':22,'notes':24,'remaining':20,'evidence':18,'id':7,'page_url':22,
             'state':10,'environment':10,'target':18,'observed':24,'expected':24,'steps':24}
@@ -202,7 +248,7 @@ def html_table(columns, rows, *, failures=False):
                 content+='<br><a href="#machine-results">自動検出した問題の詳細</a>'
             if key=='evidence':
                 paths=row.get('evidence_paths',[])
-                content='<br>'.join(f'<a href="./{quote(p,safe="/")}">{escape(p)}</a>' for p in paths)
+                content='<br>'.join(f'<a href="{escape(proof_href(p), quote=True)}">{escape(p)}</a>' for p in paths)
                 if row.get('evidence') and row['evidence'].count('\n')+1>len(paths):content+='<br>他の記録は検査票の一覧を参照。'
             tag='th scope="row"' if key==('id' if failures else 'criterion') else 'td'
             cells.append(f'<{tag}>{content}</{tag.split()[0]}>')
@@ -213,11 +259,76 @@ def html_table(columns, rows, *, failures=False):
             f'<caption>{caption}</caption><colgroup>{cols}</colgroup><thead><tr>{header}</tr></thead><tbody>{"".join(body)}</tbody></table>')
 
 
-def render_html(model):
-    notices=''.join('<li>'+escape(n)+'</li>' for n in model['notices'])
-    failures=(html_table(FAILURE_COLUMNS,model['failures'],failures=True) if model['failures'] else '<p>記録された不適合箇所はありません。未確認の有無はチェックシートを参照してください。</p>')
-    return (f'<h2 id="checksheet">達成基準チェックシート</h2><p>集計範囲：{escape(model["scope"])}</p>'
-            f'<p>{escape(model["legend"])}</p><p>{escape(model["guidance"])}</p><ul>{notices}</ul>'
+def render_failures(model, proof_href=None):
+    if proof_href is None:
+        proof_href = lambda path: './' + quote(path, safe='/')
+    cards = []
+    for finding in model['failures']:
+        proof = ' '.join(f'<a href="{escape(proof_href(p), quote=True)}">証拠 {i}</a>'
+                         for i, p in enumerate(finding['evidence_paths'], 1))
+        cards.append(f'<article class="finding" id="failure-{finding["id"]}">'
+                     f'<h3>{escape(finding["criterion"] + " " + finding["target"])}</h3>'
+                     f'<p>{escape(finding["page_url"])} · {escape(finding["state"])} · {escape(finding["environment"])}</p>'
+                     f'<dl><dt>確認した問題</dt><dd>{escape(finding["observed"])}</dd>'
+                     f'<dt>期待される動作</dt><dd>{escape(finding["expected"])}</dd>'
+                     f'<dt>再現手順</dt><dd>{escape(finding["steps"]).replace(chr(10), "<br>")}</dd></dl><p>{proof}</p></article>')
+    heading = '<h2 id="failures">修正箇所</h2>'
+    if not cards:
+        return heading + '<p>今回の記録で不適合が確定した箇所はありません。</p>'
+    return heading + ''.join(cards)
+
+
+def result_card(row, proof_href):
+    url = escape(row['normative_url'], quote=True)
+    title = f'<a href="{url}">{escape(row["criterion"])}</a> {escape(row["title"])}'
+    scope = '対象あり · ' if row['applicability'] == 'あり' else ''
+    paths = row['evidence_paths']
+    proof = ''
+    if paths:
+        first = escape(proof_href(paths[0]), quote=True)
+        proof = f'<p><a href="{first}" aria-label="{escape(row["criterion"] + "の証拠", quote=True)}">証拠を開く</a></p>'
+    return (f'<article class="result"><h3>{title}</h3>'
+            f'<p class="result-status">{scope}基準の判定 {escape(row["judgment"])}</p>'
+            f'<p>{escape(row["notes"]).replace(chr(10), "<br>")}</p>{proof}</article>')
+
+
+def render_summary(model, proof_href):
+    rows = [row for row in model['rows'] if row['kind'] == 'criterion' and row['notes']
+            and row['status'] != 'out_of_target_level']
+    heading = '<h2 id="performed">実施結果</h2>'
+    if not rows:
+        return heading + '<p>観察結果の記録はまだありません。</p>'
+    selected = [row for row in rows if row['recorded_observation']]
+    machine = [row for row in rows if not row['recorded_observation'] and not row['only_rule_not_applicable']]
+    absent = [row for row in rows if row['only_rule_not_applicable']]
+    direct = selected or machine
+    extra = [('機械検査のその他の結果', machine if selected else []),
+             ('機械検査で対象が見つからなかった項目', absent)]
+    cards = ''.join(result_card(row, proof_href) for row in direct)
+    details = ''.join(f'<details><summary>{label}（{len(items)}基準）</summary>'
+                      + ''.join(result_card(row, proof_href) for row in items) + '</details>'
+                      for label, items in extra if items)
+    return heading + cards + details
+
+
+def render_remaining(model, exploration):
+    planned = [r for r in model['rows'] if r['kind'] == 'criterion' and r['remaining']]
+    noted = [r for r in planned if r['notes']]
+    missing = len(planned) - len(noted)
+    items = ''.join(f'<li><strong>{escape(r["criterion"] + " " + r["title"])}</strong>　'
+                    f'{escape(r["remaining"]).replace(chr(10), "<br>")}</li>' for r in noted)
+    incomplete = f'<p>観察結果の記録がない基準が {missing} 件あります。<a href="#checksheet">達成基準の一覧</a>で確認できます。</p>' if missing else ''
+    routes = f'<p>自動探索に残る確認が {len(exploration)} 件あります。<a href="#exploration-details">操作経路の詳細</a>を参照してください。</p>' if exploration else ''
+    heading = '<h2 id="remaining">残る確認</h2>'
+    return heading + incomplete + routes + (f'<ul>{items}</ul>' if items else '')
+
+
+def render_checklist(model, proof_href=None):
+    return ('<details id="checksheet"><summary>達成基準チェックシート</summary>'
+            f'<p>{escape(model["scope"])}</p><p>{escape(model["legend"])}</p>'
             '<div class="scroll" tabindex="0" role="region" aria-label="達成基準チェックシート">'
-            +html_table(COLUMNS,model['rows'])+'</div><h2 id="failures">不適合箇所</h2>'
-            '<div class="scroll" tabindex="0" role="region" aria-label="不適合箇所の一覧">'+failures+'</div>')
+            + html_table(COLUMNS, model['rows'], proof_href=proof_href) + '</div></details>')
+
+
+def render_html(model):
+    return render_failures(model) + render_checklist(model)

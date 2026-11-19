@@ -250,7 +250,7 @@ def program_predictions(run,job,progress):
     contrast_states = {state['id'] for state in job.get('states', [])}
     for page,receipt in progress['jobs'].get(job['id'],{}).items():
         if receipt['status']!='completed':continue
-        root=local(run,receipt['directory']);graph=load(root/'exploration.json')
+        root=audit.run_layout.ledger(local(run,receipt['directory']));graph=load(root/'exploration.json')
         labels=state_labels.public_specs(job.get('states',[]))
         for node in graph.get('nodes',[]):
             proof=[(root/node['evidence_dir']/'axe.json').relative_to(run).as_posix()]
@@ -334,6 +334,7 @@ def initial_inventory(run, job, progress, page, frozen):
         attempt, receipt_path = completed_attempt(run, job, progress, page, frozen)
         if attempt is None:
             return None, []
+        attempt = audit.run_layout.ledger(attempt)
         manifest_path = attempt / 'capture-manifest.json'
         manifest = read_frozen(run, manifest_path, frozen) or {}
         candidates = [capture for capture in manifest.get('captures', [])

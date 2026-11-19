@@ -125,6 +125,7 @@ def run_page_audit(area, url, selector, *, states=None, max_states=1, max_steps=
         '--max-states', str(max_states), '--max-steps', str(max_steps)], capture_output=True, text=True, timeout=90)
     (area/'command.log').write_text(command.stdout + command.stderr)
     assert command.returncode == 0, command.stdout + command.stderr
+    run = audit.run_layout.ledger(run)
     assert not list(run.glob('evidence/*/*.png'))
     return run, json.loads(command.stdout.strip().splitlines()[-1])
 
@@ -156,12 +157,12 @@ def page_audit_case(area, url, selector, expected):
     assert report_evidence(run, dict(graph, proof=[])) == []
     assert 'outcome' not in row
     assert not any(item['evidence'] == row['evidence'] for item in report['machine_checks'])
-    assert REPORT_TITLE in rendered and f'href="{row["evidence"]}"' in rendered
+    assert REPORT_TITLE in rendered and f'href="{audit.run_layout.href(Path(files["html"]), run / row["evidence"])}"' in rendered
     assert 'href="#visual-structure-evidence"' in rendered and 'id="visual-structure-evidence"' in rendered
     worksheet = workbook[REPORT_TITLE]
     expected_rows = max(len(row['candidates']), 1)
     assert worksheet.max_row == expected_rows + 1
-    assert all(worksheet.cell(index, len(REPORT_COLUMNS)).hyperlink.target == row['evidence'] for index in range(2, 2 + expected_rows))
+    assert all(worksheet.cell(index, len(REPORT_COLUMNS)).hyperlink.target == audit.run_layout.href(Path(files['excel']), run / row['evidence']) for index in range(2, 2 + expected_rows))
     if selector == '#break-list':
         target_column = [key for key, _ in REPORT_COLUMNS].index('target') + 1
         text_column = [key for key, _ in REPORT_COLUMNS].index('observed') + 1
@@ -289,7 +290,7 @@ def operation_cases(out):
                 assert [packet['visual_structure_evidence'] for packet in matching] == [[opened]]
                 rendered = Path(files['html']).read_text()
                 table_rows = re.findall(r'<tr>(.*?)</tr>', rendered, re.S)
-                assert any('クリック #open' in text and '#title' in text and f'href="{opened["evidence"]}"' in text
+                assert any('クリック #open' in text and '#title' in text and f'href="{audit.run_layout.href(Path(files["html"]), run / opened["evidence"])}"' in text
                            for text in table_rows)
                 workbook = load_workbook(files['excel'])
                 try:
@@ -359,7 +360,7 @@ def typography_cases(out):
                     events = audit.load(run/triggered['evidence_dir']/'input-events.json')['events']
                     assert any(event['isTrusted'] and event['type'] == 'click' and event['target']['id'] == 'enlarge'
                                for event in events)
-                    assert f'href="{candidate_state["evidence"]}"' in Path(files['html']).read_text()
+                    assert f'href="{audit.run_layout.href(Path(files["html"]), run / candidate_state["evidence"])}"' in Path(files['html']).read_text()
                 else:
                     assert len(graph['nodes']) == 1 and candidates == []
                 assert graph['steps'] == (1 if name == 'budget-initial' else 5)

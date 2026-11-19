@@ -17,16 +17,17 @@ try:
   {'id':'protected-submit','actions':[{'selector':'#external-submit','type':'click'}],'assert':[{'selector':'main','visible':True}]}]
  audit.save(out/'config.json',cfg)
  assert audit.main(['page-audit','--url',url,'--config',str(out/'config.json'),'--mode','machine','--out',str(out/'run'),'--max-states','8','--max-steps','6','--max-depth','1'])==0
- graph=audit.load(out/'run/exploration.json');labelled=[n for n in graph['nodes'] if n.get('state_labels')]
+ run=audit.run_layout.ledger(out/'run')
+ graph=audit.load(run/'exploration.json');labelled=[n for n in graph['nodes'] if n.get('state_labels')]
  assert len(labelled)==1 and labelled[0]['state_labels']==['loaded-via-key'],labelled
  assert labelled[0]['route']==cfg['exploration_labels'][0]['actions']
  assert any(n['fingerprint']==labelled[0]['fingerprint'] and n['route']!=labelled[0]['route'] for n in graph['nodes'])
  assert all(any('未到達の指定状態：'+name==r for r in graph['remaining']) for name in ['wrong-count','protected-submit'])
- evidence=out/'run'/labelled[0]['evidence_dir']
+ evidence=run/labelled[0]['evidence_dir']
  assert len(audit.load(evidence/'tiles.json')['positions'])>1
  assert any(rule['id']=='image-alt' and any(node['target']==['#subject'] for node in rule['nodes'])
             for rule in audit.load(evidence/'axe.json')['violations'])
  assert Handler.writes==0
- audit.save(out/'observed.json',{'labelled_nodes':labelled,'nodes':graph['nodes'],'remaining':graph['remaining'],'post_requests_received':Handler.writes,'wcag_outcomes':audit.outcomes(out/'run')['counts']})
+ audit.save(out/'observed.json',{'labelled_nodes':labelled,'nodes':graph['nodes'],'remaining':graph['remaining'],'post_requests_received':Handler.writes,'wcag_outcomes':audit.outcomes(run)['counts']})
  print('Exact routes, observable assertions, repeated UI capture and submission protection confirmed.')
 finally:server.shutdown();server.server_close()

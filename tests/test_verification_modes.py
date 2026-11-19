@@ -85,6 +85,7 @@ class ModeSelectionTest(unittest.TestCase):
             run=Path(temp)/'new-run'
             with patch.object(audit,'run_page_audit',return_value=0):
                 self.assertEqual(audit.main(['page-audit','--url','http://example.test','--out',str(run)]),0)
+            run = audit.run_layout.ledger(run)
             meta=audit.run_meta(run)
             self.assertEqual(meta['config']['verification'],{'mode':'machine'})
             self.assertEqual(meta['config']['inspection']['max_images'],0)
@@ -98,7 +99,7 @@ class ModeSelectionTest(unittest.TestCase):
             with patch.object(audit,'run_page_audit',return_value=0):
                 self.assertEqual(audit.main(['page-audit','--url','http://example.test','--config',str(config),
                     '--out',str(run),'--profile','thorough']),0)
-            selected=audit.run_meta(run)['config']
+            selected=audit.run_meta(audit.run_layout.ledger(run))['config']
             self.assertEqual(selected['verification']['mode'],'ai')
             self.assertEqual(selected['inspection']['screenshots'],'all')
             self.assertEqual(selected['inspection']['screen_reader'],'off')

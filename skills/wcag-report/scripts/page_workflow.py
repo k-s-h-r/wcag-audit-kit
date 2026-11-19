@@ -11,7 +11,8 @@ def grouped_machine_issues(checks):
         if check['outcome'] not in {'failed','cant_tell'}:continue
         key=tuple(check[k] for k in ['criterion','checkpoint','target','observed','outcome'])
         group=groups.setdefault(key,dict(check,states=[],proof=[],capture_ids=[]))
-        group['states'].append(check.get('state_label',check['capture'])+' / '+check['environment'])
+        state = check.get('state_label', check['capture']) + ' / ' + check['environment']
+        group['states'].append(check['page_url'] + ' / ' + state if check.get('page_url') else state)
         group['capture_ids'].append(check['capture'])
         if check['evidence'] not in group['proof']:group['proof'].append(check['evidence'])
     return [dict(g,count=len(g['states']),states='\n'.join(g['states']),evidence='\n'.join(g['proof']),
@@ -42,7 +43,7 @@ def keyboard_route_result(run, edge, evidence):
     return 'cant_tell', f'実入力の結果を確認できない。{error}'
 
 
-def machine_checks(run):
+def machine_checks(run, manifest=None):
     import audit
     from page_explorer import status
     graph=status(run);_,catalog=audit.run_catalog(run)
@@ -53,21 +54,52 @@ def machine_checks(run):
         return ' → '.join(names[a['type']]+' '+labels.get(a.get('selector'),a.get('selector',''))+
                           (' / '+a['key'] if a.get('key') else '') for a in route)
     tags={'wcag'+c['id'].replace('.',''):c['id'] for c in catalog['criteria']}
-    rows=[]
-    for node in graph.get('nodes',[]):
-        path=Path(node['evidence_dir'])/'axe.json'
-        if not (run/path).exists():continue
-        axe=audit.load(run/path)
-        for group,outcome in [('violations','failed'),('passes','passed'),('incomplete','cant_tell'),('inapplicable','inapplicable')]:
-            for rule in axe.get(group,[]):
-                for criterion in sorted({tags[t] for t in rule.get('tags',[]) if t in tags}):
-                    affected=rule.get('nodes',[])
-                    rows.append(dict(criterion=criterion,checkpoint='axe / '+rule['id'],expected=rule['help'],
-                        outcome=outcome,environment=node['environment'],capture=node['capture'],state_label=scene(node['route']),
-                        target='\n'.join(str(n['target']) for n in affected),
-                        observed='\n'.join(n.get('failureSummary') or n.get('html','') for n in affected),
-                        evidence=path.as_posix(),source=rule.get('helpUrl',''),
-                        note='機械ルールの結果。達成基準全体の適否とは区別する。'))
+    nodes = {node['capture']: node for node in graph.get('nodes', [])}
+    if manifest is None:
+        manifest = audit.load(run / 'capture-manifest.json')
+    captures = {capture['key']: capture for capture in manifest['captures']}
+    # Older exploration runs recorded axe results on the graph nodes.
+    url = audit.run_meta(run)['config']['url']
+    for key, node in nodes.items():
+        captures.setdefault(key, dict(node, url=url, execution='completed'))
+    rows = []
+    for key, capture in captures.items():
+        if capture['execution'] != 'completed' or capture.get('http_status', 200) >= 400:
+            continue
+        path = Path(capture['evidence_dir']) / 'axe.json'
+        if not (run / path).is_file():
+            continue
+        axe = audit.load(run / path)
+        node = nodes.get(key)
+        state = scene(node['route']) if node else ('初期表示' if capture['state'] == 'initial' else capture['state'])
+        for group, outcome in [('violations', 'failed'), ('passes', 'passed'),
+                               ('incomplete', 'cant_tell'), ('inapplicable', 'inapplicable')]:
+            for rule in axe.get(group, []):
+                criteria = sorted({tags[tag] for tag in rule.get('tags', []) if tag in tags})
+                affected = rule.get('nodes', [])
+                if outcome in {'failed', 'cant_tell'}:
+                    observations = [(str(item['target']), item.get('failureSummary') or item.get('html', ''))
+                                    for item in affected] or [('', '')]
+                elif outcome == 'passed':
+                    measurements = [
+                        (check['data']['contrastRatio'], str(item['target']))
+                        for item in affected for check in item.get('any', [])
+                        if isinstance(check.get('data'), dict) and isinstance(check['data'].get('contrastRatio'), (int, float))
+                    ]
+                    observed = 'axeのルールを通過。'
+                    if measurements:
+                        ratio, target = min(measurements)
+                        observed += f'測定値の最低は {ratio:g}:1（{target}）。'
+                    observations = [(f'{len(affected)}要素', observed)]
+                else:
+                    observations = [('', 'このルールに該当する要素は検出されなかった。')]
+                for criterion in criteria:
+                    for target, observed in observations:
+                        rows.append(dict(criterion=criterion, checkpoint='axe / '+rule['id'], expected=rule['help'],
+                            outcome=outcome, environment=capture['environment'], capture=key, state_label=state,
+                            page_url=capture['url'], target=target, observed=observed, target_count=len(affected),
+                            evidence=path.as_posix(), source=rule.get('helpUrl', ''),
+                            note='機械ルールの結果。達成基準全体の適否とは区別する。'))
     from keyboard_checks import report_row
     for index,edge in enumerate(graph.get('edges',[])):
         if edge.get('keyboard_check'):
@@ -201,6 +233,8 @@ def page_result(run, url, original=None):
         c['counts']=dict(Counter(r['outcome'] for r in rows if r['criterion']==c['id']))
         c['status']={'passed':'passed_checks'}.get(statuses[c['id']],statuses[c['id']])
     ids={c['case_id'] for c in rows};pids={c['page_id'] for c in rows}
+    result['machine_checks'] = [row for row in original['machine_checks']
+                                if not row.get('page_url') or normalize(row['page_url']) == normalize(url)]
     result['recorded_cases']=sum(c['assessment_data'] is not None for c in rows)
     for key in ['human_review_cases','unassigned_remaining_cases']:result[key]=[i for i in result[key] if i in ids]
     for key in ['missing_captures','unvisited']:
@@ -256,7 +290,7 @@ def next_work(run, url, limit=5):
                 unavailable.append({'case_id':c['case_id'],'criterion':c['criterion'],'checkpoints':packet['skipped_checkpoints']});continue
         packets.append(packet)
     mode_notice={k:v for k,v in mode.items() if k!='checkpoints'} if mode else None
-    return {'page':url,'audit_complete':result['audit_complete'],'verification':mode_notice,
+    return {'page':url,'evidence_base':str(run),'audit_complete':result['audit_complete'],'verification':mode_notice,
         'exploration':{'graph_digest':graph.get('graph_digest'),'pending_routes':len(graph.get('queue',[])),'remaining':graph['remaining'],
                        'next':'page-audit --resume' if graph.get('queue') else '残る範囲の追加検査'},
         'machine_checks':dict(Counter(c['outcome'] for c in checks)),

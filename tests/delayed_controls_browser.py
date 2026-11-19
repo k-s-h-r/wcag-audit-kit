@@ -10,13 +10,14 @@ http=ThreadingHTTPServer(('127.0.0.1',0),functools.partial(Handler,directory=str
 try:
  url=f'http://127.0.0.1:{http.server_port}/delayed-controls.html?delay={a.delay}';cfg=audit.init_config(url);cfg['environments']=cfg['environments'][:1];cfg['keyboard_steps']=2;audit.save(out/'config.json',cfg)
  assert audit.main(['page-audit','--url',url,'--config',str(out/'config.json'),'--mode','machine','--out',str(out/'run'),'--max-states','8','--max-steps','6','--max-depth','1'])==0
- graph=audit.load(out/'run/exploration.json');found=[];waits=[]
+ run=audit.run_layout.ledger(out/'run')
+ graph=audit.load(run/'exploration.json');found=[];waits=[]
  for node in graph['nodes']:
-  raw=audit.load(out/'run'/node['evidence_dir']/'axe.json');state=audit.load(out/'run'/node['evidence_dir']/'state.json')
+  raw=audit.load(run/node['evidence_dir']/'axe.json');state=audit.load(run/node['evidence_dir']/'state.json')
   if any(n.get('selector')=='#subject' for n in state['state']) and any(r['id']=='image-alt' for r in raw['violations']):found.append(node['route'])
  for edge in graph['edges']:
-  transition=audit.load(out/'run'/edge['evidence_dir']/'transition.json');waits.extend(transition.get('settling',[]))
- value={'delay_ms':a.delay,'routes_with_image_and_axe':found,'waits':waits,'remaining':graph['remaining'],'states':len(graph['nodes']),'wcag_outcomes':audit.outcomes(out/'run')['counts']};audit.save(out/'observed.json',value)
+  transition=audit.load(run/edge['evidence_dir']/'transition.json');waits.extend(transition.get('settling',[]))
+ value={'delay_ms':a.delay,'routes_with_image_and_axe':found,'waits':waits,'remaining':graph['remaining'],'states':len(graph['nodes']),'wcag_outcomes':audit.outcomes(run)['counts']};audit.save(out/'observed.json',value)
  if a.expect_bounded:assert any(w and w['status']!='quiet' for w in waits) and graph['remaining'],value
  else:assert found,value
  assert set(value['wcag_outcomes'])=={'not_run'}

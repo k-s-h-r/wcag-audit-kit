@@ -7,6 +7,7 @@ from pathlib import Path
 from audit import load, run_meta
 from browser_capture import page_id
 from page_batch import MANIFEST, STATUSES, page_paths, run_ref
+from run_layout import ledger
 
 
 RULE = 'color-contrast'
@@ -24,8 +25,9 @@ def verified_json(run, path, proof):
 
 
 def initial_evidence(batch, row, environment):
-    run, _ = page_paths(batch, row)
-    if any((run / name).resolve() != run / name for name in ('run.json', 'capture-manifest.json', 'exploration.json')):
+    package, _ = page_paths(batch, row)
+    run = ledger(package)
+    if run.resolve() != run or any((run / name).resolve() != run / name for name in ('run.json', 'capture-manifest.json', 'exploration.json')):
         raise ValueError('収集記録がページのrun外を参照している')
     meta = run_meta(run)
     config = meta['config']

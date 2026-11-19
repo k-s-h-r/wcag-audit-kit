@@ -58,12 +58,12 @@ def execute(area, url, plan, size, screenshots, max_images=None, pause=False):
         pending, = audit.load(Path(paused['json']))['focus_evidence']
         assert pending['status'] == 'not_run' and pending['target'] == plan['steps'][-1]['focus'], pending
         assert not any(pending[column] for column in ('before_image', 'after_image', 'evidence')), pending
-        graph = audit.load(run / 'exploration.json')
+        graph = audit.load(audit.run_layout.ledger(run) / 'exploration.json')
         assert any(job.get('keyboard_check') == plan['id'] for job in graph['queue']), graph
         assert not any(edge.get('keyboard_check') for edge in graph['edges']), graph
-        assert not list(run.glob('evidence/*/focus-*.png'))
+        assert not list(audit.run_layout.ledger(run).glob('evidence/*/focus-*.png'))
     reports = invoke('resumed' if pause else 'first', '--max-steps', '2', *(['--resume'] if pause else []))
-    return run, {name: Path(reports[name]) for name in ('html', 'json', 'excel')}
+    return audit.run_layout.ledger(run), {name: Path(reports[name]) for name in ('html', 'json', 'excel')}
 
 
 def assert_report_formats(report, row):
@@ -73,7 +73,9 @@ def assert_report_formats(report, row):
         assert escape(text) in html, row
     links = [row[key] for key in ('before_image', 'after_image', 'evidence') if row[key]]
     for path in links:
-        assert f'href="{escape(path)}"' in html or f'href="./{escape(path)}"' in html, row
+        run = audit.run_layout.ledger(report['html'].parent.parent)
+        href = audit.run_layout.href(report['html'], run / path)
+        assert f'href="{escape(href)}"' in html, row
 
     book = load_workbook(report['excel'], data_only=True)
     try:
@@ -87,7 +89,7 @@ def assert_report_formats(report, row):
         for column in ('入力前の画像', '入力後の画像', '操作の証拠'):
             cell = sheet.cell(row=2, column=header.index(column) + 1)
             if cell.value:
-                assert cell.hyperlink is not None and cell.hyperlink.target == cell.value, cell
+                assert cell.hyperlink is not None and cell.hyperlink.target == audit.run_layout.href(report['excel'], audit.run_layout.ledger(report['excel'].parent.parent) / cell.value), cell
             else:
                 assert cell.hyperlink is None, cell
     finally:
@@ -133,7 +135,7 @@ def inspect(run, report, plan, size, expected_status, expected_reason, expected_
     assert paths == [pair.get(phase, {}).get('image', '') for phase in ('before', 'after')], pair
     if expected_status == 'skipped':
         assert not any(paths), pair
-        assert not list(run.glob('evidence/*/focus-*.png')), pair
+        assert not list(audit.run_layout.ledger(run).glob('evidence/*/focus-*.png')), pair
         manifest = audit.load(run / 'capture-manifest.json')
         total = sum(item['status'] == 'captured' for item in manifest['inspection']['screenshots'])
         assert total == (0 if screenshots == 'off' else 2), manifest['inspection']
@@ -143,7 +145,7 @@ def inspect(run, report, plan, size, expected_status, expected_reason, expected_
     before, after = pair['before'], pair['after']
     assert pair['selector'] == expected_step['focus'] and before['focused'] is False and after['focused'] is True, pair
     assert before['url'] == after['url'] == result['url'] and before['time_origin'] == after['time_origin'], pair
-    graph = audit.load(run / 'exploration.json')
+    graph = audit.load(audit.run_layout.ledger(run) / 'exploration.json')
     for path, snapshot in zip(paths, (before, after), strict=True):
         assert Path(path).parent == Path(row['evidence']).parent, (row, path)
         assert audit.evidence_item(run, path) in graph['proof'], path

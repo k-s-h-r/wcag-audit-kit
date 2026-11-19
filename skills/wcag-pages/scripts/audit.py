@@ -16,6 +16,7 @@ import uuid
 from urllib.parse import urlsplit
 from handoff import validate_handoff, details as handoff_details, markdown as handoff_markdown
 from ledger_lock import locked
+import run_layout
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = json.loads((ROOT/'references/catalog.json').read_text())
@@ -456,7 +457,7 @@ def outcomes(run):
     exploration=exploration_status(run)
     complete=complete and exploration['complete']
     from page_workflow import machine_checks
-    automated=machine_checks(run) if exploration['required'] else []
+    automated=machine_checks(run, manifest)
     result={'level':meta['config']['level'],'url':meta['config']['url'],'audit_complete':complete,
             'conformance_claim':'この結果は記録した検査範囲についての報告です。未実施・判断保留は適合と判定していません。',
             'scope_confirmed':inventory_ok,'scope_review':scope,'unvisited':manifest['unvisited'],
@@ -481,7 +482,7 @@ def outcomes(run):
     return result
 
 
-def focus_evidence_html(run, evidence):
+def focus_evidence_html(run, evidence, directory):
     from workbook import (FOCUS_EVIDENCE_COLUMNS, FOCUS_EVIDENCE_FILES, FOCUS_EVIDENCE_STATUSES,
                           FOCUS_EVIDENCE_TITLE, evidence_link)
 
@@ -492,7 +493,7 @@ def focus_evidence_html(run, evidence):
             value = FOCUS_EVIDENCE_STATUSES.get(row[key], row[key]) if key == 'status' else row[key]
             display = escape(value)
             if key in FOCUS_EVIDENCE_FILES:
-                target = evidence_link(run, value, run)
+                target = evidence_link(run, value, directory)
                 if target:
                     display = f'<a href="{escape(target)}">{display}</a>'
             cells.append(f'<td>{display}</td>')
@@ -506,13 +507,13 @@ def focus_evidence_html(run, evidence):
     )
 
 
-def visual_structure_html(run, rows):
+def visual_structure_html(run, rows, directory):
     from visual_structure import REPORT_COLUMNS, REPORT_TITLE, display_rows
     from workbook import evidence_link
 
     items = []
     for row in display_rows(rows):
-        relative_path = evidence_link(run, row['evidence'], run)
+        relative_path = evidence_link(run, row['evidence'], directory)
         cells = [f'<td>{escape(row.get(key, ""))}</td>' for key, _ in REPORT_COLUMNS if key != 'evidence']
         proof = f'<a href="{escape(relative_path, quote=True)}">元の証拠</a>' if relative_path else '未取得'
         items.append('<tr>' + ''.join(cells) + f'<td>{proof}</td></tr>')
@@ -524,25 +525,70 @@ def visual_structure_html(run, rows):
             f'<tbody>{"".join(items)}</tbody></table></div>')
 
 
+def single_report_page(run):
+    if not run_layout.organized(run):
+        return None
+    from page_catalog import configured_urls
+
+    config = run_meta(run)['config']
+    pages = configured_urls(config) if config['scope']['mode'] == 'configured' else []
+    return pages[0] if len(pages) == 1 else None
+
+
+def report_paths(run, page_url=None):
+    from browser_capture import normalize, page_id
+
+    single = single_report_page(run)
+    if page_url and single and normalize(page_url) == normalize(single):
+        return run_layout.report_files(run, single=True)
+    return run_layout.report_files(run, page_id(page_url) if page_url else None)
+
+
 @locked
 def report(run, *, page_url=None):
-    result=outcomes(run)
-    prefix=''
-    if page_url:
-        from page_workflow import page_result
-        from browser_capture import page_id
-        result=page_result(run,page_url,result);prefix='page-'+page_id(page_url)+'-'
-    save(run/(prefix+'report.json'),result)
+    return render_reports(run, page_url=page_url)
+
+
+def render_reports(run, *, page_url=None):
+    from page_workflow import page_result
     import checksheet
-    _,catalog=run_catalog(run)
-    human_model=checksheet.build(result,catalog,manifest=load(run/'capture-manifest.json'))
-    human_report=checksheet.render_html(human_model)
+
+    single_page = single_report_page(run)
+    result = outcomes(run)
+    if not page_url and single_page and result['cases']:
+        page_url = single_page
+    if page_url:
+        result = page_result(run, page_url, result)
+    files = report_paths(run, page_url)
+    files.html.parent.mkdir(parents=True, exist_ok=True)
+    files.issues.parent.mkdir(parents=True, exist_ok=True)
+    result['evidence_base'] = run_layout.href(files.json, run)
+    save(files.json, result)
+
+    def proof_href(path):
+        target = run_layout.href(files.html, run / path)
+        return target if target.startswith('../') else './' + target
+
+    def link(path, label):
+        return f'<a href="{escape(run_layout.href(files.html, path), quote=True)}">{escape(label)}</a>'
+
+    _, catalog = run_catalog(run)
+    manifest = load(run / 'capture-manifest.json')
+    human_model = checksheet.build(result, catalog, manifest=manifest)
+    scope = 'ページ' if page_url else '検査範囲'
+    selected_keys = {case['capture'] for case in result['cases']}
+    selected = [c for c in manifest['captures'] if not page_url or c['key'] in selected_keys]
+    environment_names = {e['id']: f"{e['viewport']['width']}×{e['viewport']['height']} CSS px"
+                         for e in run_meta(run)['config']['environments']}
+    environments = '、'.join(dict.fromkeys(environment_names.get(c['environment'], c['environment']) for c in selected))
+    mode = result.get('verification', {}).get('label') if result.get('verification') else None
+    complete = '検証完了' if result['audit_complete'] else '検証未完了'
     labels={'passed':'検査通過','failed':'不適合','inapplicable':'対象外','cant_tell':'判断保留','not_run':'未実施'}
     rows=[]
     for c in result['cases']:
         a=c['assessment_data'];ev=[]
         if a:
-            ev=[f'<a href="{escape(e["path"],quote=True)}">{escape(e["path"])}</a>' for e in a['verified_evidence']]
+            ev=[link(run / item['path'], f'証拠 {i}') for i, item in enumerate(a['verified_evidence'], 1)]
         observed=a['observed'] if a else 'まだ実ページの検査結果が記録されていません。'
         remaining=' / '.join(a.get('remaining',[])) if a else '基準の本文と検査手順を読み、対象を列挙して実行する。'
         media_details=[]
@@ -561,7 +607,7 @@ def report(run, *, page_url=None):
             limit_notice='先頭20件まで表示。' if len(review['intervals'])>20 else ''
             media_details.append(f'<details><summary>{escape(str(target["target"]))}：媒体の比較区間 {len(review["intervals"])}件</summary>'
                 f'<p>{escape(str(review.get("comparison","")))}</p><p>期待結果：{escape(str(target.get("expected","")))}</p><ul>{"".join(entries)}</ul>'
-                f'<p>{limit_notice}<a href="{escape(c["assessment"],quote=True)}">全区間の比較記録</a></p></details>')
+                f'<p>{limit_notice}{link(run / c["assessment"], "全区間の比較記録")}</p></details>')
         rows.append(f'<tr><th scope="row">{escape(c["criterion"])} {escape(c["title"])}</th>'
                     f'<td>{escape(c["page_url"])}<br>{escape(c["state"])} / {escape(c["environment"])}</td>'
                     f'<td>{labels[c["outcome"]]}</td><td>{escape(observed)}<br>{escape(remaining)}{"".join(media_details)}</td><td>{"<br>".join(ev)}</td></tr>')
@@ -573,13 +619,9 @@ def report(run, *, page_url=None):
                'accessibility_support_reviewed':'アクセシビリティサポート','non_interference_reviewed':'非干渉'}
         inventory='未確認：'+'、'.join(label for key,label in names.items() if value.get(key) is not True)+'。'
         if value.get('remaining'):inventory+='残る確認：'+' / '.join(value['remaining'])
-    excluded=[c for c in result['criteria'] if c['status']=='out_of_target_level']
-    status_labels={'out_of_target_level':'目標レベル外（未検証）','failed':'不適合あり','unverified':'未確認',
-                   'inapplicable':'対象外','passed_checks':'記録した検査は通過'}
-    by_criterion=''.join(f'<li>{escape(c["id"])} {escape(c["title"])}（{c["level"]}）：{status_labels[c["status"]]}</li>' for c in result['criteria'])
     definition_notice=('現在の検査手順と同じ定義を使用しています。' if result['definitions_match_installed'] else
                        '検査手順の更新前の記録です。当時の定義で再集計しました。新しい手順での検査結果ではありません。')
-    definition_link='<a href="catalog.snapshot.json">保存した検査定義</a>' if (run/'catalog.snapshot.json').exists() else 'この旧実行には定義のコピーがありません。'
+    definition_link = link(run / 'catalog.snapshot.json', '保存した検査定義') if (run / 'catalog.snapshot.json').exists() else '定義のコピーなし'
     collection_notice={'completed':'予定した収集の試行を終了', 'running':'収集中、又は収集の途中で停止',
         'interrupted':'収集の途中で停止', 'legacy_unspecified':'当時の収集記録を使用'}[result['collector_status']]
     from inspection import report_rows
@@ -588,34 +630,26 @@ def report(run, *, page_url=None):
         [o['url'],o['capture'],o['label'],o['visual'],o['status'],o['observed'],o['remaining'],o['screen_reader']])+'</tr>' for o in observations)
     images=result['observation_usage'].get('screenshots',[])
     captured=sum(i['status']=='captured' for i in images);skipped=sum(i['status']=='skipped' for i in images)
-    readers=', '.join(sorted({p['screen_reader']['status'] for p in result['interaction_review'].get('pages',{}).values()})) or 'not_recorded'
-    page=f'''<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WCAG検証結果 — {escape(result['url'])}</title><style>body{{font:1rem/1.7 system-ui;margin:2rem;max-width:100rem;color:#202020;background:#fff}}table{{border-collapse:collapse;min-width:64rem}}td,th{{border:1px solid #666;padding:.6rem;vertical-align:top;text-align:left;overflow-wrap:anywhere}}a{{color:#00529b}}:focus-visible{{outline:3px solid #000;outline-offset:3px}}.scroll{{overflow:auto;max-width:100%}}pre{{white-space:pre-wrap}}caption{{text-align:left}}.criterion{{font-weight:bold;background:#eef3f6}}.failed td:nth-child(6){{background:#fce4d6}}.unverified td:nth-child(6){{background:#fff2cc}}.passed td:nth-child(6){{background:#e2f0d9}}@media(max-width:40rem){{body{{margin:1rem}}}}@media print{{@page{{size:A3 landscape;margin:12mm}}.scroll{{overflow:visible}}table{{min-width:0;width:100%!important;font-size:8pt}}.checksheet-table col{{width:auto!important}}thead{{display:table-header-group}}tr{{break-inside:avoid}}}}</style></head><body>
-<main><h1>WCAG {result['level']} 検証結果</h1><p>対象：{escape(result['url'])}</p><nav aria-label="レポート内の移動"><a href="#machine-results">機械で検出した問題</a> / <a href="#checksheet">達成基準チェックシート</a> / <a href="#failures">不適合箇所</a></nav><p>{escape(summary)}</p>
-<p>予定範囲の検査完了：{'はい' if result['audit_complete'] else 'いいえ'}</p><p>サイト・状態・適合要件の範囲確認：{escape(inventory)}</p>
-<p>判定・引き継ぎの記録：{result['recorded_cases']} / {len(result['cases'])}。人による確認待ち：{len(result['human_review_cases'])}。<a href="human-review.md">対象と具体的な確認手順</a>。引き継ぎ先が未整理の判断保留・未網羅：{len(result['unassigned_remaining_cases'])}。</p>
-<p>観察設定：画像 {escape(result['inspection_policy']['screenshots'])}、実スクリーンリーダー {escape(result['inspection_policy']['screen_reader'])}。操作・状態の調査：{escape(result['interaction_review']['status'])}。必要な調査の完了：{result['interaction_review']['complete']}。画像保存は実際に観察した証明ではありません。</p>
-<p>この収集の保存画像：{captured}件、省略：{skipped}件。実SRの実施記録：{escape(readers)}。<a href="interaction-review.md">画面・操作の調査と残る確認</a>。</p>
-<p>ブラウザー証拠の収集：{escape(collection_notice)}。</p>
-<p>未訪問URL：{len(result['unvisited'])}。目標レベル外の基準：{len(excluded)}。</p>
-<p>未収集のページ・状態・環境：{len(result['missing_captures'])}。計画にない検査票：{len(result['missing_cases'])}。</p>
-<details><summary>使用した検査定義</summary><p>{escape(definition_notice)}</p><p>定義ID：<code style="overflow-wrap:anywhere">{escape(result['catalog_digest'])}</code></p><p>{definition_link}</p></details>
-<p>{escape(result['conformance_claim'])}</p><details><summary>全86基準の状況</summary><ul>{by_criterion}</ul></details>
-<details><summary>画面から調べた操作・状態</summary><div class="scroll" tabindex="0" role="region" aria-label="操作調査の表"><table><caption>実際の観察と未探索の範囲。実SRは実施結果を表示。</caption><thead><tr><th>ページ</th><th>状態・環境</th><th>操作対象</th><th>画像確認</th><th>操作確認</th><th>観察</th><th>残る確認</th><th>実SR</th></tr></thead><tbody>{observation_rows}</tbody></table></div></details>
-{human_report}
-<details><summary>ページ・状態・環境・基準ごとの検査票</summary><div class="scroll" tabindex="0" role="region" aria-label="検査結果の表"><table><caption>具体的な観察結果と証拠。未実施は通過数に含めません。</caption>
-<thead><tr><th scope="col">基準</th><th scope="col">対象</th><th scope="col">結果</th><th scope="col">観察・残る確認</th><th scope="col">証拠</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div></details>
-<p>修正担当向け：<a href="issues.md">不適合の再現と期待結果</a>。機械処理用：<a href="report.json">report.json</a>。元の収集記録：<a href="capture-manifest.json">capture-manifest.json</a>。</p></main></body></html>'''
+    reader_labels = {'reviewed': '実施', 'partial': '一部実施', 'skipped': '未実施'}
+    readers = '、'.join(sorted({reader_labels[p['screen_reader']['status']]
+                               for p in result['interaction_review'].get('pages', {}).values()})) or '記録なし'
     machine_rows=[]
     from page_workflow import grouped_machine_issues
     for check in grouped_machine_issues(result['machine_checks']):
         machine_rows.append('<tr>'+''.join('<td>'+escape(str(check[k])).replace('\n','<br>')+'</td>' for k in
             ['criterion','expected','states','target','observed','outcome'])+
-            '<td>'+''.join('<a href="'+escape(path,quote=True)+'">証拠 '+str(i+1)+'</a><br>' for i,path in enumerate(check['proof']))+'</td></tr>')
-    exploration_notice=('<h2 id="machine-results">自動探索・機械検査</h2><p>機械検査 '+str(len(result['machine_checks']))+'件。未確認の探索・操作 '+str(len(result['exploration']['remaining']))+'件。</p>'+
-        '<p>以下は機械ルールと実入力で検出した結果です。達成基準全体の適否とは区別しています。</p><ul>'+''.join('<li>'+escape(r)+'</li>' for r in result['exploration']['remaining'])+'</ul>'+
-        ('<details open>' if page_url else '<details>')+'<summary>自動検出した問題 '+str(len(machine_rows))+'種類（同じ問題の状態別記録を集約）</summary><div class="scroll" tabindex="0" role="region" aria-label="自動検出した問題"><table><caption>追加確認が必要な機械検査の結果</caption><thead><tr>'+''.join('<th scope="col">'+s+'</th>' for s in
-        ['基準','検査','状態・経路','対象','観察','機械結果','証拠'])+'</tr></thead><tbody>'+''.join(machine_rows)+'</tbody></table></div></details>')
+            '<td>'+'<br>'.join(link(run / path, f'証拠 {i}') for i, path in enumerate(check['proof'], 1))+'</td></tr>')
+    machine_findings = (
+        '<details id="machine-results" open><summary>自動検出した問題・要確認 '
+        f'{len(machine_rows)} 件</summary>'
+        '<div class="scroll" tabindex="0" role="region" aria-label="自動検出した問題">'
+        '<table><caption>機械検査で追加確認が必要になった箇所</caption><thead><tr>'
+        + ''.join(f'<th scope="col">{label}</th>' for label in ['基準','検査','状態・経路','対象','観察','機械結果','証拠'])
+        + '</tr></thead><tbody>' + ''.join(machine_rows) + '</tbody></table></div></details>'
+        if machine_rows else '<p id="machine-results">記録された機械検査の指摘・要確認は0件です。</p>'
+        if result['machine_checks'] else '<p id="machine-results">機械検査の結果は収集されていません。</p>'
+    )
+    measurements_html = ''
     for kind, criterion, label, caption in (
         ('text_contrast', '1.4.3', '文字のコントラスト', '指定した初期表示の文字色と背景色の測定'),
         ('focus_outline', '1.4.11', 'フォーカス枠のコントラスト', '指定した状態でのフォーカス枠と隣接色の測定'),
@@ -628,39 +662,111 @@ def report(run, *, page_url=None):
         rows = []
         for row in measurements:
             cells = [row['state_label'] + ' / ' + row['environment'], row['target'], row['observed'], labels[row['outcome']]]
-            links = f'<a href="{escape(row["evidence"], quote=True)}">操作・測定ログ</a>'
+            links = link(run / row["evidence"], "操作・測定ログ")
             image = row[kind].get('source')
             if image:
-                links += f' / <a href="{escape(image, quote=True)}">測定画像</a>'
+                links += " / " + link(run / image, "測定画像")
             rows.append('<tr>'+''.join(f'<td>{escape(value)}</td>' for value in cells)+f'<td>{links}</td></tr>')
-        exploration_notice += (f'<details open><summary>{criterion} {label}</summary>'
+        measurements_html += (f'<details><summary>{criterion} {label}</summary>'
             f'<div class="scroll" tabindex="0" role="region" aria-label="{label}">'
             f'<table><caption>{caption}</caption><thead><tr>'
             '<th scope="col">状態・経路</th><th scope="col">対象</th><th scope="col">観察</th>'
             '<th scope="col">機械結果</th><th scope="col">証拠</th></tr></thead><tbody>'
             + ''.join(rows) + '</tbody></table></div></details>')
     focus_evidence = result.get('focus_evidence', [])
+    evidence_nav = ''
     if focus_evidence:
-        exploration_notice += focus_evidence_html(run, focus_evidence)
-        page = page.replace('</nav>', ' / <a href="#focus-image-evidence">フォーカスの画像証拠</a></nav>', 1)
+        evidence_nav += '<li><a href="#focus-image-evidence">フォーカスの画像証拠</a></li>'
+        measurements_html += focus_evidence_html(run, focus_evidence, files.html.parent)
     if result.get('visual_structure_evidence'):
-        from visual_structure import REPORT_TITLE
+        evidence_nav += '<li><a href="#visual-structure-evidence">視覚構造の証拠</a></li>'
+        measurements_html += visual_structure_html(run, result['visual_structure_evidence'], files.html.parent)
 
-        exploration_notice += visual_structure_html(run, result['visual_structure_evidence'])
-        page = page.replace('</nav>', f' / <a href="#visual-structure-evidence">{REPORT_TITLE}</a></nav>', 1)
-    page=page.replace('<h2 id="checksheet">',exploration_notice+'<h2 id="checksheet">')
-    if page_url:
-        machine_counts=Counter(c['outcome'] for c in result['machine_checks'])
-        criterion_counts=Counter(c['judgment'] for c in human_model['rows'] if c['kind']=='criterion')
-        overview=('<section aria-label="ページ検証の概要"><h2>このページの結果</h2><p>確認した状態・環境 '+str(len({c['capture'] for c in result['cases']}))+'。'
-            '機械検査 '+str(len(result['machine_checks']))+'件（ルール・経路の延べ件数）。問題あり '+str(machine_counts['failed'])+'、機械判定不能 '+str(machine_counts['cant_tell'])+'。</p>'
-            '<p>達成基準全体の判定：'+escape('、'.join(k+' '+str(v) for k,v in criterion_counts.items()))+'。</p></section>')
-        page=page.replace('</nav>','</nav>'+overview,1)
     from verification_modes import render_html as verification_html
-    page=page.replace('</nav>','</nav>'+verification_html(result.get('verification')),1)
-    for filename in ['report.json','issues.md','human-review.md','interaction-review.md']:
-        page=page.replace('href="'+filename+'"','href="'+prefix+filename+'"')
-    (run/(prefix+'report.html')).write_text(page)
+    mode_details = verification_html(result.get('verification'))
+    if mode_details:
+        mode_details = '<details><summary>検査モードの仕様</summary>' + mode_details + '</details>'
+    exploration = result['exploration']['remaining']
+    exploration_details = (
+        '<details id="exploration-details"><summary>自動探索で残った操作・状態</summary><ul>'
+        + ''.join(f'<li>{escape(item)}</li>' for item in exploration) + '</ul></details>'
+        if exploration else ''
+    )
+    scope_heading = 'ページ検証の概要' if page_url else '検査範囲の概要'
+    css = """
+      html { color-scheme: light; }
+      body { font: 1rem/1.65 system-ui, sans-serif; color: #202830; background: #fff; margin: 0; }
+      main { box-sizing: border-box; width: min(100%, 74rem); margin: auto; padding: clamp(1rem, 4vw, 3rem); }
+      h1, h2, h3 { line-height: 1.3; }
+      h1 { margin: 0 0 .45rem; }
+      h2 { margin: 0 0 .9rem; }
+      header p, article p { margin: .4rem 0; }
+      a { color: #00529b; text-underline-offset: .15em; }
+      :focus-visible { outline: 3px solid #00529b; outline-offset: 3px; }
+      section { margin: 2.4rem 0; }
+      section + section { border-top: 1px solid #bac7d2; padding-top: 1.5rem; }
+      nav ul { display: flex; flex-wrap: wrap; gap: .35rem 1.2rem; padding: 0; list-style: none; }
+      .scope, .result, .finding { border-radius: .5rem; padding: .85rem 1rem; margin: .75rem 0; }
+      .scope { background: #edf3f7; }
+      .result, .finding { border: 1px solid #bac7d2; }
+      .finding { border-inline-start: .3rem solid #a33125; }
+      .result h3, .finding h3 { margin: 0 0 .55rem; }
+      .result-status { font-weight: 650; }
+      dt { font-weight: 650; }
+      dd { margin: 0 0 .65rem; }
+      details { padding: .65rem 0; border-bottom: 1px solid #bac7d2; }
+      summary { width: fit-content; cursor: pointer; font-weight: 650; }
+      table { border-collapse: collapse; min-width: 52rem; }
+      td, th { border: 1px solid #bac7d2; padding: .55rem; vertical-align: top; text-align: left; }
+      .scroll { overflow: auto; max-width: 100%; }
+      caption { text-align: left; }
+      th, td, p, li, dd, h3 { overflow-wrap: anywhere; }
+      .criterion { font-weight: 650; background: #edf3f7; }
+      @media print {
+        .scroll { overflow: visible; }
+        table { min-width: 0; width: 100% !important; }
+        .checksheet-table col { width: auto !important; }
+        tr, article { break-inside: avoid; }
+      }
+    """
+    page = f"""<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WCAG 2.2 {escape(result['level'])} {scope}の検証結果</title><style>{css}</style></head><body>
+<main><header><h1>WCAG 2.2 {escape(result['level'])} {scope}の検証結果</h1>
+<p>{escape(result['url'])}</p></header>
+<div class="scope" role="region" aria-label="{scope_heading}">
+<p><strong>{complete}</strong>{f' · {escape(mode)}' if mode else ''}</p>
+<p>{len(selected)} 件の表示状態・環境を収集。{escape(environments)}</p>
+</div>
+<nav aria-label="レポート内の移動"><ul>
+<li><a href="#failures">修正箇所</a></li><li><a href="#performed">実施結果</a></li>
+<li><a href="#remaining">残る確認</a></li><li><a href="#details">詳細と元データ</a></li>
+{evidence_nav}</ul></nav>
+<section>{checksheet.render_failures(human_model, proof_href)}{machine_findings}</section>
+<section>{checksheet.render_summary(human_model, proof_href)}{measurements_html}</section>
+<section>{checksheet.render_remaining(human_model, exploration)}{exploration_details}
+<p>画像の取得 {captured} 件。実スクリーンリーダーの記録 {escape(readers)}。</p>
+<p>ページ・状態・適合要件の範囲 {escape(inventory)}</p>
+<p>{link(files.handoff, '人に引き継ぐ確認')} · {link(files.interactions, '操作調査の記録')}</p></section>
+<section><h2 id="details">詳細と元データ</h2>
+{checksheet.render_checklist(human_model, proof_href)}
+<details><summary>実施環境・集計条件</summary><p>{escape(collection_notice)}。</p>
+<p>未訪問URL {len(result['unvisited'])} 件、未収集のページ・状態・環境 {len(result['missing_captures'])} 件。</p>
+<p>{escape(definition_notice)} {definition_link}</p></details>
+<details><summary>画面・操作の調査記録</summary>
+<div class="scroll" tabindex="0" role="region" aria-label="操作調査の表"><table>
+<thead><tr><th scope="col">ページ</th><th scope="col">状態・環境</th><th scope="col">操作対象</th><th scope="col">画像確認</th>
+<th scope="col">操作確認</th><th scope="col">観察</th><th scope="col">残る確認</th><th scope="col">実SR</th></tr></thead>
+<tbody>{observation_rows}</tbody></table></div></details>
+<details><summary>ページ・状態・環境・基準ごとの検査票</summary>
+<div class="scroll" tabindex="0" role="region" aria-label="検査結果の表"><table><caption>観察結果と証拠</caption>
+<thead><tr><th scope="col">基準</th><th scope="col">対象</th><th scope="col">結果</th>
+<th scope="col">観察・残る確認</th><th scope="col">証拠</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div></details>
+{mode_details}
+<p>{link(files.issues, '不適合の詳細')} · {link(files.json, '処理用JSON')} · {link(run / 'capture-manifest.json', '収集ログの索引')}</p>
+</section></main></body></html>
+"""
+    files.html.write_text(page)
     issues=['# 修正担当向けの不適合記録','', 'この記録は検証結果です。製品コードの変更は行っていません。','',
             '予定範囲の検査完了: '+('はい' if result['audit_complete'] else 'いいえ'),
             '結果: '+summary,
@@ -677,10 +783,16 @@ def report(run, *, page_url=None):
         source=next(x['normative_url'] for x in result['criteria'] if x['id']==c['criterion'])
         issues += ['原典: '+source,'このcaseの未確認: '+(', '.join(a.get('remaining',[])) or 'なし'), '']
     issue_text='\n'.join(issues).rstrip()+'\n'
-    for name in ['report.html','report.json']:issue_text=issue_text.replace(']('+name+')',']('+prefix+name+')')
-    (run/(prefix+'issues.md')).write_text(issue_text)
-    (run/(prefix+'human-review.md')).write_text(handoff_markdown([c for c in result['cases']
-        if c['assessment_data'] and c['assessment_data'].get('human_handoff')]))
+    for path in (files.html, files.json):
+        issue_text = issue_text.replace(f']({path.name})', f']({run_layout.href(files.issues, path)})')
+    if not run_layout.organized(run) and page_url:
+        for name, path in [('report.html', files.html), ('report.json', files.json)]:
+            issue_text = issue_text.replace(f']({name})', f']({path.name})')
+    files.issues.write_text(issue_text)
+    files.handoff.write_text(handoff_markdown([c for c in result['cases']
+        if c['assessment_data'] and c['assessment_data'].get('human_handoff')],
+        proof_href=lambda path: run_layout.href(files.handoff, run / path),
+        report_href=run_layout.href(files.handoff, files.json)))
     notes=['# 画面・操作の調査と残る確認','',
            '調査状態: '+result['interaction_review']['status'],
            '画像の選択: '+result['inspection_policy']['screenshots'],
@@ -690,21 +802,33 @@ def report(run, *, page_url=None):
                   '画像: '+o['visual']+' / 操作: '+o['status']+' / 実SR: '+o['screen_reader'],
                   o['observed'],'実施した操作: '+o['steps'],'残る確認: '+o['remaining'],
                   '元の調査票: '+o['source_review'],'']
-    (run/(prefix+'interaction-review.md')).write_text('\n'.join(line.rstrip() for line in notes).rstrip()+'\n')
+    files.interactions.write_text('\n'.join(line.rstrip() for line in notes).rstrip()+'\n')
     print(json.dumps({k:result[k] for k in ['audit_complete','scope_confirmed','counts']},ensure_ascii=False))
     return result
 
 
-def write_page_reports(run,url):
+@locked
+def write_page_reports(run, url):
     import workbook
-    from browser_capture import page_id
-    from page_workflow import machine_checks
-    report(run,page_url=url)
-    stem='page-'+page_id(url)
-    path=run/(stem+'-report.xlsx')
-    if path.exists():path=run/(stem+'-report-'+uuid.uuid4().hex[:8]+'.xlsx')
-    workbook.export(run,path,page_exact=url,page_view=True)
-    return {'html':str(run/(stem+'-report.html')),'json':str(run/(stem+'-report.json')),'excel':str(path)}
+
+    files = report_paths(run, url)
+    path = files.excel
+    if run_layout.organized(run):
+        workbook.export(run, path, page_exact=url, page_view=True, replace=True, acquire_lock=False)
+    else:
+        if path.exists():
+            path = path.with_name(path.stem + '-' + uuid.uuid4().hex[:8] + path.suffix)
+        workbook.export(run, path, page_exact=url, page_view=True, acquire_lock=False)
+    render_reports(run, page_url=url)
+    return {'html': str(files.html), 'json': str(files.json), 'excel': str(path)}
+
+
+def refresh_report(run):
+    page_url = single_report_page(run)
+    if page_url and run_plan(run)['cases']:
+        files = write_page_reports(run, page_url)
+        return load(files['json'])
+    return report(run)
 
 
 def run_page_audit(run,args):
@@ -719,7 +843,7 @@ def run_page_audit(run,args):
         print(json.dumps({'exploration':value['remaining'],'error':'収集に成功した状態がありません'},ensure_ascii=False));return 2
     files=write_page_reports(run,args.url)
     print(json.dumps(dict(files,explored_states=len(value['nodes']),pending_routes=len(value['queue']),
-                         next_command=join(['python3','scripts/audit.py','page-next','--run',str(run),'--page-exact',args.url])),ensure_ascii=False))
+                         next_command=join(['python3','scripts/audit.py','page-next','--run',args.out,'--page-exact',args.url])),ensure_ascii=False))
     return 0
 
 
@@ -840,7 +964,7 @@ def main(argv=None):
             if args.command in {'page','page-audit'}:
                 from inspection import policy
                 if args.config:config=read_config(args.config)
-                elif args.command=='page-audit' and args.resume:config=json.loads(json.dumps(run_meta(Path(args.out))['config']))
+                elif args.command=='page-audit' and args.resume:config=json.loads(json.dumps(run_meta(run_layout.ledger(args.out))['config']))
                 else:config=init_config(args.url)
                 if (urlsplit(config['url']).scheme,urlsplit(config['url']).netloc)!=(urlsplit(args.url).scheme,urlsplit(args.url).netloc):
                     raise ValueError('設定と単独ページのオリジンが異なる')
@@ -873,8 +997,8 @@ def main(argv=None):
                 if out.exists():raise ValueError('既存のURL一覧を上書きしない')
                 value=asyncio.run(select_pages(config));save(out,value)
                 print(json.dumps({'file':str(out),'mode':value['mode'],'pages':len(value['pages']),'unvisited':len(value['unvisited']),'errors':len(value['errors']),'wcag_inspection_executed':False},ensure_ascii=False));return 0
-            run=Path(args.out)
             if args.command=='page-audit' and args.resume:
+                run = run_layout.ledger(args.out)
                 meta=run_meta(run)
                 if meta['config']['scope']['pages']!=[args.url]:raise ValueError('再開先のページURLが異なる')
                 if args.config and digest(config)!=meta['config_digest']:raise ValueError('再開では設定を変更しない。変更した検査は新しいrunへ保存する')
@@ -885,8 +1009,7 @@ def main(argv=None):
                 if args.mode is not None and args.mode!=meta['config'].get('verification',{}).get('mode'):
                     raise ValueError('再開では検証モードを変更しない。新しいrunを作る')
                 return run_page_audit(run,args)
-            if run.exists() and any(run.iterdir()):raise ValueError('出力先は空にする。既存結果はpending/reportで再開する')
-            run.mkdir(parents=True,exist_ok=True)
+            run = run_layout.create(args.out)
             meta={'created_at':datetime.now(timezone.utc).isoformat(),'config':config,
                   'config_digest':digest(config),'catalog_digest':digest(CATALOG)}
             from verification_modes import snapshot as snapshot_verification
@@ -896,8 +1019,14 @@ def main(argv=None):
             if args.command=='page-audit':
                 make_plan(run,{'captures':[]});return run_page_audit(run,args)
             from browser_capture import collect
-            manifest=asyncio.run(collect(config,run));make_plan(run,manifest);report(run);return 0
-        run=Path(args.run)
+            manifest = asyncio.run(collect(config, run))
+            plan = make_plan(run, manifest)
+            if args.command == 'page' and plan['cases']:
+                print(json.dumps(write_page_reports(run, args.url), ensure_ascii=False))
+            else:
+                report(run)
+            return 0
+        run = run_layout.ledger(args.run)
         if args.command in {'page-next','page-report','resolve-exploration'}:
             from page_workflow import next_work,resolve
             if args.command=='resolve-exploration':value=resolve(run,load(args.file))
@@ -926,7 +1055,9 @@ def main(argv=None):
         if args.command=='snapshot':
             print(json.dumps(snapshot_catalog(run),ensure_ascii=False));return 0
         if args.command=='recover':
-            manifest=load(run/'capture-manifest.json');make_plan(run,manifest);report(run);return 0
+            manifest=load(run/'capture-manifest.json');make_plan(run,manifest)
+            refresh_report(run)
+            return 0
         if args.command=='pending':
             import work_queue
             result=outcomes(run)
@@ -958,6 +1089,7 @@ def main(argv=None):
                               'interaction_review':run_plan(run).get('interaction_reviews',{}).get(case['page_id']),
                               'definitions_match_installed':meta['catalog_digest']==digest(CATALOG),
                               'catalog_snapshot':str(run/'catalog.snapshot.json') if (run/'catalog.snapshot.json').exists() else None,
+                              'evidence_base':str(run),
                               'reference_notice':'現在のスキルの参考資料。保存した定義が異なる場合は、その版の手順を確認する。新しい定義での判定は新しいrunで行う。',
                               'guide':str(ROOT/'references/criteria'/(c['id']+'.md')) if same_criterion else None,
                               'source':str(ROOT/'references/sources'/(c['id']+'.md')),
@@ -995,7 +1127,8 @@ def main(argv=None):
             value=validate_scope_review(run,load(args.file))
             save(run/'scope-review.json',value);return 0
         if args.command=='report':
-            r=report(run);return 0 if not args.strict or r['audit_complete'] else 2
+            result = refresh_report(run)
+            return 0 if not args.strict or result['audit_complete'] else 2
     except (ValueError,KeyError,OSError,ImportError) as exc:
         print('ERROR:',str(exc),file=sys.stderr);return 1
 

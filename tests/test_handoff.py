@@ -71,7 +71,7 @@ class HandoffTest(unittest.TestCase):
         self.assertEqual(result['human_review_cases'],[])
         self.assertEqual(len(list((self.run/'assessments').glob('*.json'))),2)
         self.assertEqual(old.read_bytes(),before)
-        self.assertIn('引き継ぎが記録されたcaseはありません',(self.run/'human-review.md').read_text())
+        self.assertIn('人への引き継ぎの記録はありません',(self.run/'human-review.md').read_text())
 
     def test_confirmed_failure_and_human_work_both_remain_visible(self):
         value=copy.deepcopy(self.blocked)

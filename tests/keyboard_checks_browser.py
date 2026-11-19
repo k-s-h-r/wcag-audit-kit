@@ -154,17 +154,17 @@ def execute(area, url, checks, resume_trial=False):
 
     if resume_trial:
         run_command(['--max-steps', '1'], 'paused')
-        graph = audit.load(run / 'exploration.json')
+        graph = audit.load(audit.run_layout.ledger(run) / 'exploration.json')
         assert not any(edge.get('keyboard_check') for edge in graph['edges'])
         assert any(job.get('keyboard_check') for job in graph['queue'])
         run_command(['--resume', '--max-steps', str(1 + len(checks))], 'resumed')
     else:
         run_command(['--max-steps', str(1 + len(checks))], 'first')
-    return run
+    return audit.run_layout.ledger(run)
 
 
 def read_results(run, criterion, page, checks, expected):
-    report = next(run.glob('page-*-report.json'))
+    report = audit.run_layout.report_files(audit.run_layout.ledger(run), single=True).json
     value = audit.load(report)
     rows = [row for row in value['machine_checks'] if row['checkpoint'].startswith('キーボード経路 / ')]
     assert len(rows) == len(checks) and all(row['outcome'] == expected for row in rows), (criterion, page, rows)
@@ -192,14 +192,14 @@ def read_results(run, criterion, page, checks, expected):
             if plan['id'] == 'shadow-host-only':
                 assert '#subject → #inner-action' in row['observed']
     if expected == 'failed':
-        html = report.with_suffix('.html').read_text()
-        xlsx = sorted(run.glob('page-*-report*.xlsx'))[-1]
+        html = audit.run_layout.report_files(audit.run_layout.ledger(run), single=True).html.read_text()
+        xlsx = audit.run_layout.report_files(audit.run_layout.ledger(run), single=True).excel
         book = load_workbook(xlsx, read_only=True, data_only=True)
         try:
             worksheet = list(book['自動検出した問題'].values)
             for row in rows:
                 matches = [part for part in re.findall(r'<tr>(.*?)</tr>', html, re.S)
-                           if f'href="{row["evidence"]}"' in part]
+                           if f'href="{audit.run_layout.href(xlsx.with_suffix(".html"), run / row["evidence"])}"' in part]
                 assert len(matches) == 1 and row['target'] in unescape(matches[0]) and row['observed'] in unescape(matches[0])
                 assert any(row['evidence'] in sheet_row and row['target'] in sheet_row and row['observed'] in sheet_row
                            for sheet_row in worksheet)
@@ -236,7 +236,7 @@ def main(out):
                          [dict(key='Tab', focus='#link'), dict(key='Enter', visible='h1')],
                          destination=f'{base}/redirect.html')
         run = execute(out / 'redirect', f'{base}/redirect-source.html', [redirect])
-        value = audit.load(next(run.glob('page-*-report.json')))
+        value = audit.load(audit.run_layout.report_files(audit.run_layout.ledger(run), single=True).json)
         row, = [r for r in value['machine_checks'] if r['checkpoint'] == 'キーボード経路 / redirect']
         assert row['outcome'] == 'cant_tell' and '/redirect.html' in Handler.requests
         assert '/unexpected.html' not in Handler.requests

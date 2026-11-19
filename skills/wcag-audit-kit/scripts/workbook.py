@@ -1,4 +1,5 @@
 """Excel views and conflict-checked work exchange, backed by the JSON ledger."""
+from contextlib import nullcontext
 from copy import deepcopy
 import json
 import os
@@ -148,7 +149,7 @@ def evidence_link(run, path, directory):
     target = (root / path).resolve()
     if not target.is_relative_to(root / 'evidence') or not target.is_file():
         return None
-    return quote(Path(os.path.relpath(target, directory)).as_posix())
+    return quote(Path(os.path.relpath(target, directory.resolve())).as_posix())
 
 
 def focus_evidence_sheet(book, run, out, rows):
@@ -182,7 +183,7 @@ def visual_structure_sheet(book, run, out, observations):
             cell.font = Font(color='00529B', underline='single')
 
 
-def human_sheets(book, model):
+def human_sheets(book, model, *, evidence_href=None):
     from math import ceil
     from unicodedata import east_asian_width
     from openpyxl.styles import Alignment, Font, PatternFill
@@ -218,6 +219,9 @@ def human_sheets(book, model):
                                       for line in str(cell.value or '').split('\n')))
                 if row.get('kind')=='criterion':cell.font=Font(bold=True)
                 if key=='judgment':cell.fill=PatternFill('solid',fgColor=palette[row['status']])
+                if key=='evidence' and evidence_href and row.get('evidence_paths'):
+                    cell.hyperlink = evidence_href(row['evidence_paths'][0])
+                    cell.font = Font(color='00529B', underline='single')
                 if key=='locations':
                     location = None
                     if row.get('failure_ids'):
@@ -240,14 +244,15 @@ def human_sheets(book, model):
     book.active=0
 
 
-def export(run, out, *, mode='report', task=None, owner=None, page=None, page_exact=None, criterion=None, pending=False, page_view=False):
+def export(run, out, *, mode='report', task=None, owner=None, page=None, page_exact=None, criterion=None, pending=False, page_view=False, replace=False, acquire_lock=True):
     import audit
     from openpyxl import Workbook
     from openpyxl.worksheet.datavalidation import DataValidation
     if mode not in {'report','work'}:raise ValueError('Excel出力のモードが不正')
-    if out.suffix.lower()!='.xlsx' or out.exists():raise ValueError('新しい.xlsxの出力先を指定する')
+    if replace and mode != 'report':raise ValueError('作業用Excelの上書きはできない')
+    if out.suffix.lower()!='.xlsx' or (out.exists() and not replace):raise ValueError('新しい.xlsxの出力先を指定する')
     out.parent.mkdir(parents=True,exist_ok=True)
-    with run_lock(run):
+    with run_lock(run) if acquire_lock else nullcontext():
         result=audit.outcomes(run);plan=audit.run_plan(run);meta,catalog=audit.run_catalog(run)
         if page_view:
             if not page_exact or mode!='report':raise ValueError('ページ帳票にはreportとpage_exactが必要')
@@ -259,7 +264,11 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         selected_criteria=({r['criterion'] for r in cases} if criterion or task or owner is not None or pending else
                            {c['id'] for c in result['criteria']})
         environments = {r['environment'] for r in cases}
-        result['machine_checks']=[c for c in result['machine_checks'] if c['criterion'] in selected_criteria and c['environment'] in environments]
+        selected_captures = {r['capture'] for r in cases}
+        result['machine_checks'] = [
+            c for c in result['machine_checks'] if c['criterion'] in selected_criteria and c['environment'] in environments
+            and (not c.get('page_url') or c['capture'] in selected_captures)
+        ]
         focus_evidence = [row for row in result.get('focus_evidence', [])
                           if row['criterion'] in selected_criteria and row['environment'] in environments]
         export_id=uuid.uuid4().hex
@@ -279,7 +288,8 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         model=checksheet.build(result,catalog,cases=cases,
             filters=dict(task=task,owner=owner,page=page,page_exact=page_exact,criterion=criterion,pending=pending),
             manifest=audit.load(run/'capture-manifest.json'))
-        human_sheets(book,model)
+        from run_layout import href
+        human_sheets(book, model, evidence_href=lambda path: href(out, run / path))
         if result.get('verification'):
             from verification_modes import COVERAGE_COLUMNS, table_rows
             sheet(book,'モード別の確認範囲',COVERAGE_COLUMNS,
@@ -348,8 +358,10 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         sheet(book,'人への確認',[(k,v) for k,v in [('case_id','検査票ID'),('criterion','基準'),('url','ページURL'),('target','対象'),
               ('reason','残る理由'),('reviewer','必要な担当'),('environment','必要な環境'),('steps','確認手順'),('expected','判定条件'),
               ('attempts','試した方法'),('resume','結果の戻し方')]],handoffs,True)
-        tasks=queue.work(plan)['tasks']
         by_id={c['case_id']:c for c in result['cases']}
+        tasks = [dict(task, case_ids=[ident for ident in task['case_ids'] if ident in by_id])
+                 for task in queue.work(plan)['tasks']]
+        tasks = [task for task in tasks if task['case_ids']]
         sheet(book,'タスク',[('id','タスクID'),('title','対象範囲'),('size','票数'),('owners','担当'),('remaining','未完了'),('human','人の確認待ち')],
               [dict(t,size=len(t['case_ids']),owners=', '.join(sorted({queue.assignment(plan,i)['owner'] for i in t['case_ids']})),
                     remaining=sum(queue.unfinished(by_id[i]) for i in t['case_ids']),
@@ -361,7 +373,11 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         temporary=None
         try:
             with tempfile.NamedTemporaryFile(dir=out.parent,suffix='.xlsx',delete=False) as handle:temporary=Path(handle.name)
-            book.save(temporary);os.link(temporary,out)
+            book.save(temporary)
+            if replace:
+                temporary.replace(out)
+            else:
+                os.link(temporary,out)
         finally:
             book.close()
             if temporary is not None:temporary.unlink(missing_ok=True)

@@ -62,7 +62,7 @@ class SelectionTest(unittest.TestCase):
                 self.assertEqual(audit.main(['page','--url','http://127.0.0.1:9/contact?a=1#open','--out',str(run),'--profile','quick']),0)
             self.assertEqual(seen[0]['scope']['mode'],'configured');self.assertEqual(seen[0]['scope']['max_pages'],1)
             self.assertEqual(seen[0]['scope']['pages'],['http://127.0.0.1:9/contact?a=1#open'])
-            result=audit.outcomes(run)
+            result=audit.outcomes(audit.run_layout.ledger(run))
             self.assertEqual(result['counts'],{'not_run':55});self.assertFalse(result['audit_complete'])
             self.assertFalse(result['interaction_review']['complete']);self.assertEqual(result['inspection_policy']['screenshots'],'off')
 

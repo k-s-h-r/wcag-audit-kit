@@ -49,10 +49,11 @@ def collect(out, url, expected, ratio=None, threshold=4.5, resume=False):
     original_proof = []
     if resume:
         run_cli('--max-steps', '1')
-        saved = audit.load(run/'exploration.json')
+        saved = audit.load(audit.run_layout.ledger(run)/'exploration.json')
         assert saved['queue'][0]['text_check'] == 'notice'
         original_proof = saved['proof']
     files = run_cli('--max-steps', '2', *(['--resume'] if resume else []))
+    run = audit.run_layout.ledger(run)
     report = audit.load(files['json'])
     graph = audit.load(run/'exploration.json')
     assert all(audit.evidence_item(run, item['path']) == item and item in graph['proof'] for item in original_proof)
@@ -62,7 +63,7 @@ def collect(out, url, expected, ratio=None, threshold=4.5, resume=False):
     record = audit.load(run/row['evidence'])
     assert audit.evidence_item(run, row['evidence']) in graph['proof']
     html = Path(files['html']).read_text()
-    assert '1.4.3 文字のコントラスト' in html and row['observed'] in html and f'href="{row["evidence"]}"' in html
+    assert '1.4.3 文字のコントラスト' in html and row['observed'] in html and f'href="{audit.run_layout.href(Path(files["html"]), run / row["evidence"])}"' in html
     book = load_workbook(files['excel'], read_only=True, data_only=True)
     try:
         assert any(row['target'] in cells and row['observed'] in cells and row['evidence'] in cells
@@ -88,7 +89,7 @@ def collect(out, url, expected, ratio=None, threshold=4.5, resume=False):
         with Image.open(frame_path) as image:
             left, top, right, bottom = record['frame_crop_css_px']
             assert image.size == (right - left, bottom - top) and image.size != tuple(record['viewport_css_px'])
-    assert f'href="{row["text_contrast"]["source"]}"' in html
+    assert f'href="{audit.run_layout.href(Path(files["html"]), run / row["text_contrast"]["source"])}"' in html
     return record['ratio']
 
 

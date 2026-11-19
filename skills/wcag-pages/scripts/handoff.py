@@ -53,11 +53,11 @@ def details(value):
         '<ul>'+''.join(checks)+'</ul><p>結果の戻し方：'+escape(value['resume'])+'</p></details>')
 
 
-def markdown(cases):
+def markdown(cases, *, proof_href=str, report_href="report.json"):
     lines=['# 人による確認の引き継ぎ','',
         'ここにある項目は未確認です。引き継ぎを記録しても検証完了・適合にはなりません。',
         'このファイルは依頼内容の出力であり、外部への送信や担当者への連絡は行っていません。','']
-    if not cases:lines.append('人への引き継ぎが記録されたcaseはありません。未実施・その他の判断保留はreport.jsonで別に確認してください。')
+    if not cases:lines.append(f'人への引き継ぎの記録はありません。未確認の項目は[結果データ]({report_href})を参照してください。')
     for case in cases:
         value=case['assessment_data']['human_handoff']
         lines += ['## '+case['criterion']+' '+case['title'],'',
@@ -75,5 +75,5 @@ def markdown(cases):
             lines += [str(i)+'. '+step for i,step in enumerate(check['steps'],1)]
             lines += ['','判定条件: '+check['expected'],'証拠: '+', '.join(check['evidence'])]
         lines += ['','結果の戻し方: '+value['resume'],
-            '元の判定: ['+case['assessment']+']('+case['assessment']+')','']
+            '[元の判定]('+proof_href(case['assessment'])+')','']
     return '\n'.join(lines)+'\n'

@@ -1,5 +1,5 @@
 """Compare page HTML/Excel and render at 1280/320px; run from repository root."""
-import asyncio,json,threading,sys
+import asyncio,json,shutil,threading,sys
 from functools import partial
 from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
@@ -7,7 +7,7 @@ from openpyxl import load_workbook
 from playwright.async_api import async_playwright
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'skills/wcag-audit-kit/scripts'))
 import audit,checksheet,page_workflow
-root=Path(sys.argv[1]);run=root/'run'
+root=Path(sys.argv[1]).resolve();run=audit.run_layout.ledger(root/'run')
 url=audit.run_meta(run)['config']['scope']['pages'][0]
 files=audit.write_page_reports(run,url)
 result=page_workflow.page_result(run,url)
@@ -23,19 +23,20 @@ book.close()
 async def main():
  class Handler(SimpleHTTPRequestHandler):
   def log_message(self,*args):pass
- server=ThreadingHTTPServer(('127.0.0.1',0),partial(Handler,directory=str(run)))
+ server=ThreadingHTTPServer(('127.0.0.1',0),partial(Handler,directory=str(root/'run')))
  threading.Thread(target=server.serve_forever,daemon=True).start();checks=[]
  try:
   async with async_playwright() as p:
-   browser=await p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+   browser=await p.chromium.launch(executable_path=shutil.which('chromium'),args=['--no-sandbox'])
    for width in [1280,320]:
     page=await browser.new_page(viewport={'width':width,'height':900})
-    await page.goto(f'http://127.0.0.1:{server.server_port}/{Path(files["html"]).name}')
+    await page.goto(f'http://127.0.0.1:{server.server_port}/{Path(files["html"]).relative_to(root/'run').as_posix()}')
     assert await page.get_by_role('region',name='ページ検証の概要').is_visible()
     assert not await page.evaluate('document.documentElement.scrollWidth>innerWidth')
     await page.screenshot(path=str(root/f'report-{width}.png'))
     disclosure=page.locator('details').filter(has=page.locator('summary').filter(has_text='自動検出した問題')).first
-    if await disclosure.get_attribute('open') is None:await disclosure.locator('summary').first.click()
+    if await disclosure.count() and await disclosure.get_attribute('open') is None:await disclosure.locator('summary').first.click()
+    await page.locator('#checksheet > summary').click()
     await page.locator('#checksheet').evaluate('(e)=>e.scrollIntoView({block:"start"})')
     await page.screenshot(path=str(root/f'checksheet-{width}.png'))
     await page.add_script_tag(path=str(ROOT/'skills/wcag-audit-kit/vendor/axe.min.js'))
