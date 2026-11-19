@@ -65,3 +65,4 @@
 - [0059 実Tab後のフォーカス枠と隣接色を測る](0059-measure-adjacent-focus-outline-colors.md)
 - [0060 横並びタブの左右キー操作と選択前の状態を探索する](0060-explore-horizontal-tab-keyboard-states.md)
 - [0061 指定ページの文字コントラストを画素で測る](0061-measure-rendered-text-in-single-page-audits.md)
+- [0062 見た目の構造をブラウザーの役割と照合する](0062-compare-visual-structure-with-browser-roles.md)

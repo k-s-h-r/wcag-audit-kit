@@ -17,7 +17,7 @@ SCRIPTS = ROOT / 'skills/wcag-audit-kit/scripts'
 sys.path.insert(0, str(SCRIPTS))
 import audit
 import page_explorer
-from visual_structure import REPORT_COLUMNS, REPORT_TITLE, collect, report_evidence
+from visual_structure import REPORT_COLUMNS, REPORT_TITLE, STRUCTURES, candidate_shape, collect, report_evidence
 
 
 BODY = '営業時間中にお越しの方は、最初に入口の受付までお進みください。'
@@ -35,6 +35,12 @@ main { width: min(36rem, 100%); }
 #break-wrap p { width: 7rem; }
 #break-clipped p { height: 3em; overflow: hidden; }
 #break-indent p { text-indent: 2em; }
+.matrix { display: table; table-layout: fixed; width: 21rem; border-spacing: 0; }
+.matrix-row { display: table-row; }
+.matrix-cell { display: table-cell; border: 1px solid #888; padding: 3px 8px; text-align: left; }
+.matrix-head .matrix-cell { font-weight: 700; }
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.cards article { border: 1px solid #888; padding: 4px; }
 """
 
 
@@ -49,7 +55,8 @@ def list_case(ident, kind='plain', marker='・', items=ITEMS):
     item = 'li' if kind == 'native' else 'p'
     group_role = 'role="list"' if kind == 'aria' else ''
     item_role = 'role="listitem"' if kind == 'aria' else ''
-    contents = ''.join(f'<{item} id="{ident}-{i}" {item_role}>{marker}{text}</{item}>'
+    prefix = marker if callable(marker) else lambda _index: marker
+    contents = ''.join(f'<{item} id="{ident}-{i}" {item_role}>{prefix(i)}{text}</{item}>'
                        for i, text in enumerate(items, 1))
     return f'<{wrapper} class="group" id="{ident}" {group_role}>{contents}</{wrapper}>'
 
@@ -68,6 +75,26 @@ def line_list_case(ident, kind='plain', marker='・', items=ITEMS):
 class QuietHandler(SimpleHTTPRequestHandler):
     def log_message(self, *args):
         pass
+
+
+def table_case(ident, kind='plain'):
+    wrapper, row_tag = ('table', 'tr') if kind == 'native' else ('div', 'div')
+    semantic = kind in {'aria', 'incomplete'}
+    role = ' role="table"' if semantic else ''
+    row_role = ' role="row"' if semantic else ''
+    rows = []
+    for index, values in enumerate((('利用区分', '受付状況'), ('一般', '受付中'), ('学生', '受付終了'))):
+        head = index == 0 and kind != 'no-header'
+        row_class = 'matrix-head' if head else ''
+        cell_tag = ('th' if head else 'td') if kind == 'native' else 'div'
+        cells = []
+        for col, text in enumerate(values):
+            cell_role = 'columnheader' if head and (kind != 'incomplete' or col == 0) else 'cell'
+            attributes = f' role="{cell_role}"' if semantic else (' scope="col"' if cell_tag == 'th' else '')
+            cells.append(f'<{cell_tag} id="{ident}-{index}-{col}" class="matrix-cell"{attributes}>{text}</{cell_tag}>')
+        rows.append(f'<{row_tag} class="matrix-row {row_class}"{row_role}>{"".join(cells)}</{row_tag}>')
+    content = '<tbody>' + ''.join(rows) + '</tbody>' if kind == 'native' else ''.join(rows)
+    return f'<{wrapper} id="{ident}" class="matrix"{role}>{content}</{wrapper}>'
 
 
 def run_page_audit(area, url, selector, *, states=None, max_states=1, max_steps=1):
@@ -129,6 +156,10 @@ def page_audit_case(area, url, selector, expected):
         text_column = [key for key, _ in REPORT_COLUMNS].index('observed') + 1
         assert worksheet.cell(2, target_column).value == '#break-list-items'
         assert all(item in worksheet.cell(2, text_column).value and item in rendered for item in ITEMS)
+    if selector == '#scope':
+        role_column = [key for key, _ in REPORT_COLUMNS].index('roles') + 1
+        assert worksheet.cell(2, role_column).value == '段落（paragraph）'
+        assert '先頭行のセル' in worksheet.cell(4, role_column).value
     workbook.close()
     from page_workflow import next_work
 
@@ -136,10 +167,12 @@ def page_audit_case(area, url, selector, expected):
     packet, = [item for item in packets if item['criterion'] == '1.3.1']
     assert packet['visual_structure_evidence'] == rows
     if selector == '#scope':
-        heading, bullets = row['candidates']
+        heading, bullets, table = row['candidates']
         assert heading['kind'] == 'heading' and heading['target']['selector'] == '#scope-title'
         assert bullets['kind'] == 'list' and bullets['marker'] == '・'
         assert [item['selector'] for item in bullets['targets']] == ['#bullet-1', '#bullet-2', '#bullet-3']
+        assert table['kind'] == 'table' and table['target'] == '#scope-table'
+        assert '認識された役割' in rendered and '表候補' in rendered and '先頭行のセル' in rendered
     elif selector == '#break-list':
         assert_broken_list(row, '#break-list-items', 'paragraph')
     elif expected == 'not_observed':
@@ -157,7 +190,7 @@ def page_audit_cases(out):
     (public/'index.html').write_text(f'''<!doctype html><html lang="ja"><head><meta charset="utf-8">
         <title>1.3.1 構造候補の対照</title><style>{STYLE}</style></head><body><main>
         <section id="scope" class="group"><p id="scope-title" class="heading">{LABEL}</p><p>{BODY}</p>
-        <hr>{items}</section>
+        <hr>{items}{table_case('scope-table')}</section>
         {line_list_case('break-list')}
         {heading_case('aria-heading', aria=True)}{list_case('aria-list', 'aria')}
         </main></body></html>''')
@@ -339,11 +372,16 @@ async def main(out):
         raise ValueError('試験結果には新しい保存先を指定する。')
     cases = [
         (heading_case('paragraph-heading'), '#paragraph-heading', ['heading']),
+        (heading_case('division-heading', 'div'), '#division-heading', ['heading']),
+        (heading_case('numbered-heading', label='1. 来訪時のご案内'), '#numbered-heading', ['heading']),
         (heading_case('html-heading', 'h2'), '#html-heading', []),
         (heading_case('aria-heading', aria=True), '#aria-heading', []),
         (heading_case('ordinary-emphasis', emphasis='lead'), '#ordinary-emphasis', []),
         (heading_case('styled-intro', label='はじめにお読みください'), '#styled-intro', ['heading']),
         (list_case('paragraph-list'), '#paragraph-list', ['list']),
+        (list_case('numbered-list', marker=lambda index: f'{index}. '), '#numbered-list', ['list']),
+        (list_case('dash-list', marker='- '), '#dash-list', ['list']),
+        (list_case('repeated-number', marker='1. '), '#repeated-number', []),
         (list_case('html-list', 'native'), '#html-list', []),
         (list_case('aria-list', 'aria'), '#aria-list', []),
         (list_case('generated-list', marker=''), '#generated-list', []),
@@ -357,6 +395,13 @@ async def main(out):
         (line_list_case('break-wrap'), '#break-wrap', []),
         (line_list_case('break-clipped'), '#break-clipped', []),
         (line_list_case('break-indent'), '#break-indent', []),
+        (table_case('visual-table'), '#visual-table', ['table']),
+        (table_case('native-table', 'native'), '#native-table', []),
+        (table_case('aria-table', 'aria'), '#aria-table', []),
+        (table_case('partial-aria', 'incomplete'), '#partial-aria', ['table']),
+        (table_case('no-header', 'no-header'), '#no-header', []),
+        ('<div id="cards" class="cards">' + ''.join(f'<article><h2>{text}</h2><p>受付中</p></article>'
+            for text in ('一般利用', '学生利用', '団体利用')) + '</div>', '#cards', []),
     ]
     observed = []
     appearances = {}
@@ -370,15 +415,29 @@ async def main(out):
                 appearances[selector] = appearance
                 result = await collect(page, selector)
                 assert [candidate['kind'] for candidate in result['candidates']] == kinds, result
+                if selector in {'#visual-table', '#native-table', '#aria-table', '#partial-aria'}:
+                    shapes = candidate_shape(await page.evaluate(STRUCTURES, selector))
+                    assert [shape[0] for shape in shapes] == ['table'], shapes
                 if selector in {'#break-list', '#break-aria'}:
                     role = 'listitem' if selector == '#break-aria' else 'paragraph'
                     assert_broken_list(result, selector + '-items', role)
+                if selector == '#partial-aria':
+                    table, = result['candidates']
+                    assert table['accessibility']['role'] == 'table'
+                    assert [cell['accessibility']['role'] for cell in table['rows'][0]['cells']] == ['columnheader', 'cell']
+                    assert table['unmatched_roles'] == ['#partial-aria-0-1']
+                if selector == '#visual-table':
+                    table, = result['candidates']
+                    assert table['target'] == selector
+                    assert [cell['text'] for cell in table['rows'][0]['cells']] == ['利用区分', '受付状況']
+                    assert table['accessibility']['role'] not in {'table', 'grid'}
                 for candidate in result['candidates']:
                     assert 'outcome' not in candidate
                 observed.append(result)
             for first, second in (('#paragraph-heading', '#html-heading'), ('#paragraph-heading', '#aria-heading'),
                                   ('#paragraph-list', '#html-list'), ('#paragraph-list', '#aria-list'),
-                                  ('#break-list', '#break-native'), ('#break-list', '#break-aria')):
+                                  ('#break-list', '#break-native'), ('#break-list', '#break-aria'),
+                                  ('#visual-table', '#native-table'), ('#visual-table', '#aria-table')):
                 assert appearances[first] == appearances[second], (first, second)
         finally:
             await browser.close()
