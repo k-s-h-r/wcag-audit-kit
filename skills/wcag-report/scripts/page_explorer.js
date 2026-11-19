@@ -55,17 +55,18 @@
     }
     const selector = e => {
       const parts = [];
-      for (let n = e; n; n = n.parentElement || n.getRootNode().host) {
-        if (n.id && n.getRootNode().querySelectorAll('#' + CSS.escape(n.id)).length === 1) {
+      const root = e.getRootNode();
+      for (let n = e; n; n = n.parentElement) {
+        if (n.id && root.querySelectorAll('#' + CSS.escape(n.id)).length === 1) {
           parts.unshift('#' + CSS.escape(n.id));
-          const host = n.getRootNode().host;
-          if (host) parts.unshift(selector(host));
           break;
         }
-        const siblings = n.parentElement?.children || n.getRootNode().children;
+        const siblings = n.parentElement?.children || root.children;
         parts.unshift(n.localName + (siblings ? ':nth-child(' + ([...siblings].indexOf(n) + 1) + ')' : ''));
       }
-      return parts.join(' ');
+      const path = parts.join(' > ');
+      // The host is outside this tree. Playwright can locate its open shadow descendants.
+      return root.host ? `${selector(root.host)} ${path}` : path;
     };
     const visible = e => {
       const r = e.getBoundingClientRect(), s = getComputedStyle(e);
@@ -73,8 +74,10 @@
     };
     const modal = all.filter(e => (e.matches('dialog[open]') || e.getAttribute('aria-modal') === 'true') && visible(e)).at(-1);
     const properties=['onclick','onmousedown','onpointerdown','onpointerup','onpointerenter','onmouseover','onkeydown','onchange','oninput'];
+    // Negative tabindex also marks passive programmatic focus destinations.
     const controls = all.filter(e => visible(e) && (!modal || e === modal || modal.contains(e)) &&
-      (e.matches('button,a[href],input,select,textarea,summary,[contenteditable=true],[tabindex],[onclick],[onmouseover]') ||
+      (e.matches('button,a[href],input,select,textarea,summary,[contenteditable=true],[onclick],[onmouseover]') ||
+        (e.hasAttribute('tabindex') && e.tabIndex >= 0) ||
         /^(button|combobox|listbox|option|tab|checkbox|radio|menuitem|slider|switch|treeitem)$/.test(e.getAttribute('role')) ||
         getComputedStyle(e).cursor === 'pointer' || properties.some(p => typeof e[p] === 'function') ||
         [...(events.get(e) || [])].some(t => /click|pointer|mouse|key|change|input/.test(t))))

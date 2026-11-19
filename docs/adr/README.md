@@ -59,3 +59,5 @@
 - [0053 図の情報を読み取ってから代替説明と比べる](0053-observe-chart-before-assessing-alternatives.md)
 - [0054 バッチの帳票を台帳と照合してから案内する](0054-check-batch-report-files-before-handoff.md)
 - [0055 タイトルが説明する主題と目的を別々に確認する](0055-observe-title-topic-and-purpose-separately.md)
+- [0056 別サイトで検証の各段階と証拠を照合する](0056-score-a-blind-site-exercise-with-observed-evidence.md)
+- [0057 探索対象をDOMの親子関係で特定する](0057-match-exploration-targets-to-dom-parents.md)
