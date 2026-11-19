@@ -292,7 +292,7 @@ def next_work(run, url, limit=5):
     mode_notice={k:v for k,v in mode.items() if k!='checkpoints'} if mode else None
     deferred = graph.get('deferred', False)
     if deferred:
-        next_action = 'page-audit --resume --initial-only' if graph['queue'] else 'page-audit --resume --explore'
+        next_action = 'page-audit --resume --initial-only' if graph['queue'] else 'page-audit --resume --quick-explore'
     else:
         next_action = 'page-audit --resume' if graph.get('queue') else '残る範囲の追加検査'
     return {'page':url,'evidence_base':str(run),'audit_complete':result['audit_complete'],'verification':mode_notice,

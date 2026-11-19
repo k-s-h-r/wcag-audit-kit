@@ -70,3 +70,5 @@ HTMLの読み順、用途ごとの保存先と、設定済み収集のaxe集計�
 直接の1ページ依頼では、初期画面の機械検査を先に出力する。HTMLとJSONに操作探索が未実施であることを記録し、利用者が探索を選んだら同じ出力先に追加結果を反映する。初期画像・機械証拠のハッシュと、操作後にだけ見える結果をローカルの試験で照合する。探索を選ばない時点の表示と判定を検証完了にしない。[ADR 0068](../adr/0068-defer-single-page-operation-exploration.md)
 
 [PR #68](https://github.com/k-s-h-r/wcag-audit-kit/pull/68)でレビュー中。
+
+通常の1ページ依頼では初期報告のあと、利用者の再回答を待たず簡易探索まで実行する。最終HTMLに簡易探索の範囲、JSONに省略理由別の件数を残す。続きの結果は同じ帳票に反映する。[ADR 0069](../adr/0069-run-a-short-operation-sweep-automatically.md)

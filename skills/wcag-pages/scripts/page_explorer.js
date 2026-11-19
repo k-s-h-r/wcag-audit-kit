@@ -64,6 +64,8 @@
     return root.host ? `${selector(root.host)} ${path}` : path;
   };
   const visible = e => {
+    // Descendants of closed details can have layout boxes without being rendered.
+    if (e.checkVisibility && !e.checkVisibility()) return false;
     const r = e.getBoundingClientRect(), s = getComputedStyle(e);
     return !!(r.width && r.height && s.visibility !== 'hidden' && s.display !== 'none');
   };

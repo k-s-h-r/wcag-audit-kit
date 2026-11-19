@@ -1,5 +1,6 @@
 """Resumable single-page state exploration. Observations are never WCAG verdicts."""
 import asyncio
+from collections import Counter
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -149,35 +150,107 @@ async def observe_scroll_and_tab(page, dest, data, env, images, label, limit, bl
                                   f'以降は未確認（証拠: {evidence}）。')
 
 
-def queue_state_actions(value, node, data, env, queued, done):
+QUICK_PENDING_PER_ENVIRONMENT = 12
+HOVER_EVENTS = {'mouseover', 'mouseenter', 'mousemove', 'mouseout', 'mouseleave',
+                'pointerover', 'pointerenter', 'pointermove', 'pointerout', 'pointerleave'}
+
+
+def quick_candidates(control, candidates, focused_tab):
+    hover = control.get('haspopup') not in (None, '', 'false') or HOVER_EVENTS.intersection(control['events'])
+    tab_index = control.get('tabIndex')
+    keyboard = (tab_index is not None and tab_index >= 0) or control['selector'] == focused_tab
+    preferred_key = 'Space' if control['type'] in {'checkbox', 'radio'} or control['role'] in {
+        'checkbox', 'radio', 'switch'
+    } else 'Enter'
+    for action in candidates:
+        if action['type'] == 'hover' and not hover:
+            continue
+        if action['type'] == 'key':
+            if not keyboard:
+                continue
+            key = action['key']
+            if key in {'Enter', 'Space'} and key != preferred_key and not control.get('horizontalTab'):
+                continue
+        yield action
+
+
+def control_signature(control):
+    return {key: item for key, item in control.items() if key != 'rect'}
+
+
+def queue_state_actions(value, node, data, env, queued, done, *, quick=False, parent=None, max_depth=30):
     route = node['route']
     capture_key = node['capture']
+    env_id = env['id']
+    focused_tab = data.get('focused_horizontal_tab')
+    always_observe = {route[-1]['selector'], focused_tab} if route else set()
+    previous_controls = {control['selector']: control_signature(control) for control in (parent or {}).get('controls', [])}
+    omitted = Counter(value.get('omitted_candidates', {}))
+    pending = sum(job['environment'] == env_id and bool(job['route']) and job['route'] != route
+                  for job in value['queue'])
+
+    def enqueue(action, *, dialog_focus=None, newly_available=False):
+        nonlocal pending
+        path = route + [action]
+        ident = json.dumps([env_id, path], sort_keys=True)
+        if ident in queued or ident in done:
+            return
+        if len(path) > (max_depth if quick else 30):
+            if quick:
+                omitted['depth'] += 1
+            else:
+                value['remaining'].append(f'{capture_key}：深さ30を超える経路の追加検査が必要。')
+            return
+        if quick and pending >= QUICK_PENDING_PER_ENVIRONMENT and not dialog_focus:
+            omitted['frontier'] += 1
+            return
+        job = {'environment': env_id, 'route': path}
+        if dialog_focus:
+            job['dialog_focus'] = dialog_focus
+        if newly_available:
+            job['newly_available'] = True
+        value['queue'].append(job)
+        queued.add(ident)
+        pending += 1
+
     if data['modal']:
-        job_id=json.dumps([env['id'],route+[{'type':'press','selector':'body','key':'Escape'}]],sort_keys=True)
-        if job_id not in queued:
-            value['queue'].append(dict(environment=env['id'],
-                route=route+[{'type':'press','selector':'body','key':'Escape'}], dialog_focus='escape'))
-            queued.add(job_id)
-    for control in data['controls']:
-        candidates,reason=actions(control, data.get('focused_horizontal_tab'))
+        enqueue({'type': 'press', 'selector': 'body', 'key': 'Escape'}, dialog_focus='escape')
+    controls = data['controls']
+    if quick:
+        def priority(control):
+            opens_content = (control['tag'] == 'summary' or control['expanded'] is not None
+                             or control['role'] in {'combobox', 'tab', 'menuitem', 'treeitem'}
+                             or control['haspopup'] not in (None, '', 'false'))
+            return control['selector'] in previous_controls, not opens_content
+
+        controls = sorted(controls, key=priority)
+    for control in controls:
+        selector = control['selector']
+        candidates, reason = actions(control, focused_tab)
+        if quick and selector not in always_observe and previous_controls.get(selector) == control_signature(control):
+            omitted['unchanged_control'] += len(candidates)
+            continue
         if reason:
-            node.setdefault('deferred',[]).append(dict(control,reason=reason))
-            value['remaining'].append(f'{env["id"]} / {control["selector"]}：{reason}')
+            node.setdefault('deferred', []).append(dict(control, reason=reason))
+            value['remaining'].append(f'{env_id} / {selector}：{reason}')
+        if quick:
+            selected = list(quick_candidates(control, candidates, focused_tab))
+            omitted['input_variations'] += len(candidates) - len(selected)
+            candidates = selected
+        newly_available = quick and bool(route) and selector not in previous_controls
         for action in candidates:
-            path=route+[action];ident=json.dumps([env['id'],path],sort_keys=True)
-            if ident in queued or ident in done:continue
-            if len(path)>30:
-                value['remaining'].append(f'{capture_key}：深さ30を超える経路の追加検査が必要。');continue
-            value['queue'].append({'environment':env['id'],'route':path});queued.add(ident)
-    # Scrolling itself can reveal lazy content and trigger events.
-    positions=[(0,env['viewport']['height']),(0,max(0,data['scroll']['height']-env['viewport']['height'])),
-               (max(0,data['scroll']['width']-env['viewport']['width']),0)]
-    for x,y in set(positions)-{(0,0)}:
-        if len(route)>=30:continue
-        if x==0 and data['scroll']['height']<=env['viewport']['height']:continue
-        path=route+[{'type':'scroll','selector':'body','x':x,'y':y}]
-        ident=json.dumps([env['id'],path],sort_keys=True)
-        if ident not in queued:value['queue'].append({'environment':env['id'],'route':path});queued.add(ident)
+            enqueue(action, newly_available=newly_available)
+
+    # A real scroll can reveal lazy content even if the initial screenshot was full-page.
+    positions = {(0, env['viewport']['height']),
+                 (0, max(0, data['scroll']['height'] - env['viewport']['height'])),
+                 (max(0, data['scroll']['width'] - env['viewport']['width']), 0)}
+    if not quick or not route:
+        for x, y in sorted(positions - {(0, 0)}):
+            if x or data['scroll']['height'] > env['viewport']['height']:
+                enqueue({'type': 'scroll', 'selector': 'body', 'x': x, 'y': y})
+    if quick:
+        value['omitted_candidates'] = {key: count for key, count in omitted.items() if count}
 
 
 def status(run):
@@ -203,6 +276,8 @@ def status(run):
         for proof in review['verified_evidence']:
             if audit.evidence_item(Path(run),proof['path'])!=proof:raise ValueError('追加検査の証拠が変更された')
         if review['graph_digest']==graph_digest:resolved={r['item'] for r in review.get('resolutions',[])}
+    if omitted := sum(value.get('omitted_candidates', {}).values()):
+        remaining.append(f'簡易探索で省略した操作候補は{omitted}件。必要な操作は個別に確認する。')
     remaining += [r for r in value.get('remaining',[]) if r not in resolved]
     if value.get('running'):
         resume_option = ' --initial-only' if value.get('deferred') else ''
@@ -210,10 +285,10 @@ def status(run):
     return dict(value,graph_digest=graph_digest,required=True,complete=not remaining and bool(value['nodes']),remaining=remaining)
 
 
-async def _explore(run, *, max_states=64,max_steps=512,max_depth=8, initial_only=False, start_exploration=False):
+async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, initial_only=False,
+                   start_exploration=False, quick_explore=False):
     import audit
     from playwright.async_api import async_playwright
-    validate_budget(max_states,max_steps,max_depth)
     run=Path(run);meta,_=audit.run_catalog(run,for_write=True);config=meta['config'];url=config['scope']['pages'][0]
     if config['scope'].get('mode')!='configured' or len(config['scope']['pages'])!=1:
         raise ValueError('探索はconfiguredの1ページで実行する')
@@ -250,6 +325,17 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8, initial_only
         raise ValueError('操作探索を開始済みのrunでは初期状態だけの収集に戻せない')
     if value.get('deferred') and not (initial_only or start_exploration):
         raise ValueError('操作探索を開始するには --resume --explore を指定する')
+    if quick_explore and checkpoint.exists() and not (value.get('deferred') or value.get('quick_explore')):
+        raise ValueError('通常の操作探索を開始済みのrunでは簡易探索に切り替えられない')
+    quick = value.get('quick_explore', False) or quick_explore
+    value['quick_explore'] = quick
+    if max_states is None:
+        max_states = 16 if quick else 64
+    if max_steps is None:
+        max_steps = 24 if quick else 512
+    if max_depth is None:
+        max_depth = 3 if quick else 8
+    validate_budget(max_states, max_steps, max_depth)
     # Recompute transient status rather than persisting status()'s derived fields.
     value.pop('required',None);value.pop('complete',None)
     value['remaining']=[r for r in value['remaining'] if not r.startswith(('探索待ち ','探索中又は','未到達の指定状態：'))]
@@ -265,6 +351,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8, initial_only
     images.summary['screenshots']=previous
     images.counts[pid]=sum(i['status'] in {'started','captured','error'} for i in previous)
     seen={(n['environment'],n['fingerprint']):n for n in value['nodes']}
+    captured_routes = {json.dumps([node['environment'], node['route']], sort_keys=True): node for node in value['nodes']}
+    operation_counts = Counter(edge['environment'] for edge in value['edges'] if edge['route'])
     done={json.dumps([e['environment'],e['route']],sort_keys=True) for e in value['edges']}
     queued={json.dumps([j['environment'],j['route']],sort_keys=True) for j in value['queue']}
     if value.get('deferred') and start_exploration:
@@ -276,7 +364,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8, initial_only
         queued = {json.dumps([job['environment'], job['route']], sort_keys=True) for job in value['queue']}
         for env_name, node in observed.items():
             data = audit.load(run / node['evidence_dir'] / 'state.json')
-            queue_state_actions(value, node, data, envs[env_name], queued, done)
+            queue_state_actions(value, node, data, envs[env_name], queued, done, quick=quick, max_depth=max_depth)
         value['deferred'] = False
     value['running']=True;value['manifest']=manifest
     value['limits']={'max_states':max_states,'max_steps':max_steps,'max_depth':max_depth}
@@ -290,6 +378,15 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8, initial_only
         browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=browser_args)
         try:
             while value['queue'] and value['steps']<max_steps:
+                if quick and value['queue'][0]['route'] and not value['queue'][0].get('dialog_focus'):
+                    # Keep both viewports represented before pursuing more paths in either.
+                    index = min(range(len(value['queue'])), key=lambda i: (
+                        bool(value['queue'][i]['route']),
+                        operation_counts[value['queue'][i]['environment']],
+                        not value['queue'][i].get('newly_available'),
+                        len(value['queue'][i]['route']),
+                    ))
+                    value['queue'].insert(0, value['queue'].pop(index))
                 job=value['queue'][0];env=envs[job['environment']];route=job['route']
                 images.environment = env['id']
                 action_label = None
@@ -548,7 +645,10 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8, initial_only
                         and dialog_observation.record['status'] == 'closed'):
                     path = route + [{'type': 'press', 'selector': 'body', 'key': 'Tab'}]
                     ident = json.dumps([env['id'], path], sort_keys=True)
-                    if len(path) > 30:
+                    if quick and len(path) > max_depth:
+                        omitted = value.setdefault('omitted_candidates', {})
+                        omitted['depth'] = omitted.get('depth', 0) + 1
+                    elif len(path) > 30:
                         value['remaining'].append(f'{dest.name}：閉じた後のTabは深さ30の上限で未実施。')
                     elif ident not in queued and ident not in done:
                         followup = dict(environment=env['id'], route=path, dialog_focus='tab')
@@ -558,6 +658,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8, initial_only
                             value['queue'].append(followup)
                         queued.add(ident)
                 value['edges'].append(edge);value['steps']+=1
+                if route:
+                    operation_counts[env['id']] += 1
                 if error and unreachable_step != len(route) and not declared:
                     value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
                 if blocked:value['remaining'].append(f'{env["id"]}：通信又はページ移動を制限した経路がある。状態を確認する。')
@@ -577,7 +679,9 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8, initial_only
                         for feature in ['frames','canvases','closedRoots']:
                             if data[feature]:value['remaining'].append(f'{capture_key}：{feature}の内部を追加検査する。')
                         if not initial_only:
-                            queue_state_actions(value, node, data, env, queued, done)
+                            parent = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True)) if route else None
+                            queue_state_actions(value, node, data, env, queued, done, quick=quick, parent=parent, max_depth=max_depth)
+                        captured_routes[json.dumps([env['id'], route], sort_keys=True)] = node
                 value['queue'].pop(0);value['remaining']=list(dict.fromkeys(value['remaining']))
                 value['manifest']=manifest
                 with run_lock(run):

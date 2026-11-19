@@ -472,7 +472,9 @@ def outcomes(run):
             'inspection_policy':policy(meta['config'].get('inspection')),'interaction_review':interactions,
             'observation_usage':manifest.get('inspection',{}),
             'exploration':{**{k:exploration[k] for k in ['required','complete','remaining']},
-                           'deferred': exploration.get('deferred', False)},
+                           'deferred': exploration.get('deferred', False),
+                           'quick_explore': exploration.get('quick_explore', False),
+                           'omitted_candidates': exploration.get('omitted_candidates', {})},
             'machine_checks':automated,'counts':dict(stats),'criteria':per_criterion,'cases':rows}
     if 'visual_structure_scope' in meta['config']:
         from visual_structure import report_evidence
@@ -705,7 +707,11 @@ def render_reports(run, *, page_url=None):
     if mode_details:
         mode_details = '<details><summary>検査モードの仕様</summary>' + mode_details + '</details>'
     exploration = result['exploration']['remaining']
-    deferred_notice = '<p>初期画面の機械検査を収集しました。操作探索は未実施です。</p>' if result['exploration'].get('deferred') else ''
+    exploration_notice = ''
+    if result['exploration'].get('deferred'):
+        exploration_notice = '<p>初期画面の機械検査を収集しました。操作探索は未実施です。</p>'
+    elif result['exploration'].get('quick_explore'):
+        exploration_notice = '<p>主要な操作を簡易探索しました。未確認の操作は「残る確認」を参照してください。</p>'
     exploration_details = (
         '<details id="exploration-details"><summary>自動探索で残った操作・状態</summary><ul>'
         + ''.join(f'<li>{escape(item)}</li>' for item in exploration) + '</ul></details>'
@@ -756,7 +762,7 @@ def render_reports(run, *, page_url=None):
 <div class="scope" role="region" aria-label="{scope_heading}">
 <p><strong>{complete}</strong>{f' · {escape(mode)}' if mode else ''}</p>
 <p>{len(selected)} 件の表示状態・環境を収集。{escape(environments)}</p>
-{deferred_notice}</div>
+{exploration_notice}</div>
 <nav aria-label="レポート内の移動"><ul>
 <li><a href="#failures">修正箇所</a></li><li><a href="#performed">実施結果</a></li>
 <li><a href="#remaining">残る確認</a></li><li><a href="#details">詳細と元データ</a></li>
@@ -858,17 +864,18 @@ def run_page_audit(run,args):
     if run_meta(run)['config'].get('states'):
         raise ValueError('事前設定statesの収集にはpageを使う。page-auditは自動探索、追加シナリオはprobeで検査する')
     value = asyncio.run(explore(run, max_states=args.max_states, max_steps=args.max_steps, max_depth=args.max_depth,
-                                initial_only=args.initial_only, start_exploration=args.explore))
+                                initial_only=args.initial_only, start_exploration=args.explore or args.quick_explore,
+                                quick_explore=args.quick_explore))
     if not run_plan(run)['cases']:
         print(json.dumps({'exploration':value['remaining'],'error':'収集に成功した状態がありません'},ensure_ascii=False));return 2
     files=write_page_reports(run,args.url)
     deferred = value.get('deferred', False)
     summary = dict(files, explored_states=len(value['nodes']), pending_routes=0 if deferred else len(value['queue']),
-                   operation_exploration_deferred=deferred,
+                   operation_exploration_deferred=deferred, omitted_candidates=value.get('omitted_candidates', {}),
                    next_command=join(['python3', 'scripts/audit.py', 'page-next', '--run', args.out, '--page-exact', args.url]))
     if deferred:
         summary['explore_command'] = join(['python3', 'scripts/audit.py', 'page-audit', '--url', args.url,
-                                           '--out', args.out, '--resume', '--explore'])
+                                           '--out', args.out, '--resume', '--quick-explore'])
     print(json.dumps(summary, ensure_ascii=False))
     return 0
 
@@ -908,7 +915,10 @@ def main(argv=None):
             stage = p.add_mutually_exclusive_group()
             stage.add_argument('--initial-only', action='store_true', help='初期画面だけを機械検査する')
             stage.add_argument('--explore', action='store_true', help='操作探索を実行する')
-            p.add_argument('--max-states',type=int,default=64);p.add_argument('--max-steps',type=int,default=512);p.add_argument('--max-depth',type=int,default=8)
+            stage.add_argument('--quick-explore', action='store_true', help='操作候補を絞って探索する')
+            p.add_argument('--max-states', type=int)
+            p.add_argument('--max-steps', type=int)
+            p.add_argument('--max-depth', type=int)
     p=sub.add_parser('tasks');actions=p.add_subparsers(dest='task_action',required=True)
     for action in ['create','list','claim']:
         q=actions.add_parser(action);q.add_argument('--run',required=True)

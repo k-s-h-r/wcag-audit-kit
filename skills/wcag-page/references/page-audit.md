@@ -15,12 +15,12 @@ page-auditは、対象URLだけで操作候補を調べ、実クリック・hove
 
 ```sh
 python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page --mode machine --screenshots initial --initial-only
-python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page --resume --explore
+python3 scripts/audit.py page-audit --url https://example.com/contact --out /project/run-page --resume --quick-explore
 ```
 
-直接の `wcag-page` は1行目で初期画面の結果を先に返す。各環境でページを読み込み、axeと設定に応じた初期画像を記録する。操作候補のキュー、Tab入力、診断用のスクロール、設定済みの追加手順は2行目で実行する。初期状態の証拠と判定を保持し、追加の結果は同じレポートに反映する。HTMLとJSONでは操作探索が未実施の間、その状態を表示する。初期画面の収集を中断した場合は `--resume --initial-only` で続きから収集できる。
+直接の `wcag-page` は1行目で初期画面の結果を先に共有し、続けて2行目を自動で実行する。各環境のaxeと設定に応じた初期画像を保ち、操作後に得た結果を同じレポートに反映する。簡易探索では根拠のある操作や新しく現れた部品を優先し、各環境で通常の保留経路を最大12件に絞る。既定の上限は累計24ステップ、16状態、経路の深さ3。未実施の候補は省略数と理由を記録する。HTMLとJSONでは操作探索が未実施の間、その状態を表示する。初期画面の収集を中断した場合は `--resume --initial-only` で続きから収集できる。
 
-補助CLIで `--initial-only` を選ばず新しいrunを開始する場合は、従来どおり初回から操作も探索する。
+補助CLIから通常の自動探索を使う場合、新規runは従来の呼び出しを使え、初期結果だけを収集したrunには `--resume --explore` を使える。
 
 ## 指定URL一覧を順に検査する
 

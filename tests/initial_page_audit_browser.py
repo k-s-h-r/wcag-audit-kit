@@ -23,9 +23,17 @@ class Fixture(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self.hits[self.path] += 1
-        self.send_response(200 if self.path == '/' else 404)
+        self.send_response(200 if self.path in ('/', '/dense') else 404)
         self.send_header('Content-Type', 'text/html; charset=utf-8')
         self.end_headers()
+        if self.path == '/dense':
+            controls = ''.join(f'<button id="item-{i}" onclick="this.hidden=true">Option {i}</button>'
+                               for i in range(40))
+            self.wfile.write(f'''<!doctype html><html lang="en"><head><title>Dense page</title></head>
+<body><main><h1>Dense page</h1>{controls}<details><summary id="outer">Show menu</summary>
+<details><summary id="inner">More options</summary><img id="nested-image" src="{self.image}"></details>
+</details></main></body></html>'''.encode())
+            return
         if self.path != '/':
             return
         spans = ''.join(f'<span id="link-text-{i}"> Section</span>' for i in range(30))
@@ -64,6 +72,34 @@ def machine_alt(value):
             if row['checkpoint'] == 'axe / image-alt' and row['outcome'] == 'failed']
 
 
+def verify_quick_exploration(out, origin):
+    url = origin + '/dense'
+    command = ['page-audit', '--url', url, '--out', str(out)]
+    baseline = invoke(command + ['--initial-only'])
+    assert Fixture.hits['/dense'] == 2
+    explored = invoke(command + ['--resume', '--quick-explore'])
+    run = audit.run_layout.ledger(out)
+    graph = page_explorer.status(run)
+    routes = [edge for edge in graph['edges'] if edge['route']]
+    assert graph['quick_explore'] and graph['limits'] == {'max_states': 16, 'max_steps': 24, 'max_depth': 3}
+    assert graph['steps'] <= 24 and set(edge['environment'] for edge in routes) == {'desktop', 'narrow'}
+    assert len(routes) > 4 and len([e for e in routes[:4] if e['environment'] == 'desktop']) == 2
+    assert any([action['selector'] for action in edge['route']] == ['#outer', '#inner']
+               and edge['error'] is None for edge in routes), routes
+    assert all(edge['route'][0]['selector'] != '#inner' for edge in routes)
+    assert max(len(edge['route']) for edge in routes) <= 3
+    pending = Counter(job['environment'] for job in graph['queue'] if job['route'])
+    assert all(count <= page_explorer.QUICK_PENDING_PER_ENVIRONMENT for count in pending.values()), pending
+    omissions = explored['omitted_candidates']
+    assert all(omissions[kind] > 0 for kind in ('frontier', 'unchanged_control', 'input_variations')), omissions
+    assert baseline['html'] == explored['html']
+    report = audit.load(Path(explored['json']))
+    assert not report['audit_complete']
+    assert any('#nested-image' in row for row in machine_alt(report))
+    assert report['exploration']['omitted_candidates'] == omissions
+    assert '未確認の操作' in Path(explored['html']).read_text()
+
+
 def main(out):
     with ThreadingHTTPServer(('127.0.0.1', 0), Fixture) as server:
         worker = Thread(target=server.serve_forever, daemon=True)
@@ -78,7 +114,7 @@ def main(out):
             assert graph['deferred'] and graph['steps'] == 2 and not graph['queue']
             assert Fixture.hits['/'] == 2 and not Fixture.hits['/other']
             assert baseline['operation_exploration_deferred'] and baseline['pending_routes'] == 0
-            assert baseline['explore_command'].endswith('--resume --explore')
+            assert baseline['explore_command'].endswith('--resume --quick-explore')
             assert len(graph['nodes']) == 2
             assert len(list(run.rglob('*.png'))) == 2
             for node in graph['nodes']:
@@ -94,7 +130,7 @@ def main(out):
             assert machine_alt(value) and all('#initial-image' in row for row in machine_alt(value))
             assert '操作探索は未実施です。' in files.html.read_text()
             packet = page_workflow.next_work(run, url, limit=1)
-            assert packet['exploration']['deferred'] and packet['exploration']['next'].endswith('--explore')
+            assert packet['exploration']['deferred'] and packet['exploration']['next'].endswith('--quick-explore')
 
             immutable = [run/'run.json', *(run / row['path'] for row in graph['proof'])]
             hashes = [sha256(path.read_bytes()).digest() for path in immutable]
@@ -127,6 +163,8 @@ def main(out):
             finished = page_explorer.status(partial_run)
             assert finished['deferred'] and finished['steps'] == 2 and not finished['queue']
             assert all(item in finished['proof'] for item in first['proof'])
+
+            verify_quick_exploration(out / 'quick', url.rstrip('/'))
         finally:
             server.shutdown()
             worker.join()
