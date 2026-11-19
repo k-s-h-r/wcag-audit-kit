@@ -47,3 +47,4 @@
 - [0041 ポインターを離したときに反応する要素を探索する](0041-discover-inline-pointer-release.md)
 - [0042 Orcaの発話と直後に続く付加情報を読み取る](0042-index-orca-speech-with-adjacent-metadata.md)
 - [0043 使用するOrcaの版に合わせて起動引数を選ぶ](0043-select-supported-native-orca-options.md)
+- [0044 空の通知領域の対照を実Orcaの発話で検査する](0044-verify-record-notification-contrast.md)
