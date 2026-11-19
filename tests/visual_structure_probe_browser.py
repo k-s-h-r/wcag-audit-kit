@@ -416,6 +416,8 @@ async def main(out):
         (framed_case('framed-card-articles', 'article'), '#framed-card-articles', []),
         (framed_case('framed-ignored-articles', 'article').replace('<article ', '<article aria-hidden="true" ', 1),
          '#framed-ignored-articles', ['table']),
+        (framed_case('framed-table-role', 'article').replace('<section ', '<section role="unknown table" ', 1),
+         '#framed-table-role', ['table']),
         (framed_case('framed-data', 'div'), '#framed-data', ['table']),
     ]
     observed = []
@@ -441,6 +443,9 @@ async def main(out):
                     assert table['accessibility']['role'] == 'table'
                     assert [cell['accessibility']['role'] for cell in table['rows'][0]['cells']] == ['columnheader', 'cell']
                     assert table['unmatched_roles'] == ['#partial-aria-0-1']
+                if selector == '#framed-table-role':
+                    table, = result['candidates']
+                    assert table['accessibility']['role'] == 'table'
                 if selector == '#visual-table':
                     table, = result['candidates']
                     assert table['target'] == selector

@@ -23,6 +23,10 @@ openButton.onclick = () => dialog.showModal();
 document.getElementById('dismiss').onclick = () => dialog.close();
 if (mode === 'stayed') dialog.addEventListener('cancel', event => event.preventDefault());
 if (mode === 'other') dialog.addEventListener('close', () => document.getElementById('other').focus());
+if (mode === 'tab-stays') openButton.addEventListener('keydown', event => {
+    if (event.key === 'Tab') event.preventDefault();
+});
+if (mode === 'bounded') setTimeout(() => {}, 60000);
 if (mode === 'replacement') dialog.addEventListener('close', () => {
     const replacement = openButton.cloneNode(true);
     openButton.replaceWith(replacement);
@@ -38,7 +42,8 @@ def verify(out, url, variant):
     assert next(row for row in result['criteria'] if row['id'] == '2.4.3')['status'] == 'unverified'
     origin = [{'type': 'click', 'selector': '#open'}]
     receipts = [edge for edge in graph['edges'] if edge.get('dialog_focus') and edge['route'][:1] == origin]
-    assert [edge['dialog_focus'] for edge in receipts] == (['escape'] if variant == 'stayed' else ['escape', 'tab'])
+    assert [edge['dialog_focus'] for edge in receipts] == (
+        ['escape'] if variant in {'stayed', 'bounded'} else ['escape', 'tab'])
     html = Path(files['html']).read_text()
     observed = {}
     book = load_workbook(files['excel'], read_only=True, data_only=True)
@@ -61,12 +66,20 @@ def verify(out, url, variant):
             if variant == 'stayed':
                 assert receipt['after_escape']['modals'] == ['#notice'] and row['outcome'] == 'cant_tell'
                 continue
+            if variant == 'bounded':
+                assert receipt['status'] == 'unconfirmed' and row['outcome'] == 'cant_tell'
+                assert '表示更新が観察範囲に収まらない' in row['observed']
+                assert not receipt['after_escape']['modals']
+                observed['escape_attempted'] = True
+                continue
             assert receipt['status'] == 'closed' and not receipt['after_escape']['modals']
-            assert receipt['opener_restored'] is (variant == 'return')
-            assert row['outcome'] == ('passed' if variant == 'return' else 'cant_tell')
+            assert receipt['opener_restored'] is (variant in {'return', 'tab-stays'})
+            passes = variant == 'return' or (variant == 'tab-stays' and edge['dialog_focus'] == 'escape')
+            assert row['outcome'] == ('passed' if passes else 'cant_tell')
             assert receipt['after_escape']['focus'] == ('#other' if variant == 'other' else '#open')
             if edge['dialog_focus'] == 'tab':
-                assert receipt['after_tab']['focus'] == ('#end' if variant == 'other' else '#next')
+                assert receipt['after_tab']['focus'] == {'other': '#end', 'tab-stays': '#open'}.get(variant, '#next')
+                assert receipt['tab_moved_focus'] is (variant != 'tab-stays')
                 event = events[receipt['tab_event_index'] - 1]
                 assert event['key'] == 'Tab' and event['isTrusted']
             observed[receipt['phase']] = {'escape': receipt['after_escape']['focus'],
@@ -85,7 +98,7 @@ def main(out):
         try:
             with ThreadPoolExecutor(max_workers=2) as pool:
                 jobs = {name: pool.submit(verify, out/name, f'http://127.0.0.1:{server.server_port}/index.html?mode={name}', name)
-                        for name in ('return', 'other', 'stayed', 'replacement')}
+                        for name in ('return', 'other', 'stayed', 'replacement', 'tab-stays', 'bounded')}
                 result = {name: job.result() for name, job in jobs.items()}
         finally:
             server.shutdown()

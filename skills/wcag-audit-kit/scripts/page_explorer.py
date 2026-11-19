@@ -314,7 +314,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     else:
                         for action_index, action in enumerate(route, 1):
                             if dialog_observation:
-                                if blocked or native_events or any(wait['status'] != 'quiet' for wait in settling):
+                                if phase == 'tab' and (blocked or native_events or any(
+                                        wait['status'] != 'quiet' for wait in settling)):
                                     raise ValueError('ダイアログを調べる経路で通信制限又は表示の更新が続いた。')
                                 await dialog_observation.before(action_index, action)
                             settling.append(await perform(page, action))

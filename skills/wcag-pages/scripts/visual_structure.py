@@ -309,7 +309,7 @@ async def table_candidate(session, root, table):
                 missing.append(cell['selector'])
             observed_cells.append(dict(cell, accessibility=actual))
         observed_rows.append(dict(row, accessibility=owner, cells=observed_cells))
-    card_articles = table.get('separate_cards') and all(
+    card_articles = table.get('separate_cards') and group['role'] not in TABLE_ROLES and all(
         row['accessibility']['role'] == 'article' and not row['accessibility']['ignored']
         for row in observed_rows[1:]
     )

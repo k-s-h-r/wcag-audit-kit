@@ -83,6 +83,8 @@ class DialogFocus:
                 self.record['opener_restored'] = (
                     await self.opener_handle.evaluate('(e) => e.isConnected && document.activeElement === e')
                     if self.opener_handle else None)
+            else:
+                self.record['tab_moved_focus'] = self.initial['focus'] != current['focus']
 
     def invalidate(self, reason):
         self.record.update(status='unconfirmed', reason=reason)
@@ -99,6 +101,8 @@ def report_row(record, environment, evidence, route, capture):
         observed = ''
     if next_focus:
         observed += f'次のTab後は {next_focus}。'
+        if record.get('tab_moved_focus') is False:
+            observed += 'Tabでフォーカス先が変わらなかった。'
     if record['reason']:
         observed += record['reason']
     elif record.get('opener_restored') is False:
@@ -106,7 +110,7 @@ def report_row(record, environment, evidence, route, capture):
     elif not record.get('opener'):
         observed += '開く操作の対象を特定できなかった。'
     verified = (record['status'] == 'closed' and record.get('opener_restored') is True
-                and (record['phase'] == 'escape' or record.get('tab_event_index') is not None))
+                and (record['phase'] == 'escape' or record.get('tab_moved_focus') is True))
     return dict(criterion='2.4.3', checkpoint='ダイアログを閉じた後のフォーカス',
                 expected='閉じた後のフォーカスと、その後の操作を確認する',
                 environment=environment, capture=capture, state_label=route, target=record.get('opener') or '',
