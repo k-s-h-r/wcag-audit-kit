@@ -99,6 +99,7 @@ def page_audit_case(area, url, selector, expected):
     assert 'outcome' not in row
     assert not any(item['evidence'] == row['evidence'] for item in report['machine_checks'])
     assert REPORT_TITLE in rendered and f'href="{row["evidence"]}"' in rendered
+    assert 'href="#visual-structure-evidence"' in rendered and 'id="visual-structure-evidence"' in rendered
     worksheet = workbook[REPORT_TITLE]
     expected_rows = max(len(row['candidates']), 1)
     assert worksheet.max_row == expected_rows + 1

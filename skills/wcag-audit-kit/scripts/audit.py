@@ -499,7 +499,6 @@ def focus_evidence_html(run, evidence):
     )
 
 
-@locked
 def visual_structure_html(run, rows):
     from visual_structure import REPORT_COLUMNS, REPORT_TITLE, display_rows
     from workbook import evidence_link
@@ -511,13 +510,14 @@ def visual_structure_html(run, rows):
         proof = f'<a href="{escape(relative_path, quote=True)}">元の証拠</a>' if relative_path else '未取得'
         items.append('<tr>' + ''.join(cells) + f'<td>{proof}</td></tr>')
     headers = ''.join(f'<th scope="col">{label}</th>' for _, label in REPORT_COLUMNS)
-    return (f'<h3>{REPORT_TITLE}（1.3.1）</h3>'
+    return (f'<h2 id="visual-structure-evidence">{REPORT_TITLE}（1.3.1）</h2>'
             '<p>候補の意味と、必要な構造が支援技術に伝わるかを確認してください。達成基準の判定は検査票に記録します。</p>'
             f'<div class="scroll" tabindex="0" role="region" aria-label="{REPORT_TITLE}">'
             f'<table><caption>{REPORT_TITLE}</caption><thead><tr>{headers}</tr></thead>'
             f'<tbody>{"".join(items)}</tbody></table></div>')
 
 
+@locked
 def report(run, *, page_url=None):
     result=outcomes(run)
     prefix=''
@@ -612,9 +612,12 @@ def report(run, *, page_url=None):
     focus_evidence = result.get('focus_evidence', [])
     if focus_evidence:
         exploration_notice += focus_evidence_html(run, focus_evidence)
-    if result.get('visual_structure_evidence'):
-        exploration_notice += visual_structure_html(run, result['visual_structure_evidence'])
         page = page.replace('</nav>', ' / <a href="#focus-image-evidence">フォーカスの画像証拠</a></nav>', 1)
+    if result.get('visual_structure_evidence'):
+        from visual_structure import REPORT_TITLE
+
+        exploration_notice += visual_structure_html(run, result['visual_structure_evidence'])
+        page = page.replace('</nav>', f' / <a href="#visual-structure-evidence">{REPORT_TITLE}</a></nav>', 1)
     page=page.replace('<h2 id="checksheet">',exploration_notice+'<h2 id="checksheet">')
     if page_url:
         machine_counts=Counter(c['outcome'] for c in result['machine_checks'])

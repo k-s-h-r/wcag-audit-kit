@@ -168,6 +168,10 @@ def validate_config(c):
         from border_contrast import validate
 
         validate(c['border_checks'])
+    if 'visual_structure_scope' in c:
+        from visual_structure import validate_scope
+
+        validate_scope(c['visual_structure_scope'])
     if c.get('auth_state'):
         c['auth_state']=str(Path(c['auth_state']).resolve())
     if 'inspection' in c and 'verification' not in c:
@@ -461,6 +465,10 @@ def outcomes(run):
             'observation_usage':manifest.get('inspection',{}),
             'exploration':{k:exploration[k] for k in ['required','complete','remaining']},
             'machine_checks':automated,'counts':dict(stats),'criteria':per_criterion,'cases':rows}
+    if 'visual_structure_scope' in meta['config']:
+        from visual_structure import report_evidence
+
+        result['visual_structure_evidence'] = report_evidence(run, exploration)
     from verification_modes import summary as verification_summary
     result['verification']=verification_summary(run,result)
     return result
@@ -468,7 +476,7 @@ def outcomes(run):
 
 def focus_evidence_html(run, evidence):
     from workbook import (FOCUS_EVIDENCE_COLUMNS, FOCUS_EVIDENCE_FILES, FOCUS_EVIDENCE_STATUSES,
-                          FOCUS_EVIDENCE_TITLE, focus_evidence_link)
+                          FOCUS_EVIDENCE_TITLE, evidence_link)
 
     rows = []
     for row in evidence:
@@ -477,7 +485,7 @@ def focus_evidence_html(run, evidence):
             value = FOCUS_EVIDENCE_STATUSES.get(row[key], row[key]) if key == 'status' else row[key]
             display = escape(value)
             if key in FOCUS_EVIDENCE_FILES:
-                target = focus_evidence_link(run, value, run)
+                target = evidence_link(run, value, run)
                 if target:
                     display = f'<a href="{escape(target)}">{display}</a>'
             cells.append(f'<td>{display}</td>')
@@ -489,6 +497,24 @@ def focus_evidence_html(run, evidence):
         '<div class="scroll" tabindex="0" role="region" aria-labelledby="focus-image-evidence">'
         f'<table><thead><tr>{headers}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>'
     )
+
+
+def visual_structure_html(run, rows):
+    from visual_structure import REPORT_COLUMNS, REPORT_TITLE, display_rows
+    from workbook import evidence_link
+
+    items = []
+    for row in display_rows(rows):
+        relative_path = evidence_link(run, row['evidence'], run)
+        cells = [f'<td>{escape(row.get(key, ""))}</td>' for key, _ in REPORT_COLUMNS if key != 'evidence']
+        proof = f'<a href="{escape(relative_path, quote=True)}">元の証拠</a>' if relative_path else '未取得'
+        items.append('<tr>' + ''.join(cells) + f'<td>{proof}</td></tr>')
+    headers = ''.join(f'<th scope="col">{label}</th>' for _, label in REPORT_COLUMNS)
+    return (f'<h2 id="visual-structure-evidence">{REPORT_TITLE}（1.3.1）</h2>'
+            '<p>候補の意味と、必要な構造が支援技術に伝わるかを確認してください。達成基準の判定は検査票に記録します。</p>'
+            f'<div class="scroll" tabindex="0" role="region" aria-label="{REPORT_TITLE}">'
+            f'<table><caption>{REPORT_TITLE}</caption><thead><tr>{headers}</tr></thead>'
+            f'<tbody>{"".join(items)}</tbody></table></div>')
 
 
 @locked
@@ -587,6 +613,11 @@ def report(run, *, page_url=None):
     if focus_evidence:
         exploration_notice += focus_evidence_html(run, focus_evidence)
         page = page.replace('</nav>', ' / <a href="#focus-image-evidence">フォーカスの画像証拠</a></nav>', 1)
+    if result.get('visual_structure_evidence'):
+        from visual_structure import REPORT_TITLE
+
+        exploration_notice += visual_structure_html(run, result['visual_structure_evidence'])
+        page = page.replace('</nav>', f' / <a href="#visual-structure-evidence">{REPORT_TITLE}</a></nav>', 1)
     page=page.replace('<h2 id="checksheet">',exploration_notice+'<h2 id="checksheet">')
     if page_url:
         machine_counts=Counter(c['outcome'] for c in result['machine_checks'])
@@ -787,6 +818,8 @@ def main(argv=None):
             for key in ('keyboard_checks', 'hover_checks', 'border_checks'):
                 if config.get(key) and args.command != 'page-audit':
                     raise ValueError(f'{key}はpage-auditで実行する')
+            if 'visual_structure_scope' in config and args.command not in {'page-audit', 'pages'}:
+                raise ValueError('visual_structure_scopeの候補収集はpage-auditで実行する')
             if args.command=='pages':
                 out=Path(args.out)
                 if out.exists():raise ValueError('既存のURL一覧を上書きしない')

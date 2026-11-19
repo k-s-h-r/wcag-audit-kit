@@ -109,3 +109,5 @@ python3 scripts/audit.py attach --run /project/artifacts/wcag/run-001 --case <ca
 `observe`には、各操作後に表示テキストを取得する対象を指定する。`attributes`配列でrole・aria-checked等も同時に取得できる。`auth_state`を指定する場合、相対パスはシナリオファイルから解決する。`settle_ms`は各操作の観察時間で250〜10000ms、既定1500ms。非同期処理や長い発話に必要な時間を調べ、短い窓で得られない出力を永久的な沈黙と扱わない。
 
 このアダプター自身が専用D-Bus・Xvfb・設定を作り、既存デスクトップへ入力せず終了する。Guidepupの版やOSの版を偽装して利用する方法ではない。`screen-reader.json`には実際のバックエンド・版・発話・状態・フォーカス・シナリオのハッシュを記す。元のOrcaログと各段階の画面もattachする。音声出力先はALSA nullであり、音の聴取や音響上の発音を調べた証拠にはしない。
+
+同じOSアカウントで別のOrcaが動作中の場合は、既存のOrcaを維持したまま検証が中断される。検証は専用アカウントで行うか、同じアカウントの実Orca試行を順に実行する。起動できない場合は、`screen-reader.json` の結果と `orca.stdout` の起動ログを確認する。
