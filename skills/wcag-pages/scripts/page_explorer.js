@@ -72,7 +72,7 @@
       return !!(r.width && r.height && s.visibility !== 'hidden' && s.display !== 'none');
     };
     const modal = all.filter(e => (e.matches('dialog[open]') || e.getAttribute('aria-modal') === 'true') && visible(e)).at(-1);
-    const properties=['onclick','onmousedown','onpointerdown','onpointerenter','onmouseover','onkeydown','onchange','oninput'];
+    const properties=['onclick','onmousedown','onpointerdown','onpointerup','onpointerenter','onmouseover','onkeydown','onchange','oninput'];
     const controls = all.filter(e => visible(e) && (!modal || e === modal || modal.contains(e)) &&
       (e.matches('button,a[href],input,select,textarea,summary,[contenteditable=true],[tabindex],[onclick],[onmouseover]') ||
         /^(button|combobox|listbox|option|tab|checkbox|radio|menuitem|slider|switch|treeitem)$/.test(e.getAttribute('role')) ||

@@ -88,3 +88,7 @@ Chromiumで12ページ・18経路を検査し、コンボボックス、タブ�
 ## 見た目の見出し・リストの候補をページ別帳票に出す
 
 1.3.1の観察を `page-audit` に接続した。設定で領域を指定し、Chromiumの初期表示で見出し風の段落と中黒リスト風の段落を拾う。11対照のうち、ネイティブとARIAで意味が伝わる見出し・リストは候補から除き、同じ見た目の導入文は候補として保持した。実行入口の4例でJSON・HTML・Excelと後続の検査票を照合した。取得は画像なしで行い、1.3.1は未実施のまま保持した。[ADR 0039](../adr/0039-record-visual-structure-review-candidates.md)
+
+## ポインターを離したときに開く部品の探索
+
+`onpointerup` を持つ画面上の `div` が探索対象に入らず、その操作で現れるボタンと画像を検査できない例を修正した。Chromiumの実マウスで2段階進み、altのない画像1件の対象と証拠をページ別JSON・HTML・Excelで確認した。同じイベントを `addEventListener` で登録した対照にも到達できた。Enter・Spaceは最初の要素へTabで到達できず、判定は未実施のまま残った。[ADR 0041](../adr/0041-discover-inline-pointer-release.md)
