@@ -4,7 +4,7 @@
 
 この文書を、開発方針・現在地・次の作業の参照先とする。新しいセッションでは[AGENTS.md](../AGENTS.md)とこの文書を読み、[次の作業](#次の作業)から再開する。引き継ぎの方法は[ADR 0017](adr/0017-autonomous-audit-development.md)、機械検査から段階的に進める現在の方針は[ADR 0018](adr/0018-machine-first-staged-audits.md)に残す。
 
-4スキルの責務、明示呼び出し、pstackから取り込む対象固有の操作手順は[設計方針](SKILL-DESIGN.md)と[ADR 0019](adr/0019-skill-boundaries-and-explicit-invocation.md)に定める。隔離したCodexで、明示選択時の本文がモデル入力に渡るところまで確認した。次は認証済みのモデルによる実際の操作と観察を測る。[ADR 0046](adr/0046-measure-codex-skill-dispatch-offline.md)
+4スキルの責務、明示呼び出し、pstackから取り込む対象固有の操作手順は[設計方針](SKILL-DESIGN.md)と[ADR 0019](adr/0019-skill-boundaries-and-explicit-invocation.md)に定める。隔離したCodexで、明示選択時の本文展開と、ローカルモデルからの限定した読み取りを確認した。次はモデルがページの検査・報告を完了する範囲を測る。[ADR 0046](adr/0046-measure-codex-skill-dispatch-offline.md) [ADR 0049](adr/0049-bound-local-model-tool-preflight.md)
 
 実行する作業は[開発タスク](tasks/README.md)へ分解した。各タスクの状態と完了根拠は担当ファイルを参照する。並行して進める順序と調整方法は[ADR 0020](adr/0020-parallel-development-tasks.md)に記録する。
 
@@ -88,7 +88,7 @@ G1はT001で事前に選んだ機械検査10行で達成した。T010では指�
 
 [T012](tasks/T012-screen-reader.md)では、同じ環境でボタンの読み上げと操作後の画面を照合し、Orcaの通知あり・なしを区別した。Orca 48.1の保存通知と51.1の記録通知を別のrunで検証し、各2例で期待と一致した。[再実行方法](adr/0044-verify-record-notification-contrast.md)
 
-[T005：対象固有の手順](tasks/T005-project-procedure.md)と[T006：URL一覧化](tasks/T006-url-inventory.md)はローカル例で再実行した。URL抽出では最上位文書の除外先へのリダイレクトを送信前に止める。[T013](tasks/T013-site-selection.md)ではローカルサイトの選定一覧を `page-batch` に渡した。選定9件のうち帳票2件、404の失敗1件、未着手6件を確認した。[T004：Codexの呼び出し](tasks/T004-codex-invocation.md)は実app-serverで本文展開まで確認し、認証済みのモデルで1ページ検査と報告の動作を測る。後続の修正・複数ページ・AI・実SRは、[一覧の開始条件と合流条件](tasks/README.md)に従う。各担当のPRは担当タスクの進捗を更新し、段階や次の作業が変わる合流時にこの文書を更新する。
+[T005：対象固有の手順](tasks/T005-project-procedure.md)と[T006：URL一覧化](tasks/T006-url-inventory.md)はローカル例で再実行した。URL抽出では最上位文書の除外先へのリダイレクトを送信前に止める。[T013](tasks/T013-site-selection.md)ではローカルサイトの選定一覧を `page-batch` に渡した。選定9件のうち帳票2件、404の失敗1件、未着手6件を確認した。[T004：Codexの呼び出し](tasks/T004-codex-invocation.md)では実app-serverで本文展開と試験ファイルの読み取りを確認した。次はモデルによる1ページ検査と報告の実行を測る。後続の修正・複数ページ・AI・実SRは、[一覧の開始条件と合流条件](tasks/README.md)に従う。各担当のPRは担当タスクの進捗を更新し、段階や次の作業が変わる合流時にこの文書を更新する。
 
 最初の評価範囲は、1.1.1-01のうち既存の`image-alt`出力に対応する画像の代替文の機械ルールと、2.4.2-01のタイトルの存在確認とする。`machine`モードで各ページを個別に検査し、正常例と問題例を比べる。画像の意味やタイトルの主題は残るAI確認へ分ける。入力・状態の探索を要する例も、対象に含めた行は見逃し・未確認として正直に数える。
 
