@@ -1,4 +1,4 @@
-"""Observe pointer transfer and one Escape method for configured additional content."""
+"""Observe pointer transfer, Escape and optional duration for configured additional content."""
 import asyncio
 import math
 import re
@@ -9,6 +9,8 @@ from keyboard_checks import matching_keydown
 
 ASPECTS = ('hoverable', 'dismissible')
 MAX_TRANSFER_SAMPLES = 64
+SAMPLE_INTERVAL = 0.05
+INITIAL_DISPLAY_LIMIT = 1.5
 ACTIVE_ELEMENT = '() => (' + OPEN_FOCUS_PATH + ')(document).element'
 TARGET_STATE = r'''(element, {excluded, at, near}) => {
     const {left, right, top, bottom} = element.getBoundingClientRect();
@@ -66,13 +68,29 @@ TARGET_STATE = r'''(element, {excluded, at, near}) => {
 }'''
 
 
+HOLD_STATE = '''({anchor, content, focus}) => {
+    const {left, top, right, bottom} = anchor.getBoundingClientRect();
+    return {
+        hover: anchor.isConnected && anchor.matches(':hover'),
+        rect: {left, top, right, bottom},
+        geometry: [innerWidth, innerHeight, scrollX, scrollY],
+        focus_unchanged: document.hasFocus() && (''' + OPEN_FOCUS_PATH + ''')(document).element === focus,
+        content_connected: content.isConnected,
+        text: content.textContent,
+    };
+}'''
+
+
 class Uncertain(ValueError):
     """The configured route lacks evidence to establish its result."""
 
 
 def validate_check(check):
-    if not isinstance(check, dict) or set(check) != {'id', 'name', 'trigger', 'popup'}:
+    required = {'id', 'name', 'trigger', 'popup'}
+    if not isinstance(check, dict) or not required <= check.keys() or check.keys() - required - {'persistence_ms'}:
         raise ValueError('表示の確認経路にはid、name、trigger、popupを指定する')
+    if 'persistence_ms' in check and (type(check['persistence_ms']) is not int or not 100 <= check['persistence_ms'] <= 3000):
+        raise ValueError('persistence_msは100〜3000の整数を指定する')
     if not isinstance(check['id'], str) or not re.fullmatch(r'[a-z0-9-]{1,64}', check['id']):
         raise ValueError('表示の確認経路のidは小文字の英数字とハイフンを使う（64文字まで）')
     if any(not isinstance(check[field], str) or not check[field].strip() for field in ('name', 'trigger', 'popup')):
@@ -87,8 +105,9 @@ def observation(check, aspect, outcome, observed):
 
 
 def invalidate(record, check, reason):
+    aspects = (*ASPECTS, 'persistent') if 'persistence_ms' in check else ASPECTS
     record.update(outcome='cant_tell', reason=reason,
-                  observations=[observation(check, aspect, 'cant_tell', reason) for aspect in ASPECTS])
+                  observations=[observation(check, aspect, 'cant_tell', reason) for aspect in aspects])
 
 
 async def target_state(locator, excluded=None, at=None, near=None):
@@ -184,20 +203,93 @@ async def pointer_move(page, locator, point, observer, step):
             pass
 
 
-async def open_popup(page, trigger, popup, observer, record, interrupted, origin, action):
+async def open_popup(page, trigger, popup, observer, record, interrupted, origin, action, *, sample_open=False):
     step = {'action': action, 'trigger': await target_state(trigger)}
     record['steps'].append(step)
     point = hit_point(step['trigger'])
     if not point:
         raise Uncertain('トリガーのポインター入力位置を表示範囲内で確認できない。')
     await pointer_move(page, trigger, point, observer, step)
-    await settle(page, step, interrupted, origin)
     if not step['input_target_matched']:
         raise Uncertain('ポインター移動をトリガーが受け取ったことを確認できない。')
-    step['popup'] = await target_state(popup)
+    if sample_open:
+        clock = asyncio.get_running_loop().time
+        deadline = clock() + INITIAL_DISPLAY_LIMIT
+        while True:
+            await require_continuity(page, interrupted, origin)
+            step['popup'] = await target_state(popup)
+            if hit_point(step['popup']) or clock() >= deadline:
+                break
+            await asyncio.sleep(SAMPLE_INTERVAL)
+    else:
+        await settle(page, step, interrupted, origin)
+        step['popup'] = await target_state(popup)
     if not hit_point(step['popup']):
         raise Uncertain('ポインターを重ねた状態で追加表示を確認できない。')
     return step
+
+
+async def observe_persistence(page, trigger, popup, opened, focus, observer, record, interrupted, origin, duration_ms):
+    from playwright.async_api import Error as BrowserError
+
+    step = dict(action='hold-trigger', point=opened['point'], input_event_index=opened['input_event_index'],
+                duration_ms=duration_ms, samples=[])
+    record['steps'].append(step)
+    anchor = content = None
+    try:
+        anchor = await trigger.element_handle(timeout=1200)
+        content = await popup.element_handle(timeout=1200)
+        if anchor is None or content is None:
+            raise Uncertain('持続時間の観察に必要な要素を特定できない。')
+        if await focus.evaluate("element => !element || ['iframe', 'frame'].includes(element.localName)"):
+            raise Uncertain('表示時のフォーカスを確認できない。')
+        handles = {'anchor': anchor, 'content': content, 'focus': focus}
+        first = await page.evaluate(HOLD_STATE, handles)
+        step['initial'] = {key: value for key, value in first.items() if key != 'text'}
+        # Keep observing real pointer movement during the wait interval, with
+        # no input of our own after the trusted move that opened the popup.
+        await page.evaluate('() => { window.__wcagObservePointerMove = true }')
+        start_event_count = len(observer.events)
+        clock = asyncio.get_running_loop().time
+        start = clock()
+        while True:
+            await require_continuity(page, interrupted, origin)
+            state = await page.evaluate(HOLD_STATE, handles)
+            if await trigger.count() != 1:
+                raise Uncertain('観察中に同じトリガーと追加表示を確認できなくなった。')
+            target = await target_state(popup)
+            elapsed = (clock() - start) * 1000
+            changed = [field for field in ('rect', 'geometry', 'text') if state[field] != first[field]]
+            intervening_input = observer.dropped or any(e['isTrusted'] for e in observer.events[start_event_count:])
+            step['samples'].append(dict(elapsed_ms=round(elapsed, 1), popup_status=target['status'],
+                                        trigger_hovered=state['hover'], focus_unchanged=state['focus_unchanged'],
+                                        changed=changed, intervening_input=bool(intervening_input)))
+            if not state['hover'] or not state['focus_unchanged'] or changed or intervening_input:
+                raise Uncertain('観察中にトリガー、表示内容、画面位置、フォーカス又は入力の条件が変わった。')
+            if (not state['content_connected'] and target['status'] != 'absent') or (
+                    not hidden(target) and target['rect'] != opened['popup']['rect']):
+                raise Uncertain('観察中に別の追加表示又は表示位置への変化があった。')
+            if hidden(target):
+                step['visibility_lost_ms'] = round(elapsed, 1)
+                if elapsed > duration_ms:
+                    raise Uncertain('指定時間の境界をまたいで表示が消え、期間内の表示を確定できない。')
+                return 'failed', f'トリガーにポインターを置いたまま、最初の計測から約{elapsed:.0f}ミリ秒で表示が消えた。'
+            if not hit_point(target):
+                raise Uncertain('観察中に追加表示を確認できなくなった。')
+            if elapsed >= duration_ms:
+                return 'passed', f'トリガーにポインターを置いたまま、指定した{duration_ms}ミリ秒の観察中に表示を確認した。'
+            await asyncio.sleep(SAMPLE_INTERVAL)
+    except BrowserError as error:
+        raise Uncertain('持続時間の観察を完了できない。') from error
+    finally:
+        try:
+            await page.evaluate('() => { window.__wcagObservePointerMove = false }')
+        except BrowserError:
+            # The document or context may already be gone.
+            pass
+        for element in (anchor, content):
+            if element is not None:
+                await element.dispose()
 
 
 async def transfer(page, popup, opened, observer, record, interrupted, origin):
@@ -230,8 +322,10 @@ async def transfer(page, popup, opened, observer, record, interrupted, origin):
 
 
 async def dismiss(page, trigger, popup, opened, observer, record, interrupted, origin):
-    step = {'action': 'press-escape', 'before': opened['popup'], 'point': opened['point']}
+    step = {'action': 'press-escape', 'before': await target_state(popup), 'point': opened['point']}
     record['steps'].append(step)
+    if not hit_point(step['before']):
+        raise Uncertain('Escapeを送る前に追加表示を確認できない。')
     if not await trigger.evaluate('element => element.matches(":hover")', timeout=1200):
         raise Uncertain('Escapeを送る前にポインターがトリガーにあることを確認できない。')
     focus = await page.evaluate_handle(ACTIVE_ELEMENT)
@@ -270,7 +364,22 @@ async def run_path(page, check, observer, interrupted, record):
         record['initial'] = await target_state(popup)
         if not hidden(record['initial']):
             raise Uncertain('開始時に追加表示が隠れていることを確認できない。')
-        opened = await open_popup(page, trigger, popup, observer, record, interrupted, origin, 'hover-trigger')
+        duration_ms = check.get('persistence_ms')
+        if duration_ms is None:
+            opened = await open_popup(page, trigger, popup, observer, record, interrupted, origin, 'hover-trigger')
+        else:
+            focus = await page.evaluate_handle(ACTIVE_ELEMENT)
+            try:
+                opened = await open_popup(page, trigger, popup, observer, record, interrupted, origin,
+                                          'hover-trigger', sample_open=True)
+                try:
+                    outcome, details = await observe_persistence(page, trigger, popup, opened, focus, observer,
+                                                                 record, interrupted, origin, duration_ms)
+                except Uncertain as error:
+                    outcome, details = 'cant_tell', str(error)
+                record['observations'].append(observation(check, 'persistent', outcome, details))
+            finally:
+                await focus.dispose()
     except Uncertain as error:
         invalidate(record, check, str(error))
         return

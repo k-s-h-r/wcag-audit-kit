@@ -18,6 +18,17 @@ class HoverChecksTest(unittest.IsolatedAsyncioTestCase):
             with self.subTest(override=override), self.assertRaises(ValueError):
                 hover_checks.validate_check(dict(CHECK, **override))
 
+    def test_persistence_is_opt_in_and_duration_is_bounded(self):
+        check = dict(CHECK, persistence_ms=600)
+        self.assertEqual(hover_checks.validate_check(check), check)
+        for value in (None, False, 99, 3001, 600.0):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                hover_checks.validate_check(dict(CHECK, persistence_ms=value))
+        record = {}
+        hover_checks.invalidate(record, check, 'Browser changed')
+        self.assertEqual([item['aspect'] for item in record['observations']],
+                         ['hoverable', 'dismissible', 'persistent'])
+
     async def test_popup_reposition_is_unknown_when_it_no_longer_contains_the_pointer(self):
         point = {'x': 30, 'y': 54}
         hit = dict(point, hits_target=True)
