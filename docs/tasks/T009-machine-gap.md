@@ -147,4 +147,4 @@ HTML・JSON・Excelと文字周辺に絞った証拠画像を照合し、1.4.3�
 
 `codex/observe-dialog-focus-and-table-cards`（起点 `ac894fe`）で、操作を宣言せずモーダルを開く入力、Escape、閉じた後のTabをChromiumで追った。開いたボタンへ戻る例、別の位置に移る例、Escapeで開いたままの例、同じIDの別要素に置き換わる例を区別した。HTML・JSON・Excelで各入力の証拠とフォーカス先を照合した。次は閉じるボタン経由の復帰を検証する。[ADR 0063](../adr/0063-observe-focus-after-dismissing-modal.md) [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
 
-表と同じ画素で見えるカードについて、後続行が独立した記事として認識される対照を候補から外した。役割不明の同じ配置と、記事を支援技術から隠した対照は候補に残った。HTML・ARIAの表と役割が不足する表も再検証した。[ADR 0064](../adr/0064-use-framed-articles-to-narrow-table-candidates.md) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29)
+表と同じ画素で見えるカードについて、後続行が独立した記事として認識される対照を候補から外した。役割不明の同じ配置と、記事を支援技術から隠した対照は候補に残った。HTML・ARIAの表と役割が不足する表も再検証した。両方のChromium回帰試験とPythonの278試験が通った。[ADR 0064](../adr/0064-use-framed-articles-to-narrow-table-candidates.md) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29) [PR #65](https://github.com/k-s-h-r/wcag-audit-kit/pull/65)
