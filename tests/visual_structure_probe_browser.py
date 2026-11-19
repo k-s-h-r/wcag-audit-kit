@@ -41,6 +41,10 @@ main { width: min(36rem, 100%); }
 .matrix-head .matrix-cell { font-weight: 700; }
 .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .cards article { border: 1px solid #888; padding: 4px; }
+.framed { width: 21rem; }
+.framed-row { display: grid; grid-template-columns: repeat(2, 1fr); margin-bottom: 10px; border: 1px solid #777; border-radius: 7px; }
+.framed-row > div { padding: 3px 8px; }
+.framed-row:first-child { font-weight: 700; }
 """
 
 
@@ -95,6 +99,13 @@ def table_case(ident, kind='plain'):
         rows.append(f'<{row_tag} class="matrix-row {row_class}"{row_role}>{"".join(cells)}</{row_tag}>')
     content = '<tbody>' + ''.join(rows) + '</tbody>' if kind == 'native' else ''.join(rows)
     return f'<{wrapper} id="{ident}" class="matrix"{role}>{content}</{wrapper}>'
+
+
+def framed_case(ident, item):
+    rows = [('利用区分', '受付状況'), ('一般', '受付中'), ('学生', '受付終了')]
+    contents = ''.join(f'<{tag} class="framed-row"><div>{left}</div><div>{right}</div></{tag}>'
+                       for tag, (left, right) in zip(['div', item, item], rows, strict=True))
+    return f'<section id="{ident}" class="framed">{contents}</section>'
 
 
 def run_page_audit(area, url, selector, *, states=None, max_states=1, max_steps=1):
@@ -402,6 +413,10 @@ async def main(out):
         (table_case('no-header', 'no-header'), '#no-header', []),
         ('<div id="cards" class="cards">' + ''.join(f'<article><h2>{text}</h2><p>受付中</p></article>'
             for text in ('一般利用', '学生利用', '団体利用')) + '</div>', '#cards', []),
+        (framed_case('framed-card-articles', 'article'), '#framed-card-articles', []),
+        (framed_case('framed-ignored-articles', 'article').replace('<article ', '<article aria-hidden="true" ', 1),
+         '#framed-ignored-articles', ['table']),
+        (framed_case('framed-data', 'div'), '#framed-data', ['table']),
     ]
     observed = []
     appearances = {}
@@ -437,8 +452,16 @@ async def main(out):
             for first, second in (('#paragraph-heading', '#html-heading'), ('#paragraph-heading', '#aria-heading'),
                                   ('#paragraph-list', '#html-list'), ('#paragraph-list', '#aria-list'),
                                   ('#break-list', '#break-native'), ('#break-list', '#break-aria'),
-                                  ('#visual-table', '#native-table'), ('#visual-table', '#aria-table')):
+                                  ('#visual-table', '#native-table'), ('#visual-table', '#aria-table'),
+                                  ('#framed-card-articles', '#framed-data')):
                 assert appearances[first] == appearances[second], (first, second)
+            await page.set_content(f'<!doctype html><style>{STYLE}</style>{framed_case("card-layout", "article")}')
+            selector = '#card-layout'
+            framed_shape = candidate_shape(await page.evaluate(STRUCTURES, selector))
+            await page.add_style_tag(content='.framed-row { border-radius: 0; }')
+            assert candidate_shape(await page.evaluate(STRUCTURES, selector)) != framed_shape
+            result = await collect(page, selector)
+            assert [candidate['kind'] for candidate in result['candidates']] == ['table'], result
         finally:
             await browser.close()
     out.mkdir(parents=True, exist_ok=False)

@@ -12,6 +12,7 @@ from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, capture_image, normalize, page_id
 from input_observation import INIT_SCRIPT, InputObserver
 import border_contrast
+import dialog_focus
 import focus_image_pair
 import focus_occlusion
 import hover_checks
@@ -166,7 +167,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     visual_scope = config.get('visual_structure_scope')
     observe_explored_structure = config.get('visual_structure_states') == 'explored'
     sources = [Path(path).read_text() for path in (
-        __file__, keyboard_checks.__file__, keyboard_frames.__file__, hover_checks.__file__,
+        __file__, keyboard_checks.__file__, keyboard_frames.__file__, hover_checks.__file__, dialog_focus.__file__,
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
         visual_structure.__file__)]
     implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
@@ -249,6 +250,9 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 await context.route('**/*',guard)
                 await context.route_web_socket('**/*',lambda socket:socket.close())
                 page=await context.new_page()
+                dialog_observation = None
+                if phase := job.get('dialog_focus'):
+                    dialog_observation = dialog_focus.DialogFocus(page, observer, len(route) - (phase == 'tab'), phase)
                 if text_check:
                     await page.add_init_script(f'({text_paint.LOAD_OBSERVER})()')
                 frame_scope=keyboard_frames.FrameScope(page, check.get('frame') if check else None)
@@ -309,7 +313,13 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                                             measurement['image'] = screenshot.name
                     else:
                         for action_index, action in enumerate(route, 1):
+                            if dialog_observation:
+                                if blocked or native_events or any(wait['status'] != 'quiet' for wait in settling):
+                                    raise ValueError('ダイアログを調べる経路で通信制限又は表示の更新が続いた。')
+                                await dialog_observation.before(action_index, action)
                             settling.append(await perform(page, action))
+                            if dialog_observation:
+                                await dialog_observation.after(action_index)
                         label_observations=await state_labels.observe(page,route,labels)
                         matched_labels=state_labels.verified(labels,route,label_observations)
                         data=await page.evaluate('() => window.__wcagExplore()')
@@ -400,6 +410,12 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             for field in ('ratio', 'threshold', 'threshold_met'):
                                 text_record.pop(field, None)
                         audit.save(dest/'text-contrast.json', text_record)
+                    if dialog_observation:
+                        if interrupted_reason:
+                            dialog_observation.invalidate(interrupted_reason)
+                        elif any(wait['status'] != 'quiet' for wait in settling):
+                            dialog_observation.invalidate('キー入力後の表示更新が観察範囲に収まらない。')
+                        audit.save(dest/dialog_focus.EVIDENCE_FILE, dialog_observation.record)
                     if structure_observation is not None or (visual_scope and not (declared or route)):
                         if interrupted_reason:
                             structure_observation = visual_structure.not_observed(visual_scope, interrupted_reason)
@@ -431,6 +447,21 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                     value['remaining'].append(f"{env['id']} / 外枠の測定 {border['name']}：{border_record['observed']}")
                 if text_check and text_record['status'] != 'measured':
                     value['remaining'].append(f"{env['id']} / 文字の測定 {text_check['name']}：{text_record['observed']}")
+                if dialog_observation and dialog_observation.record['status'] == 'unconfirmed':
+                    value['remaining'].append(f"{dest.name} / ダイアログのフォーカス：{dialog_observation.record['reason']}")
+                if (dialog_observation and dialog_observation.record['phase'] == 'escape'
+                        and dialog_observation.record['status'] == 'closed'):
+                    path = route + [{'type': 'press', 'selector': 'body', 'key': 'Tab'}]
+                    ident = json.dumps([env['id'], path], sort_keys=True)
+                    if len(path) > 30:
+                        value['remaining'].append(f'{dest.name}：閉じた後のTabは深さ30の上限で未実施。')
+                    elif ident not in queued and ident not in done:
+                        followup = dict(environment=env['id'], route=path, dialog_focus='tab')
+                        if len(path) <= max_depth:
+                            value['queue'].insert(1, followup)
+                        else:
+                            value['queue'].append(followup)
+                        queued.add(ident)
                 value['edges'].append(edge);value['steps']+=1
                 if error and unreachable_step != len(route) and not declared:
                     value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
@@ -453,7 +484,9 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         if data['modal']:
                             job_id=json.dumps([env['id'],route+[{'type':'press','selector':'body','key':'Escape'}]],sort_keys=True)
                             if job_id not in queued:
-                                value['queue'].append({'environment':env['id'],'route':route+[{'type':'press','selector':'body','key':'Escape'}]});queued.add(job_id)
+                                value['queue'].append(dict(environment=env['id'],
+                                    route=route+[{'type':'press','selector':'body','key':'Escape'}], dialog_focus='escape'))
+                                queued.add(job_id)
                         for control in data['controls']:
                             candidates,reason=actions(control, data.get('focused_horizontal_tab'))
                             if reason:

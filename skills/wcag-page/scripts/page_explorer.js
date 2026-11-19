@@ -48,30 +48,41 @@
     if (options.mode === 'closed') closedRoots++;
     return attach.call(this, options);
   };
+  const selector = e => {
+    const parts = [];
+    const root = e.getRootNode();
+    for (let n = e; n; n = n.parentElement) {
+      if (n.id && root.querySelectorAll('#' + CSS.escape(n.id)).length === 1) {
+        parts.unshift('#' + CSS.escape(n.id));
+        break;
+      }
+      const siblings = n.parentElement?.children || root.children;
+      parts.unshift(n.localName + (siblings ? ':nth-child(' + ([...siblings].indexOf(n) + 1) + ')' : ''));
+    }
+    const path = parts.join(' > ');
+    // The host is outside this tree. Playwright can locate its open shadow descendants.
+    return root.host ? `${selector(root.host)} ${path}` : path;
+  };
+  const visible = e => {
+    const r = e.getBoundingClientRect(), s = getComputedStyle(e);
+    return !!(r.width && r.height && s.visibility !== 'hidden' && s.display !== 'none');
+  };
+  window.__wcagDialogFocus = () => {
+    const active = document.activeElement;
+    const modals = [...document.querySelectorAll('dialog:modal, [aria-modal="true"]:is([role="dialog"], [role="alertdialog"])')]
+      .filter(visible).map(selector);
+    return {
+      modals, focus: active && selector(active),
+      supported: document.hasFocus() && !!active && !closedRoots && !active.shadowRoot?.activeElement &&
+        !active.matches('iframe, frame'),
+      document_start: performance.timeOrigin, url: location.href
+    };
+  };
   window.__wcagExplore = () => {
     const all = [], roots = [document];
     for (let i = 0; i < roots.length; i++) for (const e of roots[i].querySelectorAll('*')) {
       all.push(e); if (e.shadowRoot) roots.push(e.shadowRoot);
     }
-    const selector = e => {
-      const parts = [];
-      const root = e.getRootNode();
-      for (let n = e; n; n = n.parentElement) {
-        if (n.id && root.querySelectorAll('#' + CSS.escape(n.id)).length === 1) {
-          parts.unshift('#' + CSS.escape(n.id));
-          break;
-        }
-        const siblings = n.parentElement?.children || root.children;
-        parts.unshift(n.localName + (siblings ? ':nth-child(' + ([...siblings].indexOf(n) + 1) + ')' : ''));
-      }
-      const path = parts.join(' > ');
-      // The host is outside this tree. Playwright can locate its open shadow descendants.
-      return root.host ? `${selector(root.host)} ${path}` : path;
-    };
-    const visible = e => {
-      const r = e.getBoundingClientRect(), s = getComputedStyle(e);
-      return !!(r.width && r.height && s.visibility !== 'hidden' && s.display !== 'none');
-    };
     const horizontalTab = e => {
       if (e?.getAttribute('role') !== 'tab') return false;
       const list = e.closest('[role="tablist"]');

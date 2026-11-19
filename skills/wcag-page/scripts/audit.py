@@ -619,6 +619,7 @@ def report(run, *, page_url=None):
     for kind, criterion, label, caption in (
         ('text_contrast', '1.4.3', '文字のコントラスト', '指定した初期表示の文字色と背景色の測定'),
         ('focus_outline', '1.4.11', 'フォーカス枠のコントラスト', '指定した状態でのフォーカス枠と隣接色の測定'),
+        ('dialog_focus', '2.4.3', 'ダイアログを閉じた後のフォーカス', '実Escapeと次のTabで観測したフォーカス'),
     ):
         measurements = [row for row in result['machine_checks'] if kind in row]
         if not measurements:
