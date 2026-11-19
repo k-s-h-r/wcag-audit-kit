@@ -123,4 +123,4 @@ T014のベースラインでは、ページごとのEnter・Spaceの失敗が計
 
 `codex/measure-focused-outline`（起点 `1976f97`）で、白い背景と、Enter操作で切り替えた暗い背景にある同じボタンへ実Tabで到達した。機械モードのChromiumで黒い枠を計測し、白は21:1で通過、暗い背景は約1.32:1で問題ありと記録した。隣接色が複数ある例、常時表示の枠、指定先へ届かない例は保留になった。HTML・JSON・Excelで経路、対象、値又は理由を照合し、元の操作ログと測定PNGも確認した。指定した測定以外の画像収集はoffで実行した。
 
-従来の外枠、フォーカス前後の画像、キーボード経路もChromiumで再検査した。1.4.11全体の判定は未確認のまま残った。次に範囲を広げる際は、複数色をまたぐ枠の比較箇所を整理し、別の回帰HTMLで判定条件を確かめる。[ADR 0059と再実行方法](../adr/0059-measure-adjacent-focus-outline-colors.md) [Issue #59](https://github.com/k-s-h-r/wcag-audit-kit/issues/59)
+従来の外枠、フォーカス前後の画像、キーボード経路もChromiumで再検査し、Pythonの276試験が通過した。1.4.11全体の判定は未確認のまま残った。次に範囲を広げる際は、複数色をまたぐ枠の比較箇所を整理し、別の回帰HTMLで判定条件を確かめる。[ADR 0059と再実行方法](../adr/0059-measure-adjacent-focus-outline-colors.md) [PR #61](https://github.com/k-s-h-r/wcag-audit-kit/pull/61) [Issue #59](https://github.com/k-s-h-r/wcag-audit-kit/issues/59)
