@@ -129,4 +129,4 @@ T014のベースラインでは、ページごとのEnter・Spaceの失敗が計
 
 `codex/explore-horizontal-tab-keys`（起点 `1afaa65`）で、操作経路を設定せず `page-audit --mode machine` を実行した。修正前は4対照すべてで左右キーの経路が0件だった。修正後は左右キーそれぞれで別のパネルを開き、手動選択のタブでは移動先のフォーカスを保持してEnter・Spaceでパネルを開いた。これらの経路で見つかった代替文のない画像3件を、ページ別HTML・JSON・Excelで確認した。
 
-クリック専用の対照ではキー送出後もフォーカス・選択・表示が変わらず、縦並びの対照では左右キーを候補にしなかった。1.1.1と2.1.1全体は未確認として保持した。既存の探索対象と部品の指定経路も別runで回帰確認した。次は、1.4.3の問題集で実証済みの画素計測を通常の1ページ検査で使える条件を整理する。[ADR 0060と再実行方法](../adr/0060-explore-horizontal-tab-keyboard-states.md) [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
+クリック専用の対照ではキー送出後もフォーカス・選択・表示が変わらず、縦並びの対照では左右キーを候補にしなかった。1.1.1と2.1.1全体は未確認として保持した。既存の探索対象と部品の指定経路も別runで回帰確認した。次は、1.4.3の問題集で実証済みの画素計測を通常の1ページ検査で使える条件を整理する。[ADR 0060と再実行方法](../adr/0060-explore-horizontal-tab-keyboard-states.md) [PR #62](https://github.com/k-s-h-r/wcag-audit-kit/pull/62) [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
