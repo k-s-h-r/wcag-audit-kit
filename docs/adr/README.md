@@ -63,3 +63,4 @@
 - [0057 探索対象をDOMの親子関係で特定する](0057-match-exploration-targets-to-dom-parents.md)
 - [0058 キーボード経路の実行エラーと確認結果を分ける](0058-separate-keyboard-route-errors-from-results.md)
 - [0059 実Tab後のフォーカス枠と隣接色を測る](0059-measure-adjacent-focus-outline-colors.md)
+- [0060 横並びタブの左右キー操作と選択前の状態を探索する](0060-explore-horizontal-tab-keyboard-states.md)

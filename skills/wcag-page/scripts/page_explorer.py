@@ -23,6 +23,7 @@ import visual_structure
 SCRIPT=(ROOT/'scripts/page_explorer.js').read_text()
 RISK=re.compile(r'delete|remove|purchase|checkout|pay\b|buy\b|logout|sign.?out|submit|send\b|save\b|削除|購入|決済|支払|送信|保存|ログアウト',re.I)
 TAB_UNREACHABLE = 'Tabで対象へ到達できない（120移動まで確認）'
+HORIZONTAL_TAB_ARROWS = ('ArrowRight', 'ArrowLeft')
 
 
 class KeyboardUnreachable(ValueError):
@@ -30,15 +31,17 @@ class KeyboardUnreachable(ValueError):
 
 
 def fingerprint(value):
-    keys=('selector','tag','role','type','formAssociated','href','label','tabIndex','haspopup')
+    keys=('selector','tag','role','type','formAssociated','href','label','tabIndex','haspopup','horizontalTab')
     controls=[dict({k:c.get(k) for k in keys},events=sorted(set(c.get('events',[])))) for c in value.get('controls',[])]
     state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
     if shape := value.get('visual_structure_shape'):
         state['visual_structure_shape'] = shape
+    if focused_tab := value.get('focused_horizontal_tab'):
+        state['focused_horizontal_tab'] = focused_tab
     return sha256(json.dumps(state,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
 
 
-def actions(control):
+def actions(control, focused_tab=None):
     """Keep different input paths even when their resulting states coincide."""
     selector=control['selector'];tag=control['tag'];role=control.get('role');kind=control.get('type') or ''
     # The DOM defaults button.type to submit even outside a form. Only an
@@ -50,7 +53,14 @@ def actions(control):
         return [],'ページ移動を伴うリンク。単独ページから自動巡回しない。'
     base={'selector':selector}
     result=[dict(base,type='click'),dict(base,type='hover')]
-    if tag in {'input','textarea'} and kind not in {'checkbox','radio','button','reset','submit','image'}:
+    if role == 'tab' and control.get('horizontalTab'):
+        if control['tabIndex'] < 0:
+            if selector != focused_tab:
+                return result, None
+            base['focused_only'] = True
+        keys = (*HORIZONTAL_TAB_ARROWS, 'Enter', 'Space', 'ArrowDown', 'ArrowUp', 'Home', 'End', 'Escape')
+        result.extend(dict(base, type='key', key=key) for key in keys)
+    elif tag in {'input','textarea'} and kind not in {'checkbox','radio','button','reset','submit','image'}:
         result += [dict(base,type='fill',value='audit@example.invalid' if kind=='email' else 'Accessibility audit'),
                    dict(base,type='fill',value='')]
     else:
@@ -78,6 +88,8 @@ async def perform(page, action):
         reached=False
         for _ in range(120):
             if await target.evaluate('(e)=>e===e.getRootNode().activeElement'):reached=True;break
+            if action.get('focused_only'):
+                raise ValueError('再生した経路で次のキー操作に必要なフォーカスを確認できない')
             await page.keyboard.press('Tab')
         if not reached:raise KeyboardUnreachable(TAB_UNREACHABLE)
         await page.keyboard.press(action['key'])
@@ -371,6 +383,8 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         if structure_observation is not None:
                             audit.save(dest/visual_structure.EVIDENCE_FILE, structure_observation)
                     edge = dict(job, error=error, blocked_requests=blocked, native_events=native_events)
+                    if data and not interrupted_reason and route and route[-1].get('key') in HORIZONTAL_TAB_ARROWS:
+                        edge['focus_after'] = data['focus']['selector']
                     if unreachable_step is not None:
                         edge['keyboard_unreachable_step'] = unreachable_step
                     audit.save(dest/'transition.json', dict(edge, settling=settling))
@@ -416,7 +430,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                             if job_id not in queued:
                                 value['queue'].append({'environment':env['id'],'route':route+[{'type':'press','selector':'body','key':'Escape'}]});queued.add(job_id)
                         for control in data['controls']:
-                            candidates,reason=actions(control)
+                            candidates,reason=actions(control, data.get('focused_horizontal_tab'))
                             if reason:
                                 node.setdefault('deferred',[]).append(dict(control,reason=reason))
                                 value['remaining'].append(f'{env["id"]} / {control["selector"]}：{reason}')

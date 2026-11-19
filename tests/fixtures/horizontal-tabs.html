@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<title>タブのキー操作</title>
+<h1>タブのキー操作</h1>
+<div role="tablist" aria-label="案内">
+  <button id="before" type="button" role="tab" aria-selected="false" aria-controls="before-panel" tabindex="-1">前の案内</button>
+  <button id="start" type="button" role="tab" aria-selected="true" aria-controls="start-panel" tabindex="0">最初の案内</button>
+  <button id="after" type="button" role="tab" aria-selected="false" aria-controls="after-panel" tabindex="-1">次の案内</button>
+</div>
+<div id="before-panel" role="tabpanel" aria-labelledby="before" hidden>前の内容 <img id="before-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'/%3E"></div>
+<div id="start-panel" role="tabpanel" aria-labelledby="start">最初の内容</div>
+<div id="after-panel" role="tabpanel" aria-labelledby="after" hidden>次の内容 <img id="after-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'/%3E"></div>
+<script>
+const variant = new URLSearchParams(location.search).get('variant');
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+if (variant === 'vertical') document.querySelector('[role="tablist"]').setAttribute('aria-orientation', 'vertical');
+function activate(selected, keyboard) {
+    // The fixture puts an image in the keyboard path to test state-specific reporting.
+    const selectedByKey = keyboard && selected.getAttribute('aria-selected') === 'false';
+    const marker = document.getElementById(selected.getAttribute('aria-controls')).querySelector('img');
+    if (marker && (selectedByKey || !keyboard)) marker.hidden = variant !== 'click-only' && !selectedByKey;
+    for (const tab of tabs) {
+        tab.setAttribute('aria-selected', String(tab === selected));
+        tab.tabIndex = tab === selected ? 0 : -1;
+        document.getElementById(tab.getAttribute('aria-controls')).hidden = tab !== selected;
+    }
+}
+tabs.forEach((tab, index) => {
+    tab.addEventListener('click', event => {
+        if (variant !== 'click-only' || event.detail > 0) activate(tab, event.detail === 0);
+    });
+    tab.addEventListener('keydown', event => {
+        if (variant === 'click-only') return;
+        const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key];
+        if (!step) return;
+        event.preventDefault();
+        const next = tabs[(index + step + tabs.length) % tabs.length];
+        next.focus();
+        if (variant !== 'manual') activate(next, true);
+    });
+});
+</script>
+</html>
