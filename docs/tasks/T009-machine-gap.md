@@ -135,4 +135,4 @@ T014のベースラインでは、ページごとのEnter・Spaceの失敗が計
 
 `codex/measure-page-text-contrast`（起点 `691b44f`）で、通常の `page-audit --mode machine` に `text_contrast_checks` を追加した。Chromiumの対照で通常文字の2.32:1を問題あり、18.88:1を通過、大きな太字の4.48:1を3:1の閾値で通過と記録した。覆い、DOM変化、測定中の通信はいずれも保留になり、通信の要求は試験サーバーに届かなかった。中断と再開の前後で、先に取得した証拠のハッシュを照合した。
 
-HTML・JSON・Excelと文字周辺に絞った証拠画像を照合し、1.4.3全体は未確認のまま保持した。既存の1.4.3問題集では7例が期待と一致し、外枠・フォーカス枠のChromium回帰試験とPythonの277試験も通過した。フォント・描画や状態が複雑な例、操作後や折り返した文字は追加確認となる。次は1.3.1で、項目が折り返す中黒リストと通常の段落を分けられる条件を回帰HTMLで調べる。[ADR 0061と再実行方法](../adr/0061-measure-rendered-text-in-single-page-audits.md) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29)
+HTML・JSON・Excelと文字周辺に絞った証拠画像を照合し、1.4.3全体は未確認のまま保持した。既存の1.4.3問題集では7例が期待と一致し、外枠・フォーカス枠のChromium回帰試験とPythonの277試験も通過した。フォント・描画や状態が複雑な例、操作後や折り返した文字は追加確認となる。次は1.3.1で、項目が折り返す中黒リストと通常の段落を分けられる条件を回帰HTMLで調べる。[ADR 0061と再実行方法](../adr/0061-measure-rendered-text-in-single-page-audits.md) [PR #63](https://github.com/k-s-h-r/wcag-audit-kit/pull/63) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29)
