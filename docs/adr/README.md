@@ -40,3 +40,4 @@
 - [0034 URL抽出ではリダイレクト先を送信前に照合する](0034-check-discovery-redirects-before-request.md)
 - [0035 明示した文字の測定証拠を問題集の採点に使う](0035-grade-opt-in-text-paint-evidence.md)
 - [0036 最初の10行の実測に基づき、指定URLの検査へ進む](0036-pass-the-limited-machine-gate.md)
+- [0037 無効ボタン、表示の持続、保存通知を条件付きで検査する](0037-verify-three-bounded-criterion-observations.md)
