@@ -31,6 +31,10 @@ main { width: min(36rem, 100%); }
 .group { list-style: none; margin: 0; padding: 0; }
 .group p, .group li { margin: 0 0 3px; }
 #generated-list p::before { content: "・"; }
+.line-list p, .line-list li { margin: 0; }
+#break-wrap p { width: 7rem; }
+#break-clipped p { height: 3em; overflow: hidden; }
+#break-indent p { text-indent: 2em; }
 """
 
 
@@ -48,6 +52,17 @@ def list_case(ident, kind='plain', marker='・', items=ITEMS):
     contents = ''.join(f'<{item} id="{ident}-{i}" {item_role}>{marker}{text}</{item}>'
                        for i, text in enumerate(items, 1))
     return f'<{wrapper} class="group" id="{ident}" {group_role}>{contents}</{wrapper}>'
+
+
+def line_list_case(ident, kind='plain', marker='・', items=ITEMS):
+    if kind == 'native':
+        contents = ''.join(f'<li>{marker}{text}</li>' for text in items)
+        return f'<ul class="group line-list" id="{ident}">{contents}</ul>'
+    contents = '<br>'.join(marker + text for text in items)
+    group_role = 'role="list"' if kind == 'aria' else ''
+    item_role = 'role="listitem"' if kind == 'aria' else ''
+    return (f'<section class="line-list" id="{ident}" {group_role}>'
+            f'<p id="{ident}-items" {item_role}>{contents}</p></section>')
 
 
 class QuietHandler(SimpleHTTPRequestHandler):
@@ -109,6 +124,11 @@ def page_audit_case(area, url, selector, expected):
     expected_rows = max(len(row['candidates']), 1)
     assert worksheet.max_row == expected_rows + 1
     assert all(worksheet.cell(index, len(REPORT_COLUMNS)).hyperlink.target == row['evidence'] for index in range(2, 2 + expected_rows))
+    if selector == '#break-list':
+        target_column = [key for key, _ in REPORT_COLUMNS].index('target') + 1
+        text_column = [key for key, _ in REPORT_COLUMNS].index('observed') + 1
+        assert worksheet.cell(2, target_column).value == '#break-list-items'
+        assert all(item in worksheet.cell(2, text_column).value and item in rendered for item in ITEMS)
     workbook.close()
     from page_workflow import next_work
 
@@ -120,6 +140,8 @@ def page_audit_case(area, url, selector, expected):
         assert heading['kind'] == 'heading' and heading['target']['selector'] == '#scope-title'
         assert bullets['kind'] == 'list' and bullets['marker'] == '・'
         assert [item['selector'] for item in bullets['targets']] == ['#bullet-1', '#bullet-2', '#bullet-3']
+    elif selector == '#break-list':
+        assert_broken_list(row, '#break-list-items', 'paragraph')
     elif expected == 'not_observed':
         assert row['candidates'] == []
         assert '対象範囲を一つに絞れない' in row['reason'], row
@@ -136,6 +158,7 @@ def page_audit_cases(out):
         <title>1.3.1 構造候補の対照</title><style>{STYLE}</style></head><body><main>
         <section id="scope" class="group"><p id="scope-title" class="heading">{LABEL}</p><p>{BODY}</p>
         <hr>{items}</section>
+        {line_list_case('break-list')}
         {heading_case('aria-heading', aria=True)}{list_case('aria-list', 'aria')}
         </main></body></html>''')
     with ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=str(public))) as server:
@@ -143,7 +166,8 @@ def page_audit_cases(out):
         thread.start()
         url = f'http://127.0.0.1:{server.server_port}/index.html'
         try:
-            cases = [('declared', '#scope', 'collected'), ('semantic-control', '#aria-heading', 'collected'),
+            cases = [('declared', '#scope', 'collected'), ('break-list', '#break-list', 'collected'),
+                     ('semantic-control', '#aria-heading', 'collected'),
                      ('ambiguous', 'section', 'not_observed'),
                      ('disabled', None, 'disabled')]
             return {name: page_audit_case(out/name, url, selector, expected)
@@ -301,6 +325,15 @@ def typography_cases(out):
             thread.join()
 
 
+def assert_broken_list(row, selector, role):
+    candidate, = row['candidates']
+    assert candidate['kind'] == 'list' and candidate['marker'] == '・'
+    assert [(item['selector'], item['line'], item['text']) for item in candidate['targets']] == [
+        (selector, index, '・' + text) for index, text in enumerate(ITEMS, 1)]
+    assert all(item['single_line'] for item in candidate['targets'])
+    assert candidate['accessibility'] == [{'role': role, 'ignored': False, 'inside_list': role == 'listitem'}]
+
+
 async def main(out):
     if out.exists():
         raise ValueError('試験結果には新しい保存先を指定する。')
@@ -316,6 +349,14 @@ async def main(out):
         (list_case('generated-list', marker=''), '#generated-list', []),
         (list_case('dot-in-prose', marker='', items=['フランス・ドイツの入国案内'] * 3), '#dot-in-prose', []),
         (list_case('too-short', items=ITEMS[:2]), '#too-short', []),
+        (line_list_case('break-list'), '#break-list', ['list']),
+        (line_list_case('break-native', kind='native'), '#break-native', []),
+        (line_list_case('break-aria', kind='aria'), '#break-aria', ['list']),
+        (line_list_case('break-prose', marker='', items=['フランス・ドイツの入国案内'] * 3), '#break-prose', []),
+        (line_list_case('break-short', items=ITEMS[:2]), '#break-short', []),
+        (line_list_case('break-wrap'), '#break-wrap', []),
+        (line_list_case('break-clipped'), '#break-clipped', []),
+        (line_list_case('break-indent'), '#break-indent', []),
     ]
     observed = []
     appearances = {}
@@ -329,11 +370,15 @@ async def main(out):
                 appearances[selector] = appearance
                 result = await collect(page, selector)
                 assert [candidate['kind'] for candidate in result['candidates']] == kinds, result
+                if selector in {'#break-list', '#break-aria'}:
+                    role = 'listitem' if selector == '#break-aria' else 'paragraph'
+                    assert_broken_list(result, selector + '-items', role)
                 for candidate in result['candidates']:
                     assert 'outcome' not in candidate
                 observed.append(result)
             for first, second in (('#paragraph-heading', '#html-heading'), ('#paragraph-heading', '#aria-heading'),
-                                  ('#paragraph-list', '#html-list'), ('#paragraph-list', '#aria-list')):
+                                  ('#paragraph-list', '#html-list'), ('#paragraph-list', '#aria-list'),
+                                  ('#break-list', '#break-native'), ('#break-list', '#break-aria')):
                 assert appearances[first] == appearances[second], (first, second)
         finally:
             await browser.close()

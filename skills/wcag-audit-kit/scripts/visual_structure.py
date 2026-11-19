@@ -43,10 +43,54 @@ PARAGRAPHS = r"""
         return ':root > ' + parts.join(' > ');
     }
 
-    // Require compatible text styles and a visible midpoint inside the viewport.
-    // This records candidate geometry, without interpreting paint or meaning.
+    function fontSignature(style) {
+        const size = parseFloat(style.fontSize);
+        return [style.fontFamily, size, parseFloat(style.fontWeight), parseFloat(style.lineHeight) || size * 1.3];
+    }
+
+    // Record text geometry with a visible midpoint inside the viewport.
+    function textGeometry(element, text, rects, font, selector) {
+        if (!rects.length || rects.length > 32) return null;
+        const [left, top, right, bottom] = [
+            Math.min(...rects.map(rect => rect.left)), Math.min(...rects.map(rect => rect.top)),
+            Math.max(...rects.map(rect => rect.right)), Math.max(...rects.map(rect => rect.bottom)),
+        ];
+        if (left < 0 || top < 0 || right > document.documentElement.clientWidth ||
+                bottom > document.documentElement.clientHeight || right <= left || bottom <= top ||
+                !element.contains(document.elementFromPoint((left + right) / 2, (top + bottom) / 2))) return null;
+        return {
+            selector, text: text.replace(/\s+/g, ' ').trim().slice(0, 200),
+            rect: {left, top, right, bottom}, font,
+            authored_role: element.getAttribute('role'), aria_hidden: element.getAttribute('aria-hidden'),
+            single_line: rects.every(rect => Math.abs(rect.top - top) < 2),
+        };
+    }
+
+    function brokenParagraph(element, style) {
+        if (element.childNodes.length > 63) return null;
+        const chunks = [[]];
+        for (const child of element.childNodes) {
+            if (child.nodeType === Node.TEXT_NODE) chunks.at(-1).push(child);
+            else if (child.localName === 'br') chunks.push([]);
+            else return null;
+        }
+        if (chunks.length < 3) return null;
+        const selector = path(element);
+        const font = fontSignature(style);
+        const lines = chunks.map((nodes, index) => {
+            const text = nodes.map(node => node.data).join('');
+            if (!text.trim()) return null;
+            const range = document.createRange();
+            range.setStartBefore(nodes[0]);
+            range.setEndAfter(nodes.at(-1));
+            const observed = textGeometry(element, text, Array.from(range.getClientRects()), font, selector);
+            return observed ? {...observed, line: index + 1} : null;
+        });
+        return {selector, lines};
+    }
+
     function paragraph(element) {
-        if (element.localName !== 'p' || element.querySelector('a, button, input, select, textarea, img, svg, br')) {
+        if (element.localName !== 'p' || element.querySelector('a, button, input, select, textarea, img, svg')) {
             return null;
         }
         if (element.textContent.length > 2000) return null;
@@ -58,6 +102,7 @@ PARAGRAPHS = r"""
             const generated = getComputedStyle(element, pseudo).content;
             if (!['none', 'normal'].includes(generated)) return null;
         }
+        if (element.querySelector('br')) return brokenParagraph(element, style);
         const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
         const text = [];
         const rects = [];
@@ -65,8 +110,7 @@ PARAGRAPHS = r"""
         for (let node = walker.nextNode(); node; node = walker.nextNode()) {
             if (!node.data.trim()) continue;
             const nodeStyle = getComputedStyle(node.parentElement);
-            const signature = [nodeStyle.fontFamily, parseFloat(nodeStyle.fontSize), parseFloat(nodeStyle.fontWeight),
-                parseFloat(nodeStyle.lineHeight) || parseFloat(nodeStyle.fontSize) * 1.3];
+            const signature = fontSignature(nodeStyle);
             const range = document.createRange();
             range.selectNodeContents(node);
             const areas = Array.from(range.getClientRects());
@@ -77,26 +121,16 @@ PARAGRAPHS = r"""
             rects.push(...areas);
         }
         if (!font) return null;
-        const [left, top, right, bottom] = [
-            Math.min(...rects.map(rect => rect.left)), Math.min(...rects.map(rect => rect.top)),
-            Math.max(...rects.map(rect => rect.right)), Math.max(...rects.map(rect => rect.bottom)),
-        ];
-        if (left < 0 || top < 0 || right > document.documentElement.clientWidth ||
-                bottom > document.documentElement.clientHeight || right <= left || bottom <= top ||
-                !element.contains(document.elementFromPoint((left + right) / 2, (top + bottom) / 2))) return null;
-        return {
-            selector: path(element), text: text.join('').replace(/\s+/g, ' ').trim().slice(0, 200),
-            rect: {left, top, right, bottom}, font,
-            authored_role: element.getAttribute('role'), aria_hidden: element.getAttribute('aria-hidden'),
-            single_line: rects.every(rect => Math.abs(rect.top - top) < 2),
-        };
+        return textGeometry(element, text.join(''), rects, font, path(element));
     }
 
     const scopeContext = [];
     for (let node = root; node; node = node.parentElement) {
         scopeContext.push([node.localName, node.getAttribute('role'), node.getAttribute('aria-hidden')]);
     }
-    return {paragraphs: Array.from(root.children, paragraph), url: location.href,
+    const entries = Array.from(root.children, paragraph);
+    return {paragraphs: entries.map(entry => entry?.lines ? null : entry),
+        line_lists: entries.filter(entry => entry?.lines), url: location.href,
         document_start: performance.timeOrigin, scopeContext,
         viewport: {width: document.documentElement.clientWidth, height: document.documentElement.clientHeight}};
 }
@@ -142,6 +176,9 @@ def candidate_shape(snapshot):
     paragraphs = snapshot.get('paragraphs', []) if snapshot is not None else []
     shapes = [['heading', title['selector'], body['selector']] for title, body in heading_pairs(paragraphs)]
     shapes.extend(['list', marker, *[item['selector'] for item in run]] for marker, run in bullet_runs(paragraphs))
+    for paragraph in (snapshot or {}).get('line_lists', []):
+        shapes.extend(['list-lines', marker, paragraph['selector'], *[item['line'] for item in run]]
+                      for marker, run in bullet_runs(paragraph['lines']))
     return shapes
 
 
@@ -177,6 +214,14 @@ async def collect(page, scope_selector, snapshot=None):
             semantics = [await accessible_semantics(session, root, paragraph['selector']) for paragraph in run]
             if not all(s['role'] == 'listitem' and s['inside_list'] and not s['ignored'] for s in semantics):
                 candidates.append({'kind': 'list', 'marker': marker, 'targets': run, 'accessibility': semantics})
+        for paragraph in snapshot['line_lists']:
+            runs = list(bullet_runs(paragraph['lines']))
+            if not runs:
+                continue
+            # Text separated by BRs shares one accessible element even if the paragraph is a listitem.
+            semantics = await accessible_semantics(session, root, paragraph['selector'])
+            candidates.extend({'kind': 'list', 'marker': marker, 'targets': run, 'accessibility': [semantics]}
+                              for marker, run in runs)
     finally:
         await session.detach()
     if snapshot != await page.evaluate(PARAGRAPHS, scope_selector):
@@ -261,8 +306,9 @@ def display_rows(observations):
         for candidate in row['candidates']:
             heading = candidate['kind'] == 'heading'
             targets = [candidate['target']] if heading else candidate['targets']
-            summary = ' / '.join(display_text(item['selector']) for item in targets[:3])
-            if len(targets) > 3:
-                summary += f'（先頭3件 / 全{len(targets)}件）'
+            selectors = list(dict.fromkeys(item['selector'] for item in targets))
+            summary = ' / '.join(display_text(selector) for selector in selectors[:3])
+            if len(selectors) > 3:
+                summary += f'（先頭3件 / 全{len(selectors)}件）'
             yield dict(context, status='見出し候補' if heading else 'リスト候補', target=summary,
                        observed=' / '.join(display_text(item['text']) for item in targets[:3]))
