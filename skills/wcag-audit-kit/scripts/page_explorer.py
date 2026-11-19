@@ -1,13 +1,14 @@
 """Resumable single-page state exploration. Observations are never WCAG verdicts."""
 import asyncio
 from collections import Counter
+from contextlib import suppress
 from hashlib import sha256
 import json
 from pathlib import Path
 import re
 import shutil
 import uuid
-from urllib.parse import urldefrag
+from urllib.parse import urldefrag, urlsplit
 
 from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, SOFTWARE_COMPOSITING, capture_image, normalize, page_id
@@ -78,7 +79,67 @@ def validate_budget(states, steps, depth):
         if type(value) is not int or not 1<=value<=limit:raise ValueError(f'{name}は1〜{limit}の整数')
 
 
-async def perform(page, action):
+KEY_STATE = r'''element => {
+    const details = element.parentElement;
+    return {
+        connected: element.isConnected,
+        document: performance.timeOrigin,
+        state: {
+            open: element.matches('summary') && details?.matches('details') ? details.open : null,
+            expanded: element.getAttribute('aria-expanded'),
+            pressed: element.getAttribute('aria-pressed'),
+            checked: element.matches('input[type=checkbox], input[type=radio]')
+                ? element.checked : element.getAttribute('aria-checked'),
+            selected: element.getAttribute('aria-selected'),
+            selectedIndex: element.matches('select') ? element.selectedIndex : null,
+        }
+    };
+}'''
+
+
+def is_telemetry(request, page_url):
+    if request.method != 'POST' or request.is_navigation_request() or request.resource_type not in {'ping', 'fetch', 'xhr'}:
+        return False
+    target = urlsplit(request.url)
+    page = urlsplit(page_url)
+    analytics_hosts = {'www.google-analytics.com', 'www.google.com'}
+    return (target.scheme == 'https' and target.netloc in analytics_hosts and target.path == '/g/collect'
+            or (target.scheme, target.netloc) == (page.scheme, page.netloc) and target.path == '/cdn-cgi/rum')
+
+
+async def press_observed_key(page, target, action, observer, effect):
+    from playwright.async_api import Error as BrowserError
+
+    handle = None
+    before = None
+    with suppress(BrowserError):
+        handle = await target.element_handle(timeout=1000)
+        if handle is not None:
+            await handle.evaluate('(e) => { window.__wcagExpectedInputTarget = e; }')
+            before = await handle.evaluate(KEY_STATE)
+    first_event = len(observer.events)
+    try:
+        await page.keyboard.press(action['key'])
+        wait = await page.evaluate('() => window.__wcagWaitForUpdates()')
+        if handle is not None and before and wait['status'] == 'quiet':
+            with suppress(BrowserError):
+                after = await handle.evaluate(KEY_STATE)
+                if before['connected'] and after['connected'] and before['document'] == after['document']:
+                    event_index = next((index for index in range(first_event, len(observer.events))
+                        if observer.events[index].get('expectedTargetMatched') is True
+                        and keyboard_checks.matching_keydown(observer.events[index], action['key'])), None)
+                    if event_index is not None:
+                        effect.update(event_index=event_index, before=before['state'], after=after['state'])
+        return wait
+    finally:
+        if handle is not None:
+            with suppress(BrowserError):
+                await handle.evaluate('() => { window.__wcagExpectedInputTarget = null; }')
+            with suppress(BrowserError):
+                await handle.dispose()
+
+
+async def perform(page, action, *, observer=None, key_effect=None):
     target=page.locator(action['selector'])
     if action['type']=='scroll':await page.evaluate('(p)=>scrollTo(p.x,p.y)',action)
     elif action['type']=='press':await page.keyboard.press(action['key'])
@@ -96,6 +157,8 @@ async def perform(page, action):
                 raise ValueError('再生した経路で次のキー操作に必要なフォーカスを確認できない')
             await page.keyboard.press('Tab')
         if not reached:raise KeyboardUnreachable(TAB_UNREACHABLE)
+        if key_effect is not None:
+            return await press_observed_key(page, target, action, observer, key_effect)
         await page.keyboard.press(action['key'])
     else:raise ValueError('未対応の探索操作')
     return await page.evaluate('() => window.__wcagWaitForUpdates()')
@@ -422,7 +485,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     allowed_method=request.method in {'GET','HEAD','OPTIONS'}
                     allowed_document=urldefrag(normalize(request.url))[0] in allowed_navigation
                     if freeze_requests or not allowed_method or (navigation and not declared and not allowed_document):
-                        blocked.append({'method':request.method,'url':request.url})
+                        blocked.append({'method': request.method, 'url': request.url,
+                                        'telemetry': not freeze_requests and is_telemetry(request, url)})
                         await request_route.abort()
                     elif declared and navigation:
                         # Playwright does not dispatch route handlers for every HTTP redirect.
@@ -441,6 +505,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 frame_scope=keyboard_frames.FrameScope(page, check.get('frame') if check else None)
                 error=None;data=None;native_events=[];settling=[]
                 action_index = unreachable_step = None
+                key_effect = {}
                 async def dismiss_dialog(dialog):
                     native_events.append({'type':dialog.type,'message':dialog.message,'action':'dismiss'})
                     await dialog.dismiss()
@@ -514,7 +579,10 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             if capture_action:
                                 await images.capture(page, dest/'action-before.png', kind='action-before',
                                                      label=action_label, best_effort=True)
-                            settling.append(await perform(page, action))
+                            observe_key = (action_index == len(route) and action['type'] == 'key'
+                                           and all(step['type'] in {'key', 'press'} for step in route))
+                            settling.append(await perform(page, action, observer=observer,
+                                                         key_effect=key_effect if observe_key else None))
                             if dialog_observation:
                                 await dialog_observation.after(action_index)
                             if capture_action and not blocked and not native_events:
@@ -614,6 +682,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         if structure_observation is not None:
                             audit.save(dest/visual_structure.EVIDENCE_FILE, structure_observation)
                     edge = dict(job, error=error, blocked_requests=blocked, native_events=native_events)
+                    if key_effect:
+                        edge['key_effect'] = key_effect
                     if data and not interrupted_reason and route and route[-1].get('key') in HORIZONTAL_TAB_ARROWS:
                         edge['focus_after'] = data['focus']['selector']
                     if unreachable_step is not None:
@@ -662,7 +732,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     operation_counts[env['id']] += 1
                 if error and unreachable_step != len(route) and not declared:
                     value['remaining'].append(f'{env["id"]} / {route[-1] if route else "initial"}：{error}')
-                if blocked:value['remaining'].append(f'{env["id"]}：通信又はページ移動を制限した経路がある。状態を確認する。')
+                if any(request.get('telemetry') is not True for request in blocked):
+                    value['remaining'].append(f'{env["id"]}：通信又はページ移動を制限した経路がある。状態を確認する。')
                 if native_events:value['remaining'].append(f'{env["id"]}：ブラウザー標準ダイアログ・別窓・ダウンロードの分岐を追加検査する。')
                 if any(wait['status']!='quiet' for wait in settling):
                     value['remaining'].append(f'{env["id"]}：DOMと短いタイマーの観察上限又は未観測のコールバックが残る。全非同期完了ではない。')

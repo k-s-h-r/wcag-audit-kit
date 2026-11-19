@@ -72,3 +72,5 @@ HTMLの読み順、用途ごとの保存先と、設定済み収集のaxe集計�
 [PR #68](https://github.com/k-s-h-r/wcag-audit-kit/pull/68)でレビュー中。
 
 通常の1ページ依頼では初期報告のあと、利用者の再回答を待たず簡易探索まで実行する。最終HTMLに簡易探索の範囲、JSONに省略理由別の件数を残す。続きの結果は同じ帳票に反映する。[ADR 0069](../adr/0069-run-a-short-operation-sweep-automatically.md)
+
+自動探索の操作ログで実キー入力と状態変化を照合できた場合、計測通信の遮断を実入力の保留理由にしない。遮断記録を残したまま、HTMLとJSONの操作結果をローカルで照合した。[ADR 0070](../adr/0070-separate-telemetry-blocks-from-keyboard-results.md)

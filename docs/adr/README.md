@@ -73,3 +73,4 @@
 - [0067 初期状態の証拠画像をページ全体で保存する](0067-capture-full-page-baselines.md)
 - [0068 1ページ検査の初期結果を先に返す](0068-defer-single-page-operation-exploration.md)
 - [0069 初期結果に続けて主要な操作を自動で探索する](0069-run-a-short-operation-sweep-automatically.md)
+- [0070 計測通信とキーボード操作の結果を別に扱う](0070-separate-telemetry-blocks-from-keyboard-results.md)
