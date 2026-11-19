@@ -12,7 +12,7 @@ import uuid
 import platform
 import sys
 from importlib.metadata import version
-from . import core, status_capture, text_paint_evidence
+from . import core, inactive_control_probe, status_capture, text_paint_evidence
 from scripts.skill_layout import resource_files,SKILLS
 
 
@@ -157,6 +157,7 @@ def collect(run,*,criterion=None,selected_modes=None,port=0,resume=False,config=
                                     observed = asyncio.run(status_capture.collect(url, body, binding, plan))
                                     core.save(location/f'status-capture-{identifier}.json', observed)
                                 text_paint_evidence.collect(run, meta, job, page, location)
+                                inactive_control_probe.collect(run, meta, job, page, location)
                             state='completed' if code==0 else 'error'
                         finally:
                             pages[page]={'status':state,'exit_code':code,'directory':(location/'run').relative_to(run).as_posix()}

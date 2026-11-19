@@ -17,7 +17,7 @@ sys.path.insert(0,str(RUNTIME/'scripts'))
 import audit
 import verification_modes as modes
 import state_labels
-from . import case_contracts, status_capture, text_paint_evidence
+from . import case_contracts, inactive_control_probe, status_capture, text_paint_evidence
 
 
 def load(path):return json.loads(Path(path).read_text())
@@ -83,6 +83,7 @@ def corpus(root=None):
             state_labels.public_specs(case['states'])
             status_capture.plans(sc, case['checkpoints'], case['states'])
             text_paint_evidence.target(sc, case['checkpoints'], case['states'])
+            inactive_control_probe.target(sc, case['checkpoints'], case['states'])
             for point,aliases in case.get('target_aliases',{}).items():
                 if point not in case['checkpoints'] or not isinstance(aliases,dict):raise ValueError('対象の別名が確認観点に対応しない')
                 for alias,canonical in aliases.items():
@@ -543,6 +544,7 @@ def score(run):
     frozen=load(run/'integrity.json')['files']
     for job in jobs:
         predicted=program_predictions(run,job,progress)
+        predicted.update(inactive_control_probe.predictions(run.resolve(), meta, job, progress, frozen, predicted))
         predicted.update(text_paint_evidence.predictions(run.resolve(), meta, job, progress, frozen))
         predicted.update(reviews.get(job['id'],{}))
         for contract in oracles[job['id']].get('evidence_expectations',[]):
@@ -585,7 +587,7 @@ def score(run):
         scorer_digest=digest({name:file_hash(Path(path)) for name,path in {
             'core':__file__, 'state_labels':state_labels.__file__, 'status_capture':status_capture.__file__,
             'text_paint_evidence':text_paint_evidence.__file__, 'text_paint_probe':ROOT/'benchmarks/text_paint_probe.py',
-            'measure':RUNTIME/'scripts/measure.py',
+            'measure':RUNTIME/'scripts/measure.py', 'inactive_control_probe':inactive_control_probe.__file__,
         }.items()}),created_at=timestamp(),selected_checks_status=status,
         overall_status='failed' if status=='failed' else 'incomplete' if grade_counts['not_evaluated'] or grade_counts['deferred'] or pending_evidence else status,
         counts=dict(grade_counts),confusion=dict(confusion),precision_on_evaluated=precision,recall_on_evaluated=recall,

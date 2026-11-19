@@ -528,6 +528,93 @@ class ScoringTest(unittest.TestCase):
                           and (freeze_capture or path != proof)])
         return run, proof
 
+    def make_inactive_control_run(self, *, alter=None, declared=True, freeze_proof=True):
+        from benchmarks import inactive_control_probe as method
+
+        run, meta, job, progress = self.make_run(mode='machine', point=method.CHECKPOINT)
+        page = job['pages'][0]
+        oracle = core.load(run/'oracle.snapshot.json')
+        case = oracle['suites'][0]['cases'][0]
+        if declared:
+            job['states'][0]['inactive_control_target'] = '#one'
+        case['states'] = job['states']
+        case['expectations'] = [dict(case['expectations'][0], expected='inapplicable')]
+        meta.update(oracle_digest=core.digest(oracle), corpus_digest=core.digest(oracle))
+        core.save(run/'run.json', meta)
+        core.save(run/'oracle.snapshot.json', oracle)
+        core.save(run/'worker/tasks.json', {'jobs': [job]})
+        (run/'integrity.json').unlink()
+
+        source = run/'worker/public/1.4.3'/page
+        source.parent.mkdir(parents=True)
+        source.write_text('<!doctype html><button id="one" disabled>Save</button>')
+        entry = progress['jobs'][job['id']][page]
+        entry.update(status='completed', exit_code=0)
+        core.save(run/'progress.json', progress)
+        attempt = run/entry['directory']
+        core.save(attempt/'exploration.json', {'nodes': [], 'edges': []})
+        core.save(attempt.parent/'receipt.json', dict(job_id=job['id'], page=page, mode=job['mode'], url=job['urls'][page],
+                                                      status='completed', exit_code=0))
+        receipt = method.binding(meta, job, page, '#one', core.file_hash(source))
+        fingerprint = 'f' * 64
+        dom = dict(stableTarget=True, nativeButton=True, nativeDisabled=True, displayed=True, hitTested=True,
+                   focused=False, animated=False, unsupported=[], policyViolations=[], url=method.DOCUMENT_URL,
+                   viewport=list(method.VIEWPORT.values()), point=[50, 60], documentId=12,
+                   render_state_sha256=fingerprint)
+        captured = dict(scope=method.SCOPE, status='inactive_observed', source=source.name,
+                        source_sha256=core.file_hash(source), target='#one', blocked_requests=[], browser='unit fixture',
+                        dom=dom, accessibility={'node': 4, 'role': 'button', 'disabled': True},
+                        step_state_hashes=dict.fromkeys(method.STEPS, fingerprint),
+                        events=[dict(type='keydown', key='Tab', trusted=True, target=''),
+                                dict(type='pointerdown', pointer='mouse', trusted=True, target='one'),
+                                dict(type='pointerup', pointer='mouse', trusted=True, target='one')])
+        if alter:
+            alter(receipt, captured)
+        proof = attempt.parent/'inactive-control.json'
+        core.save(proof, dict(receipt, observation=captured))
+        core.freeze(run, [path for path in run.rglob('*') if path.is_file() and path.name != '.audit.lock'
+                          and (freeze_proof or path != proof)])
+        return run, proof
+
+    def test_inactive_control_scores_only_valid_frozen_initial_receipt(self):
+        valid, proof = self.make_inactive_control_run()
+        row, = core.score(valid)['rows']
+        self.assertEqual((row['actual'], row['grade']), ('inapplicable', 'correct'))
+        self.assertIn(proof.relative_to(valid).as_posix(), row['evidence'])
+        for changes in ({'declared': False}, {'freeze_proof': False}):
+            with self.subTest(changes=changes):
+                run, _ = self.make_inactive_control_run(**changes)
+                self.assertEqual(core.score(run)['rows'][0]['actual'], 'not_run')
+
+        edits = (
+            lambda receipt, proof: receipt.update(run_id='foreign'),
+            lambda receipt, proof: receipt.update(state='other'),
+            lambda receipt, proof: proof.update(target='#two'),
+            lambda receipt, proof: proof.update(source_sha256='wrong'),
+            lambda receipt, proof: proof['accessibility'].update(disabled=False),
+            lambda receipt, proof: proof['events'][1].update(trusted=False),
+            lambda receipt, proof: proof['events'].append(dict(type='click', trusted=True, target='one')),
+            lambda receipt, proof: proof['step_state_hashes'].update(hover='changed'),
+            lambda receipt, proof: proof['dom'].update(displayed=False),
+            lambda receipt, proof: proof['dom'].update(point=[2000, 0]),
+        )
+        for index, edit in enumerate(edits):
+            with self.subTest(mutation=index):
+                run, _ = self.make_inactive_control_run(alter=edit)
+                self.assertEqual(core.score(run)['rows'][0]['grade'], 'not_evaluated')
+        proof.write_text('{}')
+        with self.assertRaisesRegex(ValueError, '変更された'):
+            core.score(valid)
+
+    def test_inactive_control_holds_when_exact_axe_result_disagrees(self):
+        run, _ = self.make_inactive_control_run()
+        previous = dict(page='p01.html', state='initial', checkpoint='1.4.3-01', target='#one',
+                        outcome='failed', evidence=['axe.json'])
+        with patch('benchmarks.core.program_predictions', return_value={core.observation_key(previous): previous}):
+            row, = core.score(run)['rows']
+        self.assertEqual(row['actual'], 'cant_tell')
+        self.assertIn('axe.json', row['evidence'])
+
     def make_text_paint_run(self, *, mode='ai', enabled=True, weight=400, change=None):
         from PIL import Image
         from measure import contrast

@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.4.3",
-  "version": "5",
+  "version": "6",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/1.4.3.md",
@@ -313,6 +313,7 @@
       "states": [
         {
           "id": "initial",
+          "inactive_control_target": "#subject",
           "instructions": [
             "無効な保存ボタンを確認してから編集を開始し、有効化後の文字コントラストを改めて確認する。"
           ]
