@@ -19,7 +19,7 @@ def key(target, name, **conditions):
     return dict(type='key', selector=target, key=name, **conditions)
 
 
-def verify(out, url, variant, baseline):
+def collect_and_verify(out, url, variant, baseline):
     out.mkdir()
     config = audit.init_config(url)
     config['environments'] = config['environments'][:1]
@@ -33,6 +33,10 @@ def verify(out, url, variant, baseline):
     (out/'command.log').write_text(result.stdout + result.stderr)
     assert result.returncode == 0, result.stdout + result.stderr
     files = json.loads(result.stdout.strip().splitlines()[-1])
+    return verify(run, files, variant, baseline)
+
+
+def verify(run, files, variant, baseline):
     graph = audit.load(run/'exploration.json')
     edges = graph['edges']
     assert any(edge['route'] == [{'type': 'click', 'selector': '#after'}] and edge.get('fingerprint')
@@ -100,7 +104,7 @@ def verify(out, url, variant, baseline):
             assert row['target'] == str([image]), row
             assert all(step['key'] in row['state_label'] for step in edge['route']), row
             assert audit.evidence_item(run, row['evidence']) in graph['proof']
-            assert image in html and f'href="./{row["evidence"]}"' in html
+            assert image in html and f'href="{row["evidence"]}"' in html
             assert any(row['target'] in cells and row['evidence'] in cells for cells in sheet)
     finally:
         book.close()
@@ -116,7 +120,7 @@ def main(out, baseline):
         thread.start()
         try:
             with ThreadPoolExecutor(max_workers=2) as pool:
-                jobs = {variant: pool.submit(verify, out/variant,
+                jobs = {variant: pool.submit(collect_and_verify, out/variant,
                     f'http://127.0.0.1:{server.server_port}/horizontal-tabs.html?variant={variant}',
                     variant, baseline) for variant in variants}
                 results = {variant: job.result() for variant, job in jobs.items()}
