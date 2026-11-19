@@ -587,6 +587,7 @@ def score(run):
         scorer_digest=digest({name:file_hash(Path(path)) for name,path in {
             'core':__file__, 'state_labels':state_labels.__file__, 'status_capture':status_capture.__file__,
             'text_paint_evidence':text_paint_evidence.__file__, 'text_paint_probe':ROOT/'benchmarks/text_paint_probe.py',
+            'text_paint':RUNTIME/'scripts/text_paint.py',
             'measure':RUNTIME/'scripts/measure.py', 'inactive_control_probe':inactive_control_probe.__file__,
         }.items()}),created_at=timestamp(),selected_checks_status=status,
         overall_status='failed' if status=='failed' else 'incomplete' if grade_counts['not_evaluated'] or grade_counts['deferred'] or pending_evidence else status,

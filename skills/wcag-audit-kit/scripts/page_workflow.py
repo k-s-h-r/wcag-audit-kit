@@ -106,6 +106,24 @@ def machine_checks(run):
                 target=record['target'], observed=observed, evidence=path.as_posix(), source='',
                 note='指定した外枠の初期表示での測定。境界の必要性、ほかの状態と達成基準全体は追加確認。'))
             continue
+        if edge.get('text_check'):
+            path = Path(edge['evidence_dir']) / 'text-contrast.json'
+            record = audit.load(run/path)
+            outcome = 'cant_tell'
+            observed = record.get('observed', '')
+            if record['status'] == 'measured':
+                outcome = 'passed' if record['threshold_met'] else 'failed'
+                observed = (f"文字色 {record['foreground']} と背景色 {record['background']} の比は"
+                            f"{record['ratio']:.6g}:1（基準 {record['threshold']:g}:1、"
+                            f"文字サイズ {record['font_css_px']:g} CSS px、ウェイト {record['font_weight']}）。")
+            original = record.get('frames', {}).get('original')
+            measurement = dict(record, source=(path.parent / original['path']).as_posix() if original else '')
+            rows.append(dict(criterion='1.4.3', checkpoint='文字色の測定 / '+record['id'],
+                expected='指定した文字のコントラスト比が表示サイズに応じた基準を満たす', outcome=outcome,
+                environment=edge['environment'], capture='文字色の測定 '+record['id'], state_label=record['name']+' / 初期表示',
+                target=record['target'], observed=observed, evidence=path.as_posix(), source='', text_contrast=measurement,
+                note='指定した文字列の初期表示での測定。基準の例外や、ほかの文字列・状態は追加確認。'))
+            continue
         route=edge['route']
         # A key reached after pointer or scripted setup is evidence for that
         # mixed route, not for reaching the same state using only keys.
