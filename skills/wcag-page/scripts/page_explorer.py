@@ -147,6 +147,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
     hover_paths = {check['id']: check for check in config.get('hover_checks', [])}
     border_paths = {check['id']: check for check in config.get('border_checks', [])}
     visual_scope = config.get('visual_structure_scope')
+    observe_explored_structure = config.get('visual_structure_states') == 'explored'
     sources = [Path(path).read_text() for path in (
         __file__, keyboard_checks.__file__, keyboard_frames.__file__, hover_checks.__file__,
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, visual_structure.__file__)]
@@ -280,14 +281,17 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
                         audit.save(dest/'state.json',data)
                         if (env['id'],fingerprint(data)) not in seen or matched_labels:
-                            if visual_scope and not route:
-                                if urldefrag(normalize(page.url))[0] not in allowed_navigation:
+                            if visual_scope and (not route or observe_explored_structure):
+                                if blocked or native_events:
                                     structure_observation = visual_structure.not_observed(
-                                        visual_scope, '初期表示のURLが指定したURLと一致しない。')
-                                elif settling[-1]['status'] != 'quiet':
+                                        visual_scope, '制限した通信・ページ移動又はブラウザーの分岐がある。')
+                                elif urldefrag(normalize(page.url))[0] not in allowed_navigation:
                                     structure_observation = visual_structure.not_observed(
-                                        visual_scope, '初期表示の更新が観察範囲に収まらない。')
-                                elif not (blocked or native_events):
+                                        visual_scope, '観察時のURLが指定したURLと一致しない。')
+                                elif any(wait['status'] != 'quiet' for wait in settling):
+                                    structure_observation = visual_structure.not_observed(
+                                        visual_scope, '表示の更新が観察範囲に収まらない。')
+                                else:
                                     structure_observation = await visual_structure.observe(page, visual_scope)
                             # Capture the audited state before diagnostic scrolling changes the DOM.
                             cdp=await context.new_cdp_session(page)
@@ -336,7 +340,7 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         if interrupted_reason:
                             border_record.update(status='cant_tell', observed=interrupted_reason)
                         audit.save(dest/'border-check.json', border_record)
-                    if visual_scope and not (declared or route):
+                    if structure_observation is not None or (visual_scope and not (declared or route)):
                         if interrupted_reason:
                             structure_observation = visual_structure.not_observed(visual_scope, interrupted_reason)
                         if structure_observation is not None:

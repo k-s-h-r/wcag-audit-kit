@@ -10,7 +10,8 @@
 | `level` | `A`、`AA`、`AAA` |
 | `scope.include` | `/path`又は`/path/**`。後者は自身と配下。`/**`はサイト全体 |
 | `scope.mode` | discoverはリンクから候補を追う。configuredは指定URL一覧だけを使う |
-| `visual_structure_scope` | 省略可。`page-audit` の初期表示から見出し・リスト候補を調べる領域のCSSセレクター。主文書の要素を一つに絞る |
+| `visual_structure_scope` | 省略可。`page-audit` で見出し・リスト候補を調べる領域のCSSセレクター。主文書の要素を一つに絞る |
+| `visual_structure_states` | 領域指定時の観察範囲。既定は `initial`（初期表示）。`explored` は操作後に探索が保存する状態でも観察する |
 | `scope.pages` | configuredで処理するURL又はURLパスの一覧。クエリー・ハッシュも区別する |
 | `scope.pages_file` | 設定ファイルからの相対パス又は絶対パス。1行1URLのテキスト、JSON配列、pages出力JSONに対応 |
 | `scope.exclude` | `{path, reason}`の一覧。範囲外とする根拠を記す |

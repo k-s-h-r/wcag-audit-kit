@@ -48,3 +48,5 @@
 - [0042 Orcaの発話と直後に続く付加情報を読み取る](0042-index-orca-speech-with-adjacent-metadata.md)
 - [0043 使用するOrcaの版に合わせて起動引数を選ぶ](0043-select-supported-native-orca-options.md)
 - [0044 空の通知領域の対照を実Orcaの発話で検査する](0044-verify-record-notification-contrast.md)
+- [0045 操作後の表示から見出しとリストの候補を記録する](0045-observe-visual-structure-after-operation.md)
+- [0046 隔離したCodexでスキルの発見と入力への展開を確かめる](0046-measure-codex-skill-dispatch-offline.md)
