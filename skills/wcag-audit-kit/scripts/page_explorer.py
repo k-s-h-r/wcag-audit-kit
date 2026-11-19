@@ -32,6 +32,8 @@ def fingerprint(value):
     keys=('selector','tag','role','type','formAssociated','href','label','tabIndex','haspopup')
     controls=[dict({k:c.get(k) for k in keys},events=sorted(set(c.get('events',[])))) for c in value.get('controls',[])]
     state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
+    if shape := value.get('visual_structure_shape'):
+        state['visual_structure_shape'] = shape
     return sha256(json.dumps(state,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
 
 
@@ -279,20 +281,28 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                         data['observation_wait']=settling
                         data['state_labels']=label_observations
                         inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
+                        capture_structure = visual_scope and (not route or observe_explored_structure)
+                        prepared_structure = None
+                        if capture_structure:
+                            if blocked or native_events:
+                                prepared_structure = visual_structure.not_observed(
+                                    visual_scope, '制限した通信・ページ移動又はブラウザーの分岐がある。')
+                            elif urldefrag(normalize(page.url))[0] not in allowed_navigation:
+                                prepared_structure = visual_structure.not_observed(
+                                    visual_scope, '観察時のURLが指定したURLと一致しない。')
+                            elif any(wait['status'] != 'quiet' for wait in settling):
+                                prepared_structure = visual_structure.not_observed(
+                                    visual_scope, '表示の更新が観察範囲に収まらない。')
+                            elif observe_explored_structure:
+                                prepared_structure = await visual_structure.snapshot(page, visual_scope)
+                                shape = visual_structure.candidate_shape(prepared_structure)
+                                if shape:
+                                    data['visual_structure_shape'] = shape
                         audit.save(dest/'state.json',data)
-                        if (env['id'],fingerprint(data)) not in seen or matched_labels:
-                            if visual_scope and (not route or observe_explored_structure):
-                                if blocked or native_events:
-                                    structure_observation = visual_structure.not_observed(
-                                        visual_scope, '制限した通信・ページ移動又はブラウザーの分岐がある。')
-                                elif urldefrag(normalize(page.url))[0] not in allowed_navigation:
-                                    structure_observation = visual_structure.not_observed(
-                                        visual_scope, '観察時のURLが指定したURLと一致しない。')
-                                elif any(wait['status'] != 'quiet' for wait in settling):
-                                    structure_observation = visual_structure.not_observed(
-                                        visual_scope, '表示の更新が観察範囲に収まらない。')
-                                else:
-                                    structure_observation = await visual_structure.observe(page, visual_scope)
+                        state_key = (env['id'], fingerprint(data))
+                        if state_key not in seen or matched_labels:
+                            if capture_structure:
+                                structure_observation = await visual_structure.observe(page, visual_scope, prepared_structure)
                             # Capture the audited state before diagnostic scrolling changes the DOM.
                             cdp=await context.new_cdp_session(page)
                             audit.save(dest/'accessibility-tree.json',await cdp.send('Accessibility.getFullAXTree'));await cdp.detach()
@@ -371,13 +381,13 @@ async def _explore(run, *, max_states=64,max_steps=512,max_depth=8):
                 if any(wait['status']!='quiet' for wait in settling):
                     value['remaining'].append(f'{env["id"]}：DOMと短いタイマーの観察上限又は未観測のコールバックが残る。全非同期完了ではない。')
                 if data and not error:
-                    key=(env['id'],fingerprint(data));edge['fingerprint']=key[1]
+                    edge['fingerprint'] = state_key[1]
                     matched_labels=state_labels.verified(labels,route,data.get('state_labels',[]))
-                    if key not in seen or matched_labels:
+                    if state_key not in seen or matched_labels:
                         state='initial' if not route else 'explore-'+attempt
                         capture_key=f'{pid}--{state}--{env["id"]}'
-                        node=dict(job,fingerprint=key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'],state_labels=matched_labels)
-                        seen[key]=node;value['nodes'].append(node)
+                        node=dict(job,fingerprint=state_key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'],state_labels=matched_labels)
+                        seen[state_key]=node;value['nodes'].append(node)
                         manifest['captures'].append(dict(key=capture_key,page_id=pid,url=url,state=state,environment=env['id'],
                             execution='completed',collection_state='finished',evidence_dir=str(dest.relative_to(run))))
                         for feature in ['frames','canvases','closedRoots']:
