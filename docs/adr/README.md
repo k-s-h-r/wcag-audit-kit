@@ -77,3 +77,4 @@
 - [0071 問題集の機械検出対象を観点ごとに採点する](0071-track-benchmark-machine-detection-targets.md)
 - [0072 閉じるボタンと次のTabのフォーカスを観測する](0072-observe-focus-after-dialog-button.md)
 - [0073 ダイアログを閉じる実入力と次のTabを採点する](0073-score-dialog-focus-benchmark-routes.md)
+- [0074 公開の操作条件でブラウザー計測を採点する](0074-score-bounded-browser-measurements.md)

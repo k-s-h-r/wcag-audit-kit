@@ -1,6 +1,8 @@
 """Collect and score explicit browser measurements on frozen benchmark fixtures."""
 import asyncio
+from hashlib import sha256
 import importlib
+import mimetypes
 import re
 import shutil
 from urllib.parse import unquote, urlsplit
@@ -52,7 +54,30 @@ def allowed_request(request, root, public_paths):
             and unquote(url.path) in public_paths)
 
 
-async def capture(criterion, url, spec, public_paths):
+RANGE = re.compile(r'bytes=(\d{0,16})-(\d{0,16})')
+
+
+def file_response(path, body, method, range_header):
+    headers = {'content-type':mimetypes.guess_type(path)[0] or 'application/octet-stream',
+               'accept-ranges':'bytes'}
+    size = len(body)
+    if not range_header or method == 'HEAD':
+        return dict(status=200,headers=dict(headers,**{'content-length':str(size)}),
+                    body=body if method == 'GET' else b'')
+    match = RANGE.fullmatch(range_header)
+    if match and any(match.groups()):
+        start, end = match.groups()
+        first = int(start) if start else max(0,size-int(end))
+        last = min(size-1,int(end)) if start and end else size-1
+        if first <= last:
+            headers.update({'content-range':f'bytes {first}-{last}/{size}',
+                            'content-length':str(last-first+1)})
+            return dict(status=206,headers=headers,body=body[first:last+1])
+    headers['content-range'] = f'bytes */{size}'
+    return dict(status=416,headers=headers,body=b'')
+
+
+async def capture(criterion, url, spec, resources):
     from playwright.async_api import Error, async_playwright
 
     handler = method(criterion)
@@ -73,8 +98,11 @@ async def capture(criterion, url, spec, public_paths):
                 root = urlsplit(url)
 
                 async def route_request(route):
-                    if allowed_request(route.request, root, public_paths):
-                        await route.continue_()
+                    request = route.request
+                    if allowed_request(request, root, resources):
+                        path = unquote(urlsplit(request.url).path)
+                        response = file_response(path, resources[path], request.method, request.headers.get('range'))
+                        await route.fulfill(**response)
                     else:
                         blocked.append(True)
                         await route.abort()
@@ -136,8 +164,14 @@ def collect(run, job, page, location):
     if not declared:
         return
     files,digest = fixture_set(core.load(run/'integrity.json')['files'], job['criterion'])
+    resources = {}
+    for name, expected in files.items():
+        body = core.local(run,'worker/public'+name).read_bytes()
+        if sha256(body).hexdigest() != expected:
+            raise ValueError('ブラウザー計測の公開資料が変更された: '+name)
+        resources[name] = body
     for state,spec in declared.items():
-        result = asyncio.run(capture(job['criterion'], job['urls'][page], spec, files))
+        result = asyncio.run(capture(job['criterion'], job['urls'][page], spec, resources))
         core.save(location/f'{FILE_PREFIX}{state}.json', dict(binding=binding(job,page,state,digest), **result))
 
 

@@ -30,6 +30,15 @@ python3 benchmarks/run.py score --run /project/bench-machine-001 --strict-machin
 
 `--machine-targets` は機械検出対象があるケースを選びます。`--strict-machine-targets` は機械モードでの問題検出と、正常・対象外の対照例の一致を確かめます。終了コードは、対象全件一致が0、不一致や正解にない追加の指摘が1、未確認または機械検出対象がない場合が2です。`--criterion` を指定した実行は、選んだ範囲の採点です。未確認や不一致の対象は `result.json` の `rows` から `verification_group: machine_target` と `machine_grade` で追えます。この採点は自動収集から確定した結果を使い、インポートした判定は通常の採点に反映します。通常の `--strict` では必要な判定・証拠の取得を含めて採点します。
 
+公開の操作条件を追加した観点は、通常の採点でChromiumの計測証拠を使います。操作条件がある観点だけを再試験するには次のコマンドを使います。例えばキーボード操作では実キーで機能が実行できたこと、時間制限ではブラウザー時計を進めたときの画面状態を確認します。
+
+```sh
+python3 benchmarks/run.py collect --mode machine --residual-only --out /project/bench-observations-001
+python3 benchmarks/run.py score --run /project/bench-observations-001 --strict-machine-targets
+```
+
+再開するときは同じ `--residual-only` を指定します。この実行の採点範囲は公開の操作条件を追加した観点です。全機械対象の回帰には上の `--machine-targets` の手順を使います。
+
 ## ページと正解を分ける
 
 ```text
