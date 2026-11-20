@@ -86,6 +86,8 @@ AIや実スクリーンリーダーには、必要な対象・状態・証拠・
 
 URLだけで既存の8ページを調べた。両探索を最大24ステップに揃えると、操作後の判定は簡易探索で24件中12件、通常探索で4件が期待と一致した。3階層メニューではクリックとキーの経路を別に進め、コンボボックスでは開くキーを候補に含める。 [T017の内訳](tasks/T017-url-only-exploration.md#実測結果) · [ADR 0077](adr/0077-measure-url-only-operation-exploration.md)
 
+3階層メニューの改善では、クリックで同じ画面へ到達していても、Enterで開いた経路から次の階層とTabを調べる。開いた後とTab後のフォーカスを記録する。 [T018](tasks/T018-widget-operation-sequences.md#3階層メニューの展開と直後のtab) · [ADR 0078](adr/0078-continue-keyboard-paths-after-duplicate-states.md)
+
 G1はT001で事前に選んだ機械検査10行で達成した。T010では指定4 URLを `page-batch` に渡し、中断・再開後に帳票3件と404の失敗1件を確認した。T006のURL一覧とT004の実行範囲の確認が揃い、指定一覧の機械検査に必要なG2は達成した。各ページの検査票には意味判断・発話・取得の未確認が残る。[ADR 0036](adr/0036-pass-the-limited-machine-gate.md) [ADR 0038](adr/0038-resume-configured-page-audits.md) [ADR 0054](adr/0054-check-batch-report-files-before-handoff.md)
 
 [T009](tasks/T009-machine-gap.md)では、操作後の表示、フォーカス、コントラストに加え、ポインターを離したときに開く部品の入れ子を検査した。1.3.1の見出し・リスト候補もページ別帳票へ追加した。[再実行方法](adr/0041-discover-inline-pointer-release.md)
