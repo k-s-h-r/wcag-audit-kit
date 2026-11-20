@@ -6,6 +6,8 @@
 
 `expectations`には、ページ・状態・対象・確認観点ごとのpassed／failed／inapplicableと根拠を置きます。例えば、画像と代替文の意味が合うか、操作後に部品の展開状態が伝わるかです。
 
+各行の `evidence_kind` に必要な証拠の種類を、`modes` にモードごとの `evaluate` または `defer` を記録します。機械検出対象の集計条件は `evidence_kind: program` と `modes.machine: evaluate` の両方です。実スクリーンリーダーが必要な場合は `screen-reader` を使い、必要な環境があればケースの `requires_environment` に記録します。検査手段の表示と集計は既存のフラグから生成します。
+
 独立した画像やボタンに問題があれば、対象ごとに行を分けます。タブやダイアログのように1つの機能を構成する部品は、target_aliasesで論理部品へ対応させられます。関係のない部品の指摘をまとめて、正しい検出として数えないでください。
 
 2.4.3-02の単一ダイアログには、操作後の `states` に `dialog_focus` を指定できます。`opener`・`dialog`・`button` は開き元・ダイアログ・閉じるボタンのIDセレクター、`activation` は `click`・`Enter`・`Space` です。クリックで開き、指定の入力で閉じて次のTabを押す経路を、公開した操作条件として対応付けます。判定と根拠は採点用の `expectations` に置きます。

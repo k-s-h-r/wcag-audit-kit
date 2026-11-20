@@ -86,6 +86,8 @@ G1はT001で事前に選んだ機械検査10行で達成した。T010では指�
 
 [T009](tasks/T009-machine-gap.md)では、操作後の表示、フォーカス、コントラストに加え、ポインターを離したときに開く部品の入れ子を検査した。1.3.1の見出し・リスト候補もページ別帳票へ追加した。[再実行方法](adr/0041-discover-inline-pointer-release.md)
 
+問題集の機械検出対象は81観点。74ページを実行し、問題8/36件を検出、対照15/45件が一致した。次は自動採点で未確認の観点について、既存の機械証拠を結びつけられるか、公開した操作・計測手順を追加する必要があるかを確認する。[T009の採点結果](tasks/T009-machine-gap.md#問題集の機械検出対象を採点する) [ADR 0071](adr/0071-track-benchmark-machine-detection-targets.md)
+
 [T011](tasks/T011-ai-residual-review.md)で実証したタイトルの観点を[T014](tasks/T014-site-acceptance.md)で別のページに適用した。本文から先に主題と目的を取得する再試験で、題名との不一致を確認した。図は、実際に表示された案内図の方向と代替文を照合した。[ADR 0053](adr/0053-observe-chart-before-assessing-alternatives.md) [ADR 0055](adr/0055-observe-title-topic-and-purpose-separately.md) [ADR 0056](adr/0056-score-a-blind-site-exercise-with-observed-evidence.md)
 
 T014で見つかったスキップリンクの誤検出は、生成セレクターの親子関係と、フォーカス移動先を操作候補に含める条件を修正した。次に適用範囲を広げるときは、より複雑な操作後の状態と、数値や方向だけに絞れない画像の代替説明を別の対象で測る。[ADR 0057](adr/0057-match-exploration-targets-to-dom-parents.md)

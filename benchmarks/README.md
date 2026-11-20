@@ -8,6 +8,28 @@
 
 今回はTDDで使う入力の整備です。検証器がそれを検出できるようにする実装・精度改善は次の段階です。音声解説・手話・拡張解説にも実素材と既知の内容を使った対照を追加しました。正解は作成者が定めたもので、独立した専門家による確認や全パターンの網羅は未実施です。
 
+## 間違いごとに必要な検査手段を確認する
+
+各 `suite.json` の `expectations` に、ページ・状態・対象・確認観点ごとの `evidence_kind` と `modes` があります。`inventory --expectations` で全行を一覧にでき、採点結果のHTML・Excelでは「必要な検査手段」列を確認できます。この一覧は採点担当用です。検査担当には公開ページと公開タスクを渡します。
+
+| 区分 | 元のフラグ | 間違い | 対照例を含む観点数 |
+| --- | --- | ---: | ---: |
+| 機械検出対象 | `program` ＋ `machine: evaluate` | 39 | 87 |
+| 機械の証拠・現行モードでは保留 | `program` ＋ `machine: defer` | 31 | 62 |
+| 内容の判断が必要 | `semantic` または `visual-semantic` | 80 | 164 |
+| 複数ページの比較が必要 | `cross-page` | 4 | 8 |
+| 実スクリーンリーダーが必要 | `screen-reader` | 4 | 8 |
+
+「機械検出対象」は実装の目標です。機械の証拠が必要でも現行モードでは保留する観点は、実行条件や検証手順を調べてから対象に追加できます。内容判断にはAIまたは人が関われます。各モードの `evaluate` はそのモードでの採点条件を表します。
+
+```sh
+python3 benchmarks/run.py inventory --expectations
+python3 benchmarks/run.py collect --mode machine --machine-targets --text-paint --out /project/bench-machine-001
+python3 benchmarks/run.py score --run /project/bench-machine-001 --strict-machine-targets
+```
+
+`--machine-targets` は機械検出対象があるケースを選びます。`--strict-machine-targets` は機械モードでの問題検出と、正常・対象外の対照例の一致を確かめます。終了コードは、対象全件一致が0、不一致や正解にない追加の指摘が1、未確認または機械検出対象がない場合が2です。`--criterion` を指定した実行は、選んだ範囲の採点です。未確認や不一致の対象は `result.json` の `rows` から `verification_group: machine_target` と `machine_grade` で追えます。この採点は自動収集から確定した結果を使い、インポートした判定は通常の採点に反映します。通常の `--strict` では必要な判定・証拠の取得を含めて採点します。
+
 ## ページと正解を分ける
 
 ```text
@@ -73,14 +95,14 @@ python3 benchmarks/run.py collect --mode all --out /project/bench-001
 python3 benchmarks/run.py collect --mode machine --criterion 1.1.1 --out /project/bench-alt-001
 ```
 
-実際のskills/wcag-audit-kit/scripts/audit.py page-auditを使い、各ページを検査します。採点にはimage-alt、document-title、実キーの到達・送出と、1.4.3-01の文字コントラストを自動で取り込みます。文字コントラストは宣言した状態と対象が一致するaxeの測定を使います。別の観点はAI・実SR・個別の機械検査を実行して結果を取り込むまで未確認です。[文字コントラストの採点条件](../docs/adr/0027-score-observed-text-contrast.md)
+実際のskills/wcag-audit-kit/scripts/audit.py page-auditを使い、各ページを検査します。採点にはimage-alt、document-title、html-has-lang、実キーの到達・送出と、1.4.3-01の文字コントラストを自動で取り込みます。文字コントラストは宣言した状態と対象が一致するaxeの測定を使います。1.4.6-01は明確に測定できた影のない文字をAAAの閾値と比較します。別の観点はAI・実SR・個別の機械検査を実行して結果を取り込むまで未確認です。[文字コントラストの採点条件](../docs/adr/0027-score-observed-text-contrast.md)
 
-1.4.3-02の静的な対象は、`python3 benchmarks/run.py collect --mode ai --criterion 1.4.3 --text-paint --out <新しい保存先>`で追加測定できます。`full`でも指定でき、通常の画像上限とは別に対象ごとに7枚を使います。機械のみ・SR併用のモードでは指定できません。根拠が不足した測定は未確認です。[測定と採点の条件](../docs/adr/0035-grade-opt-in-text-paint-evidence.md)
+1.4.3-02の静的な対象は、`python3 benchmarks/run.py collect --mode machine --criterion 1.4.3 --text-paint --out <新しい保存先>`で追加測定できます。`ai`と`full`でも指定でき、通常の画像上限とは別に対象ごとに7枚を使います。専用の画素計測はAIを使わず、実SR単独モードでは対象外です。根拠が不足した測定は未確認です。[測定と採点の条件](../docs/adr/0035-grade-opt-in-text-paint-evidence.md)
 
 
 2.4.3のダイアログ対照では、開いたボタン、閉じる実入力、閉じた直後と次のTabのフォーカスを採点します。クリック・Enter・Spaceを別々の観点として記録します。[ダイアログ対照と再実行手順](cases/2.4.3/README.md#ボタンで閉じた直後と次のtab)
 
-正解は先にスナップショットへ固定し、ページ・画像・音声、使用する実装・スキル・検証手順の資料と実行上限、ブラウザー等の環境、原典のハッシュも記録します。実行中断後は同じ実装で再開できます。
+正解は先にスナップショットへ固定し、ページ・画像・音声、使用する実装・スキル・検証手順の資料と実行上限、ブラウザー等の環境、原典のハッシュも記録します。実行中断後は同じ実装で再開できます。`--machine-targets` や `--text-paint` を指定した場合は、再開時も同じ指定を付けます。
 
 ```sh
 python3 benchmarks/run.py collect --out /project/bench-001 --resume

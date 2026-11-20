@@ -51,17 +51,28 @@ def environment():
             'playwright':version('playwright'),'chromium':subprocess.run([shutil.which('chromium') or 'chromium','--version'],capture_output=True,text=True,check=True).stdout.strip()}
 
 
-def prepare(run,criterion=None,selected_modes=None,port=0,config=None,*,text_paint=False):
+def prepare(run,criterion=None,selected_modes=None,port=0,config=None,*,text_paint=False,machine_targets=False):
     run=Path(run);data=core.corpus();selected_modes=selected_modes or ['machine']
     chosen=[s for s in data['suites'] if not criterion or s['criterion'] in criterion]
     if criterion and set(criterion)!={s['criterion'] for s in chosen}:raise ValueError('指定基準はまだ問題集に登録されていません')
     if any(m not in core.modes.MODES for m in selected_modes):raise ValueError('モードが不正')
+    selected_criteria = [suite['criterion'] for suite in chosen]
+    if machine_targets:
+        if selected_modes != ['machine']:
+            raise ValueError('--machine-targetsはmachineモード専用')
+        chosen = [dict(suite, cases=[
+            case for case in suite['cases']
+            if any(core.verification_group(row) == 'machine_target' for row in case['expectations'])
+        ]) for suite in chosen]
+        chosen = [suite for suite in chosen if suite['cases']]
+        if not chosen:
+            raise ValueError('選んだ基準に機械検出対象の期待結果がありません')
     configuration = dict(config or {'max_states':8,'max_steps':32,'max_depth':3,'max_images':6})
     if 'text_paint_images' in configuration:
         raise ValueError('文字の画素測定は--text-paintで指定する')
     if text_paint:
         if not set(selected_modes) <= text_paint_evidence.MODES or '1.4.3' not in {s['criterion'] for s in chosen}:
-            raise ValueError('--text-paintにはai又はfullモードと1.4.3を含む対象が必要')
+            raise ValueError('--text-paintにはmachine、ai又はfullモードと1.4.3を含む対象が必要')
         configuration['text_paint_images'] = text_paint_evidence.IMAGE_BUDGET
     if run.exists() and any(run.iterdir()):raise ValueError('新しい出力先を指定する。再開は--resume')
     run.mkdir(parents=True,exist_ok=True);public=run/'worker/public'
@@ -87,8 +98,8 @@ def prepare(run,criterion=None,selected_modes=None,port=0,config=None,*,text_pai
         oracle={'schema_version':'1','suites':data['suites']};core.save(run/'oracle.snapshot.json',oracle)
         git=subprocess.run(['git','rev-parse','HEAD'],cwd=core.ROOT,text=True,capture_output=True)
         metadata=dict(schema_version='1',run_id=uuid.uuid4().hex,created_at=core.timestamp(),corpus_digest=data['digest'],
-            oracle_digest=core.digest(oracle),modes=selected_modes,selection=[s['criterion'] for s in chosen],port=http.server_port,
-            configuration=configuration,
+            oracle_digest=core.digest(oracle),modes=selected_modes,selection=selected_criteria,port=http.server_port,
+            configuration=configuration,machine_targets_only=machine_targets,
             implementation_digest=implementation_digest(),git_head=git.stdout.strip(),working_tree=True,
             environment=environment(),
             standard=core.audit.CATALOG['standard'],normative_hashes={s['criterion']:core.audit.CRITERIA[s['criterion']]['normative_sha256'] for s in chosen},
@@ -107,13 +118,15 @@ def prepare(run,criterion=None,selected_modes=None,port=0,config=None,*,text_pai
         http.shutdown();http.server_close();raise
 
 
-def collect(run,*,criterion=None,selected_modes=None,port=0,resume=False,config=None,text_paint=False):
+def collect(run,*,criterion=None,selected_modes=None,port=0,resume=False,config=None,text_paint=False,machine_targets=False):
     from ledger_lock import run_lock
     run=Path(run)
     if resume:
         meta,progress=core.verify(run)
         if meta['implementation_digest']!=implementation_digest():raise ValueError('検証方法・収集器・採点器の実装が変わった。別runで比較する')
         if meta['environment']!=environment():raise ValueError('実行環境が変わった。別runへ記録する')
+        if machine_targets != meta.get('machine_targets_only', False):
+            raise ValueError('再開時に--machine-targetsの指定を変えない')
         if criterion and set(criterion)!=set(meta['selection']):raise ValueError('再開時に対象基準を変えない')
         if selected_modes and selected_modes!=meta['modes']:raise ValueError('再開時にモードを変えない')
         saved_configuration = dict(meta['configuration'])
@@ -121,7 +134,7 @@ def collect(run,*,criterion=None,selected_modes=None,port=0,resume=False,config=
             raise ValueError('再開時に--text-paintの指定を変えない')
         if config and config!=saved_configuration:raise ValueError('再開時に実行上限を変えない')
         http=server(run/'worker/public',meta['port'])
-    else:meta,http=prepare(run,criterion,selected_modes,port,config,text_paint=text_paint)
+    else:meta,http=prepare(run,criterion,selected_modes,port,config,text_paint=text_paint,machine_targets=machine_targets)
     try:
         with run_lock(run):
             try:
