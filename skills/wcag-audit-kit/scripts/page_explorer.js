@@ -156,6 +156,7 @@
       canvases:all.filter(e => e.localName === 'canvas' && visible(e)).map(selector),
       scroll:{width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight},
       ...(focusedTab ? {focused_horizontal_tab:focusedTab} : {}),
+      ...(focused && focused !== recordedFocus ? {deep_focus:selector(focused)} : {}),
       focus:{selector:recordedFocus ? selector(recordedFocus) : '',text:recordedFocus?.innerText?.slice(0,160),
         outline:recordedFocus ? ['outlineStyle','outlineWidth','outlineColor'].map(k => getComputedStyle(recordedFocus)[k]) : []}};
   };

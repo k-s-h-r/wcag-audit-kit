@@ -724,7 +724,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         (opened_with_key or job.get('keyboard_followup')) and quiet_key_route
                         or route[-1].get('key') in HORIZONTAL_TAB_ARROWS and not interrupted_reason
                     ):
-                        edge['focus_after'] = data['focus']['selector']
+                        edge['focus_after'] = data.get('deep_focus', data['focus']['selector'])
                     if unreachable_step is not None:
                         edge['keyboard_unreachable_step'] = unreachable_step
                     audit.save(dest/'transition.json', dict(edge, settling=settling))

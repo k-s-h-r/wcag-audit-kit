@@ -47,15 +47,40 @@ def verify_case(output, origin, page, expected_open_focus):
     assert graph['steps'] <= 24, graph['steps']
 
 
+def verify_shadow_focus(out, url):
+    assert url_only.collect_page(url, out, url_only.PROFILES['quick'])
+    root = core.audit.run_layout.ledger(out / 'page')
+    graph = core.load(root / 'exploration.json')
+    key = [('key', '#host #toggle', 'Enter')]
+    tab = key + [('press', 'body', 'Tab')]
+    for environment in ('desktop', 'narrow'):
+        observations = {tuple(route_signature(edge)): edge
+                        for edge, _, _ in url_only.observed_transitions(root, graph, environment)}
+        assert observations[tuple(key)]['focus_after'] == '#host #toggle'
+        assert observations[tuple(tab)]['focus_after'] == '#host #item'
+
+
 def main(out):
     out.mkdir(parents=True, exist_ok=False)
     public = out / 'public'
     shutil.copytree(core.ROOT / 'benchmarks/cases/2.4.3/public', public)
+    (public / 'shadow-disclosure.html').write_text('''<!doctype html>
+<html lang="en"><title>Shadow disclosure</title><main><h1>Options</h1><div id="host"></div></main>
+<script>
+const tree = document.querySelector('#host').attachShadow({mode: 'open'});
+tree.innerHTML = '<button id="toggle" aria-expanded="false" aria-controls="panel">Options</button>'
+    + '<div id="panel" hidden><button id="item">Option</button></div>';
+tree.querySelector('#toggle').onclick = event => {
+    event.currentTarget.setAttribute('aria-expanded', 'true');
+    tree.querySelector('#panel').hidden = false;
+};
+</script>''')
     http = runner.server(public)
     try:
         origin = f'http://127.0.0.1:{http.server_port}'
         verify_case(out / 'valid', origin, 'p03.html', '#level2')
         verify_case(out / 'focus-jump', origin, 'p04.html', '#after')
+        verify_shadow_focus(out / 'shadow', origin + '/shadow-disclosure.html')
     finally:
         http.shutdown()
         http.server_close()
