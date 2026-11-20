@@ -34,4 +34,4 @@ Chromium 156／Playwright 1.62.0で8ページを両幅で実行した。簡易�
 
 簡易探索のメニューでは、最初の開閉ボタンのクリックとEnterで同じ画面状態が記録された。クリックの後は次の階層へ進む経路を作ったが、Enterの後には作らなかった。コンボボックスは、簡易探索の待ち行列が空になっても、入力欄にArrowDownを送っていなかった。次の [T018](T018-widget-operation-sequences.md) で、まずメニューのキー経路をクリック経路と別に継続できるようにする。
 
-`python3 benchmarks/url_only.py --out <新規の出力先>` で再実行する。今回の問題集ハッシュは `b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206`。48行の証拠参照を確認し、32本の実行コマンドに個別設定や基準指定がないことを照合した。Python試験313件が通過した。 [ADR 0077](../adr/0077-measure-url-only-operation-exploration.md)
+`python3 benchmarks/url_only.py --out <新規の出力先>` で再実行する。今回の問題集ハッシュは `b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206`。48行の証拠参照を確認し、32本の実行コマンドに個別設定や基準指定がないことを照合した。Python試験313件が通過した。 [PR #76](https://github.com/k-s-h-r/wcag-audit-kit/pull/76) · [ADR 0077](../adr/0077-measure-url-only-operation-exploration.md)
