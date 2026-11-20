@@ -25,9 +25,14 @@ def main(report,out):
         assert book.sheetnames==['採点結果','概要','基準とモードの実測範囲','追加の誤検出']+[name for name,rows in acquisition_sections if rows]
         assert book['採点結果'].max_row==len(value['rows'])+1
         assert book['基準とモードの実測範囲'].max_row==87
-        grades=Counter(row[9] for row in list(book['採点結果'].values)[1:])
-        from benchmarks.reporting import LABEL
+        grade_header,*grade_rows=list(book['採点結果'].values)
+        grades=Counter(row[grade_header.index('採点')] for row in grade_rows)
+        from benchmarks.reporting import LABEL, VERIFICATION_LABEL
         assert dict(grades)=={LABEL[k]:v for k,v in value['counts'].items()}
+        for expected,observed in zip(value['rows'],grade_rows):
+            assert observed[grade_header.index('必要な検査手段')]==VERIFICATION_LABEL[expected['verification_group']]
+            machine_grade=expected['machine_grade']
+            assert (observed[grade_header.index('機械検出の採点')] or '')==LABEL.get(machine_grade,machine_grade)
         for name,rows in acquisition_sections:
             if not rows:continue
             header,*workbook_rows=list(book[name].values)
@@ -58,6 +63,7 @@ def main(report,out):
                     page=await browser.new_page(viewport={'width':width,'height':900})
                     await page.goto(url)
                     assert await page.title()=='基準別の検出試験'
+                    assert await page.get_by_role('heading',name='機械検出対象の採点',exact=True).is_visible()
                     assert await page.locator('table').nth(0).locator('tbody tr').count()==len(value['rows'])
                     assert await page.locator('table').nth(1).locator('tbody tr').count()==86
                     for name,rows in acquisition_sections:
