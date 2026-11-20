@@ -13,6 +13,16 @@ from benchmarks import core
 
 
 class CorpusTest(unittest.TestCase):
+    def test_url_only_collection_failure_preserves_both_environments(self):
+        from benchmarks import url_only
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            expectation = dict(checkpoint='1.1.1-01', state='after-load', target='#subject', expected='failed')
+            rows = url_only.score_page(output, output / 'uncreated', 'image', [expectation],
+                                       url='http://127.0.0.1/fixture', completed=False)
+        self.assertEqual([(r['environment'], r['status']) for r in rows],
+                         [('desktop', 'collection_error'), ('narrow', 'collection_error')])
+
     def test_registered_cases_have_positive_negative_and_local_assets(self):
         data=core.corpus()
         self.assertEqual(len(data['suites']),86)

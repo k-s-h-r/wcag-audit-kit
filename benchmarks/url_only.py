@@ -125,12 +125,13 @@ def score_dialog(edges, reports, root, output, row, results):
             results['verdicts'].append(dict(outcome=entry['outcome'], evidence=path.relative_to(output).as_posix()))
 
 
-def score_page(result_root, location, group, expectations, *, completed):
+def score_page(result_root, location, group, expectations, *, url, completed):
     root = core.audit.run_layout.ledger(location / 'page')
     if not completed:
-        return [dict(checkpoint=row['checkpoint'], state=row['state'], target=row['target'],
-                     expected=row['expected'], status='collection_error')
-                for row in expectations]
+        environments = core.audit.init_config(url)['environments']
+        return [dict(environment=environment['id'], checkpoint=row['checkpoint'], state=row['state'],
+                     target=row['target'], expected=row['expected'], status='collection_error')
+                for environment in environments if environment.get('zoom', 1) == 1 for row in expectations]
     graph = core.load(root / 'exploration.json')
     report = core.load(core.audit.run_layout.report_files(root, single=True).json)
     rows = []
@@ -183,7 +184,7 @@ def run(output):
         url = f'http://127.0.0.1:{http.server_port}/{criterion}/{page}'
         location = output / profile / criterion / case['id']
         completed = collect_page(url, location, PROFILES[profile])
-        scored = score_page(output, location, group, case['expectations'], completed=completed)
+        scored = score_page(output, location, group, case['expectations'], url=url, completed=completed)
         print(f'{profile} {criterion}/{page}: {"collected" if completed else "collection error"}', flush=True)
         return [dict(profile=profile, criterion=criterion, case=case['id'], page=page, group=group, **row)
                 for row in scored]
