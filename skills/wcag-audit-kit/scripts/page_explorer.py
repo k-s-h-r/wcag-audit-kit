@@ -264,7 +264,7 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             else:
                 value['remaining'].append(f'{capture_key}：深さ30を超える経路の追加検査が必要。')
             return
-        if quick and pending >= QUICK_PENDING_PER_ENVIRONMENT and not dialog_focus:
+        if quick and pending >= QUICK_PENDING_PER_ENVIRONMENT and dialog_focus != 'escape':
             omitted['frontier'] += 1
             return
         job = {'environment': env_id, 'route': path}
@@ -302,7 +302,8 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             candidates = selected
         newly_available = quick and bool(route) and selector not in previous_controls
         for action in candidates:
-            enqueue(action, newly_available=newly_available)
+            phase = 'button' if control.get('buttonInModal') and dialog_focus.activation(action) else None
+            enqueue(action, dialog_focus=phase, newly_available=newly_available)
 
     # A real scroll can reveal lazy content even if the initial screenshot was full-page.
     positions = {(0, env['viewport']['height']),
@@ -441,7 +442,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
         browser=await pw.chromium.launch(executable_path=shutil.which('chromium'),args=browser_args)
         try:
             while value['queue'] and value['steps']<max_steps:
-                if quick and value['queue'][0]['route'] and not value['queue'][0].get('dialog_focus'):
+                if (quick and value['queue'][0]['route']
+                        and value['queue'][0].get('dialog_focus') not in {'escape', 'tab'}):
                     # Keep both viewports represented before pursuing more paths in either.
                     index = min(range(len(value['queue'])), key=lambda i: (
                         bool(value['queue'][i]['route']),
@@ -499,7 +501,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 page=await context.new_page()
                 dialog_observation = None
                 if phase := job.get('dialog_focus'):
-                    dialog_observation = dialog_focus.DialogFocus(page, observer, len(route) - (phase == 'tab'), phase)
+                    dialog_observation = dialog_focus.DialogFocus(page, observer, route, phase)
                 if text_check:
                     await page.add_init_script(f'({text_paint.LOAD_OBSERVER})()')
                 frame_scope=keyboard_frames.FrameScope(page, check.get('frame') if check else None)
@@ -584,7 +586,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             settling.append(await perform(page, action, observer=observer,
                                                          key_effect=key_effect if observe_key else None))
                             if dialog_observation:
-                                await dialog_observation.after(action_index)
+                                await dialog_observation.after(action_index, action)
                             if capture_action and not blocked and not native_events:
                                 await images.capture(page, dest/'action-after.png', kind='action-after',
                                                      label=action_label, best_effort=True)
@@ -711,7 +713,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     value['remaining'].append(f"{env['id']} / 文字の測定 {text_check['name']}：{text_record['observed']}")
                 if dialog_observation and dialog_observation.record['status'] == 'unconfirmed':
                     value['remaining'].append(f"{dest.name} / ダイアログのフォーカス：{dialog_observation.record['reason']}")
-                if (dialog_observation and dialog_observation.record['phase'] == 'escape'
+                if (dialog_observation and dialog_observation.record['phase'] != 'tab'
                         and dialog_observation.record['status'] == 'closed'):
                     path = route + [{'type': 'press', 'selector': 'body', 'key': 'Tab'}]
                     ident = json.dumps([env['id'], path], sort_keys=True)

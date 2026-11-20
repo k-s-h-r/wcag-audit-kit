@@ -1,6 +1,6 @@
 # 人手を介さないWCAG検証へ進める開発計画
 
-更新日：2026-11-19。固定した機械検査10行でG1を確認し、指定URL一覧の中断・再開を通常のCLIで確認した。
+更新日：2026-11-20。固定した機械検査10行でG1を確認し、指定URL一覧の中断・再開を通常のCLIで確認した。
 
 この文書を、開発方針・現在地・次の作業の参照先とする。新しいセッションでは[AGENTS.md](../AGENTS.md)とこの文書を読み、[次の作業](#次の作業)から再開する。引き継ぎの方法は[ADR 0017](adr/0017-autonomous-audit-development.md)、機械検査から段階的に進める現在の方針は[ADR 0018](adr/0018-machine-first-staged-audits.md)に残す。
 
@@ -94,7 +94,7 @@ T014で見つかったスキップリンクの誤検出は、生成セレクタ�
 
 1.3.1は、指定領域の見出し・リスト・簡単な表を画面上の配置から拾い、Chromiumが認識した役割を帳票に出す。カードの枠と独立した記事の役割がそろう例を使い、同じ見た目の表候補を絞り込んだ。[ADR 0062](adr/0062-compare-visual-structure-with-browser-roles.md) [ADR 0064](adr/0064-use-framed-articles-to-narrow-table-candidates.md) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29)
 
-Escapeで閉じたモーダルの直後と次のTabを自動探索で観測できる。次は閉じるボタン経由でも同じ結果を記録できる範囲を確認する。[ADR 0063](adr/0063-observe-focus-after-dismissing-modal.md) [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
+Escapeとボタンの実入力でモーダルを閉じた直後と、次のTabのフォーカスを自動探索で観測できる。次は対象と操作状態が照合できる例を2.4.3のベンチマーク採点へ接続する。[ADR 0072](adr/0072-observe-focus-after-dialog-button.md) [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
 
 機械検査の報告では、キーボード経路の実行エラーと、実Tabで対象へ到達できなかった結果を分ける。指定経路の実Tab後に現れる単色の枠は、背景ごとのコントラスト比を機械モードで報告できる。次にこの測定を広げるときは、複数色をまたぐ枠の比較箇所と回帰条件を整理する。[ADR 0058](adr/0058-separate-keyboard-route-errors-from-results.md) [ADR 0059](adr/0059-measure-adjacent-focus-outline-colors.md) [Issue #59](https://github.com/k-s-h-r/wcag-audit-kit/issues/59)
 

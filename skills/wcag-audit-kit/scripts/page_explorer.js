@@ -69,12 +69,15 @@
     const r = e.getBoundingClientRect(), s = getComputedStyle(e);
     return !!(r.width && r.height && s.visibility !== 'hidden' && s.display !== 'none');
   };
+  const visibleModals = () => [...document.querySelectorAll(
+    'dialog:modal, [aria-modal="true"]:is([role="dialog"], [role="alertdialog"])')].filter(visible);
+  window.__wcagDialogElementVisible = e => e.isConnected && visible(e);
   window.__wcagDialogFocus = () => {
     const active = document.activeElement;
-    const modals = [...document.querySelectorAll('dialog:modal, [aria-modal="true"]:is([role="dialog"], [role="alertdialog"])')]
-      .filter(visible).map(selector);
+    const modals = visibleModals().map(selector);
     return {
       modals, focus: active && selector(active),
+      root_focus: (active === document.body || active === document.documentElement) && !active?.hasAttribute('tabindex'),
       supported: document.hasFocus() && !!active && !closedRoots && !active.shadowRoot?.activeElement &&
         !active.matches('iframe, frame'),
       document_start: performance.timeOrigin, url: location.href
@@ -96,6 +99,8 @@
     const focusedTab = horizontalTab(focused) && visible(focused) ? selector(focused) : null;
     const recordedFocus = focusedTab ? focused : document.activeElement;
     const modal = all.filter(e => (e.matches('dialog[open]') || e.getAttribute('aria-modal') === 'true') && visible(e)).at(-1);
+    const activeModals = visibleModals();
+    const singleModal = activeModals.length === 1 ? activeModals[0] : null;
     const properties=['onclick','onmousedown','onpointerdown','onpointerup','onpointerenter','onmouseover','onkeydown','onchange','oninput'];
     const eligible = all.filter(e => visible(e) && (!modal || e === modal || modal.contains(e)) &&
       !e.matches(':disabled') && e.getAttribute('aria-disabled') !== 'true');
@@ -128,6 +133,8 @@
           href:e.getAttribute('href'), expanded:e.getAttribute('aria-expanded'), tabIndex:e.tabIndex,
           haspopup:e.getAttribute('aria-haspopup'), events:[...(events.get(e) || []),...properties.filter(p => typeof e[p] === 'function')],
           ...(horizontalTab(e) ? {horizontalTab:true} : {}),
+          ...(singleModal?.contains(e) && e.matches('button,input[type="button"],[role="button"]')
+            ? {buttonInModal:true} : {}),
           rect:{x:r.x + scrollX,y:r.y + scrollY,width:r.width,height:r.height}};
       });
     const state = all.filter(visible).map(e => ({selector:selector(e), tag:e.localName,

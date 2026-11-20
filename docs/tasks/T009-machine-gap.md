@@ -151,6 +151,14 @@ HTML・JSON・Excelと文字周辺に絞った証拠画像を照合し、1.4.3�
 
 合流前のレビューで、次のTabに動きがない場合を機械判定不能とし、タイマーが残る経路でも既存のEscapeを試すようにした。ブラウザーが複数のロール候補から表と認識した対照も、表の照合に残した。計6件のダイアログ対照と、表・カード、フォーカス移動時の通信制限、Python 278件を再検証した。[ADR 0063](../adr/0063-observe-focus-after-dismissing-modal.md) [ADR 0064](../adr/0064-use-framed-articles-to-narrow-table-candidates.md)
 
+### ダイアログ内のボタンから閉じた後のフォーカス
+
+`codex/t009-dialog-button-focus`（起点 `cd9d5fd`）で、主文書のモーダルを閉じるボタンと次のTabを自動探索で観測する。修正前のChromium回帰では、クリックしても入力記録と開き元を照合できず、既存のEscape回帰が失敗した。既存の入力観測の変数名に統一し、閉じる実入力と直後の表示・次のTabを関連付けた。
+
+Chromiumでは、クリック・Enter・Spaceの3経路で開き元への復帰と次のTabを確認した。文書へ戻る問題例では3経路すべてで次のTabが開き元より前に移り、機械検査の指摘と証拠をJSON・HTML・Excelで照合した。別要素へ移る例と、非モーダルに変わって表示が残る例は保留し、閉じないボタンはフォーカス復帰の判定から外した。簡易探索ではクリックとEnterを確認した。単体試験283件と初期収集・簡易探索の回帰が通過した。
+
+比較と再実行は[ADR 0072](../adr/0072-observe-focus-after-dialog-button.md)を参照する。別文書・Shadow DOM内のモーダルやボタン、フォーム送信扱いのボタン、別要素への復帰が適切かの判断は追加確認に残る。次に同じ証拠を2.4.3のベンチマーク採点へ対応付ける場合は、対象と操作状態を照合できる例を選ぶ。[機械検出対象の採点PR #70](https://github.com/k-s-h-r/wcag-audit-kit/pull/70)
+
 ## 初期画面の検査と任意の操作探索
 
 担当は `codex/initial-page-audit-first`。起点は [PR #67](https://github.com/k-s-h-r/wcag-audit-kit/pull/67) の `716364f`。直接の `wcag-page` は初期画面の帳票を先に返し、操作探索を選んだときは同じrunへ追加する。リンク内の文字などで、親のポインター挙動だけを引き継ぐ子はまとめる。独立した操作や委譲先の候補も判別する。[ADR 0068](../adr/0068-defer-single-page-operation-exploration.md)

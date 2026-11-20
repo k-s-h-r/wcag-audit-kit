@@ -186,7 +186,9 @@ def machine_checks(run, manifest=None):
             from dialog_focus import EVIDENCE_FILE, report_row as dialog_row
 
             path = Path(edge['evidence_dir']) / EVIDENCE_FILE
-            rows.append(dialog_row(audit.load(run/path), edge['environment'], path.as_posix(), scene(route), f'操作経路 {index+1}'))
+            receipt = audit.load(run/path)
+            if receipt['status'] != 'not_dismissed':
+                rows.append(dialog_row(receipt, edge['environment'], path.as_posix(), scene(route), f'操作経路 {index+1}'))
         # A key reached after pointer or scripted setup is evidence for that
         # mixed route, not for reaching the same state using only keys.
         if not route or any(step.get('type') not in {'key','press'} for step in route):continue
