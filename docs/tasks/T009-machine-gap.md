@@ -161,9 +161,13 @@ Chromiumでは、クリック・Enter・Spaceの3経路で開き元への復帰�
 
 ### 2.4.3の単一ダイアログをベンチマークで採点する
 
-`codex/t009-score-dialog-focus` で、[PR #71](https://github.com/k-s-h-r/wcag-audit-kit/pull/71)の検出器と[PR #70](https://github.com/k-s-h-r/wcag-audit-kit/pull/70)の機械採点を使い、2.4.3-02に単一ダイアログの対照を追加した。開き元・ダイアログ・閉じるボタンのIDと入力を公開の操作条件に置き、実行済みの経路・実入力・同じ文書のフォーカスを照合する。[ADR 0073](../adr/0073-score-dialog-focus-benchmark-routes.md)
+[PR #72](https://github.com/k-s-h-r/wcag-audit-kit/pull/72)の `codex/t009-score-dialog-focus` で、[PR #71](https://github.com/k-s-h-r/wcag-audit-kit/pull/71)の検出器と[PR #70](https://github.com/k-s-h-r/wcag-audit-kit/pull/70)の機械採点を使い、2.4.3-02に単一ダイアログの対照を追加した。開き元・ダイアログ・閉じるボタンのIDと入力を公開の操作条件に置き、実行済みの経路・実入力・同じ文書のフォーカスを照合する。[ADR 0073](../adr/0073-score-dialog-focus-benchmark-routes.md)
 
 Chromiumの2.4.3収集10ページで、クリック・Enter・Spaceの問題3件と正常例3件がすべて一致した。接続前の採点器では、同じ証拠が6件とも未確認だった。2.4.3の機械検出対象全体では問題3/6件、対照3/6件が一致し、追加の誤検出は0件。入れ子のダイアログとメニューに関する既存6観点は未確認で、次は開閉直後のフォーカスと次の操作を、どの状態に対応付けられるかを確認する。[対照と再実行手順](../../benchmarks/cases/2.4.3/README.md#ボタンで閉じた直後と次のtab)
+
+機械検出対象の全76ページを2実行に分けて再測定した。問題11/39件と対照18/48件が一致し、追加の誤検出は0件。前回の81観点は各行の採点が前回と同じで、新しい6観点が期待結果と一致した。同じ76ページの証拠を接続前の採点器で読むと、問題8/39件と対照15/48件が一致した。未確認は問題28件と対照30件。
+
+実行はChromium 156で、問題集ハッシュは `46f66e8cca175841faa6f3754f864f1fed2ba370bbcda7ee5a367002888bb811`。2.1.2と2.4.3のrun IDは `67a40cfb40724dcc9f6ca3ea902d9fac`、残りの機械検出対象と文字の画素計測のrun IDは `b616b0b38cda4541a908f2d0b3658105`。一括で再実行する場合は[機械検出対象のコマンド](../../benchmarks/README.md#間違いごとに必要な検査手段を確認する)を使う。
 
 ## 初期画面の検査と任意の操作探索
 
