@@ -151,6 +151,24 @@ HTML・JSON・Excelと文字周辺に絞った証拠画像を照合し、1.4.3�
 
 合流前のレビューで、次のTabに動きがない場合を機械判定不能とし、タイマーが残る経路でも既存のEscapeを試すようにした。ブラウザーが複数のロール候補から表と認識した対照も、表の照合に残した。計6件のダイアログ対照と、表・カード、フォーカス移動時の通信制限、Python 278件を再検証した。[ADR 0063](../adr/0063-observe-focus-after-dismissing-modal.md) [ADR 0064](../adr/0064-use-framed-articles-to-narrow-table-candidates.md)
 
+### ダイアログ内のボタンから閉じた後のフォーカス
+
+[PR #71](https://github.com/k-s-h-r/wcag-audit-kit/pull/71)の `codex/t009-dialog-button-focus`（起点 `cd9d5fd`）で、主文書のモーダルを閉じるボタンと次のTabを自動探索で観測する。修正前のChromium回帰では、クリックしても入力記録と開き元を照合できず、既存のEscape回帰が失敗した。既存の入力観測の変数名に統一し、閉じる実入力と直後の表示・次のTabを関連付けた。
+
+Chromiumでは、クリック・Enter・Spaceの3経路で開き元への復帰と次のTabを確認した。文書へ戻る問題例では3経路すべてで次のTabが開き元より前に移り、機械検査の指摘と証拠をJSON・HTML・Excelで照合した。別要素へ移る例と、非モーダルに変わって表示が残る例は保留し、閉じないボタンはフォーカス復帰の判定から外した。簡易探索ではクリックとEnterを確認した。単体試験283件と初期収集・簡易探索の回帰が通過した。
+
+比較と再実行は[ADR 0072](../adr/0072-observe-focus-after-dialog-button.md)を参照する。別文書・Shadow DOM内のモーダルやボタン、フォーム送信扱いのボタン、別要素への復帰が適切かの判断は追加確認に残る。次に同じ証拠を2.4.3のベンチマーク採点へ対応付ける場合は、対象と操作状態を照合できる例を選ぶ。[機械検出対象の採点PR #70](https://github.com/k-s-h-r/wcag-audit-kit/pull/70)
+
+### 2.4.3の単一ダイアログをベンチマークで採点する
+
+[PR #72](https://github.com/k-s-h-r/wcag-audit-kit/pull/72)の `codex/t009-score-dialog-focus` で、[PR #71](https://github.com/k-s-h-r/wcag-audit-kit/pull/71)の検出器と[PR #70](https://github.com/k-s-h-r/wcag-audit-kit/pull/70)の機械採点を使い、2.4.3-02に単一ダイアログの対照を追加した。開き元・ダイアログ・閉じるボタンのIDと入力を公開の操作条件に置き、実行済みの経路・実入力・同じ文書のフォーカスを照合する。[ADR 0073](../adr/0073-score-dialog-focus-benchmark-routes.md)
+
+Chromiumの2.4.3収集10ページで、クリック・Enter・Spaceの問題3件と正常例3件がすべて一致した。接続前の採点器では、同じ証拠が6件とも未確認だった。2.4.3の機械検出対象全体では問題3/6件、対照3/6件が一致し、追加の誤検出は0件。入れ子のダイアログとメニューに関する既存6観点は未確認で、次は開閉直後のフォーカスと次の操作を、どの状態に対応付けられるかを確認する。[対照と再実行手順](../../benchmarks/cases/2.4.3/README.md#ボタンで閉じた直後と次のtab)
+
+機械検出対象の全76ページを2実行に分けて再測定した。問題11/39件と対照18/48件が一致し、追加の誤検出は0件。前回の81観点は各行の採点が前回と同じで、新しい6観点が期待結果と一致した。同じ76ページの証拠を接続前の採点器で読むと、問題8/39件と対照15/48件が一致した。未確認は問題28件と対照30件。
+
+実行はChromium 156で、問題集ハッシュは `46f66e8cca175841faa6f3754f864f1fed2ba370bbcda7ee5a367002888bb811`。2.1.2と2.4.3のrun IDは `67a40cfb40724dcc9f6ca3ea902d9fac`、残りの機械検出対象と文字の画素計測のrun IDは `b616b0b38cda4541a908f2d0b3658105`。一括で再実行する場合は[機械検出対象のコマンド](../../benchmarks/README.md#間違いごとに必要な検査手段を確認する)を使う。
+
 ## 初期画面の検査と任意の操作探索
 
 担当は `codex/initial-page-audit-first`。起点は [PR #67](https://github.com/k-s-h-r/wcag-audit-kit/pull/67) の `716364f`。直接の `wcag-page` は初期画面の帳票を先に返し、操作探索を選んだときは同じrunへ追加する。リンク内の文字などで、親のポインター挙動だけを引き継ぐ子はまとめる。独立した操作や委譲先の候補も判別する。[ADR 0068](../adr/0068-defer-single-page-operation-exploration.md)

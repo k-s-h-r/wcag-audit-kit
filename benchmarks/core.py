@@ -17,7 +17,7 @@ sys.path.insert(0,str(RUNTIME/'scripts'))
 import audit
 import verification_modes as modes
 import state_labels
-from . import case_contracts, inactive_control_probe, status_capture, text_paint_evidence
+from . import case_contracts, dialog_focus_evidence, inactive_control_probe, status_capture, text_paint_evidence
 
 
 def load(path):return json.loads(Path(path).read_text())
@@ -82,6 +82,7 @@ def corpus(root=None):
             case_contracts.validate(case)
             state_labels.public_specs(case['states'])
             status_capture.plans(sc, case['checkpoints'], case['states'])
+            dialog_focus_evidence.plans(sc, case['checkpoints'], case['states'])
             text_paint_evidence.target(sc, case['checkpoints'], case['states'])
             inactive_control_probe.target(sc, case['checkpoints'], case['states'])
             for point,aliases in case.get('target_aliases',{}).items():
@@ -601,6 +602,7 @@ def score(run):
         predicted=program_predictions(run,job,progress)
         predicted.update(inactive_control_probe.predictions(run.resolve(), meta, job, progress, frozen, predicted))
         predicted.update(text_paint_evidence.predictions(run.resolve(), meta, job, progress, frozen))
+        predicted.update(dialog_focus_evidence.predictions(run.resolve(), job, progress, frozen))
         scored={**predicted,**reviews.get(job['id'],{})}
         for contract in oracles[job['id']].get('evidence_expectations',[]):
             point=next(p for p in meta['mode_catalog']['checkpoints'] if p['id']==contract['checkpoint'])
@@ -651,6 +653,7 @@ def score(run):
         environment=meta.get('environment',{}),standard=meta.get('standard','WCAG-2.2'),normative_hashes=meta.get('normative_hashes',{}),
         scorer_digest=digest({name:file_hash(Path(path)) for name,path in {
             'core':__file__, 'state_labels':state_labels.__file__, 'status_capture':status_capture.__file__,
+            'dialog_focus_evidence':dialog_focus_evidence.__file__, 'dialog_focus':RUNTIME/'scripts/dialog_focus.py',
             'text_paint_evidence':text_paint_evidence.__file__, 'text_paint_probe':ROOT/'benchmarks/text_paint_probe.py',
             'text_paint':RUNTIME/'scripts/text_paint.py',
             'measure':RUNTIME/'scripts/measure.py', 'inactive_control_probe':inactive_control_probe.__file__,

@@ -75,3 +75,5 @@
 - [0069 初期結果に続けて主要な操作を自動で探索する](0069-run-a-short-operation-sweep-automatically.md)
 - [0070 計測通信とキーボード操作の結果を別に扱う](0070-separate-telemetry-blocks-from-keyboard-results.md)
 - [0071 問題集の機械検出対象を観点ごとに採点する](0071-track-benchmark-machine-detection-targets.md)
+- [0072 閉じるボタンと次のTabのフォーカスを観測する](0072-observe-focus-after-dialog-button.md)
+- [0073 ダイアログを閉じる実入力と次のTabを採点する](0073-score-dialog-focus-benchmark-routes.md)
