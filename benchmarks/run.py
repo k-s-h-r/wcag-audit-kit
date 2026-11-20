@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Collect, grade and compare criterion-scoped accessibility fixtures."""
 import argparse
+from collections import Counter
 import json
 from pathlib import Path
 import shutil
@@ -14,6 +15,7 @@ from benchmarks import core,runner,reporting
 def print_summary(files, result):
     summary = dict(files=files, selected_checks_status=result['selected_checks_status'],
                    overall_status=result['overall_status'], counts=result['counts'],
+                   machine_targets=result['machine_targets'],
                    pending_evidence_contracts=len(result.get('pending_evidence_contracts', [])),
                    matched_evidence_contracts=len(result.get('matched_evidence_contracts', [])))
     print(json.dumps(summary, ensure_ascii=False, indent=2))
@@ -21,26 +23,41 @@ def print_summary(files, result):
 
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__);sub=parser.add_subparsers(dest='command',required=True)
-    sub.add_parser('inventory')
+    p=sub.add_parser('inventory');p.add_argument('--expectations',action='store_true',help='検査手段を含む判定の期待結果を行ごとに出す')
     p=sub.add_parser('collect');p.add_argument('--out',required=True);p.add_argument('--mode',choices=[*core.modes.MODES,'all'])
     p.add_argument('--criterion',action='append',choices=list(core.audit.CRITERIA));p.add_argument('--port',type=int,default=0);p.add_argument('--resume',action='store_true')
-    p.add_argument('--text-paint',action='store_true',help='ai/fullの指定済み静的文字に、通常検査と別枠で最大7枚を使う')
+    p.add_argument('--text-paint',action='store_true',help='machine/ai/fullの指定済み静的文字に、通常検査と別枠で最大7枚を使う')
+    p.add_argument('--machine-targets',action='store_true',help='機械検出対象のあるケースに絞る')
     for name in ['serve','score','import','attach','task']:
         p=sub.add_parser(name);p.add_argument('--run',required=True)
         if name in {'import','attach'}:p.add_argument('--file',required=True)
         if name=='attach':p.add_argument('--job',required=True)
         if name=='task':p.add_argument('--job',required=True)
-        if name=='score':p.add_argument('--strict',action='store_true')
+        if name=='score':
+            strict=p.add_mutually_exclusive_group()
+            strict.add_argument('--strict',action='store_true')
+            strict.add_argument('--strict-machine-targets',action='store_true',help='機械モードの機械検出対象を採点する')
     p=sub.add_parser('compare');p.add_argument('--baseline',required=True);p.add_argument('--current',required=True);p.add_argument('--out',required=True)
     args=parser.parse_args(argv)
     try:
         if args.command=='inventory':
             value=core.corpus();ready={s['criterion']:len(s['cases']) for s in value['suites']}
-            print(json.dumps({'corpus_digest':value['digest'],'checkpoint_coverage':core.case_contracts.coverage(value,core.modes.catalog()['checkpoints']),'criteria':[dict(id=c['id'],title=c['title'],cases=ready.get(c['id'],0),status='prepared' if c['id'] in ready else 'unprepared') for c in core.audit.CATALOG['criteria']]},ensure_ascii=False,indent=2));return 0
+            expectations=list(core.expectation_inventory(value))
+            by_method=Counter(row['verification_group'] for row in expectations)
+            failures=Counter(row['verification_group'] for row in expectations if row['expected']=='failed')
+            result=dict(corpus_digest=value['digest'],
+                checkpoint_coverage=core.case_contracts.coverage(value,core.modes.catalog()['checkpoints']),
+                criteria=[dict(id=c['id'],title=c['title'],cases=ready.get(c['id'],0),
+                               status='prepared' if c['id'] in ready else 'unprepared') for c in core.audit.CATALOG['criteria']],
+                verification_groups={group:dict(observations=count,known_failures=failures[group])
+                                     for group,count in sorted(by_method.items())})
+            if args.expectations:
+                result['expectations']=expectations
+            print(json.dumps(result,ensure_ascii=False,indent=2));return 0
         if args.command=='collect':
             selected=list(core.modes.MODES) if args.mode=='all' else [args.mode] if args.mode else None
             result=runner.collect(Path(args.out),criterion=args.criterion,selected_modes=selected,port=args.port,
-                                  resume=args.resume,text_paint=args.text_paint)
+                                  resume=args.resume,text_paint=args.text_paint,machine_targets=args.machine_targets)
             files=reporting.write(Path(args.out),result)
             print_summary(files, result)
             return 0
@@ -69,6 +86,8 @@ def main(argv=None):
             print(json.dumps(core.record_review(run,core.load(args.file)),ensure_ascii=False,indent=2));return 0
         result=core.score(run);files=reporting.write(run,result)
         print_summary(files, result)
+        if args.strict_machine_targets:
+            return {'clear_for_selected_checks':0,'failed':1,'incomplete':2,'not_selected':2}[result['machine_targets']['status']]
         if not args.strict:return 0
         return 1 if result['selected_checks_status']=='failed' else 2 if result['selected_checks_status']=='incomplete' else 0
     except (ValueError,KeyError,OSError,TypeError) as error:

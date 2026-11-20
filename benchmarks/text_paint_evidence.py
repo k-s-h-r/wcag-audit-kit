@@ -4,7 +4,7 @@ import re
 
 CHECKPOINT = '1.4.3-02'
 IMAGE_BUDGET = 7
-MODES = {'ai', 'full'}
+MODES = {'machine', 'ai', 'full'}
 DIRECTORY = 'text-paint'
 SELECTOR = re.compile(r'#[a-zA-Z][\w-]*', re.ASCII)
 

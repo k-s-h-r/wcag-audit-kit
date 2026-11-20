@@ -1,6 +1,6 @@
 # 人手を介さないWCAG検証へ進める開発計画
 
-更新日：2026-11-19。固定した機械検査10行でG1を確認し、指定URL一覧の中断・再開を通常のCLIで確認した。
+更新日：2026-11-20。固定した機械検査10行でG1を確認し、指定URL一覧の中断・再開を通常のCLIで確認した。
 
 この文書を、開発方針・現在地・次の作業の参照先とする。新しいセッションでは[AGENTS.md](../AGENTS.md)とこの文書を読み、[次の作業](#次の作業)から再開する。引き継ぎの方法は[ADR 0017](adr/0017-autonomous-audit-development.md)、機械検査から段階的に進める現在の方針は[ADR 0018](adr/0018-machine-first-staged-audits.md)に残す。
 
@@ -85,6 +85,8 @@ AIや実スクリーンリーダーには、必要な対象・状態・証拠・
 G1はT001で事前に選んだ機械検査10行で達成した。T010では指定4 URLを `page-batch` に渡し、中断・再開後に帳票3件と404の失敗1件を確認した。T006のURL一覧とT004の実行範囲の確認が揃い、指定一覧の機械検査に必要なG2は達成した。各ページの検査票には意味判断・発話・取得の未確認が残る。[ADR 0036](adr/0036-pass-the-limited-machine-gate.md) [ADR 0038](adr/0038-resume-configured-page-audits.md) [ADR 0054](adr/0054-check-batch-report-files-before-handoff.md)
 
 [T009](tasks/T009-machine-gap.md)では、操作後の表示、フォーカス、コントラストに加え、ポインターを離したときに開く部品の入れ子を検査した。1.3.1の見出し・リスト候補もページ別帳票へ追加した。[再実行方法](adr/0041-discover-inline-pointer-release.md)
+
+問題集の機械検出対象は81観点。74ページを実行し、問題8/36件を検出、対照15/45件が一致した。次は自動採点で未確認の観点について、既存の機械証拠を結びつけられるか、公開した操作・計測手順を追加する必要があるかを確認する。[T009の採点結果](tasks/T009-machine-gap.md#問題集の機械検出対象を採点する) [ADR 0071](adr/0071-track-benchmark-machine-detection-targets.md)
 
 [T011](tasks/T011-ai-residual-review.md)で実証したタイトルの観点を[T014](tasks/T014-site-acceptance.md)で別のページに適用した。本文から先に主題と目的を取得する再試験で、題名との不一致を確認した。図は、実際に表示された案内図の方向と代替文を照合した。[ADR 0053](adr/0053-observe-chart-before-assessing-alternatives.md) [ADR 0055](adr/0055-observe-title-topic-and-purpose-separately.md) [ADR 0056](adr/0056-score-a-blind-site-exercise-with-observed-evidence.md)
 
