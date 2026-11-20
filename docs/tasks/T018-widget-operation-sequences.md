@@ -20,7 +20,7 @@
 
 ## 3階層メニューの展開と直後のTab
 
-[PR #76](https://github.com/k-s-h-r/wcag-audit-kit/pull/76)の計測とタスク記録を起点に、`codex/t018-keyboard-menu-expansion` の別worktreeで実装した。ローカルHTTPサーバーから2.4.3の既存の問題例と対照例を配信し、Chromiumで両幅を確認した。証拠は新規runに保存した。 [ADR 0078](../adr/0078-continue-keyboard-paths-after-duplicate-states.md)
+[PR #76](https://github.com/k-s-h-r/wcag-audit-kit/pull/76)の計測とタスク記録を起点に、`codex/t018-keyboard-menu-expansion` の別worktreeで実装した。ローカルHTTPサーバーから2.4.3の既存の問題例と対照例を配信し、Chromiumで両幅を確認した。証拠は新規runに保存した。 [PR #77](https://github.com/k-s-h-r/wcag-audit-kit/pull/77) · [ADR 0078](../adr/0078-continue-keyboard-paths-after-duplicate-states.md)
 
 ### 実測結果
 
@@ -32,5 +32,7 @@
 PC幅・スマホ相当幅の両方で一致した。同じ画面へ先にクリックで到達したこと、キーだけで続けて到達したこと、同じ画面の収集が1件であることを照合した。16ステップで中断した正常例は、再開すると両幅とも第3階層に到達し、前の操作記録を保てた。
 
 同じ上限で8ページの比較を再実行した。簡易探索の24件のうち、期待と一致した検査は12件で変わらず、メニュー4件は経路未確認から、キーで開いた状態を観察できる状態になった。機械によるフォーカス順の適否は未判定。残る経路未確認は8件。通常探索を同じ24ステップに揃えた比較は、期待との一致4件、経路未確認20件で変わらなかった。
+
+通常探索も正常例で上限を広げて再開した。第3階層リンクへのTabはPC幅で171ステップ目、スマホ相当幅で220ステップ目に記録できた。
 
 次は、末端へ移動した後に閉じて開閉ボタンへ戻る経路を扱う。その後にコンボボックスのArrowDownとアコーディオンの開閉を調べる。
