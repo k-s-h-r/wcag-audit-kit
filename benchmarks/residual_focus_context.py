@@ -42,19 +42,27 @@ async def capture(criterion, page, plan):
     return {'before_url': url, 'before': before, 'after_url': page.url, 'after': current, 'events': events}
 
 
-def evaluate(criterion, plan, evidence):
+def trusted_focus(plan, evidence):
     events = evidence.get('events', [])
     before_url = evidence.get('before_url')
     before = evidence.get('before', {})
-    after = evidence.get('after', {})
     target_id = plan['target'][1:]
-    confirmed = (
-        len(events) == 2
-        and all(event.get('trusted') is True and event.get('url') == before_url
+    return (
+        isinstance(events, list) and len(events) == 2 and isinstance(before, dict)
+        and isinstance(before_url, str) and type(before.get('start')) in (int, float)
+        and all(isinstance(event, dict) and event.get('trusted') is True and event.get('url') == before_url
                 and event.get('start') == before.get('start') for event in events)
         and events[0].get('type') == 'keydown' and events[0].get('key') == 'Tab'
         and events[1].get('type') == 'focusin' and events[1].get('id') == target_id
     )
+
+
+def evaluate(criterion, plan, evidence):
+    confirmed = trusted_focus(plan,evidence)
+    before_url = evidence.get('before_url')
+    before = evidence.get('before', {})
+    after = evidence.get('after', {})
+    target_id = plan['target'][1:]
     outcome = 'cant_tell'
     observed = '最初の実Tabが指定対象へ届いた記録を確認できませんでした。'
     if confirmed and evidence['after_url'] != before_url and before['start'] != after['start']:

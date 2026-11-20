@@ -175,6 +175,16 @@ def collect(run, job, page, location):
         core.save(location/f'{FILE_PREFIX}{state}.json', dict(binding=binding(job,page,state,digest), **result))
 
 
+def read_measurement(run, job, page, state, attempt, digest, frozen):
+    from . import core
+
+    path = attempt.parent / f'{FILE_PREFIX}{state}.json'
+    measurement = core.read_frozen(run,path,frozen) or {}
+    if measurement.get('binding') == binding(job,page,state,digest):
+        return measurement,path
+    return None,path
+
+
 def predictions(run, job, progress, frozen):
     from . import core
 
@@ -193,9 +203,8 @@ def predictions(run, job, progress, frozen):
         if attempt is None:
             continue
         for state,spec in declared.items():
-            path = attempt.parent/f'{FILE_PREFIX}{state}.json'
-            measurement = core.read_frozen(run,path,frozen) or {}
-            if measurement.get('binding') != binding(job,page,state,digest):
+            measurement,path = read_measurement(run,job,page,state,attempt,digest,frozen)
+            if not measurement:
                 continue
             evidence = measurement.get('observations')
             checkpoint = f'{criterion}-{METHODS[criterion][1]}'

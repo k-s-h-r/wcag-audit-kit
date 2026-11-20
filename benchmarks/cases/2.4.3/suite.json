@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "2.4.3",
-  "version": "6",
+  "version": "7",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/2.4.3.md",
@@ -227,6 +227,12 @@
               "Enter",
               "Tab",
               "Enter"
+            ],
+            "watch": [
+              "#level1",
+              "#level2",
+              "#leaf",
+              "#after"
             ]
           }
         }
@@ -347,6 +353,12 @@
               "Enter",
               "Tab",
               "Enter"
+            ],
+            "watch": [
+              "#level1",
+              "#level2",
+              "#leaf",
+              "#after"
             ]
           }
         }
