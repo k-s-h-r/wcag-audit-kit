@@ -39,7 +39,7 @@ PC幅・スマホ相当幅の両方で一致した。同じ画面へ先にクリ
 
 ## 3階層メニューを閉じた後のフォーカス
 
-起点は3件のレビュー修正が入った `8131428`。別worktreeの `codex/t018-observe-menu-close` で、Tabで開いた領域に入った後のEscapeを実装した。既存の3階層メニューの正常例と問題例、閉じても本文にフォーカスが移る例をChromiumで比較した。 [ADR 0079](../adr/0079-observe-focus-after-closing-disclosures.md)
+起点は3件のレビュー修正が入った `8131428`。別worktreeの `codex/t018-observe-menu-close` で、Tabで開いた領域に入った後のEscapeを実装した。既存の3階層メニューの正常例と問題例、閉じても本文にフォーカスが移る例をChromiumで比較した。 [PR #78](https://github.com/k-s-h-r/wcag-audit-kit/pull/78) · [ADR 0079](../adr/0079-observe-focus-after-closing-disclosures.md)
 
 | Escape後の表示 | フォーカス | 帳票の記録 |
 | --- | --- | --- |
