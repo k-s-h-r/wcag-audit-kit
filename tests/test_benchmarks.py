@@ -26,6 +26,23 @@ class CorpusTest(unittest.TestCase):
         self.assertTrue(any(p.endswith('.wav') for p in data['public_files']))
         self.assertTrue(any(p.endswith('.svg') for p in data['public_files']))
 
+    def test_machine_target_selection_uses_both_flags_and_keeps_the_oracle_private(self):
+        from benchmarks import runner
+        with tempfile.TemporaryDirectory() as temporary, patch('benchmarks.runner.server') as server, patch(
+            'benchmarks.runner.source_files', return_value=[]
+        ), patch('benchmarks.runner.environment', return_value={}):
+            run=Path(temporary)
+            server.return_value.server_port=8000
+            metadata,_=runner.prepare(run, criterion=['1.1.1','3.1.1'], machine_targets=True)
+            targets=[row for row in core.expectation_inventory(core.corpus())
+                     if row['verification_group']=='machine_target' and row['criterion'] in metadata['selection']]
+            jobs=core.tasks(run)
+            self.assertEqual({(job['criterion'],job['case']) for job in jobs},
+                             {(row['criterion'],row['case']) for row in targets})
+            self.assertTrue(all('expected' not in job and 'verification_group' not in job for job in jobs))
+            self.assertIn('screen-reader',{row['verification_group'] for row in core.expectation_inventory(core.corpus())})
+            server.assert_called_once()
+
     def test_page_bytes_cannot_change_without_changing_corpus_digest(self):
         import shutil
         with tempfile.TemporaryDirectory() as directory:
@@ -175,6 +192,29 @@ class ScoringTest(unittest.TestCase):
             self.assertEqual(r['overall_status'],'incomplete');self.assertEqual(r['confusion'].get('TN',0),0)
             self.assertIsNone(r['precision_on_evaluated']);self.assertEqual(r['undetected_known_failures'],1)
             self.assertEqual(r['counts'],{'deferred' if defer else 'not_evaluated':2})
+
+    def test_machine_target_gate_checks_missed_failures_and_normal_controls(self):
+        run,meta,job,progress=self.make_run(mode='machine')
+        self.assertEqual(core.score(run)['machine_targets']['status'],'incomplete')
+        fail=self.observation(job,progress)
+        control=self.observation(job,progress,target='#two',outcome='passed')
+        extra=self.observation(job,progress,target='#extra')
+        self.submit(run,meta,job,[fail,control])
+        self.assertEqual(core.score(run)['machine_targets']['unconfirmed'],2)
+        predictions={core.observation_key(fail):fail}
+        with patch('benchmarks.core.program_predictions',return_value=predictions):
+            partial=core.score(run)['machine_targets']
+            self.assertEqual((partial['status'],partial['detected_failures'],partial['unconfirmed']),('incomplete',1,1))
+            predictions[core.observation_key(control)]=control
+            result=core.score(run)
+            self.assertEqual(result['machine_targets']['status'],'clear_for_selected_checks')
+            self.assertTrue(all(row['verification_group']=='machine_target' for row in result['rows']))
+            predictions[core.observation_key(extra)]=extra
+            self.submit(run,meta,job,[dict(extra,outcome='passed')])
+            self.assertEqual(core.score(run)['machine_targets']['status'],'failed')
+        for kwargs in (dict(mode='ai'),dict(mode='machine',kind='screen-reader'),dict(mode='machine',defer=True)):
+            other,*_=self.make_run(**kwargs)
+            self.assertEqual(core.score(other)['machine_targets']['status'],'not_selected')
 
     def test_false_positives_and_false_negatives_are_both_detected(self):
         run,meta,job,p=self.make_run()
@@ -705,10 +745,16 @@ class ScoringTest(unittest.TestCase):
 
     @unittest.skipUnless(find_spec('PIL'), 'Pillow is optional')
     def test_text_paint_does_not_grade_without_image_mode_or_opt_in(self):
-        for mode, enabled in [('machine', True), ('screen-reader', True), ('ai', False)]:
+        for mode, enabled in [('machine', False), ('screen-reader', True), ('ai', False)]:
             with self.subTest(mode=mode, enabled=enabled):
                 run, _ = self.make_text_paint_run(mode=mode, enabled=enabled)
                 self.assertEqual(core.score(run)['rows'][0]['grade'], 'not_evaluated')
+
+    @unittest.skipUnless(find_spec('PIL'), 'Pillow is optional')
+    def test_text_paint_can_score_machine_evidence_without_ai(self):
+        run,_=self.make_text_paint_run(mode='machine')
+        row=core.score(run)['rows'][0]
+        self.assertEqual((row['method'],row['grade']),('program','correct'))
 
     @unittest.skipUnless(find_spec('PIL'), 'Pillow is optional')
     def test_text_paint_frozen_image_tampering_is_rejected(self):
@@ -717,11 +763,11 @@ class ScoringTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, '変更された'):
             core.score(run)
 
-    def test_text_paint_opt_in_cannot_be_added_to_resume_or_machine(self):
+    def test_text_paint_opt_in_cannot_be_added_to_resume_or_screen_reader(self):
         from benchmarks import runner
 
-        with self.assertRaisesRegex(ValueError, 'ai又はfull'), patch('benchmarks.runner.server') as server:
-            runner.collect(Path(self.temp.name)/'machine', criterion=['1.4.3'], selected_modes=['machine'], text_paint=True)
+        with self.assertRaisesRegex(ValueError, '--text-paint'), patch('benchmarks.runner.server') as server:
+            runner.collect(Path(self.temp.name)/'screen-reader', criterion=['1.4.3'], selected_modes=['screen-reader'], text_paint=True)
         server.assert_not_called()
         run, meta, _, _ = self.make_run(mode='ai', point='1.4.3-02')
         meta.update(implementation_digest=runner.implementation_digest(), environment={'unit': 'environment'})

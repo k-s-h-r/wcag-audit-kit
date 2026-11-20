@@ -17,7 +17,7 @@ sys.path.insert(0,str(RUNTIME/'scripts'))
 import audit
 import verification_modes as modes
 import state_labels
-from . import case_contracts, inactive_control_probe, status_capture, text_paint_evidence
+from . import case_contracts, dialog_focus_evidence, inactive_control_probe, status_capture, text_paint_evidence
 
 
 def load(path):return json.loads(Path(path).read_text())
@@ -82,6 +82,7 @@ def corpus(root=None):
             case_contracts.validate(case)
             state_labels.public_specs(case['states'])
             status_capture.plans(sc, case['checkpoints'], case['states'])
+            dialog_focus_evidence.plans(sc, case['checkpoints'], case['states'])
             text_paint_evidence.target(sc, case['checkpoints'], case['states'])
             inactive_control_probe.target(sc, case['checkpoints'], case['states'])
             for point,aliases in case.get('target_aliases',{}).items():
@@ -104,6 +105,49 @@ def corpus(root=None):
         suites.append(value)
     if not suites:raise ValueError('検証用のsuiteがない')
     return {'schema_version':'1','suites':suites,'public_files':files,'digest':digest({'suites':suites,'public_files':files})}
+
+
+def verification_group(expectation):
+    kind = expectation['evidence_kind']
+    if kind == 'program':
+        return 'machine_target' if expectation['modes']['machine'] == 'evaluate' else 'machine_deferred'
+    if kind in {'semantic', 'visual-semantic'}:
+        return 'content_review'
+    return kind
+
+
+def expectation_inventory(corpus):
+    for suite in corpus['suites']:
+        for case in suite['cases']:
+            for expectation in case['expectations']:
+                yield dict(expectation, criterion=suite['criterion'], case=case['id'],
+                           verification_group=verification_group(expectation),
+                           requires_environment=case.get('requires_environment', []))
+
+
+def observation_grade(outcome, expected, required):
+    if outcome in {'passed', 'failed', 'inapplicable'}:
+        return 'correct' if outcome == expected else 'incorrect'
+    return 'not_evaluated' if required else 'deferred'
+
+
+def machine_target_summary(rows, extras):
+    targets = [row for row in rows if row['machine_grade']]
+    counts = Counter(row['machine_grade'] for row in targets)
+    failures = [row for row in targets if row['expected'] == 'failed']
+    unexpected = len(extras)
+    if counts['incorrect'] or unexpected:
+        status = 'failed'
+    elif not targets:
+        status = 'not_selected'
+    elif counts['not_evaluated']:
+        status = 'incomplete'
+    else:
+        status = 'clear_for_selected_checks'
+    return dict(status=status, observations=len(targets), known_failures=len(failures),
+                detected_failures=sum(row['machine_grade'] == 'correct' for row in failures),
+                correct=counts['correct'], incorrect=counts['incorrect'],
+                unconfirmed=counts['not_evaluated'], unexpected_findings=unexpected)
 
 
 def observation_key(item):return (item['page'],item['state'],item['target'],item['checkpoint'])
@@ -221,7 +265,7 @@ def record_review(run,value):
         return {'review':path.relative_to(run).as_posix(),'observations':len(observations)}
 
 
-def axe_contrast_observation(node, outcome):
+def axe_contrast_observation(node, outcome, *, enhanced=False):
     """Keep axe's verdict and the measurement for one reported text target."""
     if outcome == 'cant_tell':
         return outcome, node.get('failureSummary') or 'axeがこの対象の文字コントラストを確定できなかった。'
@@ -234,6 +278,14 @@ def axe_contrast_observation(node, outcome):
     if (type(ratio) not in (int, float) or not 1 <= ratio <= 21 or minimum not in ('3:1', '4.5:1')
             or not all(isinstance(data.get(key), str) and data[key].strip() for key in fields)):
         return 'cant_tell', 'axeの対象別の比・比較基準・色・文字サイズ又は太さの証拠が不足している。'
+    if enhanced:
+        if 'shadowColor' not in data or data['shadowColor'] is not None:
+            return 'cant_tell', '影のない文字と背景の測定を確認できない。'
+        # axe truncates the ratio to hundredths. Both AAA thresholds fall
+        # exactly on that boundary, so truncation preserves the comparison.
+        threshold = {'3:1': 4.5, '4.5:1': 7}[minimum]
+        outcome = 'passed' if ratio >= threshold else 'failed'
+        minimum = f'{threshold:g}:1'
     # The numeric ratio in axe output is rounded down for display. Its own
     # verdict uses the unrounded value and the applicable size/weight threshold.
     observed = (f'axeの文字コントラスト比は{ratio}:1、比較基準は{minimum}。'
@@ -246,7 +298,10 @@ def program_predictions(run,job,progress):
     """Decode only observations the production pipeline actually emitted."""
     run=Path(run).resolve()
     result={}
-    rule_map={'image-alt':'1.1.1-01','document-title':'2.4.2-01','color-contrast':'1.4.3-01'}
+    enhanced = '1.4.6-01' in job['checkpoints']
+    contrast_point = '1.4.6-01' if enhanced else '1.4.3-01'
+    rule_map={'image-alt':'1.1.1-01','document-title':'2.4.2-01','html-has-lang':'3.1.1-01',
+              'color-contrast':contrast_point}
     contrast_states = {state['id'] for state in job.get('states', [])}
     for page,receipt in progress['jobs'].get(job['id'],{}).items():
         if receipt['status']!='completed':continue
@@ -269,13 +324,13 @@ def program_predictions(run,job,progress):
                     for rule in raw.get(group,[]):
                         point=rule_map.get(rule['id'])
                         if point not in job['checkpoints']:continue
-                        if point == '1.4.3-01' and state not in contrast_states:continue
+                        if point == contrast_point and state not in contrast_states:continue
                         for target in rule.get('nodes',[]):
                             selectors=target.get('target',[])
                             if len(selectors)!=1 or not isinstance(selectors[0],str):continue
                             actual, observed = outcome, target.get('failureSummary') or target.get('html','')
-                            if point == '1.4.3-01':
-                                actual, observed = axe_contrast_observation(target, outcome)
+                            if point == contrast_point:
+                                actual, observed = axe_contrast_observation(target, outcome, enhanced=enhanced)
                             row=dict(page=page,state=state,target=selectors[0],checkpoint=point,outcome=actual,
                                 method='program',observed=observed,
                                 evidence=proof,source='production axe / '+rule['id'])
@@ -541,33 +596,44 @@ def score(run):
     for name in index['entries']:
         value=load(local(run,name));target=reviews.setdefault(value['job_id'],{})
         for row in value['observations']:target[observation_key(row)]=row
-    rows=[];extras=[];pending_evidence=[];matched_evidence=[]
+    rows=[];extras=[];machine_extras=[];pending_evidence=[];matched_evidence=[]
     frozen=load(run/'integrity.json')['files']
     for job in jobs:
         predicted=program_predictions(run,job,progress)
         predicted.update(inactive_control_probe.predictions(run.resolve(), meta, job, progress, frozen, predicted))
         predicted.update(text_paint_evidence.predictions(run.resolve(), meta, job, progress, frozen))
-        predicted.update(reviews.get(job['id'],{}))
+        predicted.update(dialog_focus_evidence.predictions(run.resolve(), job, progress, frozen))
+        scored={**predicted,**reviews.get(job['id'],{})}
         for contract in oracles[job['id']].get('evidence_expectations',[]):
             point=next(p for p in meta['mode_catalog']['checkpoints'] if p['id']==contract['checkpoint'])
             acquisition = acquisition_result(run.resolve(), job, progress, contract, frozen, point['support'][job['mode']])
             (matched_evidence if acquisition['status'] == 'matched' else pending_evidence).append(acquisition)
         expected=oracles[job['id']]['expectations'];known={observation_key(e) for e in expected}
         for e in expected:
-            key=observation_key(e);actual=predicted.get(key);outcome=actual['outcome'] if actual else 'not_run'
+            key=observation_key(e);actual=scored.get(key);outcome=actual['outcome'] if actual else 'not_run'
+            group=verification_group(e)
+            machine_grade=''
+            if job['mode']=='machine' and group=='machine_target':
+                automatic=predicted.get(key, {})
+                machine_grade=observation_grade(automatic.get('outcome'),e['expected'],True)
             evaluated=outcome in {'passed','failed','inapplicable'};needed=e['modes'][job['mode']]=='evaluate'
-            grade=('correct' if outcome==e['expected'] else 'incorrect') if evaluated else 'not_evaluated' if needed else 'deferred'
+            grade=observation_grade(outcome,e['expected'],needed)
             confusion=''
             if evaluated:
                 confusion=('TP' if outcome=='failed' else 'FN') if e['expected']=='failed' else 'FP' if outcome=='failed' else 'TN'
             rows.append(dict(job_id=job['id'],criterion=job['criterion'],case=job['case'],mode=job['mode'],
                 **{k:e[k] for k in ['page','state','target','checkpoint','expected']},actual=outcome,grade=grade,
-                required=needed,confusion=confusion,rationale=e['rationale'],observed=(actual or {}).get('observed','この観点の確定結果がまだ記録されていません。'),
+                required=needed,evidence_kind=e['evidence_kind'],machine_policy=e['modes']['machine'],
+                verification_group=group,machine_grade=machine_grade,confusion=confusion,rationale=e['rationale'],observed=(actual or {}).get('observed','この観点の確定結果がまだ記録されていません。'),
                 evidence=(actual or {}).get('evidence',[]),method=(actual or {}).get('method',''),
                 source=(actual or {}).get('source',(actual or {}).get('method',''))))
-        for key,prediction in predicted.items():
-            if key not in known and prediction['outcome']=='failed':
-                extras.append(dict(job_id=job['id'],criterion=job['criterion'],mode=job['mode'],**prediction))
+        def unexpected(observations):
+            return [dict(job_id=job['id'],criterion=job['criterion'],mode=job['mode'],**prediction)
+                    for key,prediction in observations.items()
+                    if key not in known and prediction['outcome']=='failed']
+        extras.extend(unexpected(scored))
+        if job['mode']=='machine':
+            machine_extras.extend(unexpected(predicted))
     grade_counts=Counter(r['grade'] for r in rows);confusion=Counter(r['confusion'] for r in rows if r['confusion'])
     confusion['FP']+=len(extras)
     all_criteria=[]
@@ -587,6 +653,7 @@ def score(run):
         environment=meta.get('environment',{}),standard=meta.get('standard','WCAG-2.2'),normative_hashes=meta.get('normative_hashes',{}),
         scorer_digest=digest({name:file_hash(Path(path)) for name,path in {
             'core':__file__, 'state_labels':state_labels.__file__, 'status_capture':status_capture.__file__,
+            'dialog_focus_evidence':dialog_focus_evidence.__file__, 'dialog_focus':RUNTIME/'scripts/dialog_focus.py',
             'text_paint_evidence':text_paint_evidence.__file__, 'text_paint_probe':ROOT/'benchmarks/text_paint_probe.py',
             'text_paint':RUNTIME/'scripts/text_paint.py',
             'measure':RUNTIME/'scripts/measure.py', 'inactive_control_probe':inactive_control_probe.__file__,
@@ -595,6 +662,7 @@ def score(run):
         counts=dict(grade_counts),confusion=dict(confusion),precision_on_evaluated=precision,recall_on_evaluated=recall,
         methods_by_mode={m:dict(Counter(r['method'] for r in rows if r['mode']==m and r['grade'] in {'correct','incorrect'})) for m in meta['modes']},
         detected_known_failures=detected,total_known_failures=total_failures,undetected_known_failures=total_failures-detected,
+        machine_targets=machine_target_summary(rows,machine_extras),machine_unexpected_findings=machine_extras,
         rows=rows,unexpected_findings=extras,criteria=all_criteria,pending_evidence_contracts=pending_evidence,
         matched_evidence_contracts=matched_evidence,
         notice_evidence='取得の一致・未確認を別表に記録します。必要な取得期待が残る実行は未完了とします。取得の一致は達成基準の適合判定に含めません。',

@@ -50,6 +50,18 @@ class ContrastPredictionTest(unittest.TestCase):
         self.job['checkpoints'] = ['1.4.3-02']
         self.assertEqual(self.predict('violations', self.data(2.32, '4.5:1')), {})
 
+    def test_enhanced_threshold_uses_measured_text_and_holds_unverified_shadows(self):
+        self.job['checkpoints'] = ['1.4.6-01']
+        key = ('p.html', 'initial', '#text', '1.4.6-01')
+        for minimum, threshold in [('4.5:1', 7), ('3:1', 4.5)]:
+            below = dict(self.data(threshold - .01, minimum), shadowColor=None)
+            at = dict(self.data(threshold, minimum), shadowColor=None)
+            self.assertEqual(self.predict('passes', below)[key]['outcome'], 'failed')
+            self.assertEqual(self.predict('passes', at)[key]['outcome'], 'passed')
+            self.assertIn(f'{threshold:g}:1', self.predict('passes', below)[key]['observed'])
+            self.assertEqual(self.predict('passes', dict(at, shadowColor='#ffffff'))[key]['outcome'], 'cant_tell')
+            self.assertEqual(self.predict('passes', self.data(threshold, minimum))[key]['outcome'], 'cant_tell')
+
     def test_enabled_state_requires_matching_route_condition_and_evidence(self):
         route = [{'type': 'click', 'selector': '#enable'}]
         self.job['states'] = [{'id': 'enabled', 'actions': route,

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>予約の確認</title>
+<main>
+  <h1>予約の確認</h1>
+  <button type="button" id="start">案内の先頭</button>
+  <button type="button" id="earlier">前の案内</button>
+  <button type="button" id="launch">予約内容を開く</button>
+  <button type="button" id="next">次の案内</button>
+  <dialog id="notice" aria-labelledby="notice-title">
+    <h2 id="notice-title">予約内容</h2>
+    <p>受付は午前9時からです。</p>
+    <button type="button" id="dismiss">閉じる</button>
+  </dialog>
+</main>
+<script>
+const notice = document.getElementById('notice');
+document.getElementById('launch').addEventListener('click', () => notice.showModal());
+document.getElementById('dismiss').addEventListener('click', () => notice.close());
+notice.addEventListener('close', () => {
+  const start = document.getElementById('start');
+  start.focus();
+  start.blur();
+});
+</script>
+</html>
