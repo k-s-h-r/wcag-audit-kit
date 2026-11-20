@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.2.2",
-  "version": "2",
+  "version": "3",
   "review": "author-defined",
   "sources": [
     "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html",
@@ -33,7 +33,12 @@
               "type": "click",
               "selector": "#play"
             }
-          ]
+          ],
+          "residual_probe": {
+            "target": "#media",
+            "captions": "#captions",
+            "play": "#play"
+          }
         }
       ],
       "expectations": [
@@ -84,7 +89,12 @@
               "type": "click",
               "selector": "#play"
             }
-          ]
+          ],
+          "residual_probe": {
+            "target": "#media",
+            "captions": "#captions",
+            "play": "#play"
+          }
         }
       ],
       "expectations": [

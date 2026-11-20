@@ -16,6 +16,7 @@ def print_summary(files, result):
     summary = dict(files=files, selected_checks_status=result['selected_checks_status'],
                    overall_status=result['overall_status'], counts=result['counts'],
                    machine_targets=result['machine_targets'],
+                   residual_probes_only=result.get('residual_probes_only',False),
                    pending_evidence_contracts=len(result.get('pending_evidence_contracts', [])),
                    matched_evidence_contracts=len(result.get('matched_evidence_contracts', [])))
     print(json.dumps(summary, ensure_ascii=False, indent=2))
@@ -28,6 +29,7 @@ def main(argv=None):
     p.add_argument('--criterion',action='append',choices=list(core.audit.CRITERIA));p.add_argument('--port',type=int,default=0);p.add_argument('--resume',action='store_true')
     p.add_argument('--text-paint',action='store_true',help='machine/ai/fullの指定済み静的文字に、通常検査と別枠で最大7枚を使う')
     p.add_argument('--machine-targets',action='store_true',help='機械検出対象のあるケースに絞る')
+    p.add_argument('--residual-only',action='store_true',help='公開操作条件のある観点をブラウザー計測だけで採点する')
     for name in ['serve','score','import','attach','task']:
         p=sub.add_parser(name);p.add_argument('--run',required=True)
         if name in {'import','attach'}:p.add_argument('--file',required=True)
@@ -57,7 +59,8 @@ def main(argv=None):
         if args.command=='collect':
             selected=list(core.modes.MODES) if args.mode=='all' else [args.mode] if args.mode else None
             result=runner.collect(Path(args.out),criterion=args.criterion,selected_modes=selected,port=args.port,
-                                  resume=args.resume,text_paint=args.text_paint,machine_targets=args.machine_targets)
+                                  resume=args.resume,text_paint=args.text_paint,machine_targets=args.machine_targets,
+                                  residual_only=args.residual_only)
             files=reporting.write(Path(args.out),result)
             print_summary(files, result)
             return 0

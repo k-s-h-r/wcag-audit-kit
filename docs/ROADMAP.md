@@ -86,7 +86,7 @@ G1はT001で事前に選んだ機械検査10行で達成した。T010では指�
 
 [T009](tasks/T009-machine-gap.md)では、操作後の表示、フォーカス、コントラストに加え、ポインターを離したときに開く部品の入れ子を検査した。1.3.1の見出し・リスト候補もページ別帳票へ追加した。[再実行方法](adr/0041-discover-inline-pointer-release.md)
 
-問題集の機械検出対象は81観点。74ページを実行し、問題8/36件を検出、対照15/45件が一致した。次は自動採点で未確認の観点について、既存の機械証拠を結びつけられるか、公開した操作・計測手順を追加する必要があるかを確認する。[T009の採点結果](tasks/T009-machine-gap.md#問題集の機械検出対象を採点する) [ADR 0071](adr/0071-track-benchmark-machine-detection-targets.md)
+問題集の機械検出対象87観点を76ページで実行した。問題39件をすべて検出し、正常・対象外の対照48件もすべて一致した。前回確認が残った記録7件は、メニュー操作のフォーカス、Tab前後のURL、文章中のリンクの寸法を再実行してすべて照合した。対象4基準の機械判定31件は前回と一致した。[T007の検証結果](tasks/T007-acquisition-scoring.md#メニューのフォーカスtab前後のurl文中リンクの寸法)[T009の採点結果](tasks/T009-machine-gap.md#未確認だった58観点のブラウザー計測) [ADR 0074](adr/0074-score-bounded-browser-measurements.md)
 
 [T011](tasks/T011-ai-residual-review.md)で実証したタイトルの観点を[T014](tasks/T014-site-acceptance.md)で別のページに適用した。本文から先に主題と目的を取得する再試験で、題名との不一致を確認した。図は、実際に表示された案内図の方向と代替文を照合した。[ADR 0053](adr/0053-observe-chart-before-assessing-alternatives.md) [ADR 0055](adr/0055-observe-title-topic-and-purpose-separately.md) [ADR 0056](adr/0056-score-a-blind-site-exercise-with-observed-evidence.md)
 
@@ -96,7 +96,7 @@ T014で見つかったスキップリンクの誤検出は、生成セレクタ�
 
 1.3.1は、指定領域の見出し・リスト・簡単な表を画面上の配置から拾い、Chromiumが認識した役割を帳票に出す。カードの枠と独立した記事の役割がそろう例を使い、同じ見た目の表候補を絞り込んだ。[ADR 0062](adr/0062-compare-visual-structure-with-browser-roles.md) [ADR 0064](adr/0064-use-framed-articles-to-narrow-table-candidates.md) [Issue #29](https://github.com/k-s-h-r/wcag-audit-kit/issues/29)
 
-Escapeとボタンの実入力でモーダルを閉じた直後と、次のTabのフォーカスを自動探索で観測できる。2.4.3の単一ダイアログの対照は、クリック・Enter・Spaceの証拠から採点する。次は入れ子のダイアログやメニューの経路について、同じように状態と証拠を照合できる範囲を調べる。[ADR 0073](adr/0073-score-dialog-focus-benchmark-routes.md) [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
+Escapeとボタンの実入力でモーダルを閉じた直後と、次のTabのフォーカスを自動探索で観測できる。2.4.3の単一ダイアログの対照は、クリック・Enter・Spaceの証拠から採点する。入れ子のダイアログとメニューの経路にも状態と証拠の照合を追加した。[ADR 0073](adr/0073-score-dialog-focus-benchmark-routes.md) [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
 
 機械検査の報告では、キーボード経路の実行エラーと、実Tabで対象へ到達できなかった結果を分ける。指定経路の実Tab後に現れる単色の枠は、背景ごとのコントラスト比を機械モードで報告できる。次にこの測定を広げるときは、複数色をまたぐ枠の比較箇所と回帰条件を整理する。[ADR 0058](adr/0058-separate-keyboard-route-errors-from-results.md) [ADR 0059](adr/0059-measure-adjacent-focus-outline-colors.md) [Issue #59](https://github.com/k-s-h-r/wcag-audit-kit/issues/59)
 

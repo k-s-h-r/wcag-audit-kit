@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "4.1.2",
-  "version": "3",
+  "version": "4",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/4.1.2.md",
@@ -22,7 +22,11 @@
           "id": "after-open",
           "instructions": [
             "展開ボタンの名前・役割と開閉後の状態を取得する。"
-          ]
+          ],
+          "residual_probe": {
+            "target": "#subject",
+            "controlled": "#panel"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -57,7 +61,11 @@
           "id": "after-open",
           "instructions": [
             "展開ボタンの名前・役割と開閉後の状態を取得する。"
-          ]
+          ],
+          "residual_probe": {
+            "target": "#subject",
+            "controlled": "#panel"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",

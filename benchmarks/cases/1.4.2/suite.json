@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.4.2",
-  "version": "1",
+  "version": "2",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/1.4.2.md",
@@ -22,7 +22,11 @@
           "id": "during-playback",
           "instructions": [
             "自動再生が許可されたブラウザーで3秒超の音声と制御を確認する。"
-          ]
+          ],
+          "residual_probe": {
+            "target": "#subject",
+            "region": "main"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -57,7 +61,11 @@
           "id": "during-playback",
           "instructions": [
             "自動再生が許可されたブラウザーで3秒超の音声と制御を確認する。"
-          ]
+          ],
+          "residual_probe": {
+            "target": "#subject",
+            "region": "main"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",

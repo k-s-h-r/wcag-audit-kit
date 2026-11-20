@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "2.2.1",
-  "version": "2",
+  "version": "3",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/2.2.1.md",
@@ -95,7 +95,13 @@
           "id": "extension-path",
           "instructions": [
             "入力を開始し、警告が出てから期限までの時間を測る。警告からの延長を少なくとも10回試す。使った時計方式も記録する。"
-          ]
+          ],
+          "residual_probe": {
+            "target": "#subject",
+            "start": "#start",
+            "warning": "#warning",
+            "extend": "#extend"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -174,7 +180,13 @@
           "id": "extension-path",
           "instructions": [
             "入力を開始し、警告が出てから期限までの時間を測る。警告からの延長を少なくとも10回試す。使った時計方式も記録する。"
-          ]
+          ],
+          "residual_probe": {
+            "target": "#subject",
+            "start": "#start",
+            "warning": "#warning",
+            "extend": "#extend"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
