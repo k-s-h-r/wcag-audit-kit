@@ -17,7 +17,7 @@ sys.path.insert(0,str(RUNTIME/'scripts'))
 import audit
 import verification_modes as modes
 import state_labels
-from . import case_contracts, dialog_focus_evidence, inactive_control_probe, status_capture, text_paint_evidence
+from . import case_contracts, dialog_focus_evidence, inactive_control_probe, residual_evidence, status_capture, text_paint_evidence
 
 
 def load(path):return json.loads(Path(path).read_text())
@@ -83,6 +83,7 @@ def corpus(root=None):
             state_labels.public_specs(case['states'])
             status_capture.plans(sc, case['checkpoints'], case['states'])
             dialog_focus_evidence.plans(sc, case['checkpoints'], case['states'])
+            residual_evidence.plans(sc, case['checkpoints'], case['states'])
             text_paint_evidence.target(sc, case['checkpoints'], case['states'])
             inactive_control_probe.target(sc, case['checkpoints'], case['states'])
             for point,aliases in case.get('target_aliases',{}).items():
@@ -598,17 +599,25 @@ def score(run):
         for row in value['observations']:target[observation_key(row)]=row
     rows=[];extras=[];machine_extras=[];pending_evidence=[];matched_evidence=[]
     frozen=load(run/'integrity.json')['files']
+    residual_only=meta.get('residual_probes_only',False)
     for job in jobs:
-        predicted=program_predictions(run,job,progress)
-        predicted.update(inactive_control_probe.predictions(run.resolve(), meta, job, progress, frozen, predicted))
-        predicted.update(text_paint_evidence.predictions(run.resolve(), meta, job, progress, frozen))
-        predicted.update(dialog_focus_evidence.predictions(run.resolve(), job, progress, frozen))
+        predicted={}
+        if not residual_only:
+            predicted=program_predictions(run,job,progress)
+            predicted.update(inactive_control_probe.predictions(run.resolve(), meta, job, progress, frozen, predicted))
+            predicted.update(text_paint_evidence.predictions(run.resolve(), meta, job, progress, frozen))
+            predicted.update(dialog_focus_evidence.predictions(run.resolve(), job, progress, frozen))
+        predicted.update(residual_evidence.predictions(run.resolve(), job, progress, frozen))
         scored={**predicted,**reviews.get(job['id'],{})}
-        for contract in oracles[job['id']].get('evidence_expectations',[]):
+        contracts=[] if residual_only else oracles[job['id']].get('evidence_expectations',[])
+        for contract in contracts:
             point=next(p for p in meta['mode_catalog']['checkpoints'] if p['id']==contract['checkpoint'])
             acquisition = acquisition_result(run.resolve(), job, progress, contract, frozen, point['support'][job['mode']])
             (matched_evidence if acquisition['status'] == 'matched' else pending_evidence).append(acquisition)
-        expected=oracles[job['id']]['expectations'];known={observation_key(e) for e in expected}
+        expected=oracles[job['id']]['expectations']
+        if residual_only:
+            expected=[e for e in expected if residual_evidence.selected(job,e) and verification_group(e)=='machine_target']
+        known={observation_key(e) for e in expected}
         for e in expected:
             key=observation_key(e);actual=scored.get(key);outcome=actual['outcome'] if actual else 'not_run'
             group=verification_group(e)
@@ -649,11 +658,12 @@ def score(run):
     recall=confusion['TP']/(confusion['TP']+confusion['FN']) if confusion['TP']+confusion['FN'] else None
     status='failed' if grade_counts['incorrect'] or extras else 'incomplete' if grade_counts['not_evaluated'] or any(c['status']=='not_evaluated' for c in pending_evidence) else 'clear_for_selected_checks'
     return dict(schema_version='1',run_id=meta['run_id'],corpus_digest=meta['corpus_digest'],modes=meta['modes'],
-        selection=meta['selection'],configuration=meta['configuration'],implementation_digest=meta['implementation_digest'],
+        selection=meta['selection'],configuration=meta['configuration'],residual_probes_only=meta.get('residual_probes_only',False),implementation_digest=meta['implementation_digest'],
         environment=meta.get('environment',{}),standard=meta.get('standard','WCAG-2.2'),normative_hashes=meta.get('normative_hashes',{}),
         scorer_digest=digest({name:file_hash(Path(path)) for name,path in {
             'core':__file__, 'state_labels':state_labels.__file__, 'status_capture':status_capture.__file__,
             'dialog_focus_evidence':dialog_focus_evidence.__file__, 'dialog_focus':RUNTIME/'scripts/dialog_focus.py',
+            **{p.stem:p for p in Path(__file__).parent.glob('residual_*.py')},
             'text_paint_evidence':text_paint_evidence.__file__, 'text_paint_probe':ROOT/'benchmarks/text_paint_probe.py',
             'text_paint':RUNTIME/'scripts/text_paint.py',
             'measure':RUNTIME/'scripts/measure.py', 'inactive_control_probe':inactive_control_probe.__file__,
@@ -666,10 +676,12 @@ def score(run):
         rows=rows,unexpected_findings=extras,criteria=all_criteria,pending_evidence_contracts=pending_evidence,
         matched_evidence_contracts=matched_evidence,
         notice_evidence='取得の一致・未確認を別表に記録します。必要な取得期待が残る実行は未完了とします。取得の一致は達成基準の適合判定に含めません。',
-        notice='作成者が定めた有限の確認観点の採点です。独立した専門家による正解確認は未実施です。未実施・モードによる省略・未整備の基準を成功に数えません。検出率は評価できた範囲と全問題の未検出数を併記します。')
+        notice=('公開の操作条件に対応するブラウザー計測の採点です。' if residual_only else '')+'作成者が定めた有限の確認観点の採点です。独立した専門家による正解確認は未実施です。未実施・モードによる省略・未整備の基準を成功に数えません。検出率は評価できた範囲と全問題の未検出数を併記します。')
 
 
 def compare(baseline,current):
+    if baseline.get('residual_probes_only',False) != current.get('residual_probes_only',False):
+        raise ValueError('計測のみの実行は同じ範囲の実行と比較する')
     for field in ['schema_version','corpus_digest','modes','selection','configuration','scorer_digest','environment','standard','normative_hashes']:
         if baseline.get(field)!=current.get(field):raise ValueError('比較条件が異なる: '+field+'。同じ問題集・モード・設定・採点器で比較する')
     before={ (r['job_id'],*observation_key(r)):r for r in baseline['rows']}
