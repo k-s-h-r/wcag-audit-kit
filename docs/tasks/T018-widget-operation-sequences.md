@@ -18,6 +18,16 @@
 
 操作候補、経路の優先順位、入力とフォーカスの記録を担当する。canonicalの `page_explorer.py`、`page_explorer.js` を変更する場合は同期先も更新する。T019と同じファイルを編集する場合は、先に扱う経路と合流順を決める。証拠は新規runへ保存する。
 
+## コンボボックスの展開・選択・取消
+
+`8131428` を起点に `codex/t018-editable-combobox-keys` の別worktreeで実装した。Chromiumで、URLだけを指定して4.1.2の既存の正常例と問題例を比較した。 [ADR 0080](../adr/0080-follow-editable-combobox-keys.md)
+
+PC幅・スマホ相当幅の両方で、ArrowDown後の候補表示と展開状態を照合した。正常例は `aria-expanded="true"`、問題例は候補が見える状態でも `false` だった。選択で入力値が変わること、Escapeで値が保たれること、フォーカスが入力欄に残ることを両例で記録した。透明な候補一覧からは展開状態の判定を出さない。判定と対象はJSON・HTML・Excelで照合した。
+
+既存8ページを同じ24ステップで比較した。コンボボックスの4件は簡易・通常探索ともに経路未確認から期待との一致に変わった。簡易探索は24件中16件、通常探索は24件中8件が一致した。選択や取消に関する達成基準全体の適否は、操作の観察から個別に確認する。
+
+次は、アコーディオンで「開く→中へTab→閉じる」をキーだけで再現し、閉じた直後のフォーカスを確認する。
+
 ## 3階層メニューの展開と直後のTab
 
 [PR #76](https://github.com/k-s-h-r/wcag-audit-kit/pull/76)の計測とタスク記録を起点に、`codex/t018-keyboard-menu-expansion` の別worktreeで実装した。ローカルHTTPサーバーから2.4.3の既存の問題例と対照例を配信し、Chromiumで両幅を確認した。証拠は新規runに保存した。 [PR #77](https://github.com/k-s-h-r/wcag-audit-kit/pull/77) · [ADR 0078](../adr/0078-continue-keyboard-paths-after-duplicate-states.md)

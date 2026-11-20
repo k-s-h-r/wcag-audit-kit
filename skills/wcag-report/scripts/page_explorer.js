@@ -98,6 +98,28 @@
       document_start: performance.timeOrigin, url: location.href
     };
   };
+  window.__wcagCombobox = input => {
+    const id = input.getAttribute('aria-controls')?.trim();
+    const root = input.getRootNode();
+    if (!id || /\s/.test(id) || input.getAttribute('role') !== 'combobox' || !document.hasFocus()) return null;
+    const panels = root.querySelectorAll('#' + CSS.escape(id));
+    if (panels.length > 1 || (panels[0] && panels[0].getAttribute('role') !== 'listbox')) return null;
+    const panel = panels[0];
+    const bounds = panel?.getBoundingClientRect();
+    const shown = !!panel && visible(panel) &&
+      panel.checkVisibility?.({opacityProperty: true, visibilityProperty: true, contentVisibilityAuto: true}) !== false &&
+      bounds.right > 0 && bounds.bottom > 0 && bounds.left < innerWidth && bounds.top < innerHeight;
+    const active = input.getAttribute('aria-activedescendant');
+    const options = panel && active ? root.querySelectorAll('#' + CSS.escape(active)) : [];
+    const option = options.length === 1 ? options[0] : null;
+    return {
+      document: performance.timeOrigin, url: location.href, panel_id: id,
+      visible: shown, expanded: input.getAttribute('aria-expanded'),
+      active_option: shown && option && panel.contains(option) && option.matches('[role=option]') && visible(option)
+        ? selector(option) : null,
+      focused: input === root.activeElement, value: input.type === 'password' ? null : input.value
+    };
+  };
   const relationAttributes = new Set(['aria-controls', 'aria-owns', 'aria-labelledby',
     'aria-describedby', 'aria-activedescendant', 'aria-details', 'aria-errormessage', 'for']);
   const nameAttributes = new Set(['aria-labelledby', 'aria-describedby', 'aria-errormessage']);

@@ -84,6 +84,8 @@ AIや実スクリーンリーダーには、必要な対象・状態・証拠・
 
 1ページの機械検査は、URLだけで操作を発見する範囲の計測、部品ごとの開閉・キーボード経路の改善、操作後の差分再検査の順で進める。各作業の開始条件と試験は [T017〜T019](tasks/README.md#現在は1ページの機械検査を優先する) に記録する。
 
+入力欄のコンボボックスは、ArrowDownで候補を表示し、候補の選択と取消まで実キーで確認する。表示と展開状態が一致しない場合は機械検査で検出する。 [T018](tasks/T018-widget-operation-sequences.md#コンボボックスの展開選択取消) · [ADR 0080](adr/0080-follow-editable-combobox-keys.md)
+
 URLだけで既存の8ページを調べた。両探索を最大24ステップに揃えると、操作後の判定は簡易探索で24件中12件、通常探索で4件が期待と一致した。3階層メニューではクリックとキーの経路を別に進め、コンボボックスでは開くキーを候補に含める。 [T017の内訳](tasks/T017-url-only-exploration.md#実測結果) · [ADR 0077](adr/0077-measure-url-only-operation-exploration.md)
 
 3階層メニューの改善では、クリックで同じ画面へ到達していても、Enterで開いた経路から次の階層とTabを調べる。開いた後とTab後のフォーカスを記録する。 [T018](tasks/T018-widget-operation-sequences.md#3階層メニューの展開と直後のtab) · [ADR 0078](adr/0078-continue-keyboard-paths-after-duplicate-states.md)

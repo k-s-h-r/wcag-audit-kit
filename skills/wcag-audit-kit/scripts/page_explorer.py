@@ -20,6 +20,7 @@ import focus_occlusion
 import hover_checks
 import keyboard_checks
 import keyboard_frames
+import combobox
 import operation_impact
 import state_labels
 import text_paint
@@ -69,6 +70,8 @@ def actions(control, focused_tab=None):
         keys = (*HORIZONTAL_TAB_ARROWS, 'Enter', 'Space', 'ArrowDown', 'ArrowUp', 'Home', 'End', 'Escape')
         result.extend(dict(base, type='key', key=key) for key in keys)
     elif tag in {'input','textarea'} and kind not in {'checkbox','radio','button','reset','submit','image'}:
+        if combobox.editable(control):
+            result.insert(0, dict(base, type='key', key='ArrowDown'))
         result += [dict(base,type='fill',value='audit@example.invalid' if kind=='email' else 'Accessibility audit'),
                    dict(base,type='fill',value='')]
     else:
@@ -263,7 +266,7 @@ def keyboard_opening_key(edge):
 
 
 def queue_state_actions(value, node, data, env, queued, done, *, quick=False, parent=None, max_depth=30,
-                        keyboard_continuation=False, repeated_state=False):
+                        keyboard_continuation=False, repeated_state=False, combo_record=None):
     route = node['route']
     capture_key = node['capture']
     env_id = env['id']
@@ -274,7 +277,7 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
     pending = sum(job['environment'] == env_id and bool(job['route']) and job['route'] != route
                   for job in value['queue'])
 
-    def enqueue(action, *, dialog_focus=None, newly_available=False, keyboard_followup=False):
+    def enqueue(action, *, dialog_focus=None, newly_available=False, keyboard_followup=False, combo_open=False, combo_panel=None):
         nonlocal pending
         path = route + [action]
         ident = json.dumps([env_id, path], sort_keys=True)
@@ -296,9 +299,18 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             job['newly_available'] = True
         if keyboard_followup:
             job['keyboard_followup'] = True
+        if combo_open or combo_panel is not None:
+            job['combobox_check'] = True
+            job['combobox_panel'] = combo_panel
         value['queue'].append(job)
         queued.add(ident)
         pending += 1
+
+    if combo_record and combo_record.get('followups'):
+        opener = route[-1]['selector']
+        for key in combo_record['followups']:
+            action = {'type': 'key', 'selector': opener, 'key': key, 'focused_only': True}
+            enqueue(action, keyboard_followup=True, combo_panel=combo_record['after']['panel_id'])
 
     if data['modal'] and not repeated_state:
         enqueue({'type': 'press', 'selector': 'body', 'key': 'Escape'}, dialog_focus='escape')
@@ -325,10 +337,12 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
         newly_available = quick and bool(route) and selector not in previous_controls
         for action in candidates:
             followup = keyboard_continuation and new_opener and action['type'] == 'key'
-            if repeated_state and not followup:
+            combo_open = combobox.editable(control) and action.get('key') == 'ArrowDown'
+            if (repeated_state and not followup) or (combo_open and selector in previous_controls):
                 continue
             phase = 'button' if control.get('buttonInModal') and dialog_focus.activation(action) else None
-            enqueue(action, dialog_focus=phase, newly_available=newly_available, keyboard_followup=followup)
+            enqueue(action, dialog_focus=phase, newly_available=newly_available,
+                    keyboard_followup=followup or combo_open, combo_open=combo_open)
 
     if keyboard_continuation:
         enqueue({'type': 'press', 'selector': 'body', 'key': 'Tab'}, keyboard_followup=True)
@@ -395,7 +409,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
     visual_scope = config.get('visual_structure_scope')
     observe_explored_structure = config.get('visual_structure_states') == 'explored'
     sources = [Path(path).read_text() for path in (
-        __file__, keyboard_checks.__file__, keyboard_frames.__file__, hover_checks.__file__, dialog_focus.__file__,
+        __file__, combobox.__file__, keyboard_checks.__file__, keyboard_frames.__file__,
+        hover_checks.__file__, dialog_focus.__file__,
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
         visual_structure.__file__, operation_impact.__file__, ROOT/'vendor/axe.min.js')]
     implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
@@ -540,6 +555,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 frame_scope=keyboard_frames.FrameScope(page, check.get('frame') if check else None)
                 error=None;data=None;native_events=[];settling=[]
                 action_index = unreachable_step = None
+                combo_record = dict(key=route[-1]['key'], before=None, after=None) if job.get('combobox_check') else None
                 key_effect = {}
                 before_operation = None
                 impact = None
@@ -616,6 +632,15 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             if capture_action:
                                 await images.capture(page, dest/'action-before.png', kind='action-before',
                                                      label=action_label, best_effort=True)
+                            observe_combo = combo_record is not None and action_index == len(route)
+                            if observe_combo:
+                                before_combo = await combobox.observe(page, action['selector'])
+                                combo_record['before'] = before_combo
+                                if job['combobox_panel'] is not None and (
+                                    not before_combo or not before_combo['visible'] or not before_combo['focused']
+                                    or before_combo['panel_id'] != job['combobox_panel']
+                                ):
+                                    raise ValueError('キー入力の前に同じコンボボックスの候補を再現できない。')
                             if quick and action_index == len(route):
                                 before_operation, document_start = await page.evaluate("""() => {
                                     const before = window.__wcagExplore('before');
@@ -624,11 +649,13 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 }""")
                                 operation_impact.compact(before_operation)
                             observe_key = (action_index == len(route) and action['type'] == 'key'
-                                           and all(step['type'] in {'key', 'press'} for step in route))
+                                           and (observe_combo or all(step['type'] in {'key', 'press'} for step in route)))
                             settling.append(await perform(page, action, observer=observer,
                                                          key_effect=key_effect if observe_key else None))
                             if dialog_observation:
                                 await dialog_observation.after(action_index, action)
+                            if observe_combo:
+                                combo_record['after'] = await combobox.observe(page, action['selector'])
                             if capture_action and not blocked and not native_events:
                                 await images.capture(page, dest/'action-after.png', kind='action-after',
                                                      label=action_label, best_effort=True)
@@ -755,7 +782,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     edge = dict(job, error=error, blocked_requests=blocked, native_events=native_events)
                     if key_effect:
                         edge['key_effect'] = key_effect
-                    opened_with_key = keyboard_opening(key_effect)
+                    opened_with_key = not combo_record and keyboard_opening(key_effect)
                     quiet_key_route = (not error and not native_events
                                        and all(request.get('telemetry') is True for request in blocked)
                                        and all(wait['status'] == 'quiet' for wait in settling))
@@ -766,6 +793,9 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         edge['focus_after'] = data.get('deep_focus', data['focus']['selector'])
                     if unreachable_step is not None:
                         edge['keyboard_unreachable_step'] = unreachable_step
+                    if combo_record is not None:
+                        combobox.finish(combo_record, quiet_key_route and bool(key_effect))
+                        edge['combobox'] = combo_record
                     if impact is not None:
                         if error and 'axe' not in impact:
                             impact['axe'] = {'mode': 'not_observed'}
@@ -841,11 +871,13 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         for feature in ['frames','canvases','closedRoots']:
                             if data[feature]:value['remaining'].append(f'{capture_key}：{feature}の内部を追加検査する。')
                     node = seen[state_key]
-                    if not initial_only and (new_capture or keyboard_continuation):
+                    if not initial_only and (new_capture or keyboard_continuation or
+                                             combo_record and combo_record.get('followups')):
                         route_node = node if new_capture else dict(node, route=route)
                         queue_state_actions(value, route_node, data, env, queued, done,
                                             quick=quick, parent=parent, max_depth=max_depth,
-                                            keyboard_continuation=keyboard_continuation, repeated_state=not new_capture)
+                                            keyboard_continuation=keyboard_continuation, repeated_state=not new_capture,
+                                            combo_record=combo_record)
                     captured_routes[json.dumps([env['id'], route], sort_keys=True)] = node
                 value['queue'].pop(0);value['remaining']=list(dict.fromkeys(value['remaining']))
                 value['manifest']=manifest

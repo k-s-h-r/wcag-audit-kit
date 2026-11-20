@@ -182,6 +182,11 @@ def machine_checks(run, manifest=None):
                 note='指定した文字列の初期表示での測定。基準の例外や、ほかの文字列・状態は追加確認。'))
             continue
         route=edge['route']
+        if 'combobox' in edge:
+            from combobox import report_row as combo_row
+
+            if row := combo_row(edge['combobox'], edge, scene(route), f'操作経路 {index+1}'):
+                rows.append(row)
         if edge.get('dialog_focus'):
             from dialog_focus import EVIDENCE_FILE, report_row as dialog_row
 

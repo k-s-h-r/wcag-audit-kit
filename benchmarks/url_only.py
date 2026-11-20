@@ -12,6 +12,7 @@ import sys
 if __package__ in (None, ''):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from benchmarks import core, runner
+from combobox import EXPANSION_CHECK
 
 
 # Scoring targets are read after collection. The production CLI receives only the URL
@@ -156,6 +157,13 @@ def score_page(result_root, location, group, expectations, *, url, completed):
                         continue
                     if key_route(edge['route'], actions):
                         result['reached'].append((directory / 'state.json').relative_to(result_root).as_posix())
+                        evidence = directory.relative_to(root).as_posix() + '/transition.json'
+                        for check in checks:
+                            if (group == 'combobox' and check['checkpoint'] == EXPANSION_CHECK
+                                    and check['target'] == row['target'] and check['evidence'] == evidence):
+                                result['verdicts'].append(dict(
+                                    outcome=check['outcome'],
+                                    evidence=(root / evidence).relative_to(result_root).as_posix()))
                     else:
                         result['intermediate'] = 'visible_on_other_route'
             if result['reached']:
