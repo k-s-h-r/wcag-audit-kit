@@ -1,6 +1,6 @@
 # T019 操作後の差分再検査を広げる
 
-状態：PR #75のレビュー待ち。前提：[T017](T017-url-only-exploration.md)の比較結果と、[PR #75](https://github.com/k-s-h-r/wcag-audit-kit/pull/75)の採用。関連：[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)。
+状態：前提のPR #75が採用され、次の実装に着手できる。前提：[T017](T017-url-only-exploration.md)の比較結果と、[PR #75](https://github.com/k-s-h-r/wcag-audit-kit/pull/75)の採用。関連：[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)。
 
 初期画面は全体を検査し、操作の後は変化した場所と、影響を受ける要素を中心に再検査する。PR #75はARIA属性名と正の `tabindex` の検査で、変化のない要素の結果を再利用する。
 

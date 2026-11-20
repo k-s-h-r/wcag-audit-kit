@@ -84,6 +84,26 @@
     const r = e.getBoundingClientRect(), s = getComputedStyle(e);
     return !!(r.width && r.height && s.visibility !== 'hidden' && s.display !== 'none');
   };
+  const deepestActive = root => {
+    let active = root.activeElement;
+    while (active?.shadowRoot?.activeElement) active = active.shadowRoot.activeElement;
+    return active;
+  };
+  window.__wcagDisclosure = (opener, bindFocus) => {
+    const id = opener.getAttribute('aria-controls')?.trim();
+    const root = opener.getRootNode();
+    if (closedRoots || !id || /\s/.test(id) || !document.hasFocus()) return null;
+    const matches = root.querySelectorAll('#' + CSS.escape(id));
+    if (matches.length !== 1 || matches[0] === opener) return null;
+    const panel = matches[0], focus = deepestActive(document);
+    if (!focus || focus.matches('iframe,frame')) return null;
+    if (bindFocus) window.__wcagExpectedInputTarget = focus;
+    return {
+      document: performance.timeOrigin, url: location.href,
+      opener: selector(opener), panel: selector(panel), expanded: opener.getAttribute('aria-expanded'),
+      visible: visible(panel), focus: selector(focus), focus_within: panel.contains(root.activeElement)
+    };
+  };
   const visibleModals = () => [...document.querySelectorAll(
     'dialog:modal, [aria-modal="true"]:is([role="dialog"], [role="alertdialog"])')].filter(visible);
   window.__wcagDialogElementVisible = e => e.isConnected && visible(e);
@@ -170,8 +190,7 @@
         .map(a => [a.name, a.value]).sort(([a], [b]) => a < b ? -1 : Number(a > b))
     }));
     const operation = operationEvidence ? operationSnapshot(all, roots, true) : {};
-    let focused = document.activeElement;
-    while (focused?.shadowRoot?.activeElement) focused = focused.shadowRoot.activeElement;
+    const focused = deepestActive(document);
     if (operationEvidence) operation.operation_focus = focused ? selector(focused) : '';
     if (operationEvidence === 'before') return {...operation, state, url: location.href};
     const horizontalTab = e => {
