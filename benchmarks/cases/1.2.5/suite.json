@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "1.2.5",
-  "version": "2",
+  "version": "3",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/1.2.5.md",
@@ -95,7 +95,11 @@
           "id": "after-select",
           "instructions": [
             "音声解説を選択し、実際に再生する動画・音声が切り替わるか確認する。全区間を再生する。"
-          ]
+          ],
+          "residual_probe": {
+            "target": "#subject",
+            "select": "#describe"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -147,7 +151,11 @@
           "id": "after-select",
           "instructions": [
             "音声解説を選択し、実際に再生する動画・音声が切り替わるか確認する。全区間を再生する。"
-          ]
+          ],
+          "residual_probe": {
+            "target": "#subject",
+            "select": "#describe"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
