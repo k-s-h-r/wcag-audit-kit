@@ -20,6 +20,7 @@ import focus_occlusion
 import hover_checks
 import keyboard_checks
 import keyboard_frames
+import operation_impact
 import state_labels
 import text_paint
 import visual_structure
@@ -39,6 +40,8 @@ def fingerprint(value):
     keys=('selector','tag','role','type','formAssociated','href','label','tabIndex','haspopup','horizontalTab')
     controls=[dict({k:c.get(k) for k in keys},events=sorted(set(c.get('events',[])))) for c in value.get('controls',[])]
     state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
+    if references := value.get('operation_reference_inputs'):
+        state['reference_inputs'] = references
     if shape := value.get('visual_structure_shape'):
         state['visual_structure_shape'] = shape
     if focused_tab := value.get('focused_horizontal_tab'):
@@ -369,7 +372,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
     sources = [Path(path).read_text() for path in (
         __file__, keyboard_checks.__file__, keyboard_frames.__file__, hover_checks.__file__, dialog_focus.__file__,
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
-        visual_structure.__file__)]
+        visual_structure.__file__, operation_impact.__file__, ROOT/'vendor/axe.min.js')]
     implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
     initial_jobs = [{'environment': env['id'], 'route': []} for env in config['environments']]
     declared_jobs = {'keyboard_check': checks, 'hover_check': hover_paths,
@@ -508,6 +511,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 error=None;data=None;native_events=[];settling=[]
                 action_index = unreachable_step = None
                 key_effect = {}
+                before_operation = None
+                impact = None
                 async def dismiss_dialog(dialog):
                     native_events.append({'type':dialog.type,'message':dialog.message,'action':'dismiss'})
                     await dialog.dismiss()
@@ -581,6 +586,13 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             if capture_action:
                                 await images.capture(page, dest/'action-before.png', kind='action-before',
                                                      label=action_label, best_effort=True)
+                            if quick and action_index == len(route):
+                                before_operation, document_start = await page.evaluate("""() => {
+                                    const before = window.__wcagExplore('before');
+                                    window.__wcagBeginOperation();
+                                    return [before, performance.timeOrigin];
+                                }""")
+                                operation_impact.compact(before_operation)
                             observe_key = (action_index == len(route) and action['type'] == 'key'
                                            and all(step['type'] in {'key', 'press'} for step in route))
                             settling.append(await perform(page, action, observer=observer,
@@ -594,7 +606,16 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             raise ValueError('Chromiumのエラー画面を検査範囲から除外した。')
                         label_observations=await state_labels.observe(page,route,labels)
                         matched_labels=state_labels.verified(labels,route,label_observations)
-                        data=await page.evaluate('() => window.__wcagExplore()')
+                        if before_operation is not None:
+                            data, mutations, after_start = await page.evaluate("""() =>
+                                [window.__wcagExplore(true), window.__wcagOperationMutations(), performance.timeOrigin]
+                            """)
+                            operation_impact.compact(data)
+                            impact = operation_impact.difference(before_operation, data, route[-1], mutations,
+                                                                 new_document=document_start != after_start)
+                        else:
+                            data = await page.evaluate('() => window.__wcagExplore(true)')
+                            operation_impact.compact(data)
                         data['observation_wait']=settling
                         data['state_labels']=label_observations
                         inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
@@ -619,6 +640,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                     data['visual_structure_shape'] = shape
                         audit.save(dest/'state.json',data)
                         state_key = (env['id'], fingerprint(data))
+                        if impact is not None and state_key in seen and not matched_labels:
+                            impact['axe'] = {'mode': 'same_state', 'baseline': seen[state_key]['evidence_dir'] + '/axe.json'}
                         if state_key not in seen or matched_labels:
                             if capture_structure:
                                 structure_observation = await visual_structure.observe(
@@ -627,7 +650,23 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             cdp=await context.new_cdp_session(page)
                             audit.save(dest/'accessibility-tree.json',await cdp.send('Accessibility.getFullAXTree'));await cdp.detach()
                             await page.evaluate((ROOT/'vendor/axe.min.js').read_text())
-                            audit.save(dest/'axe.json',await page.evaluate("async()=>await axe.run(document,{resultTypes:['violations','incomplete','passes','inapplicable']})"))
+                            baseline = None
+                            reused = {}
+                            if (impact is not None and not blocked and not native_events
+                                    and all(wait['status'] == 'quiet' for wait in settling)
+                                    and operation_impact.can_reuse(before_operation, data, impact)):
+                                baseline = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True))
+                                if baseline is not None:
+                                    prior_dir = run / baseline['evidence_dir']
+                                    reused = operation_impact.reusable_nodes(
+                                        before_operation, data, audit.load(prior_dir/'state.json'),
+                                        audit.load(prior_dir/'axe.json'), impact)
+                            results, axe_scope = await operation_impact.run_axe(page, data, reused)
+                            audit.save(dest/'axe.json', results)
+                            if impact is not None:
+                                impact['axe'] = axe_scope
+                                if axe_scope['mode'] == 'mixed':
+                                    axe_scope['baseline'] = baseline['evidence_dir'] + '/axe.json'
                             if matched_labels:
                                 current_observations = await state_labels.observe(page, route, labels)
                                 still_matched = state_labels.verified(labels, route, current_observations)
@@ -690,6 +729,10 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         edge['focus_after'] = data['focus']['selector']
                     if unreachable_step is not None:
                         edge['keyboard_unreachable_step'] = unreachable_step
+                    if impact is not None:
+                        if error and 'axe' not in impact:
+                            impact['axe'] = {'mode': 'not_observed'}
+                        audit.save(dest/'operation-impact.json', impact)
                     audit.save(dest/'transition.json', dict(edge, settling=settling))
                     audit.save(dest/'input-events.json',observer.export())
                     await context.close()

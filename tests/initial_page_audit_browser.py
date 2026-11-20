@@ -23,9 +23,29 @@ class Fixture(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self.hits[self.path] += 1
-        self.send_response(200 if self.path in ('/', '/dense') else 404)
+        self.send_response(200 if self.path in ('/', '/dense', '/impact') else 404)
         self.send_header('Content-Type', 'text/html; charset=utf-8')
         self.end_headers()
+        if self.path == '/impact':
+            stable = ''.join(f'<div id="stable-{i}" tabindex="-1" aria-hidden="false">Note {i}</div>'
+                             for i in range(8))
+            self.wfile.write(f"""<!doctype html><html lang="en"><head><title>Accordion</title>
+<style>[aria-expanded=false] + #panel {{ display: none; }}</style></head><body><main><h1>Accordion</h1>
+{stable}<div id="stable-error" aria-mistyped="true" tabindex="-1">Existing issue</div>
+<button id="toggle" type="button" aria-expanded="false" aria-controls="panel">Details</button>
+<section id="panel"><button id="inside" type="button" aria-mistp="true" tabindex="0">Inside</button></section>
+<button id="labelled" type="button" aria-labelledby="label"></button>
+<span id="label" hidden>External name</span>
+<button id="name-only" type="button">Change name</button>
+<script>
+document.querySelector('#toggle').onclick = event => {{
+  const open = event.currentTarget.getAttribute('aria-expanded') === 'false';
+  event.currentTarget.setAttribute('aria-expanded', String(open));
+}};
+let label = document.querySelector('#label');
+document.querySelector('#name-only').onclick = () => label.textContent = label.textContent ? '' : 'External name';
+</script></main></body></html>""".encode())
+            return
         if self.path == '/dense':
             controls = ''.join(f'<button id="item-{i}" onclick="this.hidden=true">Option {i}</button>'
                                for i in range(40))
@@ -100,6 +120,74 @@ def verify_quick_exploration(out, origin):
     assert '未確認の操作' in Path(explored['html']).read_text()
 
 
+
+def verify_operation_impact(out, origin):
+    out.mkdir()
+    url = origin + '/impact'
+    config = audit.init_config(url)
+    config['environments'] = config['environments'][:1]
+    config['keyboard_steps'] = 1
+    config_path = out / 'config.json'
+    audit.save(config_path, config)
+
+    def run(name, quick):
+        path = out / name
+        command = ['page-audit', '--url', url, '--out', str(path), '--config', str(config_path),
+                   '--mode', 'machine', '--screenshots', 'off', '--max-steps', '15']
+        if quick:
+            invoke(command + ['--initial-only'])
+            invoke(command + ['--resume', '--quick-explore'])
+        else:
+            invoke(command + ['--explore'])
+        return audit.run_layout.ledger(path)
+
+    quick = run('quick', True)
+    full = run('full', False)
+
+    def evidence(run, selector, depth=1):
+        edges = page_explorer.status(run)['edges']
+        edge = next(edge for edge in edges if len(edge['route']) == depth and all(
+            step['type'] == 'click' and step['selector'] == selector for step in edge['route']))
+        assert edge['error'] is None, edge
+        return run / edge['evidence_dir']
+
+    def axe_results(path):
+        results = audit.load(path / 'axe.json')
+        return {category: {rule['id']: sorted(tuple(node['target']) for node in rule['nodes'])
+                           for rule in results[category]}
+                for category in ('violations', 'incomplete', 'passes', 'inapplicable')}
+
+    opened = evidence(quick, '#toggle')
+    impact = audit.load(opened / 'operation-impact.json')
+    assert impact['focus']['after'] == '#toggle', impact
+    assert {'#panel', '#inside'} <= set(impact['appeared']), impact
+    assert '#toggle' in impact['changed'] and '#toggle' in impact['mutated'], impact
+    assert impact['axe']['mode'] == 'mixed', impact
+    assert len(impact['axe']['reused']['aria-valid-attr']) == 10, impact
+    assert len(impact['axe']['reused']['tabindex']) == 9, impact
+    assert {tuple(target) for target in impact['axe']['rechecked']['aria-valid-attr']} == {
+        ('#toggle',), ('#inside',)}, impact
+    assert impact['axe']['rechecked']['tabindex'] == [['#inside']], impact
+    results = axe_results(opened)
+    assert results == axe_results(evidence(full, '#toggle')), results
+    assert ('#inside',) in results['violations']['aria-valid-attr']
+    assert ('#stable-error',) in results['violations']['aria-valid-attr']
+    tab = audit.load(opened / 'keyboard.json')
+    assert tab[0]['id'] == 'inside', tab
+
+    closed = evidence(quick, '#toggle', depth=2)
+    impact = audit.load(closed / 'operation-impact.json')
+    assert {'#panel', '#inside'} <= set(impact['disappeared']), impact
+    assert impact['focus']['after'] == '#toggle', impact
+    assert impact['axe']['mode'] == 'same_state', impact
+    assert ('#inside',) not in axe_results((quick / impact['axe']['baseline']).parent)['violations']['aria-valid-attr']
+
+    changed = evidence(quick, '#name-only')
+    impact = audit.load(changed / 'operation-impact.json')
+    assert '#label' in impact['changed'] and '#labelled' in impact['related'], impact
+    assert ('#labelled',) in axe_results(changed)['violations']['button-name'], impact
+    assert axe_results(changed) == axe_results(evidence(full, '#name-only'))
+
 def main(out):
     with ThreadingHTTPServer(('127.0.0.1', 0), Fixture) as server:
         worker = Thread(target=server.serve_forever, daemon=True)
@@ -165,6 +253,7 @@ def main(out):
             assert all(item in finished['proof'] for item in first['proof'])
 
             verify_quick_exploration(out / 'quick', url.rstrip('/'))
+            verify_operation_impact(out / 'impact', url.rstrip('/'))
         finally:
             server.shutdown()
             worker.join()

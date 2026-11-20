@@ -5,7 +5,15 @@
   const nativeTimeout = window.setTimeout, nativeClear = window.clearTimeout;
   const nativeClearInterval = window.clearInterval, timers = new Map();
   let lastChange = performance.now(), untrackedCallbacks = 0;
-  new MutationObserver(() => { lastChange = performance.now(); }).observe(document,
+  let operationMutations = null;
+  new MutationObserver(records => {
+    lastChange = performance.now();
+    if (!operationMutations) return;
+    for (const {target} of records) {
+      if (operationMutations.size >= 1000) break;
+      operationMutations.add(target instanceof Element ? target : target.parentElement);
+    }
+  }).observe(document,
     {subtree:true,childList:true,attributes:true,characterData:true});
   window.setTimeout = function (callback, delay, ...args) {
     if (typeof callback !== 'function') {
@@ -63,6 +71,13 @@
     // The host is outside this tree. Playwright can locate its open shadow descendants.
     return root.host ? `${selector(root.host)} ${path}` : path;
   };
+  window.__wcagBeginOperation = () => { operationMutations = new Set(); };
+  window.__wcagOperationMutations = () => {
+    const observed = [...(operationMutations || [])];
+    operationMutations = null;
+    return {targets: [...new Set(observed.filter(e => e?.isConnected).map(selector))],
+      truncated: observed.length >= 1000};
+  };
   const visible = e => {
     // Descendants of closed details can have layout boxes without being rendered.
     if (e.checkVisibility && !e.checkVisibility()) return false;
@@ -83,19 +98,88 @@
       document_start: performance.timeOrigin, url: location.href
     };
   };
-  window.__wcagExplore = () => {
+  const relationAttributes = new Set(['aria-controls', 'aria-owns', 'aria-labelledby',
+    'aria-describedby', 'aria-activedescendant', 'aria-details', 'aria-errormessage', 'for']);
+  const nameAttributes = new Set(['aria-labelledby', 'aria-describedby', 'aria-errormessage']);
+  const operationSnapshot = (all, roots, includeRelations) => {
+    const idCounts = new Map();
+    for (const e of all) if (e.id) idCounts.set(e.id, (idCounts.get(e.id) || 0) + 1);
+    const hiddenCache = new WeakMap();
+    const hasHiddenAncestor = e => {
+      if (!e) return false;
+      if (!hiddenCache.has(e)) {
+        const css = getComputedStyle(e);
+        hiddenCache.set(e, css.display === 'none' || css.contentVisibility === 'hidden' ||
+          hasHiddenAncestor(e.parentElement));
+      }
+      return hiddenCache.get(e);
+    };
+    const inputs = {};
+    const relations = [];
+    const references = {};
+    const reusable = document.compatMode === 'CSS1Compat' && roots.length === 1 &&
+      closedRoots === 0 && !document.querySelector('iframe,frame');
+    for (const e of all) {
+      if (includeRelations) {
+        for (const attribute of e.getAttributeNames().filter(name => relationAttributes.has(name))) {
+          for (const id of e.getAttribute(attribute).split(/\s+/).filter(Boolean)) {
+            const target = e.getRootNode().getElementById(id);
+            if (!target) continue;
+            const name = selector(target);
+            relations.push([selector(e), name, attribute]);
+            if (nameAttributes.has(attribute) && !(name in references)) {
+              references[name] = JSON.stringify([target.textContent, target.getAttribute('aria-label')]);
+            }
+          }
+        }
+      }
+      // Only plain, visible HTML with stable axe targets can reuse element-local results.
+      // Focus, naming, and widget-level checks keep their whole-document context.
+      if (!reusable || !/^[A-Za-z_][\w-]*$/.test(e.id) || idCounts.get(e.id) !== 1 ||
+        e.namespaceURI !== 'http://www.w3.org/1999/xhtml' ||
+        e.closest('area, details, noscript, template, select, object, canvas, audio, video') ||
+        !(e.hasAttribute('tabindex') || e.getAttributeNames().some(name => name.startsWith('aria-'))) ||
+        !visible(e) || getComputedStyle(e).visibility === 'collapse' || hasHiddenAncestor(e)) continue;
+      const html = e.outerHTML;
+      if (html.length <= 4096) inputs['#' + e.id] = html;
+    }
+    return {operation_inputs: inputs, operation_relations: relations, operation_reference_inputs: references,
+      operation_scope_supported: reusable};
+  };
+  window.__wcagExplore = (operationEvidence = false) => {
     const all = [], roots = [document];
     for (let i = 0; i < roots.length; i++) for (const e of roots[i].querySelectorAll('*')) {
       all.push(e); if (e.shadowRoot) roots.push(e.shadowRoot);
     }
+    if (operationEvidence === 'inputs') return operationSnapshot(all, roots, false);
+    const state = all.filter(visible).map(e => ({selector:selector(e), tag:e.localName,
+      text:[...e.childNodes].filter(n => n.nodeType === Node.TEXT_NODE).map(n => n.textContent).join('').trim(),
+      expanded:e.getAttribute('aria-expanded'), checked:e.checked ?? e.getAttribute('aria-checked'),
+      selected:e.getAttribute('aria-selected'), open:e.open, value:(e.type === 'password' ? '[redacted]' : 'value' in e ? e.value : null),
+      role:e.getAttribute('role'), hidden:e.getAttribute('aria-hidden'),
+      disabled:e.matches(':disabled'), ariaDisabled:e.getAttribute('aria-disabled'),
+      readOnly:e.readOnly ?? null, inert:!!e.inert, tabIndex:e.tabIndex,
+      type:e.type || e.getAttribute('type'), formAssociated:e.form instanceof HTMLFormElement,
+      href:e.getAttribute('href'), contentEditable:e.getAttribute('contenteditable'),
+      ariaControls:e.getAttribute('aria-controls'), ariaOwns:e.getAttribute('aria-owns'),
+      ariaHasPopup:e.getAttribute('aria-haspopup'), ariaPressed:e.getAttribute('aria-pressed'),
+      ariaChecked:e.getAttribute('aria-checked'), ariaActiveDescendant:e.getAttribute('aria-activedescendant'),
+      ariaModal:e.getAttribute('aria-modal'),
+      styles:['color','backgroundColor'].map(k => getComputedStyle(e)[k]),
+      attributes:[...e.attributes].filter(a => /^(aria-.*|alt|title|lang|dir|for|id|class|style|tabindex)$/.test(a.name))
+        .map(a => [a.name, a.value]).sort(([a], [b]) => a < b ? -1 : Number(a > b))
+    }));
+    const operation = operationEvidence ? operationSnapshot(all, roots, true) : {};
+    let focused = document.activeElement;
+    while (focused?.shadowRoot?.activeElement) focused = focused.shadowRoot.activeElement;
+    if (operationEvidence) operation.operation_focus = focused ? selector(focused) : '';
+    if (operationEvidence === 'before') return {...operation, state, url: location.href};
     const horizontalTab = e => {
       if (e?.getAttribute('role') !== 'tab') return false;
       const list = e.closest('[role="tablist"]');
       const orientation = list?.getAttribute('aria-orientation');
       return orientation === null || orientation === 'horizontal';
     };
-    let focused = document.activeElement;
-    while (focused?.shadowRoot?.activeElement) focused = focused.shadowRoot.activeElement;
     const focusedTab = horizontalTab(focused) && visible(focused) ? selector(focused) : null;
     const recordedFocus = focusedTab ? focused : document.activeElement;
     const modal = all.filter(e => (e.matches('dialog[open]') || e.getAttribute('aria-modal') === 'true') && visible(e)).at(-1);
@@ -137,21 +221,7 @@
             ? {buttonInModal:true} : {}),
           rect:{x:r.x + scrollX,y:r.y + scrollY,width:r.width,height:r.height}};
       });
-    const state = all.filter(visible).map(e => ({selector:selector(e), tag:e.localName,
-      text:[...e.childNodes].filter(n => n.nodeType === Node.TEXT_NODE).map(n => n.textContent).join('').trim(),
-      expanded:e.getAttribute('aria-expanded'), checked:e.checked ?? e.getAttribute('aria-checked'),
-      selected:e.getAttribute('aria-selected'), open:e.open, value:(e.type === 'password' ? '[redacted]' : 'value' in e ? e.value : null),
-      role:e.getAttribute('role'), hidden:e.getAttribute('aria-hidden'),
-      disabled:e.matches(':disabled'), ariaDisabled:e.getAttribute('aria-disabled'),
-      readOnly:e.readOnly ?? null, inert:!!e.inert, tabIndex:e.tabIndex,
-      type:e.type || e.getAttribute('type'), formAssociated:e.form instanceof HTMLFormElement,
-      href:e.getAttribute('href'), contentEditable:e.getAttribute('contenteditable'),
-      ariaControls:e.getAttribute('aria-controls'), ariaOwns:e.getAttribute('aria-owns'),
-      ariaHasPopup:e.getAttribute('aria-haspopup'), ariaPressed:e.getAttribute('aria-pressed'),
-      ariaChecked:e.getAttribute('aria-checked'), ariaActiveDescendant:e.getAttribute('aria-activedescendant'),
-      ariaModal:e.getAttribute('aria-modal'),
-      styles:['color','backgroundColor'].map(k => getComputedStyle(e)[k])}));
-    return {url:location.href,title:document.title,controls,state,modal:modal ? selector(modal) : null,
+    return {...operation,url:location.href,title:document.title,controls,state,modal:modal ? selector(modal) : null,
       frames:all.filter(e => e.matches('iframe,frame')).map(selector), closedRoots,
       canvases:all.filter(e => e.localName === 'canvas' && visible(e)).map(selector),
       scroll:{width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight},
