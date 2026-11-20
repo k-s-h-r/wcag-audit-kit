@@ -39,7 +39,7 @@ T003等の記録から、列挙した対象や操作経路など、同じ状態�
 
 ## メニューのフォーカス、Tab前後のURL、文中リンクの寸法
 
-`codex/t007-match-browser-records` は、ブラウザーの計測を追加した[PR #73](https://github.com/k-s-h-r/wcag-audit-kit/pull/73)を起点とする。残っていた7件について、同じ計測から対象と操作前後の状態を照合する。[ADR 0075](../adr/0075-match-saved-focus-url-and-inline-size.md)
+[PR #74](https://github.com/k-s-h-r/wcag-audit-kit/pull/74)の `codex/t007-match-browser-records` は、ブラウザーの計測を追加した[PR #73](https://github.com/k-s-h-r/wcag-audit-kit/pull/73)を起点とする。残っていた7件について、同じ計測から対象と操作前後の状態を照合する。[ADR 0075](../adr/0075-match-saved-focus-url-and-inline-size.md)
 
 | 記録したこと | 基準 | 一致件数 |
 | --- | --- | ---: |
@@ -50,3 +50,5 @@ T003等の記録から、列挙した対象や操作経路など、同じ状態�
 対象を絞ったChromium実行で23ページを測定した。記録は7件すべて一致し、機械判定も問題12件と対照13件が期待どおりだった。厳密採点は終了コード0。run IDは `e6129516dcc9493b83ccedc25b7cd8ec`、問題集ハッシュは `b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206`。採点表のHTML・Excel、証拠リンク、表のキーボードスクロールを照合した。
 
 メニューの問題例ではフォーカスが末端リンクに残る動きと本文へ飛ぶ動きが実際の順序で記録された。対照では閉じた階層から開閉ボタンに戻った。URLはページ移動あり・なしの双方を記録し、文中リンクは42 × 20 CSS pxを確認した。既存の判定期待と記録の期待値は保持した。
+
+対象4基準を通常の機械モードで25ページ再実行した。記録9件がすべて一致し、そのうち7件は前回未確認だった。機械判定31件は前回と一致した。run IDは `68f229fc321640aaa97259ffa2ff9c6a`、`6d4bd028b92e4ca78402eb7be02d1c34`、`af75420b94564cf3b78100f8affadc76`。
