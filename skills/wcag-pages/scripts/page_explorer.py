@@ -244,7 +244,26 @@ def control_signature(control):
     return {key: item for key, item in control.items() if key != 'rect'}
 
 
-def queue_state_actions(value, node, data, env, queued, done, *, quick=False, parent=None, max_depth=30):
+def disclosure_candidate(control):
+    return (control['tag'] == 'summary' or control['expanded'] is not None
+            or control['role'] in {'combobox', 'tab', 'menuitem', 'treeitem'}
+            or control['haspopup'] not in (None, '', 'false'))
+
+
+def keyboard_opening(effect):
+    if not effect:
+        return False
+    before, after = effect['before'], effect['after']
+    return ((before['expanded'], after['expanded']) == ('false', 'true')
+            or before['open'] is False and after['open'] is True)
+
+
+def keyboard_opening_key(edge):
+    return edge['environment'], edge['fingerprint'], edge['route'][-1]['selector'], edge['focus_after']
+
+
+def queue_state_actions(value, node, data, env, queued, done, *, quick=False, parent=None, max_depth=30,
+                        keyboard_continuation=False, repeated_state=False):
     route = node['route']
     capture_key = node['capture']
     env_id = env['id']
@@ -255,7 +274,7 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
     pending = sum(job['environment'] == env_id and bool(job['route']) and job['route'] != route
                   for job in value['queue'])
 
-    def enqueue(action, *, dialog_focus=None, newly_available=False):
+    def enqueue(action, *, dialog_focus=None, newly_available=False, keyboard_followup=False):
         nonlocal pending
         path = route + [action]
         ident = json.dumps([env_id, path], sort_keys=True)
@@ -275,23 +294,23 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             job['dialog_focus'] = dialog_focus
         if newly_available:
             job['newly_available'] = True
+        if keyboard_followup:
+            job['keyboard_followup'] = True
         value['queue'].append(job)
         queued.add(ident)
         pending += 1
 
-    if data['modal']:
+    if data['modal'] and not repeated_state:
         enqueue({'type': 'press', 'selector': 'body', 'key': 'Escape'}, dialog_focus='escape')
     controls = data['controls']
-    if quick:
-        def priority(control):
-            opens_content = (control['tag'] == 'summary' or control['expanded'] is not None
-                             or control['role'] in {'combobox', 'tab', 'menuitem', 'treeitem'}
-                             or control['haspopup'] not in (None, '', 'false'))
-            return control['selector'] in previous_controls, not opens_content
-
-        controls = sorted(controls, key=priority)
+    if quick or keyboard_continuation:
+        controls = sorted(controls, key=lambda control: (
+            control['selector'] in previous_controls, not disclosure_candidate(control)))
     for control in controls:
         selector = control['selector']
+        new_opener = selector not in previous_controls and disclosure_candidate(control)
+        if repeated_state and not new_opener:
+            continue
         candidates, reason = actions(control, focused_tab)
         if quick and selector not in always_observe and previous_controls.get(selector) == control_signature(control):
             omitted['unchanged_control'] += len(candidates)
@@ -305,14 +324,20 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             candidates = selected
         newly_available = quick and bool(route) and selector not in previous_controls
         for action in candidates:
+            followup = keyboard_continuation and new_opener and action['type'] == 'key'
+            if repeated_state and not followup:
+                continue
             phase = 'button' if control.get('buttonInModal') and dialog_focus.activation(action) else None
-            enqueue(action, dialog_focus=phase, newly_available=newly_available)
+            enqueue(action, dialog_focus=phase, newly_available=newly_available, keyboard_followup=followup)
+
+    if keyboard_continuation:
+        enqueue({'type': 'press', 'selector': 'body', 'key': 'Tab'}, keyboard_followup=True)
 
     # A real scroll can reveal lazy content even if the initial screenshot was full-page.
     positions = {(0, env['viewport']['height']),
                  (0, max(0, data['scroll']['height'] - env['viewport']['height'])),
                  (max(0, data['scroll']['width'] - env['viewport']['width']), 0)}
-    if not quick or not route:
+    if not repeated_state and (not quick or not route):
         for x, y in sorted(positions - {(0, 0)}):
             if x or data['scroll']['height'] > env['viewport']['height']:
                 enqueue({'type': 'scroll', 'selector': 'body', 'x': x, 'y': y})
@@ -419,6 +444,10 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
     images.counts[pid]=sum(i['status'] in {'started','captured','error'} for i in previous)
     seen={(n['environment'],n['fingerprint']):n for n in value['nodes']}
     captured_routes = {json.dumps([node['environment'], node['route']], sort_keys=True): node for node in value['nodes']}
+    for edge in value['edges']:
+        if prior := seen.get((edge['environment'], edge.get('fingerprint'))):
+            captured_routes.setdefault(json.dumps([edge['environment'], edge['route']], sort_keys=True), prior)
+    keyboard_openings = {keyboard_opening_key(edge) for edge in value['edges'] if edge.get('continued_keyboard_opening')}
     operation_counts = Counter(edge['environment'] for edge in value['edges'] if edge['route'])
     done={json.dumps([e['environment'],e['route']],sort_keys=True) for e in value['edges']}
     queued={json.dumps([j['environment'],j['route']],sort_keys=True) for j in value['queue']}
@@ -451,6 +480,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     index = min(range(len(value['queue'])), key=lambda i: (
                         bool(value['queue'][i]['route']),
                         operation_counts[value['queue'][i]['environment']],
+                        not value['queue'][i].get('keyboard_followup'),
                         not value['queue'][i].get('newly_available'),
                         len(value['queue'][i]['route']),
                     ))
@@ -725,8 +755,15 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     edge = dict(job, error=error, blocked_requests=blocked, native_events=native_events)
                     if key_effect:
                         edge['key_effect'] = key_effect
-                    if data and not interrupted_reason and route and route[-1].get('key') in HORIZONTAL_TAB_ARROWS:
-                        edge['focus_after'] = data['focus']['selector']
+                    opened_with_key = keyboard_opening(key_effect)
+                    quiet_key_route = (not error and not native_events
+                                       and all(request.get('telemetry') is True for request in blocked)
+                                       and all(wait['status'] == 'quiet' for wait in settling))
+                    if data and route and (
+                        (opened_with_key or job.get('keyboard_followup')) and quiet_key_route
+                        or route[-1].get('key') in HORIZONTAL_TAB_ARROWS and not interrupted_reason
+                    ):
+                        edge['focus_after'] = data.get('deep_focus', data['focus']['selector'])
                     if unreachable_step is not None:
                         edge['keyboard_unreachable_step'] = unreachable_step
                     if impact is not None:
@@ -785,7 +822,16 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 if data and not error:
                     edge['fingerprint'] = state_key[1]
                     matched_labels=state_labels.verified(labels,route,data.get('state_labels',[]))
-                    if state_key not in seen or matched_labels:
+                    parent = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True)) if route else None
+                    keyboard_continuation = False
+                    if parent is not None and opened_with_key and quiet_key_route:
+                        opening = keyboard_opening_key(edge)
+                        if opening not in keyboard_openings:
+                            keyboard_openings.add(opening)
+                            edge['continued_keyboard_opening'] = True
+                            keyboard_continuation = True
+                    new_capture = state_key not in seen or matched_labels
+                    if new_capture:
                         state='initial' if not route else 'explore-'+attempt
                         capture_key=f'{pid}--{state}--{env["id"]}'
                         node=dict(job,fingerprint=state_key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'],state_labels=matched_labels)
@@ -794,10 +840,13 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             execution='completed',collection_state='finished',evidence_dir=str(dest.relative_to(run))))
                         for feature in ['frames','canvases','closedRoots']:
                             if data[feature]:value['remaining'].append(f'{capture_key}：{feature}の内部を追加検査する。')
-                        if not initial_only:
-                            parent = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True)) if route else None
-                            queue_state_actions(value, node, data, env, queued, done, quick=quick, parent=parent, max_depth=max_depth)
-                        captured_routes[json.dumps([env['id'], route], sort_keys=True)] = node
+                    node = seen[state_key]
+                    if not initial_only and (new_capture or keyboard_continuation):
+                        route_node = node if new_capture else dict(node, route=route)
+                        queue_state_actions(value, route_node, data, env, queued, done,
+                                            quick=quick, parent=parent, max_depth=max_depth,
+                                            keyboard_continuation=keyboard_continuation, repeated_state=not new_capture)
+                    captured_routes[json.dumps([env['id'], route], sort_keys=True)] = node
                 value['queue'].pop(0);value['remaining']=list(dict.fromkeys(value['remaining']))
                 value['manifest']=manifest
                 with run_lock(run):
