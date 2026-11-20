@@ -79,3 +79,4 @@
 - [0073 ダイアログを閉じる実入力と次のTabを採点する](0073-score-dialog-focus-benchmark-routes.md)
 - [0074 公開の操作条件でブラウザー計測を採点する](0074-score-bounded-browser-measurements.md)
 - [0075 メニューのフォーカス、Tab前後のURL、文中リンクの寸法を照合する](0075-match-saved-focus-url-and-inline-size.md)
+- [0077 URLだけで始める操作探索を問題集で測る](0077-measure-url-only-operation-exploration.md)

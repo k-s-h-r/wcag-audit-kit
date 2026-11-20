@@ -39,6 +39,16 @@ python3 benchmarks/run.py score --run /project/bench-observations-001 --strict-m
 
 再開するときは同じ `--residual-only` を指定します。この実行では公開の操作条件を追加した観点を採点し、同じ計測で収集したフォーカス経路・URL・リンク寸法の記録も照合します。全機械対象の回帰には上の `--machine-targets` の手順を使います。
 
+## URLだけで操作をどこまで見つけるか測る
+
+通常の `wcag-page` と同じCLIで、初期画面の検査後に簡易探索を開始する。操作後に画像が現れる例、3階層メニュー、コンボボックス、閉じた後にフォーカスが移るダイアログの正常・問題例を使う。通常探索との比較はどちらもPC幅・スマホ相当幅で行い、最大24ステップ、16状態、深さ3に揃える。
+
+```sh
+python3 benchmarks/url_only.py --out /project/bench-url-only-001
+```
+
+検査に渡すのはURLと通常のオプション。対象や入力を採点側だけが使う。`result.json` で経路・状態が確認できたかと、機械判定が期待に合ったかを分けて読める。操作の記録や判定元となる証拠、実行コマンドも保存する。 [対象と完了条件](../docs/tasks/T017-url-only-exploration.md)
+
 ## ページと正解を分ける
 
 ```text
