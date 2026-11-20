@@ -88,6 +88,8 @@ G1はT001で事前に選んだ機械検査10行で達成した。T010では指�
 
 問題集の機械検出対象87観点を76ページで実行した。問題39件をすべて検出し、正常・対象外の対照48件もすべて一致した。前回確認が残った記録7件は、メニュー操作のフォーカス、Tab前後のURL、文章中のリンクの寸法を再実行してすべて照合した。対象4基準の機械判定31件は前回と一致した。[T007の検証結果](tasks/T007-acquisition-scoring.md#メニューのフォーカスtab前後のurl文中リンクの寸法)[T009の採点結果](tasks/T009-machine-gap.md#未確認だった58観点のブラウザー計測) [ADR 0074](adr/0074-score-bounded-browser-measurements.md)
 
+簡易探索では、操作後に現れた領域、変わった属性、関連する要素、フォーカスの移動を記録する。ARIA属性名と正の `tabindex` の検査では、同じ要素の結果を再利用する。通常探索との照合結果と次に対象を広げる条件は [T009](tasks/T009-machine-gap.md#操作の影響範囲を使った再検査) を参照する。 [ADR 0076](adr/0076-scope-rechecks-to-operation-impact.md)
+
 [T011](tasks/T011-ai-residual-review.md)で実証したタイトルの観点を[T014](tasks/T014-site-acceptance.md)で別のページに適用した。本文から先に主題と目的を取得する再試験で、題名との不一致を確認した。図は、実際に表示された案内図の方向と代替文を照合した。[ADR 0053](adr/0053-observe-chart-before-assessing-alternatives.md) [ADR 0055](adr/0055-observe-title-topic-and-purpose-separately.md) [ADR 0056](adr/0056-score-a-blind-site-exercise-with-observed-evidence.md)
 
 T014で見つかったスキップリンクの誤検出は、生成セレクターの親子関係と、フォーカス移動先を操作候補に含める条件を修正した。次に適用範囲を広げるときは、より複雑な操作後の状態と、数値や方向だけに絞れない画像の代替説明を別の対象で測る。[ADR 0057](adr/0057-match-exploration-targets-to-dom-parents.md)
