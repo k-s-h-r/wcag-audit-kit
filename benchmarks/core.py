@@ -17,7 +17,7 @@ sys.path.insert(0,str(RUNTIME/'scripts'))
 import audit
 import verification_modes as modes
 import state_labels
-from . import case_contracts, dialog_focus_evidence, inactive_control_probe, residual_evidence, status_capture, text_paint_evidence
+from . import case_contracts, dialog_focus_evidence, inactive_control_probe, residual_evidence, residual_acquisition, status_capture, text_paint_evidence
 
 
 def load(path):return json.loads(Path(path).read_text())
@@ -553,6 +553,8 @@ def acquisition_result(run, job, progress, contract, frozen, support):
     targets, formats = contract['targets'], contract.get('formats')
     if support == 'no' or not targets or len(set(targets)) != len(targets):
         return row
+    if residual_acquisition.supported(contract):
+        return residual_acquisition.match(run,job,progress,contract,frozen,row)
     if row['checkpoint'] == '4.1.3-01' and row['kind'] == 'state-capture':
         return match_status_capture(run, job, progress, contract, frozen, row)
     if row['state'] != 'initial':
@@ -612,7 +614,9 @@ def score(run):
             predicted.update(dialog_focus_evidence.predictions(run.resolve(), job, progress, frozen))
         predicted.update(residual_evidence.predictions(run.resolve(), job, progress, frozen))
         scored={**predicted,**reviews.get(job['id'],{})}
-        contracts=[] if residual_only else oracles[job['id']].get('evidence_expectations',[])
+        contracts=oracles[job['id']].get('evidence_expectations',[])
+        if residual_only:
+            contracts=[contract for contract in contracts if residual_acquisition.supported(contract)]
         for contract in contracts:
             point=next(p for p in meta['mode_catalog']['checkpoints'] if p['id']==contract['checkpoint'])
             acquisition = acquisition_result(run.resolve(), job, progress, contract, frozen, point['support'][job['mode']])

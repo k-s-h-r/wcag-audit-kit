@@ -23,7 +23,7 @@ INPUT_SCRIPT = """() => {
         }).catch(() => {});
     }, {capture: true});
 }"""
-SNAPSHOT = """({region, member, outer}) => {
+SNAPSHOT = """({region, member, outer, watch}) => {
     const visible = element => Boolean(element?.checkVisibility({
         opacityProperty: true, visibilityProperty: true
     }) && element.getClientRects().length);
@@ -49,7 +49,11 @@ SNAPSHOT = """({region, member, outer}) => {
         focus_url: leaf?.ownerDocument.URL ?? null,
         focus: meaningful ? (frame ? frame + ' > ' : '') + named(leaf) : '',
         region_visible: visible(scope), within: Boolean(inScope),
-        outer_visible: visible(outerElement), outer_within: Boolean(outerElement?.contains(element))
+        outer_visible: visible(outerElement), outer_within: Boolean(outerElement?.contains(element)),
+        watched: Object.fromEntries((watch || []).map(selector => {
+            const node = find(selector);
+            return [selector, node ? {visible: visible(node), expanded: node.getAttribute('aria-expanded')} : null];
+        }))
     };
 }"""
 
@@ -70,11 +74,16 @@ def validate_plan(criterion, plan):
         raise ValueError('キーボードの採点手順の種類が不正')
     trap = plan['kind'] == 'trap'
     mandatory = common | ({'pointer_exit'} if trap else {'outer', 'opener'})
-    optional = {'member'} if trap else {'outer_opener'} if plan['kind'] == 'dialog-order' else set()
+    optional = {'member', 'watch'} if trap else {'outer_opener'} if plan['kind'] == 'dialog-order' else {'watch'}
     if not mandatory <= plan.keys() or set(plan) - mandatory - optional:
         raise ValueError('キーボードの採点手順の項目が不正')
-    if not all(selector(plan[key]) for key in plan.keys() - {'kind', 'setup', 'pointer_exit'}):
+    if not all(selector(plan[key]) for key in plan.keys() - {'kind', 'setup', 'pointer_exit', 'watch'}):
         raise ValueError('検証用の対象にはIDセレクターが必要')
+    if 'watch' in plan:
+        watch = plan['watch']
+        if (not isinstance(watch, list) or not 1 <= len(watch) <= 8
+                or not all(selector(target) for target in watch) or len(set(watch)) != len(watch)):
+            raise ValueError('各手順で記録する対象には異なるIDを指定する')
     setup = plan['setup']
     if not isinstance(setup, list) or not 1 <= len(setup) <= 8:
         raise ValueError('検証状態に到達する操作が必要')
@@ -102,7 +111,7 @@ async def observe_inputs(page):
 
 
 async def snapshot(page, plan):
-    return await page.evaluate(SNAPSHOT, {key: plan.get(key) for key in ('region', 'member', 'outer')})
+    return await page.evaluate(SNAPSHOT, {key: plan.get(key) for key in ('region', 'member', 'outer', 'watch')})
 
 
 async def perform(page, plan, action, inputs):
