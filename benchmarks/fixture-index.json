@@ -1,17 +1,17 @@
 {
   "schema_version": "1",
   "scope": "authored test inputs; not detector success or exhaustive WCAG patterns",
-  "corpus_digest": "4420bd41f54da1110b22819877cf44469f5919f37d92677a0ed946467764e849",
+  "corpus_digest": "46f66e8cca175841faa6f3754f864f1fed2ba370bbcda7ee5a367002888bb811",
   "summary": {
     "criteria": 86,
-    "cases": 304,
-    "page_entries": 312,
-    "verdict_rows": 323,
+    "cases": 306,
+    "page_entries": 314,
+    "verdict_rows": 329,
     "acquisition_rows": 36,
     "verdict_checkpoints": 114,
     "acquisition_checkpoints": 17,
     "registered_checkpoints": 131,
-    "pattern_groups": 60
+    "pattern_groups": 61
   },
   "missing_checkpoints": [],
   "required_families": [
@@ -2479,6 +2479,24 @@
           "case": "c08",
           "pages": [
             "p08.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c09",
+          "pages": [
+            "p09.html"
+          ],
+          "expectation_types": [
+            "verdict"
+          ]
+        },
+        {
+          "case": "c10",
+          "pages": [
+            "p10.html"
           ],
           "expectation_types": [
             "verdict"
@@ -5986,6 +6004,69 @@
             "inner-dialog"
           ],
           "verdicts": [
+            {
+              "checkpoint": "2.4.3-02",
+              "expected": "passed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        }
+      ]
+    },
+    {
+      "id": "2.4.3.dialog-button-return",
+      "criterion": "2.4.3",
+      "name": "ダイアログを閉じるボタンと次のTab",
+      "cases": [
+        {
+          "id": "c09",
+          "pages": [
+            "p09.html"
+          ],
+          "states": [
+            "button-close-click",
+            "button-close-enter",
+            "button-close-space"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.3-02",
+              "expected": "failed"
+            },
+            {
+              "checkpoint": "2.4.3-02",
+              "expected": "failed"
+            },
+            {
+              "checkpoint": "2.4.3-02",
+              "expected": "failed"
+            }
+          ],
+          "acquisition": [],
+          "requires_environment": [],
+          "has_browser_probe": true
+        },
+        {
+          "id": "c10",
+          "pages": [
+            "p10.html"
+          ],
+          "states": [
+            "button-close-click",
+            "button-close-enter",
+            "button-close-space"
+          ],
+          "verdicts": [
+            {
+              "checkpoint": "2.4.3-02",
+              "expected": "passed"
+            },
+            {
+              "checkpoint": "2.4.3-02",
+              "expected": "passed"
+            },
             {
               "checkpoint": "2.4.3-02",
               "expected": "passed"

@@ -1,6 +1,6 @@
 # 追加パターンの一覧
 
-60組の追加パターンです。各ページの状態・期待結果・必要環境はsuite.jsonへ記録しています。元の代表例と3階層メニューも保持しています。
+61組の追加パターンです。各ページの状態・期待結果・必要環境はsuite.jsonへ記録しています。元の代表例と3階層メニューも保持しています。
 
 問題なしの対照も含め、適合の結論は記載した観点と条件に限ります。手話の意味は公開元の説明、音声は既知の生成元を根拠にしており、独立した専門家の確認は未実施です。仮想時計・合成センサー・文字サイズ上書きの試験を、実時間・実端末・ネイティブのズームの確認へ置き換えません。
 
@@ -45,6 +45,7 @@
 | 閃光の区間と資料の欠落 | 2.3.1 | [c03: p03.html](cases/2.3.1/public/p03.html) / [c04: p04.html](cases/2.3.1/public/p04.html) | flash-analysis-without-unsafe-preview |
 | 実際の階層内のフォーカス経路 | 2.4.3 | [c05: p05.html](cases/2.4.3/public/p05.html) / [c06: p06.html](cases/2.4.3/public/p06.html) | 通常のブラウザー |
 | 入れ子のダイアログの離脱と復帰 | 2.4.3 | [c07: p07.html](cases/2.4.3/public/p07.html) / [c08: p08.html](cases/2.4.3/public/p08.html) | 通常のブラウザー |
+| ダイアログを閉じるボタンと次のTab | 2.4.3 | [c09: p09.html](cases/2.4.3/public/p09.html) / [c10: p10.html](cases/2.4.3/public/p10.html) | 通常のブラウザー |
 | フォーカス前後の取得 | 2.4.7 | [c03: p03.html](cases/2.4.7/public/p03.html) / [c04: p04.html](cases/2.4.7/public/p04.html) | 通常のブラウザー |
 | 狭い画面で隠れたメニューへのフォーカス | 2.4.7 | [c05: p05.html](cases/2.4.7/public/p05.html) / [c06: p06.html](cases/2.4.7/public/p06.html) | 通常のブラウザー |
 | 表示後のバナーによる隠れ | 2.4.11 | [c03: p03.html](cases/2.4.11/public/p03.html) / [c04: p04.html](cases/2.4.11/public/p04.html) | 通常のブラウザー |

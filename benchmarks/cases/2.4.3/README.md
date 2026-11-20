@@ -33,6 +33,21 @@
 | c07 | [p07.html](public/p07.html) | inner-dialog / 2.4.3-02 / `#subject` | failed: 内側を閉じるとEscapeで閉じられない、又は外側を飛び越えて本文へフォーカスが移る。 |
 | c08 | [p08.html](public/p08.html) | inner-dialog / 2.4.3-02 / `#subject` | passed: 内側を閉じると外側の開閉ボタンへ戻り、さらに外側を閉じて起点へ戻れる。 |
 
+## ボタンで閉じた直後と次のTab
+
+「予約内容を開く」から単一のダイアログを開き、「閉じる」をクリック・Enter・Spaceで操作します。入力ごとに閉じた直後と次のTabの位置を採点します。
+
+| ケース | 入力 | 期待結果 |
+| --- | --- | --- |
+| c09 [p09.html](public/p09.html) | クリック・Enter・Space | 文書にフォーカスが戻り、次のTabで開き元より前の案内へ移る。 |
+| c10 [p10.html](public/p10.html) | クリック・Enter・Space | 開き元にフォーカスが戻り、次のTabで次の案内へ移る。 |
+
+```sh
+python3 benchmarks/run.py collect --mode machine --criterion 2.4.3 --out /project/bench-focus-order-001
+```
+
+採点には、指定した経路での開く入力・閉じる入力・Tabと、同じ文書のフォーカスを記録した証拠を使います。入れ子のダイアログや、別の要素へ意図的に移る経路の適切さは追加確認です。
+
 [3階層メニューの詳しい操作](../../NESTED-NAVIGATION.md)
 
 [基準の検査手順](../../../skills/wcag-audit-kit/references/criteria/2.4.3.md) / [追加パターン一覧](../../PATTERNS.md) / [素材と条件](../../MATERIALS.md)
