@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "2.2.6",
-  "version": "2",
+  "version": "3",
   "review": "author-defined",
   "sources": [
     "../../../references/criteria/2.2.6.md",
@@ -95,7 +95,11 @@
           "id": "after-21-hours",
           "instructions": [
             "下書きを保存し、同じ保存条件で20時間超が経過した後、再読み込みして復元を確認する。実時間と仮想時計の結果を区別する。"
-          ]
+          ],
+          "residual_probe": {
+            "target": "#subject",
+            "save": "#save"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -162,7 +166,11 @@
           "id": "after-21-hours",
           "instructions": [
             "下書きを保存し、同じ保存条件で20時間超が経過した後、再読み込みして復元を確認する。実時間と仮想時計の結果を区別する。"
-          ]
+          ],
+          "residual_probe": {
+            "target": "#subject",
+            "save": "#save"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
