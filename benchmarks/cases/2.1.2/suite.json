@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "criterion": "2.1.2",
-  "version": "4",
+  "version": "5",
   "review": "author-defined",
   "sources": [
     "https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html",
@@ -28,7 +28,20 @@
               "type": "click",
               "selector": "#open"
             }
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#panel",
+            "region": "#panel",
+            "setup": [
+              {
+                "click": "#open"
+              }
+            ],
+            "pointer_exit": {
+              "click": "#close"
+            }
+          }
         }
       ],
       "expectations": [
@@ -75,7 +88,20 @@
               "type": "click",
               "selector": "#open"
             }
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#panel",
+            "region": "#panel",
+            "setup": [
+              {
+                "click": "#open"
+              }
+            ],
+            "pointer_exit": {
+              "click": "#close"
+            }
+          }
         }
       ],
       "expectations": [
@@ -116,7 +142,23 @@
           "id": "third-level-open",
           "instructions": [
             "初期状態からTabで「製品」へ移動してEnter、Tabで「業務支援」へ移動してEnter、Tabで第3階層の「見積管理」へ移動する。ポインターで補わずに実行する。 Tab・Shift+Tab・Escape・Enterで離脱できるか確認する。正常な対照ではEscape後に#level2、さらにEscape後に#level1へ戻ることと、後続の資料請求までキー移動できることも確認する。"
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#level3-panel",
+            "region": "#level3-panel",
+            "setup": [
+              "Tab",
+              "Tab",
+              "Enter",
+              "Tab",
+              "Enter",
+              "Tab"
+            ],
+            "pointer_exit": {
+              "click": "#close"
+            }
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -160,7 +202,23 @@
           "id": "third-level-open",
           "instructions": [
             "初期状態からTabで「製品」へ移動してEnter、Tabで「業務支援」へ移動してEnter、Tabで第3階層の「見積管理」へ移動する。ポインターで補わずに実行する。 Tab・Shift+Tab・Escape・Enterで離脱できるか確認する。正常な対照ではEscape後に#level2、さらにEscape後に#level1へ戻ることと、後続の資料請求までキー移動できることも確認する。"
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#level3-panel",
+            "region": "#level3-panel",
+            "setup": [
+              "Tab",
+              "Tab",
+              "Enter",
+              "Tab",
+              "Enter",
+              "Tab"
+            ],
+            "pointer_exit": {
+              "click": "#close"
+            }
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -208,7 +266,23 @@
           "id": "third-level",
           "instructions": [
             "製品、業務支援をキーで開いて末端リンクへ移動し、各段階のフォーカス・展開状態・URLを記録する。"
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#level3-panel",
+            "region": "#level3-panel",
+            "setup": [
+              "Tab",
+              "Tab",
+              "Enter",
+              "Tab",
+              "Enter",
+              "Tab"
+            ],
+            "pointer_exit": {
+              "click": "#close"
+            }
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -326,7 +400,23 @@
           "id": "third-level",
           "instructions": [
             "製品、業務支援をキーで開いて末端リンクへ移動し、各段階のフォーカス・展開状態・URLを記録する。"
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#level3-panel",
+            "region": "#level3-panel",
+            "setup": [
+              "Tab",
+              "Tab",
+              "Enter",
+              "Tab",
+              "Enter",
+              "Tab"
+            ],
+            "pointer_exit": {
+              "click": "#close"
+            }
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -443,7 +533,23 @@
           "id": "inner-dialog",
           "instructions": [
             "予約を編集、住所の詳細の順に開き、内側でTab・Shift+Tab・Escapeを試す。閉じた後の親・本文へのフォーカスも確認する。"
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#subject",
+            "region": "#subject",
+            "setup": [
+              {
+                "click": "#launch"
+              },
+              {
+                "click": "#inner-opener"
+              }
+            ],
+            "pointer_exit": {
+              "click": "#inner-close"
+            }
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -520,7 +626,23 @@
           "id": "inner-dialog",
           "instructions": [
             "予約を編集、住所の詳細の順に開き、内側でTab・Shift+Tab・Escapeを試す。閉じた後の親・本文へのフォーカスも確認する。"
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#subject",
+            "region": "#subject",
+            "setup": [
+              {
+                "click": "#launch"
+              },
+              {
+                "click": "#inner-opener"
+              }
+            ],
+            "pointer_exit": {
+              "click": "#inner-close"
+            }
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -611,7 +733,20 @@
           "id": "combo-open",
           "instructions": [
             "都市入力へキーで移動し、ArrowDownで候補を開く。選択・Escapeによる取消・Tabによる離脱と支援技術へ伝わる状態を確認する。"
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#subject",
+            "region": "#options",
+            "setup": [
+              "Tab",
+              "ArrowDown"
+            ],
+            "pointer_exit": {
+              "click": "#tokyo"
+            },
+            "member": "#subject"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -690,7 +825,20 @@
           "id": "combo-open",
           "instructions": [
             "都市入力へキーで移動し、ArrowDownで候補を開く。選択・Escapeによる取消・Tabによる離脱と支援技術へ伝わる状態を確認する。"
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#subject",
+            "region": "#options",
+            "setup": [
+              "Tab",
+              "ArrowDown"
+            ],
+            "pointer_exit": {
+              "click": "#tokyo"
+            },
+            "member": "#subject"
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -769,7 +917,25 @@
           "id": "frame-open",
           "instructions": [
             "埋込みの編集を開き、iframe内の入力でTab・Shift+Tab・Escapeを試す。親文書と子文書のフォーカスを分けて記録する。"
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#subject",
+            "region": "#subject",
+            "setup": [
+              {
+                "click": "#launch"
+              },
+              {
+                "frame": "#subject",
+                "click": "#frame-first"
+              }
+            ],
+            "pointer_exit": {
+              "frame": "#subject",
+              "click": "#frame-close"
+            }
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
@@ -855,7 +1021,25 @@
           "id": "frame-open",
           "instructions": [
             "埋込みの編集を開き、iframe内の入力でTab・Shift+Tab・Escapeを試す。親文書と子文書のフォーカスを分けて記録する。"
-          ]
+          ],
+          "residual_probe": {
+            "kind": "trap",
+            "target": "#subject",
+            "region": "#subject",
+            "setup": [
+              {
+                "click": "#launch"
+              },
+              {
+                "frame": "#subject",
+                "click": "#frame-first"
+              }
+            ],
+            "pointer_exit": {
+              "frame": "#subject",
+              "click": "#frame-close"
+            }
+          }
         }
       ],
       "oracle_scope": "exhaustive-for-listed-checkpoints",
