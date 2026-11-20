@@ -224,6 +224,8 @@ def record_review(run,value):
     run=Path(run)
     with run_lock(run):
         meta,progress=verify(run)
+        if meta.get('residual_probes_only',False):
+            raise ValueError('ブラウザー計測のみの実行には手動結果を取り込めない')
         if value.get('schema_version')!='1' or value.get('run_id')!=meta['run_id'] or value.get('corpus_digest')!=meta['corpus_digest']:
             raise ValueError('検証run又は問題集の版が不一致')
         jobs={j['id']:j for j in tasks(run)};job=jobs.get(value.get('job_id'))
@@ -593,13 +595,14 @@ def acquisition_result(run, job, progress, contract, frozen, support):
 
 def score(run):
     run=Path(run);meta,progress=verify(run);oracles=oracle_jobs(run);jobs=tasks(run);reviews={}
-    index=load(run/'review-index.json') if (run/'review-index.json').exists() else {'entries':[]}
+    residual_only=meta.get('residual_probes_only',False)
+    review_index=run/'review-index.json'
+    index=load(review_index) if not residual_only and review_index.exists() else {'entries':[]}
     for name in index['entries']:
         value=load(local(run,name));target=reviews.setdefault(value['job_id'],{})
         for row in value['observations']:target[observation_key(row)]=row
     rows=[];extras=[];machine_extras=[];pending_evidence=[];matched_evidence=[]
     frozen=load(run/'integrity.json')['files']
-    residual_only=meta.get('residual_probes_only',False)
     for job in jobs:
         predicted={}
         if not residual_only:

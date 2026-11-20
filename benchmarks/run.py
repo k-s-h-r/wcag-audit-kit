@@ -16,6 +16,7 @@ def print_summary(files, result):
     summary = dict(files=files, selected_checks_status=result['selected_checks_status'],
                    overall_status=result['overall_status'], counts=result['counts'],
                    machine_targets=result['machine_targets'],
+                   residual_probes_only=result.get('residual_probes_only',False),
                    pending_evidence_contracts=len(result.get('pending_evidence_contracts', [])),
                    matched_evidence_contracts=len(result.get('matched_evidence_contracts', [])))
     print(json.dumps(summary, ensure_ascii=False, indent=2))

@@ -3,6 +3,7 @@ from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 from urllib.parse import urlsplit
 import unittest
+from unittest.mock import patch
 
 from benchmarks import core, residual_evidence
 from benchmarks.residual_focus_context import evaluate
@@ -41,6 +42,11 @@ class ResidualEvidenceTest(unittest.TestCase):
         self.assertFalse(residual_evidence.selected(job, dict(expectation, state='initial')))
         with self.assertRaises(ValueError):
             core.compare({'residual_probes_only':True}, {})
+
+    def test_measurement_only_runs_do_not_accept_manual_imports(self):
+        with TemporaryDirectory() as output, patch.object(core,'verify',return_value=({'residual_probes_only':True},{})):
+            with self.assertRaisesRegex(ValueError,'手動結果'):
+                core.record_review(Path(output), {})
 
     def test_predictions_require_the_same_frozen_page_and_attempt(self):
         with TemporaryDirectory() as output:
