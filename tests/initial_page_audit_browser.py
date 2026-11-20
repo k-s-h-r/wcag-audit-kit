@@ -31,12 +31,14 @@ class Fixture(BaseHTTPRequestHandler):
                              for i in range(8))
             self.wfile.write(f"""<!doctype html><html lang="en"><head><title>Accordion</title>
 <style>[aria-expanded=false] + #panel {{ display: none; }}</style></head><body><main><h1>Accordion</h1>
-{stable}<div id="stable-error" aria-mistyped="true" tabindex="-1">Existing issue</div>
+{stable}<div id="stable-group"><div id="stable-error" aria-mistyped="true" tabindex="-1">Existing issue</div></div>
 <button id="toggle" type="button" aria-expanded="false" aria-controls="panel">Details</button>
 <section id="panel"><button id="inside" type="button" aria-mistp="true" tabindex="0">Inside</button></section>
 <button id="labelled" type="button" aria-labelledby="label"></button>
 <span id="label" hidden>External name</span>
 <button id="name-only" type="button">Change name</button>
+<button id="aria-hide" type="button">Hide semantics</button>
+<button id="make-inert" type="button">Disable region</button>
 <script>
 document.querySelector('#toggle').onclick = event => {{
   const open = event.currentTarget.getAttribute('aria-expanded') === 'false';
@@ -44,6 +46,9 @@ document.querySelector('#toggle').onclick = event => {{
 }};
 let label = document.querySelector('#label');
 document.querySelector('#name-only').onclick = () => label.textContent = label.textContent ? '' : 'External name';
+const stableGroup = document.querySelector('#stable-group');
+document.querySelector('#aria-hide').onclick = () => stableGroup.setAttribute('aria-hidden', 'true');
+document.querySelector('#make-inert').onclick = () => stableGroup.inert = true;
 </script></main></body></html>""".encode())
             return
         if self.path == '/dense':
@@ -133,7 +138,7 @@ def verify_operation_impact(out, origin):
     def run(name, quick):
         path = out / name
         command = ['page-audit', '--url', url, '--out', str(path), '--config', str(config_path),
-                   '--mode', 'machine', '--screenshots', 'off', '--max-steps', '15']
+                   '--mode', 'machine', '--screenshots', 'off', '--max-steps', '24']
         if quick:
             invoke(command + ['--initial-only'])
             invoke(command + ['--resume', '--quick-explore'])
@@ -187,6 +192,15 @@ def verify_operation_impact(out, origin):
     assert '#label' in impact['changed'] and '#labelled' in impact['related'], impact
     assert ('#labelled',) in axe_results(changed)['violations']['button-name'], impact
     assert axe_results(changed) == axe_results(evidence(full, '#name-only'))
+
+    for selector in ('#aria-hide', '#make-inert'):
+        changed = evidence(quick, selector)
+        impact = audit.load(changed / 'operation-impact.json')
+        assert '#stable-group' in impact['mutated'], impact
+        assert impact['axe']['mode'] == 'mixed', impact
+        for rule in ('aria-valid-attr', 'tabindex'):
+            assert '#stable-error' not in impact['axe']['reused'][rule], impact
+        assert axe_results(changed) == axe_results(evidence(full, selector)), impact
 
 def main(out):
     with ThreadingHTTPServer(('127.0.0.1', 0), Fixture) as server:

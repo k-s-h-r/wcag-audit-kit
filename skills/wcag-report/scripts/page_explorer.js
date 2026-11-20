@@ -110,7 +110,7 @@
       if (!hiddenCache.has(e)) {
         const css = getComputedStyle(e);
         hiddenCache.set(e, css.display === 'none' || css.contentVisibility === 'hidden' ||
-          hasHiddenAncestor(e.parentElement));
+          e.matches('[inert], [aria-hidden="true" i]') || hasHiddenAncestor(e.parentElement));
       }
       return hiddenCache.get(e);
     };
