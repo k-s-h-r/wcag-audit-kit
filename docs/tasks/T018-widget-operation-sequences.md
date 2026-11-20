@@ -20,7 +20,7 @@
 
 ## コンボボックスの展開・選択・取消
 
-`8131428` を起点に `codex/t018-editable-combobox-keys` の別worktreeで実装した。Chromiumで、URLだけを指定して4.1.2の既存の正常例と問題例を比較した。 [ADR 0080](../adr/0080-follow-editable-combobox-keys.md)
+`8131428` を起点に `codex/t018-editable-combobox-keys` の別worktreeで実装した。Chromiumで、URLだけを指定して4.1.2の既存の正常例と問題例を比較した。 [PR #79](https://github.com/k-s-h-r/wcag-audit-kit/pull/79) · [ADR 0080](../adr/0080-follow-editable-combobox-keys.md)
 
 PC幅・スマホ相当幅の両方で、ArrowDown後の候補表示と展開状態を照合した。正常例は `aria-expanded="true"`、問題例は候補が見える状態でも `false` だった。選択で入力値が変わること、Escapeで値が保たれること、フォーカスが入力欄に残ることを両例で記録した。透明な候補一覧からは展開状態の判定を出さない。判定と対象はJSON・HTML・Excelで照合した。
 
