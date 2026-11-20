@@ -159,6 +159,12 @@ Chromiumでは、クリック・Enter・Spaceの3経路で開き元への復帰�
 
 比較と再実行は[ADR 0072](../adr/0072-observe-focus-after-dialog-button.md)を参照する。別文書・Shadow DOM内のモーダルやボタン、フォーム送信扱いのボタン、別要素への復帰が適切かの判断は追加確認に残る。次に同じ証拠を2.4.3のベンチマーク採点へ対応付ける場合は、対象と操作状態を照合できる例を選ぶ。[機械検出対象の採点PR #70](https://github.com/k-s-h-r/wcag-audit-kit/pull/70)
 
+### 2.4.3の単一ダイアログをベンチマークで採点する
+
+`codex/t009-score-dialog-focus` で、[PR #71](https://github.com/k-s-h-r/wcag-audit-kit/pull/71)の検出器と[PR #70](https://github.com/k-s-h-r/wcag-audit-kit/pull/70)の機械採点を使い、2.4.3-02に単一ダイアログの対照を追加した。開き元・ダイアログ・閉じるボタンのIDと入力を公開の操作条件に置き、実行済みの経路・実入力・同じ文書のフォーカスを照合する。[ADR 0073](../adr/0073-score-dialog-focus-benchmark-routes.md)
+
+Chromiumの2.4.3収集10ページで、クリック・Enter・Spaceの問題3件と正常例3件がすべて一致した。接続前の採点器では、同じ証拠が6件とも未確認だった。2.4.3の機械検出対象全体では問題3/6件、対照3/6件が一致し、追加の誤検出は0件。入れ子のダイアログとメニューに関する既存6観点は未確認で、次は開閉直後のフォーカスと次の操作を、どの状態に対応付けられるかを確認する。[対照と再実行手順](../../benchmarks/cases/2.4.3/README.md#ボタンで閉じた直後と次のtab)
+
 ## 初期画面の検査と任意の操作探索
 
 担当は `codex/initial-page-audit-first`。起点は [PR #67](https://github.com/k-s-h-r/wcag-audit-kit/pull/67) の `716364f`。直接の `wcag-page` は初期画面の帳票を先に返し、操作探索を選んだときは同じrunへ追加する。リンク内の文字などで、親のポインター挙動だけを引き継ぐ子はまとめる。独立した操作や委譲先の候補も判別する。[ADR 0068](../adr/0068-defer-single-page-operation-exploration.md)
