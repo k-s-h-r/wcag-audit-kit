@@ -1,4 +1,6 @@
 """Measure media operation in bounded benchmark fixtures using Chromium."""
+import asyncio
+import json
 import re
 from urllib.parse import urlsplit
 
@@ -181,40 +183,66 @@ def user_agent_buttons(node):
         yield from user_agent_buttons(child)
 
 
-async def native_pause(page, target):
+async def native_pause(page, session, target):
+    root = (await session.send('DOM.getDocument'))['root']['nodeId']
+    node = await session.send('DOM.querySelector', {'nodeId': root, 'selector': target})
+    node = (await session.send('DOM.describeNode', dict(node, depth=-1, pierce=True)))['node']
+    roots = [child for child in node.get('shadowRoots', []) if child['shadowRootType'] == 'user-agent']
+    buttons = [button for root in roots for button in user_agent_buttons(root)]
+    if len(buttons) != 1:
+        return None
+    quad = (await session.send('DOM.getContentQuads', {'backendNodeId': buttons[0]}))['quads']
+    if len(quad) != 1:
+        return None
+    coordinates = [sum(quad[0][offset::2]) / 4 for offset in (0, 1)]
+    await page.mouse.click(*coordinates)
+    return coordinates
+
+
+async def without_user_gesture(session, function, selector, *args):
+    # Playwright's page/locator evaluation can set transient/sticky user
+    # activation. The pre-input autoplay evidence must avoid that activation.
+    argument = ', '.join([f'document.querySelector({json.dumps(selector)})', *map(json.dumps, args)])
+    value = await session.send('Runtime.evaluate', {
+        'expression': f'({function})({argument})',
+        'returnByValue': True, 'awaitPromise': True, 'userGesture': False,
+    })
+    if 'exceptionDetails' in value:
+        raise ValueError('ユーザー操作を行わない音声観測で例外が発生した')
+    return value['result']['value']
+
+
+async def autoplay(page, plan):
     session = await page.context.new_cdp_session(page)
+    target = plan['target']
     try:
-        root = (await session.send('DOM.getDocument'))['root']['nodeId']
-        node = await session.send('DOM.querySelector', {'nodeId': root, 'selector': target})
-        node = (await session.send('DOM.describeNode', dict(node, depth=-1, pierce=True)))['node']
-        roots = [child for child in node.get('shadowRoots', []) if child['shadowRootType'] == 'user-agent']
-        buttons = [button for root in roots for button in user_agent_buttons(root)]
-        if len(buttons) != 1:
-            return None
-        quad = (await session.send('DOM.getContentQuads', {'backendNodeId': buttons[0]}))['quads']
-        if len(quad) != 1:
-            return None
-        coordinates = [sum(quad[0][offset::2]) / 4 for offset in (0, 1)]
-        await page.mouse.click(*coordinates)
-        return coordinates
+        unique_media = await without_user_gesture(session, """
+            (e, selector) => e instanceof HTMLMediaElement && document.querySelectorAll(selector).length === 1
+        """, target, target)
+        if not unique_media:
+            raise ValueError('指定した音声または動画を一つに特定できない')
+        loop = asyncio.get_running_loop()
+        deadline = loop.time() + 4
+        before = await without_user_gesture(session, MEDIA_SNAPSHOT, target)
+        while before['paused'] or before['ready'] < 2:
+            if loop.time() >= deadline:
+                return dict(before=before, playback=before, samples=[])
+            await asyncio.sleep(0.1)
+            before = await without_user_gesture(session, MEDIA_SNAPSHOT, target)
+        media_samples = await without_user_gesture(session, PLAYBACK_SAMPLE, target)
+        playback = await without_user_gesture(session, MEDIA_SNAPSHOT, target)
+        scan = await without_user_gesture(session, REGION_SCAN, plan['region'], target)
+        coordinates = await native_pause(page, session, target) if playback['controls'] else None
+        paused = await without_user_gesture(session, MEDIA_SNAPSHOT, target) if coordinates is not None else None
+        return dict(before=before, playback=playback, samples=media_samples, scope=scan, pause=coordinates, after=paused)
     finally:
         await session.detach()
 
 
-async def autoplay(page, media, plan):
-    await wait_for(page, plan['target'], '!e.paused && e.readyState >= 2', 4000)
-    before = await media_snapshot(media)
-    media_samples = await media.evaluate(PLAYBACK_SAMPLE)
-    playback = await media_snapshot(media)
-    region = await unique(page, plan['region'])
-    scan = await region.evaluate(REGION_SCAN, plan['target'])
-    coordinates = await native_pause(page, plan['target']) if playback['controls'] else None
-    paused = await media_snapshot(media) if coordinates is not None else None
-    return dict(before=before, playback=playback, samples=media_samples, scope=scan, pause=coordinates, after=paused)
-
-
 async def capture(criterion, page, plan):
     validate_plan(criterion, plan)
+    if criterion == '1.4.2':
+        return await autoplay(page, plan)
     media = await unique(page, plan['target'])
     if await media.evaluate('e => e instanceof HTMLMediaElement') is not True:
         raise ValueError('指定した対象は音声または動画の要素ではない')
@@ -222,9 +250,7 @@ async def capture(criterion, page, plan):
         return dict(media=await media_snapshot(media), scope=await transcript(page, plan))
     if criterion == '1.2.2':
         return await captions(page, media, plan)
-    if criterion == '1.2.5':
-        return await description(page, media, plan)
-    return await autoplay(page, media, plan)
+    return await description(page, media, plan)
 
 
 def assess_transcript(evidence):
@@ -276,7 +302,8 @@ def assess_description(evidence):
 def assess_autoplay(evidence):
     playback = evidence['playback']
     samples = evidence['samples']
-    if (not evidence['before']['autoplay'] or evidence['before']['activated'] or playback['error'] or len(samples) < 2
+    if (not evidence['before']['autoplay'] or evidence['before']['activated'] or playback['activated']
+            or playback['error'] or len(samples) < 2
             or samples[-1]['at'] - samples[0]['at'] <= 3000
             or samples[-1]['position'] - samples[0]['position'] <= 3
             or not all(not sample['paused'] and not sample['muted'] and sample['volume'] > 0 for sample in samples)
