@@ -83,3 +83,4 @@
 - [0077 URLだけで始める操作探索を問題集で測る](0077-measure-url-only-operation-exploration.md)
 - [0078 同じ画面に到達してもキーボード操作の続きを調べる](0078-continue-keyboard-paths-after-duplicate-states.md)
 - [0079 展開した領域をEscapeで閉じた後のフォーカスを記録する](0079-observe-focus-after-closing-disclosures.md)
+- [0081 WCAGスキルの処理の流れを図解する](0081-document-wcag-skill-workflows.md)
