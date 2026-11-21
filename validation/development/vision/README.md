@@ -1,6 +1,6 @@
 # VISIONの統合検証
 
-同じ作業ブランチにURL探索、実操作、範囲の結論と帳票、点検、複数ページの修正前後比較を取り込んだ。対照は各試験の記録にあり、対象のURL・状態・達成基準・実行環境を確認できる。PRの採用状況は各リンクから確認できる。[VISION](../../../docs/VISION.md) · [統合版のADR](../../../docs/adr/0108-run-vision-acceptance-on-an-integrated-revision.md)
+同じ作業ブランチにURL探索、実操作、範囲の結論と帳票、点検、複数ページの修正前後比較を取り込んだ。対照は各試験の記録にあり、対象のURL・状態・達成基準・実行環境を確認できる。PRの採用状況は各リンクから確認できる。[VISION](../../../docs/VISION.md) · [統合PR #98](https://github.com/k-s-h-r/wcag-audit-kit/pull/98) · [統合版のADR](../../../docs/adr/0108-run-vision-acceptance-on-an-integrated-revision.md)
 
 | VISIONの項目 | 確認したこと | 根拠 |
 | --- | --- | --- |

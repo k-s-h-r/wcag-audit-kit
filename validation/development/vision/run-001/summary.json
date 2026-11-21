@@ -142,5 +142,36 @@
       52,
       52
     ]
+  },
+  "calendar": {
+    "cases": [
+      {
+        "case_id": "305f8736ccdd--initial--desktop--1.4.1",
+        "target": "failed",
+        "assessment": "failed",
+        "attachments": 7
+      },
+      {
+        "case_id": "83a314f68a02--initial--desktop--1.4.1",
+        "target": "passed",
+        "assessment": "cant_tell",
+        "attachments": 7
+      }
+    ],
+    "replay_sha256": "f5e5aa93a0b02bc757ce915053d8a64e8076352bcf24f333200d036ed28ff25f"
+  },
+  "media": {
+    "selected_expected_observations": 7,
+    "cases": {
+      "good": "matches",
+      "wrong-text": "different-words",
+      "late": "absent-at-samples",
+      "transcript-a": "includes-visual-fact",
+      "transcript-b": "omits-visual-fact",
+      "description-a": "includes-description",
+      "description-b": "omits-description"
+    },
+    "criterion_assessment": null,
+    "evidence_sha256": "703c4b569c12e6353c8cb5bb2ac319643142f0ba07197ff4908a13cfb9a82fc1"
   }
 }
