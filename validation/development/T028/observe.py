@@ -103,14 +103,31 @@ def words(value):
     return ' '.join(re.findall(r'[a-z0-9]+', value.lower()))
 
 
-def decode(public, output, logs, engine, model, name, video, window=None):
+def decode(public, output, logs, engine, model, name, video, window=None, reuse=None):
     path = public / video
     audio = output / f'{name}.wav'
     ffmpeg(logs, name + '-decode', '-i', path, '-map', '0:a:0', '-ar', '16000', '-ac', '1',
            '-c:a', 'pcm_s16le', audio)
     prefix = output / name
-    command(logs, name + '-whisper', engine, '-m', model, '-f', audio, '-l', 'en', '-t', '4',
-            '-ojf', '-otxt', '-of', prefix)
+    recognition = (engine, '-m', model, '-f', audio, '-l', 'en', '-t', '4', '-ojf', '-otxt', '-of', prefix)
+    if reuse:
+        old_audio = reuse / 'audio' / audio.name
+        old_prefix = old_audio.with_suffix('')
+        old_logs = reuse / 'commands'
+        old_argv = [str({audio: old_audio, prefix: old_prefix}.get(arg, arg)) for arg in recognition]
+        logged = read(old_logs / f'{name}-whisper.json')
+        if logged['exit_code'] != 0 or logged['command'] != old_argv or digest(audio) != digest(old_audio):
+            raise ValueError(f'{name} recognition cannot be reused for different decoded audio or arguments.')
+        for suffix in ('.json', '.txt'):
+            shutil.copyfile(old_prefix.with_suffix(suffix), prefix.with_suffix(suffix))
+        for suffix in ('.json', '.stdout', '.stderr'):
+            filename = name + '-whisper' + suffix
+            shutil.copyfile(old_logs / filename, logs / filename)
+        save(logs / f'{name}-whisper-reuse.json',
+             {'source_run': str(reuse), 'verified_wave_sha256': digest(audio),
+              'recognition_json_sha256': digest(prefix.with_suffix('.json'))})
+    else:
+        command(logs, name + '-whisper', *recognition)
     decoded = read(prefix.with_suffix('.json'))['transcription']
     with wave.open(str(audio), 'rb') as wav:
         if (wav.getframerate(), wav.getnchannels(), wav.getsampwidth()) != (16000, 1, 2):
@@ -145,6 +162,11 @@ def active_cues(state):
             for cue in track['activeCues'] or []]
 
 
+def showing_cues(frame):
+    return [cue['text'] for track in frame['tracks'] if track['mode'] == 'showing'
+            for cue in track['activeCues'] or []]
+
+
 def playback(server_origin, logs, output, media, page, times, captions=False):
     request = {'case_id': 't028-' + page, 'url': server_origin + page + '.html', 'media': {'selector': '#clip'},
                'prepare_actions': [{'type': 'click', 'selector': '#captions'}] if captions else [],
@@ -167,14 +189,20 @@ def playback(server_origin, logs, output, media, page, times, captions=False):
             or fetched != media['media_sha256']):
         raise ValueError(f'{page} playback, source or trace is unverified.')
     samples = []
+    frames = [row for row in trace if row['event'] == 'frame']
     for shot, time in zip(observed['screenshots'], times, strict=True):
         before, end = shot['before_capture'], shot['after_capture']
-        if (shot['requested_media_time'] != time or not time <= before['currentTime'] <= time + 0.25
-                or not before['currentTime'] <= end['currentTime'] <= time + 0.60
-                or active_cues(before) != active_cues(end)):
+        frame = min(frames, key=lambda row: abs(row['mediaTime'] - time))
+        current = active_cues(before)
+        enabled = all(any(track['mode'] == 'showing' for track in record['tracks'])
+                      for record in (before, end, frame))
+        if (shot['requested_media_time'] != time or abs(frame['mediaTime'] - time) > 0.125
+                or not time <= before['currentTime'] <= end['currentTime'] <= time + 0.80
+                or current != active_cues(end) or current != showing_cues(frame) or captions != enabled):
             raise ValueError(f'{page} sample at {time} has insufficient timing or cue evidence.')
-        samples.append({'requested': time, 'observed': [before['currentTime'], end['currentTime']],
-                        'active_cues': active_cues(before), 'screen': (folder / shot['path']).relative_to(output).as_posix(),
+        samples.append({'requested': time, 'frame_media_time': frame['mediaTime'],
+                        'observed': [before['currentTime'], end['currentTime']],
+                        'active_cues': current, 'screen': (folder / shot['path']).relative_to(output).as_posix(),
                         'screen_sha256': digest(folder / shot['path'])})
     return {'status': 'collected', 'browser': observed['browser_version'], 'url': request['url'], 'source_url': resource_url,
             'media_sha256': fetched, 'record': (folder / 'caption-player.json').relative_to(output).as_posix(),
@@ -214,11 +242,12 @@ def caption_outcome(row, speech, different):
     return 'cant_tell'
 
 
-def compare(scope, public, logs, output, engine, model):
+def compare(scope, public, logs, output, engine, model, reuse):
     audio_path = output / 'audio'
     audio_path.mkdir()
-    source = decode(public, audio_path, logs, engine, model, 'source', 'clip.webm')
-    pair = {case: decode(public, audio_path, logs, engine, model, case, case + '.webm', scope['description']['audio_window'])
+    source = decode(public, audio_path, logs, engine, model, 'source', 'clip.webm', reuse=reuse)
+    pair = {case: decode(public, audio_path, logs, engine, model, case, case + '.webm',
+                         scope['description']['audio_window'], reuse=reuse)
             for case in scope['description']['cases']}
     for candidate in pair.values():
         candidate['decoded_video_hash'] = ffmpeg(logs, candidate['video'] + '-video-hash', '-i', public / candidate['video'],
@@ -264,6 +293,7 @@ def main():
     parser.add_argument('--whisper-cli', required=True, type=Path)
     parser.add_argument('--model', required=True, type=Path)
     parser.add_argument('--out', required=True, type=Path)
+    parser.add_argument('--reuse-audio-from', type=Path, help='reuse recognition with identical new decoded PCM and arguments')
     args = parser.parse_args()
     output = args.out.resolve()
     output.mkdir(parents=True, exist_ok=False)
@@ -277,7 +307,8 @@ def main():
     if commit != scope['whisper']['commit'] or model_hash != scope['whisper']['sha256']:
         raise ValueError('Unexpected Whisper source revision or model SHA-256.')
     public = prepare(output, logs, scope)
-    result = compare(scope, public, logs, output, args.whisper_cli.resolve(), args.model.resolve())
+    reuse = args.reuse_audio_from.resolve() if args.reuse_audio_from else None
+    result = compare(scope, public, logs, output, args.whisper_cli.resolve(), args.model.resolve(), reuse)
     save(output / 'observed.json', {**result, 'scope_sha256': digest(scope_path), 'whisper_commit': commit,
                                    'model_sha256': model_hash, 'binary_sha256': digest(args.whisper_cli),
                                    'source_files': {file.name: digest(file) for file in public.iterdir()}})

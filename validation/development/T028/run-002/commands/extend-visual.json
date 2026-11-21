@@ -1,0 +1,28 @@
+{
+  "command": [
+    "ffmpeg",
+    "-nostdin",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-i",
+    "/workspace/wcag-audit-work/evidence/t028-media-run-002/public/clip.webm",
+    "-map",
+    "0:v:0",
+    "-an",
+    "-vf",
+    "tpad=stop_mode=clone:stop_duration=1",
+    "-c:v",
+    "libvpx-vp9",
+    "-deadline",
+    "good",
+    "-cpu-used",
+    "3",
+    "-pix_fmt",
+    "yuv420p",
+    "/workspace/wcag-audit-work/evidence/t028-media-run-002/description-visual.webm"
+  ],
+  "started_at": "2026-11-21T05:03:39.634061+00:00",
+  "finished_at": "2026-11-21T05:03:42.324995+00:00",
+  "exit_code": 0
+}

@@ -1,0 +1,23 @@
+{
+  "command": [
+    "ffmpeg",
+    "-nostdin",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-i",
+    "/workspace/wcag-audit-work/evidence/t028-media-run-002/public/description-b.webm",
+    "-map",
+    "0:a:0",
+    "-ar",
+    "16000",
+    "-ac",
+    "1",
+    "-c:a",
+    "pcm_s16le",
+    "/workspace/wcag-audit-work/evidence/t028-media-run-002/audio/description-b.wav"
+  ],
+  "started_at": "2026-11-21T05:03:43.294589+00:00",
+  "finished_at": "2026-11-21T05:03:43.478126+00:00",
+  "exit_code": 0
+}
