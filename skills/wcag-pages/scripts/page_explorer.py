@@ -834,6 +834,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         data['state_labels']=label_observations
                         inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
                         if (quick and data['modal'] and 1 <= len(route) <= 2 and not blocked and not native_events
+                                and impact and not impact['new_document'] and before_operation['url'] == data['url']
                                 and all(action['type'] == 'click' for action in route)
                                 and all(wait['status'] == 'quiet' for wait in settling)):
                             prior = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True))

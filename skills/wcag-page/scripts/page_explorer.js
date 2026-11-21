@@ -48,7 +48,10 @@
     return result('timeout');
   };
   const events = new WeakMap(), original = EventTarget.prototype.addEventListener;
-  const pointerInput = /^(click|dblclick|auxclick|contextmenu|mouse|pointer|touch)/;
+  const pointerInput = /^(click|dblclick|auxclick|contextmenu|mouse|pointer|touch|(?:got|lost)pointercapture)/;
+  const pointerMotion = ['mousemove','mouseover','mouseout','mouseenter','mouseleave',
+    'pointermove','pointerrawupdate','pointerover','pointerout','pointerenter','pointerleave','pointercancel',
+    'gotpointercapture','lostpointercapture','touchmove','touchcancel'];
   let globalKeyboardListener = false, globalPointerListener = false;
   EventTarget.prototype.addEventListener = function (type, ...args) {
     if ((this === window || this === document) && args[0]?.name !== 'wcagAuditInputListener') {
@@ -197,10 +200,13 @@
     if (!parent.contains(child) || !child.matches('[hidden][aria-modal="true"]:is([role="dialog"],[role="alertdialog"])') ||
         visible(child)) return null;
 
+    const handlerProperty = (node, types) => types.some(type => typeof node['on' + type] === 'function');
     const pointerHandler = node => [...(events.get(node) || [])].some(type => pointerInput.test(type)) ||
-      ['click','dblclick','auxclick','contextmenu','mousedown','mouseup','mousemove','mouseover','mouseenter','mouseleave',
-       'pointerdown','pointerup','pointermove','pointerover','pointerenter','pointerleave',
-       'touchstart','touchend','touchmove'].some(type => typeof node['on' + type] === 'function');
+      handlerProperty(node, [...pointerMotion, 'click','dblclick','auxclick','contextmenu','mousedown','mouseup',
+       'pointerdown','pointerup','touchstart','touchend']);
+    // The next locator click can dispatch movement events on the old pointer target as well.
+    if (all.some(node => [...(events.get(node) || [])].some(type => pointerMotion.includes(type)) ||
+        handlerProperty(node, pointerMotion))) return null;
     if (pointerHandler(window) || pointerHandler(document)) return null;
     for (let node = input; node; node = node.parentElement) if (pointerHandler(node)) return null;
     return {parent:selector(parent), child:selector(child), focus:selector(input)};
