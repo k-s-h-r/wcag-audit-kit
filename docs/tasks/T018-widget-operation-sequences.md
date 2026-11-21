@@ -67,6 +67,6 @@ PC幅・スマホ相当幅の両方で一致した。同じ画面へ先にクリ
 
 ## URLから調べたときのEnterとSpace
 
-`5bb4a80` から `codex/t018-accordion-url-discovery` の別worktreeで実測した。初期表示が同じ2対照を使い、どちらもマウスで開閉できることを確認した。通常探索ではEnterとSpaceのどちらを送っても正常側だけが開き、問題側は同じボタンに入力が届いた後も閉じた状態だった。本文の表示、`aria-expanded`、Chromiumのアクセシビリティツリーの展開状態は、両対照と両画面幅で一致した。[ADR 0114](../adr/0114-verify-accordion-input-variants-from-urls.md) · [対照・条件・実測](../../validation/development/T018/url-operation/README.md)
+`5bb4a80` から `codex/t018-accordion-url-discovery` の別worktreeで実測した。初期表示が同じ2対照を使い、どちらもマウスで開閉できることを確認した。通常探索ではEnterとSpaceのどちらを送っても正常側だけが開き、問題側は同じボタンに入力が届いた後も閉じた状態だった。本文の表示、`aria-expanded`、Chromiumのアクセシビリティツリーの展開状態は、両対照と両画面幅で一致した。[PR #103](https://github.com/k-s-h-r/wcag-audit-kit/pull/103) · [ADR 0114](../adr/0114-verify-accordion-input-variants-from-urls.md) · [対照・条件・実測](../../validation/development/T018/url-operation/README.md)
 
 簡易探索はこのボタンではEnterを試し、Spaceの観察は通常探索で追加した。問題側で操作結果の違いは確認できた。機械行は2.1.1の判定を保留している。標準の2キーを越える代替経路、実スクリーンリーダーの発話、入れ子での開閉方法は別の対照が必要になった時点で調べる。操作後に根拠を再利用する範囲は[T019](T019-post-operation-rechecks.md)へ引き継ぐ。
