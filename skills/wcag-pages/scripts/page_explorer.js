@@ -44,7 +44,10 @@
     return result('timeout');
   };
   const events = new WeakMap(), original = EventTarget.prototype.addEventListener;
+  let globalKeyboardListener = false;
   EventTarget.prototype.addEventListener = function (type, ...args) {
+    if ((this === window || this === document) && /^key(down|up|press)$/.test(type) &&
+        args[0]?.name !== 'wcagAuditInputListener') globalKeyboardListener = true;
     if (this instanceof Element) {
       const types = events.get(this) || new Set(); types.add(type); events.set(this, types);
     }
@@ -83,6 +86,40 @@
     if (e.checkVisibility && !e.checkVisibility()) return false;
     const r = e.getBoundingClientRect(), s = getComputedStyle(e);
     return !!(r.width && r.height && s.visibility !== 'hidden' && s.display !== 'none');
+  };
+  let functionOutput, functionControl;
+  window.__wcagFunctionValueAtClick = () => functionOutput?.isConnected ? functionOutput.value.trim() : null;
+  const keyboardHandler = target => ['onkeydown', 'onkeypress', 'onkeyup'].some(
+    key => typeof target[key] === 'function'
+  ) || [...(events.get(target) || [])].some(type => /^key(down|up|press)$/.test(type));
+  window.__wcagFunctionOutput = (phase, control) => {
+    const outputs = [...document.querySelectorAll('output')].filter(visible);
+    if (outputs.length !== 1) return null;
+    const [output] = outputs;
+    const value = output.value.trim();
+    if (!/^-?[0-9]+$/.test(value) || !Number.isSafeInteger(Number(value)) || output.innerText.trim() !== value ||
+        output.closest('[inert], [aria-hidden="true" i]') || output.form ||
+        output.checkVisibility?.({opacityProperty: true}) === false) return null;
+    if (phase === 'after') {
+      if (output !== functionOutput || !functionControl?.isConnected) return null;
+      control = functionControl;
+    } else {
+      functionOutput = output;
+      functionControl = control;
+    }
+    const observation = {target: selector(output), value, url: location.href};
+    if (control) {
+      const ancestors = [];
+      let customKeys = keyboardHandler(control);
+      for (let parent = control.parentElement; parent; parent = parent.parentElement) {
+        ancestors.push(selector(parent));
+        customKeys ||= keyboardHandler(parent);
+      }
+      observation.control_ancestors = ancestors;
+      observation.custom_keys = globalKeyboardListener || Boolean(document.querySelector('[accesskey], [aria-keyshortcuts]')) ||
+        customKeys || [window, document].some(keyboardHandler);
+    }
+    return observation;
   };
   const deepestActive = root => {
     let active = root.activeElement;

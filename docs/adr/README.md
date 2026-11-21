@@ -100,3 +100,4 @@
 - [0094 通常の入口から機械検出対象の全行を測る](0094-measure-all-machine-targets-from-url.md)
 - [0095 検証できるゴールに向けて開発を続ける](0095-continue-development-with-verifiable-goals.md)
 - [0097 保存済みの判定から対象範囲の結論を出す](0097-report-verified-scope-conformance.md)
+- [0098 起点URLから予約手続きの検査を試す](0098-verify-a-process-from-its-entry-url.md)

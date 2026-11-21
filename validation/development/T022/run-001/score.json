@@ -1,0 +1,195 @@
+{
+  "machine_pages": {
+    "http://127.0.0.1:43822/na/": "1-01",
+    "http://127.0.0.1:43822/rb/": "2-02",
+    "http://127.0.0.1:43822/na/visit.html": "1-03",
+    "http://127.0.0.1:43822/rb/visit.html": "2-04"
+  },
+  "rows": [
+    {
+      "site": "na",
+      "row": "quantity",
+      "machine": "passed",
+      "after": "passed"
+    },
+    {
+      "site": "na",
+      "row": "label_in_name",
+      "machine": "cant_tell",
+      "after": "passed"
+    },
+    {
+      "site": "na",
+      "row": "keyboard_completion",
+      "machine": "unreached",
+      "after": "reached"
+    },
+    {
+      "site": "rb",
+      "row": "quantity",
+      "machine": "cant_tell",
+      "after": "failed"
+    },
+    {
+      "site": "rb",
+      "row": "label_in_name",
+      "machine": "cant_tell",
+      "after": "failed"
+    },
+    {
+      "site": "rb",
+      "row": "keyboard_completion",
+      "machine": "unreached",
+      "after": "blocked"
+    }
+  ],
+  "reports": [
+    {
+      "site": "na",
+      "scope_conformance": "unverified",
+      "urls": [
+        "http://127.0.0.1:43822/na/",
+        "http://127.0.0.1:43822/na/visit.html",
+        "http://127.0.0.1:43822/na/confirmation.html?people=2"
+      ],
+      "criteria": [],
+      "failures": [],
+      "remaining": [
+        "適合要件の確認が必要です。検証する範囲、ページ全体、一連の手続き、アクセシビリティサポート、非干渉。",
+        "未実施・判断保留・確認が残る検査票が165件あります。",
+        "画面上の操作や状態の調査が残っています。"
+      ],
+      "evidence": [],
+      "files": {
+        "reports/report.html": "be326174d7e15ee8833fd12f72a02a551c17afa6f6b78dbc6d9e959f71d4c62f",
+        "reports/report.xlsx": "50f0dc22b1cafd89281be683e6c00e10f00f3489062327143eff2b4f3376d77e",
+        "data/report.json": "8346ed2a1e2fff73fa55a28200daf9348db2d8f705523b7a447f547f544e3a7b"
+      }
+    },
+    {
+      "site": "rb",
+      "scope_conformance": "does_not_conform",
+      "urls": [
+        "http://127.0.0.1:43822/rb/",
+        "http://127.0.0.1:43822/rb/visit.html",
+        "http://127.0.0.1:43822/rb/confirmation.html?people=2"
+      ],
+      "criteria": [
+        "2.1.1",
+        "2.5.3"
+      ],
+      "failures": [
+        {
+          "case_id": "d9b5c09545c8--initial--desktop--2.1.1",
+          "criterion": "2.1.1",
+          "url": "http://127.0.0.1:43822/rb/visit.html",
+          "state": "initial",
+          "environment": "desktop",
+          "record": "assessments/d9b5c09545c8--initial--desktop--2.1.1--4b76641098b9.json",
+          "evidence": [
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/d20e72d6-observations.json",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/d4c72092-rb-04-focus-increase.png",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/3ed3bb7e-rb-05-increase-with-enter.png",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/f72c6ca4-rb-06-increase-with-space.png",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/f94cffae-rb-10-increase-with-pointer.png",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/172b17d4-rb-08-try-review-at-one.png",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/14ffc398-rb-11-refocus-review.png",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/e3bfe2ff-rb-12-review-after-pointer.png"
+          ]
+        },
+        {
+          "case_id": "d9b5c09545c8--initial--desktop--2.5.3",
+          "criterion": "2.5.3",
+          "url": "http://127.0.0.1:43822/rb/visit.html",
+          "state": "initial",
+          "environment": "desktop",
+          "record": "assessments/d9b5c09545c8--initial--desktop--2.5.3--6d3294fc7102.json",
+          "evidence": [
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.5.3/d8fc9f6a-observations.json",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.5.3/90933971-rb-03-start-reservation.png",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.5.3/81d3c91a-rb-03-start-reservation.ax.json",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.5.3/8b7b8379-rb-07-focus-review.png",
+            "evidence/attached/d9b5c09545c8--initial--desktop--2.5.3/380f03e6-rb-07-focus-review.ax.json"
+          ]
+        }
+      ],
+      "remaining": [
+        "適合要件の確認が必要です。検証する範囲、ページ全体、一連の手続き、アクセシビリティサポート、非干渉。",
+        "未実施・判断保留・確認が残る検査票が165件あります。",
+        "画面上の操作や状態の調査が残っています。"
+      ],
+      "evidence": [
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/d20e72d6-observations.json",
+          "original": "observations.json",
+          "sha256": "0023d3b95cb5fb4b41e58770cbadd519b3bb8d06f4af5e863d95ccbf815d2fa5"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/d4c72092-rb-04-focus-increase.png",
+          "original": "rb-04-focus-increase.png",
+          "sha256": "6b674dd756afbea670a23df219d5fc39219508e92243bce18dade80ff3c18097"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/3ed3bb7e-rb-05-increase-with-enter.png",
+          "original": "rb-05-increase-with-enter.png",
+          "sha256": "6b674dd756afbea670a23df219d5fc39219508e92243bce18dade80ff3c18097"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/f72c6ca4-rb-06-increase-with-space.png",
+          "original": "rb-06-increase-with-space.png",
+          "sha256": "6b674dd756afbea670a23df219d5fc39219508e92243bce18dade80ff3c18097"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/f94cffae-rb-10-increase-with-pointer.png",
+          "original": "rb-10-increase-with-pointer.png",
+          "sha256": "a5f0a1c69c35377e05a55ba416ee161a403b7b1d1585da110f16527bf676db7e"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/172b17d4-rb-08-try-review-at-one.png",
+          "original": "rb-08-try-review-at-one.png",
+          "sha256": "555dcff4e1bf53198ec6ea007f2947ff225cfd8dade6fe433374da77c7381619"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/14ffc398-rb-11-refocus-review.png",
+          "original": "rb-11-refocus-review.png",
+          "sha256": "fd3f46f394f4734cdc6544cfc45a53b3f2bbb287ba2d2dc943371e1950a3b2d0"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.1.1/e3bfe2ff-rb-12-review-after-pointer.png",
+          "original": "rb-12-review-after-pointer.png",
+          "sha256": "f6cb9803df0dd8cc027d798818acca226ad7ab959f2e025703dcbec02398e67b"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.5.3/d8fc9f6a-observations.json",
+          "original": "observations.json",
+          "sha256": "0023d3b95cb5fb4b41e58770cbadd519b3bb8d06f4af5e863d95ccbf815d2fa5"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.5.3/90933971-rb-03-start-reservation.png",
+          "original": "rb-03-start-reservation.png",
+          "sha256": "bf9db6950e3166217ad7bbb7f75e3c071c232c917bac67d97a1650884ecf5798"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.5.3/81d3c91a-rb-03-start-reservation.ax.json",
+          "original": "rb-03-start-reservation.ax.json",
+          "sha256": "bb1e2711b123323095172eeaeb137622b691431b2372302c38be714da28b6761"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.5.3/8b7b8379-rb-07-focus-review.png",
+          "original": "rb-07-focus-review.png",
+          "sha256": "b8b8887e3f8dce87b4eea84c4f010aebb32cba25048cd4ddf414d18c776db89b"
+        },
+        {
+          "path": "evidence/attached/d9b5c09545c8--initial--desktop--2.5.3/380f03e6-rb-07-focus-review.ax.json",
+          "original": "rb-07-focus-review.ax.json",
+          "sha256": "4e79d92189ee2f49ac99ca4eeefb4d8e41947c978bb53912bbfcb4e3cfb1d7e5"
+        }
+      ],
+      "files": {
+        "reports/report.html": "96a3831fd7fb48ad94511111d9e03c6c6ed89c9d59c36075c456ff7632de8e95",
+        "reports/report.xlsx": "debe190e183c540d8d1ee06250c296d1a24d94000d00275c0b110c38580a6772",
+        "data/report.json": "1b085d0eefcc81ff84e4cc59b0565841a033b1dfacca81098bbe1e4eb3bbf598"
+      }
+    }
+  ]
+}
