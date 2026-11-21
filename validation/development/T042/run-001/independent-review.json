@@ -1,0 +1,75 @@
+{
+  "frozen_plan_sha256": "79ac1632fc56afb628e1c597a9186b7e4ca386d8224bdcec695352029e355460",
+  "ordinary_received_paths": {
+    "/p03.html": 4,
+    "/p04.html": 4
+  },
+  "cases": {
+    "073": {
+      "widths": {
+        "desktop": {
+          "id": "11aac140d9ac--initial--desktop--3.2.1",
+          "manual_document_gets": [
+            "/p03.html",
+            "/details.html"
+          ],
+          "same_initial_image": true,
+          "legacy_trace_matches_proof": true,
+          "target_outcome": "failed",
+          "case_outcome": "failed",
+          "attached_count": 10,
+          "first_evidence": "evidence/attached/11aac140d9ac--initial--desktop--3.2.1/c58f5872-observation.json"
+        },
+        "narrow": {
+          "id": "11aac140d9ac--initial--narrow--3.2.1",
+          "manual_document_gets": [
+            "/p03.html",
+            "/details.html"
+          ],
+          "same_initial_image": true,
+          "legacy_trace_matches_proof": true,
+          "target_outcome": "failed",
+          "case_outcome": "failed",
+          "attached_count": 10,
+          "first_evidence": "evidence/attached/11aac140d9ac--initial--narrow--3.2.1/b49c0e45-observation.json"
+        }
+      },
+      "pending_routes": 6,
+      "cleared": 2,
+      "scope_status": "does_not_conform",
+      "verified_changed_cases_only": true
+    },
+    "074": {
+      "widths": {
+        "desktop": {
+          "id": "d6872fe8eee3--initial--desktop--3.2.1",
+          "manual_document_gets": [
+            "/p04.html"
+          ],
+          "same_initial_image": true,
+          "legacy_trace_matches_proof": false,
+          "target_outcome": "passed",
+          "case_outcome": "cant_tell",
+          "attached_count": 10,
+          "first_evidence": "evidence/attached/d6872fe8eee3--initial--desktop--3.2.1/daa3a682-observation.json"
+        },
+        "narrow": {
+          "id": "d6872fe8eee3--initial--narrow--3.2.1",
+          "manual_document_gets": [
+            "/p04.html"
+          ],
+          "same_initial_image": true,
+          "legacy_trace_matches_proof": false,
+          "target_outcome": "passed",
+          "case_outcome": "cant_tell",
+          "attached_count": 10,
+          "first_evidence": "evidence/attached/d6872fe8eee3--initial--narrow--3.2.1/db68c142-observation.json"
+        }
+      },
+      "pending_routes": 6,
+      "cleared": 0,
+      "scope_status": "unverified",
+      "verified_changed_cases_only": true
+    }
+  }
+}

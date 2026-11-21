@@ -1,0 +1,656 @@
+{
+  "settings": {
+    "url": "http://127.0.0.1:42355/",
+    "other_origin": "http://127.0.0.1:36791",
+    "proxy": "http://127.0.0.1:36789",
+    "chromium_wrapper": "chromium"
+  },
+  "commands": {
+    "initial": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/workspace/wcag-audit-work/t031/skills/wcag-audit-kit/scripts/audit.py",
+      "page-audit",
+      "--url",
+      "http://127.0.0.1:42355/",
+      "--out",
+      "/workspace/wcag-audit-work/evidence/t031/run-003/proxy/audit",
+      "--mode",
+      "machine",
+      "--screenshots",
+      "initial",
+      "--initial-only"
+    ],
+    "explore": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/workspace/wcag-audit-work/t031/skills/wcag-audit-kit/scripts/audit.py",
+      "page-audit",
+      "--url",
+      "http://127.0.0.1:42355/",
+      "--out",
+      "/workspace/wcag-audit-work/evidence/t031/run-003/proxy/audit",
+      "--resume",
+      "--quick-explore",
+      "--max-steps",
+      "10"
+    ]
+  },
+  "operations": {
+    "desktop": {
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "route": [
+        {
+          "selector": "#open",
+          "type": "key",
+          "key": "Enter"
+        }
+      ],
+      "event": {
+        "type": "keydown",
+        "isTrusted": true,
+        "documentId": "1795253375490.1-vhqr28oed",
+        "url": "http://127.0.0.1:42355/",
+        "timestamp": 289.6000000014901,
+        "target": {
+          "tag": "button",
+          "id": "open"
+        },
+        "pointerType": null,
+        "button": null,
+        "buttons": null,
+        "x": null,
+        "y": null,
+        "expectedTargetMatched": true,
+        "key": "Enter",
+        "modifiers": {
+          "control": false,
+          "alt": false,
+          "shift": false,
+          "meta": false
+        },
+        "is_main_frame": true,
+        "received_at": "2026-11-21T09:29:35.780832+00:00"
+      },
+      "blocked_requests": [
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:36791/action-post",
+          "telemetry": false
+        }
+      ],
+      "observed_text": "見学予定\n  候補を開く\n\n候補を表示しました\n\n日時を取得できません",
+      "evidence": "evidence/968f3b4fdd78--explore-5e55c3dddf18--desktop"
+    },
+    "narrow": {
+      "viewport": {
+        "width": 320,
+        "height": 900
+      },
+      "route": [
+        {
+          "selector": "#open",
+          "type": "key",
+          "key": "Enter"
+        }
+      ],
+      "event": {
+        "type": "keydown",
+        "isTrusted": true,
+        "documentId": "1795253376203.7-8j1w7qo96t4",
+        "url": "http://127.0.0.1:42355/",
+        "timestamp": 313.0999999977648,
+        "target": {
+          "tag": "button",
+          "id": "open"
+        },
+        "pointerType": null,
+        "button": null,
+        "buttons": null,
+        "x": null,
+        "y": null,
+        "expectedTargetMatched": true,
+        "key": "Enter",
+        "modifiers": {
+          "control": false,
+          "alt": false,
+          "shift": false,
+          "meta": false
+        },
+        "is_main_frame": true,
+        "received_at": "2026-11-21T09:29:36.519226+00:00"
+      },
+      "blocked_requests": [
+        {
+          "method": "POST",
+          "url": "http://127.0.0.1:36791/action-post",
+          "telemetry": false
+        }
+      ],
+      "observed_text": "見学予定\n  候補を開く\n\n候補を表示しました\n\n日時を取得できません",
+      "evidence": "evidence/968f3b4fdd78--explore-7b1e23018d45--narrow"
+    }
+  },
+  "primary": [
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    }
+  ],
+  "other": [],
+  "proxy": [
+    {
+      "method": "GET",
+      "url": "http://clients2.google.com/time/1/current?cup2key=ML-DSA-44-10:xEhRXRddwM2q64Xz7VU_wveHfgVxuH8e9iWnjT-lABA&cup2hreq=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "update.googleapis.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "POST",
+      "url": "http://update.googleapis.com/service/update2/json?cup2key=ML-DSA-44-16:p4yV50Gb9Dgx0jQVEzOxBZMjaCs-YIVlU8NSggoqfGc&cup2hreq=ac5d9fc89a9e1fcff229723bad0eb2b3df3cea99dc9f17eda8161b1ff08c1be7",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/initial-same.svg",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/initial-other.svg",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/initial-same.svg",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/initial-other.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://clients2.google.com/time/1/current?cup2key=ML-DSA-44-10:RduZB_hwe1Pam2GWHWGXc92o_IvSBootT2f4Aec-21s&cup2hreq=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "update.googleapis.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "POST",
+      "url": "http://update.googleapis.com/service/update2/json?cup2key=ML-DSA-44-16:IOCb1uBfN5zEY4r6VEh5uhkKOTimKHo1KodZFDgFtEE&cup2hreq=a0df0f2650db40a2a46e34ea0ca537e2f02cb17867b8e770244e82f791682d52",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/initial-same.svg",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/initial-other.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/initial-same.svg",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/initial-other.svg",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/initial-same.svg",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/initial-other.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-get",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/action-same",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/redirect",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-image.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/after-redirect",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/initial-same.svg",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/initial-other.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/action-same",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-get",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/redirect",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-image.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/after-redirect",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/initial-same.svg",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/initial-other.svg",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/action-same",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-get",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/redirect",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-image.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/after-redirect",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/initial-same.svg",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/initial-other.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-get",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/action-same",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/redirect",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-image.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/after-redirect",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/initial-same.svg",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/initial-other.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-get",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/action-same",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/redirect",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-image.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/after-redirect",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/initial-same.svg",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/initial-other.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/action-same",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-get",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:42355/redirect",
+      "forwarded": true
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/action-image.svg",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:36791/after-redirect",
+      "forwarded": false
+    }
+  ],
+  "scope_status": "unverified"
+}

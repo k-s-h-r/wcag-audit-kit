@@ -1,0 +1,59 @@
+{
+  "dynamic_dialog": {
+    "attachments": 0,
+    "observations": [
+      {
+        "environment": "desktop",
+        "machine_result": "passed",
+        "opened_display": "表示の世代 0007",
+        "actual_escape_display": "表示の世代 0008",
+        "opened_fingerprint": "809fbb572eee51197d2c8df505f5fcce3f7d031970d06436c36c61b6ac300e73",
+        "actual_escape_before_fingerprint": "d86889b6ced5b22324b752b10a4eaf19de0f5693113a50a402b3f7783674da3a",
+        "opened_state": "evidence/64d9b3d92084--explore-fb0904beed40--desktop/state.json",
+        "escape_observation": "evidence/64d9b3d92084--explore-901536e09e77--desktop/dialog-focus.json",
+        "witness_state": "evidence/64d9b3d92084--explore-901536e09e77--desktop/state.json"
+      },
+      {
+        "environment": "narrow",
+        "machine_result": "passed",
+        "opened_display": "表示の世代 0010",
+        "actual_escape_display": "表示の世代 0011",
+        "opened_fingerprint": "239ab856e49c19a20ce97ce9efae9bf113fda70f621f7604dec635ef0bd0e2ee",
+        "actual_escape_before_fingerprint": "9bdebc667d466ffe4fa84c483c192ae51c827d92397604b905c18ab37a7cad3e",
+        "opened_state": "evidence/64d9b3d92084--explore-16a0fca3dba7--narrow/state.json",
+        "escape_observation": "evidence/64d9b3d92084--explore-827bbfb6dd36--narrow/dialog-focus.json",
+        "witness_state": "evidence/64d9b3d92084--explore-827bbfb6dd36--narrow/state.json"
+      }
+    ]
+  },
+  "fixed_dialog": {
+    "attachments": 2,
+    "observations": [
+      {
+        "environment": "desktop",
+        "packet_capture": "57d470b10abf--explore-1431f39b06e9--desktop",
+        "capture_dialog_text": "氏名の確認",
+        "actual_escape_dialog_text": "氏名の確認",
+        "outcome": "passed",
+        "evidence": "evidence/57d470b10abf--explore-745050444e25--desktop/dialog-focus.json"
+      },
+      {
+        "environment": "narrow",
+        "packet_capture": "57d470b10abf--explore-b1a523eb17a6--narrow",
+        "capture_dialog_text": "氏名の確認",
+        "actual_escape_dialog_text": "氏名の確認",
+        "outcome": "passed",
+        "evidence": "evidence/57d470b10abf--explore-a18f68df793a--narrow/dialog-focus.json"
+      }
+    ]
+  },
+  "derived_copies": {
+    "escape_directories_swapped": [],
+    "desktop_not_main_frame": [
+      "narrow"
+    ],
+    "desktop_capture_final_url_mismatch": [
+      "narrow"
+    ]
+  }
+}

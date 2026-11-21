@@ -1,0 +1,343 @@
+{
+  "commit": "bbb41638977b2511f4806625295cc78ab8d930c3",
+  "corpus_digest": "b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206",
+  "environment": {
+    "system": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.12.14",
+    "chromium": "156.0.8078.79",
+    "playwright": "1.62.0"
+  },
+  "initial_args": [
+    "--level",
+    "AAA",
+    "--mode",
+    "machine",
+    "--screenshots",
+    "initial",
+    "--initial-only"
+  ],
+  "explore_args": [
+    "--resume",
+    "--quick-explore"
+  ],
+  "workers": 1,
+  "pages": 3,
+  "completed_pages": 3,
+  "totals": {
+    "failed": 2,
+    "passed": 3
+  },
+  "problems": {
+    "detected": 2
+  },
+  "controls": {
+    "matched": 2,
+    "observed_no_verdict": 1
+  },
+  "unmatched_findings": [],
+  "receipts": [
+    {
+      "page_id": "068",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:36701/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/068/page/data/report.json",
+      "report_sha256": "46bbe55bf85d4711420a4dba455c6d3a6ecebc85fe32f1efb3d4eda75840e551",
+      "exploration": "pages/068/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 12,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "069",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:36701/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/069/page/data/report.json",
+      "report_sha256": "fa13edb0e688f17da319a748d5e118b463f01d6f57ac4cee525e134c8db48c4a",
+      "exploration": "pages/069/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 12,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "070",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:36701/p05.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/070/page/data/report.json",
+      "report_sha256": "3cceee177cc44a2bf0e09dd0d91639f1a3d60b0de76215e0244b8806d30bc74a",
+      "exploration": "pages/070/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    }
+  ],
+  "rows": [
+    {
+      "page_id": "068",
+      "criterion": "2.5.8",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#target-a",
+      "checkpoint": "2.5.8-02",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/068/page/work/evidence/e44777dfa7d8--explore-e7ebf1664c3a--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/068/page/work/evidence/e44777dfa7d8--explore-e7ebf1664c3a--desktop/target-spacing.json",
+              "proof": [
+                "pages/068/page/work/evidence/e44777dfa7d8--explore-e7ebf1664c3a--desktop/state.json",
+                "pages/068/page/work/evidence/e44777dfa7d8--explore-e7ebf1664c3a--desktop/transition.json"
+              ],
+              "report_check": "ポインター対象の寸法と間隔",
+              "target": "#target-a",
+              "observed": "16 × 16 CSS px。水平の辺間隔は 2 CSS px。対象の中央に置いた直径24 CSS pxの円は、隣接対象又はその円と重なる。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/068/page/work/evidence/e44777dfa7d8--explore-734ad224828d--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/068/page/work/evidence/e44777dfa7d8--explore-734ad224828d--narrow/target-spacing.json",
+              "proof": [
+                "pages/068/page/work/evidence/e44777dfa7d8--explore-734ad224828d--narrow/state.json",
+                "pages/068/page/work/evidence/e44777dfa7d8--explore-734ad224828d--narrow/transition.json"
+              ],
+              "report_check": "ポインター対象の寸法と間隔",
+              "target": "#target-a",
+              "observed": "16 × 16 CSS px。水平の辺間隔は 2 CSS px。対象の中央に置いた直径24 CSS pxの円は、隣接対象又はその円と重なる。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "068",
+      "criterion": "2.5.8",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#target-b",
+      "checkpoint": "2.5.8-02",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/068/page/work/evidence/e44777dfa7d8--explore-e7ebf1664c3a--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/068/page/work/evidence/e44777dfa7d8--explore-e7ebf1664c3a--desktop/target-spacing.json",
+              "proof": [
+                "pages/068/page/work/evidence/e44777dfa7d8--explore-e7ebf1664c3a--desktop/state.json",
+                "pages/068/page/work/evidence/e44777dfa7d8--explore-e7ebf1664c3a--desktop/transition.json"
+              ],
+              "report_check": "ポインター対象の寸法と間隔",
+              "target": "#target-b",
+              "observed": "16 × 16 CSS px。水平の辺間隔は 2 CSS px。対象の中央に置いた直径24 CSS pxの円は、隣接対象又はその円と重なる。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/068/page/work/evidence/e44777dfa7d8--explore-734ad224828d--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/068/page/work/evidence/e44777dfa7d8--explore-734ad224828d--narrow/target-spacing.json",
+              "proof": [
+                "pages/068/page/work/evidence/e44777dfa7d8--explore-734ad224828d--narrow/state.json",
+                "pages/068/page/work/evidence/e44777dfa7d8--explore-734ad224828d--narrow/transition.json"
+              ],
+              "report_check": "ポインター対象の寸法と間隔",
+              "target": "#target-b",
+              "observed": "16 × 16 CSS px。水平の辺間隔は 2 CSS px。対象の中央に置いた直径24 CSS pxの円は、隣接対象又はその円と重なる。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "069",
+      "criterion": "2.5.8",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "initial",
+      "target": "#target-a",
+      "checkpoint": "2.5.8-02",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/069/page/work/evidence/8caef9c3be44--explore-19539c81c810--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/069/page/work/evidence/8caef9c3be44--explore-19539c81c810--desktop/target-spacing.json",
+              "proof": [
+                "pages/069/page/work/evidence/8caef9c3be44--explore-19539c81c810--desktop/state.json",
+                "pages/069/page/work/evidence/8caef9c3be44--explore-19539c81c810--desktop/transition.json"
+              ],
+              "report_check": "ポインター対象の寸法と間隔",
+              "target": "#target-a",
+              "observed": "28 × 28 CSS px。水平の辺間隔は 2 CSS px。測定した対象は24 × 24 CSS px以上。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/069/page/work/evidence/8caef9c3be44--explore-88d6b1f12b7a--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/069/page/work/evidence/8caef9c3be44--explore-88d6b1f12b7a--narrow/target-spacing.json",
+              "proof": [
+                "pages/069/page/work/evidence/8caef9c3be44--explore-88d6b1f12b7a--narrow/state.json",
+                "pages/069/page/work/evidence/8caef9c3be44--explore-88d6b1f12b7a--narrow/transition.json"
+              ],
+              "report_check": "ポインター対象の寸法と間隔",
+              "target": "#target-a",
+              "observed": "28 × 28 CSS px。水平の辺間隔は 2 CSS px。測定した対象は24 × 24 CSS px以上。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "069",
+      "criterion": "2.5.8",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "initial",
+      "target": "#target-b",
+      "checkpoint": "2.5.8-02",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/069/page/work/evidence/8caef9c3be44--explore-19539c81c810--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/069/page/work/evidence/8caef9c3be44--explore-19539c81c810--desktop/target-spacing.json",
+              "proof": [
+                "pages/069/page/work/evidence/8caef9c3be44--explore-19539c81c810--desktop/state.json",
+                "pages/069/page/work/evidence/8caef9c3be44--explore-19539c81c810--desktop/transition.json"
+              ],
+              "report_check": "ポインター対象の寸法と間隔",
+              "target": "#target-b",
+              "observed": "28 × 28 CSS px。水平の辺間隔は 2 CSS px。測定した対象は24 × 24 CSS px以上。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/069/page/work/evidence/8caef9c3be44--explore-88d6b1f12b7a--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/069/page/work/evidence/8caef9c3be44--explore-88d6b1f12b7a--narrow/target-spacing.json",
+              "proof": [
+                "pages/069/page/work/evidence/8caef9c3be44--explore-88d6b1f12b7a--narrow/state.json",
+                "pages/069/page/work/evidence/8caef9c3be44--explore-88d6b1f12b7a--narrow/transition.json"
+              ],
+              "report_check": "ポインター対象の寸法と間隔",
+              "target": "#target-b",
+              "observed": "28 × 28 CSS px。水平の辺間隔は 2 CSS px。測定した対象は24 × 24 CSS px以上。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "070",
+      "criterion": "2.5.8",
+      "case": "c05",
+      "page": "p05.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "2.5.8-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/070/page/work/evidence/783f7be4b599--explore-7a3d93e8c9cf--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/070/page/work/evidence/783f7be4b599--explore-604cdb58fdba--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    }
+  ]
+}

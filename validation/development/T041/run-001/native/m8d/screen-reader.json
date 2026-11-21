@@ -1,0 +1,403 @@
+{
+  "status": "collected",
+  "started_at": "2026-11-21T11:09:49.693504+00:00",
+  "case_id": "m8d",
+  "request_sha256": "8a53544d5ff381ea060629def1dda6570e81529dbf3e11aa2dc306e8ac2d913b",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "observations": [
+    {
+      "index": 1,
+      "action": {
+        "type": "reader.nextHeading"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:09:57.208326+00:00",
+      "finished_at": "2026-11-21T11:10:00.210357+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/m8d/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:09:57.220803+00:00",
+          "line": 2366,
+          "phrase": "h",
+          "raw": "11:09:57.220803 - SPEECH OUTPUT: 'h' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:09:57.234449+00:00",
+          "line": 2414,
+          "phrase": "Wrapping to top.",
+          "raw": "11:09:57.234449 - SPEECH OUTPUT: 'Wrapping to top.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T11:09:57.416425+00:00",
+          "line": 2588,
+          "phrase": "版画室の見学カレンダー heading 1",
+          "raw": "11:09:57.416425 - SPEECH OUTPUT: '版画室の見学カレンダー heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月14日、空きなし。"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action": {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:10:00.338004+00:00",
+      "finished_at": "2026-11-21T11:10:03.343745+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/m8d/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:10:00.367518+00:00",
+          "line": 2675,
+          "phrase": "tab",
+          "raw": "11:10:00.367518 - SPEECH OUTPUT: 'tab' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:10:00.447166+00:00",
+          "line": 2875,
+          "phrase": "翌日 button.",
+          "raw": "11:10:00.447166 - SPEECH OUTPUT: '翌日 button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月14日、空きなし。"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "action": {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:10:03.561751+00:00",
+      "finished_at": "2026-11-21T11:10:06.562959+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/m8d/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:10:03.578965+00:00",
+          "line": 2927,
+          "phrase": "space",
+          "raw": "11:10:03.578965 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:10:03.788726+00:00",
+          "line": 3150,
+          "phrase": "12月15日、空きなし。",
+          "raw": "11:10:03.788726 - SPEECH OUTPUT: '12月15日、空きなし。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月15日、空きなし。"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "action": {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:10:06.617438+00:00",
+      "finished_at": "2026-11-21T11:10:09.618360+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/m8d/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:10:06.625366+00:00",
+          "line": 3198,
+          "phrase": "space",
+          "raw": "11:10:06.625366 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:10:06.748557+00:00",
+          "line": 3421,
+          "phrase": "12月16日、空きなし。",
+          "raw": "11:10:06.748557 - SPEECH OUTPUT: '12月16日、空きなし。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月16日、空きなし。"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "action": {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:10:09.672575+00:00",
+      "finished_at": "2026-11-21T11:10:12.674518+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/m8d/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:10:09.679237+00:00",
+          "line": 3470,
+          "phrase": "space",
+          "raw": "11:10:09.679237 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:10:09.797885+00:00",
+          "line": 3693,
+          "phrase": "12月17日、空きなし。",
+          "raw": "11:10:09.797885 - SPEECH OUTPUT: '12月17日、空きなし。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月17日、空きなし。"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "action": {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:10:12.739012+00:00",
+      "finished_at": "2026-11-21T11:10:15.741038+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/m8d/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:10:12.748642+00:00",
+          "line": 3741,
+          "phrase": "space",
+          "raw": "11:10:12.748642 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:10:12.883814+00:00",
+          "line": 3964,
+          "phrase": "12月18日、空きなし。",
+          "raw": "11:10:12.883814 - SPEECH OUTPUT: '12月18日、空きなし。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月18日、空きなし。"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "action": {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:10:15.817052+00:00",
+      "finished_at": "2026-11-21T11:10:18.818895+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/m8d/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:10:15.824419+00:00",
+          "line": 4013,
+          "phrase": "space",
+          "raw": "11:10:15.824419 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:10:15.940157+00:00",
+          "line": 4236,
+          "phrase": "12月19日、空きあり。",
+          "raw": "11:10:15.940157 - SPEECH OUTPUT: '12月19日、空きあり。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月19日、空きあり。"
+        }
+      ]
+    }
+  ],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "actions": [
+      {
+        "type": "reader.nextHeading"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      }
+    ],
+    "case_id": "m8d",
+    "locale": "ja-JP",
+    "observe": [
+      {
+        "selector": "#availability"
+      }
+    ],
+    "settle_ms": 3000,
+    "url": "http://127.0.0.1:41027/m8d/",
+    "viewport": {
+      "height": 900,
+      "width": 1280
+    }
+  },
+  "cleanup": {
+    "debug_log_sha256": "e7f60835020b180e2aa89498927534b8ec27f1a70067992b6428f1e45ab74eba",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-21T11:10:21.771574+00:00"
+}

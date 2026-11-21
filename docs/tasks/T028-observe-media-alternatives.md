@@ -21,3 +21,9 @@
 T028の対照と実測スクリプト、報告を担当する。既存の媒体記録は元のrunに残す。字幕の実画像は別の担当者が確認し、機械的に取得したcueと照合する。[ADR 0106](../adr/0106-observe-selected-media-alternative-facts.md) · [実測記録](../../validation/development/T028/README.md)
 
 Chromiumの実画面とWhisper.cppのデコード音声の認識結果で、字幕3件、書き起こし2件、音声解説2件が期待と一致した。全発話、非言語音、正確な発話境界、ほかの媒体への適用は確認が残る。[観察結果](../../validation/development/T028/run-002/observed.json)
+
+## 音声解説の選択後に再生された内容を確認
+
+統合版 `5bb4a80` を起点に、1.2.5問題集のc03とc04を実キーで操作した。どちらも音声解説を選択した表示になった。c03は元動画が再生され、c04は音声解説を含む動画に切り替わった。配信バイト、全区間の再生、ブラウザーが再生した音声を照合し、受付コード7291がc04の音声に含まれることを確認した。[PR #105](https://github.com/k-s-h-r/wcag-audit-kit/pull/105) · [ADR 0116](../adr/0116-verify-played-audio-description-choice.md) · [追加試験の記録](../../validation/development/T028/description-choice/README.md)
+
+検査票は選択後の状態に証拠を紐付けた。c03の不適合と、c04で観察した観点の通過を記録し、c04の基準全体は判断保留とした。受付コード以外の情報や別環境まで検査する場合は、新しい条件と観察区間を固定して同じ手順で試す。

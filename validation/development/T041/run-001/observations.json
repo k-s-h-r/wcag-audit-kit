@@ -1,0 +1,185 @@
+{
+  "c4p": {
+    "adapter_error": null,
+    "adapter_status": "collected",
+    "artifact_directory": "c4p",
+    "date_status_utterances": 1,
+    "environment": {
+      "audio_output": "ALSA null; speech transcript, no acoustic recording",
+      "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+      "browser": "Chromium",
+      "browser_version": "156.0.8078.79",
+      "debian_package": "48.1-1+deb13u2",
+      "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+      "installation_verified": true,
+      "kernel": "6.18.57",
+      "reader": "Orca",
+      "reader_version": "48.1",
+      "simulation": false,
+      "system": "Linux"
+    },
+    "full_date_utterances": 0,
+    "initial_display": "12月14日、空きなし。",
+    "keypresses": 3,
+    "keypresses_including_setup": 4,
+    "raw_log_sha256": "2410207f556502fb837fc4b240651e5d5afe4506b8fe261deba0e25f3b00da7d",
+    "request_sha256": "6c21e27210a91ffefd8c6ffbe3d98931dd149e9a09429172a8d0a794b0ac587c",
+    "setup_observed": true,
+    "setup_phrases": [
+      "h",
+      "Wrapping to top.",
+      "版画室の見学カレンダー heading 1"
+    ],
+    "steps": [
+      {
+        "date_status_utterances": [],
+        "display": "12月14日、空きなし。",
+        "focus": "next-day",
+        "index": 2,
+        "key": "Tab",
+        "phrases": [
+          "tab",
+          "翌日 button."
+        ]
+      },
+      {
+        "date_status_utterances": [],
+        "display": "12月14日、空きなし。",
+        "focus": "next-available",
+        "index": 3,
+        "key": "Tab",
+        "phrases": [
+          "tab",
+          "次の空き button."
+        ]
+      },
+      {
+        "date_status_utterances": [
+          "12月19日、空きあり。"
+        ],
+        "display": "12月19日、空きあり。",
+        "focus": "next-available",
+        "index": 4,
+        "key": "space",
+        "phrases": [
+          "space",
+          "12月19日、空きあり。"
+        ]
+      }
+    ],
+    "url": "http://127.0.0.1:41027/c4p/",
+    "valid": true
+  },
+  "m8d": {
+    "adapter_error": null,
+    "adapter_status": "collected",
+    "artifact_directory": "m8d",
+    "date_status_utterances": 5,
+    "environment": {
+      "audio_output": "ALSA null; speech transcript, no acoustic recording",
+      "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+      "browser": "Chromium",
+      "browser_version": "156.0.8078.79",
+      "debian_package": "48.1-1+deb13u2",
+      "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+      "installation_verified": true,
+      "kernel": "6.18.57",
+      "reader": "Orca",
+      "reader_version": "48.1",
+      "simulation": false,
+      "system": "Linux"
+    },
+    "full_date_utterances": 4,
+    "initial_display": "12月14日、空きなし。",
+    "keypresses": 6,
+    "keypresses_including_setup": 7,
+    "raw_log_sha256": "e7f60835020b180e2aa89498927534b8ec27f1a70067992b6428f1e45ab74eba",
+    "request_sha256": "8a53544d5ff381ea060629def1dda6570e81529dbf3e11aa2dc306e8ac2d913b",
+    "setup_observed": true,
+    "setup_phrases": [
+      "h",
+      "Wrapping to top.",
+      "版画室の見学カレンダー heading 1"
+    ],
+    "steps": [
+      {
+        "date_status_utterances": [],
+        "display": "12月14日、空きなし。",
+        "focus": "next-day",
+        "index": 2,
+        "key": "Tab",
+        "phrases": [
+          "tab",
+          "翌日 button."
+        ]
+      },
+      {
+        "date_status_utterances": [
+          "12月15日、空きなし。"
+        ],
+        "display": "12月15日、空きなし。",
+        "focus": "next-day",
+        "index": 3,
+        "key": "space",
+        "phrases": [
+          "space",
+          "12月15日、空きなし。"
+        ]
+      },
+      {
+        "date_status_utterances": [
+          "12月16日、空きなし。"
+        ],
+        "display": "12月16日、空きなし。",
+        "focus": "next-day",
+        "index": 4,
+        "key": "space",
+        "phrases": [
+          "space",
+          "12月16日、空きなし。"
+        ]
+      },
+      {
+        "date_status_utterances": [
+          "12月17日、空きなし。"
+        ],
+        "display": "12月17日、空きなし。",
+        "focus": "next-day",
+        "index": 5,
+        "key": "space",
+        "phrases": [
+          "space",
+          "12月17日、空きなし。"
+        ]
+      },
+      {
+        "date_status_utterances": [
+          "12月18日、空きなし。"
+        ],
+        "display": "12月18日、空きなし。",
+        "focus": "next-day",
+        "index": 6,
+        "key": "space",
+        "phrases": [
+          "space",
+          "12月18日、空きなし。"
+        ]
+      },
+      {
+        "date_status_utterances": [
+          "12月19日、空きあり。"
+        ],
+        "display": "12月19日、空きあり。",
+        "focus": "next-day",
+        "index": 7,
+        "key": "space",
+        "phrases": [
+          "space",
+          "12月19日、空きあり。"
+        ]
+      }
+    ],
+    "url": "http://127.0.0.1:41027/m8d/",
+    "valid": true
+  }
+}

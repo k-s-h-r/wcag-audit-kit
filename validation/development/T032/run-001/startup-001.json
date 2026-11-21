@@ -1,0 +1,142 @@
+{
+  "status": "blocked",
+  "started_at": "2026-11-21T09:40:40.733069+00:00",
+  "case_id": "h2v",
+  "request_sha256": "7e39497f8055152f0fb14b9479d31595429041f2c48c4218df74e3420614b889",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57"
+  },
+  "observations": [],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "actions": [
+      {
+        "type": "reader.nextHeading"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "Return"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "Return"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "type": "reader.nextHeading"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "Return"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "type": "reader.nextHeading"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "1"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "KP_Enter"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "Shift_L",
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "BackSpace"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "2"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      }
+    ],
+    "case_id": "h2v",
+    "locale": "ja-JP",
+    "observe": [
+      {
+        "selector": "main"
+      }
+    ],
+    "settle_ms": 3000,
+    "url": "http://127.0.0.1:41249/h2v/",
+    "viewport": {
+      "height": 900,
+      "width": 1280
+    }
+  },
+  "error": "起動したOrcaのログから版を確認できない",
+  "cleanup": {
+    "debug_log_sha256": "bdd38a62f96ecc1fe61779e948e8ae93473bc30e25b1fae53028bed9ffcbd989",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-21T09:40:50.115013+00:00"
+}

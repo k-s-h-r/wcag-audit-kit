@@ -456,7 +456,7 @@ def outcomes(run):
     from page_explorer import status as exploration_status
     exploration=exploration_status(run)
     complete=complete and exploration['complete']
-    from page_workflow import machine_checks
+    from page_workflow import dialog_observations, machine_checks
     automated=machine_checks(run, manifest)
     result={'level':meta['config']['level'],'url':meta['config']['url'],'audit_complete':complete,
             'conformance_claim':'この結果は記録した検査範囲についての報告です。未実施・判断保留は適合と判定していません。',
@@ -476,6 +476,8 @@ def outcomes(run):
                            'quick_explore': exploration.get('quick_explore', False),
                            'omitted_candidates': exploration.get('omitted_candidates', {})},
             'machine_checks':automated,'counts':dict(stats),'criteria':per_criterion,'cases':rows}
+    if observations := dialog_observations(run, exploration, meta['config']['url']):
+        result['exploration']['dialog_observations'] = observations
     if 'visual_structure_scope' in meta['config']:
         from visual_structure import report_evidence
 
@@ -631,8 +633,14 @@ def render_reports(run, *, page_url=None):
         'interrupted':'収集の途中で停止', 'legacy_unspecified':'当時の収集記録を使用'}[result['collector_status']]
     from inspection import report_rows
     observations=report_rows(result)
-    observation_rows=''.join('<tr>'+''.join('<td>'+escape(str(value))+'</td>' for value in
-        [o['url'],o['capture'],o['label'],o['visual'],o['status'],o['observed'],o['remaining'],o['screen_reader']])+'</tr>' for o in observations)
+    observation_rows = []
+    for observation in observations:
+        keys = ('url', 'capture', 'label', 'visual', 'status', 'observed', 'remaining', 'screen_reader')
+        cells = [escape(str(observation[key])) for key in keys]
+        if evidence := observation.get('operation_evidence'):
+            cells[5] += ' ' + link(run / evidence, '開閉とフォーカスの記録')
+            cells[5] += ' · ' + link(run / observation['input_evidence'], '入力ログ')
+        observation_rows.append('<tr>' + ''.join(f'<td>{cell}</td>' for cell in cells) + '</tr>')
     from inspection import SCREENSHOT_LABELS
     images = [item for item in result['observation_usage'].get('screenshots', []) if item['status'] == 'captured']
     image_setting = SCREENSHOT_LABELS[result['inspection_policy']['screenshots']]
@@ -785,7 +793,7 @@ def render_reports(run, *, page_url=None):
 <div class="scroll" tabindex="0" role="region" aria-label="操作調査の表"><table>
 <thead><tr><th scope="col">ページ</th><th scope="col">状態・環境</th><th scope="col">操作対象</th><th scope="col">画像確認</th>
 <th scope="col">操作確認</th><th scope="col">観察</th><th scope="col">残る確認</th><th scope="col">実SR</th></tr></thead>
-<tbody>{observation_rows}</tbody></table></div></details>
+<tbody>{''.join(observation_rows)}</tbody></table></div></details>
 <details><summary>ページ・状態・環境・基準ごとの検査票</summary>
 <div class="scroll" tabindex="0" role="region" aria-label="検査結果の表"><table><caption>観察結果と証拠</caption>
 <thead><tr><th scope="col">基準</th><th scope="col">対象</th><th scope="col">結果</th>

@@ -1,0 +1,131 @@
+{
+  "machine": {
+    "b7n": {
+      "steps": 12,
+      "status": "unverified",
+      "visited": "http://127.0.0.1:43933/b7n/",
+      "remaining": [
+        "desktop / #schedule：ページ移動を伴うリンク。単独ページから自動巡回しない。",
+        "narrow / #schedule：ページ移動を伴うリンク。単独ページから自動巡回しない。"
+      ],
+      "routes": [
+        {
+          "environment": "desktop",
+          "operation": [
+            {
+              "selector": "#menu",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#schedule",
+          "evidence": "b7n/work/evidence/45d28c2b0cb8--explore-ee8cfb1df048--desktop"
+        },
+        {
+          "environment": "narrow",
+          "operation": [
+            {
+              "selector": "#menu",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#schedule",
+          "evidence": "b7n/work/evidence/45d28c2b0cb8--explore-a26bc88ee679--narrow"
+        }
+      ],
+      "report_sha256": "d396ca583090cfe3bbf0f121e87ba0a04c25f09f79067c436758a8a41f4835e3"
+    },
+    "h2v": {
+      "steps": 12,
+      "status": "unverified",
+      "visited": "http://127.0.0.1:43933/h2v/",
+      "remaining": [
+        "desktop / #schedule：ページ移動を伴うリンク。単独ページから自動巡回しない。",
+        "narrow / #schedule：ページ移動を伴うリンク。単独ページから自動巡回しない。"
+      ],
+      "routes": [
+        {
+          "environment": "desktop",
+          "operation": [
+            {
+              "selector": "#menu",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#schedule",
+          "evidence": "h2v/work/evidence/fe685508500e--explore-3cf6b66f5766--desktop"
+        },
+        {
+          "environment": "narrow",
+          "operation": [
+            {
+              "selector": "#menu",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#schedule",
+          "evidence": "h2v/work/evidence/fe685508500e--explore-aba953344426--narrow"
+        }
+      ],
+      "report_sha256": "cd08f747d230ddb0969be0037ea5ff3b3212fa8128d84028094b74833d776be1"
+    }
+  },
+  "operator": {
+    "b7n": {
+      "keys": 15,
+      "visited": [
+        "http://127.0.0.1:43933/b7n/",
+        "http://127.0.0.1:43933/b7n/dates.html",
+        "http://127.0.0.1:43933/b7n/guests.html?date=2026-12-20",
+        "http://127.0.0.1:43933/b7n/check.html?date=2026-12-20&people=2"
+      ],
+      "error_public_role": "paragraph",
+      "error_image_sha256": "3232114df079080046f02c427bf17ba3799945ebc9d950ef8b0b7747c08546fb"
+    },
+    "h2v": {
+      "keys": 15,
+      "visited": [
+        "http://127.0.0.1:43933/h2v/",
+        "http://127.0.0.1:43933/h2v/dates.html",
+        "http://127.0.0.1:43933/h2v/guests.html?date=2026-12-20",
+        "http://127.0.0.1:43933/h2v/check.html?date=2026-12-20&people=2"
+      ],
+      "error_public_role": "alert",
+      "error_image_sha256": "3232114df079080046f02c427bf17ba3799945ebc9d950ef8b0b7747c08546fb"
+    }
+  },
+  "same_operator_images": 12,
+  "archives": {
+    "machine-evidence.zip": {
+      "files": 20,
+      "sha256": "8a50119e13cc8c49917a6c847c80f1f22ca45df49b91ea44ba4fa84f43eb7db4"
+    },
+    "operator-evidence.zip": {
+      "files": 154,
+      "sha256": "73431373d527216a3965338b1344bf60b26e64d970ee4163892f829bec06c83a"
+    }
+  }
+}

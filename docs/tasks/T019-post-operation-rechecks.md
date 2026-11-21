@@ -25,3 +25,9 @@ mainの `67aa42e` を起点に、`codex/t019-operation-recheck-comparison` の�
 CSSで現れる領域、外部ラベル、離れたポップアップ、ネイティブのモーダルを1280px・320pxで照合した。同じ操作の違反・判断保留・通過・対象外と、各判定の対象が全文書の再検査と一致した。 [測定条件・結果・残る確認](../../validation/development/T019/README.md)
 
 次の候補は `aria-valid-attr-value`。予備試験では、`aria-controls` を持つボタンのHTMLを保ったまま、別領域に非表示の参照先を追加すると、ボタンの判定が不適合から通過に変わった。結果の再利用を広げる前に、参照先の追加・除去が参照元の再検査につながるか、全体再検査と照合する。
+
+## aria-controls 参照先の再検査
+
+公開統合版 `5bb4a80` では、非表示の参照先を追加・除去しても、簡易探索は操作後を初期と同じ状態と判定した。参照が解決できる元とIDを探索状態に含めると、追加と除去は両画面幅で操作後を別に検査した。追加後はaxeで通過、除去後は違反となり、全文書検査と一致した。同じ参照先を別領域へ移した対照では、初期の結果を再利用した。[PR #107](https://github.com/k-s-h-r/wcag-audit-kit/pull/107) · [ADR 0118](../adr/0118-distinguish-resolved-aria-controls-references.md) · [通常CLIの測定と原始証拠](../../validation/development/T019/reference-recheck/README.md)
+
+再検査量は、値の妥当性を各幅9対象、従来の結果の再利用をARIA属性名9対象・`tabindex` 8対象で確認した。値の妥当性は全文書の結果を使う。今回の試験は `aria-controls` の参照先の有無と移動が対象で、別の参照属性や複数の同じIDが文書内にある場合は個別に確かめる。

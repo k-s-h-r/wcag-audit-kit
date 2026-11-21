@@ -1,0 +1,250 @@
+{
+  "hash_fixed_before_first_requests": true,
+  "oracle_route_statuses": {
+    "/oracle.json": "404",
+    "/scenario.json": "404"
+  },
+  "cases": {
+    "m8d": {
+      "operator": {
+        "keys": [
+          "Tab",
+          "Enter",
+          "Enter",
+          "Enter",
+          "Enter",
+          "Enter"
+        ],
+        "available": "12月19日、空きあり。",
+        "trusted_keys": 6,
+        "started": "2026-11-21T11:09:36.037Z",
+        "stopped": "2026-11-21T11:10:02.513Z"
+      },
+      "native": {
+        "scope": "Orca output transcript with ALSA null, no acoustic recording",
+        "environment": {
+          "system": "Linux",
+          "kernel": "6.18.57",
+          "reader": "Orca",
+          "reader_version": "48.1",
+          "debian_package": "48.1-1+deb13u2",
+          "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+          "audio_output": "ALSA null; speech transcript, no acoustic recording",
+          "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+          "installation_verified": true,
+          "simulation": false,
+          "browser": "Chromium",
+          "browser_version": "156.0.8078.79"
+        },
+        "action_keys": 6,
+        "including_setup": 7,
+        "initial_setup": {
+          "observed_key": "h",
+          "day": "12月14日、空きなし。",
+          "heading": "版画室の見学カレンダー"
+        },
+        "date_messages": 5,
+        "full_dates": 4,
+        "rows": [
+          {
+            "key": "Tab",
+            "focus": "next-day",
+            "display": "12月14日、空きなし。",
+            "raw_utterances": [],
+            "other_phrases": [
+              "tab",
+              "翌日 button."
+            ]
+          },
+          {
+            "key": "space",
+            "focus": "next-day",
+            "display": "12月15日、空きなし。",
+            "raw_utterances": [
+              {
+                "at": "2026-11-21T11:10:03.788726+00:00",
+                "line": 3150,
+                "phrase": "12月15日、空きなし。",
+                "raw": "11:10:03.788726 - SPEECH OUTPUT: '12月15日、空きなし。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+              }
+            ],
+            "other_phrases": [
+              "space"
+            ]
+          },
+          {
+            "key": "space",
+            "focus": "next-day",
+            "display": "12月16日、空きなし。",
+            "raw_utterances": [
+              {
+                "at": "2026-11-21T11:10:06.748557+00:00",
+                "line": 3421,
+                "phrase": "12月16日、空きなし。",
+                "raw": "11:10:06.748557 - SPEECH OUTPUT: '12月16日、空きなし。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+              }
+            ],
+            "other_phrases": [
+              "space"
+            ]
+          },
+          {
+            "key": "space",
+            "focus": "next-day",
+            "display": "12月17日、空きなし。",
+            "raw_utterances": [
+              {
+                "at": "2026-11-21T11:10:09.797885+00:00",
+                "line": 3693,
+                "phrase": "12月17日、空きなし。",
+                "raw": "11:10:09.797885 - SPEECH OUTPUT: '12月17日、空きなし。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+              }
+            ],
+            "other_phrases": [
+              "space"
+            ]
+          },
+          {
+            "key": "space",
+            "focus": "next-day",
+            "display": "12月18日、空きなし。",
+            "raw_utterances": [
+              {
+                "at": "2026-11-21T11:10:12.883814+00:00",
+                "line": 3964,
+                "phrase": "12月18日、空きなし。",
+                "raw": "11:10:12.883814 - SPEECH OUTPUT: '12月18日、空きなし。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+              }
+            ],
+            "other_phrases": [
+              "space"
+            ]
+          },
+          {
+            "key": "space",
+            "focus": "next-day",
+            "display": "12月19日、空きあり。",
+            "raw_utterances": [
+              {
+                "at": "2026-11-21T11:10:15.940157+00:00",
+                "line": 4236,
+                "phrase": "12月19日、空きあり。",
+                "raw": "11:10:15.940157 - SPEECH OUTPUT: '12月19日、空きあり。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+              }
+            ],
+            "other_phrases": [
+              "space"
+            ]
+          }
+        ],
+        "period_started": "2026-11-21T11:09:49.693504+00:00",
+        "period_finished": "2026-11-21T11:10:21.771574+00:00"
+      },
+      "machine": {
+        "scope": "unverified",
+        "not_run": 110,
+        "level": "AA",
+        "initial_only": true,
+        "url": "http://127.0.0.1:34185/m8d/",
+        "files_sha256": {
+          "data/report.json": "8f2450988e2e9a50a908c324f009cf43efc64732de7ffb034a548475feaf9aa7",
+          "reports/details/issues.md": "558b4a95b42f3cf24855ff182293f8b0c2e490cb440ba65b3a36f6e4c9545677",
+          "reports/report.html": "0188fa5f0af7cfa5cbb5732aba030fe43877a341ceb28b6b84d0535b3cbe001a",
+          "reports/report.xlsx": "0bdafa606ca00b103d33dee4ac82479a215bf18abb6e906fbde4ef06b07b1e6c"
+        }
+      }
+    },
+    "c4p": {
+      "operator": {
+        "keys": [
+          "Tab",
+          "Tab",
+          "Enter"
+        ],
+        "available": "12月19日、空きあり。",
+        "trusted_keys": 3,
+        "started": "2026-11-21T11:09:36.486Z",
+        "stopped": "2026-11-21T11:09:53.247Z"
+      },
+      "native": {
+        "scope": "Orca output transcript with ALSA null, no acoustic recording",
+        "environment": {
+          "system": "Linux",
+          "kernel": "6.18.57",
+          "reader": "Orca",
+          "reader_version": "48.1",
+          "debian_package": "48.1-1+deb13u2",
+          "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+          "audio_output": "ALSA null; speech transcript, no acoustic recording",
+          "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+          "installation_verified": true,
+          "simulation": false,
+          "browser": "Chromium",
+          "browser_version": "156.0.8078.79"
+        },
+        "action_keys": 3,
+        "including_setup": 4,
+        "initial_setup": {
+          "observed_key": "h",
+          "day": "12月14日、空きなし。",
+          "heading": "版画室の見学カレンダー"
+        },
+        "date_messages": 1,
+        "full_dates": 0,
+        "rows": [
+          {
+            "key": "Tab",
+            "focus": "next-day",
+            "display": "12月14日、空きなし。",
+            "raw_utterances": [],
+            "other_phrases": [
+              "tab",
+              "翌日 button."
+            ]
+          },
+          {
+            "key": "Tab",
+            "focus": "next-available",
+            "display": "12月14日、空きなし。",
+            "raw_utterances": [],
+            "other_phrases": [
+              "tab",
+              "次の空き button."
+            ]
+          },
+          {
+            "key": "space",
+            "focus": "next-available",
+            "display": "12月19日、空きあり。",
+            "raw_utterances": [
+              {
+                "at": "2026-11-21T11:09:43.259691+00:00",
+                "line": 3563,
+                "phrase": "12月19日、空きあり。",
+                "raw": "11:09:43.259691 - SPEECH OUTPUT: '12月19日、空きあり。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+              }
+            ],
+            "other_phrases": [
+              "space"
+            ]
+          }
+        ],
+        "period_started": "2026-11-21T11:09:25.850002+00:00",
+        "period_finished": "2026-11-21T11:09:49.383307+00:00"
+      },
+      "machine": {
+        "scope": "unverified",
+        "not_run": 110,
+        "level": "AA",
+        "initial_only": true,
+        "url": "http://127.0.0.1:34185/c4p/",
+        "files_sha256": {
+          "data/report.json": "fb6b6ba3666dd18f9eac18a991758a60cff79f70ba8cccf4aa6c7caa606cb3ca",
+          "reports/details/issues.md": "558b4a95b42f3cf24855ff182293f8b0c2e490cb440ba65b3a36f6e4c9545677",
+          "reports/report.html": "5ecdd4f41cd9bcf4c26d289b5861674bd1742ca84678eece9e681fbd69da90e6",
+          "reports/report.xlsx": "eaf05d869757497d57c714d902cf16e4269c66a92f50672c1a5916b5b2075ec8"
+        }
+      }
+    }
+  }
+}

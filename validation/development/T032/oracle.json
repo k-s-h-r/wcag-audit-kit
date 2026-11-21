@@ -1,0 +1,51 @@
+{
+  "cases": {
+    "b7n": {
+      "expected": "failed",
+      "role": "paragraph"
+    },
+    "h2v": {
+      "expected": "passed",
+      "role": "alert"
+    }
+  },
+  "commitment_nonce": "8e2dbecfe23470d8ef50bf5efc8c344758060dcbec860e1899cf80f6c9017077",
+  "comparisons": {
+    "scope": "実Orca・Chromiumのひとつのローカル試験手続き。画面確認で終了し、送信や実予約は行わない。",
+    "timing": "3秒の操作別発話窓を使い、エラー時にボタンへフォーカスが残る。理由が発話されない判定は正常対照の取得を前提とする。",
+    "visible": "両例で閉じたメニュー・日付の空き状況・同じエラー表示・2名の確認まで到達する。"
+  },
+  "criterion": "4.1.3",
+  "labels": {
+    "available": "12月20日 空きあり",
+    "confirmation": "12月20日。見学人数 2 名。",
+    "date": "選択した見学日は12月20日です。",
+    "error": "見学人数は2名以上を入力してください。",
+    "full": "12月19日 満席",
+    "input": "見学人数",
+    "menu": "来館案内を開く",
+    "review": "予約内容を確認する",
+    "start": "版画室の見学日を調べる"
+  },
+  "level": "WCAG 2.2 AA",
+  "paths": [
+    "",
+    "dates.html",
+    "guests.html?date=2026-12-20",
+    "check.html?date=2026-12-20&people=2"
+  ],
+  "steps": {
+    "available_focused": 7,
+    "calendar": 5,
+    "confirmation": 19,
+    "corrected_input": 17,
+    "error": 14,
+    "form": 8,
+    "invalid_input": 11,
+    "menu_focused": 2,
+    "menu_open": 3,
+    "returned_to_input": 15,
+    "review_focused": 13,
+    "start_focused": 4
+  }
+}

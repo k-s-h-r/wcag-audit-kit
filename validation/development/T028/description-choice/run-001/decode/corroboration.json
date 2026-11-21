@@ -1,0 +1,282 @@
+{
+  "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "whisperBinarySha256": "7ea5a77e48a3564a6d047087404b9ceec858720d0715b1183fc875ca56bd1653",
+  "modelSha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+  "conditions": {
+    "unselected-control": {
+      "initialSrc": "http://127.0.0.1:45397/assets/expanded-source.webm",
+      "initialMediaReceipts": [
+        {
+          "requestId": "590177.2",
+          "browserResponseStatus": 206,
+          "browserContentRange": "bytes 0-38397/38398",
+          "browserEncodedLength": 38655,
+          "serverReceipt": {
+            "id": "2",
+            "path": "assets/expanded-source.webm",
+            "range": "bytes=0-",
+            "status": 206,
+            "start": 0,
+            "endInclusive": 38397,
+            "totalLength": 38398,
+            "length": 38398,
+            "bodySha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+            "resourceSha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+            "sent": true
+          }
+        }
+      ],
+      "playedSrc": "http://127.0.0.1:45397/assets/expanded-source.webm",
+      "playedFromTo": [
+        [
+          0,
+          6.983
+        ]
+      ],
+      "duration": 6.983,
+      "mediaReceipts": [
+        {
+          "requestId": "590177.2",
+          "browserResponseStatus": 206,
+          "browserContentRange": "bytes 0-38397/38398",
+          "browserEncodedLength": 38655,
+          "serverReceipt": {
+            "id": "2",
+            "path": "assets/expanded-source.webm",
+            "range": "bytes=0-",
+            "status": 206,
+            "start": 0,
+            "endInclusive": 38397,
+            "totalLength": 38398,
+            "length": 38398,
+            "bodySha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+            "resourceSha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+            "sent": true
+          }
+        }
+      ],
+      "browserAudio": {
+        "input": "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/unselected-control/played-audio.webm",
+        "inputSha256": "752c0705e88eb8352e3b35c4d81f564e484ae79cbc4fa92bf3d92bca251b45ca",
+        "wav": "unselected-control-played.wav",
+        "wavSha256": "2361ee0757d85e2c3eb46763b162b8c2fe4ae1ab91788bf7c924d88848214274",
+        "wavDuration": 7.02,
+        "whisper": "unselected-control-played.json",
+        "transcription": [
+          {
+            "timestamps": {
+              "from": "00:00:00,000",
+              "to": "00:00:03,120"
+            },
+            "offsets": {
+              "from": 0,
+              "to": 3120
+            },
+            "text": " Press the blue button to save the document."
+          }
+        ]
+      }
+    },
+    "c03": {
+      "initialSrc": "http://127.0.0.1:45397/assets/expanded-source.webm",
+      "initialMediaReceipts": [
+        {
+          "requestId": "591586.3",
+          "browserResponseStatus": 206,
+          "browserContentRange": "bytes 0-38397/38398",
+          "browserEncodedLength": 38655,
+          "serverReceipt": {
+            "id": "4",
+            "path": "assets/expanded-source.webm",
+            "range": "bytes=0-",
+            "status": 206,
+            "start": 0,
+            "endInclusive": 38397,
+            "totalLength": 38398,
+            "length": 38398,
+            "bodySha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+            "resourceSha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+            "sent": true
+          }
+        }
+      ],
+      "playedSrc": "http://127.0.0.1:45397/assets/expanded-source.webm",
+      "playedFromTo": [
+        [
+          0,
+          6.983
+        ]
+      ],
+      "duration": 6.983,
+      "mediaReceipts": [
+        {
+          "requestId": "591586.3",
+          "browserResponseStatus": 206,
+          "browserContentRange": "bytes 0-38397/38398",
+          "browserEncodedLength": 38655,
+          "serverReceipt": {
+            "id": "4",
+            "path": "assets/expanded-source.webm",
+            "range": "bytes=0-",
+            "status": 206,
+            "start": 0,
+            "endInclusive": 38397,
+            "totalLength": 38398,
+            "length": 38398,
+            "bodySha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+            "resourceSha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+            "sent": true
+          }
+        }
+      ],
+      "browserAudio": {
+        "input": "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/c03/played-audio.webm",
+        "inputSha256": "262e823c78dcffd3716c1091e47014bb9b0f8502a1e595e0054e74cc3b24904c",
+        "wav": "c03-played.wav",
+        "wavSha256": "2361ee0757d85e2c3eb46763b162b8c2fe4ae1ab91788bf7c924d88848214274",
+        "wavDuration": 7.02,
+        "whisper": "c03-played.json",
+        "transcription": [
+          {
+            "timestamps": {
+              "from": "00:00:00,000",
+              "to": "00:00:03,120"
+            },
+            "offsets": {
+              "from": 0,
+              "to": 3120
+            },
+            "text": " Press the blue button to save the document."
+          }
+        ]
+      }
+    },
+    "c04": {
+      "initialSrc": "http://127.0.0.1:45397/assets/expanded-source.webm",
+      "initialMediaReceipts": [
+        {
+          "requestId": "593677.3",
+          "browserResponseStatus": 206,
+          "browserContentRange": "bytes 0-38397/38398",
+          "browserEncodedLength": 38655,
+          "serverReceipt": {
+            "id": "6",
+            "path": "assets/expanded-source.webm",
+            "range": "bytes=0-",
+            "status": 206,
+            "start": 0,
+            "endInclusive": 38397,
+            "totalLength": 38398,
+            "length": 38398,
+            "bodySha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+            "resourceSha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+            "sent": true
+          }
+        }
+      ],
+      "playedSrc": "http://127.0.0.1:45397/assets/expanded-described.webm",
+      "playedFromTo": [
+        [
+          0,
+          6.983
+        ]
+      ],
+      "duration": 6.983,
+      "mediaReceipts": [
+        {
+          "requestId": "593677.10",
+          "browserResponseStatus": 206,
+          "browserContentRange": "bytes 0-74489/74490",
+          "browserEncodedLength": 74747,
+          "serverReceipt": {
+            "id": "7",
+            "path": "assets/expanded-described.webm",
+            "range": "bytes=0-",
+            "status": 206,
+            "start": 0,
+            "endInclusive": 74489,
+            "totalLength": 74490,
+            "length": 74490,
+            "bodySha256": "5a62e731013b2ccd07f3cfe38ca0b1f9b762e81bc40e26e8a4928fc57129cd6e",
+            "resourceSha256": "5a62e731013b2ccd07f3cfe38ca0b1f9b762e81bc40e26e8a4928fc57129cd6e",
+            "sent": true
+          }
+        }
+      ],
+      "browserAudio": {
+        "input": "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/c04/played-audio.webm",
+        "inputSha256": "199c96a17b2277235026287a6fee3ae2afa2987b63347c5fa8160cea0bd76c2b",
+        "wav": "c04-played.wav",
+        "wavSha256": "84a4d608318e429c7fafb854336302a4859f5ddf733f56dd1a122b560a387bb8",
+        "wavDuration": 7.02,
+        "whisper": "c04-played.json",
+        "transcription": [
+          {
+            "timestamps": {
+              "from": "00:00:00,000",
+              "to": "00:00:06,520"
+            },
+            "offsets": {
+              "from": 0,
+              "to": 6520
+            },
+            "text": " Press the blue button to save the document, and access code appears 7-2-9-1."
+          }
+        ]
+      }
+    }
+  },
+  "resources": {
+    "assets/expanded-source.webm": {
+      "audio": {
+        "input": "/workspace/wcag-audit-work/t028-description-choice/benchmarks/cases/1.2.5/public/assets/expanded-source.webm",
+        "inputSha256": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+        "wav": "expanded-source.wav",
+        "wavSha256": "93bc5d9a8d8abf1dfc9ac8fc0af35ead339fa6583af0bceff7e815d29a817d11",
+        "wavDuration": 6.975,
+        "whisper": "expanded-source.json",
+        "transcription": [
+          {
+            "timestamps": {
+              "from": "00:00:00,000",
+              "to": "00:00:03,200"
+            },
+            "offsets": {
+              "from": 0,
+              "to": 3200
+            },
+            "text": " Press the blue button to save the document."
+          }
+        ]
+      },
+      "videoFrames": "expanded-source.framehash",
+      "frameSha256": "56c7e05e3010d048e7960364cf66b685210c8b69eed39b22593049e64ed33d49"
+    },
+    "assets/expanded-described.webm": {
+      "audio": {
+        "input": "/workspace/wcag-audit-work/t028-description-choice/benchmarks/cases/1.2.5/public/assets/expanded-described.webm",
+        "inputSha256": "5a62e731013b2ccd07f3cfe38ca0b1f9b762e81bc40e26e8a4928fc57129cd6e",
+        "wav": "expanded-described.wav",
+        "wavSha256": "1771a68eb8d43db0dd7462450792cf1a58a0927199dde4bc8c0e2f856c3c951e",
+        "wavDuration": 6.975,
+        "whisper": "expanded-described.json",
+        "transcription": [
+          {
+            "timestamps": {
+              "from": "00:00:00,000",
+              "to": "00:00:06,500"
+            },
+            "offsets": {
+              "from": 0,
+              "to": 6500
+            },
+            "text": " press the blue button to save the document, and access code appears 7-2-9-1."
+          }
+        ]
+      },
+      "videoFrames": "expanded-described.framehash",
+      "frameSha256": "56c7e05e3010d048e7960364cf66b685210c8b69eed39b22593049e64ed33d49"
+    }
+  },
+  "sameDecodedVideoFrameHashes": true
+}

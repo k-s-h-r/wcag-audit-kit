@@ -1,0 +1,445 @@
+{
+  "settings": {
+    "url": "https://127.0.0.1:36581/",
+    "other_origin": "https://127.0.0.1:42345",
+    "proxy": null,
+    "browser_arguments": [
+      "/usr/bin/chromium",
+      "--ignore-certificate-errors-spki-list=9c100jmxPuTbsbMp08DF0gsjXTz/rf76WKZyctKtrFg=",
+      "--disable-background-networking"
+    ]
+  },
+  "commands": {
+    "initial": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/workspace/wcag-audit-work/t031-https/skills/wcag-audit-kit/scripts/audit.py",
+      "page-audit",
+      "--url",
+      "https://127.0.0.1:36581/",
+      "--out",
+      "/workspace/wcag-audit-work/evidence/t031-https/run-001/direct/audit",
+      "--mode",
+      "machine",
+      "--screenshots",
+      "initial",
+      "--initial-only"
+    ],
+    "explore": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/workspace/wcag-audit-work/t031-https/skills/wcag-audit-kit/scripts/audit.py",
+      "page-audit",
+      "--url",
+      "https://127.0.0.1:36581/",
+      "--out",
+      "/workspace/wcag-audit-work/evidence/t031-https/run-001/direct/audit",
+      "--resume",
+      "--quick-explore",
+      "--max-steps",
+      "10"
+    ]
+  },
+  "operations": {
+    "desktop": {
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "route": [
+        {
+          "selector": "#open",
+          "type": "key",
+          "key": "Enter"
+        }
+      ],
+      "event": {
+        "type": "keydown",
+        "isTrusted": true,
+        "documentId": "1795255812241-f3z518csf94",
+        "url": "https://127.0.0.1:36581/",
+        "timestamp": 1102.300000000745,
+        "target": {
+          "tag": "button",
+          "id": "open"
+        },
+        "pointerType": null,
+        "button": null,
+        "buttons": null,
+        "x": null,
+        "y": null,
+        "expectedTargetMatched": true,
+        "key": "Enter",
+        "modifiers": {
+          "control": false,
+          "alt": false,
+          "shift": false,
+          "meta": false
+        },
+        "is_main_frame": true,
+        "received_at": "2026-11-21T10:10:13.347495+00:00"
+      },
+      "blocked_requests": [
+        {
+          "method": "POST",
+          "url": "https://127.0.0.1:42345/action-post",
+          "telemetry": false
+        }
+      ],
+      "observed_text": "見学予定\n  候補を開く\n\n候補を表示しました\n\n日時を取得",
+      "evidence": "evidence/5b78de031909--explore-6c83528760f2--desktop"
+    },
+    "narrow": {
+      "viewport": {
+        "width": 320,
+        "height": 900
+      },
+      "route": [
+        {
+          "selector": "#open",
+          "type": "key",
+          "key": "Enter"
+        }
+      ],
+      "event": {
+        "type": "keydown",
+        "isTrusted": true,
+        "documentId": "1795255815876.4-bwfugf9r5hu",
+        "url": "https://127.0.0.1:36581/",
+        "timestamp": 943.1999999992549,
+        "target": {
+          "tag": "button",
+          "id": "open"
+        },
+        "pointerType": null,
+        "button": null,
+        "buttons": null,
+        "x": null,
+        "y": null,
+        "expectedTargetMatched": true,
+        "key": "Enter",
+        "modifiers": {
+          "control": false,
+          "alt": false,
+          "shift": false,
+          "meta": false
+        },
+        "is_main_frame": true,
+        "received_at": "2026-11-21T10:10:16.834222+00:00"
+      },
+      "blocked_requests": [
+        {
+          "method": "POST",
+          "url": "https://127.0.0.1:42345/action-post",
+          "telemetry": false
+        }
+      ],
+      "observed_text": "見学予定\n  候補を開く\n\n候補を表示しました\n\n日時を取得",
+      "evidence": "evidence/5b78de031909--explore-7e8e0e38f112--narrow"
+    }
+  },
+  "primary": [
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    }
+  ],
+  "other": [
+    {
+      "method": "GET",
+      "path": "/initial-other.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-other.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-other.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-other.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-other.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-image.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-get",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/after-redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-other.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-get",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-image.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/after-redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-other.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-get",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-image.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/after-redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-other.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-get",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-image.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/after-redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-other.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-get",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-image.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/after-redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-other.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-get",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-image.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/after-redirect",
+      "upgrade": null
+    }
+  ],
+  "proxy": [],
+  "scope_status": "unverified"
+}

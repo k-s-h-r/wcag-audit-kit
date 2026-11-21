@@ -1,0 +1,39 @@
+:root {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: #18253a;
+  background: #fff;
+}
+
+main {
+  box-sizing: border-box;
+  max-width: 42rem;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+
+.calendar {
+  background: #f0f4f8;
+  border: 1px solid #657990;
+  border-radius: .5rem;
+  padding: 1.25rem;
+}
+
+#availability {
+  font-size: 1.25rem;
+}
+
+button {
+  background: #fff;
+  color: #112d54;
+  border: 2px solid #31517e;
+  border-radius: .25rem;
+  font: inherit;
+  padding: .35rem .75rem;
+  margin: .25rem;
+}
+
+button:focus-visible {
+  outline: 3px solid #254f9f;
+  outline-offset: 3px;
+}

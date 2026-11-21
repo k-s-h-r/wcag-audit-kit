@@ -359,10 +359,15 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         sheet(book,'観察方法',METHOD_COLUMNS,methods,mode=='report')
         from inspection import report_rows
         selected_ids={c['page_id'] for c in cases}
-        sheet(book,'操作調査',[('url','ページURL'),('capture','状態・環境'),('label','見える操作対象'),('location','位置'),
-              ('visual','画像確認'),('status','操作確認'),('observed','観察'),('steps','実施した操作'),
-              ('remaining','残る確認'),('screen_reader','実SRの実施結果'),('source_review','元の調査票')],
-              [r for r in report_rows(result) if r['page_id'] in selected_ids],True)
+        observation_rows = [row for row in report_rows(result) if row['page_id'] in selected_ids
+                            and ('environment' not in row or row['environment'] in environments)]
+        observation_columns = [('url','ページURL'),('capture','状態・環境'),('label','見える操作対象'),('location','位置'),
+                               ('visual','画像確認'),('status','操作確認'),('observed','観察'),('steps','実施した操作'),
+                               ('remaining','残る確認'),('screen_reader','実SRの実施結果'),('source_review','元の調査票')]
+        observation_sheet = sheet(book, '操作調査', observation_columns, observation_rows, True)
+        for index, row in enumerate(observation_rows, 2):
+            if (path := row.get('operation_evidence')) and (target := evidence_link(run, path, out.parent)):
+                observation_sheet.cell(index, len(observation_columns)).hyperlink = target
         sheet(book,'達成基準',[('id','基準'),('level','レベル'),('title','名称'),('status','状況'),('counts','件数'),('normative_url','原典')],
               [dict(c,counts=encoded(c['counts'])) for c in result['criteria']],True)
         handoffs=[]

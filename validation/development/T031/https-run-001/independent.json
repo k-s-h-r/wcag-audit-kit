@@ -1,0 +1,60 @@
+{
+  "network_scope": "only IPv4 loopback listeners and client sockets",
+  "client_checks": [
+    "pinned local self-signed test CA",
+    "IP address in certificate SAN"
+  ],
+  "direct": {
+    "status": 200,
+    "tls": "TLSv1.3",
+    "peer_certificate_sha256": "122798477334bc07ccc44e6e5d0d943c3e813fce2e22fbac928c840a3778a36a"
+  },
+  "via_connect": {
+    "status": 200,
+    "tls": "TLSv1.3",
+    "peer_certificate_sha256": "122798477334bc07ccc44e6e5d0d943c3e813fce2e22fbac928c840a3778a36a"
+  },
+  "allowed_connect_status": 200,
+  "rejected": [
+    {
+      "method": "CONNECT",
+      "target": "127.0.0.1:43219",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "target": "http://127.0.0.1:45627/plaintext",
+      "status": 403
+    }
+  ],
+  "primary_received": [
+    {
+      "method": "GET",
+      "path": "/direct-probe",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/tunneled-probe",
+      "upgrade": null
+    }
+  ],
+  "other_received": [],
+  "proxy_log": [
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:45627",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:43219",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:45627/plaintext",
+      "forwarded": false
+    }
+  ]
+}
