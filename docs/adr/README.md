@@ -88,3 +88,4 @@
 - [0083 ベンチマークの対照例をHTMLで比較する](0083-browse-benchmark-fixtures-in-html.md)
 - [0085 WCAG検証の完成像をメモにまとめる](0085-document-the-audit-vision.md)
 - [0086 やりたいことメモを短く保つ](0086-keep-the-audit-vision-memo-short.md)
+- [0087 AIに見てほしいことと受け取りたい結果をメモに残す](0087-include-ai-and-reporting-in-the-vision-memo.md)
