@@ -115,3 +115,4 @@
 - [0109 ダイアログからの離脱をキー入力とフォーカスで照合する](0109-observe-keyboard-exits-in-a-dialog.md)
 - [0120 入れ子のダイアログで閉じた層を観察する](0120-observe-nested-dialog-exits-by-layer.md)
 - [0122 入れ子のダイアログの開閉を実Escapeの観察に残す](0122-record-escape-in-a-nested-dialog.md)
+- [0124 観察した子ダイアログへのEscapeを早める](0124-prioritize-observed-nested-escape.md)
