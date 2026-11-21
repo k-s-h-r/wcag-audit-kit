@@ -220,6 +220,7 @@
     const inputs = {};
     const relations = [];
     const references = {};
+    const resolvedAriaControls = [];
     const reusable = document.compatMode === 'CSS1Compat' && roots.length === 1 &&
       closedRoots === 0 && !document.querySelector('iframe,frame');
     for (const e of all) {
@@ -228,8 +229,10 @@
           for (const id of e.getAttribute(attribute).split(/\s+/).filter(Boolean)) {
             const target = e.getRootNode().getElementById(id);
             if (!target) continue;
+            const source = selector(e);
             const name = selector(target);
-            relations.push([selector(e), name, attribute]);
+            relations.push([source, name, attribute]);
+            if (attribute === 'aria-controls') resolvedAriaControls.push([source, id]);
             if (nameAttributes.has(attribute) && !(name in references)) {
               references[name] = JSON.stringify([target.textContent, target.getAttribute('aria-label')]);
             }
@@ -247,6 +250,7 @@
       if (html.length <= 4096) inputs['#' + e.id] = html;
     }
     return {operation_inputs: inputs, operation_relations: relations, operation_reference_inputs: references,
+      ...(resolvedAriaControls.length ? {operation_aria_controls_resolved: resolvedAriaControls} : {}),
       operation_scope_supported: reusable};
   };
   window.__wcagExplore = (operationEvidence = false) => {

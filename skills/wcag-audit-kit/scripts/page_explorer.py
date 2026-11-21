@@ -45,6 +45,8 @@ def fingerprint(value):
     state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
     if references := value.get('operation_reference_inputs'):
         state['reference_inputs'] = references
+    if resolved := value.get('operation_aria_controls_resolved'):
+        state['resolved_aria_controls'] = sorted({tuple(reference) for reference in resolved})
     if native_modals := value.get('native_modals'):
         state['native_modals'] = native_modals
         if len(native_modals) > 1:

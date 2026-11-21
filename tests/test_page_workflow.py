@@ -344,5 +344,18 @@ class WorkflowTest(unittest.TestCase):
         changed=copy.deepcopy(original);changed['controls'][0].update(rect={'x':10,'y':90},events=['keydown','click','click'])
         self.assertEqual(page_explorer.fingerprint(original),page_explorer.fingerprint(changed))
 
+    def test_fingerprint_records_resolved_aria_controls_targets(self):
+        origin = {'state': [], 'controls': []}
+        first = dict(origin, operation_aria_controls_resolved=[['#source', 'first']])
+        both = dict(origin, operation_aria_controls_resolved=[['#source', 'first'], ['#source', 'second']])
+        reordered = dict(origin, operation_aria_controls_resolved=[
+            ['#source', 'second'], ['#source', 'first'], ['#source', 'first'],
+        ])
+        self.assertEqual(page_explorer.fingerprint(origin),
+                         page_explorer.fingerprint(dict(origin, operation_aria_controls_resolved=[])))
+        self.assertNotEqual(page_explorer.fingerprint(origin), page_explorer.fingerprint(first))
+        self.assertNotEqual(page_explorer.fingerprint(first), page_explorer.fingerprint(both))
+        self.assertEqual(page_explorer.fingerprint(both), page_explorer.fingerprint(reordered))
+
 
 if __name__=='__main__':unittest.main()
