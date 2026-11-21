@@ -87,3 +87,4 @@
 - [0082 wcag-page の操作と証拠をHTMLで図解する](0082-explain-page-audit-in-html.md)
 - [0083 ベンチマークの対照例をHTMLで比較する](0083-browse-benchmark-fixtures-in-html.md)
 - [0085 WCAG検証の完成像をメモにまとめる](0085-document-the-audit-vision.md)
+- [0086 やりたいことメモを短く保つ](0086-keep-the-audit-vision-memo-short.md)
