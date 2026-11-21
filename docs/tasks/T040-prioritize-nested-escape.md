@@ -1,6 +1,6 @@
 # T040 通常の探索で子ダイアログにEscapeを送る
 
-状態は実装、実測、独立レビューを完了。起点はT038 PR #112の `9717ba4`。T036の既定24手では、親と子をクリックで開いた後のEscapeは待ち行列に残った。T038の64手では45・46手目、変更後の既定24手では14・16手目に、子の表示とフォーカスを両画面幅で保存した。[検証結果](../../validation/development/T040/README.md) · [T036](T036-observe-nested-dialog-exit.md) · [T038](T038-record-nested-child-dismissal.md)
+状態は実装、実測、独立レビューを完了し、ドラフトPRで提出。起点はT038 PR #112の `9717ba4`。T036の既定24手では、親と子をクリックで開いた後のEscapeは待ち行列に残った。T038の64手では45・46手目、変更後の既定24手では14・16手目に、子の表示とフォーカスを両画面幅で保存した。[PR #114](https://github.com/k-s-h-r/wcag-audit-kit/pull/114) · [検証結果](../../validation/development/T040/README.md) · [T036](T036-observe-nested-dialog-exit.md) · [T038](T038-record-nested-child-dismissal.md)
 
 ## 作業と成果物
 
