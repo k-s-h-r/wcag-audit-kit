@@ -2,7 +2,7 @@
 
 更新日：2026-11-20。固定した機械検査10行でG1を確認し、指定URL一覧の中断・再開を通常のCLIで確認した。
 
-この文書を、開発方針・現在地・次の作業の参照先とする。新しいセッションでは[AGENTS.md](../AGENTS.md)とこの文書を読み、[次の作業](#次の作業)から再開する。引き継ぎの方法は[ADR 0017](adr/0017-autonomous-audit-development.md)、機械検査から段階的に進める現在の方針は[ADR 0018](adr/0018-machine-first-staged-audits.md)に残す。
+目指す完成像は[やりたいことメモ](やりたいことメモ.md)にまとめている。この開発計画には、そこへ向けた方針・現在地・次の作業を記す。新しいセッションでは[AGENTS.md](../AGENTS.md)とこの文書を読み、[次の作業](#次の作業)から再開する。引き継ぎの方法は[ADR 0017](adr/0017-autonomous-audit-development.md)、機械検査から段階的に進める現在の方針は[ADR 0018](adr/0018-machine-first-staged-audits.md)に残す。
 
 4スキルの責務、明示呼び出し、pstackから取り込む対象固有の操作手順は[設計方針](SKILL-DESIGN.md)と[ADR 0019](adr/0019-skill-boundaries-and-explicit-invocation.md)に定める。隔離したCodexで、明示選択時の本文展開と、ローカルモデルからの限定した読み取りを確認した。次はモデルがページの検査・報告を完了する範囲を測る。[ADR 0046](adr/0046-measure-codex-skill-dispatch-offline.md) [ADR 0049](adr/0049-bound-local-model-tool-preflight.md)
 
