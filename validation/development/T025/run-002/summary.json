@@ -1,0 +1,93 @@
+{
+  "browser": "156.0.8078.79",
+  "viewport": [
+    1280,
+    900
+  ],
+  "criterion": "1.4.3",
+  "target": "#shared-help",
+  "pages": {
+    "/resolved": {
+      "before": {
+        "ratio": 2.32,
+        "assessment_recorded": true
+      },
+      "after": {
+        "ratio": 18.09,
+        "assessment_recorded": true
+      },
+      "comparison": "resolved"
+    },
+    "/continuing": {
+      "before": {
+        "ratio": 2.32,
+        "assessment_recorded": true
+      },
+      "after": {
+        "ratio": 2.32,
+        "assessment_recorded": true
+      },
+      "comparison": "continuing"
+    },
+    "/new": {
+      "before": {
+        "ratio": 18.09,
+        "assessment_recorded": true
+      },
+      "after": {
+        "ratio": 2.32,
+        "assessment_recorded": true
+      },
+      "comparison": "new"
+    },
+    "/pending": {
+      "before": {
+        "ratio": 2.32,
+        "assessment_recorded": true
+      },
+      "after": {
+        "ratio": 18.09,
+        "assessment_recorded": false
+      },
+      "comparison": "unverified"
+    },
+    "/excluded": {
+      "before": {
+        "ratio": 2.32,
+        "assessment_recorded": true
+      },
+      "after": null,
+      "comparison": "unverified"
+    },
+    "/uncollected": {
+      "before": {
+        "ratio": 2.32,
+        "assessment_recorded": true
+      },
+      "after": null,
+      "comparison": "unverified"
+    }
+  },
+  "evidence_links_verified": 18,
+  "immutable_files": [
+    77,
+    64
+  ],
+  "reject_existing_output": true,
+  "reject_output_inside_input_run": true,
+  "altered_evidence_is_unverified": true,
+  "locale": {
+    "implicit_ja_JP_matches_explicit": true,
+    "en_US": {
+      "ratio": 18.09,
+      "assessment_recorded": true
+    },
+    "comparison": "unverified",
+    "reason": "environment_changed"
+  },
+  "foreign_target_evidence_is_unverified": true,
+  "matching_case_attachment_is_accepted": true,
+  "historical_assessment_revision_is_accepted": true,
+  "altered_assessment_and_external_path_are_rejected": true,
+  "altered_catalog_is_rejected": true
+}
