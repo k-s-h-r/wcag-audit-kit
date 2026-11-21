@@ -1,6 +1,6 @@
 # T036 入れ子のダイアログの離脱を層ごとに確かめる
 
-状態は通常CLIと明示したブラウザー操作を両幅で検証し、独立レビュー済み。前提は[T030](T030-dialog-keyboard-trap.md)の単一ダイアログの観察と[T020](T020-url-only-machine-score.md)のURL起点の採点。通常の24ステップで問題集045と046の子を開き、2.1.2の行は未判定だった。[実測結果](../../validation/development/T036/README.md)
+状態は通常CLIと明示したブラウザー操作を両幅で検証し、独立レビューを経てドラフトPRで提出。前提は[T030](T030-dialog-keyboard-trap.md)の単一ダイアログの観察と[T020](T020-url-only-machine-score.md)のURL起点の採点。通常の24ステップで問題集045と046の子を開き、2.1.2の行は未判定だった。[PR #109](https://github.com/k-s-h-r/wcag-audit-kit/pull/109) · [実測結果](../../validation/development/T036/README.md)
 
 ## 作業と成果物
 
