@@ -18,6 +18,8 @@
 
 Chromiumの6ページで確認した。文字コントラストの解消・新規・継続が1ページずつあり、残る3ページは未確認だった。[再実行と観察記録](../../validation/development/T025/README.md)
 
+通常の `page-audit` から作った前後の帳票でも解消を確認した。片方にブラウザーの版や実際のURLの記録がない場合は未確認になった。[1ページ検査の比較](../../validation/development/T025/run-003/summary.json)
+
 ## 担当範囲と引き継ぎ
 
 起点は `67aa42e`、担当ブランチは `codex/t025-compare-audit-revisions`。実装は `revision_comparison.py` とCLIの登録に置く。記録は `validation/development/T025/` に保存した。

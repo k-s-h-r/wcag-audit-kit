@@ -918,8 +918,12 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         capture_key=f'{pid}--{state}--{env["id"]}'
                         node=dict(job,fingerprint=state_key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'],state_labels=matched_labels)
                         seen[state_key]=node;value['nodes'].append(node)
-                        manifest['captures'].append(dict(key=capture_key,page_id=pid,url=url,state=state,environment=env['id'],
-                            execution='completed',collection_state='finished',evidence_dir=str(dest.relative_to(run))))
+                        capture = dict(key=capture_key,page_id=pid,url=url,state=state,environment=env['id'],
+                            execution='completed',collection_state='finished',evidence_dir=str(dest.relative_to(run)),
+                            browser_version=browser.version)
+                        if inv['url'] and inv['url'] == data.get('url') == results.get('url'):
+                            capture['final_url'] = inv['url']
+                        manifest['captures'].append(capture)
                         for feature in ['frames','canvases','closedRoots']:
                             if data[feature]:value['remaining'].append(f'{capture_key}：{feature}の内部を追加検査する。')
                     node = seen[state_key]

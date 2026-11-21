@@ -31,7 +31,13 @@ def serve():
 
         def do_GET(self):
             path = urlsplit(self.path).path
-            passed = self.server.variant.get(path)
+            if path == '/page-audit' and path in self.server.variant:
+                self.send_response(302)
+                self.send_header('Location', '/page-audit-rendered')
+                self.end_headers()
+                return
+            rendered = path == '/page-audit-rendered'
+            passed = self.server.variant.get('/page-audit' if rendered else path)
             if passed is None:
                 self.send_error(404)
                 return
@@ -39,9 +45,16 @@ def serve():
             locale_style = ('''<script>if (navigator.language === 'en-US') {
                 document.querySelector('#shared-help').style.color = '#161616';
             }</script>''' if path == '/resolved' else '')
+            url_changes = ('''<button type="button" id="change-view" aria-label="Open details"
+                                      style="width:24px;height:24px"></button><script>
+                history.replaceState(null, '', '?view=contrast');
+                document.querySelector('#change-view').addEventListener('click', () => {
+                    history.replaceState(null, '', '?view=operation');
+                });
+            </script>''' if rendered else '')
             content = ('<!doctype html><html lang="en"><meta charset="utf-8"><title>Contrast fixture</title>'
                        f'<style>body{{background:white}}#shared-help{{color:{color};font:16px sans-serif}}</style>'
-                       f'{NAV}{locale_style}</html>').encode()
+                       f'{NAV}{locale_style}{url_changes}</html>').encode()
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.send_header('Content-Length', str(len(content)))
@@ -58,7 +71,7 @@ def cli(*args, expected=0):
     return result
 
 
-def collect(directory, name, origin, variant, *, missing=(), locale=None):
+def collect(directory, name, origin, variant, *, missing=(), locale=None, page_audit=False):
     output = directory / name
     config = directory / f'{name}-config.json'
     write_json(config, {
@@ -68,7 +81,14 @@ def collect(directory, name, origin, variant, *, missing=(), locale=None):
         'keyboard_steps': 0,
         **({'locale': locale} if locale else {}),
     })
-    cli('start', '--config', config, '--out', output)
+    if page_audit:
+        path, = variant
+        page_args = ['--url', origin + path, '--out', output]
+        cli('page-audit', *page_args, '--config', config, '--mode', 'machine', '--level', 'AA',
+            '--screenshots', 'initial', '--initial-only')
+        cli('page-audit', *page_args, '--resume', '--quick-explore')
+    else:
+        cli('start', '--config', config, '--out', output)
     ledger = output / 'work'
     meta = json.loads((ledger / 'run.json').read_text())
     catalog = json.loads((ledger / 'catalog.snapshot.json').read_text())
@@ -76,7 +96,7 @@ def collect(directory, name, origin, variant, *, missing=(), locale=None):
     plan = json.loads((ledger / 'plan.json').read_text())
     observations = {}
     for case in plan['cases']:
-        if case['criterion'] != CRITERION:
+        if case['criterion'] != CRITERION or (page_audit and case['state'] != 'initial'):
             continue
         path = urlsplit(case['page_url']).path
         expected = variant[path]
@@ -115,6 +135,18 @@ def collect(directory, name, origin, variant, *, missing=(), locale=None):
             'evidence': proof, 'remaining': [],
         })
         cli('record', '--run', output, '--file', assessment)
+        if page_audit:
+            capture_scope = directory / f'{name}-scope.json'
+            write_json(capture_scope, {
+                'config_digest': meta['config_digest'], 'complete': False,
+                'full_pages_reviewed': True, 'processes_reviewed': False,
+                'accessibility_support_reviewed': False, 'non_interference_reviewed': False,
+                'sources': ['検証用ページの初期画面、DOM、文字コントラストの測定'],
+                'observed': '指定URLの初期画面を1環境で収集し、ページ全体にある共通リンクの文字と背景を測定した。',
+                'remaining': ['他の基準、一連の手続き、支援技術と非干渉の確認は今回の対照に含めない。'],
+                'evidence': [f'{case["evidence_dir"]}/inventory.json', *proof],
+            })
+            cli('scope-review', '--run', output, '--file', capture_scope)
     cli('report', '--run', output)
     return output, observations
 
@@ -136,11 +168,11 @@ class HtmlLinks(HTMLParser):
             self.files.add((self.directory / unquote(dict(attrs)['href'])).resolve())
 
 
-def compare_target(before, after):
+def compare_target(before, after, path='/resolved'):
     result = json.loads(cli('compare-reports', '--before', before, '--after', after,
                             '--criterion', CRITERION).stdout)
-    page = next(page for page in result['pages'] if urlsplit(page['url']).path == '/resolved')
-    return next(row for row in page['results'] if row.get('target') == TARGET)
+    page = next(page for page in result['pages'] if urlsplit(page['url']).path == path)
+    return next(row for row in page['results'] if row.get('target') == TARGET and row['state'] == 'initial')
 
 
 def verify_assessment_sources(out, before, after, report):
@@ -278,7 +310,75 @@ def verify(out):
     })
 
 
+def verify_page_audit(out):
+    out = out.resolve()
+    out.mkdir(parents=True, exist_ok=False)
+    path = '/page-audit'
+    server, worker = serve()
+    origin = f'http://127.0.0.1:{server.server_port}'
+    try:
+        server.variant = {path: False}
+        before, old = collect(out, 'before', origin, server.variant, page_audit=True)
+        server.variant = {path: True}
+        after, new = collect(out, 'after', origin, server.variant, page_audit=True)
+        start, _ = collect(out, 'start-reference', origin, server.variant)
+    finally:
+        stop_server(server, worker)
+
+    report = Path('data/report.json')
+    manifest = Path('work/capture-manifest.json')
+    original = hashes(before), hashes(after)
+    captures = []
+    observed_path = '/page-audit-rendered?view=contrast'
+    operation_path = '/page-audit-rendered?view=operation'
+    for saved, outcome in ((before, 'failed'), (after, 'passed')):
+        cases = json.loads((saved / report).read_text())
+        assert cases['scope_review']['verified_evidence'] and not cases['audit_complete']
+        case = next(case for case in cases['cases'] if case['criterion'] == CRITERION and case['state'] == 'initial')
+        assert case['outcome'] == outcome and case['assessment_data']['verified_evidence']
+        entries = json.loads((saved / manifest).read_text())['captures']
+        capture = next(item for item in entries if item['key'] == case['capture'])
+        assert capture['url'] == origin + path
+        assert capture['final_url'] == origin + observed_path
+        assert any(item['state'] != 'initial' and item['final_url'] == origin + operation_path for item in entries)
+        for item in entries:
+            location = saved / 'work' / item['evidence_dir']
+            assert all(json.loads((location / name).read_text())['url'] == item['final_url']
+                       for name in ('inventory.json', 'state.json', 'axe.json'))
+        captures.append(capture)
+    standard = json.loads((start / manifest).read_text())['captures'][0]
+    assert standard['browser_version'] and all(item['browser_version'] == standard['browser_version'] for item in captures)
+    assert standard['final_url'] == origin + observed_path
+
+    row = compare_target(before / report, after / report, path)
+    assert row['status'] == 'resolved', row
+    assert all(len(row[side]['evidence']) == 2 for side in ('before', 'after'))
+    write_json(out / 'comparison-target.json', row)
+
+    legacy = out / 'after-without-observed-metadata'
+    shutil.copytree(after, legacy)
+    old_manifest = json.loads((legacy / manifest).read_text())
+    for capture in old_manifest['captures']:
+        capture.pop('browser_version', None)
+        capture.pop('final_url', None)
+    write_json(legacy / manifest, old_manifest)
+    unverified = compare_target(before / report, legacy / report, path)
+    assert unverified['status'] == 'unverified' and unverified['reason'] == 'environment_changed', unverified
+    assert original == (hashes(before), hashes(after))
+
+    write_json(out / 'summary.json', {
+        'browser': captures[0]['browser_version'], 'viewport': [1280, 900], 'criterion': CRITERION, 'target': TARGET,
+        'requested_path': path, 'observed_path': observed_path, 'operation_path': operation_path,
+        'agrees_with_start_browser_and_url': True,
+        'before': old[path], 'after': new[path], 'comparison': row['status'],
+        'comparison_evidence_links': 4, 'scope_review_recorded': True,
+        'without_observed_metadata': unverified['status'], 'immutable_files': [len(items) for items in original],
+    })
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', required=True, type=Path)
-    verify(parser.parse_args().out)
+    parser.add_argument('--page-audit', action='store_true', help='verify the ordinary single-page entry')
+    args = parser.parse_args()
+    (verify_page_audit if args.page_audit else verify)(args.out)
