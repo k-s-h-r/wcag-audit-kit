@@ -14,6 +14,8 @@ Chromium 156.0.8078.79、Playwright 1.62.0、1280×900と320×900 CSS pxで確�
 
 別エージェントが、英語・日本語の見出しでQによる離脱を案内する対照を同じ版のCLIで再測定した。両幅とも判断保留だった。通常の正常例・問題例も再測定し、開くキーが信頼されていない入力や、入力後の状態が指摘と矛盾する記録を採点から除外できることを確認した。[独立レビューの結果](run-001/independent-final-cli.json) · [採点の確認](run-001/independent-final-score.json) · [独立レビューの原始証拠](run-001/review-evidence.zip)
 
+76ページすべてで通常のCLIを実行したところ、039・040に判定が増えた一方、064・065では閉じるボタンをEnterで押す従来の経路が上限内に入らなかった。064には、別のEscape経路から問題集の採点行に対応しない指摘が両幅で生じた。探索順を優先する対象を、フォーカスがテキスト入力欄にあり、入力欄と閉じるボタンの二つを操作候補として観察したダイアログに絞った。[途中の87行の結果](run-002/score.json) · [差分](run-002/comparison.json) · [4ページの操作と帳票](run-002/regression-evidence.zip) · [ADR 0115](../../../docs/adr/0115-limit-modal-exit-priority-to-input-dialogs.md)
+
 ## 再実行
 
 配布用ファイルを同期し、ChromiumとPlaywrightを使える環境で、変更前と変更後を別のディレクトリーに収集する。変更前には統合版 `5bb4a80` の作業ディレクトリーを指定する。
@@ -25,3 +27,10 @@ python3 validation/development/T030/measure.py --out AFTER_RUN
 ```
 
 収集条件はT020と同じ `AAA`、`machine`、初期状態の撮影、簡易探索。元の問題集と通常のURL入口を使い、検査CLIに正解やセレクターを渡さず、収集後に2.1.2の行を照合する。
+
+76ページ・87行の採点には次を使う。各版で新しい出力先を指定する。
+
+```sh
+python3 benchmarks/url_only_machine.py --out FULL_RUN --workers 6
+python3 benchmarks/url_only_machine.py --out FULL_RUN --score SCORE_JSON
+```

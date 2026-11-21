@@ -1,0 +1,82 @@
+{
+  "base_commit": "bf883dcbfa187bf821e72d8ff0855dcb4b23191c",
+  "implementation_commit": "63413241ac446660b3ba66f452cbea155977e387",
+  "corpus_digest": "b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206",
+  "pages_completed": 76,
+  "rows_compared": 87,
+  "row_changes": [
+    {
+      "page_id": "039",
+      "criterion": "2.1.2",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "opened",
+      "target": "#panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "before": "observed_no_verdict",
+      "after": "matched"
+    },
+    {
+      "page_id": "040",
+      "criterion": "2.1.2",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "opened",
+      "target": "#panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "before": "observed_no_verdict",
+      "after": "detected"
+    },
+    {
+      "page_id": "064",
+      "criterion": "2.4.3",
+      "case": "c09",
+      "page": "p09.html",
+      "state": "button-close-enter",
+      "target": "#launch",
+      "checkpoint": "2.4.3-02",
+      "expected": "failed",
+      "before": "detected",
+      "after": "state_or_route_unobserved"
+    },
+    {
+      "page_id": "065",
+      "criterion": "2.4.3",
+      "case": "c10",
+      "page": "p10.html",
+      "state": "button-close-enter",
+      "target": "#launch",
+      "checkpoint": "2.4.3-02",
+      "expected": "passed",
+      "before": "matched",
+      "after": "state_or_route_unobserved"
+    }
+  ],
+  "additional_unmatched_findings": [
+    {
+      "page_id": "064",
+      "environment": "desktop",
+      "criterion": "2.4.3",
+      "checkpoint": "ダイアログを閉じた後のフォーカス",
+      "target": "#launch",
+      "state": "キー 予約内容を開く / Enter → キー body / Escape → キー body / Tab"
+    },
+    {
+      "page_id": "064",
+      "environment": "narrow",
+      "criterion": "2.4.3",
+      "checkpoint": "ダイアログを閉じた後のフォーカス",
+      "target": "#launch",
+      "state": "キー 予約内容を開く / Enter → キー body / Escape → キー body / Tab"
+    }
+  ],
+  "removed_unmatched_findings": [],
+  "archive": {
+    "path": "regression-evidence.zip",
+    "files": 633,
+    "sha256": "1a8dba528b89134c77a4165e98c18d18a0910950443c14068c88a8d025ce652d"
+  },
+  "full_collection": "/workspace/wcag-audit-work/evidence/t030/full-regression"
+}
