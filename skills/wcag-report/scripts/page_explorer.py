@@ -22,9 +22,11 @@ import hover_checks
 import keyboard_checks
 import keyboard_frames
 import keyboard_function
+import measure
 import combobox
 import operation_impact
 import state_labels
+import target_spacing
 import text_paint
 import visual_structure
 
@@ -463,7 +465,7 @@ def status(run):
 async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, initial_only=False,
                    start_exploration=False, quick_explore=False):
     import audit
-    from playwright.async_api import async_playwright
+    from playwright.async_api import Error as BrowserError, async_playwright
     run=Path(run);meta,_=audit.run_catalog(run,for_write=True);config=meta['config'];url=config['scope']['pages'][0]
     if config['scope'].get('mode')!='configured' or len(config['scope']['pages'])!=1:
         raise ValueError('探索はconfiguredの1ページで実行する')
@@ -481,7 +483,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
         __file__, combobox.__file__, keyboard_checks.__file__, keyboard_frames.__file__, keyboard_function.__file__,
         hover_checks.__file__, dialog_focus.__file__,
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
-        visual_structure.__file__, operation_impact.__file__, disclosure_close.__file__, ROOT/'vendor/axe.min.js')]
+        visual_structure.__file__, operation_impact.__file__, disclosure_close.__file__, target_spacing.__file__,
+        measure.__file__, ROOT/'vendor/axe.min.js')]
     implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
     initial_jobs = [{'environment': env['id'], 'route': []} for env in config['environments']]
     declared_jobs = {'keyboard_check': checks, 'hover_check': hover_paths,
@@ -799,6 +802,12 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         data['observation_wait']=settling
                         data['state_labels']=label_observations
                         inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
+                        if (not route and not blocked and not native_events and data['url'] == inv['url']
+                                and urldefrag(normalize(page.url))[0] in allowed_navigation
+                                and all(wait['status'] == 'quiet' for wait in settling)):
+                            with suppress(BrowserError):
+                                if spacing := await target_spacing.observe(page, data, env['id']):
+                                    audit.save(dest/target_spacing.EVIDENCE_FILE, spacing)
                         capture_structure = visual_scope and (not route or observe_explored_structure)
                         prepared_structure = None
                         structure_deadline = None

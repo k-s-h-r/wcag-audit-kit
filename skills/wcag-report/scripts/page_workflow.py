@@ -72,8 +72,10 @@ def keyboard_route_result(run, edge, evidence):
 
 def machine_checks(run, manifest=None):
     import audit
+    import target_spacing
     from page_explorer import status
     graph=status(run);_,catalog=audit.run_catalog(run)
+    proof = {item['path'] for item in graph.get('proof', [])}
     labels={c['selector']:c['label'] for n in graph.get('nodes',[]) for c in n.get('controls',[])}
     def scene(route):
         if not route:return '初期表示'
@@ -93,6 +95,13 @@ def machine_checks(run, manifest=None):
     for key, capture in captures.items():
         if capture['execution'] != 'completed' or capture.get('http_status', 200) >= 400:
             continue
+        if capture.get('state') == 'initial' and target_spacing.CRITERION in tags.values():
+            directory = Path(capture['evidence_dir'])
+            evidence = (directory / target_spacing.EVIDENCE_FILE).as_posix()
+            state_path = (directory / 'state.json').as_posix()
+            if evidence in proof and state_path in proof:
+                rows.extend(target_spacing.report_rows(audit.load(run / evidence), audit.load(run / state_path),
+                                                       capture, evidence, state_path))
         path = Path(capture['evidence_dir']) / 'axe.json'
         if not (run / path).is_file():
             continue
