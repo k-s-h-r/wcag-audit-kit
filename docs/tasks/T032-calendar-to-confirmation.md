@@ -1,6 +1,6 @@
 # T032 メニューから見学日の選択、人数修正、確認までを一つの手続きで測る
 
-状態は、統合版 `5bb4a80` から分岐し、両例の確認画面への到達と選んだ4.1.3の判定を検証済み。前提は[T022の手続き](T022-url-to-process-audit.md)、[T026の実Orca](T026-process-error-speech.md)、[T029の空き状況](T029-audit-availability-without-color.md)。[VISIONの利用場面](../VISION.md#人が使うように最初から最後まで試したい)
+状態は、統合版 `5bb4a80` から分岐し、両例の確認画面への到達と選んだ4.1.3の判定を検証済み。[PR #101](https://github.com/k-s-h-r/wcag-audit-kit/pull/101)で提出。前提は[T022の手続き](T022-url-to-process-audit.md)、[T026の実Orca](T026-process-error-speech.md)、[T029の空き状況](T029-audit-availability-without-color.md)。[VISIONの利用場面](../VISION.md#人が使うように最初から最後まで試したい)
 
 ## 作業と成果物
 
