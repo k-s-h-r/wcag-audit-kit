@@ -84,7 +84,7 @@ class URLOnlyMachineTest(unittest.TestCase):
             enter = {'type': 'key', 'selector': '#open', 'key': 'Enter'}
             escape = {'type': 'press', 'selector': 'body', 'key': 'Escape'}
             opening = {'route': [enter], 'evidence_dir': 'opening'}
-            exit_edge = {'route': [enter, escape], 'evidence_dir': 'escape', 'dialog_focus': 'escape'}
+            exit_edge = dict(route=[enter, escape], evidence_dir='escape', dialog_focus='escape', environment='desktop')
             before = {'url': url, 'document_start': 17, 'within': True, 'modals': ['#panel']}
             after = dict(before, within=False, modals=[], supported=True, root_focus=False, shown=False)
             receipt = dict(target='#panel', outcome='passed', before=before, after_escape=after,
@@ -101,7 +101,7 @@ class URLOnlyMachineTest(unittest.TestCase):
                            (exit_edge, evidence, {'state': []})]
             row = dict(criterion='2.1.2', checkpoint='2.1.2-02', target='#panel', state='opened')
             check = dict(checkpoint=CHECKPOINT, target='#panel', outcome='passed', observed='Escape',
-                         evidence='escape/dialog-focus.json')
+                         evidence='escape/dialog-focus.json', environment='desktop', criterion='2.1.2')
 
             def verdicts(proof):
                 return scoring.score_environment(row, [check], [opening, exit_edge],
@@ -122,3 +122,11 @@ class URLOnlyMachineTest(unittest.TestCase):
             core.save(log, dict(truncated=False, events=events))
             proof_hashes[log.relative_to(work).as_posix()] = core.file_hash(log)
             self.assertEqual(verdicts(proof_hashes), [])
+
+            graph = {'edges': [opening, exit_edge]}
+            observations = scoring.trap_transition_graph(graph, [check], work, proof_hashes)
+            self.assertEqual(observations['edges'], graph['edges'])
+            (evidence / 'transition.json').write_text('{')
+            observations = scoring.trap_transition_graph(graph, [check], work, proof_hashes)
+            self.assertEqual(observations['edges'], [opening])
+            self.assertEqual(scoring.trap_transition_graph(graph, [], work, proof_hashes)['edges'], graph['edges'])
