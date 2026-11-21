@@ -1,0 +1,30 @@
+[
+  {
+    "case": "p01",
+    "environment": "desktop",
+    "verified": "passed",
+    "untrusted_opener_rejected": true,
+    "contradictory_state_rejected": null
+  },
+  {
+    "case": "p01",
+    "environment": "narrow",
+    "verified": "passed",
+    "untrusted_opener_rejected": true,
+    "contradictory_state_rejected": null
+  },
+  {
+    "case": "p02",
+    "environment": "desktop",
+    "verified": "failed",
+    "untrusted_opener_rejected": true,
+    "contradictory_state_rejected": true
+  },
+  {
+    "case": "p02",
+    "environment": "narrow",
+    "verified": "failed",
+    "untrusted_opener_rejected": true,
+    "contradictory_state_rejected": true
+  }
+]

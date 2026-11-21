@@ -1,6 +1,6 @@
 # T030 ダイアログからのキー操作による離脱を調べる
 
-状態は実装と比較試験を進行中。前提は[T018の開閉経路](T018-widget-operation-sequences.md)と[T020のURL起点の採点](T020-url-only-machine-score.md)。統合版 `5bb4a80` では、2.1.2の正常例と問題例でダイアログを開けても、離脱の判定は未確認だった。[統合版の87行](../../validation/development/vision/run-001/machine-score.json) · [Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)
+状態は両画面幅の比較と独立レビューを完了。前提は[T018の開閉経路](T018-widget-operation-sequences.md)と[T020のURL起点の採点](T020-url-only-machine-score.md)。統合版 `5bb4a80` では、2.1.2の正常例と問題例でダイアログを開けても、離脱の判定は未確認だった。変更後は、2.1.2の12例のうち問題1例を指摘し、正常1例で離脱を確認できた。[実測と残る確認](../../validation/development/T030/README.md) · [統合版の87行](../../validation/development/vision/run-001/machine-score.json) · [Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)
 
 ## 作業と成果物
 

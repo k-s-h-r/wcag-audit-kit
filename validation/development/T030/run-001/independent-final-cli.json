@@ -1,0 +1,162 @@
+[
+  {
+    "name": "heading-shortcut",
+    "steps": 16,
+    "rows": [
+      {
+        "criterion": "2.1.2",
+        "checkpoint": "ダイアログからのキー操作による離脱",
+        "target": "#panel",
+        "expected": "開いたダイアログからキーボード操作で離脱できる",
+        "outcome": "cant_tell",
+        "observed": "Escape後の離脱又は、追加のキー操作を確かめる条件がそろわない。",
+        "environment": "desktop",
+        "evidence": "evidence/3e7453e80fec--explore-07bab446edc4--desktop/dialog-focus.json",
+        "proof": [
+          "evidence/3e7453e80fec--explore-07bab446edc4--desktop/input-events.json"
+        ],
+        "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+        "capture": "操作経路 8",
+        "source": "",
+        "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。"
+      },
+      {
+        "criterion": "2.1.2",
+        "checkpoint": "ダイアログからのキー操作による離脱",
+        "target": "#panel",
+        "expected": "開いたダイアログからキーボード操作で離脱できる",
+        "outcome": "cant_tell",
+        "observed": "Escape後の離脱又は、追加のキー操作を確かめる条件がそろわない。",
+        "environment": "narrow",
+        "evidence": "evidence/3e7453e80fec--explore-da7b9d34cd94--narrow/dialog-focus.json",
+        "proof": [
+          "evidence/3e7453e80fec--explore-da7b9d34cd94--narrow/input-events.json"
+        ],
+        "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+        "capture": "操作経路 10",
+        "source": "",
+        "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。"
+      }
+    ]
+  },
+  {
+    "name": "heading-shortcut-ja",
+    "steps": 16,
+    "rows": [
+      {
+        "criterion": "2.1.2",
+        "checkpoint": "ダイアログからのキー操作による離脱",
+        "target": "#panel",
+        "expected": "開いたダイアログからキーボード操作で離脱できる",
+        "outcome": "cant_tell",
+        "observed": "Escape後の離脱又は、追加のキー操作を確かめる条件がそろわない。",
+        "environment": "desktop",
+        "evidence": "evidence/a47cb6ae4bfe--explore-c1b95642855a--desktop/dialog-focus.json",
+        "proof": [
+          "evidence/a47cb6ae4bfe--explore-c1b95642855a--desktop/input-events.json"
+        ],
+        "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+        "capture": "操作経路 8",
+        "source": "",
+        "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。"
+      },
+      {
+        "criterion": "2.1.2",
+        "checkpoint": "ダイアログからのキー操作による離脱",
+        "target": "#panel",
+        "expected": "開いたダイアログからキーボード操作で離脱できる",
+        "outcome": "cant_tell",
+        "observed": "Escape後の離脱又は、追加のキー操作を確かめる条件がそろわない。",
+        "environment": "narrow",
+        "evidence": "evidence/a47cb6ae4bfe--explore-8ebf0318d4d4--narrow/dialog-focus.json",
+        "proof": [
+          "evidence/a47cb6ae4bfe--explore-8ebf0318d4d4--narrow/input-events.json"
+        ],
+        "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+        "capture": "操作経路 10",
+        "source": "",
+        "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。"
+      }
+    ]
+  },
+  {
+    "name": "p01",
+    "steps": 16,
+    "rows": [
+      {
+        "criterion": "2.1.2",
+        "checkpoint": "ダイアログからのキー操作による離脱",
+        "target": "#panel",
+        "expected": "開いたダイアログからキーボード操作で離脱できる",
+        "outcome": "passed",
+        "observed": "Escapeで閉じ、ダイアログの外へフォーカスが移った。",
+        "environment": "desktop",
+        "evidence": "evidence/ed265f8f967b--explore-a3cbc4eb96bc--desktop/dialog-focus.json",
+        "proof": [
+          "evidence/ed265f8f967b--explore-a3cbc4eb96bc--desktop/input-events.json"
+        ],
+        "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+        "capture": "操作経路 8",
+        "source": "",
+        "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。"
+      },
+      {
+        "criterion": "2.1.2",
+        "checkpoint": "ダイアログからのキー操作による離脱",
+        "target": "#panel",
+        "expected": "開いたダイアログからキーボード操作で離脱できる",
+        "outcome": "passed",
+        "observed": "Escapeで閉じ、ダイアログの外へフォーカスが移った。",
+        "environment": "narrow",
+        "evidence": "evidence/ed265f8f967b--explore-35db889456fe--narrow/dialog-focus.json",
+        "proof": [
+          "evidence/ed265f8f967b--explore-35db889456fe--narrow/input-events.json"
+        ],
+        "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+        "capture": "操作経路 11",
+        "source": "",
+        "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。"
+      }
+    ]
+  },
+  {
+    "name": "p02",
+    "steps": 16,
+    "rows": [
+      {
+        "criterion": "2.1.2",
+        "checkpoint": "ダイアログからのキー操作による離脱",
+        "target": "#panel",
+        "expected": "開いたダイアログからキーボード操作で離脱できる",
+        "outcome": "failed",
+        "observed": "試したキーでは同じ入力欄に留まった。閉じるボタンをマウスで操作すると離脱した。",
+        "environment": "desktop",
+        "evidence": "evidence/87f71400e548--explore-60087fc7c838--desktop/dialog-focus.json",
+        "proof": [
+          "evidence/87f71400e548--explore-60087fc7c838--desktop/input-events.json"
+        ],
+        "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+        "capture": "操作経路 8",
+        "source": "",
+        "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。"
+      },
+      {
+        "criterion": "2.1.2",
+        "checkpoint": "ダイアログからのキー操作による離脱",
+        "target": "#panel",
+        "expected": "開いたダイアログからキーボード操作で離脱できる",
+        "outcome": "failed",
+        "observed": "試したキーでは同じ入力欄に留まった。閉じるボタンをマウスで操作すると離脱した。",
+        "environment": "narrow",
+        "evidence": "evidence/87f71400e548--explore-5be9f65c55e3--narrow/dialog-focus.json",
+        "proof": [
+          "evidence/87f71400e548--explore-5be9f65c55e3--narrow/input-events.json"
+        ],
+        "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+        "capture": "操作経路 10",
+        "source": "",
+        "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。"
+      }
+    ]
+  }
+]
