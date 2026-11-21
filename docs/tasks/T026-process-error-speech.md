@@ -1,8 +1,8 @@
 # T026 予約手続きの入力エラーを実Orcaで調べる
 
-状態　ローカルで実測と帳票の照合を完了。両例で実キーだけで確認画面に到達し、エラー発生時の発話の違いを4.1.3の検査票に反映した。
+状態　実測と帳票の照合を終え、ドラフトPRを作成。両例で実キーだけで確認画面に到達し、エラー発生時の発話の違いを4.1.3の検査票に反映した。[PR #94](https://github.com/k-s-h-r/wcag-audit-kit/pull/94)
 
-前提は[T012の実Orca対照](T012-screen-reader.md)、[T021の帳票](T021-scope-conformance-report.md)、[T022の手続き](T022-url-to-process-audit.md)。`codex/t026-process-error-speech` をT023の `ca89597` から分岐した。
+前提は[T012の実Orca対照](T012-screen-reader.md)、[T021の帳票](T021-scope-conformance-report.md)、[T022の手続き](T022-url-to-process-audit.md)。`codex/t026-process-error-speech` をT023の公開コミット `611ad5c` から分岐した。
 
 ## 作業と成果物
 
