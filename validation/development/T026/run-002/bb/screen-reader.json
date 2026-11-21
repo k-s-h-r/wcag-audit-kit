@@ -1,0 +1,885 @@
+{
+  "status": "collected",
+  "started_at": "2026-11-21T04:48:19.298837+00:00",
+  "case_id": "bb",
+  "request_sha256": "b118cc7f1899d96e10b1a143791da3b31470a81117a0a044028b206c1c9ec0c1",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "observations": [
+    {
+      "index": 1,
+      "action": {
+        "type": "reader.nextHeading"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:27.605238+00:00",
+      "finished_at": "2026-11-21T04:48:30.608005+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:27.613025+00:00",
+          "line": 2106,
+          "phrase": "h",
+          "raw": "04:48:27.613025 - SPEECH OUTPUT: 'h' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T04:48:27.623029+00:00",
+          "line": 2154,
+          "phrase": "Wrapping to top.",
+          "raw": "04:48:27.623029 - SPEECH OUTPUT: 'Wrapping to top.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:48:27.671515+00:00",
+          "line": 2336,
+          "phrase": "工作室の見学予約 heading 1",
+          "raw": "04:48:27.671515 - SPEECH OUTPUT: '工作室の見学予約 heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "工作室の見学予約\n\n見学には事前の予約が必要です。\n\n見学の予約を始める"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "工作室の見学予約"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:30.674301+00:00",
+      "finished_at": "2026-11-21T04:48:33.675916+00:00",
+      "focus_after": {
+        "tag": "a",
+        "id": "start",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:30.684138+00:00",
+          "line": 2423,
+          "phrase": "tab",
+          "raw": "04:48:30.684138 - SPEECH OUTPUT: 'tab' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T04:48:30.725943+00:00",
+          "line": 2670,
+          "phrase": "見学の予約を始める link.",
+          "raw": "04:48:30.725943 - SPEECH OUTPUT: '見学の予約を始める link.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "工作室の見学予約\n\n見学には事前の予約が必要です。\n\n見学の予約を始める"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "工作室の見学予約"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Return"
+        ]
+      },
+      "focus_before": {
+        "tag": "a",
+        "id": "start",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:33.748122+00:00",
+      "finished_at": "2026-11-21T04:48:36.751206+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:33.764039+00:00",
+          "line": 2723,
+          "phrase": "return",
+          "raw": "04:48:33.764039 - SPEECH OUTPUT: 'return' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T04:48:33.825963+00:00",
+          "line": 3156,
+          "phrase": "Finished loading 見学人数を入力する.",
+          "raw": "04:48:33.825963 - SPEECH OUTPUT: 'Finished loading 見学人数を入力する.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:48:33.829243+00:00",
+          "line": 3173,
+          "phrase": "Page has 1 landmark, 1 heading, 1 form.",
+          "raw": "04:48:33.829243 - SPEECH OUTPUT: 'Page has 1 landmark, 1 heading, 1 form.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "action": {
+        "type": "reader.nextHeading"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:36.853309+00:00",
+      "finished_at": "2026-11-21T04:48:39.855307+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:36.860024+00:00",
+          "line": 4269,
+          "phrase": "h",
+          "raw": "04:48:36.860024 - SPEECH OUTPUT: 'h' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T04:48:36.869923+00:00",
+          "line": 4317,
+          "phrase": "Wrapping to top.",
+          "raw": "04:48:36.869923 - SPEECH OUTPUT: 'Wrapping to top.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:48:36.917087+00:00",
+          "line": 4512,
+          "phrase": "leaving form.",
+          "raw": "04:48:36.917087 - SPEECH OUTPUT: 'leaving form.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:48:36.918422+00:00",
+          "line": 4519,
+          "phrase": "見学人数を入力する heading 1",
+          "raw": "04:48:36.918422 - SPEECH OUTPUT: '見学人数を入力する heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:39.914810+00:00",
+      "finished_at": "2026-11-21T04:48:42.928475+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "people",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:39.925793+00:00",
+          "line": 4606,
+          "phrase": "tab",
+          "raw": "04:48:39.925793 - SPEECH OUTPUT: 'tab' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T04:48:39.982248+00:00",
+          "line": 4851,
+          "phrase": "見学人数 entry required.",
+          "raw": "04:48:39.982248 - SPEECH OUTPUT: '見学人数 entry required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:48:39.988498+00:00",
+          "line": 4882,
+          "phrase": "Focus mode",
+          "raw": "04:48:39.988498 - SPEECH OUTPUT: 'Focus mode' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "1"
+        ]
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "people",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:43.105764+00:00",
+      "finished_at": "2026-11-21T04:48:46.108131+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "people",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:43.120348+00:00",
+          "line": 5005,
+          "phrase": "1",
+          "raw": "04:48:43.120348 - SPEECH OUTPUT: '1' {'established': False}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "people",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:46.182285+00:00",
+      "finished_at": "2026-11-21T04:48:49.185655+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "review",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:46.189242+00:00",
+          "line": 5158,
+          "phrase": "tab",
+          "raw": "04:48:46.189242 - SPEECH OUTPUT: 'tab' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T04:48:46.225767+00:00",
+          "line": 5360,
+          "phrase": "予約内容を確認する button.",
+          "raw": "04:48:46.225767 - SPEECH OUTPUT: '予約内容を確認する button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:48:46.232376+00:00",
+          "line": 5386,
+          "phrase": "Browse mode",
+          "raw": "04:48:46.232376 - SPEECH OUTPUT: 'Browse mode' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "KP_Enter"
+        ]
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "review",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:49.309891+00:00",
+      "finished_at": "2026-11-21T04:48:52.314128+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "review",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:49.401985+00:00",
+          "line": 5627,
+          "phrase": "予約内容を確認する button.",
+          "raw": "04:48:49.401985 - SPEECH OUTPUT: '予約内容を確認する button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ]
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "review",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:52.397245+00:00",
+      "finished_at": "2026-11-21T04:48:55.399087+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "review",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:52.410514+00:00",
+          "line": 5718,
+          "phrase": "space",
+          "raw": "04:48:52.410514 - SPEECH OUTPUT: 'space' {'established': False}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する\n\n見学人数は2名以上を入力してください。"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Shift_L",
+          "Tab"
+        ]
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "review",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:55.496155+00:00",
+      "finished_at": "2026-11-21T04:48:58.498225+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "people",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:55.511518+00:00",
+          "line": 5867,
+          "phrase": "left shift",
+          "raw": "04:48:55.511518 - SPEECH OUTPUT: 'left shift' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T04:48:55.575621+00:00",
+          "line": 6153,
+          "phrase": "見学人数 entry 1 selected required.",
+          "raw": "04:48:55.575621 - SPEECH OUTPUT: '見学人数 entry 1 selected required.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:48:55.576274+00:00",
+          "line": 6160,
+          "phrase": "invalid entry.",
+          "raw": "04:48:55.576274 - SPEECH OUTPUT: 'invalid entry.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:48:55.577762+00:00",
+          "line": 6167,
+          "phrase": "見学人数は2名以上を入力してください。",
+          "raw": "04:48:55.577762 - SPEECH OUTPUT: '見学人数は2名以上を入力してください。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:48:55.581945+00:00",
+          "line": 6201,
+          "phrase": "Focus mode",
+          "raw": "04:48:55.581945 - SPEECH OUTPUT: 'Focus mode' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する\n\n見学人数は2名以上を入力してください。"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "BackSpace"
+        ]
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "people",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:48:58.576715+00:00",
+      "finished_at": "2026-11-21T04:49:01.578696+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "people",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:48:58.593123+00:00",
+          "line": 6369,
+          "phrase": "backspace",
+          "raw": "04:48:58.593123 - SPEECH OUTPUT: 'backspace' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T04:48:58.602467+00:00",
+          "line": 6461,
+          "phrase": "1",
+          "raw": "04:48:58.602467 - SPEECH OUTPUT: '1' {'established': 'False'}"
+        },
+        {
+          "at": "2026-11-21T04:48:58.607816+00:00",
+          "line": 6511,
+          "phrase": "Text unselected.",
+          "raw": "04:48:58.607816 - SPEECH OUTPUT: 'Text unselected.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する\n\n見学人数は2名以上を入力してください。"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "2"
+        ]
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "people",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:49:01.648932+00:00",
+      "finished_at": "2026-11-21T04:49:04.654124+00:00",
+      "focus_after": {
+        "tag": "input",
+        "id": "people",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:49:01.657571+00:00",
+          "line": 6599,
+          "phrase": "2",
+          "raw": "04:49:01.657571 - SPEECH OUTPUT: '2' {'established': False}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する\n\n見学人数は2名以上を入力してください。"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      "focus_before": {
+        "tag": "input",
+        "id": "people",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:49:04.741473+00:00",
+      "finished_at": "2026-11-21T04:49:07.742361+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "review",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/visit.html",
+      "speech": [
+        {
+          "at": "2026-11-21T04:49:04.749671+00:00",
+          "line": 6751,
+          "phrase": "tab",
+          "raw": "04:49:04.749671 - SPEECH OUTPUT: 'tab' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T04:49:04.791447+00:00",
+          "line": 6952,
+          "phrase": "予約内容を確認する button.",
+          "raw": "04:49:04.791447 - SPEECH OUTPUT: '予約内容を確認する button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:49:04.797639+00:00",
+          "line": 6978,
+          "phrase": "Browse mode",
+          "raw": "04:49:04.797639 - SPEECH OUTPUT: 'Browse mode' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学人数を入力する\n\n見学日は12月6日です。\n\n見学人数  名\n\n予約内容を確認する\n\n見学人数は2名以上を入力してください。"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学人数を入力する"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "action": {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ]
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "review",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T04:49:07.871685+00:00",
+      "finished_at": "2026-11-21T04:49:10.874663+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:34163/bb/confirmation.html?people=2",
+      "speech": [
+        {
+          "at": "2026-11-21T04:49:07.883150+00:00",
+          "line": 7052,
+          "phrase": "space",
+          "raw": "04:49:07.883150 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T04:49:08.059038+00:00",
+          "line": 7498,
+          "phrase": "Finished loading 見学予約の確認.",
+          "raw": "04:49:08.059038 - SPEECH OUTPUT: 'Finished loading 見学予約の確認.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T04:49:08.063697+00:00",
+          "line": 7515,
+          "phrase": "Page has 1 landmark, 1 heading.",
+          "raw": "04:49:08.063697 - SPEECH OUTPUT: 'Page has 1 landmark, 1 heading.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "main"
+          },
+          "text": "見学予約の確認\n\n12月6日。見学人数 2 名。\n\n入力内容を確認しました。"
+        },
+        {
+          "target": {
+            "selector": "h1"
+          },
+          "text": "見学予約の確認"
+        }
+      ]
+    }
+  ],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "locale": "ja-JP",
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "settle_ms": 3000,
+    "actions": [
+      {
+        "type": "reader.nextHeading"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Return"
+        ]
+      },
+      {
+        "type": "reader.nextHeading"
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "1"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "KP_Enter"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Shift_L",
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "BackSpace"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "2"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "Tab"
+        ]
+      },
+      {
+        "type": "reader.press",
+        "keys": [
+          "space"
+        ]
+      }
+    ],
+    "observe": [
+      {
+        "selector": "main"
+      },
+      {
+        "selector": "h1"
+      }
+    ],
+    "case_id": "bb",
+    "url": "http://127.0.0.1:34163/bb/"
+  },
+  "cleanup": {
+    "debug_log_sha256": "dc856b41ea2f93d903cff64f19346de02b0b99888b9e0befe10a792b8425a06b",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-21T04:49:12.536143+00:00"
+}
