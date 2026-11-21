@@ -1,6 +1,6 @@
 # T038 実Escapeで子のダイアログが閉じたことを帳票に残す
 
-前提は[T036](T036-observe-nested-dialog-exit.md)の通常探索と層ごとの実測。公開PR #109の `098ec3d` から別worktree `codex/t038-record-nested-child-dismissal` で作業する。通常CLIのステップ上限だけを広げると、公式045・046とも両幅で実Escapeが届き、後者は子だけが閉じた。[再現記録](../../validation/development/T038/README.md)
+前提は[T036](T036-observe-nested-dialog-exit.md)の通常探索と層ごとの実測。PR #109の `098ec3d` から別worktree `codex/t038-record-nested-child-dismissal` で作業し、実測と独立レビューを経てドラフトPRで提出した。通常CLIのステップ上限だけを広げると、公式045・046とも両幅で実Escapeが届き、後者は子だけが閉じた。[PR #112](https://github.com/k-s-h-r/wcag-audit-kit/pull/112) · [再現記録](../../validation/development/T038/README.md)
 
 ## 作業と成果物
 
