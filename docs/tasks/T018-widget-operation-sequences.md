@@ -1,6 +1,6 @@
 # T018 部品の開閉とキーボード操作を一つの経路で検査する
 
-状態：3階層メニューの展開・Tab・閉じた後のフォーカスと、入力欄のコンボボックスの展開・選択・取消を検証済み。残るアコーディオンの経路は着手可。前提：[T017](T017-url-only-exploration.md)。関連：[Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)・[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)。
+状態は、3階層メニュー、コンボボックス、アコーディオンの指定したキー経路を実測済み。前提は[T017](T017-url-only-exploration.md)。[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69) · [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
 
 自動探索は、個々のクリックやキー入力に加え、先行操作で開いた部品の次の操作まで調べる必要がある。URLだけで届かなかった経路をT017の結果から選ぶ。
 
@@ -60,3 +60,9 @@ PC幅・スマホ相当幅の両方で一致した。同じ画面へ先にクリ
 各結果をPC幅・スマホ相当幅で確認した。操作の記録とJSON・HTML・Excelの表示も照合した。Enterを2回、Tab、Escapeの順に実入力し、深さ4・最大32ステップで検査した。後続のコンボボックスは[展開・選択・取消の記録](#コンボボックスの展開選択取消)を参照する。
 
 既存のメニュー展開と差分再検査のChromium試験、およびPython試験314件が通過した。
+
+## アコーディオンに入り、戻って閉じる
+
+`67aa42e` から `codex/t018-accordion-keyboard-route` の別worktreeで着手した。URLだけを指定し、両幅でEnterで開いたあと、本文内へTabで進み、Shift+Tabで開閉ボタンへ戻ってEnterで閉じるところまで確認した。公開Shadow DOMのクリック専用例では、Enterが届いても閉じたままだった。別エージェントが同じ操作の再生と入力ログを独立確認した。 [ADR 0100](../adr/0100-follow-accordion-keyboard-return.md) · [実測記録](../../validation/development/T018/README.md)
+
+次は候補の上限で未探索だった経路と、今回の比較で扱っていない開閉方法を別の試験で確かめる。操作後に根拠を再利用する範囲は[T019](T019-post-operation-rechecks.md)へ引き継ぐ。
