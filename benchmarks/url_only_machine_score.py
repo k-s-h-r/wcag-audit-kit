@@ -2,6 +2,7 @@
 from collections import Counter, defaultdict
 
 from benchmarks import core, url_only
+import target_spacing
 
 
 AXE_RULES = {
@@ -244,7 +245,36 @@ def matching_trap(row, checks, transitions, work, output):
                    report_check=check['checkpoint'], observed=check['observed'])
 
 
-def score_environment(row, checks, edges, transitions, work, output):
+def matching_target_spacing(row, checks, transitions, work, output, graph):
+    proof = {item['path']: item['sha256'] for item in graph.get('proof', [])}
+    for edge, directory, state in transitions:
+        if edge['route'] or not target_visible(state, row['target']):
+            continue
+        paths = [directory / name for name in (target_spacing.EVIDENCE_FILE, 'state.json', 'transition.json')]
+        if any(not path.is_file() or proof.get(path.relative_to(work).as_posix()) != core.file_hash(path)
+               for path in paths):
+            continue
+        evidence, state_file, transition_file = paths
+        transition = core.load(transition_file)
+        if (transition['route'] != edge['route'] or transition['environment'] != edge['environment']
+                or transition['error'] or transition['blocked_requests'] or transition['native_events']
+                or len(transition['settling']) != 1 or transition['settling'][0]['status'] != 'quiet'):
+            continue
+        nodes = [node for node in graph['nodes'] if not node['route'] and node['environment'] == edge['environment']
+                 and node['evidence_dir'] == edge['evidence_dir']]
+        if len(nodes) != 1:
+            continue
+        capture = dict(key=nodes[0]['capture'], environment=edge['environment'], url=state['url'], final_url=state['url'])
+        verified = target_spacing.report_rows(core.load(evidence), state, capture,
+                                              evidence.relative_to(work).as_posix(), state_file.relative_to(work).as_posix())
+        for check in verified:
+            if check['target'] == row['target'] and check in checks:
+                yield dict(outcome=check['outcome'], evidence=evidence.relative_to(output).as_posix(),
+                           proof=[path.relative_to(output).as_posix() for path in (state_file, transition_file)],
+                           report_check=check['checkpoint'], target=check['target'], observed=check['observed'])
+
+
+def score_environment(row, checks, edges, transitions, work, output, graph=None):
     reached = [
         (directory / 'state.json').relative_to(output).as_posix()
         for edge, directory, state in transitions if reached_state(edge, state, row)
@@ -271,6 +301,8 @@ def score_environment(row, checks, edges, transitions, work, output):
         verdicts.extend(matching_function(row, checks, edges, work, output))
     elif point == '2.1.2-02' and reached:
         verdicts.extend(matching_trap(row, checks, transitions, work, output))
+    elif point == '2.5.8-02' and row['state'] == 'initial' and reached and graph:
+        verdicts.extend(matching_target_spacing(row, checks, transitions, work, output, graph))
     elif row['state'] in url_only.DIALOG_ACTIONS:
         result = dict(reached=[], verdicts=[])
         url_only.score_dialog(transitions, checks, work, output, row, result)
@@ -314,6 +346,7 @@ def score_page(output, page):
     edges_by_env = defaultdict(list)
     transitions_by_env = {}
     checks_by_env = defaultdict(list)
+    graph = None
     if completed:
         report = core.load(report_path)
         graph = core.load(graph_path)
@@ -345,7 +378,7 @@ def score_page(output, page):
     for row in page['rows']:
         environments = {
             env: score_environment(row, checks_by_env[env], edges_by_env[env],
-                                   transitions_by_env.get(env, []), work, output)
+                                   transitions_by_env.get(env, []), work, output, graph)
             for env in EXPECTED_ENVIRONMENTS
         }
         for env, observations in environments.items():

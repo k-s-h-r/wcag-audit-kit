@@ -259,6 +259,61 @@ class WorkflowTest(unittest.TestCase):
         self.assertIn('normative_sha256',value['next_cases'][0]['definition'])
         self.assertEqual(value['next_cases'][0]['machine_results'][0]['outcome'],'failed')
 
+    def test_trap_packet_requires_the_verified_opened_state(self):
+        from keyboard_trap import CHECKPOINT
+
+        url = self.config['url']
+        capture = dict(self.manifest['captures'][0], key='abc--opened--desktop', state='opened',
+                       final_url=url, evidence_dir='evidence/opened')
+        self.manifest['captures'].append(capture)
+        audit.save(self.run/'capture-manifest.json', self.manifest)
+        cases = audit.make_plan(self.run, self.manifest)['cases']
+        target = next(case for case in cases if case['capture'] == capture['key'] and case['criterion'] == '2.1.2')
+        state = {'state': [], 'url': url, 'modal': '#panel', 'focus': {'selector': '#field'}}
+        fingerprint = page_explorer.fingerprint(state)
+        enter = {'type': 'key', 'key': 'Enter', 'selector': '#open'}
+        escape = {'type': 'press', 'key': 'Escape', 'selector': 'body'}
+        opening = dict(environment='desktop', route=[enter], fingerprint=fingerprint, evidence_dir='evidence/enter')
+        closing = dict(environment='desktop', route=[enter, escape], dialog_focus='escape', evidence_dir='evidence/escape')
+        node = dict(environment='desktop', route=[{'type': 'click', 'selector': '#open'}], fingerprint=fingerprint,
+                    capture=capture['key'], evidence_dir='evidence/opened')
+        receipt = {'opener': '#open', 'opener_event_index': 0, 'escape_event_index': 1,
+                   'before_fingerprint': fingerprint,
+                   'before': dict(url=url, supported=True, within=True, shown=True, modals=['#panel'], focus='#field')}
+        events = [dict(type='keydown', key=key, isTrusted=True, is_main_frame=True, expectedTargetMatched=True,
+                       url=url, documentId='fixture', modifiers=dict(shift=False, control=False, alt=False, meta=False))
+                  for key in ('Enter', 'Escape')]
+        evidence = 'evidence/escape/dialog-focus.json'
+        event_path = 'evidence/escape/input-events.json'
+        files = {'evidence/opened/state.json': state, 'evidence/enter/state.json': state,
+                 evidence: {'keyboard_trap': receipt}, event_path: {'events': events, 'truncated': False}}
+        for item in (opening, closing, node):
+            files[item['evidence_dir'] + '/transition.json'] = dict(
+                environment=item['environment'], route=item['route'], dialog_focus=item.get('dialog_focus'),
+                error=None, blocked_requests=[], native_events=[], settling=[{'status': 'quiet'}] * (len(item['route']) + 1))
+        for path, value in files.items():
+            audit.save(self.run/path, value)
+        graph = {'nodes': [node], 'edges': [opening, closing], 'proof': [audit.evidence_item(self.run, path) for path in files]}
+        row = dict(criterion='2.1.2', checkpoint=CHECKPOINT, environment='desktop', target='#panel',
+                   capture='操作経路 2', evidence=evidence, proof=[event_path])
+        linked = page_workflow.trap_case_checks(self.run, graph, [row], cases)
+        self.assertEqual(list(linked), [target['case_id']])
+        self.assertEqual(linked[target['case_id']][0]['case_capture'], capture['key'])
+        self.assertEqual(row['capture'], '操作経路 2')
+
+        for invalid in (dict(graph, nodes=[node, node]), dict(graph, proof=graph['proof'][1:]),
+                        dict(graph, edges=[dict(opening, environment='narrow'), closing]),
+                        dict(graph, nodes=[dict(node, route=opening['route'])])):
+            self.assertEqual(page_workflow.trap_case_checks(self.run, invalid, [row], cases), {})
+        for case in (dict(target, state='initial'), dict(target, page_url=url + '/other'),
+                     dict(target, environment='narrow')):
+            self.assertEqual(page_workflow.trap_case_checks(self.run, graph, [row], [case]), {})
+        state_path = 'evidence/opened/state.json'
+        audit.save(self.run/state_path, dict(state, focus={'selector': '#close'}))
+        self.assertEqual(page_workflow.trap_case_checks(self.run, graph, [row], cases), {})
+        graph['proof'][0] = audit.evidence_item(self.run, state_path)
+        self.assertEqual(page_workflow.trap_case_checks(self.run, graph, [row], cases), {})
+
     def test_page_interaction_status_does_not_inherit_other_pages_gaps(self):
         original=audit.outcomes(self.run)
         original.update(collection_complete=False,collector_status='interrupted',missing_captures=[])
@@ -343,6 +398,19 @@ class WorkflowTest(unittest.TestCase):
             'rect':{'x':0,'y':0}}]}
         changed=copy.deepcopy(original);changed['controls'][0].update(rect={'x':10,'y':90},events=['keydown','click','click'])
         self.assertEqual(page_explorer.fingerprint(original),page_explorer.fingerprint(changed))
+
+    def test_fingerprint_records_resolved_aria_controls_targets(self):
+        origin = {'state': [], 'controls': []}
+        first = dict(origin, operation_aria_controls_resolved=[['#source', 'first']])
+        both = dict(origin, operation_aria_controls_resolved=[['#source', 'first'], ['#source', 'second']])
+        reordered = dict(origin, operation_aria_controls_resolved=[
+            ['#source', 'second'], ['#source', 'first'], ['#source', 'first'],
+        ])
+        self.assertEqual(page_explorer.fingerprint(origin),
+                         page_explorer.fingerprint(dict(origin, operation_aria_controls_resolved=[])))
+        self.assertNotEqual(page_explorer.fingerprint(origin), page_explorer.fingerprint(first))
+        self.assertNotEqual(page_explorer.fingerprint(first), page_explorer.fingerprint(both))
+        self.assertEqual(page_explorer.fingerprint(both), page_explorer.fingerprint(reordered))
 
 
 if __name__=='__main__':unittest.main()

@@ -4,6 +4,7 @@ from collections import Counter
 from pathlib import Path
 
 from benchmarks import core, url_only_machine, url_only_machine_score as scoring
+import target_spacing
 
 
 def observations(*outcomes, reached=False):
@@ -72,3 +73,42 @@ class URLOnlyMachineTest(unittest.TestCase):
             row['target'] = '#other'
             other = scoring.score_environment(row, [check], edges, transitions, work, work)
             self.assertEqual(other['verdicts'], [])
+
+    def test_target_spacing_requires_the_report_and_exact_initial_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory)
+            evidence = work / 'initial'
+            evidence.mkdir()
+            url = 'http://127.0.0.1:8000/'
+            targets = [dict(id=selector, x=x, y=0, width=16, height=16, explicit_size=True)
+                       for selector, x in (('#a', 0), ('#b', 18))]
+            for target in targets:
+                target['hit_points'] = target_spacing.hit_points(target)
+            controls = [dict(selector=target['id'], tag='button', formAssociated=False, events=[],
+                             rect={key: target[key] for key in target_spacing.COORDINATES}) for target in targets]
+            state = dict(url=url, controls=controls, state=[{'selector': control['selector']} for control in controls])
+            record = dict(url=url, environment='desktop', unresolved=False, items=targets)
+            edge = dict(route=[], evidence_dir='initial', environment='desktop')
+            capture = dict(key='capture', environment='desktop', url=url, final_url=url)
+            core.save(evidence / 'state.json', state)
+            core.save(evidence / 'axe.json', {})
+            core.save(evidence / 'transition.json', dict(edge, error=None, blocked_requests=[], native_events=[],
+                                                         settling=[{'status': 'quiet'}]))
+            core.save(evidence / target_spacing.EVIDENCE_FILE, record)
+            graph = dict(nodes=[dict(edge, capture=capture['key'])], proof=[
+                core.audit.evidence_item(work, path.relative_to(work).as_posix()) for path in evidence.iterdir()])
+            transitions = list(scoring.initial_transitions(work, [edge]))
+            row = dict(criterion='2.5.8', checkpoint='2.5.8-02', target='#a', state='initial')
+            checks = list(target_spacing.report_rows(record, state, capture, 'initial/' + target_spacing.EVIDENCE_FILE,
+                                                     'initial/state.json'))
+            self.assertEqual(len(checks), 2)
+
+            def outcomes(report_checks):
+                return [result['outcome'] for result in scoring.score_environment(
+                    row, report_checks, [edge], transitions, work, work, graph)['verdicts']]
+
+            self.assertEqual(outcomes(checks), ['failed'])
+            self.assertEqual(outcomes(checks[1:]), [])
+            self.assertEqual(outcomes([dict(checks[0], capture='another')]), [])
+            core.save(evidence / target_spacing.EVIDENCE_FILE, dict(record, environment='narrow'))
+            self.assertEqual(outcomes(checks), [])

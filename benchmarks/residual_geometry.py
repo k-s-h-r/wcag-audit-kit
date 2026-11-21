@@ -6,7 +6,8 @@ import math
 import re
 
 from border_contrast import DETAILS, as_hex, solid_line
-from measure import contrast, spacing
+from measure import contrast
+from target_spacing import TARGET_RECTS, rect_is_valid, spacing_conflicts
 
 
 FOCUS = '2.4.13'
@@ -18,73 +19,6 @@ REGISTER_TAB = r"""() => {
         if (event.key === 'Tab' && event.isTrusted) events.push(performance.timeOrigin);
     }, {capture: true});
     return events;
-}"""
-TARGET_RECTS = r"""selectors => {
-    const viewport = document.documentElement;
-    const candidates = 'a[href],button,select,textarea,input:not([type="hidden"]),summary,'
-        + '[role="button"],[role="link"],[role="checkbox"],[role="radio"],[role="switch"],'
-        + '[role="tab"],[role="menuitem"],[role="option"],[role="slider"],[role="combobox"],'
-        + '[onclick],[onmousedown],[onpointerdown]';
-    const selected = selectors.map(selector => Array.from(document.querySelectorAll(selector)));
-    const nodes = Array.from(document.querySelectorAll(candidates));
-    for (const matches of selected)
-        if (matches.length === 1 && !nodes.includes(matches[0])) nodes.push(matches[0]);
-    if (nodes.length > 100 || document.querySelector('script,iframe,frame,object,embed,canvas,video,audio')
-            || Array.from(document.getElementsByTagName('*')).some(node => node.shadowRoot))
-        return {reason: '静的な主文書の操作対象を列挙できない。'};
-
-    function inlineText(node, box, style) {
-        if (!node.matches('a[href]') || style.display !== 'inline' || !node.parentElement?.matches('p'))
-            return false;
-        return [node.previousSibling, node.nextSibling].every(text => {
-            if (text?.nodeType !== Node.TEXT_NODE || !text.textContent.trim()) return false;
-            const range = document.createRange();
-            range.selectNodeContents(text);
-            return Array.from(range.getClientRects()).some(rect =>
-                rect.width > 0 && rect.top < box.bottom && rect.bottom > box.top);
-        });
-    }
-
-    function untransformed(node) {
-        for (let ancestor = node; ancestor; ancestor = ancestor.parentElement) {
-            const style = getComputedStyle(ancestor);
-            if (style.transform !== 'none' || style.translate !== 'none' || style.rotate !== 'none'
-                    || style.scale !== 'none' || style.zoom !== '1') return false;
-        }
-        return true;
-    }
-
-    const items = [];
-    let unresolved = false;
-    for (const [index, node] of nodes.entries()) {
-        if (node.matches(':disabled') || !node.checkVisibility?.({opacityProperty: true, visibilityProperty: true}))
-            continue;
-        const style = getComputedStyle(node);
-        if (style.pointerEvents === 'none') continue;
-        const rects = node.getClientRects();
-        const box = node.getBoundingClientRect();
-        if (box.width <= 0 || box.height <= 0) continue;
-        const selectorIndex = selected.findIndex(matches => matches.length === 1 && matches[0] === node);
-        const id = selectorIndex >= 0 ? selectors[selectorIndex] : 'nearby-' + index;
-        const tags = 'a[href],button';
-        const simple = node.matches(tags) && !node.children.length && rects.length === 1
-            && style.clipPath === 'none' && style.maskImage === 'none'
-            && style.borderRadius === '0px' && box.left >= 0 && box.top >= 0
-            && box.right <= viewport.clientWidth && box.bottom <= viewport.clientHeight;
-        // Chromium snaps hit-test coordinates. Sample one CSS pixel inside each edge.
-        const x = [box.left + 1, (box.left + box.right) / 2, box.right - 1];
-        const y = [box.top + 1, (box.top + box.bottom) / 2, box.bottom - 1];
-        const supported = simple && box.width > 2 && box.height > 2 && untransformed(node)
-            && x.every(h => y.every(v => document.elementFromPoint(h, v) === node));
-        if (!supported) {
-            unresolved = true;
-            continue;
-        }
-        items.push({id, x:box.left, y:box.top, width:box.width, height:box.height,
-            inline_text: inlineText(node, box, style),
-            explicit_size: node.matches('button') && !!node.style.width && !!node.style.height});
-    }
-    return {items, unresolved};
 }"""
 
 
@@ -236,13 +170,6 @@ def focus_result(evidence, selector):
     return ('passed' if qualifying >= reference else 'failed'), note
 
 
-def rect_is_valid(rect):
-    return (isinstance(rect, dict) and isinstance(rect.get('id'), str)
-            and all(type(rect.get(k)) in {float, int} and math.isfinite(rect[k])
-                    for k in ('x', 'y', 'width', 'height'))
-            and rect['width'] > 0 and rect['height'] > 0)
-
-
 def size_result(evidence, selector):
     items = evidence.get('items', [])
     if (not isinstance(items, list) or len(items) > 100 or any(not rect_is_valid(rect) for rect in items)
@@ -258,23 +185,12 @@ def size_result(evidence, selector):
         return 'passed', dimensions + '同じ行の前後に通常の文章があるインラインリンク。'
     if evidence.get('unresolved') is not False:
         raise ValueError('周囲の別の操作対象の形状を確認できない。')
-    result = next(row for row in spacing(items)['targets'] if row['id'] == selector)
-    conflicts = set(result['conflicts'])
-    center_x = rect['x'] + rect['width'] / 2
-    center_y = rect['y'] + rect['height'] / 2
-    for other in items:
-        if other['id'] == selector:
-            continue
-        # A circle may hit a long undersized rectangle without hitting its circle.
-        nearest_x = min(max(center_x, other['x']), other['x'] + other['width'])
-        nearest_y = min(max(center_y, other['y']), other['y'] + other['height'])
-        if math.hypot(center_x - nearest_x, center_y - nearest_y) < 12:
-            conflicts.add(other['id'])
+    conflicts = spacing_conflicts(items, rect)
     if not conflicts:
         return 'passed', dimensions + '中央の直径24 CSS pxの円は他の対象や小型対象の円と重ならない。'
     if rect.get('explicit_size') is not True:
         raise ValueError('小さい対象に著者が寸法を指定したことを確認できない。')
-    return 'failed', dimensions + '中央の直径24 CSS pxの円と重なる対象は ' + '、'.join(sorted(conflicts)) + '。'
+    return 'failed', dimensions + '中央の直径24 CSS pxの円と重なる対象は ' + '、'.join(conflicts) + '。'
 
 
 def evaluate(criterion, plan, evidence):

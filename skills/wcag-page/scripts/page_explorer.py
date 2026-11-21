@@ -12,20 +12,22 @@ from urllib.parse import urldefrag, urlsplit
 
 from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, SOFTWARE_COMPOSITING, capture_image, normalize, page_id
-from input_observation import INIT_SCRIPT, InputObserver
 import border_contrast
 import disclosure_close
 import dialog_focus
 import focus_image_pair
 import focus_occlusion
 import hover_checks
+import input_observation
 import keyboard_checks
 import keyboard_frames
 import keyboard_function
 import keyboard_trap
+import measure
 import combobox
 import operation_impact
 import state_labels
+import target_spacing
 import text_paint
 import visual_structure
 
@@ -46,6 +48,8 @@ def fingerprint(value):
     state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
     if references := value.get('operation_reference_inputs'):
         state['reference_inputs'] = references
+    if resolved := value.get('operation_aria_controls_resolved'):
+        state['resolved_aria_controls'] = sorted({tuple(reference) for reference in resolved})
     if native_modals := value.get('native_modals'):
         state['native_modals'] = native_modals
         if len(native_modals) > 1:
@@ -193,34 +197,50 @@ async def perform(page, action, *, observer=None, key_effect=None, function_resu
     return await page.evaluate('() => window.__wcagWaitForUpdates()')
 
 
-async def record_tab_trace(page, dest, limit, blocked, native_events):
+async def record_tab_trace(page, dest, limit, blocked, native_events, observer):
     """Save partial Tab observations separately from the completed state capture."""
     import audit
     from playwright.async_api import Error as BrowserError
 
     trace = []
     stop = None
-    for step in range(1, limit + 1):
-        before_blocked, before_native = len(blocked), len(native_events)
-        error = None
-        try:
-            await page.keyboard.press('Tab')
-            observation = await page.evaluate(FOCUS)
-        except BrowserError as exc:
-            error = str(exc)
-        blocked_during_step = blocked[before_blocked:]
-        native_during_step = native_events[before_native:]
-        if error or blocked_during_step or native_during_step:
-            stop = {'step': step, 'key': 'Tab', 'error': error,
-                    'blocked_requests': blocked_during_step, 'native_events': native_during_step}
-            audit.save(dest/'keyboard-trace-stop.json', stop)
-            break
-        trace.append(observation)
+    child_frame_observed = len(page.frames) > 1
+
+    def observe_child_frame(_):
+        nonlocal child_frame_observed
+        child_frame_observed = True
+
+    page.on('frameattached', observe_child_frame)
+    try:
+        for step in range(1, limit + 1):
+            before_blocked, before_native = len(blocked), len(native_events)
+            first_event, source_url = len(observer.events), page.url
+            error = None
+            try:
+                if step == 1:
+                    await page.evaluate('() => window.__wcagStartTabFocusTrace?.()')
+                await page.keyboard.press('Tab')
+                observation = await page.evaluate(FOCUS)
+            except BrowserError as exc:
+                error = str(exc)
+            blocked_during_step = blocked[before_blocked:]
+            native_during_step = native_events[before_native:]
+            if error or blocked_during_step or native_during_step:
+                stop = {'step': step, 'key': 'Tab', 'error': error, 'child_frame_observed': child_frame_observed,
+                        'blocked_requests': blocked_during_step, 'native_events': native_during_step}
+                if not (native_during_step or child_frame_observed) and (
+                        attempt := input_observation.blocked_tab_focus(observer, first_event, blocked_during_step, source_url)):
+                    stop['focus_navigation'] = attempt
+                audit.save(dest/'keyboard-trace-stop.json', stop)
+                break
+            trace.append(observation)
+    finally:
+        page.remove_listener('frameattached', observe_child_frame)
     audit.save(dest/'keyboard.json', trace)
     return stop
 
 
-async def observe_scroll_and_tab(page, dest, data, env, images, label, limit, blocked, native_events, remaining):
+async def observe_scroll_and_tab(page, dest, data, env, images, label, limit, blocked, native_events, observer, remaining):
     import audit
 
     # Actual scroll/tile captures reveal sticky/viewport-only content.
@@ -235,11 +255,17 @@ async def observe_scroll_and_tab(page, dest, data, env, images, label, limit, bl
         remaining.append(f'{env["id"]}：21画面目以降はスクロール後の表示を追加調査する。')
     if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(images.run))+'/')):
         remaining.append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
-    trace_stop = await record_tab_trace(page, dest, limit, blocked, native_events)
+    trace_stop = await record_tab_trace(page, dest, limit, blocked, native_events, observer)
     if trace_stop:
         evidence = (dest/'keyboard-trace-stop.json').relative_to(images.run).as_posix()
-        remaining.append(f'{dest.name}：補助のTab観察は{trace_stop["step"]}回目で中断。'
-                                  f'以降は未確認（証拠: {evidence}）。')
+        point = f'{dest.name}：補助のTab観察は{trace_stop["step"]}回目で中断。'
+        if attempt := trace_stop.get('focus_navigation'):
+            target = attempt['target']
+            focus_target = '#' + target['id'] if target['id'] else target['tag']
+            point += (f'Tabの観察中に{focus_target}へフォーカスが移った。'
+                      'フォーカスイベントの配信中にメインフレームで別文書への移動が要求された。'
+                      '通信を遮断したため移動先の表示は未確認。')
+        remaining.append(f'{point}以降は未確認（証拠: {evidence}）。')
 
 
 QUICK_PENDING_PER_ENVIRONMENT = 12
@@ -468,7 +494,7 @@ def status(run):
 async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, initial_only=False,
                    start_exploration=False, quick_explore=False):
     import audit
-    from playwright.async_api import async_playwright
+    from playwright.async_api import Error as BrowserError, async_playwright
     run=Path(run);meta,_=audit.run_catalog(run,for_write=True);config=meta['config'];url=config['scope']['pages'][0]
     if config['scope'].get('mode')!='configured' or len(config['scope']['pages'])!=1:
         raise ValueError('探索はconfiguredの1ページで実行する')
@@ -483,11 +509,13 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
     visual_scope = config.get('visual_structure_scope')
     observe_explored_structure = config.get('visual_structure_states') == 'explored'
     sources = [Path(path).read_text() for path in (
-        __file__, combobox.__file__, keyboard_checks.__file__, keyboard_frames.__file__, keyboard_function.__file__,
+        __file__, input_observation.__file__, combobox.__file__, keyboard_checks.__file__,
+        keyboard_frames.__file__, keyboard_function.__file__,
         hover_checks.__file__, dialog_focus.__file__, keyboard_trap.__file__,
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
-        visual_structure.__file__, operation_impact.__file__, disclosure_close.__file__, ROOT/'vendor/axe.min.js')]
-    implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
+        visual_structure.__file__, operation_impact.__file__, disclosure_close.__file__, target_spacing.__file__,
+        measure.__file__, ROOT/'vendor/axe.min.js')]
+    implementation = sha256((SCRIPT + FOCUS + INVENTORY + ''.join(sources)).encode()).hexdigest()
     initial_jobs = [{'environment': env['id'], 'route': []} for env in config['environments']]
     declared_jobs = {'keyboard_check': checks, 'hover_check': hover_paths,
                      'border_check': border_paths, 'text_check': text_paths}
@@ -601,9 +629,9 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 text_record = dict(text_check, status='hold', observed='測定に必要な状態を確認できない。') if text_check else None
                 allowed_navigation={urldefrag(normalize(url))[0]}
                 context=await browser.new_context(viewport=env['viewport'],locale=config.get('locale','ja-JP'),storage_state=config.get('auth_state'),service_workers='block',accept_downloads=False)
-                observer=InputObserver(10000);blocked=[]
+                observer=input_observation.InputObserver(10000);blocked=[]
                 await context.expose_binding('__wcagAuditInput',observer.accept)
-                await context.add_init_script(INIT_SCRIPT);await context.add_init_script(SCRIPT)
+                await context.add_init_script(input_observation.INIT_SCRIPT);await context.add_init_script(SCRIPT)
                 freeze_requests = False
                 async def guard(request_route):
                     request=request_route.request
@@ -611,8 +639,15 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     allowed_method=request.method in {'GET','HEAD','OPTIONS'}
                     allowed_document=urldefrag(normalize(request.url))[0] in allowed_navigation
                     if freeze_requests or not allowed_method or (navigation and not declared and not allowed_document):
-                        blocked.append({'method': request.method, 'url': request.url,
-                                        'telemetry': not freeze_requests and is_telemetry(request, url)})
+                        decision = {'method': request.method, 'url': request.url, 'resource_type': request.resource_type,
+                                    'telemetry': not freeze_requests and is_telemetry(request, url)}
+                        if navigation:
+                            decision['is_main_frame'] = None
+                            with suppress(BrowserError):
+                                decision['is_main_frame'] = request.frame == page.main_frame
+                            if not freeze_requests and allowed_method:
+                                decision['reason'] = 'navigation_out_of_scope'
+                        blocked.append(decision)
                         await request_route.abort()
                     elif declared and navigation:
                         # Playwright does not dispatch route handlers for every HTTP redirect.
@@ -701,7 +736,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     elif initial_input:
                         current = await page.evaluate('() => window.__wcagExplore()')
                         await observe_scroll_and_tab(page, dest, current, env, images, None,
-                            min(config.get('keyboard_steps', 30), 120), blocked, native_events, value['remaining'])
+                            min(config.get('keyboard_steps', 30), 120), blocked, native_events, observer, value['remaining'])
                     else:
                         for action_index, action in enumerate(route, 1):
                             capture_action = (
@@ -726,11 +761,11 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 ):
                                     raise ValueError('キー入力の前に同じコンボボックスの候補を再現できない。')
                             if quick and action_index == len(route):
-                                before_operation, document_start = await page.evaluate("""() => {
-                                    const before = window.__wcagExplore('before');
+                                before_operation, document_start = await page.evaluate("""mode => {
+                                    const before = window.__wcagExplore(mode);
                                     window.__wcagBeginOperation();
                                     return [before, performance.timeOrigin];
-                                }""")
+                                }""", True if phase == 'escape' else 'before')
                                 operation_impact.compact(before_operation)
                                 if (len(route) == 1 and keyboard_function.activation(action)
                                         and (result_output := keyboard_function.numeric_output(before_operation))):
@@ -839,7 +874,17 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                     page, visual_scope, prepared_structure, deadline=structure_deadline)
                             # Capture the audited state before diagnostic scrolling changes the DOM.
                             cdp=await context.new_cdp_session(page)
-                            audit.save(dest/'accessibility-tree.json',await cdp.send('Accessibility.getFullAXTree'));await cdp.detach()
+                            try:
+                                audit.save(dest/'accessibility-tree.json', await cdp.send('Accessibility.getFullAXTree'))
+                                if (not route and not blocked and not native_events and data['url'] == inv['url']
+                                        and urldefrag(normalize(page.url))[0] in allowed_navigation
+                                        and all(wait['status'] == 'quiet' for wait in settling)):
+                                    with suppress(BrowserError):
+                                        spacing = await target_spacing.observe(page, cdp, data, env['id'])
+                                        if spacing:
+                                            audit.save(dest/target_spacing.EVIDENCE_FILE, spacing)
+                            finally:
+                                await cdp.detach()
                             await page.evaluate((ROOT/'vendor/axe.min.js').read_text())
                             baseline = None
                             reused = {}
@@ -876,7 +921,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 value['remaining'].append(f'{dest.name}：ダイアログ離脱の追加操作を記録。元の状態からの補助スクロールとTabは別経路で確認する。')
                             else:
                                 await observe_scroll_and_tab(page, dest, data, env, images, action_label,
-                                    min(config.get('keyboard_steps', 30), 120), blocked, native_events, value['remaining'])
+                                    min(config.get('keyboard_steps', 30), 120), blocked, native_events, observer, value['remaining'])
                 except KeyboardUnreachable as exc:
                     error = str(exc)
                     unreachable_step = action_index
@@ -916,6 +961,12 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 receipt.update(outcome='cant_tell', reason=interrupted_reason)
                         elif any(wait['status'] != 'quiet' for wait in settling):
                             dialog_observation.invalidate('キー入力後の表示更新が観察範囲に収まらない。')
+                        elif before_operation and (receipt := dialog_observation.record.get('keyboard_trap')):
+                            before = receipt['before']
+                            focus = before_operation.get('deep_focus') or before_operation['focus']['selector']
+                            if (before['url'] == before_operation['url'] and before['modals'] == [before_operation['modal']]
+                                    and before['focus'] == focus and before['document_start'] == document_start):
+                                receipt['before_fingerprint'] = fingerprint(before_operation)
                         audit.save(dest/dialog_focus.EVIDENCE_FILE, dialog_observation.record)
                     if structure_observation is not None or (visual_scope and not (declared or route)):
                         if interrupted_reason:
