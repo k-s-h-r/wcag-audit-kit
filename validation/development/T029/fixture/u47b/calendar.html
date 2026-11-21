@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>利用日を選ぶ</title><link rel="stylesheet" href="../site.css"></head>
+<body><main><p><a href="./">工作室の利用予約</a></p>
+<h1>利用日を選ぶ</h1>
+<h2>2027年5月10日から16日</h2>
+<p>日付を選ぶと、空き状況を確認できます。</p>
+<ul class="legend"><li><span class="swatch available" aria-hidden="true"></span>空きあり</li>
+<li><span class="swatch unavailable" aria-hidden="true"></span>満席</li></ul>
+<div class="calendar"><button type="button" class="day available" data-day="10"><span class="day-date">10日</span>月</button>
+<button type="button" class="day unavailable" data-day="11"><span class="day-date">11日</span>火</button>
+<button type="button" class="day available" data-day="12"><span class="day-date">12日</span>水</button>
+<button type="button" class="day unavailable" data-day="13"><span class="day-date">13日</span>木</button>
+<button type="button" class="day unavailable" data-day="14"><span class="day-date">14日</span>金</button>
+<button type="button" class="day available" data-day="15"><span class="day-date">15日</span>土</button>
+<button type="button" class="day unavailable" data-day="16"><span class="day-date">16日</span>日</button></div>
+<p id="message" role="status"></p>
+<p><a id="confirmation" href="confirmation.html" hidden>予約内容を確認する</a></p></main><script src="../calendar.js"></script></body></html>

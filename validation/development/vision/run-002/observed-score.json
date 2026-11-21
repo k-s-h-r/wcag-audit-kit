@@ -1,0 +1,79 @@
+{
+  "correct": 6,
+  "total": 6,
+  "machine_correct": 1,
+  "cases": [
+    {
+      "url": "http://127.0.0.1:43922/n2k/",
+      "observed": {
+        "quantity": "failed",
+        "label": "failed",
+        "process": "blocked"
+      },
+      "visited": [
+        "http://127.0.0.1:43922/n2k/",
+        "http://127.0.0.1:43922/n2k/schedule",
+        "http://127.0.0.1:43922/n2k/preview?attendees=2"
+      ],
+      "validation": "見学人数を2名にしてください。",
+      "pointer_fallback": true,
+      "observer_sha256": "f340cbc02f89dfc68634cea3200999472e24f7a0f6605432bf4131652eea49c9"
+    },
+    {
+      "url": "http://127.0.0.1:43922/j6w/",
+      "observed": {
+        "quantity": "passed",
+        "label": "passed",
+        "process": "reached"
+      },
+      "visited": [
+        "http://127.0.0.1:43922/j6w/",
+        "http://127.0.0.1:43922/j6w/select",
+        "http://127.0.0.1:43922/j6w/verify?attendees=2"
+      ],
+      "validation": "見学人数を2名にしてください。",
+      "pointer_fallback": false,
+      "observer_sha256": "889f1857cc492d299a5b46b2c7c36a5f0463f26ab577c5c569d7ed56ee93e474"
+    }
+  ],
+  "machine": [
+    {
+      "url": "http://127.0.0.1:43922/n2k/",
+      "function_results": [],
+      "sha256": "74664a1dfc817e8126b321b19d25deeecca1ddf77934aa50d2e2ad6603a0b9ae"
+    },
+    {
+      "url": "http://127.0.0.1:43922/j6w/",
+      "function_results": [],
+      "sha256": "b68da630f122c577a1f9d620fbef225654a0cf434abbdf51c9c0dab0f530f522"
+    },
+    {
+      "url": "http://127.0.0.1:43922/n2k/schedule",
+      "function_results": [],
+      "sha256": "a6469cffaed637934b59a90c4b6efe9ed6a5ac40932335853cd8d6f76598efba"
+    },
+    {
+      "url": "http://127.0.0.1:43922/j6w/select",
+      "function_results": [
+        {
+          "environment": "desktop",
+          "criterion": "2.1.1",
+          "checkpoint": "キー操作後の機能の結果",
+          "outcome": "passed",
+          "target": "#add-companion",
+          "evidence": "evidence/4f4bd44194ff--explore-b4ca5b25613b--desktop/transition.json"
+        },
+        {
+          "environment": "narrow",
+          "criterion": "2.1.1",
+          "checkpoint": "キー操作後の機能の結果",
+          "outcome": "passed",
+          "target": "#add-companion",
+          "evidence": "evidence/4f4bd44194ff--explore-23319b289eb3--narrow/transition.json"
+        }
+      ],
+      "sha256": "7374e190cff49ff0a5705e3b3832c536b4fa4556068e63cc925da3e09d306bed"
+    }
+  ],
+  "raw_archive_sha256": "902a2292dea46c11f8b882dc6c8615601615f4db2cc387e13f45ef406caf252d"
+}

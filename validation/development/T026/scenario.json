@@ -1,0 +1,22 @@
+{
+  "locale": "ja-JP",
+  "viewport": {"width": 1280, "height": 900},
+  "settle_ms": 3000,
+  "actions": [
+    {"type": "reader.nextHeading"},
+    {"type": "reader.press", "keys": ["Tab"]},
+    {"type": "reader.press", "keys": ["Return"]},
+    {"type": "reader.nextHeading"},
+    {"type": "reader.press", "keys": ["Tab"]},
+    {"type": "reader.press", "keys": ["1"]},
+    {"type": "reader.press", "keys": ["Tab"]},
+    {"type": "reader.press", "keys": ["KP_Enter"]},
+    {"type": "reader.press", "keys": ["space"]},
+    {"type": "reader.press", "keys": ["Shift_L", "Tab"]},
+    {"type": "reader.press", "keys": ["BackSpace"]},
+    {"type": "reader.press", "keys": ["2"]},
+    {"type": "reader.press", "keys": ["Tab"]},
+    {"type": "reader.press", "keys": ["space"]}
+  ],
+  "observe": [{"selector": "main"}, {"selector": "h1"}]
+}

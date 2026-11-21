@@ -1,0 +1,782 @@
+[
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "1E4323DA268ECF471B93D97C4A43006F",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "http://127.0.0.1:45397/p03.html",
+        "method": "GET",
+        "headers": {
+          "Accept-Language": "en-US",
+          "Upgrade-Insecure-Requests": "1",
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"Linux\""
+        },
+        "mixedContentType": "none",
+        "initialPriority": "VeryHigh",
+        "referrerPolicy": "unsafe-url",
+        "isSameSite": true
+      },
+      "timestamp": 23415.159026,
+      "wallTime": 1795255503.731663,
+      "initiator": {
+        "type": "other"
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Document",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": false
+    }
+  },
+  {
+    "event": "responseReceived",
+    "data": {
+      "requestId": "1E4323DA268ECF471B93D97C4A43006F",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "timestamp": 23415.28187,
+      "type": "Document",
+      "response": {
+        "url": "http://127.0.0.1:45397/p03.html",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "Accept-Ranges": "bytes",
+          "Cache-Control": "no-store",
+          "Content-Length": "895",
+          "Content-Type": "text/html",
+          "Date": "Sat, 21 Nov 2026 10:05:03 GMT",
+          "Server": "BaseHTTP/0.6 Python/3.12.14",
+          "X-T028-Receipt": "3"
+        },
+        "mimeType": "text/html",
+        "charset": "",
+        "connectionReused": true,
+        "connectionId": 111,
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 45397,
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "fromPrefetchCache": false,
+        "encodedDataLength": 205,
+        "timing": {
+          "requestTime": 23415.213179,
+          "proxyStart": -1,
+          "proxyEnd": -1,
+          "dnsStart": -1,
+          "dnsEnd": -1,
+          "connectStart": -1,
+          "connectEnd": -1,
+          "sslStart": -1,
+          "sslEnd": -1,
+          "workerStart": -1,
+          "workerReady": -1,
+          "workerFetchStart": -1,
+          "workerRespondWithSettled": -1,
+          "sendStart": 52.965,
+          "sendEnd": 53.03,
+          "pushStart": 0,
+          "pushEnd": 0,
+          "receiveHeadersStart": 63.75,
+          "receiveHeadersEnd": 63.8
+        },
+        "responseTime": 1795255503843.596,
+        "protocol": "http/1.0",
+        "alternateProtocolUsage": "unspecifiedReason",
+        "securityState": "secure"
+      },
+      "hasExtraInfo": true,
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5"
+    }
+  },
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "591586.2",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBmaWxsPSJXaW5kb3ciPgo8Zz4KCTxjaXJjbGUgY3g9IjEyIiBjeT0iNiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxOCIgcj0iMiIvPgo8L2c+Cjwvc3ZnPgo=",
+        "method": "GET",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "Accept-Language": "en-US",
+          "Referer": ""
+        },
+        "mixedContentType": "none",
+        "initialPriority": "Low",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": false
+      },
+      "timestamp": 23415.460958,
+      "wallTime": 1795255504.027673,
+      "initiator": {
+        "type": "parser",
+        "url": "http://127.0.0.1:45397/p03.html",
+        "lineNumber": 0,
+        "columnNumber": 653
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Image",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": false
+    }
+  },
+  {
+    "event": "responseReceived",
+    "data": {
+      "requestId": "591586.2",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "timestamp": 23415.461028,
+      "type": "Image",
+      "response": {
+        "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBmaWxsPSJXaW5kb3ciPgo8Zz4KCTxjaXJjbGUgY3g9IjEyIiBjeT0iNiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxOCIgcj0iMiIvPgo8L2c+Cjwvc3ZnPgo=",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "Content-Type": "image/svg+xml"
+        },
+        "mimeType": "image/svg+xml",
+        "charset": "",
+        "connectionReused": false,
+        "connectionId": 0,
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "fromPrefetchCache": false,
+        "encodedDataLength": 0,
+        "protocol": "data",
+        "securityState": "unknown"
+      },
+      "hasExtraInfo": false,
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5"
+    }
+  },
+  {
+    "event": "loadingFinished",
+    "data": {
+      "requestId": "591586.2",
+      "timestamp": 23415.461036,
+      "encodedDataLength": 0
+    }
+  },
+  {
+    "event": "loadingFinished",
+    "data": {
+      "requestId": "1E4323DA268ECF471B93D97C4A43006F",
+      "timestamp": 23415.281092,
+      "encodedDataLength": 1100
+    }
+  },
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "591586.3",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "http://127.0.0.1:45397/assets/expanded-source.webm",
+        "method": "GET",
+        "headers": {
+          "sec-ch-ua-platform": "\"Linux\"",
+          "Referer": "http://127.0.0.1:45397/p03.html",
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\"",
+          "Range": "bytes=0-",
+          "Accept-Language": "en-US",
+          "sec-ch-ua-mobile": "?0"
+        },
+        "mixedContentType": "none",
+        "initialPriority": "Low",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": true
+      },
+      "timestamp": 23415.56778,
+      "wallTime": 1795255504.134516,
+      "initiator": {
+        "type": "parser",
+        "url": "http://127.0.0.1:45397/p03.html",
+        "lineNumber": 0,
+        "columnNumber": 653
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Media",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": false
+    }
+  },
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "591586.4",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTYgMTk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTYgMTk2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik05OCw0OXY0Yy0yNC45LDAtNDUsMjAuMS00NSw0NQoJYzAsMTgsMTAuNiwzMy42LDI1LjksNDAuOGwtMS43LDMuNmMwLjEsMCwwLjIsMC4xLDAuMywwLjFjLTAuMSwwLTAuMi0wLjEtMC4zLTAuMWwwLDBDNjAuNSwxMzQuNSw0OSwxMTcuNiw0OSw5OAoJQzQ5LDcwLjksNzAuOSw0OSw5OCw0OXoiLz4KPC9zdmc+Cg==",
+        "method": "GET",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "Accept-Language": "en-US",
+          "Referer": ""
+        },
+        "mixedContentType": "none",
+        "initialPriority": "Low",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": false
+      },
+      "timestamp": 23415.570606,
+      "wallTime": 1795255504.137302,
+      "initiator": {
+        "type": "parser",
+        "url": "http://127.0.0.1:45397/p03.html",
+        "lineNumber": 1,
+        "columnNumber": 1
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Image",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": false
+    }
+  },
+  {
+    "event": "responseReceived",
+    "data": {
+      "requestId": "591586.4",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "timestamp": 23415.570652,
+      "type": "Image",
+      "response": {
+        "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTYgMTk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTYgMTk2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik05OCw0OXY0Yy0yNC45LDAtNDUsMjAuMS00NSw0NQoJYzAsMTgsMTAuNiwzMy42LDI1LjksNDAuOGwtMS43LDMuNmMwLjEsMCwwLjIsMC4xLDAuMywwLjFjLTAuMSwwLTAuMi0wLjEtMC4zLTAuMWwwLDBDNjAuNSwxMzQuNSw0OSwxMTcuNiw0OSw5OAoJQzQ5LDcwLjksNzAuOSw0OSw5OCw0OXoiLz4KPC9zdmc+Cg==",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "Content-Type": "image/svg+xml"
+        },
+        "mimeType": "image/svg+xml",
+        "charset": "",
+        "connectionReused": false,
+        "connectionId": 0,
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "fromPrefetchCache": false,
+        "encodedDataLength": 0,
+        "protocol": "data",
+        "securityState": "unknown"
+      },
+      "hasExtraInfo": false,
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5"
+    }
+  },
+  {
+    "event": "loadingFinished",
+    "data": {
+      "requestId": "591586.4",
+      "timestamp": 23415.570661,
+      "encodedDataLength": 0
+    }
+  },
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "591586.5",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTYgMTk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTYgMTk2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNDcsOThjMCwxOS42LTExLjUsMzYuNS0yOC4yLDQ0LjRsMCwwYy0wLjEsMC0wLjIsMC4xLTAuMywwLjEKCWMwLjEsMCwwLjItMC4xLDAuMy0wLjFsLTEuNy0zLjZDMTMyLjQsMTMxLjYsMTQzLDExNiwxNDMsOThjMC0yNC45LTIwLjEtNDUtNDUtNDV2LTRDMTI1LjEsNDksMTQ3LDcwLjksMTQ3LDk4eiIvPgo8L3N2Zz4K",
+        "method": "GET",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "Accept-Language": "en-US",
+          "Referer": ""
+        },
+        "mixedContentType": "none",
+        "initialPriority": "Low",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": false
+      },
+      "timestamp": 23415.599691,
+      "wallTime": 1795255504.166391,
+      "initiator": {
+        "type": "parser",
+        "url": "http://127.0.0.1:45397/p03.html",
+        "lineNumber": 1,
+        "columnNumber": 1
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Image",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": false
+    }
+  },
+  {
+    "event": "responseReceived",
+    "data": {
+      "requestId": "591586.5",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "timestamp": 23415.599745,
+      "type": "Image",
+      "response": {
+        "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTYgMTk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTYgMTk2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNDcsOThjMCwxOS42LTExLjUsMzYuNS0yOC4yLDQ0LjRsMCwwYy0wLjEsMC0wLjIsMC4xLTAuMywwLjEKCWMwLjEsMCwwLjItMC4xLDAuMy0wLjFsLTEuNy0zLjZDMTMyLjQsMTMxLjYsMTQzLDExNiwxNDMsOThjMC0yNC45LTIwLjEtNDUtNDUtNDV2LTRDMTI1LjEsNDksMTQ3LDcwLjksMTQ3LDk4eiIvPgo8L3N2Zz4K",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "Content-Type": "image/svg+xml"
+        },
+        "mimeType": "image/svg+xml",
+        "charset": "",
+        "connectionReused": false,
+        "connectionId": 0,
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "fromPrefetchCache": false,
+        "encodedDataLength": 0,
+        "protocol": "data",
+        "securityState": "unknown"
+      },
+      "hasExtraInfo": false,
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5"
+    }
+  },
+  {
+    "event": "loadingFinished",
+    "data": {
+      "requestId": "591586.5",
+      "timestamp": 23415.599752,
+      "encodedDataLength": 0
+    }
+  },
+  {
+    "event": "responseReceived",
+    "data": {
+      "requestId": "591586.3",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "timestamp": 23415.69774,
+      "type": "Media",
+      "response": {
+        "url": "http://127.0.0.1:45397/assets/expanded-source.webm",
+        "status": 206,
+        "statusText": "Partial Content",
+        "headers": {
+          "Cache-Control": "no-store",
+          "Content-Range": "bytes 0-38397/38398",
+          "Accept-Ranges": "bytes",
+          "Content-Length": "38398",
+          "X-T028-Receipt": "4",
+          "Date": "Sat, 21 Nov 2026 10:05:04 GMT",
+          "Content-Type": "video/webm",
+          "Server": "BaseHTTP/0.6 Python/3.12.14"
+        },
+        "mimeType": "video/webm",
+        "charset": "",
+        "connectionReused": false,
+        "connectionId": 121,
+        "remoteIPAddress": "127.0.0.1",
+        "remotePort": 45397,
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "fromPrefetchCache": false,
+        "encodedDataLength": 257,
+        "timing": {
+          "requestTime": 23415.598579,
+          "proxyStart": -1,
+          "proxyEnd": -1,
+          "dnsStart": 2.512,
+          "dnsEnd": 2.529,
+          "connectStart": 2.529,
+          "connectEnd": 2.675,
+          "sslStart": -1,
+          "sslEnd": -1,
+          "workerStart": -1,
+          "workerReady": -1,
+          "workerFetchStart": -1,
+          "workerRespondWithSettled": -1,
+          "sendStart": 2.781,
+          "sendEnd": 2.834,
+          "pushStart": 0,
+          "pushEnd": 0,
+          "receiveHeadersStart": 20.115,
+          "receiveHeadersEnd": 20.184
+        },
+        "responseTime": 1795255504185.361,
+        "protocol": "http/1.0",
+        "alternateProtocolUsage": "unspecifiedReason",
+        "securityState": "secure"
+      },
+      "hasExtraInfo": true,
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5"
+    }
+  },
+  {
+    "event": "loadingFinished",
+    "data": {
+      "requestId": "591586.3",
+      "timestamp": 23415.623164,
+      "encodedDataLength": 38655
+    }
+  },
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "591586.6",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTggNXYxNGwxMS03eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+        "method": "GET",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "Accept-Language": "en-US",
+          "Referer": ""
+        },
+        "mixedContentType": "none",
+        "initialPriority": "Low",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": false
+      },
+      "timestamp": 23415.744749,
+      "wallTime": 1795255504.311443,
+      "initiator": {
+        "type": "parser",
+        "url": "http://127.0.0.1:45397/p03.html",
+        "lineNumber": 1,
+        "columnNumber": 1
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Image",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": false
+    }
+  },
+  {
+    "event": "responseReceived",
+    "data": {
+      "requestId": "591586.6",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "timestamp": 23415.744793,
+      "type": "Image",
+      "response": {
+        "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTggNXYxNGwxMS03eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "Content-Type": "image/svg+xml"
+        },
+        "mimeType": "image/svg+xml",
+        "charset": "",
+        "connectionReused": false,
+        "connectionId": 0,
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "fromPrefetchCache": false,
+        "encodedDataLength": 0,
+        "protocol": "data",
+        "securityState": "unknown"
+      },
+      "hasExtraInfo": false,
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5"
+    }
+  },
+  {
+    "event": "loadingFinished",
+    "data": {
+      "requestId": "591586.6",
+      "timestamp": 23415.744798,
+      "encodedDataLength": 0
+    }
+  },
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "591586.7",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTMgOXY2aDRsNSA1VjRMNyA5SDN6bTEzLjUgM2MwLTEuNzctMS4wMi0zLjI5LTIuNS00LjAzdjguMDVjMS40OC0uNzMgMi41LTIuMjUgMi41LTQuMDJ6TTE0IDMuMjN2Mi4wNmMyLjg5Ljg2IDUgMy41NCA1IDYuNzFzLTIuMTEgNS44NS01IDYuNzF2Mi4wNmM0LjAxLS45MSA3LTQuNDkgNy04Ljc3cy0yLjk5LTcuODYtNy04Ljc3eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+        "method": "GET",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "Accept-Language": "en-US",
+          "Referer": ""
+        },
+        "mixedContentType": "none",
+        "initialPriority": "Low",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": false
+      },
+      "timestamp": 23415.74575,
+      "wallTime": 1795255504.312473,
+      "initiator": {
+        "type": "parser",
+        "url": "http://127.0.0.1:45397/p03.html",
+        "lineNumber": 1,
+        "columnNumber": 1
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Image",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": false
+    }
+  },
+  {
+    "event": "responseReceived",
+    "data": {
+      "requestId": "591586.7",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "timestamp": 23415.745821,
+      "type": "Image",
+      "response": {
+        "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTMgOXY2aDRsNSA1VjRMNyA5SDN6bTEzLjUgM2MwLTEuNzctMS4wMi0zLjI5LTIuNS00LjAzdjguMDVjMS40OC0uNzMgMi41LTIuMjUgMi41LTQuMDJ6TTE0IDMuMjN2Mi4wNmMyLjg5Ljg2IDUgMy41NCA1IDYuNzFzLTIuMTEgNS44NS01IDYuNzF2Mi4wNmM0LjAxLS45MSA3LTQuNDkgNy04Ljc3cy0yLjk5LTcuODYtNy04Ljc3eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "Content-Type": "image/svg+xml"
+        },
+        "mimeType": "image/svg+xml",
+        "charset": "",
+        "connectionReused": false,
+        "connectionId": 0,
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "fromPrefetchCache": false,
+        "encodedDataLength": 0,
+        "protocol": "data",
+        "securityState": "unknown"
+      },
+      "hasExtraInfo": false,
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5"
+    }
+  },
+  {
+    "event": "loadingFinished",
+    "data": {
+      "requestId": "591586.7",
+      "timestamp": 23415.745827,
+      "encodedDataLength": 0
+    }
+  },
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "591586.8",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgogICAgPHBhdGggZD0iTTcgMTRINXY1aDV2LTJIN3YtM3ptLTItNGgyVjdoM1Y1SDV2NXptMTIgN2gtM3YyaDV2LTVoLTJ2M3pNMTQgNXYyaDN2M2gyVjVoLTV6Ii8+Cjwvc3ZnPgo=",
+        "method": "GET",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "Accept-Language": "en-US",
+          "Referer": ""
+        },
+        "mixedContentType": "none",
+        "initialPriority": "Low",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": false
+      },
+      "timestamp": 23415.746629,
+      "wallTime": 1795255504.313324,
+      "initiator": {
+        "type": "parser",
+        "url": "http://127.0.0.1:45397/p03.html",
+        "lineNumber": 1,
+        "columnNumber": 1
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Image",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": false
+    }
+  },
+  {
+    "event": "responseReceived",
+    "data": {
+      "requestId": "591586.8",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "timestamp": 23415.746674,
+      "type": "Image",
+      "response": {
+        "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgogICAgPHBhdGggZD0iTTcgMTRINXY1aDV2LTJIN3YtM3ptLTItNGgyVjdoM1Y1SDV2NXptMTIgN2gtM3YyaDV2LTVoLTJ2M3pNMTQgNXYyaDN2M2gyVjVoLTV6Ii8+Cjwvc3ZnPgo=",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "Content-Type": "image/svg+xml"
+        },
+        "mimeType": "image/svg+xml",
+        "charset": "",
+        "connectionReused": false,
+        "connectionId": 0,
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "fromPrefetchCache": false,
+        "encodedDataLength": 0,
+        "protocol": "data",
+        "securityState": "unknown"
+      },
+      "hasExtraInfo": false,
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5"
+    }
+  },
+  {
+    "event": "loadingFinished",
+    "data": {
+      "requestId": "591586.8",
+      "timestamp": 23415.74668,
+      "encodedDataLength": 0
+    }
+  },
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "591586.9",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "http://127.0.0.1:45397/favicon.ico",
+        "method": "GET",
+        "headers": {
+          "sec-ch-ua-platform": "\"Linux\"",
+          "Referer": "http://127.0.0.1:45397/p03.html",
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\"",
+          "Accept-Language": "en-US",
+          "sec-ch-ua-mobile": "?0"
+        },
+        "mixedContentType": "none",
+        "initialPriority": "High",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": true
+      },
+      "timestamp": 23415.999266,
+      "wallTime": 1795255504.565963,
+      "initiator": {
+        "type": "other"
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Other",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": false
+    }
+  },
+  {
+    "event": "loadingFailed",
+    "data": {
+      "requestId": "591586.9",
+      "timestamp": 23416.149466,
+      "type": "Other",
+      "errorText": "net::ERR_ABORTED",
+      "canceled": true
+    }
+  },
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "591586.10",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "http://127.0.0.1:45397/favicon.ico",
+        "method": "GET",
+        "headers": {
+          "sec-ch-ua-platform": "\"Linux\"",
+          "Referer": "http://127.0.0.1:45397/p03.html",
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "sec-ch-ua": "\"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"156\"",
+          "Accept-Language": "en-US",
+          "sec-ch-ua-mobile": "?0"
+        },
+        "mixedContentType": "none",
+        "initialPriority": "High",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": true
+      },
+      "timestamp": 23421.908274,
+      "wallTime": 1795255510.474977,
+      "initiator": {
+        "type": "other"
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Other",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": true
+    }
+  },
+  {
+    "event": "requestWillBeSent",
+    "data": {
+      "requestId": "591586.11",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "documentURL": "http://127.0.0.1:45397/p03.html",
+      "request": {
+        "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTYgMTloNFY1SDZ2MTR6bTgtMTR2MTRoNFY1aC00eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+        "method": "GET",
+        "headers": {
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+          "Accept-Language": "en-US",
+          "Referer": ""
+        },
+        "mixedContentType": "none",
+        "initialPriority": "Low",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "isSameSite": false
+      },
+      "timestamp": 23421.944371,
+      "wallTime": 1795255510.511079,
+      "initiator": {
+        "type": "other"
+      },
+      "redirectHasExtraInfo": false,
+      "type": "Image",
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5",
+      "hasUserGesture": true
+    }
+  },
+  {
+    "event": "responseReceived",
+    "data": {
+      "requestId": "591586.11",
+      "loaderId": "1E4323DA268ECF471B93D97C4A43006F",
+      "timestamp": 23421.944437,
+      "type": "Image",
+      "response": {
+        "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTYgMTloNFY1SDZ2MTR6bTgtMTR2MTRoNFY1aC00eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+        "status": 200,
+        "statusText": "OK",
+        "headers": {
+          "Content-Type": "image/svg+xml"
+        },
+        "mimeType": "image/svg+xml",
+        "charset": "",
+        "connectionReused": false,
+        "connectionId": 0,
+        "fromDiskCache": false,
+        "fromServiceWorker": false,
+        "fromPrefetchCache": false,
+        "encodedDataLength": 0,
+        "protocol": "data",
+        "securityState": "unknown"
+      },
+      "hasExtraInfo": false,
+      "frameId": "42DDBAEEDD9E2BF82AD73442569950A5"
+    }
+  },
+  {
+    "event": "loadingFinished",
+    "data": {
+      "requestId": "591586.11",
+      "timestamp": 23421.944446,
+      "encodedDataLength": 0
+    }
+  },
+  {
+    "event": "loadingFailed",
+    "data": {
+      "requestId": "591586.10",
+      "timestamp": 23422.071493,
+      "type": "Other",
+      "errorText": "net::ERR_ABORTED",
+      "canceled": true
+    }
+  }
+]

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>施設の利用案内</title>
+<style>body {font: 18px/1.6 sans-serif; margin: 1rem}</style>
+<main>
+  <h1>施設の利用案内</h1>
+  <div id="subject"></div>
+</main>
+<script>
+  const root = document.querySelector('#subject').attachShadow({mode: 'open'});
+  root.innerHTML = `
+    <style>
+      button {font: inherit; font-weight: 600; padding: .4rem .7rem}
+      :focus-visible {outline: 3px solid #075da8; outline-offset: 3px}
+      #panel {margin-top: .5rem; padding: .75rem; border: 2px solid #456}
+    </style>
+    <h2><button id="opener" type="button" aria-expanded="false" aria-controls="panel">利用時間</button></h2>
+    <div id="panel" hidden>
+      <p id="hours">受付時間は午前九時から午後五時までです。</p>
+      <a id="inner" href="#hours">受付時間を確認する</a>
+    </div>`;
+  const opener = root.querySelector('#opener');
+  const panel = root.querySelector('#panel');
+  opener.addEventListener('click', () => {
+    panel.hidden = !panel.hidden;
+    opener.setAttribute('aria-expanded', String(!panel.hidden));
+  });
+</script>
+</html>

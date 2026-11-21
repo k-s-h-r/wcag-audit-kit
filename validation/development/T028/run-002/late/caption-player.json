@@ -1,0 +1,537 @@
+{
+  "status": "collected",
+  "case_id": "t028-late",
+  "started_at": "2026-11-21T05:04:06.651320+00:00",
+  "request_sha256": "a77ffe71377d25190aee9f68f6350bac23cce7a0e2cebe762ff30428c4cf4b8e",
+  "actions": [
+    {
+      "action": {
+        "type": "click",
+        "selector": "#captions"
+      },
+      "started_at": "2026-11-21T05:04:09.879637+00:00",
+      "observed_at": "2026-11-21T05:04:09.973530+00:00",
+      "player": {
+        "currentTime": 0,
+        "duration": 7.008,
+        "paused": true,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [],
+        "quality": {
+          "creationTime": 985.9000000003725,
+          "totalVideoFrames": 4,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 4.8,
+                "end": 6.9,
+                "text": "[Narrator] Press the blue button to save the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": []
+          }
+        ]
+      }
+    },
+    {
+      "action": {
+        "type": "click",
+        "selector": "#play"
+      },
+      "started_at": "2026-11-21T05:04:10.016008+00:00",
+      "observed_at": "2026-11-21T05:04:10.126024+00:00",
+      "player": {
+        "currentTime": 0.036035,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [
+          [
+            0,
+            0.036035
+          ]
+        ],
+        "quality": {
+          "creationTime": 1151,
+          "totalVideoFrames": 5,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 4.8,
+                "end": 6.9,
+                "text": "[Narrator] Press the blue button to save the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": []
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "caption-1.png",
+      "requested_media_time": 1.2,
+      "before_capture": {
+        "currentTime": 1.232322,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [
+          [
+            0,
+            1.232322
+          ]
+        ],
+        "quality": {
+          "creationTime": 2346.7000000001863,
+          "totalVideoFrames": 42,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 4.8,
+                "end": 6.9,
+                "text": "[Narrator] Press the blue button to save the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": []
+          }
+        ]
+      },
+      "after_capture": {
+        "currentTime": 1.33946,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [
+          [
+            0,
+            1.33946
+          ]
+        ],
+        "quality": {
+          "creationTime": 2454.7000000001863,
+          "totalVideoFrames": 45,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 4.8,
+                "end": 6.9,
+                "text": "[Narrator] Press the blue button to save the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": []
+          }
+        ]
+      },
+      "note": "画像取得中も再生は進む。要求時刻の厳密なフレームとは限らない。"
+    },
+    {
+      "path": "caption-2.png",
+      "requested_media_time": 2.5,
+      "before_capture": {
+        "currentTime": 2.55428,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [
+          [
+            0,
+            2.55428
+          ]
+        ],
+        "quality": {
+          "creationTime": 3715.4000000003725,
+          "totalVideoFrames": 82,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 4.8,
+                "end": 6.9,
+                "text": "[Narrator] Press the blue button to save the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": []
+          }
+        ]
+      },
+      "after_capture": {
+        "currentTime": 2.659471,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [
+          [
+            0,
+            2.659471
+          ]
+        ],
+        "quality": {
+          "creationTime": 3816.7999999998137,
+          "totalVideoFrames": 85,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 4.8,
+                "end": 6.9,
+                "text": "[Narrator] Press the blue button to save the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": []
+          }
+        ]
+      },
+      "note": "画像取得中も再生は進む。要求時刻の厳密なフレームとは限らない。"
+    },
+    {
+      "path": "caption-3.png",
+      "requested_media_time": 5.7,
+      "before_capture": {
+        "currentTime": 5.791584,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [
+          [
+            0,
+            5.791584
+          ]
+        ],
+        "quality": {
+          "creationTime": 6949,
+          "totalVideoFrames": 179,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 4.8,
+                "end": 6.9,
+                "text": "[Narrator] Press the blue button to save the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": [
+              {
+                "start": 4.8,
+                "end": 6.9,
+                "text": "[Narrator] Press the blue button to save the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ]
+          }
+        ]
+      },
+      "after_capture": {
+        "currentTime": 5.862893,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [
+          [
+            0,
+            5.862893
+          ]
+        ],
+        "quality": {
+          "creationTime": 7020,
+          "totalVideoFrames": 181,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "showing",
+            "cues": [
+              {
+                "start": 4.8,
+                "end": 6.9,
+                "text": "[Narrator] Press the blue button to save the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ],
+            "activeCues": [
+              {
+                "start": 4.8,
+                "end": 6.9,
+                "text": "[Narrator] Press the blue button to save the document."
+              },
+              {
+                "start": 5.4,
+                "end": 6.4,
+                "text": "[Confirmation tone]"
+              }
+            ]
+          }
+        ]
+      },
+      "note": "画像取得中も再生は進む。要求時刻の厳密なフレームとは限らない。"
+    }
+  ],
+  "listening_performed": false,
+  "speech_meaning_reviewed": false,
+  "non_speech_meaning_reviewed": false,
+  "all_visual_frames_reviewed": false,
+  "flash_thresholds_reviewed": false,
+  "wcag_judgement": null,
+  "note": "再生・字幕の実表示の観察。endedや字幕トラックの存在から意味・全区間の合格を作らない。",
+  "scenario": {
+    "case_id": "t028-late",
+    "url": "http://127.0.0.1:45447/late.html",
+    "media": {
+      "selector": "#clip"
+    },
+    "prepare_actions": [
+      {
+        "type": "click",
+        "selector": "#captions"
+      }
+    ],
+    "play_action": {
+      "type": "click",
+      "selector": "#play"
+    },
+    "screenshot_times": [
+      1.2,
+      2.5,
+      5.7
+    ],
+    "max_seconds": 15
+  },
+  "browser_version": "156.0.8078.79",
+  "before": {
+    "currentTime": 0,
+    "duration": 7.008,
+    "paused": true,
+    "ended": false,
+    "muted": false,
+    "volume": 1,
+    "playbackRate": 1,
+    "readyState": 4,
+    "currentSrc": "http://127.0.0.1:45447/clip.webm",
+    "error": null,
+    "played": [],
+    "quality": {
+      "creationTime": 667,
+      "totalVideoFrames": 4,
+      "droppedVideoFrames": 0,
+      "corruptedVideoFrames": 0
+    },
+    "tracks": [
+      {
+        "kind": "captions",
+        "label": "English",
+        "language": "en",
+        "mode": "disabled",
+        "cues": null,
+        "activeCues": null
+      }
+    ]
+  },
+  "after": {
+    "currentTime": 7.008,
+    "duration": 7.008,
+    "paused": true,
+    "ended": true,
+    "muted": false,
+    "volume": 1,
+    "playbackRate": 1,
+    "readyState": 4,
+    "currentSrc": "http://127.0.0.1:45447/clip.webm",
+    "error": null,
+    "played": [
+      [
+        0,
+        7.008
+      ]
+    ],
+    "quality": {
+      "creationTime": 8252.700000000186,
+      "totalVideoFrames": 210,
+      "droppedVideoFrames": 0,
+      "corruptedVideoFrames": 0
+    },
+    "tracks": [
+      {
+        "kind": "captions",
+        "label": "English",
+        "language": "en",
+        "mode": "showing",
+        "cues": [
+          {
+            "start": 4.8,
+            "end": 6.9,
+            "text": "[Narrator] Press the blue button to save the document."
+          },
+          {
+            "start": 5.4,
+            "end": 6.4,
+            "text": "[Confirmation tone]"
+          }
+        ],
+        "activeCues": []
+      }
+    ]
+  },
+  "playback_ended": true,
+  "unreached_screenshot_times": [],
+  "finished_at": "2026-11-21T05:04:17.473254+00:00",
+  "event_trace": {
+    "events": 210,
+    "truncated": false,
+    "dropped": 0
+  },
+  "frame_callbacks": {
+    "count": 207,
+    "first_media_time": 0.033,
+    "last_media_time": 6.967,
+    "note": "コールバック数や再生終了だけで、AIが全フレームを視認・理解したことにはしない。"
+  }
+}

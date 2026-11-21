@@ -1,0 +1,19 @@
+{
+  "host": "Codex CLI 0.167.0-alpha.4",
+  "mode": "exec --ephemeral --ignore-user-config --skip-git-repo-check -s read-only --json",
+  "attempts": [
+    {
+      "result": "initialization_failed",
+      "exit_code": 1,
+      "message": "failed to initialize in-process app-server client: Read-only file system (os error 30)"
+    },
+    {
+      "result": "initialization_failed",
+      "overrides": ["sqlite_home", "log_dir"],
+      "message": "failed to initialize in-process app-server client: Read-only file system (os error 30)",
+      "strace": "open(~/.codex/installation_id, O_RDWR|O_CREAT|O_LARGEFILE|O_CLOEXEC, 0644) = -1 EROFS"
+    }
+  ],
+  "native_skill_dispatch_observed": false,
+  "native_final_answer_observed": false
+}

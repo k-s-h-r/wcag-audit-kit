@@ -456,7 +456,7 @@ def outcomes(run):
     from page_explorer import status as exploration_status
     exploration=exploration_status(run)
     complete=complete and exploration['complete']
-    from page_workflow import machine_checks
+    from page_workflow import dialog_observations, machine_checks
     automated=machine_checks(run, manifest)
     result={'level':meta['config']['level'],'url':meta['config']['url'],'audit_complete':complete,
             'conformance_claim':'この結果は記録した検査範囲についての報告です。未実施・判断保留は適合と判定していません。',
@@ -476,6 +476,8 @@ def outcomes(run):
                            'quick_explore': exploration.get('quick_explore', False),
                            'omitted_candidates': exploration.get('omitted_candidates', {})},
             'machine_checks':automated,'counts':dict(stats),'criteria':per_criterion,'cases':rows}
+    if observations := dialog_observations(run, exploration, meta['config']['url']):
+        result['exploration']['dialog_observations'] = observations
     if 'visual_structure_scope' in meta['config']:
         from visual_structure import report_evidence
 
@@ -555,6 +557,7 @@ def report(run, *, page_url=None):
 def render_reports(run, *, page_url=None):
     from page_workflow import page_result
     import checksheet
+    import conformance
 
     single_page = single_report_page(run)
     result = outcomes(run)
@@ -565,6 +568,9 @@ def render_reports(run, *, page_url=None):
     files = report_paths(run, page_url)
     files.html.parent.mkdir(parents=True, exist_ok=True)
     files.issues.parent.mkdir(parents=True, exist_ok=True)
+    meta, catalog = run_catalog(run)
+    manifest = load(run / 'capture-manifest.json')
+    result['scope_conformance'] = conformance.build(result, meta['config'], catalog, manifest)
     result['evidence_base'] = run_layout.href(files.json, run)
     save(files.json, result)
 
@@ -575,14 +581,12 @@ def render_reports(run, *, page_url=None):
     def link(path, label):
         return f'<a href="{escape(run_layout.href(files.html, path), quote=True)}">{escape(label)}</a>'
 
-    _, catalog = run_catalog(run)
-    manifest = load(run / 'capture-manifest.json')
     human_model = checksheet.build(result, catalog, manifest=manifest)
     scope = 'ページ' if page_url else '検査範囲'
     selected_keys = {case['capture'] for case in result['cases']}
     selected = [c for c in manifest['captures'] if not page_url or c['key'] in selected_keys]
     environment_names = {e['id']: f"{e['viewport']['width']}×{e['viewport']['height']} CSS px"
-                         for e in run_meta(run)['config']['environments']}
+                         for e in meta['config']['environments']}
     environments = '、'.join(dict.fromkeys(environment_names.get(c['environment'], c['environment']) for c in selected))
     mode = result.get('verification', {}).get('label') if result.get('verification') else None
     complete = '検証完了' if result['audit_complete'] else '検証未完了'
@@ -629,8 +633,14 @@ def render_reports(run, *, page_url=None):
         'interrupted':'収集の途中で停止', 'legacy_unspecified':'当時の収集記録を使用'}[result['collector_status']]
     from inspection import report_rows
     observations=report_rows(result)
-    observation_rows=''.join('<tr>'+''.join('<td>'+escape(str(value))+'</td>' for value in
-        [o['url'],o['capture'],o['label'],o['visual'],o['status'],o['observed'],o['remaining'],o['screen_reader']])+'</tr>' for o in observations)
+    observation_rows = []
+    for observation in observations:
+        keys = ('url', 'capture', 'label', 'visual', 'status', 'observed', 'remaining', 'screen_reader')
+        cells = [escape(str(observation[key])) for key in keys]
+        if evidence := observation.get('operation_evidence'):
+            cells[5] += ' ' + link(run / evidence, '開閉とフォーカスの記録')
+            cells[5] += ' · ' + link(run / observation['input_evidence'], '入力ログ')
+        observation_rows.append('<tr>' + ''.join(f'<td>{cell}</td>' for cell in cells) + '</tr>')
     from inspection import SCREENSHOT_LABELS
     images = [item for item in result['observation_usage'].get('screenshots', []) if item['status'] == 'captured']
     image_setting = SCREENSHOT_LABELS[result['inspection_policy']['screenshots']]
@@ -760,6 +770,7 @@ def render_reports(run, *, page_url=None):
 <main><header><h1>WCAG 2.2 {escape(result['level'])} {scope}の検証結果</h1>
 <p>{escape(result['url'])}</p></header>
 <div class="scope" role="region" aria-label="{scope_heading}">
+{conformance.render_html(result['scope_conformance'], proof_href)}
 <p><strong>{complete}</strong>{f' · {escape(mode)}' if mode else ''}</p>
 <p>{len(selected)} 件の表示状態・環境を収集。{escape(environments)}</p>
 {exploration_notice}</div>
@@ -782,7 +793,7 @@ def render_reports(run, *, page_url=None):
 <div class="scroll" tabindex="0" role="region" aria-label="操作調査の表"><table>
 <thead><tr><th scope="col">ページ</th><th scope="col">状態・環境</th><th scope="col">操作対象</th><th scope="col">画像確認</th>
 <th scope="col">操作確認</th><th scope="col">観察</th><th scope="col">残る確認</th><th scope="col">実SR</th></tr></thead>
-<tbody>{observation_rows}</tbody></table></div></details>
+<tbody>{''.join(observation_rows)}</tbody></table></div></details>
 <details><summary>ページ・状態・環境・基準ごとの検査票</summary>
 <div class="scroll" tabindex="0" role="region" aria-label="検査結果の表"><table><caption>観察結果と証拠</caption>
 <thead><tr><th scope="col">基準</th><th scope="col">対象</th><th scope="col">結果</th>
@@ -793,6 +804,7 @@ def render_reports(run, *, page_url=None):
 """
     files.html.write_text(page)
     issues=['# 修正担当向けの不適合記録','', 'この記録は検証結果です。製品コードの変更は行っていません。','',
+            conformance.label(result['scope_conformance']),
             '予定範囲の検査完了: '+('はい' if result['audit_complete'] else 'いいえ'),
             '結果: '+summary,
             '全基準と範囲の未確認は[HTMLレポート](report.html)又は[JSON](report.json)を参照してください。','']
@@ -903,6 +915,11 @@ def main(argv=None):
     p.add_argument('--environment', required=True)
     p.add_argument('--page-exact', help='HTML参照に表示するバッチ内のURL')
     p.add_argument('--out', type=Path, help='ページ別の参照HTMLを新規出力する')
+    p = sub.add_parser('compare-reports', help='修正前後の検査票をページ・観測対象ごとに照合する')
+    p.add_argument('--before', required=True, type=Path, help='修正前の報告JSON')
+    p.add_argument('--after', required=True, type=Path, help='修正後の報告JSON')
+    p.add_argument('--criterion', choices=list(CRITERIA), help='表示する達成基準を選ぶ')
+    p.add_argument('--out', type=Path, help='元のrunとは別の新しい比較HTMLを出力する')
     from inspection import SCREENSHOT_LIMITS
     for name in ['page','page-audit']:
         p=sub.add_parser(name);p.add_argument('--url',required=True);p.add_argument('--out',required=True);p.add_argument('--config')
@@ -997,6 +1014,12 @@ def main(argv=None):
                 from shared_contrast_report import export_page_html
                 path = export_page_html(args.batch, result, url=args.page_exact, out=args.out)
                 result = {'html': str(path)}
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 0
+        if args.command == 'compare-reports':
+            from revision_comparison import compare
+
+            result = compare(args.before, args.after, criterion=args.criterion, destination=args.out)
             print(json.dumps(result, ensure_ascii=False, indent=2))
             return 0
         if args.command in {'start','pages','page','page-audit'}:

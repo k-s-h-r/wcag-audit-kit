@@ -1,0 +1,403 @@
+{
+  "correct": 7,
+  "total": 7,
+  "cases": {
+    "good": {
+      "status": "collected",
+      "browser": "156.0.8078.79",
+      "url": "http://127.0.0.1:45447/good.html",
+      "source_url": "http://127.0.0.1:45447/clip.webm",
+      "media_sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+      "record": "good/caption-player.json",
+      "trace": "good/media-events.json",
+      "samples": [
+        {
+          "requested": 1.2,
+          "frame_media_time": 1.2,
+          "observed": [
+            1.237545,
+            1.369285
+          ],
+          "active_cues": [
+            "[Narrator] Press the blue button to save the document."
+          ],
+          "screen": "good/caption-1.png",
+          "screen_sha256": "2e65e68ab30caddf9c3c56ccecd43046dff2770e57c136cf60e0716396856d65"
+        },
+        {
+          "requested": 2.5,
+          "frame_media_time": 2.5,
+          "observed": [
+            2.595416,
+            2.727564
+          ],
+          "active_cues": [
+            "[Narrator] Press the blue button to save the document."
+          ],
+          "screen": "good/caption-2.png",
+          "screen_sha256": "2e65e68ab30caddf9c3c56ccecd43046dff2770e57c136cf60e0716396856d65"
+        },
+        {
+          "requested": 5.7,
+          "frame_media_time": 5.7,
+          "observed": [
+            5.734443,
+            5.844975
+          ],
+          "active_cues": [
+            "[Confirmation tone]"
+          ],
+          "screen": "good/caption-3.png",
+          "screen_sha256": "7c2d4b083af63028283d5100af79135985eb4b0f35bdd9514ef0bd546023177d"
+        }
+      ],
+      "video_quality": {
+        "creationTime": 7592.300000000745,
+        "totalVideoFrames": 210,
+        "droppedVideoFrames": 6,
+        "corruptedVideoFrames": 0
+      },
+      "outcome": "matches"
+    },
+    "wrong-text": {
+      "status": "collected",
+      "browser": "156.0.8078.79",
+      "url": "http://127.0.0.1:45447/wrong-text.html",
+      "source_url": "http://127.0.0.1:45447/clip.webm",
+      "media_sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+      "record": "wrong-text/caption-player.json",
+      "trace": "wrong-text/media-events.json",
+      "samples": [
+        {
+          "requested": 1.2,
+          "frame_media_time": 1.2,
+          "observed": [
+            1.220184,
+            1.36647
+          ],
+          "active_cues": [
+            "[Narrator] Press the red button to delete the document."
+          ],
+          "screen": "wrong-text/caption-1.png",
+          "screen_sha256": "565ef1e81a80c31404978baf910b5a2dfe5218bf35fe5f90c43dfef4f525c75d"
+        },
+        {
+          "requested": 2.5,
+          "frame_media_time": 2.5,
+          "observed": [
+            2.636186,
+            2.838215
+          ],
+          "active_cues": [
+            "[Narrator] Press the red button to delete the document."
+          ],
+          "screen": "wrong-text/caption-2.png",
+          "screen_sha256": "565ef1e81a80c31404978baf910b5a2dfe5218bf35fe5f90c43dfef4f525c75d"
+        },
+        {
+          "requested": 5.7,
+          "frame_media_time": 5.7,
+          "observed": [
+            5.715632,
+            6.037169
+          ],
+          "active_cues": [
+            "[Confirmation tone]"
+          ],
+          "screen": "wrong-text/caption-3.png",
+          "screen_sha256": "3d2685a7c7b865be0f97941e90d340e76c3661c78eb611dcb23c28207bd81bb3"
+        }
+      ],
+      "video_quality": {
+        "creationTime": 8747.299999999814,
+        "totalVideoFrames": 210,
+        "droppedVideoFrames": 8,
+        "corruptedVideoFrames": 0
+      },
+      "outcome": "different-words"
+    },
+    "late": {
+      "status": "collected",
+      "browser": "156.0.8078.79",
+      "url": "http://127.0.0.1:45447/late.html",
+      "source_url": "http://127.0.0.1:45447/clip.webm",
+      "media_sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+      "record": "late/caption-player.json",
+      "trace": "late/media-events.json",
+      "samples": [
+        {
+          "requested": 1.2,
+          "frame_media_time": 1.2,
+          "observed": [
+            1.232322,
+            1.33946
+          ],
+          "active_cues": [],
+          "screen": "late/caption-1.png",
+          "screen_sha256": "c7191ef7deaaae67b2387cb1c328f100e3892bd09296a5c1d23d4ae0ed65ea8d"
+        },
+        {
+          "requested": 2.5,
+          "frame_media_time": 2.5,
+          "observed": [
+            2.55428,
+            2.659471
+          ],
+          "active_cues": [],
+          "screen": "late/caption-2.png",
+          "screen_sha256": "c7191ef7deaaae67b2387cb1c328f100e3892bd09296a5c1d23d4ae0ed65ea8d"
+        },
+        {
+          "requested": 5.7,
+          "frame_media_time": 5.7,
+          "observed": [
+            5.791584,
+            5.862893
+          ],
+          "active_cues": [
+            "[Narrator] Press the blue button to save the document.",
+            "[Confirmation tone]"
+          ],
+          "screen": "late/caption-3.png",
+          "screen_sha256": "55714cdf79cb0e87104726610b29e439c3f3470893b1ccaeff2d2bad21c0e198"
+        }
+      ],
+      "video_quality": {
+        "creationTime": 8252.700000000186,
+        "totalVideoFrames": 210,
+        "droppedVideoFrames": 0,
+        "corruptedVideoFrames": 0
+      },
+      "outcome": "absent-at-samples"
+    },
+    "transcript-a": {
+      "status": "collected",
+      "browser": "156.0.8078.79",
+      "url": "http://127.0.0.1:45447/transcript-a.html",
+      "source_url": "http://127.0.0.1:45447/clip.webm",
+      "media_sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+      "record": "transcript-a/caption-player.json",
+      "trace": "transcript-a/media-events.json",
+      "samples": [
+        {
+          "requested": 5.7,
+          "frame_media_time": 5.7,
+          "observed": [
+            5.75174,
+            5.80526
+          ],
+          "active_cues": [],
+          "screen": "transcript-a/caption-1.png",
+          "screen_sha256": "6555083e2747aec4c7506c44c02cef78bfa05479bf350f9002a62cfe11584cb9"
+        }
+      ],
+      "video_quality": {
+        "creationTime": 7543.5,
+        "totalVideoFrames": 210,
+        "droppedVideoFrames": 0,
+        "corruptedVideoFrames": 0
+      },
+      "outcome": "includes-visual-fact",
+      "transcript": [
+        "Transcript",
+        "Narrator: Press the blue button to save the document.",
+        "A confirmation tone plays.",
+        "The screen says Saved."
+      ]
+    },
+    "transcript-b": {
+      "status": "collected",
+      "browser": "156.0.8078.79",
+      "url": "http://127.0.0.1:45447/transcript-b.html",
+      "source_url": "http://127.0.0.1:45447/clip.webm",
+      "media_sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+      "record": "transcript-b/caption-player.json",
+      "trace": "transcript-b/media-events.json",
+      "samples": [
+        {
+          "requested": 5.7,
+          "frame_media_time": 5.7,
+          "observed": [
+            5.79264,
+            5.927883
+          ],
+          "active_cues": [],
+          "screen": "transcript-b/caption-1.png",
+          "screen_sha256": "a6d68e9da9efdcdfc403ea05e606e3acdfe1b75e08b0e5006b85a6f4b176405e"
+        }
+      ],
+      "video_quality": {
+        "creationTime": 7397.399999999441,
+        "totalVideoFrames": 210,
+        "droppedVideoFrames": 2,
+        "corruptedVideoFrames": 0
+      },
+      "outcome": "omits-visual-fact",
+      "transcript": [
+        "Transcript",
+        "Narrator: Press the blue button to save the document.",
+        "A confirmation tone plays."
+      ]
+    },
+    "description-a": {
+      "status": "collected",
+      "browser": "156.0.8078.79",
+      "url": "http://127.0.0.1:45447/description-a.html",
+      "source_url": "http://127.0.0.1:45447/description-a.webm",
+      "media_sha256": "d5a4a6040b16888f5d975591b78c0e48b418dadeb5b533b4e1b735a9692de8cd",
+      "record": "description-a/caption-player.json",
+      "trace": "description-a/media-events.json",
+      "samples": [
+        {
+          "requested": 5.7,
+          "frame_media_time": 5.7,
+          "observed": [
+            5.728904,
+            5.771759
+          ],
+          "active_cues": [],
+          "screen": "description-a/caption-1.png",
+          "screen_sha256": "d8d6332689d754787ceb302538f7e6be131af71ff9636f35c09f518d4255e28c"
+        },
+        {
+          "requested": 6.6,
+          "frame_media_time": 6.6,
+          "observed": [
+            6.632642,
+            6.674747
+          ],
+          "active_cues": [],
+          "screen": "description-a/caption-2.png",
+          "screen_sha256": "5289dc1763fa138a881788966d9b97ae71ff56183b7ff298c5376a0595e4b174"
+        }
+      ],
+      "video_quality": {
+        "creationTime": 8489.700000000186,
+        "totalVideoFrames": 240,
+        "droppedVideoFrames": 0,
+        "corruptedVideoFrames": 0
+      },
+      "outcome": "includes-description"
+    },
+    "description-b": {
+      "status": "collected",
+      "browser": "156.0.8078.79",
+      "url": "http://127.0.0.1:45447/description-b.html",
+      "source_url": "http://127.0.0.1:45447/description-b.webm",
+      "media_sha256": "f780d9d334851788066668b8517e2f2fcfa9d043ec31e14bdfd34bfa160acd5c",
+      "record": "description-b/caption-player.json",
+      "trace": "description-b/media-events.json",
+      "samples": [
+        {
+          "requested": 5.7,
+          "frame_media_time": 5.7,
+          "observed": [
+            5.703873,
+            5.75507
+          ],
+          "active_cues": [],
+          "screen": "description-b/caption-1.png",
+          "screen_sha256": "d8d6332689d754787ceb302538f7e6be131af71ff9636f35c09f518d4255e28c"
+        },
+        {
+          "requested": 6.6,
+          "frame_media_time": 6.6,
+          "observed": [
+            6.610229,
+            6.644688
+          ],
+          "active_cues": [],
+          "screen": "description-b/caption-2.png",
+          "screen_sha256": "5289dc1763fa138a881788966d9b97ae71ff56183b7ff298c5376a0595e4b174"
+        }
+      ],
+      "video_quality": {
+        "creationTime": 8363.700000000186,
+        "totalVideoFrames": 240,
+        "droppedVideoFrames": 0,
+        "corruptedVideoFrames": 0
+      },
+      "outcome": "omits-description"
+    }
+  },
+  "audio": {
+    "original": {
+      "video": "clip.webm",
+      "media_sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+      "wave_sha256": "690451cd3198834ce770eaffa8f5beb4e66e64fd2763425b7ef4a5a416051f42",
+      "frames": 112000,
+      "segments": [
+        {
+          "text": "press the blue button to save the document",
+          "asr_offsets_ms": {
+            "from": 0,
+            "to": 3000
+          }
+        }
+      ],
+      "tail_rms": null
+    },
+    "description-a": {
+      "video": "description-a.webm",
+      "media_sha256": "d5a4a6040b16888f5d975591b78c0e48b418dadeb5b533b4e1b735a9692de8cd",
+      "wave_sha256": "d80a2ccc40a9984f904c827335bb0596973578859ef17db60b2339bfb3db0595",
+      "frames": 128000,
+      "segments": [
+        {
+          "text": "Press the blue button to save the document",
+          "asr_offsets_ms": {
+            "from": 0,
+            "to": 5000
+          }
+        },
+        {
+          "text": "The document has been saved",
+          "asr_offsets_ms": {
+            "from": 5000,
+            "to": 9000
+          }
+        }
+      ],
+      "tail_rms": 0.1686717459350165,
+      "decoded_video_hash": "SHA256=912b1be16c5dfced0d553ab12d1a3e96a84d482f9e617391569becb283aa8020"
+    },
+    "description-b": {
+      "video": "description-b.webm",
+      "media_sha256": "f780d9d334851788066668b8517e2f2fcfa9d043ec31e14bdfd34bfa160acd5c",
+      "wave_sha256": "f53f1253c8732fbb73dd0d8d74a4b585a6ddcc9e98bbaee70bcb0f9936056ee1",
+      "frames": 128000,
+      "segments": [
+        {
+          "text": "press the blue button to save the document",
+          "asr_offsets_ms": {
+            "from": 0,
+            "to": 3000
+          }
+        }
+      ],
+      "tail_rms": 3.218845078999174e-06,
+      "decoded_video_hash": "SHA256=912b1be16c5dfced0d553ab12d1a3e96a84d482f9e617391569becb283aa8020"
+    }
+  },
+  "wcag_judgement": null,
+  "scope_sha256": "d10f7cedea131463563e85999874aee34d9c656f34d892a986f0e766582345b7",
+  "whisper_commit": "d1be6fde11ac6e0407606b4e42fe72d34add8037",
+  "model_sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+  "binary_sha256": "7ea5a77e48a3564a6d047087404b9ceec858720d0715b1183fc875ca56bd1653",
+  "source_files": {
+    "description-a.webm": "d5a4a6040b16888f5d975591b78c0e48b418dadeb5b533b4e1b735a9692de8cd",
+    "good.html": "fe64b9ae0e0970eac47f84d63c6db863eb2b2ead2a20953142b29c8a62fb10e6",
+    "description-b.webm": "f780d9d334851788066668b8517e2f2fcfa9d043ec31e14bdfd34bfa160acd5c",
+    "description-a.html": "b9262148324d17b600985602fbf7130c7e73245638809421edfa220181a8d367",
+    "late.html": "d776b08f3817b5b8f51231cac822127563aa6b665d102084bb39a5d8477e1c9a",
+    "transcript-b.html": "4ddd4ee0f3f11b78e2402ca1aa3dc9820fd964e5785f109582ea58c54b368503",
+    "clip.webm": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+    "wrong-text.vtt": "843147b2e98d967a4827a0c98159aae989f27d831ab4afdd8115847be16f1a60",
+    "description-b.html": "4d0ad45960bc4ff315664a558fc9a70f710f204e1668da617620bdf986273da5",
+    "wrong-text.html": "2b815c0df3036eb3da66542f1e3fad5751e4c4dd91294b8271968d40b8ca9502",
+    "good.vtt": "28975181ad43b0c77ca3bad8219db2193dbe081b99cec50b12932380338bcbae",
+    "player.js": "4f5ca54b41b93d935a39a01e0fb84a59da8609d3c1e07b0c4a24b343aa71cd18",
+    "late.vtt": "7daefb1ab936cf99f3b2535b76ae92827024ff0e7ea40789a1dc1e203527ef50",
+    "transcript-a.html": "6af1477700880134603aefb119ad5233f1c6b02601b0b60e717718a14c535f6d"
+  }
+}

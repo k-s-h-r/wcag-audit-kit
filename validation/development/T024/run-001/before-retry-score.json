@@ -1,0 +1,319 @@
+{
+  "commit": "67aa42e8a9e01e9b4ec9485c6e4d45c9209625b9",
+  "corpus_digest": "b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206",
+  "environment": {
+    "system": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "156.0.8078.79"
+  },
+  "initial_args": [
+    "--level",
+    "AAA",
+    "--mode",
+    "machine",
+    "--screenshots",
+    "initial",
+    "--initial-only"
+  ],
+  "explore_args": [
+    "--resume",
+    "--quick-explore"
+  ],
+  "workers": 2,
+  "pages": 5,
+  "completed_pages": 5,
+  "totals": {
+    "passed": 3,
+    "failed": 2
+  },
+  "problems": {
+    "observed_no_verdict": 2
+  },
+  "controls": {
+    "observed_no_verdict": 3
+  },
+  "unmatched_findings": [],
+  "receipts": [
+    {
+      "page_id": "041",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:33557/s13/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/041/page/data/report.json",
+      "report_sha256": "4c52fc2ed4cd2c28257c5f7efcb81553e9493c3d585ccd6b2143ba6472f8f199",
+      "exploration": "pages/041/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 38,
+        "unchanged_control": 64,
+        "frontier": 2,
+        "depth": 2
+      },
+      "queued": 16
+    },
+    {
+      "page_id": "042",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:33557/s13/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/042/page/data/report.json",
+      "report_sha256": "845304a48b544dfec035a41d4f05b37e0c5b4fc191839335b63637e310f0b271",
+      "exploration": "pages/042/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 44,
+        "unchanged_control": 88,
+        "depth": 2
+      },
+      "queued": 20
+    },
+    {
+      "page_id": "043",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:33557/s13/p05.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/043/page/data/report.json",
+      "report_sha256": "569e6330683830afc28fb59d3efd87a933aa141ba0684d8cb09bb6b2682143b6",
+      "exploration": "pages/043/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 44,
+        "unchanged_control": 88,
+        "depth": 2
+      },
+      "queued": 20
+    },
+    {
+      "page_id": "044",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:33557/s13/p06.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/044/page/data/report.json",
+      "report_sha256": "b4e6e4df527dd0f30bd6684907c4370ad6e9c05b8683a16653e26ce7bc6c10e6",
+      "exploration": "pages/044/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 38,
+        "unchanged_control": 64,
+        "frontier": 2,
+        "depth": 2
+      },
+      "queued": 16
+    },
+    {
+      "page_id": "048",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:33557/s13/p10.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/048/page/data/report.json",
+      "report_sha256": "653586eacc82cf1695250738f14cac4438d6b7c638692b6fa0fcc24a24e99869",
+      "exploration": "pages/048/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 28,
+        "frontier": 12,
+        "unchanged_control": 56,
+        "depth": 6
+      },
+      "queued": 16
+    }
+  ],
+  "rows": [
+    {
+      "page_id": "041",
+      "criterion": "2.1.2",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "third-level-open",
+      "target": "#level3-panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/041/page/work/evidence/f4cf79130a5d--explore-62a61a64042f--desktop/state.json",
+            "pages/041/page/work/evidence/f4cf79130a5d--explore-fe26e6aee871--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/041/page/work/evidence/f4cf79130a5d--explore-36a9f831f9e0--narrow/state.json",
+            "pages/041/page/work/evidence/f4cf79130a5d--explore-dce2e748d10b--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "042",
+      "criterion": "2.1.2",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "third-level-open",
+      "target": "#level3-panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/042/page/work/evidence/ad3756a4a261--explore-a30afd82e7da--desktop/state.json",
+            "pages/042/page/work/evidence/ad3756a4a261--explore-e6d1d37ca319--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/042/page/work/evidence/ad3756a4a261--explore-34bf6dd53735--narrow/state.json",
+            "pages/042/page/work/evidence/ad3756a4a261--explore-853763beab02--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "043",
+      "criterion": "2.1.2",
+      "case": "c05",
+      "page": "p05.html",
+      "state": "third-level",
+      "target": "#level3-panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/043/page/work/evidence/7fc88cbd4096--explore-46cab27501c0--desktop/state.json",
+            "pages/043/page/work/evidence/7fc88cbd4096--explore-bb3b5783bbef--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/043/page/work/evidence/7fc88cbd4096--explore-012678ae039e--narrow/state.json",
+            "pages/043/page/work/evidence/7fc88cbd4096--explore-4d8f40f92a4d--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "044",
+      "criterion": "2.1.2",
+      "case": "c06",
+      "page": "p06.html",
+      "state": "third-level",
+      "target": "#level3-panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/044/page/work/evidence/f9069ce9dbb0--explore-53111e636023--desktop/state.json",
+            "pages/044/page/work/evidence/f9069ce9dbb0--explore-98d6db00e348--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/044/page/work/evidence/f9069ce9dbb0--explore-48f0762e5884--narrow/state.json",
+            "pages/044/page/work/evidence/f9069ce9dbb0--explore-e184ccb5a15b--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "048",
+      "criterion": "2.1.2",
+      "case": "c10",
+      "page": "p10.html",
+      "state": "combo-open",
+      "target": "#subject",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/048/page/work/evidence/3487be418bc4--explore-5c156345eeac--desktop/state.json",
+            "pages/048/page/work/evidence/3487be418bc4--explore-ee27d486ab90--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/048/page/work/evidence/3487be418bc4--explore-062a1b804806--narrow/state.json",
+            "pages/048/page/work/evidence/3487be418bc4--explore-07bb4e2e865a--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    }
+  ]
+}

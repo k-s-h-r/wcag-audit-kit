@@ -132,3 +132,20 @@ python3 scripts/audit.py recover --run /project/artifacts/wcag/run-001
 収集開始時、各ページ・状態・環境の開始と終了、完了した操作ごとに記録を保存する。manifestは一時ファイルを完全に書いてから置き換える。強制停止でcollector_statusがrunningのまま残った場合も、収集完了とは扱わない。recoverはネットワークへ再接続せず、元の証拠を保持して検査票・報告を復元する。同じrunを再収集して上書きする機能ではない。
 
 HTTPエラーの応答も、ブラウザーが表示した画面・DOMを保存し、http_statusを残す。認証画面やエラー画面が、依頼された状態への到達を意味するとは扱わない。必要なassertと実画面で確認する。通信そのものが失敗した場合はblockedとなる。
+
+## 修正前後の検査票を比べる
+
+修正の前後で別のrunを作り、両方で検査したページ・状態・環境と対象を記録する。比較には各runの `data/report.json` を指定する。帳票から設定・収集記録・証拠を参照するため、元のrunのディレクトリー構成を保つ。
+
+```sh
+python3 scripts/audit.py compare-reports \
+  --before /project/artifacts/wcag/before/data/report.json \
+  --after /project/artifacts/wcag/after/data/report.json \
+  --out /project/artifacts/wcag/comparison.html
+```
+
+結果は標準出力にJSONで返る。`--out` で元のrunの外に比較HTMLを作れる。基準を絞るときは `--criterion 1.4.3` のように指定する。
+
+同じ検査定義とレベルで、同じURL・状態・環境・基準・対象と期待結果を照合する。ブラウザーの言語が未指定なら既定の `ja-JP` を使う。対象の証拠には、同じ画面の収集ファイルか同じ検査票への添付を一つ以上含める。
+
+両方に同じ対象の判定と証拠がそろうと、解消（不適合→通過）、新規（通過→不適合）、継続（不適合→不適合）を区別できる。照合できない行には未確認の理由が付く。各ページの比較に使った証拠を開き、元の検査票で検証範囲と残りの確認を読む。報告JSONと、それが参照する判定ファイルや検査定義が一致しない場合はエラーを返す。

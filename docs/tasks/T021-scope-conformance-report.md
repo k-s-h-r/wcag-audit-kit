@@ -1,6 +1,6 @@
 # T021 対象範囲の適合・不適合・未確認を検査票で示す
 
-状態：着手可。前提は[T008の帳票](T008-machine-report.md)と[T004の呼び出し・最終回答の記録](T004-codex-invocation.md)。関連は[T022](T022-url-to-process-audit.md)。
+状態は帳票実装・回帰試験・別のCodex文脈での最終回答を確認済み。[PR #86](https://github.com/k-s-h-r/wcag-audit-kit/pull/86)で提出。前提は[T008の帳票](T008-machine-report.md)と[T004の呼び出し・最終回答の記録](T004-codex-invocation.md)。関連は[T022](T022-url-to-process-audit.md)。
 
 [VISION](../VISION.md)の二つの成果物を、対象範囲の結論から使えるようにする。現行の報告は達成基準ごとの判定、未確認、`audit_complete` を持つ。検査が完了しても不適合はあり得るため、利用者に伝える結論を保存済みの判定・範囲・証拠から出せるか検証する。
 
@@ -28,3 +28,9 @@
 集計、チェックシート、ページ別と全体の報告、最終回答の引き継ぎを担当する。T020の収集・採点とは独立したworktree・runで始められる。共通CLIや `page_workflow.py` の変更が要る場合は、探索担当と合流順を調整する。
 
 完了時は、使った実装版、試験ケースと結果、帳票から根拠へたどる例、未確認のホストや範囲を残し、T022へ渡す。
+
+## 実装と引き継ぎ
+
+`codex/t021-scope-conformance-report` でmainの `67aa42e` から着手した。保存済みの検査票と範囲確認から、HTML・JSON・Excelに同じ結論を出す。Debianの独立した作業ディレクトリーと実行先で、固定した試験台帳を使って適合・不適合・未確認を照合した。不適合の再現手順と証拠を一覧からたどれる。 [ADR 0097](../adr/0097-report-verified-scope-conformance.md) · [試験条件と結果](../../validation/development/T021/README.md)
+
+期待する結論を知らせず、別のCodex文脈で配布用の報告スキルと3件の台帳を渡した。最終回答の帳票パス・結論・残る確認が出力と一致した。この環境のCodex CLIではapp-serverを起動できず、明示指定時のスキル読み込みと同CLIの回答は未実施。T022には `scope_conformance` と報告の再現手順を渡す。 [最終回答と帳票の照合](../../validation/development/T021/run-003/host-answer.json)

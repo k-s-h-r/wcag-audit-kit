@@ -46,6 +46,8 @@ click・press・wait_forで実際のUIを使う。selector又はroleとname、�
 
 現在の環境では、音声をこのAIへ渡す入力が非対応だった。PocketSphinxとWhisper tiny.enは既知の合成音声の重要語を誤認識した。Whisper base.enは2つの短い発話を再現したが、デジタル無音から存在しない語も出力した。認識区間と生成音声の配置区間は異なり、実発話の境界は測定していない。その結果を音声の正解とし、字幕を自動的に不適合にする方法は採用していない。[方法の確認結果](https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/README.md)と[音声認識の校正](https://github.com/k-s-h-r/wcag-audit-kit/blob/adf459777fa43ea0898a95e43edf5dbdde0684b7/validation/media/asr/README.md)を参照する。内容の判定には、聴取又は校正された適切な別手段を準備し、用意できなければ不足する内容の比較をcant_tellに残す。
 
+特定の発話や映像の情報を比較する試験では、配信元のハッシュと、プレーヤーの再生時刻・字幕・画像を対応付ける。書き起こしや音声解説で伝わる内容を調べるときは、実画面に現れた情報を先に確認する。短い収録済み動画で、案内文の字幕、保存完了を伝える書き起こしと音声解説を比較した例がある。実フレームの時刻、画像の取得区間、音声認識の区間はそれぞれ記録する。[字幕・書き起こし・音声解説を照合した試験](https://github.com/k-s-h-r/wcag-audit-kit/blob/a5a97366e27131f6388eaa896287f92f2b154c35/validation/development/T028/README.md)
+
 手話の全内容を比較する場合も、対象の手話言語・表情・動作の意味を判断できる手段が必要。映像があること、手が動くことだけで1.2.6の対応を確認済みにしない。
 
 ## 4. 比較区間を記録する

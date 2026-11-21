@@ -1,0 +1,19 @@
+* { box-sizing: border-box; }
+:root { color: #171d2a; background: #fff; font-family: system-ui, sans-serif; line-height: 1.55; }
+main { width: min(100% - 2rem, 52rem); margin: 2rem auto; }
+h1 { line-height: 1.2; }
+a { color: #153e73; }
+.calendar { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: .5rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0; list-style: none; }
+.legend li { display: flex; align-items: center; gap: .35rem; }
+.swatch { display: inline-block; width: 1.2rem; height: 1.2rem; border: 1px solid #283544; }
+.available { background: #c7d6ee; }
+.unavailable { background: #edc9d7; }
+.day { min-height: 5.5rem; padding: .4rem; border: 1px solid #283544; border-radius: .25rem;
+  color: inherit; font: inherit; text-align: start; cursor: pointer; }
+.day-date { display: block; font-size: 1.125rem; font-weight: 700; }
+.day-status { display: block; margin-top: .25rem; }
+:focus-visible { outline: 3px solid #163c72; outline-offset: 3px; }
+#message { min-height: 1.6rem; }
+@media (max-width: 44rem) { .calendar { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 27rem) { .calendar { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

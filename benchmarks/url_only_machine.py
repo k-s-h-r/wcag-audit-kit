@@ -28,9 +28,11 @@ def inventory(corpus):
         for case in suite['cases']:
             for row in case['expectations']:
                 if core.verification_group(row) == 'machine_target':
-                    pages[criterion, row['page']].append({
-                        **row, 'criterion': criterion, 'case': case['id'],
-                    })
+                    record = {**row, 'criterion': criterion, 'case': case['id']}
+                    if row['checkpoint'] == '2.1.1-02' and row['state'] == 'initial':
+                        state = next(state for state in case['states'] if state['id'] == row['state'])
+                        record['function_probe'] = state.get('residual_probe')
+                    pages[criterion, row['page']].append(record)
     return [
         dict(id=f'{index:03}', criterion=criterion, page=page, rows=rows)
         for index, ((criterion, page), rows) in enumerate(pages.items(), 1)

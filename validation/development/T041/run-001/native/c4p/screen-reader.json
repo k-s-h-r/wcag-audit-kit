@@ -1,0 +1,250 @@
+{
+  "status": "collected",
+  "started_at": "2026-11-21T11:09:25.850002+00:00",
+  "case_id": "c4p",
+  "request_sha256": "6c21e27210a91ffefd8c6ffbe3d98931dd149e9a09429172a8d0a794b0ac587c",
+  "environment": {
+    "system": "Linux",
+    "kernel": "6.18.57",
+    "reader": "Orca",
+    "reader_version": "48.1",
+    "debian_package": "48.1-1+deb13u2",
+    "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+    "audio_output": "ALSA null; speech transcript, no acoustic recording",
+    "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+    "installation_verified": true,
+    "simulation": false,
+    "browser": "Chromium",
+    "browser_version": "156.0.8078.79"
+  },
+  "observations": [
+    {
+      "index": 1,
+      "action": {
+        "type": "reader.nextHeading"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:09:33.782704+00:00",
+      "finished_at": "2026-11-21T11:09:36.789787+00:00",
+      "focus_after": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/c4p/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:09:33.793275+00:00",
+          "line": 2532,
+          "phrase": "h",
+          "raw": "11:09:33.793275 - SPEECH OUTPUT: 'h' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:09:33.801475+00:00",
+          "line": 2580,
+          "phrase": "Wrapping to top.",
+          "raw": "11:09:33.801475 - SPEECH OUTPUT: 'Wrapping to top.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        },
+        {
+          "at": "2026-11-21T11:09:33.837971+00:00",
+          "line": 2753,
+          "phrase": "版画室の見学カレンダー heading 1",
+          "raw": "11:09:33.837971 - SPEECH OUTPUT: '版画室の見学カレンダー heading 1' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月14日、空きなし。"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "action": {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      "focus_before": {
+        "tag": "body",
+        "id": "",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:09:36.981552+00:00",
+      "finished_at": "2026-11-21T11:09:39.988157+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/c4p/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:09:37.016895+00:00",
+          "line": 2840,
+          "phrase": "tab",
+          "raw": "11:09:37.016895 - SPEECH OUTPUT: 'tab' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:09:37.111830+00:00",
+          "line": 3040,
+          "phrase": "翌日 button.",
+          "raw": "11:09:37.111830 - SPEECH OUTPUT: '翌日 button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月14日、空きなし。"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "action": {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "next-day",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:09:40.087123+00:00",
+      "finished_at": "2026-11-21T11:09:43.088909+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "next-available",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/c4p/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:09:40.116402+00:00",
+          "line": 3092,
+          "phrase": "tab",
+          "raw": "11:09:40.116402 - SPEECH OUTPUT: 'tab' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:09:40.245743+00:00",
+          "line": 3289,
+          "phrase": "次の空き button.",
+          "raw": "11:09:40.245743 - SPEECH OUTPUT: '次の空き button.' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月14日、空きなし。"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "action": {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      },
+      "focus_before": {
+        "tag": "button",
+        "id": "next-available",
+        "documentHasFocus": true
+      },
+      "started_at": "2026-11-21T11:09:43.131138+00:00",
+      "finished_at": "2026-11-21T11:09:46.133457+00:00",
+      "focus_after": {
+        "tag": "button",
+        "id": "next-available",
+        "documentHasFocus": true
+      },
+      "url": "http://127.0.0.1:41027/c4p/",
+      "speech": [
+        {
+          "at": "2026-11-21T11:09:43.137950+00:00",
+          "line": 3340,
+          "phrase": "space",
+          "raw": "11:09:43.137950 - SPEECH OUTPUT: 'space' {'established': False}"
+        },
+        {
+          "at": "2026-11-21T11:09:43.259691+00:00",
+          "line": 3563,
+          "phrase": "12月19日、空きあり。",
+          "raw": "11:09:43.259691 - SPEECH OUTPUT: '12月19日、空きあり。' {'established': False, 'family': {'name': None, 'gender': None, 'lang': None, 'dialect': None, 'variant': None}}"
+        }
+      ],
+      "assertion": "not_requested",
+      "observations": [
+        {
+          "target": {
+            "selector": "#availability"
+          },
+          "text": "12月19日、空きあり。"
+        }
+      ]
+    }
+  ],
+  "wcag_judgement": null,
+  "expected_note": "発話の部分一致はシナリオの観察。WCAG基準全体の合否とは別。",
+  "scenario": {
+    "actions": [
+      {
+        "type": "reader.nextHeading"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "Tab"
+        ],
+        "type": "reader.press"
+      },
+      {
+        "keys": [
+          "space"
+        ],
+        "type": "reader.press"
+      }
+    ],
+    "case_id": "c4p",
+    "locale": "ja-JP",
+    "observe": [
+      {
+        "selector": "#availability"
+      }
+    ],
+    "settle_ms": 3000,
+    "url": "http://127.0.0.1:41027/c4p/",
+    "viewport": {
+      "height": 900,
+      "width": 1280
+    }
+  },
+  "cleanup": {
+    "debug_log_sha256": "2410207f556502fb837fc4b240651e5d5afe4506b8fe261deba0e25f3b00da7d",
+    "pty_error": null
+  },
+  "finished_at": "2026-11-21T11:09:49.383307+00:00"
+}

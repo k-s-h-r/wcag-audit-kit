@@ -1,0 +1,4901 @@
+{
+  "commit": "63413241ac446660b3ba66f452cbea155977e387",
+  "corpus_digest": "b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206",
+  "environment": {
+    "system": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "156.0.8078.79"
+  },
+  "initial_args": [
+    "--level",
+    "AAA",
+    "--mode",
+    "machine",
+    "--screenshots",
+    "initial",
+    "--initial-only"
+  ],
+  "explore_args": [
+    "--resume",
+    "--quick-explore"
+  ],
+  "workers": 6,
+  "pages": 76,
+  "completed_pages": 76,
+  "totals": {
+    "failed": 39,
+    "passed": 47,
+    "inapplicable": 1
+  },
+  "problems": {
+    "detected": 9,
+    "observed_no_verdict": 18,
+    "state_or_route_unobserved": 12
+  },
+  "controls": {
+    "matched": 16,
+    "observed_no_verdict": 20,
+    "state_or_route_unobserved": 12
+  },
+  "unmatched_findings": [
+    {
+      "page_id": "003",
+      "environment": "desktop",
+      "criterion": "1.1.1",
+      "checkpoint": "axe / image-alt",
+      "target": "['img:nth-child(1)']",
+      "state": "クリック 図表を読み込む → クリック 図表を読み込む",
+      "evidence": "pages/003/page/work/evidence/407ef731891f--explore-37ff6572d8ae--desktop/axe.json",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+    },
+    {
+      "page_id": "003",
+      "environment": "desktop",
+      "criterion": "1.1.1",
+      "checkpoint": "axe / image-alt",
+      "target": "['img:nth-child(2)']",
+      "state": "クリック 図表を読み込む → クリック 図表を読み込む",
+      "evidence": "pages/003/page/work/evidence/407ef731891f--explore-37ff6572d8ae--desktop/axe.json",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+    },
+    {
+      "page_id": "003",
+      "environment": "narrow",
+      "criterion": "1.1.1",
+      "checkpoint": "axe / image-alt",
+      "target": "['img:nth-child(1)']",
+      "state": "クリック 図表を読み込む → クリック 図表を読み込む",
+      "evidence": "pages/003/page/work/evidence/407ef731891f--explore-986c5af86178--narrow/axe.json",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+    },
+    {
+      "page_id": "003",
+      "environment": "narrow",
+      "criterion": "1.1.1",
+      "checkpoint": "axe / image-alt",
+      "target": "['img:nth-child(2)']",
+      "state": "クリック 図表を読み込む → クリック 図表を読み込む",
+      "evidence": "pages/003/page/work/evidence/407ef731891f--explore-986c5af86178--narrow/axe.json",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+    },
+    {
+      "page_id": "003",
+      "environment": "desktop",
+      "criterion": "1.1.1",
+      "checkpoint": "axe / image-alt",
+      "target": "['img:nth-child(1)']",
+      "state": "クリック 図表を読み込む → クリック 図表を読み込む → クリック 図表を読み込む",
+      "evidence": "pages/003/page/work/evidence/407ef731891f--explore-f77472c29866--desktop/axe.json",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+    },
+    {
+      "page_id": "003",
+      "environment": "desktop",
+      "criterion": "1.1.1",
+      "checkpoint": "axe / image-alt",
+      "target": "['img:nth-child(2)']",
+      "state": "クリック 図表を読み込む → クリック 図表を読み込む → クリック 図表を読み込む",
+      "evidence": "pages/003/page/work/evidence/407ef731891f--explore-f77472c29866--desktop/axe.json",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+    },
+    {
+      "page_id": "003",
+      "environment": "desktop",
+      "criterion": "1.1.1",
+      "checkpoint": "axe / image-alt",
+      "target": "['img:nth-child(3)']",
+      "state": "クリック 図表を読み込む → クリック 図表を読み込む → クリック 図表を読み込む",
+      "evidence": "pages/003/page/work/evidence/407ef731891f--explore-f77472c29866--desktop/axe.json",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+    },
+    {
+      "page_id": "003",
+      "environment": "narrow",
+      "criterion": "1.1.1",
+      "checkpoint": "axe / image-alt",
+      "target": "['img:nth-child(1)']",
+      "state": "クリック 図表を読み込む → クリック 図表を読み込む → クリック 図表を読み込む",
+      "evidence": "pages/003/page/work/evidence/407ef731891f--explore-30dc718d20ee--narrow/axe.json",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+    },
+    {
+      "page_id": "003",
+      "environment": "narrow",
+      "criterion": "1.1.1",
+      "checkpoint": "axe / image-alt",
+      "target": "['img:nth-child(2)']",
+      "state": "クリック 図表を読み込む → クリック 図表を読み込む → クリック 図表を読み込む",
+      "evidence": "pages/003/page/work/evidence/407ef731891f--explore-30dc718d20ee--narrow/axe.json",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+    },
+    {
+      "page_id": "003",
+      "environment": "narrow",
+      "criterion": "1.1.1",
+      "checkpoint": "axe / image-alt",
+      "target": "['img:nth-child(3)']",
+      "state": "クリック 図表を読み込む → クリック 図表を読み込む → クリック 図表を読み込む",
+      "evidence": "pages/003/page/work/evidence/407ef731891f--explore-30dc718d20ee--narrow/axe.json",
+      "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+    },
+    {
+      "page_id": "021",
+      "environment": "desktop",
+      "criterion": "1.4.3",
+      "checkpoint": "axe / color-contrast",
+      "target": "['#subject']",
+      "state": "初期表示",
+      "evidence": "pages/021/page/work/evidence/236d2717d4e0--explore-f36bc2080405--desktop/axe.json",
+      "observed": "Fix any of the following:\n  Element has insufficient color contrast of 2.32 (foreground color: #aaaaaa, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+    },
+    {
+      "page_id": "021",
+      "environment": "narrow",
+      "criterion": "1.4.3",
+      "checkpoint": "axe / color-contrast",
+      "target": "['#subject']",
+      "state": "初期表示",
+      "evidence": "pages/021/page/work/evidence/236d2717d4e0--explore-87690184d66b--narrow/axe.json",
+      "observed": "Fix any of the following:\n  Element has insufficient color contrast of 2.32 (foreground color: #aaaaaa, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+    },
+    {
+      "page_id": "028",
+      "environment": "desktop",
+      "criterion": "1.4.3",
+      "checkpoint": "axe / color-contrast",
+      "target": "['#subject']",
+      "state": "初期表示",
+      "evidence": "pages/028/page/work/evidence/24b466e19882--explore-812b41f60ec8--desktop/axe.json",
+      "observed": "Fix any of the following:\n  Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+    },
+    {
+      "page_id": "028",
+      "environment": "narrow",
+      "criterion": "1.4.3",
+      "checkpoint": "axe / color-contrast",
+      "target": "['#subject']",
+      "state": "初期表示",
+      "evidence": "pages/028/page/work/evidence/24b466e19882--explore-294977ace483--narrow/axe.json",
+      "observed": "Fix any of the following:\n  Element has insufficient color contrast of 4.47 (foreground color: #777777, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+    },
+    {
+      "page_id": "064",
+      "environment": "desktop",
+      "criterion": "2.4.3",
+      "checkpoint": "ダイアログを閉じた後のフォーカス",
+      "target": "#launch",
+      "state": "キー 予約内容を開く / Enter → キー body / Escape → キー body / Tab",
+      "evidence": "pages/064/page/work/evidence/e634bd252c91--explore-a86aeed4e65a--desktop/dialog-focus.json",
+      "observed": "Escape後のフォーカス先は html:nth-child(1) > body:nth-child(2)。次のTab後は #earlier。開く操作の対象と同じ要素への復帰は確認できなかった。閉じた直後にフォーカスが文書へ戻り、次のTabで開く操作の対象より前へ移動した。"
+    },
+    {
+      "page_id": "064",
+      "environment": "narrow",
+      "criterion": "2.4.3",
+      "checkpoint": "ダイアログを閉じた後のフォーカス",
+      "target": "#launch",
+      "state": "キー 予約内容を開く / Enter → キー body / Escape → キー body / Tab",
+      "evidence": "pages/064/page/work/evidence/e634bd252c91--explore-48e05239b55e--narrow/dialog-focus.json",
+      "observed": "Escape後のフォーカス先は html:nth-child(1) > body:nth-child(2)。次のTab後は #earlier。開く操作の対象と同じ要素への復帰は確認できなかった。閉じた直後にフォーカスが文書へ戻り、次のTabで開く操作の対象より前へ移動した。"
+    }
+  ],
+  "receipts": [
+    {
+      "page_id": "001",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s01/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/001/page/data/report.json",
+      "report_sha256": "33af9ff17d20aa76a35a55a50ff184e54d81f3f61a387e154d1a60709f743570",
+      "exploration": "pages/001/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "002",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s01/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/002/page/data/report.json",
+      "report_sha256": "fce4dc64f20e83dc74ca696c325b958889db73ded6b8cb469ed5c59f6d292c52",
+      "exploration": "pages/002/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "003",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s01/p09.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/003/page/data/report.json",
+      "report_sha256": "e1073a7417364f34f7332c9d42b217064f29ffcd5d6077a4f6d6335872d4241c",
+      "exploration": "pages/003/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "depth": 4
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "004",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s01/p10.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/004/page/data/report.json",
+      "report_sha256": "4846066cd0d1b01412a0a8dadf04b0938cc13623a420b532ee6df8ff5488e327",
+      "exploration": "pages/004/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "depth": 4
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "005",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s02/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/005/page/data/report.json",
+      "report_sha256": "62b0a9f19f533498841afd7015b55cc9819a9e569e653d4a5c21217e040dd6f6",
+      "exploration": "pages/005/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 5,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "006",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s02/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/006/page/data/report.json",
+      "report_sha256": "4d308c92cee0959aab744f27b51d012ffef1e6b866611ca52d425587e14252ee",
+      "exploration": "pages/006/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 15,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "007",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s03/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/007/page/data/report.json",
+      "report_sha256": "53a4482ac0152cb526a4cd41e0daed1d2dde983365a081ee364dc7064ecc0a75",
+      "exploration": "pages/007/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 12,
+        "unchanged_control": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "008",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s03/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/008/page/data/report.json",
+      "report_sha256": "76e88bcfcf032970b2aaea6e36583150c02b84b8d85c0c3c67ac8e7e80fce9d9",
+      "exploration": "pages/008/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 12,
+        "unchanged_control": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "009",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s04/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/009/page/data/report.json",
+      "report_sha256": "a6effb63cea00f5a2fcf05cba74ae292007d81ac9fba1011df11c8268eb6c0b1",
+      "exploration": "pages/009/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "010",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s04/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/010/page/data/report.json",
+      "report_sha256": "e6462f23c2bb252ef0acc57b922a0b2a0bbf8d6459dcfdd96cd8dc8ac952441a",
+      "exploration": "pages/010/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 14,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "011",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s05/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/011/page/data/report.json",
+      "report_sha256": "80660f10bd0737a846d07287d56e50ceb2168f94fbdf092d1ac0fe81e9a04949",
+      "exploration": "pages/011/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 12,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "012",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s05/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/012/page/data/report.json",
+      "report_sha256": "df6ccc13240ecb0e35af4ce13abf4e010dd1653189ad7bf5f5a302e70ddb8864",
+      "exploration": "pages/012/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 12,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "013",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s06/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/013/page/data/report.json",
+      "report_sha256": "b377e3b970ccff3d067d3999e43815a53c2106575bd33f958936c6516a6dbcf5",
+      "exploration": "pages/013/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "014",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s06/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/014/page/data/report.json",
+      "report_sha256": "0a76ebf0e237f182b7ab6b9c6e14cdee3cd818fc1d573f628d4c7dbf1ac3682d",
+      "exploration": "pages/014/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 14,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "015",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s07/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/015/page/data/report.json",
+      "report_sha256": "91234fff11ee51cfba12c9153f1f5e496ca7fa428160e0416f93061aa8777e74",
+      "exploration": "pages/015/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "016",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s07/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/016/page/data/report.json",
+      "report_sha256": "4db8fcb563aea0da3f3e69230289dec4159593be28d6a6bfd267190312809e08",
+      "exploration": "pages/016/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "017",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s08/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/017/page/data/report.json",
+      "report_sha256": "b3a9cf17d990b36ba38fd45c9875ded1675470673465e7dbd50b799524558f80",
+      "exploration": "pages/017/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 4
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "018",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s08/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/018/page/data/report.json",
+      "report_sha256": "b83f140a47b9d2ed32d0db34e4aa0c86346ac0f30fa53525462e73ed9af6c37d",
+      "exploration": "pages/018/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 4
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "019",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s09/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/019/page/data/report.json",
+      "report_sha256": "66853a7a3188dc591918f8af5273c875a4d767e7cdccaf9cdf16808acdcc4a25",
+      "exploration": "pages/019/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "020",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s09/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/020/page/data/report.json",
+      "report_sha256": "749ff8b7cc939a3c5d031dde0b8d0d557b2255bd8f2b8b63062f7232b9dff243",
+      "exploration": "pages/020/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 5,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "021",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s10/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/021/page/data/report.json",
+      "report_sha256": "ccee36e189af527f2c8e76d510e363fec9643a5cfa5d3034f9be31279ed30b65",
+      "exploration": "pages/021/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "022",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s10/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/022/page/data/report.json",
+      "report_sha256": "ade86d72568004e3f98096f080d041c6df592c9e0521cc5b62324d7a4b906752",
+      "exploration": "pages/022/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "023",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s10/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/023/page/data/report.json",
+      "report_sha256": "f74152928970543e9b330be0d0cf271fb6218704bfb21704e2fc515f6891d479",
+      "exploration": "pages/023/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "024",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s10/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/024/page/data/report.json",
+      "report_sha256": "5171eac25e399fcf4696979e5b5879d52fd2e60efb92958083d26c2bbd874f83",
+      "exploration": "pages/024/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "025",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s10/p05.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/025/page/data/report.json",
+      "report_sha256": "ffd78b2df6686b6a67fc13b86fcbf0c19c436d74023eb85664db320f8e2424f4",
+      "exploration": "pages/025/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 12,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "026",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s10/p06.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/026/page/data/report.json",
+      "report_sha256": "0326587ee64a5a8fae592451e964714eaf91ad7489ee676d5f80575fcfa2928d",
+      "exploration": "pages/026/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 12,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "027",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s10/p07.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/027/page/data/report.json",
+      "report_sha256": "452c3f28a8c8be3ccb8b8535277132daaaa0684904490a32fa4ec60d55e96726",
+      "exploration": "pages/027/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "028",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s11/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/028/page/data/report.json",
+      "report_sha256": "f31c2fb3c5eac8cc1ba65aff746e954a3f4f7d5059c96cfc2be9ff92db820846",
+      "exploration": "pages/028/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "029",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s11/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/029/page/data/report.json",
+      "report_sha256": "cbba8f466690747f97d47930410553e3f8aa6571d8526e5a8b0453623a65dc17",
+      "exploration": "pages/029/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "030",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s12/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/030/page/data/report.json",
+      "report_sha256": "a79536d12afd9e28b4604fe029ad335878cd4e40d9750038d7809a4937b18d96",
+      "exploration": "pages/030/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 18,
+      "omitted_candidates": {
+        "input_variations": 14,
+        "depth": 4
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "031",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s12/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/031/page/data/report.json",
+      "report_sha256": "aa5510812d70fd06c113e7f1488cce8b4cc14547986e2d5f094fe49b37593dcd",
+      "exploration": "pages/031/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 18,
+      "omitted_candidates": {
+        "input_variations": 14,
+        "depth": 4
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "032",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s12/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/032/page/data/report.json",
+      "report_sha256": "26341848c81c8f81a79899d3e7e53eaadabf7f319df5715a18d2610add142899",
+      "exploration": "pages/032/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 26,
+        "unchanged_control": 24,
+        "depth": 2
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "033",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s12/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/033/page/data/report.json",
+      "report_sha256": "16b3b4105a768daa06005f47870f1e1eac630453731a7f438657ced08ea5c5f9",
+      "exploration": "pages/033/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 38,
+        "unchanged_control": 64,
+        "frontier": 2,
+        "depth": 2
+      },
+      "queued": 16
+    },
+    {
+      "page_id": "034",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s12/p05.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/034/page/data/report.json",
+      "report_sha256": "fe754613528868649628b189e99ab0056d508340c6934737ea5ed18e8de239e2",
+      "exploration": "pages/034/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 42,
+        "unchanged_control": 88,
+        "frontier": 2
+      },
+      "queued": 18
+    },
+    {
+      "page_id": "035",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s12/p06.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/035/page/data/report.json",
+      "report_sha256": "712dc81410cb107644dbc922b345f4e2e23cb7d3c4a81313fb9e4362284c812c",
+      "exploration": "pages/035/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 20,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "unchanged_control": 16
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "036",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s12/p07.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/036/page/data/report.json",
+      "report_sha256": "1b5db15e3a7bb7bcb022b339b6676e93d1e6a56bcde31719a7325fa07ff650a0",
+      "exploration": "pages/036/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 22,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "unchanged_control": 16,
+        "depth": 2
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "037",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s12/p08.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/037/page/data/report.json",
+      "report_sha256": "bceb3d0267a33150b675bcdea044198d5a7c4b9a21c2757f7dfc12186b4e5661",
+      "exploration": "pages/037/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 10,
+        "frontier": 54,
+        "unchanged_control": 4
+      },
+      "queued": 8
+    },
+    {
+      "page_id": "038",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s12/p09.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/038/page/data/report.json",
+      "report_sha256": "05cc9f5d1b7ac1ad8df08c5fbe86ab789c973cd6880726b8f38a7fdec2a552d2",
+      "exploration": "pages/038/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 10,
+        "frontier": 54,
+        "unchanged_control": 4
+      },
+      "queued": 8
+    },
+    {
+      "page_id": "039",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/039/page/data/report.json",
+      "report_sha256": "7d47fa27cd8b06168cf25f502e9e3224b9edd13578a58e48b0acd5147212690a",
+      "exploration": "pages/039/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 18,
+        "unchanged_control": 16
+      },
+      "queued": 12
+    },
+    {
+      "page_id": "040",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/040/page/data/report.json",
+      "report_sha256": "da5f09dddba562026cfc02a0d6527a22905f7bdb887844d76810876a0ae9a7a3",
+      "exploration": "pages/040/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 20,
+        "unchanged_control": 16
+      },
+      "queued": 8
+    },
+    {
+      "page_id": "041",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/041/page/data/report.json",
+      "report_sha256": "50d46bd0bd8e70961144f7b0d4805e437752f3ade1343cf7d79dc9bc911ff132",
+      "exploration": "pages/041/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 38,
+        "unchanged_control": 64,
+        "frontier": 2,
+        "depth": 2
+      },
+      "queued": 16
+    },
+    {
+      "page_id": "042",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/042/page/data/report.json",
+      "report_sha256": "7b62e11e00a86b9caf2cbc25e08636c063a110753294912b7c0f189a374121dc",
+      "exploration": "pages/042/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 44,
+        "unchanged_control": 88,
+        "depth": 2
+      },
+      "queued": 20
+    },
+    {
+      "page_id": "043",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p05.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/043/page/data/report.json",
+      "report_sha256": "6a20538cb6c7bc5101362ff2faaa8dcd5d4b9352b9eaa69ce86732368a9169eb",
+      "exploration": "pages/043/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 44,
+        "unchanged_control": 88,
+        "depth": 2
+      },
+      "queued": 20
+    },
+    {
+      "page_id": "044",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p06.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/044/page/data/report.json",
+      "report_sha256": "250e91b276417b1a775eba21e55d538da58bb5e75d06006259241ef48cc77c20",
+      "exploration": "pages/044/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 38,
+        "unchanged_control": 64,
+        "frontier": 2,
+        "depth": 2
+      },
+      "queued": 16
+    },
+    {
+      "page_id": "045",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p07.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/045/page/data/report.json",
+      "report_sha256": "758d651cde9656ae177179597228d0064a21b59a604f1486d3e13c1112456b48",
+      "exploration": "pages/045/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 36,
+        "unchanged_control": 24,
+        "frontier": 12
+      },
+      "queued": 22
+    },
+    {
+      "page_id": "046",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p08.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/046/page/data/report.json",
+      "report_sha256": "31ca580c5f61be5d005fa49822d856de23676386a8b7c68799c15b69103bf861",
+      "exploration": "pages/046/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 34,
+        "unchanged_control": 24,
+        "frontier": 14
+      },
+      "queued": 22
+    },
+    {
+      "page_id": "047",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p09.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/047/page/data/report.json",
+      "report_sha256": "5c4a4422d3a8fe5d3728ee1c543d875fc7712a9106758452d914a29494045baf",
+      "exploration": "pages/047/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 28,
+        "frontier": 12,
+        "unchanged_control": 56
+      },
+      "queued": 22
+    },
+    {
+      "page_id": "048",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p10.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/048/page/data/report.json",
+      "report_sha256": "5e5b39b8b6610b058f7c6bcccf03430eb00aa99b2c1eb559169ec2b2e4bfe009",
+      "exploration": "pages/048/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 28,
+        "frontier": 12,
+        "unchanged_control": 56,
+        "depth": 6
+      },
+      "queued": 16
+    },
+    {
+      "page_id": "049",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p11.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/049/page/data/report.json",
+      "report_sha256": "f8a76730c5aa80cfa12c87ed352c5e54c2ea90f44ef9146aad0ae28b6366cf8e",
+      "exploration": "pages/049/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 12,
+        "unchanged_control": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "050",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s13/p12.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/050/page/data/report.json",
+      "report_sha256": "e8b5f889f3bb8640719c2cefc600e6bb585e79982f31b848dda05b936ae1b16b",
+      "exploration": "pages/050/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 12,
+        "unchanged_control": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "051",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s14/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/051/page/data/report.json",
+      "report_sha256": "56538cf6eb43bb571b36289e1c45b42dab49c8985c14f313036a4535377c96d1",
+      "exploration": "pages/051/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 20,
+      "omitted_candidates": {
+        "input_variations": 8,
+        "unchanged_control": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "052",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s14/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/052/page/data/report.json",
+      "report_sha256": "7719d6990f24cfda9a8af33e17f720ad48db54733775b9831751e06bcc9649ef",
+      "exploration": "pages/052/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 20,
+      "omitted_candidates": {
+        "input_variations": 8,
+        "unchanged_control": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "053",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s15/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/053/page/data/report.json",
+      "report_sha256": "dba308d45608e25dfbe7813b0f2e86bb2d5f122e6e780ff0c99c78ee671fd7f9",
+      "exploration": "pages/053/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 4
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "054",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s15/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/054/page/data/report.json",
+      "report_sha256": "71176de2aa3518896867398444a8ed7a87e6da2685b69558e21d13bcbe19a8ee",
+      "exploration": "pages/054/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 4
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "055",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s16/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/055/page/data/report.json",
+      "report_sha256": "7745e62b4ebcc1ad4bdf5a0b6c5b42ac94166f00d368599561cf7c17f4628edd",
+      "exploration": "pages/055/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "056",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s16/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/056/page/data/report.json",
+      "report_sha256": "9c374021e42e597fcdcc808903b2d1c4ad0b92e0dc4a509115552fe5a4de81ce",
+      "exploration": "pages/056/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "057",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s16/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/057/page/data/report.json",
+      "report_sha256": "0b075ee9f014b09399e22cef249a50593dda4fb161d84af6f1f8957cdb2ac216",
+      "exploration": "pages/057/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "058",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s17/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/058/page/data/report.json",
+      "report_sha256": "2de0b02cdc98ad3b8a98b5f0ad22a91ee1f9c534719809ac74aaa63514203767",
+      "exploration": "pages/058/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 38,
+        "unchanged_control": 64,
+        "frontier": 2,
+        "depth": 2
+      },
+      "queued": 16
+    },
+    {
+      "page_id": "059",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s17/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/059/page/data/report.json",
+      "report_sha256": "8ed311b98306ee8efbc2aa2aca15ddb26bdcd1624d788ccfb0e3128d6c1c7352",
+      "exploration": "pages/059/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 38,
+        "unchanged_control": 64,
+        "frontier": 2
+      },
+      "queued": 16
+    },
+    {
+      "page_id": "060",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s17/p05.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/060/page/data/report.json",
+      "report_sha256": "65faadad0e150999186481b16055ae165ac616287aac4fcdcee7b2c62f50d30b",
+      "exploration": "pages/060/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 38,
+        "unchanged_control": 64,
+        "frontier": 2
+      },
+      "queued": 16
+    },
+    {
+      "page_id": "061",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s17/p06.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/061/page/data/report.json",
+      "report_sha256": "b200ef1654ef93f4ff88dc53c0c1c8ad72ff630c087bd9e720bc725aa2cb721e",
+      "exploration": "pages/061/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 38,
+        "unchanged_control": 64,
+        "frontier": 2,
+        "depth": 2
+      },
+      "queued": 16
+    },
+    {
+      "page_id": "062",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s17/p07.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/062/page/data/report.json",
+      "report_sha256": "71161e5990bd7bc27b9f3b5570371f73a8e78f9873edbea1369334e8748c2d51",
+      "exploration": "pages/062/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 34,
+        "unchanged_control": 24,
+        "frontier": 14
+      },
+      "queued": 22
+    },
+    {
+      "page_id": "063",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s17/p08.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/063/page/data/report.json",
+      "report_sha256": "0379bd58b785d7dc870ea1a48bebca0f0087215619a274cf9d3dc07d1154239c",
+      "exploration": "pages/063/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 34,
+        "unchanged_control": 24,
+        "frontier": 14
+      },
+      "queued": 22
+    },
+    {
+      "page_id": "064",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s17/p09.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/064/page/data/report.json",
+      "report_sha256": "f4019deb2c71ce0185943700f52a5975951693ed32d38c7a25e492d5647a47a4",
+      "exploration": "pages/064/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 20
+      },
+      "queued": 8
+    },
+    {
+      "page_id": "065",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s17/p10.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/065/page/data/report.json",
+      "report_sha256": "da89efe99ae44fec5f3f1ae863e0694eada0c39a02bf23ba50a39d6fb1ebea16",
+      "exploration": "pages/065/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 24,
+      "omitted_candidates": {
+        "input_variations": 20
+      },
+      "queued": 8
+    },
+    {
+      "page_id": "066",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s18/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/066/page/data/report.json",
+      "report_sha256": "bc0091e5e2b3401d0b7cf9a5e36e28b9fe5fa875f1f14ef6c5cf22a87dc5be24",
+      "exploration": "pages/066/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "067",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s18/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/067/page/data/report.json",
+      "report_sha256": "039d8209c2de8d59e6dee0cc1d101e54c328af89293f61892434d853807ff692",
+      "exploration": "pages/067/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "068",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s19/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/068/page/data/report.json",
+      "report_sha256": "65bf29c2b2fd088199effa8848ae29220517a0a7bb4d8f48f33098752be770a0",
+      "exploration": "pages/068/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 12,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "069",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s19/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/069/page/data/report.json",
+      "report_sha256": "4a4041685bdf1e6451b31cc7a1e1cda58619e8fb69ee625e739f6f6c1ebe610b",
+      "exploration": "pages/069/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 12,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "070",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s19/p05.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/070/page/data/report.json",
+      "report_sha256": "caf1501aee3897695c93e2af82488b8164c0e9c2fc7ec60a4f2db203ada0afb2",
+      "exploration": "pages/070/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "071",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s20/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/071/page/data/report.json",
+      "report_sha256": "78a369baf9ba5de07e68a72b7e853462c0f61e168ab0e9b38cf9df07d3e5d0fb",
+      "exploration": "pages/071/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "072",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s20/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/072/page/data/report.json",
+      "report_sha256": "8afc4de09a4e884f4f80046c000911670e8940b6655d49268be730057e1433bd",
+      "exploration": "pages/072/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 4,
+      "omitted_candidates": {},
+      "queued": 0
+    },
+    {
+      "page_id": "073",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s21/p03.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/073/page/data/report.json",
+      "report_sha256": "048e08072b0a27ec9cf4c8b93200f4241a94834c0acca4b8d1ed371135d0a923",
+      "exploration": "pages/073/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 10,
+      "omitted_candidates": {
+        "input_variations": 2
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "074",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s21/p04.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/074/page/data/report.json",
+      "report_sha256": "9f4f4a795bcbed501b07818b34034ba5f56bc365703a5e05fcfb386753a108c4",
+      "exploration": "pages/074/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 16,
+      "omitted_candidates": {
+        "input_variations": 4
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "075",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s22/p01.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/075/page/data/report.json",
+      "report_sha256": "471d603ba1e74dd701c0a01c321824e3f6189b77276c75c83438bc9263d19270",
+      "exploration": "pages/075/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 8,
+      "omitted_candidates": {
+        "input_variations": 12
+      },
+      "queued": 0
+    },
+    {
+      "page_id": "076",
+      "completed": true,
+      "collection": {
+        "url": "http://127.0.0.1:43285/s22/p02.html",
+        "phases": {
+          "initial": 0,
+          "explore": 0
+        }
+      },
+      "report": "pages/076/page/data/report.json",
+      "report_sha256": "d065309e24866e035043297d3190b0fb4b9355c0e5d949160969335177a7c44b",
+      "exploration": "pages/076/page/work/exploration.json",
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "steps": 14,
+      "omitted_candidates": {
+        "input_variations": 8
+      },
+      "queued": 0
+    }
+  ],
+  "rows": [
+    {
+      "page_id": "001",
+      "criterion": "1.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#figure",
+      "checkpoint": "1.1.1-01",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/001/page/work/evidence/cd15c3458d6a--explore-5d7593faebe8--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/001/page/work/evidence/cd15c3458d6a--explore-5d7593faebe8--desktop/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/001/page/work/evidence/cd15c3458d6a--explore-a12c0fd9e521--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/001/page/work/evidence/cd15c3458d6a--explore-a12c0fd9e521--narrow/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "001",
+      "criterion": "1.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#summary",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/001/page/work/evidence/cd15c3458d6a--explore-5d7593faebe8--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/001/page/work/evidence/cd15c3458d6a--explore-5d7593faebe8--desktop/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/001/page/work/evidence/cd15c3458d6a--explore-a12c0fd9e521--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/001/page/work/evidence/cd15c3458d6a--explore-a12c0fd9e521--narrow/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "001",
+      "criterion": "1.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#marker",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/001/page/work/evidence/cd15c3458d6a--explore-5d7593faebe8--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/001/page/work/evidence/cd15c3458d6a--explore-5d7593faebe8--desktop/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/001/page/work/evidence/cd15c3458d6a--explore-a12c0fd9e521--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/001/page/work/evidence/cd15c3458d6a--explore-a12c0fd9e521--narrow/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "002",
+      "criterion": "1.1.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#figure",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/002/page/work/evidence/e73a7f1865fb--explore-ca0da0e6e89b--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/002/page/work/evidence/e73a7f1865fb--explore-ca0da0e6e89b--desktop/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/002/page/work/evidence/e73a7f1865fb--explore-4feccdbf7a81--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/002/page/work/evidence/e73a7f1865fb--explore-4feccdbf7a81--narrow/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "002",
+      "criterion": "1.1.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#summary",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/002/page/work/evidence/e73a7f1865fb--explore-ca0da0e6e89b--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/002/page/work/evidence/e73a7f1865fb--explore-ca0da0e6e89b--desktop/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/002/page/work/evidence/e73a7f1865fb--explore-4feccdbf7a81--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/002/page/work/evidence/e73a7f1865fb--explore-4feccdbf7a81--narrow/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "003",
+      "criterion": "1.1.1",
+      "case": "c09",
+      "page": "p09.html",
+      "state": "after-load",
+      "target": "#subject",
+      "checkpoint": "1.1.1-01",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/003/page/work/evidence/407ef731891f--explore-13ea8e1dae31--desktop/state.json",
+            "pages/003/page/work/evidence/407ef731891f--explore-5c71ff58393b--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/003/page/work/evidence/407ef731891f--explore-5c71ff58393b--desktop/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/003/page/work/evidence/407ef731891f--explore-25b311d75d8a--narrow/state.json",
+            "pages/003/page/work/evidence/407ef731891f--explore-83c8dc3b487b--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/003/page/work/evidence/407ef731891f--explore-25b311d75d8a--narrow/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "Fix any of the following:\n  Element does not have an alt attribute\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute\n  Element's default semantics were not overridden with role=\"none\" or role=\"presentation\""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "004",
+      "criterion": "1.1.1",
+      "case": "c10",
+      "page": "p10.html",
+      "state": "after-load",
+      "target": "#subject",
+      "checkpoint": "1.1.1-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/004/page/work/evidence/6687ecf98c7d--explore-1458318b4e93--desktop/state.json",
+            "pages/004/page/work/evidence/6687ecf98c7d--explore-774ed9a3f1a8--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/004/page/work/evidence/6687ecf98c7d--explore-1458318b4e93--desktop/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/004/page/work/evidence/6687ecf98c7d--explore-5f1b60b61f59--narrow/state.json",
+            "pages/004/page/work/evidence/6687ecf98c7d--explore-dc36830231f3--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/004/page/work/evidence/6687ecf98c7d--explore-5f1b60b61f59--narrow/axe.json",
+              "report_check": "axe / image-alt",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "005",
+      "criterion": "1.2.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.2.1-01",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/005/page/work/evidence/034f64e72af7--explore-1cf46773eb03--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/005/page/work/evidence/034f64e72af7--explore-593eae630dde--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "006",
+      "criterion": "1.2.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.2.1-01",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/006/page/work/evidence/63ea6035e10a--explore-8b1f04cfb1b9--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/006/page/work/evidence/63ea6035e10a--explore-1441cd04ec0b--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "007",
+      "criterion": "1.2.2",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "playing-captions",
+      "target": "#media",
+      "checkpoint": "1.2.2-01",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "008",
+      "criterion": "1.2.2",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "playing-captions",
+      "target": "#media",
+      "checkpoint": "1.2.2-01",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "009",
+      "criterion": "1.2.3",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.2.3-01",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/009/page/work/evidence/7ed93caf2d7b--explore-11a2af9679c8--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/009/page/work/evidence/7ed93caf2d7b--explore-d755c4619d6d--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "010",
+      "criterion": "1.2.3",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.2.3-01",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/010/page/work/evidence/ad92b336836a--explore-730577ffb992--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/010/page/work/evidence/ad92b336836a--explore-451a1b946780--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "011",
+      "criterion": "1.2.5",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "after-select",
+      "target": "#subject",
+      "checkpoint": "1.2.5-01",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/011/page/work/evidence/c976323bb02a--explore-7fdf4ce45cf3--desktop/state.json",
+            "pages/011/page/work/evidence/c976323bb02a--explore-b76b955aae02--desktop/state.json",
+            "pages/011/page/work/evidence/c976323bb02a--explore-cac5ad4c6889--desktop/state.json",
+            "pages/011/page/work/evidence/c976323bb02a--explore-d27018b07fe9--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/011/page/work/evidence/c976323bb02a--explore-44a5beab4851--narrow/state.json",
+            "pages/011/page/work/evidence/c976323bb02a--explore-d6f23516dab0--narrow/state.json",
+            "pages/011/page/work/evidence/c976323bb02a--explore-e431d0c424cb--narrow/state.json",
+            "pages/011/page/work/evidence/c976323bb02a--explore-e553eb320ce5--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "012",
+      "criterion": "1.2.5",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "after-select",
+      "target": "#subject",
+      "checkpoint": "1.2.5-01",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/012/page/work/evidence/9a1501ecfe8e--explore-286590678fd1--desktop/state.json",
+            "pages/012/page/work/evidence/9a1501ecfe8e--explore-8451cd1d10d8--desktop/state.json",
+            "pages/012/page/work/evidence/9a1501ecfe8e--explore-e2ff4b738519--desktop/state.json",
+            "pages/012/page/work/evidence/9a1501ecfe8e--explore-fdfc60cc2811--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/012/page/work/evidence/9a1501ecfe8e--explore-15cfa57412f8--narrow/state.json",
+            "pages/012/page/work/evidence/9a1501ecfe8e--explore-78139dea0f2c--narrow/state.json",
+            "pages/012/page/work/evidence/9a1501ecfe8e--explore-99be9da84622--narrow/state.json",
+            "pages/012/page/work/evidence/9a1501ecfe8e--explore-a7f667db7e1a--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "013",
+      "criterion": "1.2.8",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.2.8-01",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/013/page/work/evidence/e7c74eb451aa--explore-4197ee06aa2d--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/013/page/work/evidence/e7c74eb451aa--explore-75c768f201c2--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "014",
+      "criterion": "1.2.8",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.2.8-01",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/014/page/work/evidence/271314e4c16d--explore-a7b990a59aab--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/014/page/work/evidence/271314e4c16d--explore-5d6a949dee21--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "015",
+      "criterion": "1.3.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.3.1-01",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/015/page/work/evidence/66de3caaa5db--explore-46be206093e9--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/015/page/work/evidence/66de3caaa5db--explore-0f4c5813f6a9--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "016",
+      "criterion": "1.3.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.3.1-01",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/016/page/work/evidence/198fcbbe4b37--explore-8daaa6fa9727--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/016/page/work/evidence/198fcbbe4b37--explore-9090eef1f611--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "017",
+      "criterion": "1.3.5",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.3.5-01",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/017/page/work/evidence/2646f175a46c--explore-6a71b7a17e34--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/017/page/work/evidence/2646f175a46c--explore-821de8ce019d--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "018",
+      "criterion": "1.3.5",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.3.5-01",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/018/page/work/evidence/546d89fba56e--explore-0a492ad61172--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/018/page/work/evidence/546d89fba56e--explore-a03437760f23--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "019",
+      "criterion": "1.4.2",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "during-playback",
+      "target": "#subject",
+      "checkpoint": "1.4.2-01",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "020",
+      "criterion": "1.4.2",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "during-playback",
+      "target": "#subject",
+      "checkpoint": "1.4.2-01",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "021",
+      "criterion": "1.4.3",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.4.3-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/021/page/work/evidence/236d2717d4e0--explore-f36bc2080405--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/021/page/work/evidence/236d2717d4e0--explore-87690184d66b--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "022",
+      "criterion": "1.4.3",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.4.3-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/022/page/work/evidence/983a845efd3d--explore-b6046cf35bf7--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/022/page/work/evidence/983a845efd3d--explore-7b4353892e20--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "023",
+      "criterion": "1.4.3",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.4.3-01",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/023/page/work/evidence/65e423f90490--explore-5ccc1760d4d5--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/023/page/work/evidence/65e423f90490--explore-5ccc1760d4d5--desktop/axe.json",
+              "report_check": "axe / color-contrast",
+              "observed": "Fix any of the following:\n  Element has insufficient color contrast of 2.32 (foreground color: #aaaaaa, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/023/page/work/evidence/65e423f90490--explore-0fbd07d172f4--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/023/page/work/evidence/65e423f90490--explore-0fbd07d172f4--narrow/axe.json",
+              "report_check": "axe / color-contrast",
+              "observed": "Fix any of the following:\n  Element has insufficient color contrast of 2.32 (foreground color: #aaaaaa, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "024",
+      "criterion": "1.4.3",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.4.3-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/024/page/work/evidence/566ce0deaaf0--explore-9aebc8aa395d--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/024/page/work/evidence/566ce0deaaf0--explore-9aebc8aa395d--desktop/axe.json",
+              "report_check": "axe / color-contrast",
+              "observed": "axeのルールを通過。測定値の最低は 18.88:1（['#subject']）。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/024/page/work/evidence/566ce0deaaf0--explore-54efa612981c--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/024/page/work/evidence/566ce0deaaf0--explore-54efa612981c--narrow/axe.json",
+              "report_check": "axe / color-contrast",
+              "observed": "axeのルールを通過。測定値の最低は 18.88:1（['#subject']）。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "025",
+      "criterion": "1.4.3",
+      "case": "c05",
+      "page": "p05.html",
+      "state": "enabled",
+      "target": "#subject",
+      "checkpoint": "1.4.3-01",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/025/page/work/evidence/78dd58c5942c--explore-23deb6aefd36--desktop/state.json",
+            "pages/025/page/work/evidence/78dd58c5942c--explore-5fe5dce2a506--desktop/state.json",
+            "pages/025/page/work/evidence/78dd58c5942c--explore-846bda421908--desktop/state.json",
+            "pages/025/page/work/evidence/78dd58c5942c--explore-87a937635565--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/025/page/work/evidence/78dd58c5942c--explore-23deb6aefd36--desktop/axe.json",
+              "report_check": "axe / color-contrast",
+              "observed": "Fix any of the following:\n  Element has insufficient color contrast of 2.32 (foreground color: #aaaaaa, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/025/page/work/evidence/78dd58c5942c--explore-11a2b9132c56--narrow/state.json",
+            "pages/025/page/work/evidence/78dd58c5942c--explore-749e8c7623c2--narrow/state.json",
+            "pages/025/page/work/evidence/78dd58c5942c--explore-9081e4a0bd0e--narrow/state.json",
+            "pages/025/page/work/evidence/78dd58c5942c--explore-c01ce1668bc6--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/025/page/work/evidence/78dd58c5942c--explore-11a2b9132c56--narrow/axe.json",
+              "report_check": "axe / color-contrast",
+              "observed": "Fix any of the following:\n  Element has insufficient color contrast of 2.32 (foreground color: #aaaaaa, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "026",
+      "criterion": "1.4.3",
+      "case": "c06",
+      "page": "p06.html",
+      "state": "enabled",
+      "target": "#subject",
+      "checkpoint": "1.4.3-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/026/page/work/evidence/625083c02dc3--explore-0ece8b95378c--desktop/state.json",
+            "pages/026/page/work/evidence/625083c02dc3--explore-192cdf86a3d2--desktop/state.json",
+            "pages/026/page/work/evidence/625083c02dc3--explore-6df860df3ba7--desktop/state.json",
+            "pages/026/page/work/evidence/625083c02dc3--explore-7b73bb2a4460--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/026/page/work/evidence/625083c02dc3--explore-7b73bb2a4460--desktop/axe.json",
+              "report_check": "axe / color-contrast",
+              "observed": "axeのルールを通過。測定値の最低は 18.26:1（['#enable']）。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/026/page/work/evidence/625083c02dc3--explore-6b3f9af7d8f4--narrow/state.json",
+            "pages/026/page/work/evidence/625083c02dc3--explore-9103128510e9--narrow/state.json",
+            "pages/026/page/work/evidence/625083c02dc3--explore-a39403f260e3--narrow/state.json",
+            "pages/026/page/work/evidence/625083c02dc3--explore-ee9aa16c51d9--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/026/page/work/evidence/625083c02dc3--explore-9103128510e9--narrow/axe.json",
+              "report_check": "axe / color-contrast",
+              "observed": "axeのルールを通過。測定値の最低は 18.26:1（['#enable']）。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "027",
+      "criterion": "1.4.3",
+      "case": "c07",
+      "page": "p07.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.4.3-01",
+      "expected": "inapplicable",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/027/page/work/evidence/bd4ac4b51d64--explore-180fd9ab49f8--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/027/page/work/evidence/bd4ac4b51d64--explore-e64ceaa7bc62--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "028",
+      "criterion": "1.4.6",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.4.6-01",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/028/page/work/evidence/24b466e19882--explore-812b41f60ec8--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/028/page/work/evidence/24b466e19882--explore-294977ace483--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "029",
+      "criterion": "1.4.6",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "1.4.6-01",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/029/page/work/evidence/5a1df4b5f893--explore-035492994ef5--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/029/page/work/evidence/5a1df4b5f893--explore-b7ff14f5b57f--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "030",
+      "criterion": "2.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#control",
+      "checkpoint": "2.1.1-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/030/page/work/evidence/a4f908d06754--explore-1e01583aeb8c--desktop/state.json"
+          ],
+          "key_dispatch": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-8b8e977cdbd9--desktop/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-9c0c83377886--desktop/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-8b8e977cdbd9--desktop/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-9c0c83377886--desktop/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/030/page/work/evidence/a4f908d06754--explore-6255d728000a--narrow/state.json"
+          ],
+          "key_dispatch": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-226c57f2c911--narrow/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-85b6c907b70b--narrow/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-226c57f2c911--narrow/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-85b6c907b70b--narrow/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "030",
+      "criterion": "2.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "#control",
+      "checkpoint": "2.1.1-02",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/030/page/work/evidence/a4f908d06754--explore-1e01583aeb8c--desktop/state.json"
+          ],
+          "key_dispatch": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-8b8e977cdbd9--desktop/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-9c0c83377886--desktop/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-2be8a3919523--desktop/transition.json",
+              "proof": [
+                "pages/030/page/work/evidence/a4f908d06754--explore-8b8e977cdbd9--desktop/transition.json"
+              ],
+              "target": "#control",
+              "report_check": "キー操作後の機能の結果",
+              "observed": "クリックで #counter が 0 から 1 に変わった。 #control で Enter を押すと同じ値になった。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/030/page/work/evidence/a4f908d06754--explore-6255d728000a--narrow/state.json"
+          ],
+          "key_dispatch": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-226c57f2c911--narrow/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-85b6c907b70b--narrow/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/030/page/work/evidence/a4f908d06754--explore-b0fa19c1aec0--narrow/transition.json",
+              "proof": [
+                "pages/030/page/work/evidence/a4f908d06754--explore-226c57f2c911--narrow/transition.json"
+              ],
+              "target": "#control",
+              "report_check": "キー操作後の機能の結果",
+              "observed": "クリックで #counter が 0 から 1 に変わった。 #control で Enter を押すと同じ値になった。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "031",
+      "criterion": "2.1.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#control",
+      "checkpoint": "2.1.1-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/031/page/work/evidence/f1f32e2e5ead--explore-b015e7cb6961--desktop/state.json"
+          ],
+          "key_dispatch": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-4a74686bc10c--desktop/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-906d6da11308--desktop/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-4a74686bc10c--desktop/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-906d6da11308--desktop/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/031/page/work/evidence/f1f32e2e5ead--explore-e79dc819cdc1--narrow/state.json"
+          ],
+          "key_dispatch": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-dce7f116998c--narrow/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-eaed81e08061--narrow/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-dce7f116998c--narrow/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-eaed81e08061--narrow/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "031",
+      "criterion": "2.1.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "#control",
+      "checkpoint": "2.1.1-02",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/031/page/work/evidence/f1f32e2e5ead--explore-b015e7cb6961--desktop/state.json"
+          ],
+          "key_dispatch": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-4a74686bc10c--desktop/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-906d6da11308--desktop/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-27cd634c7908--desktop/transition.json",
+              "proof": [
+                "pages/031/page/work/evidence/f1f32e2e5ead--explore-4a74686bc10c--desktop/transition.json",
+                "pages/031/page/work/evidence/f1f32e2e5ead--explore-906d6da11308--desktop/transition.json"
+              ],
+              "target": "#control",
+              "report_check": "キー操作後の機能の結果",
+              "observed": "クリックで #counter が 0 から 1 に変わった。 EnterとSpaceでは 0 のままだった。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/031/page/work/evidence/f1f32e2e5ead--explore-e79dc819cdc1--narrow/state.json"
+          ],
+          "key_dispatch": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-dce7f116998c--narrow/transition.json",
+              "report_check": "実入力 / Enter",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            },
+            {
+              "outcome": "passed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-eaed81e08061--narrow/transition.json",
+              "report_check": "実入力 / Space",
+              "observed": "実入力を送出した。機能の完了・同等な代替経路の有無は別に確認する。"
+            }
+          ],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/031/page/work/evidence/f1f32e2e5ead--explore-43bf2c47e2e7--narrow/transition.json",
+              "proof": [
+                "pages/031/page/work/evidence/f1f32e2e5ead--explore-dce7f116998c--narrow/transition.json",
+                "pages/031/page/work/evidence/f1f32e2e5ead--explore-eaed81e08061--narrow/transition.json"
+              ],
+              "target": "#control",
+              "report_check": "キー操作後の機能の結果",
+              "observed": "クリックで #counter が 0 から 1 に変わった。 EnterとSpaceでは 0 のままだった。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "032",
+      "criterion": "2.1.1",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#feature",
+      "checkpoint": "2.1.1-02",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/032/page/work/evidence/ed85f9ce112a--explore-ceb14d06854e--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/032/page/work/evidence/ed85f9ce112a--explore-9a294ffa0b9b--desktop/transition.json",
+              "proof": [
+                "pages/032/page/work/evidence/ed85f9ce112a--explore-7dcbd0cd4d78--desktop/transition.json"
+              ],
+              "target": "#pointer",
+              "report_check": "キー操作後の機能の結果",
+              "observed": "クリックで #counter が 0 から 1 に変わった。 #control で Enter を押すと同じ値になった。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/032/page/work/evidence/ed85f9ce112a--explore-2d30441f2491--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/032/page/work/evidence/ed85f9ce112a--explore-b927f9f8446a--narrow/transition.json",
+              "proof": [
+                "pages/032/page/work/evidence/ed85f9ce112a--explore-9191ab46b8fa--narrow/transition.json"
+              ],
+              "target": "#pointer",
+              "report_check": "キー操作後の機能の結果",
+              "observed": "クリックで #counter が 0 から 1 に変わった。 #control で Enter を押すと同じ値になった。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "033",
+      "criterion": "2.1.1",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "keyboard-route",
+      "target": "#navigation",
+      "checkpoint": "2.1.1-02",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "034",
+      "criterion": "2.1.1",
+      "case": "c05",
+      "page": "p05.html",
+      "state": "keyboard-route",
+      "target": "#navigation",
+      "checkpoint": "2.1.1-02",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "035",
+      "criterion": "2.1.1",
+      "case": "c06",
+      "page": "p06.html",
+      "state": "shadow-open",
+      "target": "#inner-action",
+      "checkpoint": "2.1.1-02",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "036",
+      "criterion": "2.1.1",
+      "case": "c07",
+      "page": "p07.html",
+      "state": "shadow-open",
+      "target": "#inner-action",
+      "checkpoint": "2.1.1-02",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "037",
+      "criterion": "2.1.1",
+      "case": "c08",
+      "page": "p08.html",
+      "state": "second-tab",
+      "target": "#tab-b",
+      "checkpoint": "2.1.1-02",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "038",
+      "criterion": "2.1.1",
+      "case": "c09",
+      "page": "p09.html",
+      "state": "second-tab",
+      "target": "#tab-b",
+      "checkpoint": "2.1.1-02",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "039",
+      "criterion": "2.1.2",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "opened",
+      "target": "#panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/039/page/work/evidence/8c672ab57e53--explore-17bc59c38d47--desktop/state.json",
+            "pages/039/page/work/evidence/8c672ab57e53--explore-68a6e2af129a--desktop/state.json",
+            "pages/039/page/work/evidence/8c672ab57e53--explore-6e623d4f65e7--desktop/state.json",
+            "pages/039/page/work/evidence/8c672ab57e53--explore-9d17007c2da1--desktop/state.json",
+            "pages/039/page/work/evidence/8c672ab57e53--explore-bbd91f35e277--desktop/state.json",
+            "pages/039/page/work/evidence/8c672ab57e53--explore-e4eea45c22fa--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/039/page/work/evidence/8c672ab57e53--explore-584e95021546--desktop/dialog-focus.json",
+              "proof": [
+                "pages/039/page/work/evidence/8c672ab57e53--explore-584e95021546--desktop/input-events.json"
+              ],
+              "target": "#panel",
+              "report_check": "ダイアログからのキー操作による離脱",
+              "observed": "Escapeで閉じ、ダイアログの外へフォーカスが移った。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/039/page/work/evidence/8c672ab57e53--explore-248706522fe1--narrow/state.json",
+            "pages/039/page/work/evidence/8c672ab57e53--explore-5ee1797df68f--narrow/state.json",
+            "pages/039/page/work/evidence/8c672ab57e53--explore-6da0bb8ad907--narrow/state.json",
+            "pages/039/page/work/evidence/8c672ab57e53--explore-8b86caf1a2a8--narrow/state.json",
+            "pages/039/page/work/evidence/8c672ab57e53--explore-e8081e391e94--narrow/state.json",
+            "pages/039/page/work/evidence/8c672ab57e53--explore-ec1f1fe9850a--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/039/page/work/evidence/8c672ab57e53--explore-556a2f96cd3a--narrow/dialog-focus.json",
+              "proof": [
+                "pages/039/page/work/evidence/8c672ab57e53--explore-556a2f96cd3a--narrow/input-events.json"
+              ],
+              "target": "#panel",
+              "report_check": "ダイアログからのキー操作による離脱",
+              "observed": "Escapeで閉じ、ダイアログの外へフォーカスが移った。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "040",
+      "criterion": "2.1.2",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "opened",
+      "target": "#panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-0ed821d97ee8--desktop/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-4c1834ccdd60--desktop/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-6a451e8837db--desktop/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-74eed6464687--desktop/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-8e574ceecde6--desktop/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-acdefc241a8f--desktop/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-d092ec91f427--desktop/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-f4482ef94c69--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/040/page/work/evidence/d8afe3bfa657--explore-6a451e8837db--desktop/dialog-focus.json",
+              "proof": [
+                "pages/040/page/work/evidence/d8afe3bfa657--explore-6a451e8837db--desktop/input-events.json"
+              ],
+              "target": "#panel",
+              "report_check": "ダイアログからのキー操作による離脱",
+              "observed": "試したキーでは同じ入力欄に留まった。閉じるボタンをマウスで操作すると離脱した。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-43e9fdbc0e1d--narrow/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-48981b7e67fe--narrow/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-5755520aa25a--narrow/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-5c011c3197d0--narrow/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-72d7487a71b0--narrow/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-7321bab5c40f--narrow/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-8fdf10d8e482--narrow/state.json",
+            "pages/040/page/work/evidence/d8afe3bfa657--explore-ace74ffe8b18--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/040/page/work/evidence/d8afe3bfa657--explore-7321bab5c40f--narrow/dialog-focus.json",
+              "proof": [
+                "pages/040/page/work/evidence/d8afe3bfa657--explore-7321bab5c40f--narrow/input-events.json"
+              ],
+              "target": "#panel",
+              "report_check": "ダイアログからのキー操作による離脱",
+              "observed": "試したキーでは同じ入力欄に留まった。閉じるボタンをマウスで操作すると離脱した。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "041",
+      "criterion": "2.1.2",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "third-level-open",
+      "target": "#level3-panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/041/page/work/evidence/b2d73733e6ca--explore-36a5c2f28fa9--desktop/state.json",
+            "pages/041/page/work/evidence/b2d73733e6ca--explore-598840cee03c--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/041/page/work/evidence/b2d73733e6ca--explore-4293d0147b03--narrow/state.json",
+            "pages/041/page/work/evidence/b2d73733e6ca--explore-f311635c3827--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "042",
+      "criterion": "2.1.2",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "third-level-open",
+      "target": "#level3-panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/042/page/work/evidence/f3962ec9e9c7--explore-5437c70fed47--desktop/state.json",
+            "pages/042/page/work/evidence/f3962ec9e9c7--explore-f93fb123614e--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/042/page/work/evidence/f3962ec9e9c7--explore-0cf25becdbee--narrow/state.json",
+            "pages/042/page/work/evidence/f3962ec9e9c7--explore-c18ea3437757--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "043",
+      "criterion": "2.1.2",
+      "case": "c05",
+      "page": "p05.html",
+      "state": "third-level",
+      "target": "#level3-panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/043/page/work/evidence/77e5b74b3fe2--explore-cccea54ac36d--desktop/state.json",
+            "pages/043/page/work/evidence/77e5b74b3fe2--explore-e794bf9bf2cf--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/043/page/work/evidence/77e5b74b3fe2--explore-c03dcb5f33eb--narrow/state.json",
+            "pages/043/page/work/evidence/77e5b74b3fe2--explore-e2743b7f55fd--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "044",
+      "criterion": "2.1.2",
+      "case": "c06",
+      "page": "p06.html",
+      "state": "third-level",
+      "target": "#level3-panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/044/page/work/evidence/4ea9e6c723d0--explore-38d98f61eb84--desktop/state.json",
+            "pages/044/page/work/evidence/4ea9e6c723d0--explore-e026ac783b60--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/044/page/work/evidence/4ea9e6c723d0--explore-3d62a25763e3--narrow/state.json",
+            "pages/044/page/work/evidence/4ea9e6c723d0--explore-f46eded3c2d1--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "045",
+      "criterion": "2.1.2",
+      "case": "c07",
+      "page": "p07.html",
+      "state": "inner-dialog",
+      "target": "#subject",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/045/page/work/evidence/011fbf70e1dd--explore-6102423f4be0--desktop/state.json",
+            "pages/045/page/work/evidence/011fbf70e1dd--explore-976bf658ddae--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/045/page/work/evidence/011fbf70e1dd--explore-16fa507b96ce--narrow/state.json",
+            "pages/045/page/work/evidence/011fbf70e1dd--explore-faa752655b3f--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "046",
+      "criterion": "2.1.2",
+      "case": "c08",
+      "page": "p08.html",
+      "state": "inner-dialog",
+      "target": "#subject",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/046/page/work/evidence/7dcd6b8dd0ad--explore-08e257ab4c69--desktop/state.json",
+            "pages/046/page/work/evidence/7dcd6b8dd0ad--explore-d9e8a98ee3ba--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/046/page/work/evidence/7dcd6b8dd0ad--explore-a9007d80389b--narrow/state.json",
+            "pages/046/page/work/evidence/7dcd6b8dd0ad--explore-cad296660564--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "047",
+      "criterion": "2.1.2",
+      "case": "c09",
+      "page": "p09.html",
+      "state": "combo-open",
+      "target": "#subject",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/047/page/work/evidence/2f7e37ff250e--explore-20676b7559fb--desktop/state.json",
+            "pages/047/page/work/evidence/2f7e37ff250e--explore-609d1b1dccd7--desktop/state.json",
+            "pages/047/page/work/evidence/2f7e37ff250e--explore-746d32b87a79--desktop/state.json",
+            "pages/047/page/work/evidence/2f7e37ff250e--explore-aad1fa82d54e--desktop/state.json",
+            "pages/047/page/work/evidence/2f7e37ff250e--explore-fce1a1a2db56--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/047/page/work/evidence/2f7e37ff250e--explore-4ce74db16d20--narrow/state.json",
+            "pages/047/page/work/evidence/2f7e37ff250e--explore-557ee09de4d9--narrow/state.json",
+            "pages/047/page/work/evidence/2f7e37ff250e--explore-7a9d3837689b--narrow/state.json",
+            "pages/047/page/work/evidence/2f7e37ff250e--explore-9cd2a31215a7--narrow/state.json",
+            "pages/047/page/work/evidence/2f7e37ff250e--explore-fb8cfe103667--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "048",
+      "criterion": "2.1.2",
+      "case": "c10",
+      "page": "p10.html",
+      "state": "combo-open",
+      "target": "#subject",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/048/page/work/evidence/d6e4af1af00e--explore-43c6ec3b69b7--desktop/state.json",
+            "pages/048/page/work/evidence/d6e4af1af00e--explore-f3a80fc770ec--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/048/page/work/evidence/d6e4af1af00e--explore-00e969780944--narrow/state.json",
+            "pages/048/page/work/evidence/d6e4af1af00e--explore-7f258d0f312d--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "049",
+      "criterion": "2.1.2",
+      "case": "c11",
+      "page": "p11.html",
+      "state": "frame-open",
+      "target": "#subject",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "050",
+      "criterion": "2.1.2",
+      "case": "c12",
+      "page": "p12.html",
+      "state": "frame-open",
+      "target": "#subject",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "051",
+      "criterion": "2.2.1",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "extension-path",
+      "target": "#subject",
+      "checkpoint": "2.2.1-02",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "052",
+      "criterion": "2.2.1",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "extension-path",
+      "target": "#subject",
+      "checkpoint": "2.2.1-02",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "053",
+      "criterion": "2.2.6",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "after-21-hours",
+      "target": "#subject",
+      "checkpoint": "2.2.6-02",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "054",
+      "criterion": "2.2.6",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "after-21-hours",
+      "target": "#subject",
+      "checkpoint": "2.2.6-02",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "055",
+      "criterion": "2.4.2",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/055/page/work/evidence/0d9a7310b2a6--explore-a58c10df34c7--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/055/page/work/evidence/0d9a7310b2a6--explore-a58c10df34c7--desktop/axe.json",
+              "report_check": "axe / document-title",
+              "observed": "Fix any of the following:\n  Document does not have a non-empty <title> element"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/055/page/work/evidence/0d9a7310b2a6--explore-489b271a0ee1--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/055/page/work/evidence/0d9a7310b2a6--explore-489b271a0ee1--narrow/axe.json",
+              "report_check": "axe / document-title",
+              "observed": "Fix any of the following:\n  Document does not have a non-empty <title> element"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "056",
+      "criterion": "2.4.2",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/056/page/work/evidence/406b3c65bd27--explore-7f057b1a8fa4--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/056/page/work/evidence/406b3c65bd27--explore-7f057b1a8fa4--desktop/axe.json",
+              "report_check": "axe / document-title",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/056/page/work/evidence/406b3c65bd27--explore-d12e68099470--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/056/page/work/evidence/406b3c65bd27--explore-d12e68099470--narrow/axe.json",
+              "report_check": "axe / document-title",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "057",
+      "criterion": "2.4.2",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "2.4.2-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/057/page/work/evidence/ba83f8df7164--explore-b4b41aeb391c--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/057/page/work/evidence/ba83f8df7164--explore-b4b41aeb391c--desktop/axe.json",
+              "report_check": "axe / document-title",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/057/page/work/evidence/ba83f8df7164--explore-2947f94e9190--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/057/page/work/evidence/ba83f8df7164--explore-2947f94e9190--narrow/axe.json",
+              "report_check": "axe / document-title",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "058",
+      "criterion": "2.4.3",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "third-level-open",
+      "target": "#level3-panel",
+      "checkpoint": "2.4.3-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/058/page/work/evidence/3b485ed9e856--explore-2003da2cb9b4--desktop/state.json",
+            "pages/058/page/work/evidence/3b485ed9e856--explore-f0c72f19e527--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/058/page/work/evidence/3b485ed9e856--explore-d6085a022871--narrow/state.json",
+            "pages/058/page/work/evidence/3b485ed9e856--explore-f73f448027a5--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "059",
+      "criterion": "2.4.3",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "third-level-open",
+      "target": "#level3-panel",
+      "checkpoint": "2.4.3-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/059/page/work/evidence/9f89307967ee--explore-05b93f730095--desktop/state.json",
+            "pages/059/page/work/evidence/9f89307967ee--explore-d2f7e825a565--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/059/page/work/evidence/9f89307967ee--explore-01f547195303--narrow/state.json",
+            "pages/059/page/work/evidence/9f89307967ee--explore-ab2752047523--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "060",
+      "criterion": "2.4.3",
+      "case": "c05",
+      "page": "p05.html",
+      "state": "third-level",
+      "target": "#level3-panel",
+      "checkpoint": "2.4.3-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/060/page/work/evidence/7228c3bc55de--explore-7639a3fdc6f4--desktop/state.json",
+            "pages/060/page/work/evidence/7228c3bc55de--explore-d10d81a03629--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/060/page/work/evidence/7228c3bc55de--explore-43c9bfe6092e--narrow/state.json",
+            "pages/060/page/work/evidence/7228c3bc55de--explore-cbf3f66cca7f--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "061",
+      "criterion": "2.4.3",
+      "case": "c06",
+      "page": "p06.html",
+      "state": "third-level",
+      "target": "#level3-panel",
+      "checkpoint": "2.4.3-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/061/page/work/evidence/dd7f5ae802ff--explore-115349eda1ef--desktop/state.json",
+            "pages/061/page/work/evidence/dd7f5ae802ff--explore-766115200b12--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/061/page/work/evidence/dd7f5ae802ff--explore-77355eb58dd2--narrow/state.json",
+            "pages/061/page/work/evidence/dd7f5ae802ff--explore-abc5862afcbf--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "062",
+      "criterion": "2.4.3",
+      "case": "c07",
+      "page": "p07.html",
+      "state": "inner-dialog",
+      "target": "#subject",
+      "checkpoint": "2.4.3-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/062/page/work/evidence/c09e911d9f80--explore-03a956e80489--desktop/state.json",
+            "pages/062/page/work/evidence/c09e911d9f80--explore-c343a1d4eb74--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/062/page/work/evidence/c09e911d9f80--explore-0a340e114a09--narrow/state.json",
+            "pages/062/page/work/evidence/c09e911d9f80--explore-ef8625f74f54--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "063",
+      "criterion": "2.4.3",
+      "case": "c08",
+      "page": "p08.html",
+      "state": "inner-dialog",
+      "target": "#subject",
+      "checkpoint": "2.4.3-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/063/page/work/evidence/74494ac49207--explore-0a4be0bf073f--desktop/state.json",
+            "pages/063/page/work/evidence/74494ac49207--explore-251aab38bc00--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/063/page/work/evidence/74494ac49207--explore-287c44e37700--narrow/state.json",
+            "pages/063/page/work/evidence/74494ac49207--explore-f49531270cfa--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "064",
+      "criterion": "2.4.3",
+      "case": "c09",
+      "page": "p09.html",
+      "state": "button-close-click",
+      "target": "#launch",
+      "checkpoint": "2.4.3-02",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/064/page/work/evidence/e634bd252c91--explore-1f065c18367b--desktop/transition.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/064/page/work/evidence/e634bd252c91--explore-1f065c18367b--desktop/dialog-focus.json",
+              "report_check": "ダイアログを閉じた後のフォーカス"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/064/page/work/evidence/e634bd252c91--explore-dd4787e246da--narrow/transition.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/064/page/work/evidence/e634bd252c91--explore-dd4787e246da--narrow/dialog-focus.json",
+              "report_check": "ダイアログを閉じた後のフォーカス"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "064",
+      "criterion": "2.4.3",
+      "case": "c09",
+      "page": "p09.html",
+      "state": "button-close-enter",
+      "target": "#launch",
+      "checkpoint": "2.4.3-02",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "064",
+      "criterion": "2.4.3",
+      "case": "c09",
+      "page": "p09.html",
+      "state": "button-close-space",
+      "target": "#launch",
+      "checkpoint": "2.4.3-02",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "065",
+      "criterion": "2.4.3",
+      "case": "c10",
+      "page": "p10.html",
+      "state": "button-close-click",
+      "target": "#launch",
+      "checkpoint": "2.4.3-02",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/065/page/work/evidence/94b9a4b07181--explore-2749c7e22ba4--desktop/transition.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/065/page/work/evidence/94b9a4b07181--explore-2749c7e22ba4--desktop/dialog-focus.json",
+              "report_check": "ダイアログを閉じた後のフォーカス"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/065/page/work/evidence/94b9a4b07181--explore-a3e3e8dec521--narrow/transition.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/065/page/work/evidence/94b9a4b07181--explore-a3e3e8dec521--narrow/dialog-focus.json",
+              "report_check": "ダイアログを閉じた後のフォーカス"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "065",
+      "criterion": "2.4.3",
+      "case": "c10",
+      "page": "p10.html",
+      "state": "button-close-enter",
+      "target": "#launch",
+      "checkpoint": "2.4.3-02",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "065",
+      "criterion": "2.4.3",
+      "case": "c10",
+      "page": "p10.html",
+      "state": "button-close-space",
+      "target": "#launch",
+      "checkpoint": "2.4.3-02",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "066",
+      "criterion": "2.4.13",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "after-focus",
+      "target": "#subject",
+      "checkpoint": "2.4.13-01",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "067",
+      "criterion": "2.4.13",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "after-focus",
+      "target": "#subject",
+      "checkpoint": "2.4.13-01",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "068",
+      "criterion": "2.5.8",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#target-a",
+      "checkpoint": "2.5.8-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/068/page/work/evidence/40d6da07d332--explore-eae69030636d--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/068/page/work/evidence/40d6da07d332--explore-b5a26d5a3bec--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "068",
+      "criterion": "2.5.8",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#target-b",
+      "checkpoint": "2.5.8-02",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/068/page/work/evidence/40d6da07d332--explore-eae69030636d--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/068/page/work/evidence/40d6da07d332--explore-b5a26d5a3bec--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "069",
+      "criterion": "2.5.8",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "initial",
+      "target": "#target-a",
+      "checkpoint": "2.5.8-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/069/page/work/evidence/647bdc96745d--explore-c70d3d30352f--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/069/page/work/evidence/647bdc96745d--explore-be2aece61051--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "069",
+      "criterion": "2.5.8",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "initial",
+      "target": "#target-b",
+      "checkpoint": "2.5.8-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/069/page/work/evidence/647bdc96745d--explore-c70d3d30352f--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/069/page/work/evidence/647bdc96745d--explore-be2aece61051--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "070",
+      "criterion": "2.5.8",
+      "case": "c05",
+      "page": "p05.html",
+      "state": "initial",
+      "target": "#subject",
+      "checkpoint": "2.5.8-02",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/070/page/work/evidence/0a2cafd7a25b--explore-ab98096d7c93--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/070/page/work/evidence/0a2cafd7a25b--explore-89e7fc135d89--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "071",
+      "criterion": "3.1.1",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "3.1.1-01",
+      "expected": "failed",
+      "status": "detected",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/071/page/work/evidence/c313d07960bc--explore-90ce17d61d67--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/071/page/work/evidence/c313d07960bc--explore-90ce17d61d67--desktop/axe.json",
+              "report_check": "axe / html-has-lang",
+              "observed": "Fix any of the following:\n  The <html> element does not have a lang attribute"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/071/page/work/evidence/c313d07960bc--explore-862b7af2bfcb--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "failed",
+              "evidence": "pages/071/page/work/evidence/c313d07960bc--explore-862b7af2bfcb--narrow/axe.json",
+              "report_check": "axe / html-has-lang",
+              "observed": "Fix any of the following:\n  The <html> element does not have a lang attribute"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "072",
+      "criterion": "3.1.1",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "initial",
+      "target": "html",
+      "checkpoint": "3.1.1-01",
+      "expected": "passed",
+      "status": "matched",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/072/page/work/evidence/9ccc4fbdcb35--explore-67e356ce8d81--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/072/page/work/evidence/9ccc4fbdcb35--explore-67e356ce8d81--desktop/axe.json",
+              "report_check": "axe / html-has-lang",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        },
+        "narrow": {
+          "reached": [
+            "pages/072/page/work/evidence/9ccc4fbdcb35--explore-f7c50a80bc03--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": [
+            {
+              "outcome": "passed",
+              "evidence": "pages/072/page/work/evidence/9ccc4fbdcb35--explore-f7c50a80bc03--narrow/axe.json",
+              "report_check": "axe / html-has-lang",
+              "observed": "axeのルールを通過。"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "page_id": "073",
+      "criterion": "3.2.1",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "after-focus",
+      "target": "#subject",
+      "checkpoint": "3.2.1-02",
+      "expected": "failed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "074",
+      "criterion": "3.2.1",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "after-focus",
+      "target": "#subject",
+      "checkpoint": "3.2.1-02",
+      "expected": "passed",
+      "status": "state_or_route_unobserved",
+      "environments": {
+        "desktop": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "075",
+      "criterion": "4.1.2",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "after-open",
+      "target": "#subject",
+      "checkpoint": "4.1.2-01",
+      "expected": "failed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/075/page/work/evidence/4b3eb004e48e--explore-f0e8e0d16933--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/075/page/work/evidence/4b3eb004e48e--explore-0f060dee2c64--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    },
+    {
+      "page_id": "076",
+      "criterion": "4.1.2",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "after-open",
+      "target": "#subject",
+      "checkpoint": "4.1.2-01",
+      "expected": "passed",
+      "status": "observed_no_verdict",
+      "environments": {
+        "desktop": {
+          "reached": [
+            "pages/076/page/work/evidence/0f46b045493f--explore-3fba72e4ae91--desktop/state.json",
+            "pages/076/page/work/evidence/0f46b045493f--explore-624a84847104--desktop/state.json",
+            "pages/076/page/work/evidence/0f46b045493f--explore-fe0798da404f--desktop/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        },
+        "narrow": {
+          "reached": [
+            "pages/076/page/work/evidence/0f46b045493f--explore-4c9eb03ebec1--narrow/state.json",
+            "pages/076/page/work/evidence/0f46b045493f--explore-619afbe1241b--narrow/state.json",
+            "pages/076/page/work/evidence/0f46b045493f--explore-e3ada3a02384--narrow/state.json"
+          ],
+          "key_dispatch": [],
+          "verdicts": []
+        }
+      }
+    }
+  ]
+}

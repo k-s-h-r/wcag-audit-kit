@@ -12,18 +12,22 @@ from urllib.parse import urldefrag, urlsplit
 
 from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, SOFTWARE_COMPOSITING, capture_image, normalize, page_id
-from input_observation import INIT_SCRIPT, InputObserver
 import border_contrast
 import disclosure_close
 import dialog_focus
 import focus_image_pair
 import focus_occlusion
 import hover_checks
+import input_observation
 import keyboard_checks
 import keyboard_frames
+import keyboard_function
+import keyboard_trap
+import measure
 import combobox
 import operation_impact
 import state_labels
+import target_spacing
 import text_paint
 import visual_structure
 
@@ -44,6 +48,12 @@ def fingerprint(value):
     state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
     if references := value.get('operation_reference_inputs'):
         state['reference_inputs'] = references
+    if resolved := value.get('operation_aria_controls_resolved'):
+        state['resolved_aria_controls'] = sorted({tuple(reference) for reference in resolved})
+    if native_modals := value.get('native_modals'):
+        state['native_modals'] = native_modals
+        if len(native_modals) > 1:
+            state['native_modal_observation'] = value.get('native_modal_observation')
     if shape := value.get('visual_structure_shape'):
         state['visual_structure_shape'] = shape
     if focused_tab := value.get('focused_horizontal_tab'):
@@ -114,7 +124,7 @@ def is_telemetry(request, page_url):
             or (target.scheme, target.netloc) == (page.scheme, page.netloc) and target.path == '/cdn-cgi/rum')
 
 
-async def press_observed_key(page, target, action, observer, effect):
+async def press_observed_key(page, target, action, observer, effect, *, function_result=None, toggle=None):
     from playwright.async_api import Error as BrowserError
 
     handle = None
@@ -124,10 +134,19 @@ async def press_observed_key(page, target, action, observer, effect):
         if handle is not None:
             await handle.evaluate('(e) => { window.__wcagExpectedInputTarget = e; }')
             before = await handle.evaluate(KEY_STATE)
+            if function_result is not None:
+                function_result['before'] = await handle.evaluate('(e) => window.__wcagFunctionOutput("before", e)')
+            if toggle is not None:
+                disclosure = await handle.evaluate('(e) => window.__wcagDisclosure(e, false)')
+                if disclosure and disclosure['content_toggle']:
+                    toggle.update(before=disclosure, after=None)
     first_event = len(observer.events)
     try:
         await page.keyboard.press(action['key'])
         wait = await page.evaluate('() => window.__wcagWaitForUpdates()')
+        if toggle:
+            with suppress(BrowserError):
+                toggle['after'] = await handle.evaluate('(e) => window.__wcagDisclosure(e, false)')
         if handle is not None and before and wait['status'] == 'quiet':
             with suppress(BrowserError):
                 after = await handle.evaluate(KEY_STATE)
@@ -146,11 +165,17 @@ async def press_observed_key(page, target, action, observer, effect):
                 await handle.dispose()
 
 
-async def perform(page, action, *, observer=None, key_effect=None):
+async def perform(page, action, *, observer=None, key_effect=None, function_result=None, toggle=None):
     target=page.locator(action['selector'])
     if action['type']=='scroll':await page.evaluate('(p)=>scrollTo(p.x,p.y)',action)
     elif action['type']=='press':await page.keyboard.press(action['key'])
-    elif action['type']=='click':await target.click(timeout=1800)
+    elif action['type']=='click':
+        if function_result is not None:
+            function_result['before'] = await target.evaluate('''(e) => {
+                window.__wcagExpectedInputTarget = e;
+                return window.__wcagFunctionOutput("before", e);
+            }''', timeout=1800)
+        await target.click(timeout=1800)
     elif action['type']=='hover':await target.hover(timeout=1800)
     elif action['type']=='fill':
         await target.fill(action['value'],timeout=1800);await target.press('Tab')
@@ -165,40 +190,57 @@ async def perform(page, action, *, observer=None, key_effect=None):
             await page.keyboard.press('Tab')
         if not reached:raise KeyboardUnreachable(TAB_UNREACHABLE)
         if key_effect is not None:
-            return await press_observed_key(page, target, action, observer, key_effect)
+            return await press_observed_key(page, target, action, observer, key_effect,
+                                            function_result=function_result, toggle=toggle)
         await page.keyboard.press(action['key'])
     else:raise ValueError('未対応の探索操作')
     return await page.evaluate('() => window.__wcagWaitForUpdates()')
 
 
-async def record_tab_trace(page, dest, limit, blocked, native_events):
+async def record_tab_trace(page, dest, limit, blocked, native_events, observer):
     """Save partial Tab observations separately from the completed state capture."""
     import audit
     from playwright.async_api import Error as BrowserError
 
     trace = []
     stop = None
-    for step in range(1, limit + 1):
-        before_blocked, before_native = len(blocked), len(native_events)
-        error = None
-        try:
-            await page.keyboard.press('Tab')
-            observation = await page.evaluate(FOCUS)
-        except BrowserError as exc:
-            error = str(exc)
-        blocked_during_step = blocked[before_blocked:]
-        native_during_step = native_events[before_native:]
-        if error or blocked_during_step or native_during_step:
-            stop = {'step': step, 'key': 'Tab', 'error': error,
-                    'blocked_requests': blocked_during_step, 'native_events': native_during_step}
-            audit.save(dest/'keyboard-trace-stop.json', stop)
-            break
-        trace.append(observation)
+    child_frame_observed = len(page.frames) > 1
+
+    def observe_child_frame(_):
+        nonlocal child_frame_observed
+        child_frame_observed = True
+
+    page.on('frameattached', observe_child_frame)
+    try:
+        for step in range(1, limit + 1):
+            before_blocked, before_native = len(blocked), len(native_events)
+            first_event, source_url = len(observer.events), page.url
+            error = None
+            try:
+                if step == 1:
+                    await page.evaluate('() => window.__wcagStartTabFocusTrace?.()')
+                await page.keyboard.press('Tab')
+                observation = await page.evaluate(FOCUS)
+            except BrowserError as exc:
+                error = str(exc)
+            blocked_during_step = blocked[before_blocked:]
+            native_during_step = native_events[before_native:]
+            if error or blocked_during_step or native_during_step:
+                stop = {'step': step, 'key': 'Tab', 'error': error, 'child_frame_observed': child_frame_observed,
+                        'blocked_requests': blocked_during_step, 'native_events': native_during_step}
+                if not (native_during_step or child_frame_observed) and (
+                        attempt := input_observation.blocked_tab_focus(observer, first_event, blocked_during_step, source_url)):
+                    stop['focus_navigation'] = attempt
+                audit.save(dest/'keyboard-trace-stop.json', stop)
+                break
+            trace.append(observation)
+    finally:
+        page.remove_listener('frameattached', observe_child_frame)
     audit.save(dest/'keyboard.json', trace)
     return stop
 
 
-async def observe_scroll_and_tab(page, dest, data, env, images, label, limit, blocked, native_events, remaining):
+async def observe_scroll_and_tab(page, dest, data, env, images, label, limit, blocked, native_events, observer, remaining):
     import audit
 
     # Actual scroll/tile captures reveal sticky/viewport-only content.
@@ -213,11 +255,17 @@ async def observe_scroll_and_tab(page, dest, data, env, images, label, limit, bl
         remaining.append(f'{env["id"]}：21画面目以降はスクロール後の表示を追加調査する。')
     if any(i['status']=='skipped' for i in images.summary['screenshots'] if i['path'].startswith(str(dest.relative_to(images.run))+'/')):
         remaining.append(f'{dest.name}：画像設定又は上限で未観察の表示がある。')
-    trace_stop = await record_tab_trace(page, dest, limit, blocked, native_events)
+    trace_stop = await record_tab_trace(page, dest, limit, blocked, native_events, observer)
     if trace_stop:
         evidence = (dest/'keyboard-trace-stop.json').relative_to(images.run).as_posix()
-        remaining.append(f'{dest.name}：補助のTab観察は{trace_stop["step"]}回目で中断。'
-                                  f'以降は未確認（証拠: {evidence}）。')
+        point = f'{dest.name}：補助のTab観察は{trace_stop["step"]}回目で中断。'
+        if attempt := trace_stop.get('focus_navigation'):
+            target = attempt['target']
+            focus_target = '#' + target['id'] if target['id'] else target['tag']
+            point += (f'Tabの観察中に{focus_target}へフォーカスが移った。'
+                      'フォーカスイベントの配信中にメインフレームで別文書への移動が要求された。'
+                      '通信を遮断したため移動先の表示は未確認。')
+        remaining.append(f'{point}以降は未確認（証拠: {evidence}）。')
 
 
 QUICK_PENDING_PER_ENVIRONMENT = 12
@@ -266,8 +314,34 @@ def keyboard_opening_key(edge):
     return edge['environment'], edge['fingerprint'], edge['route'][-1]['selector'], edge['focus_after']
 
 
+def reserve_nested_escape(queue, node, observation):
+    route = node['route'] + [{'type': 'click', 'selector': observation['focus']}]
+    for job in queue:
+        if job['environment'] == node['environment'] and job['route'] == route and job.get('newly_available'):
+            job.pop('newly_available')
+            job['nested_escape_deferred_click'] = True
+            node['nested_escape_slot'] = dict(observation, route=route)
+            return
+
+
+def promote_nested_escape(queue, parent, route):
+    slot = parent['nested_escape_slot']
+    env = parent['environment']
+    if slot.get('used') or not any(job['environment'] == env and job['route'] == slot['route']
+                                  and job.get('nested_escape_deferred_click') for job in queue):
+        return
+    escape = route + [{'type': 'press', 'selector': 'body', 'key': 'Escape'}]
+    for index, job in enumerate(queue):
+        if job['environment'] == env and job['route'] == escape and job.get('dialog_focus') == 'escape':
+            job['prioritized_nested_escape'] = True
+            queue.insert(1, queue.pop(index))
+            slot['used'] = True
+            return
+
+
 def queue_state_actions(value, node, data, env, queued, done, *, quick=False, parent=None, max_depth=30,
-                        keyboard_continuation=False, repeated_state=False, combo_record=None):
+                        keyboard_continuation=False, repeated_state=False, combo_record=None,
+                        content_keyboard_opening=False, keyboard_modal_opening=False):
     route = node['route']
     capture_key = node['capture']
     env_id = env['id']
@@ -303,7 +377,10 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
         if combo_open or combo_panel is not None:
             job['combobox_check'] = True
             job['combobox_panel'] = combo_panel
-        value['queue'].append(job)
+        if keyboard_modal_opening and dialog_focus == 'escape':
+            value['queue'].insert(1, job)
+        else:
+            value['queue'].append(job)
         queued.add(ident)
         pending += 1
 
@@ -313,9 +390,14 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             action = {'type': 'key', 'selector': opener, 'key': key, 'focused_only': True}
             enqueue(action, keyboard_followup=True, combo_panel=combo_record['after']['panel_id'])
 
-    if data['modal'] and not repeated_state:
-        enqueue({'type': 'press', 'selector': 'body', 'key': 'Escape'}, dialog_focus='escape')
+    if data['modal'] and (not repeated_state or keyboard_modal_opening):
+        enqueue({'type': 'press', 'selector': 'body', 'key': 'Escape'}, dialog_focus='escape',
+                keyboard_followup=keyboard_modal_opening)
+    if keyboard_continuation and content_keyboard_opening:
+        enqueue({'type': 'press', 'selector': 'body', 'key': 'Tab'}, keyboard_followup=True)
     controls = data['controls']
+    initial_output = quick and not route and keyboard_function.numeric_output(data)
+    companion_keys = []
     if quick or keyboard_continuation:
         controls = sorted(controls, key=lambda control: (
             control['selector'] in previous_controls, not disclosure_candidate(control)))
@@ -333,7 +415,15 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             value['remaining'].append(f'{env_id} / {selector}：{reason}')
         if quick:
             selected = list(quick_candidates(control, candidates, focused_tab))
-            omitted['input_variations'] += len(candidates) - len(selected)
+            companions = []
+            if initial_output and selector != focused_tab:
+                # The companion activation key can be the only route to the same result.
+                already_selected = {action['key'] for action in selected if action['type'] == 'key'}
+                if already_selected.intersection(keyboard_function.ACTIVATION_KEYS):
+                    companions = [action for action in candidates
+                                  if action.get('key') in keyboard_function.ACTIVATION_KEYS - already_selected]
+                    companion_keys.extend(companions)
+            omitted['input_variations'] += len(candidates) - len(selected) - len(companions)
             candidates = selected
         newly_available = quick and bool(route) and selector not in previous_controls
         for action in candidates:
@@ -345,8 +435,11 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             enqueue(action, dialog_focus=phase, newly_available=newly_available,
                     keyboard_followup=followup or combo_open, combo_open=combo_open)
 
-    if keyboard_continuation:
+    if keyboard_continuation and not content_keyboard_opening:
         enqueue({'type': 'press', 'selector': 'body', 'key': 'Tab'}, keyboard_followup=True)
+
+    for action in companion_keys:
+        enqueue(action)
 
     # A real scroll can reveal lazy content even if the initial screenshot was full-page.
     positions = {(0, env['viewport']['height']),
@@ -362,17 +455,23 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
 
 
 def queue_disclosure_close(value, edge, observation, queued, done, *, quick, max_depth):
-    path = edge['route'] + [{'type': 'press', 'selector': 'body', 'key': 'Escape'}]
+    action = {'type': 'press', 'selector': 'body', 'key': 'Escape'}
+    metadata = dict(disclosure_opener=observation['opener'], disclosure_panel=observation['panel'])
+    queue_disclosure_step(value, edge, action, metadata, queued, done, quick=quick, max_depth=max_depth)
+
+
+def queue_disclosure_step(value, edge, action, metadata, queued, done, *, quick, max_depth, extra_steps=0):
+    path = edge['route'] + [action]
     env = edge['environment']
     ident = json.dumps([env, path], sort_keys=True)
     if ident in queued or ident in done:
         return
-    if len(path) > (max_depth if quick else 30):
+    if len(path) + extra_steps > (max_depth if quick else 30):
         if quick:
             omitted = value.setdefault('omitted_candidates', {})
             omitted['depth'] = omitted.get('depth', 0) + 1
         else:
-            value['remaining'].append(f'{env}：深さ30を超えるEscapeの追加検査が必要。')
+            value['remaining'].append(f"{env}：深さ30を超える {action['key']} の追加検査が必要。")
         return
     if quick:
         pending = sum(job['environment'] == env and bool(job['route']) and job['route'] != edge['route']
@@ -381,8 +480,7 @@ def queue_disclosure_close(value, edge, observation, queued, done, *, quick, max
             omitted = value.setdefault('omitted_candidates', {})
             omitted['frontier'] = omitted.get('frontier', 0) + 1
             return
-    value['queue'].append(dict(environment=env, route=path, keyboard_followup=True,
-                               disclosure_opener=observation['opener'], disclosure_panel=observation['panel']))
+    value['queue'].append(dict(environment=env, route=path, keyboard_followup=True, **metadata))
     queued.add(ident)
 
 
@@ -421,7 +519,7 @@ def status(run):
 async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, initial_only=False,
                    start_exploration=False, quick_explore=False):
     import audit
-    from playwright.async_api import async_playwright
+    from playwright.async_api import Error as BrowserError, async_playwright
     run=Path(run);meta,_=audit.run_catalog(run,for_write=True);config=meta['config'];url=config['scope']['pages'][0]
     if config['scope'].get('mode')!='configured' or len(config['scope']['pages'])!=1:
         raise ValueError('探索はconfiguredの1ページで実行する')
@@ -436,11 +534,13 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
     visual_scope = config.get('visual_structure_scope')
     observe_explored_structure = config.get('visual_structure_states') == 'explored'
     sources = [Path(path).read_text() for path in (
-        __file__, combobox.__file__, keyboard_checks.__file__, keyboard_frames.__file__,
-        hover_checks.__file__, dialog_focus.__file__,
+        __file__, input_observation.__file__, combobox.__file__, keyboard_checks.__file__,
+        keyboard_frames.__file__, keyboard_function.__file__,
+        hover_checks.__file__, dialog_focus.__file__, keyboard_trap.__file__,
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
-        visual_structure.__file__, operation_impact.__file__, disclosure_close.__file__, ROOT/'vendor/axe.min.js')]
-    implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
+        visual_structure.__file__, operation_impact.__file__, disclosure_close.__file__, target_spacing.__file__,
+        measure.__file__, ROOT/'vendor/axe.min.js')]
+    implementation = sha256((SCRIPT + FOCUS + INVENTORY + ''.join(sources)).encode()).hexdigest()
     initial_jobs = [{'environment': env['id'], 'route': []} for env in config['environments']]
     declared_jobs = {'keyboard_check': checks, 'hover_check': hover_paths,
                      'border_check': border_paths, 'text_check': text_paths}
@@ -491,6 +591,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
             captured_routes.setdefault(json.dumps([edge['environment'], edge['route']], sort_keys=True), prior)
     keyboard_openings = {keyboard_opening_key(edge) for edge in value['edges'] if edge.get('continued_keyboard_opening')}
     operation_counts = Counter(edge['environment'] for edge in value['edges'] if edge['route'])
+    keyboard_modal_openings = {(edge['environment'], edge['fingerprint']) for edge in value['edges']
+                               if edge.get('continued_keyboard_modal')}
     done={json.dumps([e['environment'],e['route']],sort_keys=True) for e in value['edges']}
     queued={json.dumps([j['environment'],j['route']],sort_keys=True) for j in value['queue']}
     if value.get('deferred') and start_exploration:
@@ -552,9 +654,9 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 text_record = dict(text_check, status='hold', observed='測定に必要な状態を確認できない。') if text_check else None
                 allowed_navigation={urldefrag(normalize(url))[0]}
                 context=await browser.new_context(viewport=env['viewport'],locale=config.get('locale','ja-JP'),storage_state=config.get('auth_state'),service_workers='block',accept_downloads=False)
-                observer=InputObserver(10000);blocked=[]
+                observer=input_observation.InputObserver(10000);blocked=[]
                 await context.expose_binding('__wcagAuditInput',observer.accept)
-                await context.add_init_script(INIT_SCRIPT);await context.add_init_script(SCRIPT)
+                await context.add_init_script(input_observation.INIT_SCRIPT);await context.add_init_script(SCRIPT)
                 freeze_requests = False
                 async def guard(request_route):
                     request=request_route.request
@@ -562,8 +664,15 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     allowed_method=request.method in {'GET','HEAD','OPTIONS'}
                     allowed_document=urldefrag(normalize(request.url))[0] in allowed_navigation
                     if freeze_requests or not allowed_method or (navigation and not declared and not allowed_document):
-                        blocked.append({'method': request.method, 'url': request.url,
-                                        'telemetry': not freeze_requests and is_telemetry(request, url)})
+                        decision = {'method': request.method, 'url': request.url, 'resource_type': request.resource_type,
+                                    'telemetry': not freeze_requests and is_telemetry(request, url)}
+                        if navigation:
+                            decision['is_main_frame'] = None
+                            with suppress(BrowserError):
+                                decision['is_main_frame'] = request.frame == page.main_frame
+                            if not freeze_requests and allowed_method:
+                                decision['reason'] = 'navigation_out_of_scope'
+                        blocked.append(decision)
                         await request_route.abort()
                     elif declared and navigation:
                         # Playwright does not dispatch route handlers for every HTTP redirect.
@@ -584,9 +693,16 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 action_index = unreachable_step = None
                 combo_record = dict(key=route[-1]['key'], before=None, after=None) if job.get('combobox_check') else None
                 key_effect = {}
+                nested_parent_input = None
+                nested_child_opened = False
+                function_result = None
                 before_operation = None
                 impact = None
                 disclosure_at_tab = None
+                toggle_record = {}
+                return_record = None
+                toggle_target = job.get('toggle_return')
+                toggle_close = job.get('toggle_close', False)
                 close_record = {'before': None, 'after': None} if job.get('disclosure_opener') else None
                 escape_input = False
                 async def dismiss_dialog(dialog):
@@ -647,7 +763,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     elif initial_input:
                         current = await page.evaluate('() => window.__wcagExplore()')
                         await observe_scroll_and_tab(page, dest, current, env, images, None,
-                            min(config.get('keyboard_steps', 30), 120), blocked, native_events, value['remaining'])
+                            min(config.get('keyboard_steps', 30), 120), blocked, native_events, observer, value['remaining'])
                     else:
                         for action_index, action in enumerate(route, 1):
                             capture_action = (
@@ -672,12 +788,17 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 ):
                                     raise ValueError('キー入力の前に同じコンボボックスの候補を再現できない。')
                             if quick and action_index == len(route):
-                                before_operation, document_start = await page.evaluate("""() => {
-                                    const before = window.__wcagExplore('before');
+                                before_operation, document_start = await page.evaluate("""mode => {
+                                    const before = window.__wcagExplore(mode);
                                     window.__wcagBeginOperation();
                                     return [before, performance.timeOrigin];
-                                }""")
+                                }""", True if phase == 'escape' else 'before')
                                 operation_impact.compact(before_operation)
+                                if (len(route) == 1 and keyboard_function.activation(action)
+                                        and (result_output := keyboard_function.numeric_output(before_operation))):
+                                    function_result = dict(start=fingerprint(before_operation),
+                                                           initial_value=result_output['value'].strip(),
+                                                           first_event=len(observer.events))
                             closing = close_record is not None and action_index == len(route)
                             if closing:
                                 before = await disclosure_close.observe(page, job['disclosure_opener'], expect_input=True)
@@ -687,8 +808,33 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 first_escape_event = len(observer.events)
                             observe_key = (action_index == len(route) and action['type'] == 'key'
                                            and (observe_combo or all(step['type'] in {'key', 'press'} for step in route)))
+                            returning = toggle_target and action_index == len(route) - int(toggle_close)
+                            if returning:
+                                before = await disclosure_close.observe(page, toggle_target['opener'], expect_input=True)
+                                return_record = {'before': before, 'after': None, 'event_index': None}
+                                first_return_event = len(observer.events)
+                            if toggle_close and action_index == len(route):
+                                before = await disclosure_close.observe(page, toggle_target['opener'])
+                                if (not disclosure_close.same_panel(return_record['after'], before)
+                                        or not disclosure_close.content_open(before)
+                                        or before['focus'] != toggle_target['opener']):
+                                    raise ValueError('閉じるキーの前に同じ開閉ボタンと領域を確認できない。')
+                            observe_toggle = observe_key and action['key'] in {'Enter', 'Space'}
                             settling.append(await perform(page, action, observer=observer,
-                                                         key_effect=key_effect if observe_key else None))
+                                                         key_effect=key_effect if observe_key else None,
+                                                         function_result=function_result,
+                                                         toggle=toggle_record if observe_toggle else None))
+                            if function_result is not None and function_result.get('before'):
+                                function_result['after'] = await page.evaluate('() => window.__wcagFunctionOutput("after")')
+                            if returning:
+                                await page.evaluate('() => { window.__wcagExpectedInputTarget = null; }')
+                                return_record['after'] = await disclosure_close.observe(page, toggle_target['opener'])
+                                return_record['event_index'] = next((index for index in range(first_return_event, len(observer.events))
+                                    if observer.events[index].get('expectedTargetMatched') is True
+                                    and keyboard_checks.matching_keydown(observer.events[index], 'Shift+Tab')), None)
+                                if toggle_close and (observer.dropped or not disclosure_close.returned_to_opener(
+                                        return_record, toggle_target)):
+                                    raise ValueError('Shift+Tabで同じ開閉ボタンへ戻れたことを確認できない。')
                             if closing:
                                 await page.evaluate('() => { window.__wcagExpectedInputTarget = null; }')
                                 close_record['after'] = await disclosure_close.observe(page, job['disclosure_opener'])
@@ -722,6 +868,21 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         data['observation_wait']=settling
                         data['state_labels']=label_observations
                         inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
+                        if (quick and data['modal'] and 1 <= len(route) <= 2 and not blocked and not native_events
+                                and impact and not impact['new_document'] and before_operation['url'] == data['url']
+                                and all(action['type'] == 'click' for action in route)
+                                and all(wait['status'] == 'quiet' for wait in settling)):
+                            prior = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True))
+                            with suppress(BrowserError):
+                                if len(route) == 1 and prior is not None and not prior.get('modal'):
+                                    hint = await page.evaluate('() => window.__wcagNestedParentInput()')
+                                    if hint and hint['parent'] == data['modal'] and hint['focus'] == data['focus']['selector']:
+                                        nested_parent_input = hint
+                                elif dialog_observation and prior is not None and prior['route'] == route[:-1]:
+                                    slot = prior.get('nested_escape_slot')
+                                    if slot and not slot.get('used') and slot['child'] == data['modal']:
+                                        nested_child_opened = await dialog_observation.opened_expected_child(
+                                            slot['parent'], slot['child'])
                         capture_structure = visual_scope and (not route or observe_explored_structure)
                         prepared_structure = None
                         structure_deadline = None
@@ -741,17 +902,31 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 shape = visual_structure.candidate_shape(prepared_structure)
                                 if shape:
                                     data['visual_structure_shape'] = shape
+                        if len(data.get('native_modals', [])) > 1:
+                            # DOM order does not identify the topmost native modal.
+                            data['native_modal_observation'] = attempt
                         audit.save(dest/'state.json',data)
                         state_key = (env['id'], fingerprint(data))
                         if impact is not None and state_key in seen and not matched_labels:
                             impact['axe'] = {'mode': 'same_state', 'baseline': seen[state_key]['evidence_dir'] + '/axe.json'}
-                        if state_key not in seen or matched_labels:
+                        capture_state = state_key not in seen or matched_labels
+                        if capture_state:
                             if capture_structure:
                                 structure_observation = await visual_structure.observe(
                                     page, visual_scope, prepared_structure, deadline=structure_deadline)
                             # Capture the audited state before diagnostic scrolling changes the DOM.
                             cdp=await context.new_cdp_session(page)
-                            audit.save(dest/'accessibility-tree.json',await cdp.send('Accessibility.getFullAXTree'));await cdp.detach()
+                            try:
+                                audit.save(dest/'accessibility-tree.json', await cdp.send('Accessibility.getFullAXTree'))
+                                if (not route and not blocked and not native_events and data['url'] == inv['url']
+                                        and urldefrag(normalize(page.url))[0] in allowed_navigation
+                                        and all(wait['status'] == 'quiet' for wait in settling)):
+                                    with suppress(BrowserError):
+                                        spacing = await target_spacing.observe(page, cdp, data, env['id'])
+                                        if spacing:
+                                            audit.save(dest/target_spacing.EVIDENCE_FILE, spacing)
+                            finally:
+                                await cdp.detach()
                             await page.evaluate((ROOT/'vendor/axe.min.js').read_text())
                             baseline = None
                             reused = {}
@@ -779,9 +954,16 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             full_page = not route or data['scroll']['height'] <= env['viewport']['height'] * 20
                             await images.capture(page, dest/'page.png', kind='state' if route else 'initial',
                                                  label=action_label, full_page=full_page)
-                            if not initial_only:
+                        additional_keys = False
+                        if (dialog_observation and not blocked and not native_events
+                                and all(wait['status'] == 'quiet' for wait in settling)):
+                            additional_keys = await dialog_observation.observe_keyboard_trap()
+                        if capture_state and not initial_only:
+                            if additional_keys:
+                                value['remaining'].append(f'{dest.name}：ダイアログ離脱の追加操作を記録。元の状態からの補助スクロールとTabは別経路で確認する。')
+                            else:
                                 await observe_scroll_and_tab(page, dest, data, env, images, action_label,
-                                    min(config.get('keyboard_steps', 30), 120), blocked, native_events, value['remaining'])
+                                    min(config.get('keyboard_steps', 30), 120), blocked, native_events, observer, value['remaining'])
                 except KeyboardUnreachable as exc:
                     error = str(exc)
                     unreachable_step = action_index
@@ -814,11 +996,24 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             for field in ('ratio', 'threshold', 'threshold_met'):
                                 text_record.pop(field, None)
                         audit.save(dest/'text-contrast.json', text_record)
+                    nested_evidence = None
                     if dialog_observation:
                         if interrupted_reason:
                             dialog_observation.invalidate(interrupted_reason)
+                            if receipt := dialog_observation.record.get('keyboard_trap'):
+                                receipt.update(outcome='cant_tell', reason=interrupted_reason)
                         elif any(wait['status'] != 'quiet' for wait in settling):
                             dialog_observation.invalidate('キー入力後の表示更新が観察範囲に収まらない。')
+                        elif before_operation and (receipt := dialog_observation.record.get('keyboard_trap')):
+                            before = receipt['before']
+                            focus = before_operation.get('deep_focus') or before_operation['focus']['selector']
+                            if (before['url'] == before_operation['url'] and before['modals'] == [before_operation['modal']]
+                                    and before['focus'] == focus and before['document_start'] == document_start):
+                                receipt['before_fingerprint'] = fingerprint(before_operation)
+                        elif observation := dialog_observation.nested_observation:
+                            path = dest / dialog_focus.NESTED_EVIDENCE_FILE
+                            audit.save(path, observation)
+                            nested_evidence = path.relative_to(run).as_posix()
                         audit.save(dest/dialog_focus.EVIDENCE_FILE, dialog_observation.record)
                     if structure_observation is not None or (visual_scope and not (declared or route)):
                         if interrupted_reason:
@@ -826,8 +1021,14 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         if structure_observation is not None:
                             audit.save(dest/visual_structure.EVIDENCE_FILE, structure_observation)
                     edge = dict(job, error=error, blocked_requests=blocked, native_events=native_events)
+                    if nested_evidence:
+                        edge['nested_dialog_evidence'] = nested_evidence
                     if key_effect:
                         edge['key_effect'] = key_effect
+                    if function_result is not None:
+                        keyboard_function.finish(function_result, route[0], key_effect, observer, settling,
+                                                 interrupted_reason)
+                        edge['function_result'] = function_result
                     opened_with_key = not combo_record and keyboard_opening(key_effect)
                     quiet_key_route = (not error and not native_events
                                        and all(request.get('telemetry') is True for request in blocked)
@@ -840,6 +1041,12 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     if close_record is not None:
                         disclosure_close.finish(close_record, quiet_key_route and escape_input)
                         edge['disclosure_close'] = close_record
+                    if toggle_record:
+                        edge['disclosure_toggle'] = disclosure_close.toggle_result(
+                            toggle_record['before'], toggle_record['after'], quiet_key_route and bool(key_effect)
+                            and not observer.dropped)
+                    if return_record is not None:
+                        edge['disclosure_return'] = return_record
                     if unreachable_step is not None:
                         edge['keyboard_unreachable_step'] = unreachable_step
                     if combo_record is not None:
@@ -888,9 +1095,22 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         else:
                             value['queue'].append(followup)
                         queued.add(ident)
+                if (quiet_key_route and disclosure_close.content_open(disclosure_at_tab)
+                        and disclosure_at_tab['focus'] != disclosure_at_tab['opener']
+                        and route[-2]['key'] in {'Enter', 'Space'}):
+                    target = dict(opener=disclosure_at_tab['opener'], panel=disclosure_at_tab['panel'],
+                                  focus=disclosure_at_tab['focus'], key=route[-2]['key'])
+                    action = {'type': 'press', 'selector': 'body', 'key': 'Shift+Tab'}
+                    queue_disclosure_step(value, edge, action, {'toggle_return': target}, queued, done,
+                                          quick=quick, max_depth=max_depth, extra_steps=1)
                 if quiet_key_route and disclosure_close.ready(disclosure_at_tab):
                     queue_disclosure_close(value, edge, disclosure_at_tab, queued, done,
                                            quick=quick, max_depth=max_depth)
+                if (quiet_key_route and return_record is not None and not toggle_close and not observer.dropped
+                        and disclosure_close.returned_to_opener(return_record, toggle_target)):
+                    action = dict(type='key', selector=toggle_target['opener'], key=toggle_target['key'], focused_only=True)
+                    metadata = dict(toggle_return=toggle_target, toggle_close=True)
+                    queue_disclosure_step(value, edge, action, metadata, queued, done, quick=quick, max_depth=max_depth)
                 value['edges'].append(edge);value['steps']+=1
                 if route:
                     operation_counts[env['id']] += 1
@@ -905,6 +1125,21 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     edge['fingerprint'] = state_key[1]
                     matched_labels=state_labels.verified(labels,route,data.get('state_labels',[]))
                     parent = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True)) if route else None
+                    opened_modal = (parent is not None and not parent.get('modal') and data['modal']
+                                    and keyboard_trap.prioritize_opening(data))
+                    if quick and opened_modal and route[-1]['type'] == 'click':
+                        opener = {'type': 'key', 'selector': route[-1]['selector'], 'key': 'Enter'}
+                        for pending_job in value['queue']:
+                            if pending_job['environment'] == env['id'] and pending_job['route'] == route[:-1] + [opener]:
+                                pending_job['keyboard_followup'] = True
+                                break
+                    keyboard_modal_opening = (opened_modal
+                                              and quiet_key_route and bool(key_effect)
+                                              and route[-1].get('key') in {'Enter', 'Space'}
+                                              and state_key not in keyboard_modal_openings)
+                    if keyboard_modal_opening:
+                        keyboard_modal_openings.add(state_key)
+                        edge['continued_keyboard_modal'] = True
                     keyboard_continuation = False
                     if parent is not None and opened_with_key and quiet_key_route:
                         opening = keyboard_opening_key(edge)
@@ -916,20 +1151,30 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     if new_capture:
                         state='initial' if not route else 'explore-'+attempt
                         capture_key=f'{pid}--{state}--{env["id"]}'
-                        node=dict(job,fingerprint=state_key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'],state_labels=matched_labels)
+                        node=dict(job,fingerprint=state_key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'],state_labels=matched_labels,modal=data['modal'])
                         seen[state_key]=node;value['nodes'].append(node)
-                        manifest['captures'].append(dict(key=capture_key,page_id=pid,url=url,state=state,environment=env['id'],
-                            execution='completed',collection_state='finished',evidence_dir=str(dest.relative_to(run))))
+                        capture = dict(key=capture_key,page_id=pid,url=url,state=state,environment=env['id'],
+                            execution='completed',collection_state='finished',evidence_dir=str(dest.relative_to(run)),
+                            browser_version=browser.version)
+                        if inv['url'] and inv['url'] == data.get('url') == results.get('url'):
+                            capture['final_url'] = inv['url']
+                        manifest['captures'].append(capture)
                         for feature in ['frames','canvases','closedRoots']:
                             if data[feature]:value['remaining'].append(f'{capture_key}：{feature}の内部を追加検査する。')
                     node = seen[state_key]
-                    if not initial_only and (new_capture or keyboard_continuation or
+                    if not initial_only and (new_capture or keyboard_continuation or keyboard_modal_opening or
                                              combo_record and combo_record.get('followups')):
                         route_node = node if new_capture else dict(node, route=route)
                         queue_state_actions(value, route_node, data, env, queued, done,
                                             quick=quick, parent=parent, max_depth=max_depth,
                                             keyboard_continuation=keyboard_continuation, repeated_state=not new_capture,
-                                            combo_record=combo_record)
+                                            keyboard_modal_opening=keyboard_modal_opening,
+                                            combo_record=combo_record, content_keyboard_opening=(
+                                                edge.get('disclosure_toggle', {}).get('status') == 'opened'))
+                        if nested_parent_input:
+                            reserve_nested_escape(value['queue'], node, nested_parent_input)
+                        elif nested_child_opened:
+                            promote_nested_escape(value['queue'], parent, route)
                     captured_routes[json.dumps([env['id'], route], sort_keys=True)] = node
                 value['queue'].pop(0);value['remaining']=list(dict.fromkeys(value['remaining']))
                 value['manifest']=manifest

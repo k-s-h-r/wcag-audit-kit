@@ -1,0 +1,160 @@
+{
+  "collection_commit": "89fc5dcc8a3b0b48f7c9e9175ff3cd68cda87840",
+  "before_commit": "bf883dcbfa187bf821e72d8ff0855dcb4b23191c",
+  "t030_commit": "88cdc05c74f5e5a361d6a78b26b8cae54e33f4ee",
+  "corpus_digest": "b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206",
+  "pages": 76,
+  "rows": 87,
+  "collection_errors": 0,
+  "problems": {
+    "detected": 12,
+    "observed_no_verdict": 16,
+    "state_or_route_unobserved": 11
+  },
+  "controls": {
+    "matched": 19,
+    "observed_no_verdict": 18,
+    "state_or_route_unobserved": 11
+  },
+  "changed_against_baseline": [
+    {
+      "page_id": "039",
+      "criterion": "2.1.2",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "opened",
+      "target": "#panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "before": "observed_no_verdict",
+      "after": "matched"
+    },
+    {
+      "page_id": "040",
+      "criterion": "2.1.2",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "opened",
+      "target": "#panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "before": "observed_no_verdict",
+      "after": "detected"
+    },
+    {
+      "page_id": "068",
+      "criterion": "2.5.8",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#target-a",
+      "checkpoint": "2.5.8-02",
+      "expected": "failed",
+      "before": "observed_no_verdict",
+      "after": "detected"
+    },
+    {
+      "page_id": "068",
+      "criterion": "2.5.8",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#target-b",
+      "checkpoint": "2.5.8-02",
+      "expected": "failed",
+      "before": "observed_no_verdict",
+      "after": "detected"
+    },
+    {
+      "page_id": "069",
+      "criterion": "2.5.8",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "initial",
+      "target": "#target-a",
+      "checkpoint": "2.5.8-02",
+      "expected": "passed",
+      "before": "observed_no_verdict",
+      "after": "matched"
+    },
+    {
+      "page_id": "069",
+      "criterion": "2.5.8",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "initial",
+      "target": "#target-b",
+      "checkpoint": "2.5.8-02",
+      "expected": "passed",
+      "before": "observed_no_verdict",
+      "after": "matched"
+    }
+  ],
+  "changed_against_t030": [
+    {
+      "page_id": "068",
+      "criterion": "2.5.8",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#target-a",
+      "checkpoint": "2.5.8-02",
+      "expected": "failed",
+      "before": "observed_no_verdict",
+      "after": "detected"
+    },
+    {
+      "page_id": "068",
+      "criterion": "2.5.8",
+      "case": "c03",
+      "page": "p03.html",
+      "state": "initial",
+      "target": "#target-b",
+      "checkpoint": "2.5.8-02",
+      "expected": "failed",
+      "before": "observed_no_verdict",
+      "after": "detected"
+    },
+    {
+      "page_id": "069",
+      "criterion": "2.5.8",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "initial",
+      "target": "#target-a",
+      "checkpoint": "2.5.8-02",
+      "expected": "passed",
+      "before": "observed_no_verdict",
+      "after": "matched"
+    },
+    {
+      "page_id": "069",
+      "criterion": "2.5.8",
+      "case": "c04",
+      "page": "p04.html",
+      "state": "initial",
+      "target": "#target-b",
+      "checkpoint": "2.5.8-02",
+      "expected": "passed",
+      "before": "observed_no_verdict",
+      "after": "matched"
+    }
+  ],
+  "unmatched_findings_unchanged": 14,
+  "public_archive": {
+    "path": "benchmark-evidence.zip",
+    "pages": [
+      "039",
+      "040",
+      "064",
+      "065",
+      "068",
+      "069",
+      "070",
+      "073"
+    ],
+    "files": 883,
+    "sha256": "478bace80e6525e720d52c4ef8e1aa4e3e72738e27c1b0364bf2d46a528f87d4"
+  },
+  "full_collection": "/workspace/wcag-audit-work/evidence/vision-followup-benchmark"
+}

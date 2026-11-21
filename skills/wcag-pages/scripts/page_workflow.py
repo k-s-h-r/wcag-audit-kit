@@ -5,6 +5,35 @@ from pathlib import Path
 import uuid
 
 
+def route_scene(route, labels):
+    if not route:
+        return '初期表示'
+    names = {'click': 'クリック', 'hover': 'ホバー', 'key': 'キー', 'press': 'キー',
+             'fill': '入力', 'scroll': 'スクロール'}
+    return ' → '.join(names[a['type']] + ' ' + labels.get(a.get('selector'), a.get('selector', '')) +
+                      (' / ' + a['key'] if a.get('key') else '') for a in route)
+
+
+def dialog_observations(run, graph, url):
+    import audit
+
+    edges = [edge for edge in graph.get('edges', []) if edge.get('nested_dialog_evidence')]
+    if not edges:
+        return []
+    rows = []
+    labels = {c['selector']: c['label'] for n in graph.get('nodes', []) for c in n.get('controls', [])}
+    for edge in edges:
+        evidence = edge['nested_dialog_evidence']
+        observation = audit.load(run / evidence)
+        rows.append(dict(page_url=url, environment=edge['environment'], route=edge['route'],
+                         state_label=route_scene(edge['route'], labels), parent=observation['parent'],
+                         child=observation['child'], status=observation['status'],
+                         focus=observation['after']['focus'], focus_layer=observation['focus_layer'],
+                         key=observation['key'], event_index=observation['event_index'], evidence=evidence,
+                         input_evidence=Path(evidence).with_name(observation['input_evidence']).as_posix()))
+    return rows
+
+
 def grouped_machine_issues(checks):
     groups={}
     for check in checks:
@@ -14,7 +43,9 @@ def grouped_machine_issues(checks):
         state = check.get('state_label', check['capture']) + ' / ' + check['environment']
         group['states'].append(check['page_url'] + ' / ' + state if check.get('page_url') else state)
         group['capture_ids'].append(check['capture'])
-        if check['evidence'] not in group['proof']:group['proof'].append(check['evidence'])
+        for path in [check['evidence'], *check.get('proof', [])]:
+            if path not in group['proof']:
+                group['proof'].append(path)
     return [dict(g,count=len(g['states']),states='\n'.join(g['states']),evidence='\n'.join(g['proof']),
         outcome='問題あり（機械）' if g['outcome']=='failed' else '機械判定不能') for g in groups.values()]
 
@@ -70,14 +101,13 @@ def keyboard_route_result(run, edge, evidence):
 
 def machine_checks(run, manifest=None):
     import audit
+    import target_spacing
     from page_explorer import status
     graph=status(run);_,catalog=audit.run_catalog(run)
+    proof = {item['path'] for item in graph.get('proof', [])}
     labels={c['selector']:c['label'] for n in graph.get('nodes',[]) for c in n.get('controls',[])}
     def scene(route):
-        if not route:return '初期表示'
-        names={'click':'クリック','hover':'ホバー','key':'キー','press':'キー','fill':'入力','scroll':'スクロール'}
-        return ' → '.join(names[a['type']]+' '+labels.get(a.get('selector'),a.get('selector',''))+
-                          (' / '+a['key'] if a.get('key') else '') for a in route)
+        return route_scene(route, labels)
     tags={'wcag'+c['id'].replace('.',''):c['id'] for c in catalog['criteria']}
     nodes = {node['capture']: node for node in graph.get('nodes', [])}
     if manifest is None:
@@ -91,6 +121,13 @@ def machine_checks(run, manifest=None):
     for key, capture in captures.items():
         if capture['execution'] != 'completed' or capture.get('http_status', 200) >= 400:
             continue
+        if capture.get('state') == 'initial' and target_spacing.CRITERION in tags.values():
+            directory = Path(capture['evidence_dir'])
+            evidence = (directory / target_spacing.EVIDENCE_FILE).as_posix()
+            state_path = (directory / 'state.json').as_posix()
+            if evidence in proof and state_path in proof:
+                rows.extend(target_spacing.report_rows(audit.load(run / evidence), audit.load(run / state_path),
+                                                       capture, evidence, state_path))
         path = Path(capture['evidence_dir']) / 'axe.json'
         if not (run / path).is_file():
             continue
@@ -189,15 +226,22 @@ def machine_checks(run, manifest=None):
                 rows.append(row)
         if edge.get('dialog_focus'):
             from dialog_focus import EVIDENCE_FILE, report_row as dialog_row
+            from keyboard_trap import report_row as trap_row
 
             path = Path(edge['evidence_dir']) / EVIDENCE_FILE
             receipt = audit.load(run/path)
             if receipt['status'] != 'not_dismissed':
                 rows.append(dialog_row(receipt, edge['environment'], path.as_posix(), scene(route), f'操作経路 {index+1}'))
+            if trap := receipt.get('keyboard_trap'):
+                rows.append(trap_row(trap, edge['environment'], path.as_posix(), scene(route), f'操作経路 {index+1}'))
         if 'disclosure_close' in edge:
             from disclosure_close import report_row as disclosure_row
 
             rows.append(disclosure_row(edge['disclosure_close'], edge, scene(route), f'操作経路 {index+1}'))
+        if 'disclosure_toggle' in edge:
+            from disclosure_close import toggle_row
+
+            rows.append(toggle_row(edge['disclosure_toggle'], edge, scene(route), f'操作経路 {index+1}'))
         # A key reached after pointer or scripted setup is evidence for that
         # mixed route, not for reaching the same state using only keys.
         if not route or any(step.get('type') not in {'key','press'} for step in route):continue
@@ -218,6 +262,9 @@ def machine_checks(run, manifest=None):
             target=action.get('selector','') if targeted else '現在のフォーカス',
             observed=observed,evidence=evidence,source='',
             note='この入力経路の実行結果。キーボード操作の達成基準全体の判定ではない。'))
+    from keyboard_function import report_rows as function_rows
+
+    rows.extend(function_rows(graph, scene, url))
     return rows
 
 
@@ -277,6 +324,9 @@ def page_result(run, url, original=None):
         result[key]=[r for r in result[key] if normalize(r['url'] if isinstance(r,dict) else r)==normalize(url)]
     page_captures=[c for c in audit.load(run/'capture-manifest.json')['captures'] if c['page_id'] in pids]
     captures={c['key'] for c in page_captures}
+    if 'dialog_observations' in result.get('exploration', {}):
+        result['exploration']['dialog_observations'] = [
+            row for row in result['exploration']['dialog_observations'] if normalize(row['page_url']) == normalize(url)]
     if 'visual_structure_evidence' in result:
         result['visual_structure_evidence'] = [item for item in result['visual_structure_evidence']
                                                if item['capture'] in captures]
@@ -299,6 +349,121 @@ def page_result(run, url, original=None):
     return result
 
 
+def trap_case_checks(run, graph, checks, cases):
+    """Bind the measured exit to the captured state before Escape."""
+    import audit
+    from dialog_focus import EVIDENCE_FILE
+    from keyboard_checks import matching_keydown
+    from keyboard_trap import CHECKPOINT
+    from page_explorer import fingerprint
+
+    trap_rows = {row['evidence']: row for row in checks if row['checkpoint'] == CHECKPOINT}
+    if not trap_rows:
+        return {}
+    captures = audit.load(run / 'capture-manifest.json')['captures']
+    proof = {Path(item['path']).as_posix(): item for item in graph.get('proof', [])}
+
+    def verified(path):
+        try:
+            if path in proof and audit.evidence_item(run, path) == proof[path]:
+                value = audit.load(run / path)
+                if isinstance(value, dict):
+                    return value
+        except (OSError, ValueError):
+            pass
+        return {}
+
+    def verified_transition(item):
+        path = (Path(item['evidence_dir']) / 'transition.json').as_posix()
+        record = verified(path)
+        waits = record.get('settling')
+        if (all(record.get(key) == item.get(key) for key in ('environment', 'route', 'dialog_focus'))
+                and 'error' in record and record['error'] is None
+                and record.get('blocked_requests') == [] and record.get('native_events') == []
+                and isinstance(waits, list) and len(waits) == len(item['route']) + 1
+                and all(isinstance(wait, dict) and wait.get('status') == 'quiet' for wait in waits)):
+            return path
+        return None
+
+    def verified_state(item, before, before_fingerprint):
+        path = (Path(item['evidence_dir']) / 'state.json').as_posix()
+        state = verified(path)
+        try:
+            if (state['url'] == before['url'] and [state['modal']] == before['modals']
+                    and (state.get('deep_focus') or state['focus']['selector']) == before['focus']
+                    and fingerprint(state) == before_fingerprint):
+                return path
+        except (AttributeError, KeyError, TypeError):
+            pass
+        return None
+
+    by_case = {}
+    edges = graph.get('edges', [])
+    for edge in edges:
+        evidence = (Path(edge['evidence_dir']) / EVIDENCE_FILE).as_posix() if edge.get('evidence_dir') else None
+        row = trap_rows.get(evidence)
+        route = edge['route']
+        if not (row and edge.get('dialog_focus') == 'escape'
+                and len(route) == 2 and route[0]['type'] == 'key' and route[0].get('key') in {'Enter', 'Space'}
+                and route[1] == {'type': 'press', 'selector': 'body', 'key': 'Escape'}
+                and row['environment'] == edge['environment']):
+            continue
+        receipt = verified(evidence).get('keyboard_trap')
+        # Older reports have the operation result but lack a state from the actual replay.
+        if not receipt or not (before_fingerprint := receipt.get('before_fingerprint')):
+            continue
+        before = receipt['before']
+        if not (before['supported'] and before['within'] and before['shown']
+                and before['modals'] == [row['target']] and receipt['opener'] == route[0]['selector']):
+            continue
+        events_path = (Path(evidence).parent / 'input-events.json').as_posix()
+        log = verified(events_path)
+        events = log.get('events', [])
+        indices = (receipt.get('opener_event_index'), receipt.get('escape_event_index'))
+        if (log.get('truncated') is not False or not isinstance(events, list)
+                or not all(type(i) is int and 0 <= i < len(events) for i in indices) or indices[0] >= indices[1]):
+            continue
+        opener, escape = (events[i] for i in indices)
+        try:
+            if not (opener['documentId'] and opener['documentId'] == escape['documentId'] and
+                    all(event['expectedTargetMatched'] is True and event['url'] == before['url']
+                        and matching_keydown(event, key) for event, key in ((opener, route[0]['key']), (escape, 'Escape')))):
+                continue
+        except (KeyError, TypeError):
+            continue
+        environment = edge['environment']
+        openings = [item for item in edges if item['environment'] == environment and item['route'] == route[:1]]
+        if len(openings) != 1 or openings[0].get('fingerprint') != before_fingerprint:
+            continue
+        opening = openings[0]
+        nodes = [node for node in graph['nodes'] if node['environment'] == environment
+                 and node['fingerprint'] == before_fingerprint]
+        if len(nodes) != 1:
+            continue
+        node = nodes[0]
+        observed_paths = [verified_transition(edge), verified_transition(opening), verified_transition(node),
+                          verified_state(opening, before, before_fingerprint), verified_state(node, before, before_fingerprint)]
+        if not all(observed_paths):
+            continue
+        matches = [capture for capture in captures if capture['key'] == node['capture']]
+        if len(matches) != 1:
+            continue
+        capture = matches[0]
+        if not (capture['execution'] == 'completed' and capture['state'] != 'initial'
+                and capture.get('final_url') == before['url'] and capture['environment'] == environment
+                and capture['evidence_dir'] == node['evidence_dir']):
+            continue
+        for case in cases:
+            if (case['criterion'] == row['criterion'] and case['capture'] == capture['key']
+                    and case['capture_execution'] == 'completed' and case['page_id'] == capture['page_id']
+                    and case['page_url'] == capture['url'] and case['environment'] == capture['environment']
+                    and case['state'] == capture['state'] and case['evidence_dir'] == capture['evidence_dir']):
+                by_case.setdefault(case['case_id'], []).append(dict(
+                    row, case_capture=capture['key'], page_url=capture['url'], operation_route=route,
+                    proof=list(dict.fromkeys([events_path, *observed_paths]))))
+    return by_case
+
+
 def next_work(run, url, limit=5):
     import audit
     from page_explorer import status
@@ -307,11 +472,13 @@ def next_work(run, url, limit=5):
              (c['assessment_data'] or {}).get('remaining') or (c['assessment_data'] or {}).get('coverage_complete') is not True]
     by_id={c['id']:c for c in catalog['criteria']}
     checks=machine_checks(run)
+    operation_checks = trap_case_checks(run, graph, checks, pending)
     mode=result.get('verification')
-    packets=[];unavailable=[]
+    packets=[];operation_packets=[];unavailable=[]
     for c in pending:
+        operations = operation_checks.get(c['case_id'], [])
         packet=dict(c,definition=by_id[c['criterion']],
-                    machine_results=[m for m in checks if m['criterion']==c['criterion'] and m['capture']==c['capture']])
+                    machine_results=[m for m in checks if m['criterion']==c['criterion'] and m['capture']==c['capture']] + operations)
         if c['criterion'] == '2.4.7':
             packet['focus_evidence'] = [item for item in result['focus_evidence'] if item['environment'] == c['environment']]
         if c['criterion'] == '1.3.1' and 'visual_structure_evidence' in result:
@@ -324,7 +491,8 @@ def next_work(run, url, limit=5):
             packet['skipped_checkpoints']=[dict(id=r['id'],check=r['check'],reason=r['note']) for r in points if r['selected_support']=='no']
             if not packet['verification_checkpoints']:
                 unavailable.append({'case_id':c['case_id'],'criterion':c['criterion'],'checkpoints':packet['skipped_checkpoints']});continue
-        packets.append(packet)
+        (operation_packets if operations else packets).append(packet)
+    packets = operation_packets + packets
     mode_notice={k:v for k,v in mode.items() if k!='checkpoints'} if mode else None
     deferred = graph.get('deferred', False)
     if deferred:

@@ -1,0 +1,69 @@
+{
+  "viewport": [
+    1280,
+    900
+  ],
+  "browser": "Chromium 156.0.8078.79",
+  "criterion": "1.4.1",
+  "observations": [
+    {
+      "entry_url": "http://127.0.0.1:43929/u47b/",
+      "calendar_url": "http://127.0.0.1:43929/u47b/calendar.html",
+      "outcome": "failed",
+      "observed": "各ボタンは日付と曜日だけを表示し、凡例との対応は背景色に頼る。5月10日と11日の空き状況が文字で分かるのは選択後だった。",
+      "visual": "選択前の各ボタンは日付・曜日・同じ形の枠を表示する。各日の空き状況を凡例と結ぶのは背景色で、フォーカスしても状態の説明は出なかった。",
+      "semantic": "5月10日と11日を別のセッションで選択し、選択前に状態の説明がなく、選択後に空きあり・満席が文字で分かることを確かめた。",
+      "remaining": [
+        "カレンダー内の空き状況以外の色の使い方と、選択後の表示状態での1.4.1は未確認。"
+      ],
+      "steps": [
+        "起点で「予約できる日を探す」にTabで移動し、Enterで開く。",
+        "操作前に全7日の各ボタンと凡例を見て、色以外に状態を示す文言・形があるか調べる。",
+        "グレースケール表示を補助として確認し、元の表示に戻す。",
+        "別のブラウザー文脈で5月10日と11日にTabで移動してEnterを押し、状態と確認リンクを比べる。"
+      ],
+      "evidence": [
+        "u47b-02-arrival.png",
+        "u47b-before-selection-grayscale.png",
+        "u47b-10-selected.png",
+        "u47b-11-selected.png",
+        "u47b-10-events.json",
+        "u47b-11-events.json",
+        "u47b-02-arrival.ax.json"
+      ],
+      "initial_image": "u47b-02-arrival.png"
+    },
+    {
+      "entry_url": "http://127.0.0.1:43929/m85c/",
+      "calendar_url": "http://127.0.0.1:43929/m85c/calendar.html",
+      "outcome": "passed",
+      "observed": "全7日のボタンに「空きあり」又は「満席」があり、色を除いても選択前に各日の状態を読める。",
+      "visual": "選択前のカラー画面と補助のグレースケール画像で、全7日の各ボタンに空きあり・満席の文字が表示されることを確認した。",
+      "semantic": "5月10日と11日を別のセッションで選択し、表示される空きあり・満席が選択前の各ボタンの表示と一致した。",
+      "remaining": [
+        "カレンダー内の空き状況以外の色の使い方と、選択後の表示状態での1.4.1は未確認。"
+      ],
+      "steps": [
+        "起点で「予約できる日を探す」にTabで移動し、Enterで開く。",
+        "操作前に全7日の各ボタンと凡例を見て、色以外に状態を示す文言・形があるか調べる。",
+        "グレースケール表示を補助として確認し、元の表示に戻す。",
+        "別のブラウザー文脈で5月10日と11日にTabで移動してEnterを押し、状態と確認リンクを比べる。"
+      ],
+      "evidence": [
+        "m85c-02-arrival.png",
+        "m85c-before-selection-grayscale.png",
+        "m85c-10-selected.png",
+        "m85c-11-selected.png",
+        "m85c-10-events.json",
+        "m85c-11-events.json",
+        "m85c-02-arrival.ax.json"
+      ],
+      "initial_image": "m85c-02-arrival.png"
+    }
+  ],
+  "independent_sources": {
+    "response.md": "fdf7c99c1ab1f526294cae467aaac8167e51702232b3c3fb505ec405ae1e915d",
+    "date-selections.json": "9216d6bccd0b57b804675170aeb55833fb35aa4b7c87c7245ebe56d3088b2397",
+    "entry-routes.json": "410565b391ef0166f2d020f4dc1a4d7762dabb2d1ee4628cb65bc8710735cd52"
+  }
+}

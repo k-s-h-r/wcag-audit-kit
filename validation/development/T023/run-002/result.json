@@ -1,0 +1,89 @@
+{
+  "before": {
+    "trace": [
+      {
+        "key": "Tab",
+        "url": "http://127.0.0.1:43823/before/",
+        "focus": "",
+        "shown": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+      },
+      {
+        "key": "Enter",
+        "url": "http://127.0.0.1:43823/before/visit.html",
+        "focus": "",
+        "shown": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+      },
+      {
+        "key": "Tab",
+        "url": "http://127.0.0.1:43823/before/visit.html",
+        "focus": "increase",
+        "shown": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+      },
+      {
+        "key": "Enter",
+        "url": "http://127.0.0.1:43823/before/visit.html",
+        "focus": "increase",
+        "shown": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+      },
+      {
+        "key": "Tab",
+        "url": "http://127.0.0.1:43823/before/visit.html",
+        "focus": "review",
+        "shown": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+      },
+      {
+        "key": "Enter",
+        "url": "http://127.0.0.1:43823/before/visit.html",
+        "focus": "review",
+        "shown": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+      }
+    ],
+    "confirmed": false,
+    "browser": "156.0.8078.79",
+    "review_ax_snapshot": "- main:\n  - heading \"見学する人数を選ぶ\" [level=1]\n  - paragraph: 見学日は12月6日です。2名以上で申し込めます。\n  - paragraph:\n    - text: 見学人数\n    - status: \"1\"\n    - text: 名\n  - paragraph:\n    - button \"人数を増やす\"\n  - paragraph:\n    - button \"詳細を見る\": 予約内容を確認する"
+  },
+  "after": {
+    "trace": [
+      {
+        "key": "Tab",
+        "url": "http://127.0.0.1:43823/after/",
+        "focus": "",
+        "shown": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+      },
+      {
+        "key": "Enter",
+        "url": "http://127.0.0.1:43823/after/visit.html",
+        "focus": "",
+        "shown": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+      },
+      {
+        "key": "Tab",
+        "url": "http://127.0.0.1:43823/after/visit.html",
+        "focus": "increase",
+        "shown": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+      },
+      {
+        "key": "Enter",
+        "url": "http://127.0.0.1:43823/after/visit.html",
+        "focus": "increase",
+        "shown": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する"
+      },
+      {
+        "key": "Tab",
+        "url": "http://127.0.0.1:43823/after/visit.html",
+        "focus": "review",
+        "shown": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する"
+      },
+      {
+        "key": "Enter",
+        "url": "http://127.0.0.1:43823/after/confirmation.html?people=2",
+        "focus": "",
+        "shown": "見学予約の確認\n\n12月6日。見学人数 2 名。\n\n入力内容を確認しました。"
+      }
+    ],
+    "confirmed": true,
+    "browser": "156.0.8078.79",
+    "review_ax_snapshot": "- main:\n  - heading \"見学する人数を選ぶ\" [level=1]\n  - paragraph: 見学日は12月6日です。2名以上で申し込めます。\n  - paragraph:\n    - text: 見学人数\n    - status: \"2\"\n    - text: 名\n  - paragraph:\n    - button \"人数を増やす\"\n  - paragraph:\n    - button \"予約内容を確認する\""
+  },
+  "original_observations_sha256": "0023d3b95cb5fb4b41e58770cbadd519b3bb8d06f4af5e863d95ccbf815d2fa5"
+}

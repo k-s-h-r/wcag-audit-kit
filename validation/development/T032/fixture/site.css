@@ -1,0 +1,25 @@
+body {
+  max-width: 36rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  background: #fff;
+  color: #1b202a;
+  font: 1.125rem/1.6 system-ui;
+}
+
+a { color: #003e8a; }
+
+input, button { font: inherit; }
+
+input { width: 6rem; }
+
+:focus-visible {
+  outline: 3px solid #044fc3;
+  outline-offset: 3px;
+}
+
+.notice:not(:empty) {
+  background: #eef4fa;
+  color: #152a40;
+  padding: .6rem;
+}

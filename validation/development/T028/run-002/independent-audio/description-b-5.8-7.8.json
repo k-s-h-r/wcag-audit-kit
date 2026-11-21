@@ -1,0 +1,171 @@
+{
+	"systeminfo": "WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | ",
+	"model": {
+		"type": "base",
+		"multilingual": false,
+		"vocab": 51864,
+		"audio": {
+			"ctx": 1500,
+			"state": 512,
+			"head": 8,
+			"layer": 6
+		},
+		"text": {
+			"ctx": 448,
+			"state": 512,
+			"head": 8,
+			"layer": 6
+		},
+		"mels": 80,
+		"ftype": 1
+	},
+	"params": {
+		"model": "/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin",
+		"language": "en",
+		"translate": false
+	},
+	"result": {
+		"language": "en"
+	},
+	"transcription": [
+		{
+			"timestamps": {
+				"from": "00:00:00,000",
+				"to": "00:00:08,180"
+			},
+			"offsets": {
+				"from": 0,
+				"to": 8180
+			},
+			"text": " [BLANK_AUDIO]",
+			"tokens": [
+				{
+					"text": "[_BEG_]",
+					"timestamps": {
+						"from": "00:00:00,000",
+						"to": "00:00:00,000"
+					},
+					"offsets": {
+						"from": 0,
+						"to": 0
+					},
+					"id": 50363,
+					"p": 0.707276,
+					"t_dtw": -1
+				},
+				{
+					"text": " [",
+					"timestamps": {
+						"from": "00:00:00,000",
+						"to": "00:00:00,030"
+					},
+					"offsets": {
+						"from": 0,
+						"to": 30
+					},
+					"id": 685,
+					"p": 0.18351,
+					"t_dtw": -1
+				},
+				{
+					"text": "BL",
+					"timestamps": {
+						"from": "00:00:00,630",
+						"to": "00:00:01,880"
+					},
+					"offsets": {
+						"from": 630,
+						"to": 1880
+					},
+					"id": 9148,
+					"p": 0.502621,
+					"t_dtw": -1
+				},
+				{
+					"text": "ANK",
+					"timestamps": {
+						"from": "00:00:01,880",
+						"to": "00:00:01,990"
+					},
+					"offsets": {
+						"from": 1880,
+						"to": 1990
+					},
+					"id": 15154,
+					"p": 0.999542,
+					"t_dtw": -1
+				},
+				{
+					"text": "_",
+					"timestamps": {
+						"from": "00:00:01,990",
+						"to": "00:00:01,990"
+					},
+					"offsets": {
+						"from": 1990,
+						"to": 1990
+					},
+					"id": 62,
+					"p": 0.990652,
+					"t_dtw": -1
+				},
+				{
+					"text": "AUD",
+					"timestamps": {
+						"from": "00:00:01,990",
+						"to": "00:00:01,990"
+					},
+					"offsets": {
+						"from": 1990,
+						"to": 1990
+					},
+					"id": 48877,
+					"p": 0.998891,
+					"t_dtw": -1
+				},
+				{
+					"text": "IO",
+					"timestamps": {
+						"from": "00:00:01,990",
+						"to": "00:00:01,990"
+					},
+					"offsets": {
+						"from": 1990,
+						"to": 1990
+					},
+					"id": 9399,
+					"p": 0.999296,
+					"t_dtw": -1
+				},
+				{
+					"text": "]",
+					"timestamps": {
+						"from": "00:00:01,990",
+						"to": "00:00:01,990"
+					},
+					"offsets": {
+						"from": 1990,
+						"to": 1990
+					},
+					"id": 60,
+					"p": 0.999208,
+					"t_dtw": -1
+				},
+				{
+					"text": "[_TT_409]",
+					"timestamps": {
+						"from": "00:00:08,180",
+						"to": "00:00:08,180"
+					},
+					"offsets": {
+						"from": 8180,
+						"to": 8180
+					},
+					"id": 50772,
+					"p": 0.0039398,
+					"t_dtw": -1
+				}
+			]
+		}
+	]
+}

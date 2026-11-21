@@ -17,6 +17,7 @@ sys.path.insert(0,str(RUNTIME/'scripts'))
 import audit
 import verification_modes as modes
 import state_labels
+from target_spacing import aligned_gap
 from . import case_contracts, dialog_focus_evidence, inactive_control_probe, residual_evidence, residual_acquisition, status_capture, text_paint_evidence
 
 
@@ -445,21 +446,6 @@ def geometry_contract(contract):
         and all(css_number(contract[key]) for key in ('width', 'height', 'gap'))
         and contract['width'] > 0 and contract['height'] > 0 and contract['gap'] >= 0
     )
-
-
-def aligned_gap(first, second):
-    # The contract supplies a single edge gap. Restrict it to aligned rows or
-    # columns so corners, diagonal distances, and overlap are unambiguous.
-    for axis, span, cross, cross_span in (
-        ('x', 'width', 'y', 'height'), ('y', 'height', 'x', 'width'),
-    ):
-        if first[cross] != second[cross] or first[cross_span] != second[cross_span]:
-            continue
-        start, end = sorted((first, second), key=lambda rect: rect[axis])
-        gap = end[axis] - (start[axis] + start[span])
-        if gap >= 0:
-            return gap, '水平' if axis == 'x' else '垂直'
-    return None
 
 
 def geometry_acquisition(row, contract, nodes, proof):

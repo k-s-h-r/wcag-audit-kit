@@ -1,0 +1,38 @@
+{
+  "level": "WCAG 2.2 AA",
+  "limits": "same-origin simulated process, desktop Chromium, one booking up to review, no actual submission, no speech grading",
+  "pages": {
+    "na": {
+      "landing": "index.html",
+      "middle": "visit.html",
+      "completion": "confirmation.html?people=2",
+      "keyboard_quantity": "passed",
+      "label_in_name": "passed",
+      "completion_by_keyboard": true,
+      "completion_by_pointer": true
+    },
+    "rb": {
+      "landing": "index.html",
+      "middle": "visit.html",
+      "completion": "confirmation.html?people=2",
+      "keyboard_quantity": "failed",
+      "label_in_name": "failed",
+      "completion_by_keyboard": false,
+      "completion_by_pointer": true
+    }
+  },
+  "effects": {
+    "keyboard": [
+      "focus",
+      "Enter",
+      "Space",
+      "measure displayed and submitted number"
+    ],
+    "comparison": "visible button text and computed accessible name",
+    "invalid": "can still reach review via pointer after observing a keyboard-only blocker"
+  },
+  "visit_sha256": {
+    "na": "8592ca491b1cb5becddac57fec883214cec999cb0d1bebfa91d5b02cbf0f78ac",
+    "rb": "f715c49e681ac2f7324dc601c73ecb53a4da10d9fe9b858dc2a153805633c24e"
+  }
+}

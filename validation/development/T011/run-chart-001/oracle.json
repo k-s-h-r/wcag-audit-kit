@@ -1,0 +1,22 @@
+{
+  "scope": "WCAG 2.2 AA, 1.1.1, single fixed desktop viewport, displayed chart and decorative image",
+  "chart": {
+    "Apr": 92,
+    "May": 61,
+    "Jun": 44,
+    "unit": "visits",
+    "unit_direction": "decreases"
+  },
+  "expectations": {
+    "k4": {
+      "chart": "failed",
+      "detailMay": 79,
+      "decoration": "passed"
+    },
+    "m7": {
+      "chart": "passed",
+      "detailMay": 61,
+      "decoration": "passed"
+    }
+  }
+}

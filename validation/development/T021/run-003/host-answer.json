@@ -1,0 +1,92 @@
+{
+  "host": "Codex Work isolated subagent context",
+  "skill_entry": ".agents/skills/wcag-report/SKILL.md explicitly read",
+  "native_codex_cli_skill_dispatch_observed": false,
+  "inputs": "Three named copies of saved ledgers. Expected conclusions were withheld from the report agent.",
+  "cases": [
+    {
+      "id": "alpha",
+      "agent_final_answer_fields": {
+        "status": "does_not_conform",
+        "level": "AA",
+        "audit_complete": false,
+        "strict_exit": 2,
+        "counts": {
+          "failed": 3,
+          "not_run": 162
+        },
+        "grounds": "初期Off・On・再Offの3状態。4.1.2の不適合3票。Onでもaria-checkedとAX checkedがfalseで、保存済み実Orca 48.1の証拠がある。"
+      },
+      "relative_report_paths": [
+        "runs/alpha/report.html",
+        "runs/alpha/report.json",
+        "runs/alpha/report.xlsx"
+      ],
+      "sha256": {
+        "report.html": "6f7ede5718791d38fa2c265912413bbac372cc0d9bd9e7269bfcdb390d140167",
+        "report.json": "30b1358bab9f48a0b934d08a96f95bd11416d70215454f09acb310bf33cad104",
+        "report.xlsx": "196b711c6a06fc51ec8065f14de0fe562776071f50e90a1fd201a2e606ec3e74"
+      },
+      "verified_relative_html_links": 373,
+      "report_json_remaining": [
+        "適合要件の確認が必要です。検証する範囲、ページ全体、一連の手続き、アクセシビリティサポート、非干渉。",
+        "未実施・判断保留・確認が残る検査票が162件あります。"
+      ]
+    },
+    {
+      "id": "beta",
+      "agent_final_answer_fields": {
+        "status": "unverified",
+        "level": "A",
+        "audit_complete": false,
+        "strict_exit": 2,
+        "counts": {
+          "not_run": 31
+        },
+        "grounds": "1ページの初期状態・desktop。未実施31票。確認画面までの手続きは未確認。"
+      },
+      "relative_report_paths": [
+        "runs/beta/reports/report.html",
+        "runs/beta/data/report.json",
+        "runs/beta/reports/report.xlsx"
+      ],
+      "sha256": {
+        "report.html": "265ac0fadb3141bce4224d3dca1b3f8821acfb71d9a302d5baa1b7c726ed463d",
+        "report.json": "0ac2a1726e3a305f1f992aad02eaf566054da220b370bd18ba4f877425b439bc",
+        "report.xlsx": "f244b6744446758debb086b4d97e909e82ee797c5107dd67606424745060caea"
+      },
+      "verified_relative_html_links": 11,
+      "report_json_remaining": [
+        "適合要件の確認が必要です。検証する範囲、一連の手続き。",
+        "確認画面までの手続きを追加確認する。",
+        "未実施・判断保留・確認が残る検査票が31件あります。"
+      ]
+    },
+    {
+      "id": "gamma",
+      "agent_final_answer_fields": {
+        "status": "conforms",
+        "level": "AA",
+        "audit_complete": true,
+        "strict_exit": 0,
+        "counts": {
+          "passed": 75,
+          "inapplicable": 90
+        },
+        "grounds": "55基準かける3状態。通過75票、非適用90票、残る確認なし。"
+      },
+      "relative_report_paths": [
+        "runs/gamma/report.html",
+        "runs/gamma/report.json",
+        "runs/gamma/report.xlsx"
+      ],
+      "sha256": {
+        "report.html": "50d8c20910b4962618767d06294d5069cdbf284e5fbf5443c530e4678b2ada4e",
+        "report.json": "2aa69ff8fc6d8967522c068f58a6fe93139319f3692c48b997d30531bd5ba8e3",
+        "report.xlsx": "5af2bf0e88c2c0875b743aeba3b7db0f37ad8445c579ecedb4ac5b4dbd975e79"
+      },
+      "verified_relative_html_links": 2825,
+      "report_json_remaining": []
+    }
+  ]
+}

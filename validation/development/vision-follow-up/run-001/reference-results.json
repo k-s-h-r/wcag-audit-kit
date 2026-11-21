@@ -1,0 +1,218 @@
+{
+  "add": {
+    "environments": {
+      "desktop": {
+        "same_axe_categories_and_targets": true,
+        "before": "violations",
+        "quick_after": "passes",
+        "whole_after": "passes",
+        "reference_counts": [
+          0,
+          1
+        ],
+        "value_rule_recorded_targets": 9,
+        "whole_value_rule": {
+          "passes": 9,
+          "violations": 0,
+          "incomplete": 0,
+          "inapplicable": 0
+        },
+        "mode": "mixed",
+        "value_rule_quick_rechecked": 9,
+        "reuse": {
+          "aria-valid-attr": 9,
+          "tabindex": 8
+        },
+        "rechecked": {
+          "aria-valid-attr": 0,
+          "tabindex": 0
+        },
+        "quick_fingerprints": [
+          "f1f154465bca7e561ef6cca1bbe1d050cbd23767d4ac489440954fef0514215e",
+          "7c8e57d096d088cc4ef00a9caeeea1886298b73c3ab27dff4d4ff67129dafbcf"
+        ],
+        "quick_evidence": "add-quick/page/work/evidence/688e39dff6b9--explore-b89e1d001ce1--desktop",
+        "initial_evidence": "add-quick/page/work/evidence/688e39dff6b9--explore-460d4e474694--desktop",
+        "whole_evidence": "add-whole/page/work/evidence/688e39dff6b9--explore-49bdc6ccb93e--desktop"
+      },
+      "narrow": {
+        "same_axe_categories_and_targets": true,
+        "before": "violations",
+        "quick_after": "passes",
+        "whole_after": "passes",
+        "reference_counts": [
+          0,
+          1
+        ],
+        "value_rule_recorded_targets": 9,
+        "whole_value_rule": {
+          "passes": 9,
+          "violations": 0,
+          "incomplete": 0,
+          "inapplicable": 0
+        },
+        "mode": "mixed",
+        "value_rule_quick_rechecked": 9,
+        "reuse": {
+          "aria-valid-attr": 9,
+          "tabindex": 8
+        },
+        "rechecked": {
+          "aria-valid-attr": 0,
+          "tabindex": 0
+        },
+        "quick_fingerprints": [
+          "f1f154465bca7e561ef6cca1bbe1d050cbd23767d4ac489440954fef0514215e",
+          "7c8e57d096d088cc4ef00a9caeeea1886298b73c3ab27dff4d4ff67129dafbcf"
+        ],
+        "quick_evidence": "add-quick/page/work/evidence/688e39dff6b9--explore-7f0b378d913c--narrow",
+        "initial_evidence": "add-quick/page/work/evidence/688e39dff6b9--explore-12697d223e5c--narrow",
+        "whole_evidence": "add-whole/page/work/evidence/688e39dff6b9--explore-19121c39d01c--narrow"
+      }
+    },
+    "quick_states": 4,
+    "whole_states": 4,
+    "quick_document_gets": 16,
+    "whole_document_gets": 22
+  },
+  "remove": {
+    "environments": {
+      "desktop": {
+        "same_axe_categories_and_targets": true,
+        "before": "passes",
+        "quick_after": "violations",
+        "whole_after": "violations",
+        "reference_counts": [
+          1,
+          0
+        ],
+        "value_rule_recorded_targets": 9,
+        "whole_value_rule": {
+          "passes": 8,
+          "violations": 1,
+          "incomplete": 0,
+          "inapplicable": 0
+        },
+        "mode": "mixed",
+        "value_rule_quick_rechecked": 9,
+        "reuse": {
+          "aria-valid-attr": 9,
+          "tabindex": 8
+        },
+        "rechecked": {
+          "aria-valid-attr": 0,
+          "tabindex": 0
+        },
+        "quick_fingerprints": [
+          "b67702caf665bb7fe6d2e7e9239b633ff08edaa66b5b14076cfd9704a78c7895",
+          "cb00b5fbcd054110eb921fa8db703f373dc112621074ed60e7ab075d40d58e2a"
+        ],
+        "quick_evidence": "remove-quick/page/work/evidence/f2284c414b4b--explore-f223eb27b259--desktop",
+        "initial_evidence": "remove-quick/page/work/evidence/f2284c414b4b--explore-750cd3fb626b--desktop",
+        "whole_evidence": "remove-whole/page/work/evidence/f2284c414b4b--explore-9b27dcc4fb8e--desktop"
+      },
+      "narrow": {
+        "same_axe_categories_and_targets": true,
+        "before": "passes",
+        "quick_after": "violations",
+        "whole_after": "violations",
+        "reference_counts": [
+          1,
+          0
+        ],
+        "value_rule_recorded_targets": 9,
+        "whole_value_rule": {
+          "passes": 8,
+          "violations": 1,
+          "incomplete": 0,
+          "inapplicable": 0
+        },
+        "mode": "mixed",
+        "value_rule_quick_rechecked": 9,
+        "reuse": {
+          "aria-valid-attr": 9,
+          "tabindex": 8
+        },
+        "rechecked": {
+          "aria-valid-attr": 0,
+          "tabindex": 0
+        },
+        "quick_fingerprints": [
+          "b67702caf665bb7fe6d2e7e9239b633ff08edaa66b5b14076cfd9704a78c7895",
+          "cb00b5fbcd054110eb921fa8db703f373dc112621074ed60e7ab075d40d58e2a"
+        ],
+        "quick_evidence": "remove-quick/page/work/evidence/f2284c414b4b--explore-30fdb69a3a72--narrow",
+        "initial_evidence": "remove-quick/page/work/evidence/f2284c414b4b--explore-ffe17224fb7c--narrow",
+        "whole_evidence": "remove-whole/page/work/evidence/f2284c414b4b--explore-f83400184644--narrow"
+      }
+    },
+    "quick_states": 4,
+    "whole_states": 4,
+    "quick_document_gets": 16,
+    "whole_document_gets": 22
+  },
+  "move": {
+    "environments": {
+      "desktop": {
+        "same_axe_categories_and_targets": true,
+        "before": "passes",
+        "quick_after": "passes",
+        "whole_after": "passes",
+        "reference_counts": [
+          1,
+          1
+        ],
+        "value_rule_recorded_targets": 9,
+        "whole_value_rule": {
+          "passes": 9,
+          "violations": 0,
+          "incomplete": 0,
+          "inapplicable": 0
+        },
+        "mode": "same_state",
+        "value_rule_quick_rechecked": 0,
+        "reuse": {},
+        "rechecked": {},
+        "quick_fingerprints": [
+          "db09b7420ad18a40fcea2e92a607bf56cd0ac8f801380eaef6fa65306f8f8811",
+          "db09b7420ad18a40fcea2e92a607bf56cd0ac8f801380eaef6fa65306f8f8811"
+        ],
+        "quick_evidence": "move-quick/page/work/evidence/5a3f69acfbf7--explore-ef3ba12e2419--desktop",
+        "initial_evidence": "move-quick/page/work/evidence/5a3f69acfbf7--explore-7e572b23dc78--desktop",
+        "whole_evidence": "move-whole/page/work/evidence/5a3f69acfbf7--explore-d526342300c8--desktop"
+      },
+      "narrow": {
+        "same_axe_categories_and_targets": true,
+        "before": "passes",
+        "quick_after": "passes",
+        "whole_after": "passes",
+        "reference_counts": [
+          1,
+          1
+        ],
+        "value_rule_recorded_targets": 9,
+        "whole_value_rule": {
+          "passes": 9,
+          "violations": 0,
+          "incomplete": 0,
+          "inapplicable": 0
+        },
+        "mode": "same_state",
+        "value_rule_quick_rechecked": 0,
+        "reuse": {},
+        "rechecked": {},
+        "quick_fingerprints": [
+          "db09b7420ad18a40fcea2e92a607bf56cd0ac8f801380eaef6fa65306f8f8811",
+          "db09b7420ad18a40fcea2e92a607bf56cd0ac8f801380eaef6fa65306f8f8811"
+        ],
+        "quick_evidence": "move-quick/page/work/evidence/5a3f69acfbf7--explore-ab1eb44a9cf3--narrow",
+        "initial_evidence": "move-quick/page/work/evidence/5a3f69acfbf7--explore-f5f5277d5bf5--narrow",
+        "whole_evidence": "move-whole/page/work/evidence/5a3f69acfbf7--explore-95fb9c8eda0b--narrow"
+      }
+    },
+    "quick_states": 2,
+    "whole_states": 4,
+    "quick_document_gets": 16,
+    "whole_document_gets": 22
+  }
+}

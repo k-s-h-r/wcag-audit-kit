@@ -1,0 +1,250 @@
+{
+  "condition": "c03",
+  "states": [
+    {
+      "step": "initial",
+      "state": {
+        "clock": 1314.7999999970198,
+        "url": "http://127.0.0.1:45397/p03.html",
+        "focus": {
+          "tag": "BODY",
+          "id": ""
+        },
+        "button": {
+          "name": "音声解説を使う",
+          "pressed": "false"
+        },
+        "currentSrc": "http://127.0.0.1:45397/assets/expanded-source.webm",
+        "src": "assets/expanded-source.webm",
+        "currentTime": 0,
+        "duration": 6.983,
+        "readyState": 4,
+        "paused": true,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "played": [],
+        "videoQuality": {
+          "total": 4,
+          "dropped": 0
+        }
+      },
+      "axFocus": [
+        {
+          "role": "RootWebArea",
+          "name": "利用案内",
+          "pressed": null
+        }
+      ]
+    },
+    {
+      "step": "after-select",
+      "state": {
+        "clock": 3730.199999999255,
+        "url": "http://127.0.0.1:45397/p03.html",
+        "focus": {
+          "tag": "BUTTON",
+          "id": "describe"
+        },
+        "button": {
+          "name": "音声解説を使う",
+          "pressed": "true"
+        },
+        "currentSrc": "http://127.0.0.1:45397/assets/expanded-source.webm",
+        "src": "assets/expanded-source.webm",
+        "currentTime": 0,
+        "duration": 6.983,
+        "readyState": 4,
+        "paused": true,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "played": [],
+        "videoQuality": {
+          "total": 4,
+          "dropped": 0
+        }
+      },
+      "axFocus": [
+        {
+          "role": "RootWebArea",
+          "name": "利用案内",
+          "pressed": null
+        },
+        {
+          "role": "button",
+          "name": "音声解説を使う",
+          "pressed": "true"
+        }
+      ]
+    },
+    {
+      "step": "before-play",
+      "state": {
+        "clock": 6599.599999997765,
+        "url": "http://127.0.0.1:45397/p03.html",
+        "focus": {
+          "tag": "VIDEO",
+          "id": "subject"
+        },
+        "button": {
+          "name": "音声解説を使う",
+          "pressed": "true"
+        },
+        "currentSrc": "http://127.0.0.1:45397/assets/expanded-source.webm",
+        "src": "assets/expanded-source.webm",
+        "currentTime": 0,
+        "duration": 6.983,
+        "readyState": 4,
+        "paused": true,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "played": [],
+        "videoQuality": {
+          "total": 4,
+          "dropped": 0
+        }
+      },
+      "axFocus": [
+        {
+          "role": "RootWebArea",
+          "name": "利用案内",
+          "pressed": null
+        },
+        {
+          "role": "button",
+          "name": "play",
+          "pressed": null
+        }
+      ]
+    },
+    {
+      "step": "ended",
+      "state": {
+        "clock": 15803.599999997765,
+        "url": "http://127.0.0.1:45397/p03.html",
+        "focus": {
+          "tag": "VIDEO",
+          "id": "subject"
+        },
+        "button": {
+          "name": "音声解説を使う",
+          "pressed": "true"
+        },
+        "currentSrc": "http://127.0.0.1:45397/assets/expanded-source.webm",
+        "src": "assets/expanded-source.webm",
+        "currentTime": 6.983,
+        "duration": 6.983,
+        "readyState": 4,
+        "paused": true,
+        "ended": true,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "played": [
+          [
+            0,
+            6.983
+          ]
+        ],
+        "videoQuality": {
+          "total": 174,
+          "dropped": 13
+        }
+      },
+      "axFocus": [
+        {
+          "role": "RootWebArea",
+          "name": "利用案内",
+          "pressed": null
+        },
+        {
+          "role": "button",
+          "name": "play",
+          "pressed": null
+        }
+      ]
+    }
+  ],
+  "capture": {
+    "mimeType": "audio/webm;codecs=opus",
+    "audioTrackSettings": {
+      "channelCount": 1,
+      "deviceId": "7b387221-f709-4b5f-95ff-2d19b4aa1acc",
+      "latency": 0.021333,
+      "sampleRate": 48000,
+      "sampleSize": 16
+    },
+    "startedAt": 6627.699999999255,
+    "stoppedAt": 15919,
+    "mediaStartTime": 0,
+    "mediaEndTime": 6.983,
+    "sha256": "262e823c78dcffd3716c1091e47014bb9b0f8502a1e595e0054e74cc3b24904c"
+  },
+  "screenshots": [
+    {
+      "file": "initial.png",
+      "sample": null,
+      "beforeTime": 0,
+      "afterTime": 0
+    },
+    {
+      "file": "after-select.png",
+      "sample": null,
+      "beforeTime": 0,
+      "afterTime": 0
+    },
+    {
+      "file": "playing-00.5.png",
+      "sample": 0.5,
+      "beforeTime": 0.54882,
+      "afterTime": 1.119833
+    },
+    {
+      "file": "playing-01.0.png",
+      "sample": 1,
+      "beforeTime": 1.185167,
+      "afterTime": 1.551783
+    },
+    {
+      "file": "playing-02.0.png",
+      "sample": 2,
+      "beforeTime": 2.031578,
+      "afterTime": 2.421172
+    },
+    {
+      "file": "playing-03.0.png",
+      "sample": 3,
+      "beforeTime": 3.075289,
+      "afterTime": 3.52244
+    },
+    {
+      "file": "playing-04.0.png",
+      "sample": 4,
+      "beforeTime": 4.035323,
+      "afterTime": 4.661382
+    },
+    {
+      "file": "playing-05.0.png",
+      "sample": 5,
+      "beforeTime": 5.038293,
+      "afterTime": 5.678198
+    },
+    {
+      "file": "playing-06.0.png",
+      "sample": 6,
+      "beforeTime": 6.116672,
+      "afterTime": 6.476847
+    },
+    {
+      "file": "ended.png",
+      "sample": null,
+      "beforeTime": 6.983,
+      "afterTime": 6.983
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "standard": {
+    "primary_received": {
+      "GET /": 10,
+      "GET /initial-same.svg": 10,
+      "GET /action-same": 6,
+      "GET /redirect": 6
+    },
+    "other_received": {
+      "GET /initial-other.svg": 10,
+      "GET /action-get": 6,
+      "GET /action-image.svg": 6,
+      "GET /after-redirect": 6
+    },
+    "proxy_denied_fixture_paths": {},
+    "blocked_by_explorer": [
+      "/action-post"
+    ],
+    "observed_result_text": [
+      "日時を取得"
+    ],
+    "environments_with_operation": [
+      "desktop",
+      "narrow"
+    ],
+    "scope_status": "unverified"
+  },
+  "proxy": {
+    "primary_received": {
+      "GET /": 10,
+      "GET /initial-same.svg": 10,
+      "GET /action-same": 6,
+      "GET /redirect": 6
+    },
+    "other_received": {},
+    "proxy_denied_fixture_paths": {
+      "/initial-other.svg": 10,
+      "/action-get": 6,
+      "/action-image.svg": 6,
+      "/after-redirect": 6
+    },
+    "blocked_by_explorer": [
+      "/action-post"
+    ],
+    "observed_result_text": [
+      "日時を取得できません"
+    ],
+    "environments_with_operation": [
+      "desktop",
+      "narrow"
+    ],
+    "scope_status": "unverified"
+  }
+}

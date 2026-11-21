@@ -1,0 +1,197 @@
+[
+  {
+    "fixture": "p01.html",
+    "url": "http://127.0.0.1:44031/p01.html",
+    "initial_next": "page-audit --resume --quick-explore",
+    "before_exploring_rows": 0,
+    "older_reader_rows": 0,
+    "machine_counts": {
+      "passed": 112,
+      "inapplicable": 296,
+      "cant_tell": 4
+    },
+    "audit_complete": false,
+    "packets": [
+      {
+        "case_id": "bfe711f9d0d1--explore-f63f48ed9b39--desktop--2.1.2",
+        "capture": "bfe711f9d0d1--explore-f63f48ed9b39--desktop",
+        "case_outcome": "not_run",
+        "row": {
+          "criterion": "2.1.2",
+          "checkpoint": "ダイアログからのキー操作による離脱",
+          "target": "#panel",
+          "expected": "開いたダイアログからキーボード操作で離脱できる",
+          "outcome": "passed",
+          "observed": "Escapeで閉じ、ダイアログの外へフォーカスが移った。",
+          "environment": "desktop",
+          "evidence": "evidence/bfe711f9d0d1--explore-dc5b0694951e--desktop/dialog-focus.json",
+          "proof": [
+            "evidence/bfe711f9d0d1--explore-dc5b0694951e--desktop/input-events.json",
+            "evidence/bfe711f9d0d1--explore-dc5b0694951e--desktop/transition.json",
+            "evidence/bfe711f9d0d1--explore-04c1c7d10bf8--desktop/transition.json",
+            "evidence/bfe711f9d0d1--explore-f63f48ed9b39--desktop/transition.json",
+            "evidence/bfe711f9d0d1--explore-04c1c7d10bf8--desktop/state.json",
+            "evidence/bfe711f9d0d1--explore-f63f48ed9b39--desktop/state.json"
+          ],
+          "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+          "capture": "操作経路 8",
+          "source": "",
+          "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。",
+          "case_capture": "bfe711f9d0d1--explore-f63f48ed9b39--desktop",
+          "page_url": "http://127.0.0.1:44031/p01.html",
+          "operation_route": [
+            {
+              "selector": "#open",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        }
+      },
+      {
+        "case_id": "bfe711f9d0d1--explore-58618f0c94dd--narrow--2.1.2",
+        "capture": "bfe711f9d0d1--explore-58618f0c94dd--narrow",
+        "case_outcome": "not_run",
+        "row": {
+          "criterion": "2.1.2",
+          "checkpoint": "ダイアログからのキー操作による離脱",
+          "target": "#panel",
+          "expected": "開いたダイアログからキーボード操作で離脱できる",
+          "outcome": "passed",
+          "observed": "Escapeで閉じ、ダイアログの外へフォーカスが移った。",
+          "environment": "narrow",
+          "evidence": "evidence/bfe711f9d0d1--explore-cb7052342584--narrow/dialog-focus.json",
+          "proof": [
+            "evidence/bfe711f9d0d1--explore-cb7052342584--narrow/input-events.json",
+            "evidence/bfe711f9d0d1--explore-cb7052342584--narrow/transition.json",
+            "evidence/bfe711f9d0d1--explore-3b819ad5aadf--narrow/transition.json",
+            "evidence/bfe711f9d0d1--explore-58618f0c94dd--narrow/transition.json",
+            "evidence/bfe711f9d0d1--explore-3b819ad5aadf--narrow/state.json",
+            "evidence/bfe711f9d0d1--explore-58618f0c94dd--narrow/state.json"
+          ],
+          "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+          "capture": "操作経路 11",
+          "source": "",
+          "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。",
+          "case_capture": "bfe711f9d0d1--explore-58618f0c94dd--narrow",
+          "page_url": "http://127.0.0.1:44031/p01.html",
+          "operation_route": [
+            {
+              "selector": "#open",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "fixture": "p02.html",
+    "url": "http://127.0.0.1:44031/p02.html",
+    "initial_next": "page-audit --resume --quick-explore",
+    "before_exploring_rows": 0,
+    "older_reader_rows": 0,
+    "machine_counts": {
+      "passed": 106,
+      "inapplicable": 296,
+      "cant_tell": 6,
+      "failed": 2
+    },
+    "audit_complete": false,
+    "packets": [
+      {
+        "case_id": "d8e41c715bc5--explore-7a85a1312c13--desktop--2.1.2",
+        "capture": "d8e41c715bc5--explore-7a85a1312c13--desktop",
+        "case_outcome": "not_run",
+        "row": {
+          "criterion": "2.1.2",
+          "checkpoint": "ダイアログからのキー操作による離脱",
+          "target": "#panel",
+          "expected": "開いたダイアログからキーボード操作で離脱できる",
+          "outcome": "failed",
+          "observed": "試したキーでは同じ入力欄に留まった。閉じるボタンをマウスで操作すると離脱した。",
+          "environment": "desktop",
+          "evidence": "evidence/d8e41c715bc5--explore-027d5544e011--desktop/dialog-focus.json",
+          "proof": [
+            "evidence/d8e41c715bc5--explore-027d5544e011--desktop/input-events.json",
+            "evidence/d8e41c715bc5--explore-027d5544e011--desktop/transition.json",
+            "evidence/d8e41c715bc5--explore-fa1d7c5a93a3--desktop/transition.json",
+            "evidence/d8e41c715bc5--explore-7a85a1312c13--desktop/transition.json",
+            "evidence/d8e41c715bc5--explore-fa1d7c5a93a3--desktop/state.json",
+            "evidence/d8e41c715bc5--explore-7a85a1312c13--desktop/state.json"
+          ],
+          "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+          "capture": "操作経路 8",
+          "source": "",
+          "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。",
+          "case_capture": "d8e41c715bc5--explore-7a85a1312c13--desktop",
+          "page_url": "http://127.0.0.1:44031/p02.html",
+          "operation_route": [
+            {
+              "selector": "#open",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        }
+      },
+      {
+        "case_id": "d8e41c715bc5--explore-8bc7af667291--narrow--2.1.2",
+        "capture": "d8e41c715bc5--explore-8bc7af667291--narrow",
+        "case_outcome": "not_run",
+        "row": {
+          "criterion": "2.1.2",
+          "checkpoint": "ダイアログからのキー操作による離脱",
+          "target": "#panel",
+          "expected": "開いたダイアログからキーボード操作で離脱できる",
+          "outcome": "failed",
+          "observed": "試したキーでは同じ入力欄に留まった。閉じるボタンをマウスで操作すると離脱した。",
+          "environment": "narrow",
+          "evidence": "evidence/d8e41c715bc5--explore-46635067419d--narrow/dialog-focus.json",
+          "proof": [
+            "evidence/d8e41c715bc5--explore-46635067419d--narrow/input-events.json",
+            "evidence/d8e41c715bc5--explore-46635067419d--narrow/transition.json",
+            "evidence/d8e41c715bc5--explore-6c5f1d24310b--narrow/transition.json",
+            "evidence/d8e41c715bc5--explore-8bc7af667291--narrow/transition.json",
+            "evidence/d8e41c715bc5--explore-6c5f1d24310b--narrow/state.json",
+            "evidence/d8e41c715bc5--explore-8bc7af667291--narrow/state.json"
+          ],
+          "state_label": "キー 確認画面を開く / Enter → キー body / Escape",
+          "capture": "操作経路 10",
+          "source": "",
+          "note": "実際に試した離脱操作の結果。ほかの操作方法や案内は追加確認。",
+          "case_capture": "d8e41c715bc5--explore-8bc7af667291--narrow",
+          "page_url": "http://127.0.0.1:44031/p02.html",
+          "operation_route": [
+            {
+              "selector": "#open",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

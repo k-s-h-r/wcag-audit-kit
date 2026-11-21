@@ -1,0 +1,194 @@
+{
+  "cases": [
+    {
+      "start_url": "http://127.0.0.1:43922/n2k/",
+      "urls": [
+        "http://127.0.0.1:43922/n2k/",
+        "http://127.0.0.1:43922/n2k/schedule",
+        "http://127.0.0.1:43922/n2k/preview?attendees=2"
+      ],
+      "findings": [
+        {
+          "page_url": "http://127.0.0.1:43922/n2k/schedule",
+          "criterion": "2.1.1",
+          "target": "同伴者を追加する",
+          "outcome": "failed",
+          "expected": "同伴者をキーボードで追加し、2名の確認へ進める。",
+          "observed": "初期値1名。実キーで操作後は1名。別の試行でマウスを使うと2名。案内は「見学人数を2名にしてください。」。 証拠 n2k-keyboard-1_05-tab.png, n2k-keyboard-1_06-enter.png, n2k-keyboard-1_07-space.png, n2k-keyboard-1_events.jsonl, n2k-pointer-2_04-two-person-pointer.png, n2k-pointer-2_events.jsonl, n2k-keyboard-1_10-keyboard-result.png, n2k-keyboard-1_10-keyboard-result.aria.yml, n2k-keyboard-1_10-keyboard-result.ax.json, n2k-pointer-2_06-confirmation.png",
+          "steps": [
+            "起点でTabとEnterを使い見学枠を開く。",
+            "同伴者の追加をキーで実行し、人数と確認画面への到達を確かめる。"
+          ]
+        },
+        {
+          "page_url": "http://127.0.0.1:43922/n2k/schedule",
+          "criterion": "2.5.3",
+          "target": "確認画面に進む",
+          "outcome": "failed",
+          "expected": "確認ボタンの見えるラベルがアクセシブルな名前に含まれる。",
+          "observed": "表示は「確認画面に進む」、Chromiumが公開した名前は「詳しい情報」。 証拠 n2k-keyboard-1_04-slot-selection.png, n2k-keyboard-1_04-slot-selection.aria.yml, n2k-keyboard-1_04-slot-selection.ax.json",
+          "steps": [
+            "起点から見学枠を開き、確認ボタンの見える表示と公開アクセシビリティツリーを比較する。"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "evidence": {
+            "artifact": "n2k-keyboard-1_05-tab.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-keyboard-1_06-enter.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-keyboard-1_07-space.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-keyboard-1_events.jsonl"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-pointer-2_04-two-person-pointer.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-pointer-2_events.jsonl"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-keyboard-1_04-slot-selection.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-keyboard-1_04-slot-selection.aria.yml"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-keyboard-1_04-slot-selection.ax.json"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-keyboard-1_10-keyboard-result.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-keyboard-1_10-keyboard-result.aria.yml"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-keyboard-1_10-keyboard-result.ax.json"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "n2k-pointer-2_06-confirmation.png"
+          }
+        }
+      ]
+    },
+    {
+      "start_url": "http://127.0.0.1:43922/j6w/",
+      "urls": [
+        "http://127.0.0.1:43922/j6w/",
+        "http://127.0.0.1:43922/j6w/select",
+        "http://127.0.0.1:43922/j6w/verify?attendees=2"
+      ],
+      "findings": [
+        {
+          "page_url": "http://127.0.0.1:43922/j6w/select",
+          "criterion": "2.1.1",
+          "target": "同伴者を追加する",
+          "outcome": "passed",
+          "expected": "同伴者をキーボードで追加し、2名の確認へ進める。",
+          "observed": "初期値1名。実キーで操作後は2名。「見学人数を2名にしてください。」を表示したあと、人数を修正して確認画面へ進んだ。 証拠 j6w-keyboard-1_09-shift-tab.png, j6w-keyboard-1_10-enter.png, j6w-keyboard-1_11-two-person-keyboard.aria.yml, j6w-keyboard-1_events.jsonl, j6w-keyboard-1_08-validation.png, j6w-keyboard-1_11-two-person-keyboard.png, j6w-keyboard-1_14-confirmation.png, j6w-keyboard-1_14-confirmation.aria.yml",
+          "steps": [
+            "起点でTabとEnterを使い見学枠を開く。",
+            "同伴者の追加をキーで実行し、人数と確認画面への到達を確かめる。"
+          ]
+        },
+        {
+          "page_url": "http://127.0.0.1:43922/j6w/select",
+          "criterion": "2.5.3",
+          "target": "確認画面に進む",
+          "outcome": "passed",
+          "expected": "確認ボタンの見えるラベルがアクセシブルな名前に含まれる。",
+          "observed": "表示は「確認画面に進む」、Chromiumが公開した名前は「確認画面に進む」。 証拠 j6w-keyboard-1_04-slot-selection.png, j6w-keyboard-1_04-slot-selection.aria.yml, j6w-keyboard-1_04-slot-selection.ax.json",
+          "steps": [
+            "起点から見学枠を開き、確認ボタンの見える表示と公開アクセシビリティツリーを比較する。"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_09-shift-tab.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_10-enter.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_11-two-person-keyboard.aria.yml"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_events.jsonl"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_04-slot-selection.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_04-slot-selection.aria.yml"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_04-slot-selection.ax.json"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_08-validation.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_11-two-person-keyboard.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_14-confirmation.png"
+          }
+        },
+        {
+          "evidence": {
+            "artifact": "j6w-keyboard-1_14-confirmation.aria.yml"
+          }
+        }
+      ]
+    }
+  ]
+}

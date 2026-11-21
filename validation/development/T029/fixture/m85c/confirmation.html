@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>予約内容の確認</title><link rel="stylesheet" href="../site.css"></head>
+<body><main><h1>予約内容の確認</h1>
+<p id="summary"></p><p><a href="calendar.html">利用日を選び直す</a></p></main><script>
+const day = new URLSearchParams(location.search).get('day');
+document.querySelector('#summary').textContent = ['10', '12', '15'].includes(day)
+  ? `2027年5月${day}日を選びました。` : '予約できる日を選んでください。';
+</script></body></html>

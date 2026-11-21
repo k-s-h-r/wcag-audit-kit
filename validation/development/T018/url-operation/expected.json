@@ -1,0 +1,11 @@
+{
+  "tests": [
+    {"file": "one.html", "pointer_opens": true, "enter_opens": true, "space_opens": true},
+    {"file": "two.html", "pointer_opens": true, "enter_opens": false, "space_opens": false}
+  ],
+  "target": "#subject #opener",
+  "target_name": "利用時間",
+  "panel": "#subject #panel",
+  "inner": "#subject #inner",
+  "environments": ["desktop", "narrow"]
+}

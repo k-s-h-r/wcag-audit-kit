@@ -6,8 +6,12 @@
   const nativeClearInterval = window.clearInterval, timers = new Map();
   let lastChange = performance.now(), untrackedCallbacks = 0;
   let operationMutations = null;
+  let dialogGeneration = 0;
   new MutationObserver(records => {
     lastChange = performance.now();
+    for (const {attributeName, target} of records) {
+      if (attributeName === 'open' && target instanceof HTMLDialogElement) dialogGeneration++;
+    }
     if (!operationMutations) return;
     for (const {target} of records) {
       if (operationMutations.size >= 1000) break;
@@ -44,7 +48,16 @@
     return result('timeout');
   };
   const events = new WeakMap(), original = EventTarget.prototype.addEventListener;
+  const pointerInput = /^(click|dblclick|auxclick|contextmenu|mouse|pointer|touch|(?:got|lost)pointercapture)/;
+  const pointerMotion = ['mousemove','mouseover','mouseout','mouseenter','mouseleave',
+    'pointermove','pointerrawupdate','pointerover','pointerout','pointerenter','pointerleave','pointercancel',
+    'gotpointercapture','lostpointercapture','touchmove','touchcancel'];
+  let globalKeyboardListener = false, globalPointerListener = false;
   EventTarget.prototype.addEventListener = function (type, ...args) {
+    if ((this === window || this === document) && args[0]?.name !== 'wcagAuditInputListener') {
+      if (/^key(down|up|press)$/.test(type)) globalKeyboardListener = true;
+      if (pointerInput.test(type)) globalPointerListener = true;
+    }
     if (this instanceof Element) {
       const types = events.get(this) || new Set(); types.add(type); events.set(this, types);
     }
@@ -84,11 +97,46 @@
     const r = e.getBoundingClientRect(), s = getComputedStyle(e);
     return !!(r.width && r.height && s.visibility !== 'hidden' && s.display !== 'none');
   };
+  let functionOutput, functionControl;
+  window.__wcagFunctionValueAtClick = () => functionOutput?.isConnected ? functionOutput.value.trim() : null;
+  const keyboardHandler = target => ['onkeydown', 'onkeypress', 'onkeyup'].some(
+    key => typeof target[key] === 'function'
+  ) || [...(events.get(target) || [])].some(type => /^key(down|up|press)$/.test(type));
+  window.__wcagFunctionOutput = (phase, control) => {
+    const outputs = [...document.querySelectorAll('output')].filter(visible);
+    if (outputs.length !== 1) return null;
+    const [output] = outputs;
+    const value = output.value.trim();
+    if (!/^-?[0-9]+$/.test(value) || !Number.isSafeInteger(Number(value)) || output.innerText.trim() !== value ||
+        output.closest('[inert], [aria-hidden="true" i]') || output.form ||
+        output.checkVisibility?.({opacityProperty: true}) === false) return null;
+    if (phase === 'after') {
+      if (output !== functionOutput || !functionControl?.isConnected) return null;
+      control = functionControl;
+    } else {
+      functionOutput = output;
+      functionControl = control;
+    }
+    const observation = {target: selector(output), value, url: location.href};
+    if (control) {
+      const ancestors = [];
+      let customKeys = keyboardHandler(control);
+      for (let parent = control.parentElement; parent; parent = parent.parentElement) {
+        ancestors.push(selector(parent));
+        customKeys ||= keyboardHandler(parent);
+      }
+      observation.control_ancestors = ancestors;
+      observation.custom_keys = globalKeyboardListener || Boolean(document.querySelector('[accesskey], [aria-keyshortcuts]')) ||
+        customKeys || [window, document].some(keyboardHandler);
+    }
+    return observation;
+  };
   const deepestActive = root => {
     let active = root.activeElement;
     while (active?.shadowRoot?.activeElement) active = active.shadowRoot.activeElement;
     return active;
   };
+  const composedParent = e => e.assignedSlot || e.parentElement || e.getRootNode().host;
   window.__wcagDisclosure = (opener, bindFocus) => {
     const id = opener.getAttribute('aria-controls')?.trim();
     const root = opener.getRootNode();
@@ -98,10 +146,29 @@
     const panel = matches[0], focus = deepestActive(document);
     if (!focus || focus.matches('iframe,frame')) return null;
     if (bindFocus) window.__wcagExpectedInputTarget = focus;
+    let navigation = false;
+    for (let ancestor = opener; ancestor; ancestor = composedParent(ancestor)) {
+      if (ancestor.matches('nav, [role="navigation"]')) {
+        navigation = true;
+        break;
+      }
+    }
+    const contentToggle = opener.matches('button, [role="button"]') &&
+      !navigation && !opener.matches('[aria-haspopup]:not([aria-haspopup="false" i])') &&
+      panel.matches('p, div, section, article, aside, [role="region"]') &&
+      !panel.matches('[role]:not([role="region"])');
+    let contentVisible = null;
+    if (contentToggle) {
+      if (getComputedStyle(panel).display === 'none') contentVisible = false;
+      else if (visible(panel) && panel.checkVisibility?.({
+        opacityProperty: true, visibilityProperty: true, contentVisibilityAuto: true
+      }) !== false) contentVisible = true;
+    }
     return {
       document: performance.timeOrigin, url: location.href,
       opener: selector(opener), panel: selector(panel), expanded: opener.getAttribute('aria-expanded'),
-      visible: visible(panel), focus: selector(focus), focus_within: panel.contains(root.activeElement)
+      visible: visible(panel), focus: selector(focus), focus_within: panel.contains(root.activeElement),
+      content_toggle: contentToggle, content_visible: contentVisible
     };
   };
   const visibleModals = () => [...document.querySelectorAll(
@@ -117,6 +184,32 @@
         !active.matches('iframe, frame'),
       document_start: performance.timeOrigin, url: location.href
     };
+  };
+  window.__wcagNestedParentInput = () => {
+    const modals = visibleModals();
+    const input = document.activeElement;
+    if (modals.length !== 1 || closedRoots || globalPointerListener || !document.hasFocus() ||
+        !(input instanceof HTMLInputElement) || input.type !== 'text' || input.value || input.form ||
+        input.disabled || input.readOnly || !visible(input) || input.matches('[role],[list],[aria-haspopup]') ||
+        document.querySelector('iframe,frame')) return null;
+    const [parent] = modals;
+    const all = [...document.querySelectorAll('*')];
+    const other = all.filter(node => node !== parent && node.matches('dialog,[role~="dialog" i],[role~="alertdialog" i]'));
+    if (other.length !== 1 || !parent.contains(input) || all.some(node => node.shadowRoot)) return null;
+    const [child] = other;
+    if (!parent.contains(child) || !child.matches('[hidden][aria-modal="true"]:is([role="dialog"],[role="alertdialog"])') ||
+        visible(child)) return null;
+
+    const handlerProperty = (node, types) => types.some(type => typeof node['on' + type] === 'function');
+    const pointerHandler = node => [...(events.get(node) || [])].some(type => pointerInput.test(type)) ||
+      handlerProperty(node, [...pointerMotion, 'click','dblclick','auxclick','contextmenu','mousedown','mouseup',
+       'pointerdown','pointerup','touchstart','touchend']);
+    // The next locator click can dispatch movement events on the old pointer target as well.
+    if (all.some(node => [...(events.get(node) || [])].some(type => pointerMotion.includes(type)) ||
+        handlerProperty(node, pointerMotion))) return null;
+    if (pointerHandler(window) || pointerHandler(document)) return null;
+    for (let node = input; node; node = node.parentElement) if (pointerHandler(node)) return null;
+    return {parent:selector(parent), child:selector(child), focus:selector(input)};
   };
   window.__wcagCombobox = input => {
     const id = input.getAttribute('aria-controls')?.trim();
@@ -159,6 +252,7 @@
     const inputs = {};
     const relations = [];
     const references = {};
+    const resolvedAriaControls = [];
     const reusable = document.compatMode === 'CSS1Compat' && roots.length === 1 &&
       closedRoots === 0 && !document.querySelector('iframe,frame');
     for (const e of all) {
@@ -167,8 +261,10 @@
           for (const id of e.getAttribute(attribute).split(/\s+/).filter(Boolean)) {
             const target = e.getRootNode().getElementById(id);
             if (!target) continue;
+            const source = selector(e);
             const name = selector(target);
-            relations.push([selector(e), name, attribute]);
+            relations.push([source, name, attribute]);
+            if (attribute === 'aria-controls') resolvedAriaControls.push([source, id]);
             if (nameAttributes.has(attribute) && !(name in references)) {
               references[name] = JSON.stringify([target.textContent, target.getAttribute('aria-label')]);
             }
@@ -186,9 +282,12 @@
       if (html.length <= 4096) inputs['#' + e.id] = html;
     }
     return {operation_inputs: inputs, operation_relations: relations, operation_reference_inputs: references,
+      ...(resolvedAriaControls.length ? {operation_aria_controls_resolved: resolvedAriaControls} : {}),
       operation_scope_supported: reusable};
   };
   window.__wcagExplore = (operationEvidence = false) => {
+    if (operationEvidence === 'native-modal-state')
+      return {selectors:[...document.querySelectorAll('dialog:modal')].map(selector), generation:dialogGeneration};
     const all = [], roots = [document];
     for (let i = 0; i < roots.length; i++) for (const e of roots[i].querySelectorAll('*')) {
       all.push(e); if (e.shadowRoot) roots.push(e.shadowRoot);
@@ -225,6 +324,7 @@
     const recordedFocus = focusedTab ? focused : document.activeElement;
     const modal = all.filter(e => (e.matches('dialog[open]') || e.getAttribute('aria-modal') === 'true') && visible(e)).at(-1);
     const activeModals = visibleModals();
+    const nativeModals = all.filter(e => e.localName === 'dialog' && e.matches(':modal')).map(selector);
     const singleModal = activeModals.length === 1 ? activeModals[0] : null;
     const properties=['onclick','onmousedown','onpointerdown','onpointerup','onpointerenter','onmouseover','onkeydown','onchange','oninput'];
     const eligible = all.filter(e => visible(e) && (!modal || e === modal || modal.contains(e)) &&
@@ -237,9 +337,8 @@
       (e.hasAttribute('tabindex') && e.tabIndex >= 0) ||
       properties.some(p => typeof e[p] === 'function') ||
       [...(events.get(e) || [])].some(t => /click|pointer|mouse|key|change|input/.test(t))));
-    const parent = e => e.assignedSlot || e.parentElement || e.getRootNode().host;
     const inheritsControlCursor = e => {
-      for (let ancestor = parent(e); ancestor; ancestor = parent(ancestor)) {
+      for (let ancestor = composedParent(e); ancestor; ancestor = composedParent(ancestor)) {
         if (getComputedStyle(ancestor).cursor !== 'pointer') return false;
         if (semanticControl(ancestor)) return true;
       }
@@ -263,6 +362,8 @@
           rect:{x:r.x + scrollX,y:r.y + scrollY,width:r.width,height:r.height}};
       });
     return {...operation,url:location.href,title:document.title,controls,state,modal:modal ? selector(modal) : null,
+      ...(nativeModals.length ? {native_modals:nativeModals} : {}),
+      dialog_generation:dialogGeneration,
       frames:all.filter(e => e.matches('iframe,frame')).map(selector), closedRoots,
       canvases:all.filter(e => e.localName === 'canvas' && visible(e)).map(selector),
       scroll:{width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight},

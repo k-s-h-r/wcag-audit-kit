@@ -1,8 +1,55 @@
 """Observe modal dismissal and the next Tab on an automatic exploration route."""
+from contextlib import suppress
+
 from keyboard_checks import matching_keydown
+import keyboard_trap
 
 
 EVIDENCE_FILE = 'dialog-focus.json'
+NESTED_EVIDENCE_FILE = 'nested-dialog.json'
+NESTED_PAIR = r'''snapshot => {
+    const unique = selector => {
+        const matches = document.querySelectorAll(selector);
+        return matches.length === 1 ? matches[0] : null;
+    };
+    const [parent, child] = snapshot.modals.map(unique);
+    const focus = unique(snapshot.focus);
+    const visible = window.__wcagDialogElementVisible;
+    const possibleDialogs = () => {
+        // Keep the scope in the document tree when shadow content may contain another dialog.
+        if ([...document.querySelectorAll('*')].some(element => element.shadowRoot)) return null;
+        const mayBeDisplayed = element => {
+            // Dialog containers can expose displayed content without generating a box.
+            for (let node = element; node; node = node.parentElement) {
+                if (getComputedStyle(node).display === 'none') return false;
+            }
+            return true;
+        };
+        return [...document.querySelectorAll(
+            'dialog, [role~="dialog" i], [role~="alertdialog" i]'
+        )].filter(mayBeDisplayed);
+    };
+    const dialogs = possibleDialogs();
+    if (!dialogs || !parent || !child || parent === child || !parent.contains(child) ||
+        dialogs.length !== 2 || !dialogs.includes(parent) || !dialogs.includes(child) ||
+        !visible(parent) || !visible(child) || !focus || focus !== document.activeElement ||
+        !child.contains(focus)) return null;
+    if (snapshot.mark_input !== false) window.__wcagExpectedInputTarget = focus;
+    return {parent, child, possibleDialogs};
+}'''
+NESTED_STATE = r'''pair => {
+    if (!pair?.parent.isConnected || !pair.child.isConnected || !pair.parent.contains(pair.child) ||
+        !window.__wcagDialogElementVisible(pair.parent)) return null;
+    const childVisible = window.__wcagDialogElementVisible(pair.child);
+    const dialogs = pair.possibleDialogs();
+    if (!dialogs || dialogs.length !== (childVisible ? 2 : 1) || !dialogs.includes(pair.parent) ||
+        childVisible !== dialogs.includes(pair.child)) return null;
+    const snapshot = window.__wcagDialogFocus();
+    const focus = document.activeElement;
+    const layer = pair.child.contains(focus) ? 'child' : pair.parent.contains(focus) ? 'parent' :
+        snapshot.root_focus ? 'document' : 'outside';
+    return {snapshot, child_visible: childVisible, layer};
+}'''
 SNAPSHOT = '() => window.__wcagDialogFocus()'
 EXPECT_TARGET = 'e => { window.__wcagExpectedInputTarget = e; }'
 CLEAR_TARGET = '() => { window.__wcagExpectedInputTarget = null; }'
@@ -35,6 +82,10 @@ class DialogFocus:
         self.opener_handle = None
         self.opener_event_index = None
         self.modal = None
+        self.keyboard_only = phase == 'escape' and all(step['type'] in {'key', 'press'} for step in route)
+        self.trap_start = None
+        self.nested_pair = None
+        self.nested_observation = None
         self.record = dict(phase=phase, close_action=self.close_action, status='unconfirmed',
                            reason='閉じる操作まで到達していない。')
 
@@ -62,6 +113,19 @@ class DialogFocus:
                 if self.marked and not await self.modal.evaluate('(modal, button) => modal !== button && modal.contains(button)', self.marked):
                     await self.page.evaluate(CLEAR_TARGET)
                     self.marked = None
+            elif self.keyboard_only and self.opener and self.initial['supported'] and not self.initial['root_focus']:
+                start = await self.modal.evaluate(keyboard_trap.SNAPSHOT)
+                if start['within']:
+                    self.marked = await self.mark_target({'selector': self.initial['focus']})
+                    if self.marked:
+                        self.trap_start = start
+        elif (index == self.close_step and self.record['phase'] == 'escape'
+              and action['type'] == 'press' and action['key'] == 'Escape'
+              and len(self.initial['modals']) == 2 and self.initial['supported'] and not self.initial['root_focus']):
+            from playwright.async_api import Error as BrowserError
+
+            with suppress(BrowserError):
+                self.nested_pair = await self.page.evaluate_handle(NESTED_PAIR, self.initial)
 
     def event_index(self, matches):
         events = enumerate(self.observer.events[self.input_start:], self.input_start + 1)
@@ -69,7 +133,7 @@ class DialogFocus:
 
     async def after(self, index, action):
         current = await self.page.evaluate(SNAPSHOT)
-        if self.marked:
+        if self.marked or self.nested_pair:
             await self.page.evaluate(CLEAR_TARGET)
         if index < self.close_step:
             if self.initial['modals'] != current['modals']:
@@ -93,6 +157,8 @@ class DialogFocus:
             if not self.button:
                 # Keep the evidence keys read by previous Escape consumers.
                 self.record.update(before_escape=self.initial, after_escape=current, escape_event_index=event_index)
+            if self.nested_pair:
+                self.nested_observation = await self.observe_nested_escape(current, event_index)
         else:
             self.record.update(after_tab=current, tab_event_index=event_index)
 
@@ -125,8 +191,57 @@ class DialogFocus:
                         !!(e.compareDocumentPosition(document.activeElement) & Node.DOCUMENT_POSITION_PRECEDING)
                     """)
 
+    async def observe_nested_escape(self, current, event_index):
+        from playwright.async_api import Error as BrowserError
+
+        before = self.initial
+        if (self.observer.dropped or event_index is None or not current['supported']
+                or not same_document(before, current)):
+            return None
+        event = self.observer.events[event_index - 1]
+        if event.get('expectedTargetMatched') is not True or event['url'] != before['url']:
+            return None
+        parent, child = before['modals']
+        try:
+            observed = await self.nested_pair.evaluate(NESTED_STATE)
+        except BrowserError:
+            return None
+        if not observed or observed['snapshot'] != current:
+            return None
+        if current['modals'] == [parent] and not observed['child_visible'] and observed['layer'] != 'child':
+            status = 'child_closed'
+        elif current['modals'] == [parent, child] and observed['child_visible']:
+            status = 'child_open'
+        else:
+            return None
+        return dict(parent=parent, child=child, status=status, before=before, after=current,
+                    focus_layer=observed['layer'], key='Escape', event_index=event_index - 1,
+                    input_evidence='input-events.json')
+
+    async def opened_expected_child(self, parent, child):
+        before, after = (self.record.get(name) for name in ('before_close', 'after_close'))
+        if (self.observer.dropped or not self.record.get('opener_event_index') or not self.record.get('close_event_index')
+                or not before or not after or not before['supported'] or not after['supported']
+                or not same_document(before, after) or before['modals'] != [parent] or after['modals'] != [parent, child]):
+            return False
+        return await self.page.evaluate(f'snapshot => !!({NESTED_PAIR})(snapshot)', dict(after, mark_input=False))
+
     def invalidate(self, reason):
         self.record.update(status='unconfirmed', reason=reason)
+
+    async def observe_keyboard_trap(self):
+        from playwright.async_api import Error as BrowserError
+
+        if self.trap_start is None:
+            return False
+        try:
+            receipt = await keyboard_trap.probe(self.page, self.modal, self.marked, self.observer, self.trap_start,
+                                                self.record, self.opener)
+        except BrowserError:
+            return True
+        if receipt:
+            self.record['keyboard_trap'] = receipt
+        return bool(receipt and receipt['steps'])
 
 
 def report_row(record, environment, evidence, route, capture):

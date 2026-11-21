@@ -1,0 +1,211 @@
+{
+  "authentic": {
+    "039": {
+      "row_status": "matched",
+      "verdicts": {
+        "desktop": "passed",
+        "narrow": "passed"
+      }
+    },
+    "040": {
+      "row_status": "detected",
+      "verdicts": {
+        "desktop": "failed",
+        "narrow": "failed"
+      }
+    }
+  },
+  "copies": [
+    {
+      "file": "input-events.json",
+      "page_id": "039",
+      "width_changed": "desktop",
+      "unchanged_proof": true,
+      "original_hash": "9bbbaeafc5b86ed16788cb628fa7abffaaae3be541b8a2682ae50199e28e0102",
+      "modified_hash": "8bf9db01fcec9cabbee11672f17ba2813de6f7df7b506d48d4a1164891889409",
+      "untouched_width": "narrow",
+      "untouched_verdict": "passed",
+      "row_status": "observed_no_verdict",
+      "discarded_width": "desktop",
+      "still_reached": true
+    },
+    {
+      "file": "dialog-focus.json",
+      "page_id": "039",
+      "width_changed": "desktop",
+      "unchanged_proof": true,
+      "original_hash": "aec9893c078df8f08c7e030cfc2df4ba0887c756851597813148ef51396f80e1",
+      "modified_hash": "f06f14f72a337f15dd2c1e02d865079fb6dff0a8d87851413f2f31f9d32eb824",
+      "untouched_width": "narrow",
+      "untouched_verdict": "passed",
+      "row_status": "observed_no_verdict",
+      "discarded_width": "desktop",
+      "still_reached": true
+    },
+    {
+      "file": "transition.json",
+      "page_id": "039",
+      "width_changed": "desktop",
+      "unchanged_proof": true,
+      "original_hash": "28a53593c92db7d6e4c2c754bdfad1bf71415b616ae430b331507f61656348fc",
+      "modified_hash": "72b5a7f4cdec5aaaaea31901b9fc21089625dcb7371cd84d608c7f27c487905c",
+      "untouched_width": "narrow",
+      "untouched_verdict": "passed",
+      "row_status": "observed_no_verdict",
+      "discarded_width": "desktop",
+      "still_reached": true
+    },
+    {
+      "file": "input-events.json",
+      "page_id": "039",
+      "width_changed": "narrow",
+      "unchanged_proof": true,
+      "original_hash": "86ccafbebf45eec51547b64c24e3da738b35c22244a3fcfb0a5e04553341675b",
+      "modified_hash": "2b95eff276a94bd0eb2c2361c8f801092d18d729214912976d8054c6929c3a45",
+      "untouched_width": "desktop",
+      "untouched_verdict": "passed",
+      "row_status": "observed_no_verdict",
+      "discarded_width": "narrow",
+      "still_reached": true
+    },
+    {
+      "file": "dialog-focus.json",
+      "page_id": "039",
+      "width_changed": "narrow",
+      "unchanged_proof": true,
+      "original_hash": "0b1fda086a47d52723bfbb0d5668d52182246ce9978ba9d244d64ffb1559254c",
+      "modified_hash": "8a68db47041cbd0ceabd3d0b86b6d3fc3c9bed589f0e6d121d94e4dbdf7dd708",
+      "untouched_width": "desktop",
+      "untouched_verdict": "passed",
+      "row_status": "observed_no_verdict",
+      "discarded_width": "narrow",
+      "still_reached": true
+    },
+    {
+      "file": "transition.json",
+      "page_id": "039",
+      "width_changed": "narrow",
+      "unchanged_proof": true,
+      "original_hash": "baf889fecbf7a2fc5b812b76e8c0f4abe4a58bb3ace33fa554eb2e7b572adf14",
+      "modified_hash": "b2caf79a3e02a3a1cae70d194210fc39f1dab2e3f07eab0625ee4ea42c93e523",
+      "untouched_width": "desktop",
+      "untouched_verdict": "passed",
+      "row_status": "observed_no_verdict",
+      "discarded_width": "narrow",
+      "still_reached": true
+    },
+    {
+      "file": "input-events.json",
+      "page_id": "040",
+      "width_changed": "desktop",
+      "unchanged_proof": true,
+      "original_hash": "cfdabb7682773bb4d10f1a68a36d791c74a654ae14985f12087746c28e7f60c2",
+      "modified_hash": "1d59fa77434025b24ce68d53ed9e607246247f49f3d7b2319b4c596df44399cb",
+      "untouched_width": "narrow",
+      "untouched_verdict": "failed",
+      "row_status": "detected",
+      "discarded_width": "desktop",
+      "still_reached": true
+    },
+    {
+      "file": "dialog-focus.json",
+      "page_id": "040",
+      "width_changed": "desktop",
+      "unchanged_proof": true,
+      "original_hash": "f82fc254e4267406522970db761d0d088197d544cddd375d137483d40063f6ba",
+      "modified_hash": "0d94b25134db089e55fbcb4b4abd344979cec19f999820dbd5134cb0a4ed572e",
+      "untouched_width": "narrow",
+      "untouched_verdict": "failed",
+      "row_status": "detected",
+      "discarded_width": "desktop",
+      "still_reached": true
+    },
+    {
+      "file": "transition.json",
+      "page_id": "040",
+      "width_changed": "desktop",
+      "unchanged_proof": true,
+      "original_hash": "495436a83d9f3703def85e73f1a080a09cce92e5dcb6688b915d6d333f7fc520",
+      "modified_hash": "c722f367f283b57b68806c0c4132117ee6643c3fc0fb2dac7cc261f67e18ef06",
+      "untouched_width": "narrow",
+      "untouched_verdict": "failed",
+      "row_status": "detected",
+      "discarded_width": "desktop",
+      "still_reached": true
+    },
+    {
+      "file": "input-events.json",
+      "page_id": "040",
+      "width_changed": "narrow",
+      "unchanged_proof": true,
+      "original_hash": "ee0425f0766ce355b63cad079c469ca7fbaa16c223f170544b5843edd4bdfa59",
+      "modified_hash": "7ebd53964f07e476dfd68d37038b98a8466da90b48f3a84f48ddc3bda9989aad",
+      "untouched_width": "desktop",
+      "untouched_verdict": "failed",
+      "row_status": "detected",
+      "discarded_width": "narrow",
+      "still_reached": true
+    },
+    {
+      "file": "dialog-focus.json",
+      "page_id": "040",
+      "width_changed": "narrow",
+      "unchanged_proof": true,
+      "original_hash": "3daaff005c7106d218117724b81901e2630817e4e7f3062b821d0a302af7b40a",
+      "modified_hash": "eb73d100c4bb7dac1718b4269d6a902422d439824708e68b5cd8330a6d1667d4",
+      "untouched_width": "desktop",
+      "untouched_verdict": "failed",
+      "row_status": "detected",
+      "discarded_width": "narrow",
+      "still_reached": true
+    },
+    {
+      "file": "transition.json",
+      "page_id": "040",
+      "width_changed": "narrow",
+      "unchanged_proof": true,
+      "original_hash": "09df2b0d1d670f15190b0d6c03c72060bfd91f9f0adf0e6ee53b1c6afc8194b6",
+      "modified_hash": "67e9ec236bf992ab5adf1cc4d1a8a295406ba47853de70db03281c3c1357bbce",
+      "untouched_width": "desktop",
+      "untouched_verdict": "failed",
+      "row_status": "detected",
+      "discarded_width": "narrow",
+      "still_reached": true
+    }
+  ],
+  "missing_proof": [
+    {
+      "case": "039",
+      "affected_width": "desktop",
+      "only_affected_width_excluded": true
+    },
+    {
+      "case": "039",
+      "affected_width": "narrow",
+      "only_affected_width_excluded": true
+    },
+    {
+      "case": "040",
+      "affected_width": "desktop",
+      "only_affected_width_excluded": true
+    },
+    {
+      "case": "040",
+      "affected_width": "narrow",
+      "only_affected_width_excluded": true
+    }
+  ],
+  "semantic_check": [
+    {
+      "case": "039",
+      "rewritten_hash_on_copy_only": true,
+      "untrusted_opener_still_rejected": true
+    },
+    {
+      "case": "040",
+      "rewritten_hash_on_copy_only": true,
+      "untrusted_opener_still_rejected": true
+    }
+  ],
+  "original_extracted_files_unchanged": 633
+}

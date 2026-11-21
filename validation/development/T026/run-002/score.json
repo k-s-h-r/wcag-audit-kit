@@ -1,0 +1,125 @@
+{
+  "criterion": "4.1.3",
+  "oracle_sha256": "ecfd152538c4081e8014bed1bc3fdbb2ac7be1fea8e276b18c27d8ec7d06f48f",
+  "input_sha256": {
+    "fixture/aa/confirmation.html": "485f8660e92d5405cb8dd9c13abf7b1a155be17eedb3f3b1a2e8d8c8a8ce2a79",
+    "fixture/aa/index.html": "0cdf5387bd18fcfae741f56a8d022e4be81a20983b1d35cb67719058e09b2ee6",
+    "fixture/aa/visit.html": "5bb499bf6f06052a44e5c42a6730205bea76667126fbd53d28c3853bf3856b48",
+    "fixture/bb/confirmation.html": "485f8660e92d5405cb8dd9c13abf7b1a155be17eedb3f3b1a2e8d8c8a8ce2a79",
+    "fixture/bb/index.html": "0cdf5387bd18fcfae741f56a8d022e4be81a20983b1d35cb67719058e09b2ee6",
+    "fixture/bb/visit.html": "d280283bec6a05948d794bb25380fa3f787951f3e66431f0afccd26b707ac3d3",
+    "fixture/confirmation.js": "b294df4a55b6c6b28c13111583bc0ee4a7b69ac2d5ad3441076ef17e74852c82",
+    "fixture/site.css": "ac90732efc2e283439424ae0a7132824a14d70827fb8b7e8c7796d5af745e1d7",
+    "fixture/visit.js": "c2c0f33a95e1ad7dd3def1f30a457f224430ecae0cb5f51aef9f9c90b148d8f3",
+    "scenario.json": "84d9a17fe37848fc94b83d451822689792b3a816037897ddbe6dc1d42e2e94c3"
+  },
+  "correct": 2,
+  "total": 2,
+  "cases": {
+    "aa": {
+      "valid": true,
+      "outcome": "passed",
+      "environment": {
+        "system": "Linux",
+        "kernel": "6.18.57",
+        "reader": "Orca",
+        "reader_version": "48.1",
+        "debian_package": "48.1-1+deb13u2",
+        "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+        "audio_output": "ALSA null; speech transcript, no acoustic recording",
+        "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+        "installation_verified": true,
+        "simulation": false,
+        "browser": "Chromium",
+        "browser_version": "156.0.8078.79"
+      },
+      "adapter_status": "collected",
+      "receipt": "aa/speech/screen-reader.json",
+      "error": null,
+      "speech_log": "aa/speech/orca-debug.log",
+      "entry": "http://127.0.0.1:34163/aa/",
+      "visit": "http://127.0.0.1:34163/aa/visit.html",
+      "confirmation": "http://127.0.0.1:34163/aa/confirmation.html?people=2",
+      "review_speech": [
+        "tab",
+        "予約内容を確認する button.",
+        "Browse mode",
+        "予約内容を確認する button."
+      ],
+      "error_speech": [
+        "space",
+        "見学人数は2名以上を入力してください。"
+      ],
+      "correction_speech": [
+        "left shift",
+        "見学人数 entry 1 selected required.",
+        "invalid entry.",
+        "見学人数は2名以上を入力してください。",
+        "Focus mode"
+      ],
+      "error_visible": true,
+      "error_role": "alert",
+      "error_focused": true,
+      "error_window": [
+        "2026-11-21T04:47:58.097793+00:00",
+        "2026-11-21T04:48:01.099333+00:00"
+      ],
+      "error_screen_sha256": "276e639630e04e5e7bca20e5a1f2a3ef296988d9a0c4c5cb3b45412847de6393",
+      "silence": false,
+      "announcement": true,
+      "speech_log_sha256": "8af2a78b2de1a57bda2f320136404ded2fb7f45ae4cc526ef0930a85dd645f8f"
+    },
+    "bb": {
+      "valid": true,
+      "outcome": "failed",
+      "environment": {
+        "system": "Linux",
+        "kernel": "6.18.57",
+        "reader": "Orca",
+        "reader_version": "48.1",
+        "debian_package": "48.1-1+deb13u2",
+        "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+        "audio_output": "ALSA null; speech transcript, no acoustic recording",
+        "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+        "installation_verified": true,
+        "simulation": false,
+        "browser": "Chromium",
+        "browser_version": "156.0.8078.79"
+      },
+      "adapter_status": "collected",
+      "receipt": "bb/speech/screen-reader.json",
+      "error": null,
+      "speech_log": "bb/speech/orca-debug.log",
+      "entry": "http://127.0.0.1:34163/bb/",
+      "visit": "http://127.0.0.1:34163/bb/visit.html",
+      "confirmation": "http://127.0.0.1:34163/bb/confirmation.html?people=2",
+      "review_speech": [
+        "tab",
+        "予約内容を確認する button.",
+        "Browse mode",
+        "予約内容を確認する button."
+      ],
+      "error_speech": [
+        "space"
+      ],
+      "correction_speech": [
+        "left shift",
+        "見学人数 entry 1 selected required.",
+        "invalid entry.",
+        "見学人数は2名以上を入力してください。",
+        "Focus mode"
+      ],
+      "error_visible": true,
+      "error_role": null,
+      "error_focused": true,
+      "error_window": [
+        "2026-11-21T04:48:52.397245+00:00",
+        "2026-11-21T04:48:55.399087+00:00"
+      ],
+      "error_screen_sha256": "276e639630e04e5e7bca20e5a1f2a3ef296988d9a0c4c5cb3b45412847de6393",
+      "silence": true,
+      "announcement": false,
+      "speech_log_sha256": "dc856b41ea2f93d903cff64f19346de02b0b99888b9e0befe10a792b8425a06b"
+    }
+  }
+}

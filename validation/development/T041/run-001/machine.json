@@ -1,0 +1,64 @@
+{
+  "c4p": {
+    "audit_complete": false,
+    "case_outcomes": {
+      "not_run": 110
+    },
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "skills/wcag-audit-kit/scripts/audit.py",
+      "page-audit",
+      "--url",
+      "http://127.0.0.1:34185/c4p/",
+      "--out",
+      "/workspace/wcag-audit-work/evidence/t041/run-002-machine/c4p",
+      "--level",
+      "AA",
+      "--mode",
+      "machine",
+      "--screenshots",
+      "initial",
+      "--initial-only"
+    ],
+    "files_sha256": {
+      "data/report.json": "fb6b6ba3666dd18f9eac18a991758a60cff79f70ba8cccf4aa6c7caa606cb3ca",
+      "reports/details/issues.md": "558b4a95b42f3cf24855ff182293f8b0c2e490cb440ba65b3a36f6e4c9545677",
+      "reports/report.html": "5ecdd4f41cd9bcf4c26d289b5861674bd1742ca84678eece9e681fbd69da90e6",
+      "reports/report.xlsx": "eaf05d869757497d57c714d902cf16e4269c66a92f50672c1a5916b5b2075ec8"
+    },
+    "scope_label": "未確認",
+    "scope_status": "unverified",
+    "url": "http://127.0.0.1:34185/c4p/"
+  },
+  "m8d": {
+    "audit_complete": false,
+    "case_outcomes": {
+      "not_run": 110
+    },
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "skills/wcag-audit-kit/scripts/audit.py",
+      "page-audit",
+      "--url",
+      "http://127.0.0.1:34185/m8d/",
+      "--out",
+      "/workspace/wcag-audit-work/evidence/t041/run-002-machine/m8d",
+      "--level",
+      "AA",
+      "--mode",
+      "machine",
+      "--screenshots",
+      "initial",
+      "--initial-only"
+    ],
+    "files_sha256": {
+      "data/report.json": "8f2450988e2e9a50a908c324f009cf43efc64732de7ffb034a548475feaf9aa7",
+      "reports/details/issues.md": "558b4a95b42f3cf24855ff182293f8b0c2e490cb440ba65b3a36f6e4c9545677",
+      "reports/report.html": "0188fa5f0af7cfa5cbb5732aba030fe43877a341ceb28b6b84d0535b3cbe001a",
+      "reports/report.xlsx": "0bdafa606ca00b103d33dee4ac82479a215bf18abb6e906fbde4ef06b07b1e6c"
+    },
+    "scope_label": "未確認",
+    "scope_status": "unverified",
+    "url": "http://127.0.0.1:34185/m8d/"
+  }
+}

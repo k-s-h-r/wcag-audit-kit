@@ -1,0 +1,175 @@
+{
+  "revision": "89fc5dcc8a3b0b48f7c9e9175ff3cd68cda87840",
+  "pages": {
+    "039": [
+      {
+        "case": "b9265255b4bc--explore-b0803a1d60ce--desktop--2.1.2",
+        "state": "explore-b0803a1d60ce",
+        "environment": "desktop",
+        "case_outcome": "not_run",
+        "observation": "passed",
+        "route": [
+          {
+            "selector": "#open",
+            "type": "key",
+            "key": "Enter"
+          },
+          {
+            "type": "press",
+            "selector": "body",
+            "key": "Escape"
+          }
+        ],
+        "evidence": "evidence/b9265255b4bc--explore-4ed0e77c1c32--desktop/dialog-focus.json",
+        "proof": [
+          "evidence/b9265255b4bc--explore-4ed0e77c1c32--desktop/input-events.json",
+          "evidence/b9265255b4bc--explore-4ed0e77c1c32--desktop/transition.json",
+          "evidence/b9265255b4bc--explore-22349028217f--desktop/transition.json",
+          "evidence/b9265255b4bc--explore-b0803a1d60ce--desktop/transition.json",
+          "evidence/b9265255b4bc--explore-22349028217f--desktop/state.json",
+          "evidence/b9265255b4bc--explore-b0803a1d60ce--desktop/state.json"
+        ]
+      },
+      {
+        "case": "b9265255b4bc--explore-3582d8ad58d2--narrow--2.1.2",
+        "state": "explore-3582d8ad58d2",
+        "environment": "narrow",
+        "case_outcome": "not_run",
+        "observation": "passed",
+        "route": [
+          {
+            "selector": "#open",
+            "type": "key",
+            "key": "Enter"
+          },
+          {
+            "type": "press",
+            "selector": "body",
+            "key": "Escape"
+          }
+        ],
+        "evidence": "evidence/b9265255b4bc--explore-649d5887df63--narrow/dialog-focus.json",
+        "proof": [
+          "evidence/b9265255b4bc--explore-649d5887df63--narrow/input-events.json",
+          "evidence/b9265255b4bc--explore-649d5887df63--narrow/transition.json",
+          "evidence/b9265255b4bc--explore-42ea391780c0--narrow/transition.json",
+          "evidence/b9265255b4bc--explore-3582d8ad58d2--narrow/transition.json",
+          "evidence/b9265255b4bc--explore-42ea391780c0--narrow/state.json",
+          "evidence/b9265255b4bc--explore-3582d8ad58d2--narrow/state.json"
+        ]
+      }
+    ],
+    "040": [
+      {
+        "case": "6911ad7b5091--explore-d036bb68a69d--desktop--2.1.2",
+        "state": "explore-d036bb68a69d",
+        "environment": "desktop",
+        "case_outcome": "not_run",
+        "observation": "failed",
+        "route": [
+          {
+            "selector": "#open",
+            "type": "key",
+            "key": "Enter"
+          },
+          {
+            "type": "press",
+            "selector": "body",
+            "key": "Escape"
+          }
+        ],
+        "evidence": "evidence/6911ad7b5091--explore-00f6eab46321--desktop/dialog-focus.json",
+        "proof": [
+          "evidence/6911ad7b5091--explore-00f6eab46321--desktop/input-events.json",
+          "evidence/6911ad7b5091--explore-00f6eab46321--desktop/transition.json",
+          "evidence/6911ad7b5091--explore-f57fadc9e807--desktop/transition.json",
+          "evidence/6911ad7b5091--explore-d036bb68a69d--desktop/transition.json",
+          "evidence/6911ad7b5091--explore-f57fadc9e807--desktop/state.json",
+          "evidence/6911ad7b5091--explore-d036bb68a69d--desktop/state.json"
+        ]
+      },
+      {
+        "case": "6911ad7b5091--explore-84df37f60f60--narrow--2.1.2",
+        "state": "explore-84df37f60f60",
+        "environment": "narrow",
+        "case_outcome": "not_run",
+        "observation": "failed",
+        "route": [
+          {
+            "selector": "#open",
+            "type": "key",
+            "key": "Enter"
+          },
+          {
+            "type": "press",
+            "selector": "body",
+            "key": "Escape"
+          }
+        ],
+        "evidence": "evidence/6911ad7b5091--explore-47fa1717e104--narrow/dialog-focus.json",
+        "proof": [
+          "evidence/6911ad7b5091--explore-47fa1717e104--narrow/input-events.json",
+          "evidence/6911ad7b5091--explore-47fa1717e104--narrow/transition.json",
+          "evidence/6911ad7b5091--explore-70a1b163e0f0--narrow/transition.json",
+          "evidence/6911ad7b5091--explore-84df37f60f60--narrow/transition.json",
+          "evidence/6911ad7b5091--explore-70a1b163e0f0--narrow/state.json",
+          "evidence/6911ad7b5091--explore-84df37f60f60--narrow/state.json"
+        ]
+      }
+    ],
+    "073": {
+      "desktop": {
+        "stop_path": "evidence/0edc7cc2cc28--explore-c00c9ea7d56f--desktop/keyboard-trace-stop.json",
+        "receipt": {
+          "status": "blocked",
+          "source_url": "http://127.0.0.1:38469/3.2.1/p03.html",
+          "target": {
+            "tag": "input",
+            "id": "subject"
+          },
+          "destination": "http://127.0.0.1:38469/3.2.1/details.html",
+          "input_evidence": "input-events.json",
+          "keydown_event_index": 0,
+          "focus_event_index": 1,
+          "navigation_event_index": 2,
+          "keyup_event_index": 4,
+          "blocked_request_index": 0
+        },
+        "blocked": {
+          "method": "GET",
+          "url": "http://127.0.0.1:38469/3.2.1/details.html",
+          "resource_type": "document",
+          "telemetry": false,
+          "is_main_frame": true,
+          "reason": "navigation_out_of_scope"
+        }
+      },
+      "narrow": {
+        "stop_path": "evidence/0edc7cc2cc28--explore-c05e546d2a3f--narrow/keyboard-trace-stop.json",
+        "receipt": {
+          "status": "blocked",
+          "source_url": "http://127.0.0.1:38469/3.2.1/p03.html",
+          "target": {
+            "tag": "input",
+            "id": "subject"
+          },
+          "destination": "http://127.0.0.1:38469/3.2.1/details.html",
+          "input_evidence": "input-events.json",
+          "keydown_event_index": 0,
+          "focus_event_index": 1,
+          "navigation_event_index": 2,
+          "keyup_event_index": 4,
+          "blocked_request_index": 0
+        },
+        "blocked": {
+          "method": "GET",
+          "url": "http://127.0.0.1:38469/3.2.1/details.html",
+          "resource_type": "document",
+          "telemetry": false,
+          "is_main_frame": true,
+          "reason": "navigation_out_of_scope"
+        }
+      }
+    }
+  }
+}

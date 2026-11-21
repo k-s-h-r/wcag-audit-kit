@@ -1,0 +1,4 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>見学予約の確認</title><link rel="stylesheet" href="../site.css"></head>
+<body><main><h1>見学予約の確認</h1><p>12月6日。見学人数 <span id="people"></span> 名。</p><p>入力内容を確認しました。</p></main><script>document.querySelector('#people').textContent=new URLSearchParams(location.search).get('people')||'未指定';</script></body></html>

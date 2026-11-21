@@ -1,0 +1,32 @@
+{
+  "capturedUtc": "2026-11-21T09:44:20.267236+00:00",
+  "browser": "Chromium 156.0.8078.79",
+  "headless": true,
+  "viewportCssPixels": [
+    1280,
+    900
+  ],
+  "separateFreshContexts": true,
+  "input": "Playwright page.keyboard.press",
+  "capture": "Main-frame passive capture-phase keydown and keyup observers with sessionStorage persistence across same-origin navigation.",
+  "results": {
+    "b7n": {
+      "entry": "http://127.0.0.1:43933/b7n/",
+      "confirmation": "http://127.0.0.1:43933/b7n/check.html?date=2026-12-20&people=2",
+      "events": 34,
+      "keydown": 17,
+      "keyup": 17,
+      "allTrue": true
+    },
+    "h2v": {
+      "entry": "http://127.0.0.1:43933/h2v/",
+      "confirmation": "http://127.0.0.1:43933/h2v/check.html?date=2026-12-20&people=2",
+      "events": 34,
+      "keydown": 17,
+      "keyup": 17,
+      "allTrue": true
+    }
+  },
+  "archive_files": 12,
+  "archive_sha256": "44bba3133afa635955b836dec0ee31798fb87c58b8b218e3d892d0dab59154c3"
+}

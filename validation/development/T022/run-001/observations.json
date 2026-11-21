@@ -1,0 +1,2395 @@
+{
+  "cases": [
+    {
+      "start_url": "http://127.0.0.1:43822/na/",
+      "urls": [
+        "http://127.0.0.1:43822/na/",
+        "http://127.0.0.1:43822/na/visit.html",
+        "http://127.0.0.1:43822/na/confirmation.html?people=2"
+      ],
+      "final_url": "http://127.0.0.1:43822/na/confirmation.html?people=2",
+      "actions": [
+        {
+          "input": "URLを開く",
+          "purpose": "entry",
+          "before": {
+            "url": "about:blank",
+            "title": null,
+            "focus": null,
+            "headings": [],
+            "visible_text": null
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "evidence": {
+            "screenshot": "na-01-entry.png",
+            "aria_snapshot": "na-01-entry.aria.txt",
+            "chromium_ax_tree": "na-01-entry.ax.json",
+            "visible_text": "na-01-entry.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "focus-entry-link",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "a",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 162.5,
+                "width": 162,
+                "height": 24
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "evidence": {
+            "screenshot": "na-02-focus-entry-link.png",
+            "aria_snapshot": "na-02-focus-entry-link.aria.txt",
+            "chromium_ax_tree": "na-02-focus-entry-link.ax.json",
+            "visible_text": "na-02-focus-entry-link.visible.txt"
+          }
+        },
+        {
+          "input": "URLを開く",
+          "purpose": "entry",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 287.640625
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "evidence": {
+            "screenshot": "na-03-entry.png",
+            "aria_snapshot": "na-03-entry.aria.txt",
+            "chromium_ax_tree": "na-03-entry.ax.json",
+            "visible_text": "na-03-entry.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "focus-entry-link-repeat",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "a",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 162.5,
+                "width": 162,
+                "height": 24
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "evidence": {
+            "screenshot": "na-04-focus-entry-link-repeat.png",
+            "aria_snapshot": "na-04-focus-entry-link-repeat.aria.txt",
+            "chromium_ax_tree": "na-04-focus-entry-link-repeat.ax.json",
+            "visible_text": "na-04-focus-entry-link-repeat.visible.txt"
+          }
+        },
+        {
+          "input": "Enter",
+          "purpose": "start-reservation",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "a",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 162.5,
+                "width": 162,
+                "height": 24
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 287.640625
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "na-05-start-reservation.png",
+            "aria_snapshot": "na-05-start-reservation.aria.txt",
+            "chromium_ax_tree": "na-05-start-reservation.ax.json",
+            "visible_text": "na-05-start-reservation.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "focus-increase",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 287.640625
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "increase",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "na-06-focus-increase.png",
+            "aria_snapshot": "na-06-focus-increase.aria.txt",
+            "chromium_ax_tree": "na-06-focus-increase.ax.json",
+            "visible_text": "na-06-focus-increase.visible.txt"
+          }
+        },
+        {
+          "input": "Enter",
+          "purpose": "increase-with-enter",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "increase",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "increase",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "na-07-increase-with-enter.png",
+            "aria_snapshot": "na-07-increase-with-enter.aria.txt",
+            "chromium_ax_tree": "na-07-increase-with-enter.ax.json",
+            "visible_text": "na-07-increase-with-enter.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "focus-review",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "increase",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "na-08-focus-review.png",
+            "aria_snapshot": "na-08-focus-review.aria.txt",
+            "chromium_ax_tree": "na-08-focus-review.ax.json",
+            "visible_text": "na-08-focus-review.visible.txt"
+          }
+        },
+        {
+          "input": "Enter",
+          "purpose": "review-with-keyboard",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/confirmation.html?people=2",
+            "title": "見学予約の確認",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学予約の確認\n\n12月6日。見学人数 2 名。\n\n入力内容を確認しました。",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "見学予約の確認"
+            ],
+            "visible_text": "見学予約の確認\n\n12月6日。見学人数 2 名。\n\n入力内容を確認しました。"
+          },
+          "evidence": {
+            "screenshot": "na-09-review-with-keyboard.png",
+            "aria_snapshot": "na-09-review-with-keyboard.aria.txt",
+            "chromium_ax_tree": "na-09-review-with-keyboard.ax.json",
+            "visible_text": "na-09-review-with-keyboard.visible.txt"
+          }
+        },
+        {
+          "input": "URLを開く",
+          "purpose": "entry",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/confirmation.html?people=2",
+            "title": "見学予約の確認",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学予約の確認\n\n12月6日。見学人数 2 名。\n\n入力内容を確認しました。",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "見学予約の確認"
+            ],
+            "visible_text": "見学予約の確認\n\n12月6日。見学人数 2 名。\n\n入力内容を確認しました。"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(0, 0, 0) none 3px",
+              "bbox": {
+                "x": 8,
+                "y": 21.4375,
+                "width": 1264,
+                "height": 131.4375
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "evidence": {
+            "screenshot": "na-10-entry.png",
+            "aria_snapshot": "na-10-entry.aria.txt",
+            "chromium_ax_tree": "na-10-entry.ax.json",
+            "visible_text": "na-10-entry.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "refocus-entry",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "a",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 162.5,
+                "width": 162,
+                "height": 24
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "evidence": {
+            "screenshot": "na-11-refocus-entry.png",
+            "aria_snapshot": "na-11-refocus-entry.aria.txt",
+            "chromium_ax_tree": "na-11-refocus-entry.ax.json",
+            "visible_text": "na-11-refocus-entry.visible.txt"
+          }
+        },
+        {
+          "input": "Enter",
+          "purpose": "start-reservation",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "a",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 162.5,
+                "width": 162,
+                "height": 24
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 287.640625
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "na-12-start-reservation.png",
+            "aria_snapshot": "na-12-start-reservation.aria.txt",
+            "chromium_ax_tree": "na-12-start-reservation.ax.json",
+            "visible_text": "na-12-start-reservation.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "refocus-increase",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 287.640625
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "increase",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "na-13-refocus-increase.png",
+            "aria_snapshot": "na-13-refocus-increase.aria.txt",
+            "chromium_ax_tree": "na-13-refocus-increase.ax.json",
+            "visible_text": "na-13-refocus-increase.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "focus-review-at-one",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "increase",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "na-14-focus-review-at-one.png",
+            "aria_snapshot": "na-14-focus-review-at-one.aria.txt",
+            "chromium_ax_tree": "na-14-focus-review-at-one.ax.json",
+            "visible_text": "na-14-focus-review-at-one.visible.txt"
+          }
+        },
+        {
+          "input": "Enter",
+          "purpose": "try-review-at-one",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "evidence": {
+            "screenshot": "na-15-try-review-at-one.png",
+            "aria_snapshot": "na-15-try-review-at-one.aria.txt",
+            "chromium_ax_tree": "na-15-try-review-at-one.ax.json",
+            "visible_text": "na-15-try-review-at-one.visible.txt"
+          }
+        },
+        {
+          "input": "Shift+Tab",
+          "purpose": "return-to-increase",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "increase",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "evidence": {
+            "screenshot": "na-16-return-to-increase.png",
+            "aria_snapshot": "na-16-return-to-increase.aria.txt",
+            "chromium_ax_tree": "na-16-return-to-increase.ax.json",
+            "visible_text": "na-16-return-to-increase.visible.txt"
+          }
+        },
+        {
+          "input": "Space",
+          "purpose": "increase-with-space",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "increase",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "increase",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "evidence": {
+            "screenshot": "na-17-increase-with-space.png",
+            "aria_snapshot": "na-17-increase-with-space.aria.txt",
+            "chromium_ax_tree": "na-17-increase-with-space.ax.json",
+            "visible_text": "na-17-increase-with-space.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "return-to-review",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "increase",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "evidence": {
+            "screenshot": "na-18-return-to-review.png",
+            "aria_snapshot": "na-18-return-to-review.aria.txt",
+            "chromium_ax_tree": "na-18-return-to-review.ax.json",
+            "visible_text": "na-18-return-to-review.visible.txt"
+          }
+        },
+        {
+          "input": "Enter",
+          "purpose": "review-after-correction",
+          "before": {
+            "url": "http://127.0.0.1:43822/na/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/na/confirmation.html?people=2",
+            "title": "見学予約の確認",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学予約の確認\n\n12月6日。見学人数 2 名。\n\n入力内容を確認しました。",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "見学予約の確認"
+            ],
+            "visible_text": "見学予約の確認\n\n12月6日。見学人数 2 名。\n\n入力内容を確認しました。"
+          },
+          "evidence": {
+            "screenshot": "na-19-review-after-correction.png",
+            "aria_snapshot": "na-19-review-after-correction.aria.txt",
+            "chromium_ax_tree": "na-19-review-after-correction.ax.json",
+            "visible_text": "na-19-review-after-correction.visible.txt"
+          }
+        }
+      ],
+      "findings": [
+        {
+          "criterion": "2.1.1",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/na/",
+          "target": "見学の予約を始める",
+          "expected": "Tab でフォーカスを移し、Enter で人数選択画面を開ける。",
+          "observed": "Tab で開始リンクにフォーカスし、Enter で「見学する人数を選ぶ」に遷移した。証拠は na-02-focus-entry-link.png と na-05-start-reservation.png。",
+          "steps": [
+            "起点ページを開く。",
+            "Tab で「見学の予約を始める」にフォーカスする。",
+            "Enter を押す。"
+          ]
+        },
+        {
+          "criterion": "2.5.3",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/na/",
+          "target": "見学の予約を始める",
+          "expected": "開始リンクのアクセシブルな名前に表示テキスト「見学の予約を始める」が含まれる。",
+          "observed": "表示テキストと公開 AX ツリーのリンク名は「見学の予約を始める」で一致した。証拠は na-01-entry.png と na-01-entry.ax.json。",
+          "steps": [
+            "起点ページを開く。",
+            "開始リンクの表示テキストと Chromium の AX ツリーのリンク名を比較する。"
+          ]
+        },
+        {
+          "criterion": "2.5.3",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/na/visit.html",
+          "target": "人数を増やす",
+          "expected": "ボタンのアクセシブルな名前に表示テキスト「人数を増やす」が含まれる。",
+          "observed": "表示テキストと公開 AX ツリーのボタン名は「人数を増やす」で一致した。証拠は na-05-start-reservation.png と na-05-start-reservation.ax.json。",
+          "steps": [
+            "起点ページの「見学の予約を始める」を開く。",
+            "「人数を増やす」の表示テキストと Chromium の AX ツリーのボタン名を比較する。"
+          ]
+        },
+        {
+          "criterion": "2.1.1",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/na/visit.html",
+          "target": "人数を増やす",
+          "expected": "人数を増やす機能をキーボードから実行できる。",
+          "observed": "Tab または Shift+Tab でボタンへフォーカスし、別々の試行で Enter と Space のどちらでも 1 名から 2 名へ変更できた。証拠は na-06-focus-increase.png、na-07-increase-with-enter.png、na-16-return-to-increase.png、na-17-increase-with-space.png。",
+          "steps": [
+            "開始リンクを開き、人数を 1 名の状態にする。",
+            "Tab で「人数を増やす」にフォーカスして Enter を押す。",
+            "人数選択画面を 1 名で開き直し、同じボタンへフォーカスして Space を押す。"
+          ]
+        },
+        {
+          "criterion": "2.1.1",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/na/visit.html",
+          "target": "予約内容を確認する",
+          "expected": "キーボードで確認操作を実行でき、2 名なら確認画面に進める。",
+          "observed": "Tab でボタンへフォーカスし、1 名で Enter を押すと人数条件の案内が表示された。2 名に変更後、Tab と Enter で確認画面へ進めた。証拠は na-15-try-review-at-one.png と na-19-review-after-correction.png。",
+          "steps": [
+            "人数選択画面で 1 名のまま Tab で「予約内容を確認する」に進み、Enter を押す。",
+            "Shift+Tab で「人数を増やす」に戻り、Space で 2 名にする。",
+            "Tab で確認ボタンへ移り、Enter を押す。"
+          ]
+        },
+        {
+          "criterion": "2.5.3",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/na/visit.html",
+          "target": "予約内容を確認する",
+          "expected": "ボタンのアクセシブルな名前に表示テキスト「予約内容を確認する」が含まれる。",
+          "observed": "表示テキストと公開 AX ツリーのボタン名は「予約内容を確認する」で一致した。証拠は na-08-focus-review.png と na-08-focus-review.ax.json。",
+          "steps": [
+            "起点ページの「見学の予約を始める」を開く。",
+            "確認ボタンの表示テキストと Chromium の AX ツリーのボタン名を比較する。"
+          ]
+        },
+        {
+          "criterion": "process",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/na/confirmation.html?people=2",
+          "target": "見学予約の確認までの手続き",
+          "expected": "キーボードだけで予約を始め、人数条件を満たし、選択内容の確認まで進める。",
+          "observed": "1 名の初期状態、1 名で確認した際の人数条件の案内、2 名への変更、確認画面に順に到達した。確認画面に「12月6日。見学人数 2 名。」と「入力内容を確認しました。」が表示された。証拠は na-12-start-reservation.png、na-15-try-review-at-one.png、na-17-increase-with-space.png、na-19-review-after-correction.png。",
+          "steps": [
+            "起点で開始リンクに Tab で移り、Enter で開く。",
+            "Tab を 2 回押して確認ボタンへ移動し、1 名で Enter を押す。",
+            "Shift+Tab で増員へ戻り、Space を押して 2 名にする。",
+            "Tab で確認ボタンへ移動し、Enter を押して見学日と人数を確認する。"
+          ]
+        }
+      ]
+    },
+    {
+      "start_url": "http://127.0.0.1:43822/rb/",
+      "urls": [
+        "http://127.0.0.1:43822/rb/",
+        "http://127.0.0.1:43822/rb/visit.html",
+        "http://127.0.0.1:43822/rb/confirmation.html?people=2"
+      ],
+      "final_url": "http://127.0.0.1:43822/rb/confirmation.html?people=2",
+      "actions": [
+        {
+          "input": "URLを開く",
+          "purpose": "entry",
+          "before": {
+            "url": "about:blank",
+            "title": null,
+            "focus": null,
+            "headings": [],
+            "visible_text": null
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "evidence": {
+            "screenshot": "rb-01-entry.png",
+            "aria_snapshot": "rb-01-entry.aria.txt",
+            "chromium_ax_tree": "rb-01-entry.ax.json",
+            "visible_text": "rb-01-entry.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "focus-entry-link",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "a",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 162.5,
+                "width": 162,
+                "height": 24
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "evidence": {
+            "screenshot": "rb-02-focus-entry-link.png",
+            "aria_snapshot": "rb-02-focus-entry-link.aria.txt",
+            "chromium_ax_tree": "rb-02-focus-entry-link.ax.json",
+            "visible_text": "rb-02-focus-entry-link.visible.txt"
+          }
+        },
+        {
+          "input": "Enter",
+          "purpose": "start-reservation",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/",
+            "title": "工作室の見学予約",
+            "focus": {
+              "tag": "a",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学の予約を始める",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 162.5,
+                "width": 162,
+                "height": 24
+              }
+            },
+            "headings": [
+              "工作室の見学予約"
+            ],
+            "visible_text": "工作室の見学予約\n\n材料を持ち込める工作室です。見学には事前の予約が必要です。\n\n見学の予約を始める"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 287.640625
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "rb-03-start-reservation.png",
+            "aria_snapshot": "rb-03-start-reservation.aria.txt",
+            "chromium_ax_tree": "rb-03-start-reservation.ax.json",
+            "visible_text": "rb-03-start-reservation.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "focus-increase",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 287.640625
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "span",
+              "id": "increase",
+              "role": "button",
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "rb-04-focus-increase.png",
+            "aria_snapshot": "rb-04-focus-increase.aria.txt",
+            "chromium_ax_tree": "rb-04-focus-increase.ax.json",
+            "visible_text": "rb-04-focus-increase.visible.txt"
+          }
+        },
+        {
+          "input": "Enter",
+          "purpose": "increase-with-enter",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "span",
+              "id": "increase",
+              "role": "button",
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "span",
+              "id": "increase",
+              "role": "button",
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "rb-05-increase-with-enter.png",
+            "aria_snapshot": "rb-05-increase-with-enter.aria.txt",
+            "chromium_ax_tree": "rb-05-increase-with-enter.ax.json",
+            "visible_text": "rb-05-increase-with-enter.visible.txt"
+          }
+        },
+        {
+          "input": "Space",
+          "purpose": "increase-with-space",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "span",
+              "id": "increase",
+              "role": "button",
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "span",
+              "id": "increase",
+              "role": "button",
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "rb-06-increase-with-space.png",
+            "aria_snapshot": "rb-06-increase-with-space.aria.txt",
+            "chromium_ax_tree": "rb-06-increase-with-space.ax.json",
+            "visible_text": "rb-06-increase-with-space.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "focus-review",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "span",
+              "id": "increase",
+              "role": "button",
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": "詳細を見る",
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "evidence": {
+            "screenshot": "rb-07-focus-review.png",
+            "aria_snapshot": "rb-07-focus-review.aria.txt",
+            "chromium_ax_tree": "rb-07-focus-review.ax.json",
+            "visible_text": "rb-07-focus-review.visible.txt"
+          }
+        },
+        {
+          "input": "Enter",
+          "purpose": "try-review-at-one",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": "詳細を見る",
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": "詳細を見る",
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "evidence": {
+            "screenshot": "rb-08-try-review-at-one.png",
+            "aria_snapshot": "rb-08-try-review-at-one.aria.txt",
+            "chromium_ax_tree": "rb-08-try-review-at-one.ax.json",
+            "visible_text": "rb-08-try-review-at-one.visible.txt"
+          }
+        },
+        {
+          "input": "Shift+Tab",
+          "purpose": "refocus-increase",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": "詳細を見る",
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "span",
+              "id": "increase",
+              "role": "button",
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "evidence": {
+            "screenshot": "rb-09-refocus-increase.png",
+            "aria_snapshot": "rb-09-refocus-increase.aria.txt",
+            "chromium_ax_tree": "rb-09-refocus-increase.ax.json",
+            "visible_text": "rb-09-refocus-increase.visible.txt"
+          }
+        },
+        {
+          "input": "ポインターでクリック 人数を増やす",
+          "purpose": "increase-with-pointer",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "span",
+              "id": "increase",
+              "role": "button",
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 1 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "span",
+              "id": "increase",
+              "role": "button",
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "evidence": {
+            "screenshot": "rb-10-increase-with-pointer.png",
+            "aria_snapshot": "rb-10-increase-with-pointer.aria.txt",
+            "chromium_ax_tree": "rb-10-increase-with-pointer.ax.json",
+            "visible_text": "rb-10-increase-with-pointer.visible.txt"
+          }
+        },
+        {
+          "input": "Tab",
+          "purpose": "refocus-review",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "span",
+              "id": "increase",
+              "role": "button",
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "人数を増やす",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 207.296875,
+                "width": 139.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": "詳細を見る",
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "evidence": {
+            "screenshot": "rb-11-refocus-review.png",
+            "aria_snapshot": "rb-11-refocus-review.aria.txt",
+            "chromium_ax_tree": "rb-11-refocus-review.ax.json",
+            "visible_text": "rb-11-refocus-review.visible.txt"
+          }
+        },
+        {
+          "input": "Enter",
+          "purpose": "review-after-pointer",
+          "before": {
+            "url": "http://127.0.0.1:43822/rb/visit.html",
+            "title": "見学する人数を選ぶ",
+            "focus": {
+              "tag": "button",
+              "id": "review",
+              "role": null,
+              "type": "button",
+              "aria_label": "詳細を見る",
+              "aria_labelledby": null,
+              "name": null,
+              "text": "予約内容を確認する",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": true,
+              "outline": "rgb(4, 79, 195) solid 3px",
+              "bbox": {
+                "x": 368,
+                "y": 272.46875,
+                "width": 193.1875,
+                "height": 47.171875
+              }
+            },
+            "headings": [
+              "見学する人数を選ぶ"
+            ],
+            "visible_text": "見学する人数を選ぶ\n\n見学日は12月6日です。2名以上で申し込めます。\n\n見学人数 2 名\n\n人数を増やす\n\n予約内容を確認する\n\n2名以上を選んでから予約内容をご確認ください。"
+          },
+          "after": {
+            "url": "http://127.0.0.1:43822/rb/confirmation.html?people=2",
+            "title": "見学予約の確認",
+            "focus": {
+              "tag": "body",
+              "id": null,
+              "role": null,
+              "type": null,
+              "aria_label": null,
+              "aria_labelledby": null,
+              "name": null,
+              "text": "見学予約の確認\n\n12月6日。見学人数 2 名。\n\n入力内容を確認しました。",
+              "labels": [],
+              "value": null,
+              "aria_expanded": null,
+              "aria_selected": null,
+              "checked": null,
+              "focus_visible": false,
+              "outline": "rgb(27, 32, 42) none 3px",
+              "bbox": {
+                "x": 352,
+                "y": 32,
+                "width": 576,
+                "height": 157.296875
+              }
+            },
+            "headings": [
+              "見学予約の確認"
+            ],
+            "visible_text": "見学予約の確認\n\n12月6日。見学人数 2 名。\n\n入力内容を確認しました。"
+          },
+          "evidence": {
+            "screenshot": "rb-12-review-after-pointer.png",
+            "aria_snapshot": "rb-12-review-after-pointer.aria.txt",
+            "chromium_ax_tree": "rb-12-review-after-pointer.ax.json",
+            "visible_text": "rb-12-review-after-pointer.visible.txt"
+          }
+        }
+      ],
+      "findings": [
+        {
+          "criterion": "2.1.1",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/rb/",
+          "target": "見学の予約を始める",
+          "expected": "Tab でフォーカスを移し、Enter で人数選択画面を開ける。",
+          "observed": "Tab で開始リンクにフォーカスし、Enter で「見学する人数を選ぶ」に遷移した。証拠は rb-02-focus-entry-link.png と rb-03-start-reservation.png。",
+          "steps": [
+            "起点ページを開く。",
+            "Tab で「見学の予約を始める」にフォーカスする。",
+            "Enter を押す。"
+          ]
+        },
+        {
+          "criterion": "2.5.3",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/rb/",
+          "target": "見学の予約を始める",
+          "expected": "開始リンクのアクセシブルな名前に表示テキスト「見学の予約を始める」が含まれる。",
+          "observed": "表示テキストと公開 AX ツリーのリンク名は「見学の予約を始める」で一致した。証拠は rb-01-entry.png と rb-01-entry.ax.json。",
+          "steps": [
+            "起点ページを開く。",
+            "開始リンクの表示テキストと Chromium の AX ツリーのリンク名を比較する。"
+          ]
+        },
+        {
+          "criterion": "2.5.3",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/rb/visit.html",
+          "target": "人数を増やす",
+          "expected": "ボタンのアクセシブルな名前に表示テキスト「人数を増やす」が含まれる。",
+          "observed": "表示テキストと公開 AX ツリーのボタン名は「人数を増やす」で一致した。証拠は rb-03-start-reservation.png と rb-03-start-reservation.ax.json。",
+          "steps": [
+            "起点ページの「見学の予約を始める」を開く。",
+            "「人数を増やす」の表示テキストと Chromium の AX ツリーのボタン名を比較する。"
+          ]
+        },
+        {
+          "criterion": "2.1.1",
+          "outcome": "failed",
+          "page_url": "http://127.0.0.1:43822/rb/visit.html",
+          "target": "人数を増やす",
+          "expected": "ポインターで利用できる増員をキーボードでも実行し、1 名から 2 名に変更できる。",
+          "observed": "Tab で「人数を増やす」にフォーカスしたが、Enter と Space のどちらを押してもフォーカスはボタンに残り、表示は 1 名のままだった。同じボタンをポインターでクリックすると 2 名になった。証拠は rb-04-focus-increase.png、rb-05-increase-with-enter.png、rb-06-increase-with-space.png、rb-10-increase-with-pointer.png。",
+          "steps": [
+            "起点で Tab と Enter を使って「見学の予約を始める」を開く。",
+            "Tab で「人数を増やす」にフォーカスする。",
+            "Enter、次に Space を押し、入力ごとに 1 名のままか確認する。",
+            "同じボタンをポインターでクリックし、2 名になることを確認する。"
+          ]
+        },
+        {
+          "criterion": "2.1.1",
+          "outcome": "passed",
+          "page_url": "http://127.0.0.1:43822/rb/visit.html",
+          "target": "予約内容を確認する",
+          "expected": "確認ボタンにキーボードでフォーカスし、Enter で確認操作を実行できる。",
+          "observed": "Tab でフォーカスした確認ボタンに Enter を押すと、1 名では人数条件の案内が表示された。比較用のクリックで 2 名にした後は、同じ Tab と Enter で確認画面に進んだ。証拠は rb-08-try-review-at-one.png、rb-11-refocus-review.png、rb-12-review-after-pointer.png。",
+          "steps": [
+            "人数選択画面で Tab を 2 回押し、「予約内容を確認する」で Enter を押す。",
+            "同じ画面の「人数を増やす」をポインターでクリックする。",
+            "Tab で確認ボタンにフォーカスを移し、Enter を押す。"
+          ]
+        },
+        {
+          "criterion": "2.5.3",
+          "outcome": "failed",
+          "page_url": "http://127.0.0.1:43822/rb/visit.html",
+          "target": "予約内容を確認する",
+          "expected": "ボタンのアクセシブルな名前に表示テキスト「予約内容を確認する」が含まれる。",
+          "observed": "ボタンの表示テキストは「予約内容を確認する」で、公開 AX ツリーの名前は「詳細を見る」だった。AX 名に表示テキストが含まれていない。証拠は rb-07-focus-review.png と rb-07-focus-review.ax.json。",
+          "steps": [
+            "起点ページの「見学の予約を始める」を開く。",
+            "Tab を 2 回押し、表示が「予約内容を確認する」のボタンにフォーカスする。",
+            "同じボタンの Chromium AX ツリーの名前を確認し、表示テキストと比較する。"
+          ]
+        },
+        {
+          "criterion": "process",
+          "outcome": "failed",
+          "page_url": "http://127.0.0.1:43822/rb/visit.html",
+          "target": "見学予約の確認までのキーボード手続き",
+          "expected": "キーボードだけで人数条件を満たし、入力内容の確認画面に進める。",
+          "observed": "キーボードで 1 名の初期状態と人数条件の案内に到達した。Enter と Space で増員できず、キーボードだけでは 2 名の状態にも確認画面にも到達できなかった。増員をクリックした比較試行では 2 名になり、次の Tab と Enter で確認画面に到達した。確認画面には「12月6日。見学人数 2 名。」と「入力内容を確認しました。」が表示された。証拠は rb-03-start-reservation.png、rb-06-increase-with-space.png、rb-08-try-review-at-one.png、rb-10-increase-with-pointer.png、rb-12-review-after-pointer.png。",
+          "steps": [
+            "起点で開始リンクに Tab で移り、Enter で開く。",
+            "Tab で増員ボタンへ移動し、Enter と Space を押す。",
+            "Tab で確認ボタンへ移動し、Enter を押し、1 名で人数条件の案内が表示されることを確認する。",
+            "Shift+Tab で増員に戻り、比較として同じボタンをポインターでクリックする。",
+            "Tab で確認ボタンへ移動し、Enter を押して見学日と人数を確認する。"
+          ]
+        }
+      ]
+    }
+  ]
+}

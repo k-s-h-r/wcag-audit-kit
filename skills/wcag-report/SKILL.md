@@ -14,7 +14,7 @@ metadata:
 
 1ページの報告には`python3 scripts/audit.py page-report --run <run> --page-exact <URL>`を使う。HTML・JSON・Excelの概要・件数・票をそのページへそろえる。機械ルールと実入力の結果を達成基準全体の判定と区別し、残る探索も表示する。
 
-利用者には帳票のパスと報告JSONが示す検証状態を伝える。`audit_complete`が`false`なら「帳票を作成しました。検証は未完了です」と伝え、`counts`と、出力にある場合は`exploration.remaining`から残作業を示す。機械ルールの指摘には対象箇所とルール名を添える。達成基準全体の判定は保存された判定から示す。
+利用者には、実在する帳票へのパスと、報告JSONの `scope_conformance` に記録されたWCAGの版・レベル・対象範囲・結論を伝える。不適合は `failed_cases` の検査票と証拠、残る確認は `remaining` から示す。`audit_complete` が `false` の場合は検証が未完了であることも伝える。古い帳票に `scope_conformance` がない場合は、保存済みrunから報告を再出力する。
 
 ## 実行ルート
 
@@ -32,6 +32,8 @@ python3 scripts/audit.py excel export --run <run> --mode report --out <新しい
 人向けには[達成基準チェックシート](references/checksheet.md)を使う。HTMLとExcelの先頭で基準ごとの適用・適合・未確認を示し、保存した対象の期待結果ごとに確認観点の行を分ける。不適合箇所の一覧にURL・状態・環境・対象要素・再現手順・証拠があることを確認する。内訳の通過を基準全体へ広げず、未実施の観点を自動作成して適合にしない。人向けシートの編集は取り込み対象ではない。
 
 報告依頼だけならブラウザーや実SRを起動しない。証拠の消失・改変、設定・基準版・caseの不一致を検出したら、結果を作り直して隠さず、問題を報告する。
+
+修正前後を比べる依頼では、別々のrunで作った報告JSONを [compare-reports](references/commands.md#修正前後の検査票を比べる) に渡す。ページごとの解消・新規・継続と、比較に必要な確認が残る箇所を伝える。
 
 モードを指定したrunでは、HTML・Excelの「モード別の確認範囲」とJSONのverificationも報告する。○・△・×は検査手段の対応で、適合・不適合ではない。選択モード、使わない観点、実SRの未実施・部分実施を保持し、モード名だけで実行済みとしない。
 
