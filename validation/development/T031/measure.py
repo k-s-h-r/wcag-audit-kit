@@ -86,9 +86,11 @@ class Proxy(BaseHTTPRequestHandler):
 
 
 @contextmanager
-def server(handler):
+def server(handler, *, tls=None):
     with ThreadingHTTPServer((HOST, 0), handler) as endpoint:
         endpoint.record = []
+        if tls is not None:
+            endpoint.socket = tls.wrap_socket(endpoint.socket, server_side=True)
         thread = Thread(target=endpoint.serve_forever, daemon=True)
         thread.start()
         try:
@@ -103,6 +105,7 @@ def origin(endpoint):
 
 
 def fixture_page(other):
+    websocket_origin = other.replace('https:', 'wss:', 1).replace('http:', 'ws:', 1)
     return f'''<!doctype html><html lang="ja"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width"><title>通信を記録する対照</title>
 <main><h1>見学予定</h1><img src="/initial-same.svg" alt="">
@@ -123,7 +126,7 @@ document.querySelector('#open').addEventListener('click', () => {{
   document.querySelector('main').append(img);
   fetch('/redirect').catch(() => {{}});
   fetch('{other}/action-post', {{method: 'POST', body: 'local-fixture'}}).catch(() => {{}});
-  new WebSocket('{other.replace('http:', 'ws:', 1)}/action-websocket');
+  new WebSocket('{websocket_origin}/action-websocket');
 }});
 </script></html>'''.encode()
 
