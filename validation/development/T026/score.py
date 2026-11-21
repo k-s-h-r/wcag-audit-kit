@@ -90,6 +90,7 @@ def checked_observation(run, case, scenario, oracle):
     review = [line['phrase'] for row in observations[6:8] for line in row['speech']]
     correction = [line['phrase'] for line in steps['return_to_input']['speech']]
     normalized_speech = [words(line) for line in speech]
+    normalized_correction = words(' '.join(correction))
     attributes = ErrorMarkup((run / 'fixture' / case / 'visit.html').read_text()).attributes
     error_role = attributes.get('role')
     displayed = text(error, 'main')
@@ -113,10 +114,11 @@ def checked_observation(run, case, scenario, oracle):
         labels['error'] not in text(steps['review_control'], 'main') and
         labels['confirmation'] in text(steps['confirmation'], 'main') and
         words(labels['review_button']) in words(' '.join(review)) and
+        words(labels['input']) in normalized_correction and words(labels['error']) in normalized_correction and
         error_role == oracle['cases'][case]['error_role'] and 'aria-live' not in attributes
     )
     if not result['valid']:
-        result['reason'] = '経路、確認ボタンの発話、エラー表示、フォーカスまたは修正後の到達を照合できなかった。'
+        result['reason'] = '経路、対照となる発話、エラー表示、フォーカスまたは修正後の到達を照合できなかった。'
     return result
 
 
@@ -129,7 +131,11 @@ def score(run):
 
     cases = {name: checked_observation(run, name, scenario, oracle) for name in oracle['cases']}
     normal, comparison = (cases[case] for case in oracle['cases'])
-    matched = all(case['valid'] for case in cases.values()) and normal['environment'] == comparison['environment']
+    matched = (
+        all(case['valid'] for case in cases.values()) and
+        normal['environment'] == comparison['environment'] and
+        normal['error_screen_sha256'] == comparison['error_screen_sha256']
+    )
     if matched and normal['announcement']:
         normal['outcome'] = 'passed'
         if comparison['silence'] and comparison['error_role'] is None:

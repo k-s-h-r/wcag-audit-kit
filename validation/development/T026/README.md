@@ -25,7 +25,7 @@ Debian 13.6、Linux 6.18.57、Orca 48.1、Chromium 156.0.8078.79、Playwright 1.
 
 ## 再実行
 
-新しい対照ページ、実キーの操作、採点条件をコミット `14dbd65` に保存してから測定した。T022のページ、採点、証拠は元のrunにある。新しい出力先と、T012の手順に沿って用意したOrcaのパッケージルートを指定する。[対照ページ](fixture/) · [キー操作](scenario.json) · [採点条件](oracle.json) · [実Orcaの準備](../../../skills/wcag-audit-kit/references/screen-reader.md#linuxのネイティブorcaを使う)
+新しい対照ページ、実キーの操作、採点条件を保存してから測定した。公開コミット `972d07f` は、測定前のローカルコミット `14dbd65` と同じ試験条件を含む。T022のページ、採点、証拠は元のrunにある。新しい出力先と、T012の手順に沿って用意したOrcaのパッケージルートを指定する。[公開コミット](https://github.com/k-s-h-r/wcag-audit-kit/commit/972d07f37d92d6b5b9aaaca92d4dd7c342b70771) · [対照ページ](fixture/) · [キー操作](scenario.json) · [採点条件](oracle.json) · [実Orcaの準備](../../../skills/wcag-audit-kit/references/screen-reader.md#linuxのネイティブorcaを使う)
 
 ```sh
 t026_dir=$(mktemp -d)
