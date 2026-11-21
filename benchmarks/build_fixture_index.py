@@ -17,6 +17,35 @@ REQUIRED_FAMILIES={
 }
 
 
+def gallery_html(index, suites, points):
+    """Keep the gallery's embedded catalog in sync for local file viewing."""
+    titles = {point['criterion']: point['title'] for point in points}
+    criteria = {}
+    for criterion, suite in suites.items():
+        cases = {}
+        for case in suite['cases']:
+            cases[case['id']] = {
+                'pages': case['pages'],
+                'verdicts': sorted({point['expected'] for point in case['expectations']}),
+                'acquisition': bool(case.get('evidence_expectations')),
+                'environment': case.get('requires_environment', []),
+            }
+        criteria[criterion] = {'title': titles[criterion], 'cases': cases}
+
+    patterns = [
+        {'criterion': pattern['criterion'], 'name': pattern['name'],
+         'cases': [case['id'] for case in pattern['cases']]}
+        for pattern in index['patterns']
+    ]
+    data = {'summary': index['summary'], 'patterns': patterns, 'criteria': criteria}
+    payload = json.dumps(data, ensure_ascii=False, indent=2).replace('<', r'\u003c')
+    source = (core.ROOT / 'benchmarks' / 'PATTERN-GALLERY.html').read_text()
+    opening = '<script id="benchmark-data" type="application/json">'
+    before, current = source.split(opening)
+    _, after = current.split('</script>', 1)
+    return before + opening + '\n' + payload + '\n  </script>' + after
+
+
 def build():
     corpus=core.corpus();points=core.modes.catalog()['checkpoints'];coverage=core.case_contracts.coverage(corpus,points)
     suites={s['criterion']:s for s in corpus['suites']};patterns={};rows=[]
@@ -63,6 +92,7 @@ def build():
     matrix=['# 追加パターンの一覧','',
         f"{n['pattern_groups']}組の追加パターンです。各ページの状態・期待結果・必要環境はsuite.jsonへ記録しています。元の代表例と3階層メニューも保持しています。",'',
         '問題なしの対照も含め、適合の結論は記載した観点と条件に限ります。手話の意味は公開元の説明、音声は既知の生成元を根拠にしており、独立した専門家の確認は未実施です。仮想時計・合成センサー・文字サイズ上書きの試験を、実時間・実端末・ネイティブのズームの確認へ置き換えません。','',
+        '[正常例と問題例を比較するHTML](PATTERN-GALLERY.html)','',
         '| パターン | 基準 | ケースとページ | 必要な追加環境 |','| --- | --- | --- | --- |']
     for pattern in patterns.values():
         sc=pattern['criterion'];refs=[];env=set()
@@ -70,7 +100,8 @@ def build():
             refs+=['['+c['id']+': '+p+'](cases/'+sc+'/public/'+p+')' for p in c['pages']]
             env.update(c['requires_environment'])
         matrix.append('| '+pattern['name']+' | '+sc+' | '+' / '.join(refs)+' | '+(', '.join(sorted(env)) or '通常のブラウザー')+' |')
-    return {'fixture-index.json':json.dumps(index,ensure_ascii=False,indent=2)+'\n','COVERAGE.md':'\n'.join(lines)+'\n','PATTERNS.md':'\n'.join(matrix)+'\n'},index
+    return {'fixture-index.json':json.dumps(index,ensure_ascii=False,indent=2)+'\n','COVERAGE.md':'\n'.join(lines)+'\n','PATTERNS.md':'\n'.join(matrix)+'\n',
+            'PATTERN-GALLERY.html': gallery_html(index, suites, points)},index
 
 
 def main():

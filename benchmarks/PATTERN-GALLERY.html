@@ -1,0 +1,4548 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WCAGベンチマークの試験ページ</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;display=swap">
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f7f8f5;
+      --paper: #fff;
+      --ink: #172b36;
+      --muted: #415861;
+      --accent: #075b56;
+      --mint: #e5f2ec;
+      --sand: #fbf0e1;
+      --line: #c8d5d2;
+      font: 100%/1.7 "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; color: var(--ink); background: var(--page); }
+    a { color: var(--accent); text-underline-offset: .18em; overflow-wrap: anywhere; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 3px solid #a25110; outline-offset: 3px; }
+    h1, h2, h3 { margin: 0; line-height: 1.35; text-wrap: pretty; }
+    h1 { font-size: clamp(1.95rem, 5.7vw, 4rem); letter-spacing: -.055em; }
+    h2 { font-size: clamp(1.42rem, 3vw, 2.2rem); letter-spacing: -.035em; }
+    h3 { font-size: 1.05rem; }
+    p { margin: .55rem 0; }
+    code, kbd {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: .94em; overflow-wrap: anywhere;
+    }
+    kbd { padding: .04em .25em; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; background: white; }
+    .shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
+    .skip { position: absolute; left: .75rem; top: .75rem; transform: translateY(-190%); padding: .45rem .7rem; background: white; z-index: 1; }
+    .skip:focus { transform: none; }
+
+    header.hero { background: #173b40; color: #f5faf6; border-bottom: 5px solid #97c7a7; }
+    header.hero .shell { padding-block: clamp(2.1rem, 6vw, 4.4rem); }
+    header.hero p { color: #e1ede6; font-size: clamp(1rem, 2vw, 1.18rem); max-width: 52rem; margin-block: 1rem; }
+    header.hero nav { display: flex; flex-wrap: wrap; gap: .35rem 1.2rem; margin-top: 1.3rem; }
+    header.hero a { color: #ddf6e8; }
+    main { padding-bottom: 3rem; }
+    main section { padding-block: clamp(1.5rem, 4vw, 3.2rem); }
+    main section + section { border-top: 1px solid var(--line); }
+    footer { border-top: 1px solid var(--line); padding-block: 1rem; font-size: .9rem; }
+
+    .picker {
+      display: flex; flex-wrap: wrap; gap: .65rem; align-items: end; margin: 1.1rem 0 .9rem;
+    }
+    .field { display: grid; gap: .25rem; min-width: 0; }
+    .field label { font-size: .92rem; font-weight: 700; }
+    select, input, button {
+      max-width: 100%; min-height: 44px; padding: .48rem .72rem; font: inherit;
+      border: 1px solid #6d8583; color: var(--ink); background: white; border-radius: 6px;
+    }
+    button { cursor: pointer; }
+    button:hover { background: var(--mint); }
+    .comparison-hint { margin: .6rem 0 1rem; padding: .65rem .9rem; background: var(--mint); border-left: 3px solid #43867a; }
+    .comparison-hint p { margin: 0; }
+    figure { margin: 0; }
+    figcaption { color: var(--muted); margin-top: .65rem; }
+    .views { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+    .example {
+      min-width: 0; overflow: hidden;
+      background: white; border: 1px solid var(--line); border-radius: 9px;
+      display: flex; flex-direction: column;
+    }
+    .example header { display: flex; gap: .3rem .9rem; flex-wrap: wrap; align-items: baseline; justify-content: space-between; padding: .66rem .85rem; background: var(--mint); }
+    .example.problem header { background: var(--sand); }
+    .example header a { font-size: .91rem; }
+    .example iframe { width: 100%; height: clamp(15rem, 33vw, 21rem); border: 0; border-bottom: 1px solid var(--line); background: white; }
+    .example p { margin: 0; padding: .76rem .85rem; }
+    details { border: 1px solid var(--line); border-radius: 8px; background: white; margin-block: .55rem; }
+    summary { min-height: 44px; padding: .68rem .85rem; cursor: pointer; font-weight: 700; overflow-wrap: anywhere; }
+    summary:focus-visible { outline-offset: -4px; }
+    details[open] > summary { color: var(--accent); background: var(--mint); border-radius: 7px 7px 0 0; }
+    .inside { padding: .75rem .85rem; }
+    .inside > :first-child { margin-top: 0; }
+    .inside > :last-child { margin-bottom: 0; }
+
+    .filters {
+      display: grid; grid-template-columns: minmax(11rem, 1fr) minmax(10rem, .9fr) minmax(14rem, 2fr);
+      align-items: end; gap: .75rem; margin: 1.2rem 0 .55rem;
+    }
+    #catalog-status { color: var(--muted); min-height: 1.7em; margin-bottom: .7rem; }
+    .table-wrap { overflow-x: auto; max-width: 100%; margin: .35rem 0 .65rem; }
+    table { width: 100%; border-collapse: collapse; min-width: 34rem; font-size: .92rem; }
+    th, td { text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); padding: .48rem .55rem; }
+    thead th { background: #f2f6f3; }
+    tbody th { min-width: 3.8rem; }
+    td a { display: inline-block; margin-right: .6rem; }
+    td ul { padding-inline-start: 1.15rem; margin-block: 0; }
+    .process {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.65rem;
+      list-style: none; padding: 0; margin: 1.05rem 0 0;
+    }
+    .process li { position: relative; padding: .7rem .8rem; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); font-weight: 700; }
+    .process small { display: block; font-weight: 500; color: var(--muted); font-size: .85rem; }
+    .process li + li::before {
+      content: ""; position: absolute; left: -1.45rem; top: calc(50% - 1px);
+      width: 1.13rem; height: 2px; background: #528275;
+    }
+    .process li + li::after {
+      content: ""; position: absolute; top: calc(50% - .23rem); left: -.62rem;
+      width: .46rem; height: .46rem; border: solid #528275; border-width: 2px 2px 0 0; transform: rotate(45deg);
+    }
+    @media (max-width: 700px) {
+      .views, .filters, .process { grid-template-columns: minmax(0, 1fr); }
+      .process { gap: 1.3rem; }
+      .process li + li::before { left: 1.25rem; top: auto; bottom: 100%; width: 2px; height: 1.15rem; }
+      .process li + li::after { left: 1.07rem; top: auto; bottom: calc(100% + .08rem); transform: rotate(135deg); }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <header class="hero">
+    <div class="shell">
+      <h1>WCAGベンチマークの試験ページ</h1>
+      <p>標準HTMLで作った例と、操作や意味づけに問題がある例を比べられます。元の試験ページで同じ操作を試し、どこで差が出るかを確認してください。</p>
+      <nav aria-label="ページ内の目次">
+        <a href="#compare">正常例と問題例を比べる</a>
+        <a href="#catalog">パターンと達成基準から探す</a>
+        <a href="#grading">期待結果の読み方</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell" id="main" tabindex="-1">
+    <section id="compare" aria-labelledby="compare-title">
+      <h2 id="compare-title">正常例と問題例で、同じ操作を試せる</h2>
+      <div class="picker">
+        <div class="field">
+          <label for="pair">比べる例</label>
+          <select id="pair">
+            <option value="keyboard">2.1.3　キーだけで数量を増やす</option>
+            <option value="focus">2.1.1　Tabで届いても実行できるか</option>
+            <option value="image">1.1.1　表示が同じ図表と代替文</option>
+            <option value="table">1.3.1　同じデータの表見出し</option>
+            <option value="combo">4.1.2　候補の表示と展開状態</option>
+          </select>
+        </div>
+        <button type="button" id="reset-pair">両方を初期状態に戻す</button>
+      </div>
+      <div class="comparison-hint" aria-live="polite">
+        <p id="try">両方のページで、Tabで「数量を増やす」に移動し、EnterかSpaceで数量が増えるかを試します。</p>
+      </div>
+      <figure aria-labelledby="pair-description">
+        <div class="views">
+          <article class="example">
+            <header>
+              <h3>正常例</h3>
+              <a id="normal-link" href="cases/2.1.3/public/p02.html" target="_blank" rel="noopener">正常例を別タブで開く</a>
+            </header>
+            <iframe id="normal-preview" src="cases/2.1.3/public/p02.html" title="2.1.3 キーだけで数量を増やす・正常例" loading="lazy"></iframe>
+            <p id="normal-observation">標準の <code>&lt;button&gt;</code> にTabで届き、EnterとSpaceのどちらでも数量を増やせます。</p>
+          </article>
+          <article class="example problem">
+            <header>
+              <h3>問題例</h3>
+              <a id="problem-link" href="cases/2.1.3/public/p01.html" target="_blank" rel="noopener">問題例を別タブで開く</a>
+            </header>
+            <iframe id="problem-preview" src="cases/2.1.3/public/p01.html" title="2.1.3 キーだけで数量を増やす・問題例" loading="lazy"></iframe>
+            <p id="problem-observation">クリック専用の <code>&lt;div&gt;</code> です。ポインターで押すと増えますが、Tabで操作部品に届きません。</p>
+          </article>
+        </div>
+        <figcaption id="pair-description">両例とも明示的なARIAを使っていません。機能と表示文言は同じで、標準ボタンの枠など見た目には差があります。</figcaption>
+      </figure>
+      <details>
+        <summary>この対照の採点条件</summary>
+        <div class="inside">
+          <p id="pair-expectations">確認観点 2.1.3-01（レベルAAA）は、キーだけで数量変更を完了できるかを見ます。問題集ではこの観点を機械モードで判断保留に設定しています。</p>
+          <p><a id="pair-source" href="cases/2.1.3/README.md">基準別の期待結果と根拠</a></p>
+        </div>
+      </details>
+    </section>
+
+    <section id="catalog" aria-labelledby="catalog-title">
+      <h2 id="catalog-title">追加パターンでも、達成基準でも探せる</h2>
+      <p id="catalog-description">各項目を開くと、元の試験ページと必要な追加環境を確認できます。</p>
+      <div class="filters">
+        <div class="field">
+          <label for="scope">一覧の種類</label>
+          <select id="scope">
+            <option value="patterns">追加パターン</option>
+            <option value="criteria">達成基準</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="principle">WCAGの原則</label>
+          <select id="principle">
+            <option value="">すべて</option>
+            <option value="1">知覚可能</option>
+            <option value="2">操作可能</option>
+            <option value="3">理解可能</option>
+            <option value="4">堅牢</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="query">名前・基準番号・環境で検索</label>
+          <input id="query" type="search" placeholder="例　2.1.1、キーボード、実スクリーンリーダー">
+        </div>
+      </div>
+      <p id="catalog-status" role="status"></p>
+      <div id="catalog-results"></div>
+      <noscript><p>一覧の検索にはJavaScriptを使います。ケースへのリンクは<a href="PATTERNS.md">追加パターン一覧</a>と<a href="COVERAGE.md">達成基準一覧</a>からも開けます。</p></noscript>
+    </section>
+
+    <section id="grading" aria-labelledby="grading-title">
+      <h2 id="grading-title">同じページで、判定と証拠の取得を別々に採点する</h2>
+      <figure aria-label="試験ページから採点まで">
+        <ol class="process">
+          <li>公開の試験ページ<small>URL・状態・操作手順</small></li>
+          <li>検査<small>機械検査・AIの内容判断・実スクリーンリーダー</small></li>
+          <li>採点<small>判定の期待結果・取得の期待結果</small></li>
+        </ol>
+        <figcaption>例えば「画像を列挙できたか」は取得の期待結果、「画像の代替文があるか」は判定の期待結果です。</figcaption>
+      </figure>
+      <details>
+        <summary>期待結果と実測の違い</summary>
+        <div class="inside">
+          <p>例えば2.1.3の「正常例」は、キーで数量を増やす観点で通過を期待するページです。このページにある他の観点の判定は、各ケース資料で確かめます。機械モードで保留にする観点や、実スクリーンリーダーなどが必要な観点も含みます。実測では、期待と一致した件数、見逃し、誤検出、未確認を別々に記録します。</p>
+          <p>この資料は期待結果を読む採点側向けです。ブラインド検査をする担当には、元の公開ページと操作手順だけを渡します。</p>
+          <p><a href="FIXTURE-FORMAT.md">採点データの構成</a> · <a href="WORKER.md">検査担当の手順</a> · <a href="../docs/tasks/T017-url-only-exploration.md">URLだけで操作を探した試験の結果</a></p>
+        </div>
+      </details>
+    </section>
+
+    <footer>
+      <a href="README.md">ベンチマークの実行方法</a> · <a href="PATTERNS.md">追加パターン一覧</a> · <a href="COVERAGE.md">達成基準の一覧</a> · <a href="../docs/WCAG-PAGE-WORKFLOW.html">wcag-page の動作を追う</a>
+    </footer>
+  </main>
+
+  <script id="benchmark-data" type="application/json">
+{
+  "summary": {
+    "criteria": 86,
+    "cases": 306,
+    "page_entries": 314,
+    "verdict_rows": 329,
+    "acquisition_rows": 36,
+    "verdict_checkpoints": 114,
+    "acquisition_checkpoints": 17,
+    "registered_checkpoints": 131,
+    "pattern_groups": 61
+  },
+  "patterns": [
+    {
+      "criterion": "1.1.1",
+      "name": "背景画像・SVG・canvasの代替",
+      "cases": [
+        "c05",
+        "c06",
+        "c11"
+      ]
+    },
+    {
+      "criterion": "1.1.1",
+      "name": "代替説明が実SRに届くか",
+      "cases": [
+        "c07",
+        "c08"
+      ]
+    },
+    {
+      "criterion": "1.1.1",
+      "name": "操作後に追加される画像",
+      "cases": [
+        "c09",
+        "c10"
+      ]
+    },
+    {
+      "criterion": "1.2.1",
+      "name": "メディア代替の意味と順序",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.2.2",
+      "name": "字幕の意味・同期・音情報",
+      "cases": [
+        "c03",
+        "c04",
+        "c05"
+      ]
+    },
+    {
+      "criterion": "1.2.3",
+      "name": "メディア代替の意味と順序",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.2.4",
+      "name": "ライブの音情報と文字代替",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.2.5",
+      "name": "音声解説の選択が実メディアを変えるか",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.2.5",
+      "name": "音声解説が重要な映像情報と合うか",
+      "cases": [
+        "c05",
+        "c06"
+      ]
+    },
+    {
+      "criterion": "1.2.6",
+      "name": "実際の手話素材と発話の意味",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.2.7",
+      "name": "拡張解説の内容と映像の停止・再開",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.2.8",
+      "name": "メディア代替の意味と順序",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.2.9",
+      "name": "ライブの音情報と文字代替",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.3.1",
+      "name": "見た目の表とプログラムの関係",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.3.1",
+      "name": "実SRで表の関係を使えるか",
+      "cases": [
+        "c05",
+        "c06"
+      ]
+    },
+    {
+      "criterion": "1.3.1",
+      "name": "ラジオグループの質問と選択肢",
+      "cases": [
+        "c07",
+        "c08"
+      ]
+    },
+    {
+      "criterion": "1.3.2",
+      "name": "表示と読み順の取得",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.3.4",
+      "name": "実端末の向き情報による利用制限",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.3.5",
+      "name": "入力目的属性と実際の質問",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.4.1",
+      "name": "操作後のエラー表示を取得する",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.4.3",
+      "name": "axeで判定できる通常文字の対照",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.4.3",
+      "name": "無効から有効へ変わる部品のコントラスト",
+      "cases": [
+        "c05",
+        "c06",
+        "c07"
+      ]
+    },
+    {
+      "criterion": "1.4.4",
+      "name": "拡大前後の取得と内容欠落",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.4.5",
+      "name": "背景の文字画像と通常テキスト",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.4.7",
+      "name": "音声と背景音の20dB差",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.4.8",
+      "name": "色・幅・揃え・間隔の調整",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.4.10",
+      "name": "狭い画面の取得と横スクロール",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "1.4.13",
+      "name": "ホバーとフォーカスで出る内容",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "2.1.1",
+      "name": "Shadow DOM内の操作と状態",
+      "cases": [
+        "c06",
+        "c07"
+      ]
+    },
+    {
+      "criterion": "2.1.1",
+      "name": "タブのフォーカス・選択・パネル",
+      "cases": [
+        "c08",
+        "c09"
+      ]
+    },
+    {
+      "criterion": "2.1.2",
+      "name": "実際の階層内のフォーカス経路",
+      "cases": [
+        "c05",
+        "c06"
+      ]
+    },
+    {
+      "criterion": "2.1.2",
+      "name": "入れ子のダイアログの離脱と復帰",
+      "cases": [
+        "c07",
+        "c08"
+      ]
+    },
+    {
+      "criterion": "2.1.2",
+      "name": "コンボボックスのポップアップ",
+      "cases": [
+        "c09",
+        "c10"
+      ]
+    },
+    {
+      "criterion": "2.1.2",
+      "name": "iframe内の移動と離脱",
+      "cases": [
+        "c11",
+        "c12"
+      ]
+    },
+    {
+      "criterion": "2.2.1",
+      "name": "警告からの延長と繰返し回数",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "2.2.6",
+      "name": "告知の代わりに20時間超保持する経路",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "2.3.1",
+      "name": "閃光の区間と資料の欠落",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "2.4.3",
+      "name": "実際の階層内のフォーカス経路",
+      "cases": [
+        "c05",
+        "c06"
+      ]
+    },
+    {
+      "criterion": "2.4.3",
+      "name": "入れ子のダイアログの離脱と復帰",
+      "cases": [
+        "c07",
+        "c08"
+      ]
+    },
+    {
+      "criterion": "2.4.3",
+      "name": "ダイアログを閉じるボタンと次のTab",
+      "cases": [
+        "c09",
+        "c10"
+      ]
+    },
+    {
+      "criterion": "2.4.7",
+      "name": "フォーカス前後の取得",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "2.4.7",
+      "name": "狭い画面で隠れたメニューへのフォーカス",
+      "cases": [
+        "c05",
+        "c06"
+      ]
+    },
+    {
+      "criterion": "2.4.11",
+      "name": "表示後のバナーによる隠れ",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "2.4.12",
+      "name": "表示後のバナーによる隠れ",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "2.5.3",
+      "name": "表示文字とアクセシブル名の取得",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "2.5.4",
+      "name": "実端末の動きとUI代替",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "2.5.8",
+      "name": "サイズと間隔の取得",
+      "cases": [
+        "c03",
+        "c04",
+        "c05"
+      ]
+    },
+    {
+      "criterion": "3.1.1",
+      "name": "指定言語と本文の主たる言語",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "3.1.2",
+      "name": "部分言語の取得と意味の判定",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "3.1.5",
+      "name": "専門的な文章の補足",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "3.2.1",
+      "name": "フォーカス時のURLと文脈",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "3.3.2",
+      "name": "表示ラベルとアクセシブル名を別々に取得",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "3.3.8",
+      "name": "認知機能テストの代替経路",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "3.3.8",
+      "name": "AAとAAAで異なる物体認識の例外",
+      "cases": [
+        "c05"
+      ]
+    },
+    {
+      "criterion": "3.3.9",
+      "name": "認知機能テストの代替経路",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "3.3.9",
+      "name": "AAとAAAで異なる物体認識の例外",
+      "cases": [
+        "c05"
+      ]
+    },
+    {
+      "criterion": "4.1.2",
+      "name": "独自部品の状態変更",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    },
+    {
+      "criterion": "4.1.2",
+      "name": "Shadow DOM内の操作と状態",
+      "cases": [
+        "c05",
+        "c06"
+      ]
+    },
+    {
+      "criterion": "4.1.2",
+      "name": "コンボボックスのポップアップ",
+      "cases": [
+        "c07",
+        "c08"
+      ]
+    },
+    {
+      "criterion": "4.1.2",
+      "name": "タブのフォーカス・選択・パネル",
+      "cases": [
+        "c09",
+        "c10"
+      ]
+    },
+    {
+      "criterion": "4.1.3",
+      "name": "非同期の状態変化を取得する",
+      "cases": [
+        "c03",
+        "c04"
+      ]
+    }
+  ],
+  "criteria": {
+    "1.1.1": {
+      "title": "非テキストコンテンツ",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed",
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "failed",
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c06": {
+          "pages": [
+            "p06.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c07": {
+          "pages": [
+            "p07.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "real-screen-reader"
+          ]
+        },
+        "c08": {
+          "pages": [
+            "p08.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "real-screen-reader"
+          ]
+        },
+        "c09": {
+          "pages": [
+            "p09.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c10": {
+          "pages": [
+            "p10.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c11": {
+          "pages": [
+            "p11.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "1.2.1": {
+      "title": "音声のみ及び映像のみ (収録済)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        }
+      }
+    },
+    "1.2.2": {
+      "title": "キャプション (収録済)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        }
+      }
+    },
+    "1.2.3": {
+      "title": "音声解説、又はメディアに対する代替 (収録済)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        }
+      }
+    },
+    "1.2.4": {
+      "title": "キャプション (ライブ)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        }
+      }
+    },
+    "1.2.5": {
+      "title": "音声解説 (収録済)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "inapplicable"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        },
+        "c06": {
+          "pages": [
+            "p06.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        }
+      }
+    },
+    "1.2.6": {
+      "title": "手話 (収録済)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "inapplicable"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed",
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "qualified-sign-language-comparison"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "qualified-sign-language-comparison"
+          ]
+        }
+      }
+    },
+    "1.2.7": {
+      "title": "拡張音声解説 (収録済)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "inapplicable"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed",
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        }
+      }
+    },
+    "1.2.8": {
+      "title": "メディアに対する代替 (収録済)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        }
+      }
+    },
+    "1.2.9": {
+      "title": "音声のみ (ライブ)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-content-comparison"
+          ]
+        }
+      }
+    },
+    "1.3.1": {
+      "title": "情報及び関係性",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "real-screen-reader"
+          ]
+        },
+        "c06": {
+          "pages": [
+            "p06.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "real-screen-reader"
+          ]
+        },
+        "c07": {
+          "pages": [
+            "p07.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c08": {
+          "pages": [
+            "p08.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.3.2": {
+      "title": "意味のあるシーケンス",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "1.3.3": {
+      "title": "感覚的な特徴",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.3.4": {
+      "title": "表示の向き",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "physical-device-orientation",
+            "orientation-permission"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "physical-device-orientation",
+            "orientation-permission"
+          ]
+        }
+      }
+    },
+    "1.3.5": {
+      "title": "入力目的の特定",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.3.6": {
+      "title": "目的の特定",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.4.1": {
+      "title": "色の使用",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "1.4.2": {
+      "title": "音声の制御",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.4.3": {
+      "title": "コントラスト (最低限)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c06": {
+          "pages": [
+            "p06.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c07": {
+          "pages": [
+            "p07.html"
+          ],
+          "verdicts": [
+            "inapplicable"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.4.4": {
+      "title": "テキストのサイズ変更",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": [
+            "native-browser-zoom-for-final-audit"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": [
+            "native-browser-zoom-for-final-audit"
+          ]
+        }
+      }
+    },
+    "1.4.5": {
+      "title": "文字画像",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "1.4.6": {
+      "title": "コントラスト (高度)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.4.7": {
+      "title": "小さな背景音、又は背景音なし",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-level-analysis"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "audio-level-analysis"
+          ]
+        }
+      }
+    },
+    "1.4.8": {
+      "title": "視覚的提示",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.4.9": {
+      "title": "文字画像 (例外なし)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.4.10": {
+      "title": "リフロー",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "1.4.11": {
+      "title": "非テキストのコントラスト",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.4.12": {
+      "title": "テキストの間隔",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "1.4.13": {
+      "title": "ホバー又はフォーカスで表示されるコンテンツ",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "2.1.1": {
+      "title": "キーボード",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "failed",
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c06": {
+          "pages": [
+            "p06.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c07": {
+          "pages": [
+            "p07.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c08": {
+          "pages": [
+            "p08.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c09": {
+          "pages": [
+            "p09.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.1.2": {
+      "title": "キーボードトラップなし",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c06": {
+          "pages": [
+            "p06.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c07": {
+          "pages": [
+            "p07.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c08": {
+          "pages": [
+            "p08.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c09": {
+          "pages": [
+            "p09.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c10": {
+          "pages": [
+            "p10.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c11": {
+          "pages": [
+            "p11.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "same-origin-frame"
+          ]
+        },
+        "c12": {
+          "pages": [
+            "p12.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "same-origin-frame"
+          ]
+        }
+      }
+    },
+    "2.1.3": {
+      "title": "キーボード (例外なし)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.1.4": {
+      "title": "文字キーのショートカット",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.2.1": {
+      "title": "タイミング調整可能",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "wall-clock-timing-for-final-audit"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "wall-clock-timing-for-final-audit"
+          ]
+        }
+      }
+    },
+    "2.2.2": {
+      "title": "一時停止、停止、非表示",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.2.3": {
+      "title": "タイミング非依存",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.2.4": {
+      "title": "割り込み",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.2.5": {
+      "title": "再認証",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.2.6": {
+      "title": "タイムアウト",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "real-time-storage-retention"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "real-time-storage-retention"
+          ]
+        }
+      }
+    },
+    "2.3.1": {
+      "title": "3 回の閃光、又は閾値以下",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": [
+            "flash-analysis-without-unsafe-preview"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": [
+            "flash-analysis-without-unsafe-preview"
+          ]
+        }
+      }
+    },
+    "2.3.2": {
+      "title": "3 回の閃光",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.3.3": {
+      "title": "インタラクションによるアニメーション",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.1": {
+      "title": "ブロックスキップ",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.2": {
+      "title": "ページタイトル",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed",
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.3": {
+      "title": "フォーカス順序",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c06": {
+          "pages": [
+            "p06.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c07": {
+          "pages": [
+            "p07.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c08": {
+          "pages": [
+            "p08.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c09": {
+          "pages": [
+            "p09.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c10": {
+          "pages": [
+            "p10.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.4": {
+      "title": "リンクの目的 (コンテキスト内)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.5": {
+      "title": "複数の手段",
+      "cases": {
+        "c01": {
+          "pages": [
+            "c01/start.html",
+            "c01/p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "c02/start.html",
+            "c02/p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.6": {
+      "title": "見出し及びラベル",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.7": {
+      "title": "フォーカスの可視化",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c06": {
+          "pages": [
+            "p06.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.8": {
+      "title": "現在位置",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.9": {
+      "title": "リンクの目的 (リンクのみ)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.10": {
+      "title": "セクション見出し",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.11": {
+      "title": "隠されないフォーカス (最低限)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.12": {
+      "title": "隠されないフォーカス (高度)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.4.13": {
+      "title": "フォーカスの外観",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.5.1": {
+      "title": "ポインタのジェスチャ",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.5.2": {
+      "title": "ポインタのキャンセル",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.5.3": {
+      "title": "ラベルを含む名前 (name)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "2.5.4": {
+      "title": "動きによる起動",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "physical-device-motion",
+            "sensor-permission"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "physical-device-motion",
+            "sensor-permission"
+          ]
+        }
+      }
+    },
+    "2.5.5": {
+      "title": "ターゲットのサイズ (高度)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.5.6": {
+      "title": "入力メカニズムの共存",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.5.7": {
+      "title": "ドラッグ動作",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "2.5.8": {
+      "title": "ターゲットのサイズ (最低限)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "3.1.1": {
+      "title": "ページの言語",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.1.2": {
+      "title": "一部分の言語",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "3.1.3": {
+      "title": "一般的ではない用語",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.1.4": {
+      "title": "略語",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.1.5": {
+      "title": "読解レベル",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "reading-level-review"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": [
+            "reading-level-review"
+          ]
+        }
+      }
+    },
+    "3.1.6": {
+      "title": "発音",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.2.1": {
+      "title": "フォーカス時",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "3.2.2": {
+      "title": "入力時",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.2.3": {
+      "title": "一貫したナビゲーション",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html",
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p03.html",
+            "p04.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.2.4": {
+      "title": "一貫した識別性",
+      "cases": {
+        "c01": {
+          "pages": [
+            "c01/start.html",
+            "c01/p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "c02/start.html",
+            "c02/p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.2.5": {
+      "title": "要求による変化",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.2.6": {
+      "title": "一貫したヘルプ",
+      "cases": {
+        "c01": {
+          "pages": [
+            "c01/start.html",
+            "c01/p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "c02/start.html",
+            "c02/p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.3.1": {
+      "title": "エラーの特定",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.3.2": {
+      "title": "ラベル又は説明",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": []
+        }
+      }
+    },
+    "3.3.3": {
+      "title": "エラー修正の提案",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.3.4": {
+      "title": "誤り防止 (法的、金融、データ)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.3.5": {
+      "title": "ヘルプ",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.3.6": {
+      "title": "誤り防止 (すべて)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.3.7": {
+      "title": "冗長な入力項目",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.3.8": {
+      "title": "アクセシブルな認証 (最低限)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "3.3.9": {
+      "title": "アクセシブルな認証 (高度)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "4.1.2": {
+      "title": "名前 (name)・役割 (role)・値 (value)",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c05": {
+          "pages": [
+            "p05.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c06": {
+          "pages": [
+            "p06.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c07": {
+          "pages": [
+            "p07.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c08": {
+          "pages": [
+            "p08.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c09": {
+          "pages": [
+            "p09.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c10": {
+          "pages": [
+            "p10.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        }
+      }
+    },
+    "4.1.3": {
+      "title": "ステータスメッセージ",
+      "cases": {
+        "c01": {
+          "pages": [
+            "p01.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c02": {
+          "pages": [
+            "p02.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": false,
+          "environment": []
+        },
+        "c03": {
+          "pages": [
+            "p03.html"
+          ],
+          "verdicts": [
+            "failed"
+          ],
+          "acquisition": true,
+          "environment": [
+            "real-screen-reader"
+          ]
+        },
+        "c04": {
+          "pages": [
+            "p04.html"
+          ],
+          "verdicts": [
+            "passed"
+          ],
+          "acquisition": true,
+          "environment": [
+            "real-screen-reader"
+          ]
+        }
+      }
+    }
+  }
+}
+  </script>
+  <script>
+    const examples = {
+      keyboard: {
+        criterion: '2.1.3', normal: 'p02.html', problem: 'p01.html',
+        tryText: '両方のページで、Tabで「数量を増やす」に移動し、EnterかSpaceで数量が増えるかを試します。',
+        normalText: '標準の <button> にTabで届き、EnterとSpaceのどちらでも数量を増やせます。',
+        problemText: 'クリック専用の <div> です。ポインターで押すと増えますが、Tabで操作部品に届きません。',
+        description: '両例とも明示的なARIAを使っていません。機能と表示文言は同じで、標準ボタンの枠など見た目には差があります。',
+        expectations: '確認観点 2.1.3-01（レベルAAA）は、キーだけで数量変更を完了できるかを見ます。問題集ではこの観点を機械モードで判断保留に設定しています。',
+      },
+      focus: {
+        criterion: '2.1.1', normal: 'p01.html', problem: 'p02.html',
+        tryText: '両方の「数量を増やす」にTabで移動し、EnterかSpaceを押します。',
+        normalText: '標準の <button> がキー入力で作動し、表示された数量が増えます。',
+        problemText: 'role="button" と tabindex="0" があるためTabで届きます。クリックでは数量が増え、EnterやSpaceでは変わりません。',
+        description: 'ボタンにフォーカスできることと、キーボードで機能が実行されることを分けて確認できます。',
+        expectations: '両例とも 2.1.1-01（実キーを送れる）は通過を期待します。2.1.1-02（数量が変わる）は正常例が通過、問題例が不適合です。',
+      },
+      image: {
+        criterion: '1.1.1', normal: 'p10.html', problem: 'p09.html',
+        tryText: '両方で「図表を読み込む」を押します。少し待つと同じ画像が表示されます。',
+        normalText: '画像に「売上は100万円から50万円へ半減」という alt が付きます。',
+        problemText: '正常例と同じ画像が表示されます。追加された画像には alt がありません。',
+        description: '初期画面と画像の見た目は両方で同じです。両例とも明示的なARIAを使っていません。',
+        expectations: '確認観点 1.1.1-01 を画像が追加された状態で採点します。代替文の有無を照合する機械検出対象です。',
+      },
+      table: {
+        criterion: '1.3.1', normal: 'p02.html', problem: 'p01.html',
+        tryText: '両方の「4月」「100万円」を見比べ、表の見出しと値がどう関係するかを確認します。',
+        normalText: '列・行の見出しに <th> と scope があり、HTMLから見出しの関係を取得できます。',
+        problemText: '「月」や「売上」も通常の <td> です。文字は読めますが、セルの見出し関係がマークアップにありません。',
+        description: '両例のデータは同じで、明示的なARIAはありません。標準の見出しセルでは文字の太さなどが変わります。',
+        expectations: '確認観点 1.3.1-01 は、表の見出しとデータの関係を識別できるかを採点します。',
+      },
+      combo: {
+        criterion: '4.1.2', normal: 'p08.html', problem: 'p07.html',
+        tryText: '両方の「都市」入力欄にTabで移動し、下矢印キーを押して候補を開きます。',
+        normalText: '候補が表示され、入力欄の aria-expanded が true に変わります。',
+        problemText: '候補は表示されますが、入力欄の aria-expanded は false のままです。',
+        description: '表示結果と、支援技術へ伝える展開状態が一致するかを比べる例です。',
+        expectations: '元の 4.1.2-02 の期待結果に加え、PR #79の実測では候補の表示と展開属性の一致を機械検査で照合しています。',
+      },
+    };
+
+    const flashTimelines = {
+      '2.3.1': { 'p01.html': 'sequence-1.csv', 'p02.html': 'sequence-2.csv',
+                 'p03.html': 'expanded-sequence-a.csv', 'p04.html': 'expanded-sequence-b.csv' },
+      '2.3.2': { 'p01.html': 'sequence-1.csv', 'p02.html': 'sequence-2.csv' },
+    };
+    const environmentLabels = {
+      'audio-content-comparison': '音声内容の比較',
+      'audio-level-analysis': '音量の解析',
+      'flash-analysis-without-unsafe-preview': '閃光の時系列資料で分析',
+      'native-browser-zoom-for-final-audit': 'ブラウザーの実ズーム',
+      'orientation-permission': '向き情報の利用許可',
+      'physical-device-motion': '実端末の動き',
+      'physical-device-orientation': '実端末の向き',
+      'qualified-sign-language-comparison': '手話の意味を確認できる評価者',
+      'reading-level-review': '読解水準の評価',
+      'real-screen-reader': '実スクリーンリーダー',
+      'real-time-storage-retention': '実時間での保持',
+      'same-origin-frame': '同一オリジンのiframe',
+      'sensor-permission': 'センサーの利用許可',
+      'wall-clock-timing-for-final-audit': '実時間での計測',
+    };
+    const outcomeLabels = { passed: '通過', failed: '不適合', inapplicable: '対象外' };
+    const data = JSON.parse(document.getElementById('benchmark-data').textContent);
+    const pairSelect = document.getElementById('pair');
+    const scopeSelect = document.getElementById('scope');
+    const principleSelect = document.getElementById('principle');
+    const queryInput = document.getElementById('query');
+    const results = document.getElementById('catalog-results');
+    const status = document.getElementById('catalog-status');
+
+    function pageUrl(criterion, page) {
+      return 'cases/' + criterion + '/public/' + page.split('/').map(encodeURIComponent).join('/');
+    }
+
+    function showPair() {
+      const example = examples[pairSelect.value];
+      for (const [kind, label] of [['normal', '正常例'], ['problem', '問題例']]) {
+        const url = pageUrl(example.criterion, example[kind]);
+        const preview = document.getElementById(kind + '-preview');
+        preview.title = pairSelect.selectedOptions[0].textContent.trim() + '・' + label;
+        preview.src = url;
+        document.getElementById(kind + '-link').href = url;
+        document.getElementById(kind + '-observation').textContent = example[kind + 'Text'];
+      }
+      document.getElementById('try').textContent = example.tryText;
+      document.getElementById('pair-description').textContent = example.description;
+      document.getElementById('pair-expectations').textContent = example.expectations;
+      document.getElementById('pair-source').href = 'cases/' + example.criterion + '/README.md';
+    }
+
+    function element(tag, text) {
+      const node = document.createElement(tag);
+      if (text !== undefined) node.textContent = text;
+      return node;
+    }
+
+    function caseTable(criterion, title, caseIds) {
+      const wrap = element('div');
+      wrap.className = 'table-wrap';
+      wrap.tabIndex = 0;
+      wrap.setAttribute('role', 'region');
+      wrap.setAttribute('aria-label', criterion + ' ' + title + 'のケース一覧');
+      const table = element('table');
+      const head = table.createTHead().insertRow();
+      for (const label of ['ケース', '試験ページ', 'ケースにある期待結果', '追加環境']) {
+        const cell = element('th', label);
+        cell.scope = 'col';
+        head.append(cell);
+      }
+
+      const flash = criterion === '2.3.1' || criterion === '2.3.2';
+      const tbody = table.createTBody();
+      for (const id of caseIds) {
+        const entry = data.criteria[criterion].cases[id];
+        const row = tbody.insertRow();
+        const name = element('th', id);
+        name.scope = 'row';
+        row.append(name);
+        const pages = row.insertCell();
+        for (const page of entry.pages) {
+          if (flash) {
+            const timeline = flashTimelines[criterion][page];
+            const label = page + ' の時系列資料';
+            const item = element(timeline ? 'a' : 'span', timeline ? label : page + '（閃光の試験）');
+            if (timeline) item.href = pageUrl(criterion, 'assets/' + timeline);
+            pages.append(item);
+            continue;
+          }
+          const link = element('a', page);
+          link.href = pageUrl(criterion, page);
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.setAttribute('aria-label', criterion + ' ' + id + ' ' + page + ' を別タブで開く');
+          pages.append(link);
+        }
+        const expected = entry.verdicts.map(verdict => outcomeLabels[verdict]);
+        if (entry.acquisition) expected.push('取得');
+        row.insertCell().textContent = expected.join('・');
+        const conditions = row.insertCell();
+        if (entry.environment.length) {
+          const list = element('ul');
+          for (const name of entry.environment) list.append(element('li', environmentLabels[name] ?? name));
+          conditions.append(list);
+        } else {
+          conditions.textContent = flash ? '閃光の時系列資料で分析' : '指定なし';
+        }
+      }
+      wrap.append(table);
+      return wrap;
+    }
+
+    function renderCatalog() {
+      const showPatterns = scopeSelect.value === 'patterns';
+      const entries = showPatterns ? data.patterns : Object.entries(data.criteria).map(([criterion, group]) => ({
+        criterion, name: group.title, cases: Object.keys(group.cases),
+      }));
+      const normalize = value => value.normalize('NFKC').toLowerCase();
+      const queries = normalize(queryInput.value).trim().split(/\s+/).filter(Boolean);
+      const filtered = entries.filter(entry => {
+        const group = data.criteria[entry.criterion];
+        if (principleSelect.value && !entry.criterion.startsWith(principleSelect.value + '.')) return false;
+        const caseTexts = entry.cases.flatMap(id => {
+          const value = group.cases[id];
+          return [id, ...value.pages, ...value.environment, ...value.environment.map(name => environmentLabels[name] ?? name)];
+        });
+        const text = normalize([entry.criterion, entry.name, group.title, ...caseTexts].join(' '));
+        return queries.every(query => text.includes(query));
+      });
+
+      const fragment = document.createDocumentFragment();
+      for (const entry of filtered) {
+        const item = element('details');
+        const itemSummary = element('summary', entry.criterion + '　' + entry.name + '（' + entry.cases.length + 'ケース）');
+        item.append(itemSummary);
+        item.addEventListener('toggle', () => {
+          if (!item.open || item.children.length > 1) return;
+          const inside = element('div');
+          inside.className = 'inside';
+          const reference = element('a', '状態・期待結果・根拠を読む');
+          reference.href = 'cases/' + entry.criterion + '/README.md';
+          inside.append(caseTable(entry.criterion, entry.name, entry.cases), reference);
+          item.append(inside);
+        });
+        fragment.append(item);
+      }
+      results.replaceChildren(fragment);
+      const unit = showPatterns ? 'パターン' : '基準';
+      status.textContent = filtered.length
+        ? entries.length + unit + 'のうち' + filtered.length + (showPatterns ? '組' : '件') + 'を表示'
+        : '条件に合う' + unit + 'がありません。';
+    }
+
+    document.getElementById('catalog-description').textContent =
+      data.summary.pattern_groups + '組の追加パターンと、' + data.summary.criteria + '達成基準の' +
+      data.summary.cases + 'ケース・' + data.summary.page_entries + 'ページ分の入力を収録しています。閃光の例では時系列資料を開けます。';
+    pairSelect.addEventListener('change', showPair);
+    document.getElementById('reset-pair').addEventListener('click', showPair);
+    scopeSelect.addEventListener('change', renderCatalog);
+    principleSelect.addEventListener('change', renderCatalog);
+    queryInput.addEventListener('input', renderCatalog);
+    renderCatalog();
+  </script>
+</body>
+</html>

@@ -85,3 +85,4 @@
 - [0079 展開した領域をEscapeで閉じた後のフォーカスを記録する](0079-observe-focus-after-closing-disclosures.md)
 - [0081 WCAGスキルの処理の流れを図解する](0081-document-wcag-skill-workflows.md)
 - [0082 wcag-page の操作と証拠をHTMLで図解する](0082-explain-page-audit-in-html.md)
+- [0083 ベンチマークの対照例をHTMLで比較する](0083-browse-benchmark-fixtures-in-html.md)

@@ -37,3 +37,7 @@ Chromium 156／Playwright 1.62.0で8ページを両幅で実行した。簡易�
 `python3 benchmarks/url_only.py --out <新規の出力先>` で再実行する。今回の問題集ハッシュは `b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206`。48行の証拠参照を確認し、32本の実行コマンドに個別設定や基準指定がないことを照合した。Python試験313件が通過した。 [PR #76](https://github.com/k-s-h-r/wcag-audit-kit/pull/76) · [ADR 0077](../adr/0077-measure-url-only-operation-exploration.md)
 
 レビュー後は、初期の検査記録を作れない失敗を再現し、PC幅とスマホ相当幅の両方に収集失敗が記録されることを確かめた。
+
+## 試験入力をブラウザーで比較する
+
+[HTML見本帳](../../benchmarks/PATTERN-GALLERY.html)で、URLだけの実測にも使った操作後の画像とコンボボックスを左右で試せる。同じ場所から既存の達成基準・追加パターンに進める。見本帳の確認結果は[ADR 0083](../adr/0083-browse-benchmark-fixtures-in-html.md)を参照。ここで読める正常・問題の区分は採点側の期待であり、一般サイトでの検出率は引き続き未確認。
