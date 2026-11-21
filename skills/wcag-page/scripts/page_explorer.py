@@ -1025,7 +1025,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     edge['fingerprint'] = state_key[1]
                     matched_labels=state_labels.verified(labels,route,data.get('state_labels',[]))
                     parent = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True)) if route else None
-                    opened_modal = parent is not None and not parent.get('modal') and data['modal']
+                    opened_modal = (parent is not None and not parent.get('modal') and data['modal']
+                                    and keyboard_trap.prioritize_opening(data))
                     if quick and opened_modal and route[-1]['type'] == 'click':
                         opener = {'type': 'key', 'selector': route[-1]['selector'], 'key': 'Enter'}
                         for pending_job in value['queue']:

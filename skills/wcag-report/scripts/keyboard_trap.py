@@ -1,10 +1,12 @@
 """Observe ordinary exit keys in a narrowly identifiable modal dialog."""
 from pathlib import PurePosixPath
+import re
 
 from keyboard_checks import matching_keydown
 
 
 CHECKPOINT = 'ダイアログからのキー操作による離脱'
+CLOSE_LABEL = re.compile(r'閉じる|キャンセル|close|cancel|dismiss', re.IGNORECASE)
 KEYS = ('Escape', 'Tab', 'Tab', 'Shift+Tab', 'Shift+Tab', 'ArrowDown', 'ArrowUp',
         'ArrowLeft', 'ArrowRight', 'Enter', 'Space', 'Backspace')
 SNAPSHOT = r'''modal => {
@@ -48,6 +50,21 @@ SNAPSHOT = r'''modal => {
       markup: shown ? modal.outerHTML : null
     };
 }'''
+
+
+def prioritize_opening(state):
+    """Prefer a keyboard opener only for the input-and-close dialog under test."""
+    controls = [control for control in state['controls'] if control['selector'] != state['modal']]
+    if len(controls) != 2:
+        return False
+    focused = state['focus']['selector']
+    field = next((control for control in controls if control['selector'] == focused), None)
+    if not (field and field['tag'] == 'input' and field['type'] == 'text'
+            and not field['role'] and not field['formAssociated'] and not field['haspopup']):
+        return False
+    return any(close.get('buttonInModal') and close['tag'] == 'button' and close['type'] == 'button'
+               and not close['formAssociated'] and CLOSE_LABEL.fullmatch(close['label'].strip())
+               for close in controls)
 
 
 def public(snapshot):
