@@ -1,0 +1,283 @@
+[
+  {
+    "command": [
+      "ffmpeg",
+      "-version"
+    ],
+    "returncode": 0,
+    "stdout": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers\nbuilt with gcc 14 (Debian 14.2.0-19)\nconfiguration: --prefix=/usr --extra-version=0+deb13u1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --disable-libmfx --disable-omx --enable-gnutls --enable-libaom --enable-libass --enable-libbs2b --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libharfbuzz --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-openal --enable-opencl --enable-opengl --disable-sndio --enable-libvpl --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-ladspa --enable-libbluray --enable-libcaca --enable-libdvdnav --enable-libdvdread --enable-libjack --enable-libpulse --enable-librabbitmq --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared\nlibavutil      59. 39.100 / 59. 39.100\nlibavcodec     61. 19.101 / 61. 19.101\nlibavformat    61.  7.103 / 61.  7.103\nlibavdevice    61.  3.100 / 61.  3.100\nlibavfilter    10.  5.100 / 10.  5.100\nlibswscale      8.  3.100 /  8.  3.100\nlibswresample   5.  3.100 /  5.  3.100\nlibpostproc    58.  3.100 / 58.  3.100\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "ffmpeg",
+      "-nostdin",
+      "-v",
+      "error",
+      "-threads",
+      "1",
+      "-i",
+      "/workspace/wcag-audit-work/t028-description-choice/benchmarks/cases/1.2.5/public/assets/expanded-source.webm",
+      "-map",
+      "0:a:0",
+      "-ac",
+      "1",
+      "-ar",
+      "16000",
+      "-c:a",
+      "pcm_s16le",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-source.wav"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/workspace/wcag-audit-work/evidence/vision-media-preflight/build/bin/whisper-cli",
+      "-m",
+      "/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin",
+      "-f",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-source.wav",
+      "-l",
+      "en",
+      "-ng",
+      "-t",
+      "2",
+      "-oj",
+      "-of",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-source"
+    ],
+    "returncode": 0,
+    "stdout": "\n[00:00:00.000 --> 00:00:03.200]   Press the blue button to save the document.\n",
+    "stderr": "whisper_init_from_file_with_params_no_state: loading model from '/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin'\nwhisper_init_with_params_no_state: use gpu    = 0\nwhisper_init_with_params_no_state: flash attn = 1\nwhisper_init_with_params_no_state: gpu_device = 0\nwhisper_init_with_params_no_state: dtw        = 0\nwhisper_init_with_params_no_state: devices    = 1\nwhisper_init_with_params_no_state: backends   = 1\nwhisper_model_load: loading model\nwhisper_model_load: n_vocab       = 51864\nwhisper_model_load: n_audio_ctx   = 1500\nwhisper_model_load: n_audio_state = 512\nwhisper_model_load: n_audio_head  = 8\nwhisper_model_load: n_audio_layer = 6\nwhisper_model_load: n_text_ctx    = 448\nwhisper_model_load: n_text_state  = 512\nwhisper_model_load: n_text_head   = 8\nwhisper_model_load: n_text_layer  = 6\nwhisper_model_load: n_mels        = 80\nwhisper_model_load: ftype         = 1\nwhisper_model_load: qntvr         = 0\nwhisper_model_load: type          = 2 (base)\nwhisper_model_load: adding 1607 extra tokens\nwhisper_model_load: n_langs       = 99\nwhisper_model_load:          CPU total size =   147.37 MB\nwhisper_model_load: model size    =  147.37 MB\nwhisper_backend_init_gpu: no GPU found\nwhisper_init_state: kv self size  =    6.29 MB\nwhisper_init_state: kv cross size =   18.87 MB\nwhisper_init_state: kv pad  size  =    3.15 MB\nwhisper_init_state: compute buffer (conv)   =   16.28 MB\nwhisper_init_state: compute buffer (encode) =   23.09 MB\nwhisper_init_state: compute buffer (cross)  =    4.66 MB\nwhisper_init_state: compute buffer (decode) =   96.37 MB\nread_audio_data: reading audio data from '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-source.wav' ...\nread_audio_data: trying to decode with miniaudio\n\nsystem_info: n_threads = 2 / 5 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | \n\nmain: processing '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-source.wav' (111600 samples, 7.0 sec), 2 threads, 1 processors, 5 beams + best of 5, lang = en, task = transcribe, timestamps = 1 ...\n\noutput_json: saving output to '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-source.json'\n\nwhisper_print_timings:     load time =  1165.86 ms\nwhisper_print_timings:     fallbacks =   0 p /   0 h\nwhisper_print_timings:      mel time =   182.08 ms\nwhisper_print_timings:   sample time =   220.70 ms /    57 runs (     3.87 ms per run)\nwhisper_print_timings:   encode time =  9583.66 ms /     1 runs (  9583.66 ms per run)\nwhisper_print_timings:   decode time =   187.14 ms /     1 runs (   187.14 ms per run)\nwhisper_print_timings:   batchd time =  2695.88 ms /    52 runs (    51.84 ms per run)\nwhisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)\nwhisper_print_timings:    total time = 14340.62 ms\n"
+  },
+  {
+    "command": [
+      "ffmpeg",
+      "-nostdin",
+      "-v",
+      "error",
+      "-threads",
+      "1",
+      "-i",
+      "/workspace/wcag-audit-work/t028-description-choice/benchmarks/cases/1.2.5/public/assets/expanded-source.webm",
+      "-map",
+      "0:v:0",
+      "-pix_fmt",
+      "rgba",
+      "-threads",
+      "1",
+      "-f",
+      "framehash",
+      "-hash",
+      "sha256",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-source.framehash"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "ffmpeg",
+      "-nostdin",
+      "-v",
+      "error",
+      "-threads",
+      "1",
+      "-i",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/unselected-control/played-audio.webm",
+      "-map",
+      "0:a:0",
+      "-ac",
+      "1",
+      "-ar",
+      "16000",
+      "-c:a",
+      "pcm_s16le",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/unselected-control-played.wav"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/workspace/wcag-audit-work/evidence/vision-media-preflight/build/bin/whisper-cli",
+      "-m",
+      "/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin",
+      "-f",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/unselected-control-played.wav",
+      "-l",
+      "en",
+      "-ng",
+      "-t",
+      "2",
+      "-oj",
+      "-of",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/unselected-control-played"
+    ],
+    "returncode": 0,
+    "stdout": "\n[00:00:00.000 --> 00:00:03.120]   Press the blue button to save the document.\n",
+    "stderr": "whisper_init_from_file_with_params_no_state: loading model from '/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin'\nwhisper_init_with_params_no_state: use gpu    = 0\nwhisper_init_with_params_no_state: flash attn = 1\nwhisper_init_with_params_no_state: gpu_device = 0\nwhisper_init_with_params_no_state: dtw        = 0\nwhisper_init_with_params_no_state: devices    = 1\nwhisper_init_with_params_no_state: backends   = 1\nwhisper_model_load: loading model\nwhisper_model_load: n_vocab       = 51864\nwhisper_model_load: n_audio_ctx   = 1500\nwhisper_model_load: n_audio_state = 512\nwhisper_model_load: n_audio_head  = 8\nwhisper_model_load: n_audio_layer = 6\nwhisper_model_load: n_text_ctx    = 448\nwhisper_model_load: n_text_state  = 512\nwhisper_model_load: n_text_head   = 8\nwhisper_model_load: n_text_layer  = 6\nwhisper_model_load: n_mels        = 80\nwhisper_model_load: ftype         = 1\nwhisper_model_load: qntvr         = 0\nwhisper_model_load: type          = 2 (base)\nwhisper_model_load: adding 1607 extra tokens\nwhisper_model_load: n_langs       = 99\nwhisper_model_load:          CPU total size =   147.37 MB\nwhisper_model_load: model size    =  147.37 MB\nwhisper_backend_init_gpu: no GPU found\nwhisper_init_state: kv self size  =    6.29 MB\nwhisper_init_state: kv cross size =   18.87 MB\nwhisper_init_state: kv pad  size  =    3.15 MB\nwhisper_init_state: compute buffer (conv)   =   16.28 MB\nwhisper_init_state: compute buffer (encode) =   23.09 MB\nwhisper_init_state: compute buffer (cross)  =    4.66 MB\nwhisper_init_state: compute buffer (decode) =   96.37 MB\nread_audio_data: reading audio data from '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/unselected-control-played.wav' ...\nread_audio_data: trying to decode with miniaudio\n\nsystem_info: n_threads = 2 / 5 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | \n\nmain: processing '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/unselected-control-played.wav' (112320 samples, 7.0 sec), 2 threads, 1 processors, 5 beams + best of 5, lang = en, task = transcribe, timestamps = 1 ...\n\noutput_json: saving output to '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/unselected-control-played.json'\n\nwhisper_print_timings:     load time =   587.60 ms\nwhisper_print_timings:     fallbacks =   0 p /   0 h\nwhisper_print_timings:      mel time =   132.72 ms\nwhisper_print_timings:   sample time =   363.72 ms /    57 runs (     6.38 ms per run)\nwhisper_print_timings:   encode time = 12440.87 ms /     1 runs ( 12440.87 ms per run)\nwhisper_print_timings:   decode time =  2564.02 ms /     1 runs (  2564.02 ms per run)\nwhisper_print_timings:   batchd time = 12834.69 ms /    52 runs (   246.82 ms per run)\nwhisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)\nwhisper_print_timings:    total time = 29462.66 ms\n"
+  },
+  {
+    "command": [
+      "ffmpeg",
+      "-nostdin",
+      "-v",
+      "error",
+      "-threads",
+      "1",
+      "-i",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/c03/played-audio.webm",
+      "-map",
+      "0:a:0",
+      "-ac",
+      "1",
+      "-ar",
+      "16000",
+      "-c:a",
+      "pcm_s16le",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c03-played.wav"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/workspace/wcag-audit-work/evidence/vision-media-preflight/build/bin/whisper-cli",
+      "-m",
+      "/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin",
+      "-f",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c03-played.wav",
+      "-l",
+      "en",
+      "-ng",
+      "-t",
+      "2",
+      "-oj",
+      "-of",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c03-played"
+    ],
+    "returncode": 0,
+    "stdout": "\n[00:00:00.000 --> 00:00:03.120]   Press the blue button to save the document.\n",
+    "stderr": "whisper_init_from_file_with_params_no_state: loading model from '/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin'\nwhisper_init_with_params_no_state: use gpu    = 0\nwhisper_init_with_params_no_state: flash attn = 1\nwhisper_init_with_params_no_state: gpu_device = 0\nwhisper_init_with_params_no_state: dtw        = 0\nwhisper_init_with_params_no_state: devices    = 1\nwhisper_init_with_params_no_state: backends   = 1\nwhisper_model_load: loading model\nwhisper_model_load: n_vocab       = 51864\nwhisper_model_load: n_audio_ctx   = 1500\nwhisper_model_load: n_audio_state = 512\nwhisper_model_load: n_audio_head  = 8\nwhisper_model_load: n_audio_layer = 6\nwhisper_model_load: n_text_ctx    = 448\nwhisper_model_load: n_text_state  = 512\nwhisper_model_load: n_text_head   = 8\nwhisper_model_load: n_text_layer  = 6\nwhisper_model_load: n_mels        = 80\nwhisper_model_load: ftype         = 1\nwhisper_model_load: qntvr         = 0\nwhisper_model_load: type          = 2 (base)\nwhisper_model_load: adding 1607 extra tokens\nwhisper_model_load: n_langs       = 99\nwhisper_model_load:          CPU total size =   147.37 MB\nwhisper_model_load: model size    =  147.37 MB\nwhisper_backend_init_gpu: no GPU found\nwhisper_init_state: kv self size  =    6.29 MB\nwhisper_init_state: kv cross size =   18.87 MB\nwhisper_init_state: kv pad  size  =    3.15 MB\nwhisper_init_state: compute buffer (conv)   =   16.28 MB\nwhisper_init_state: compute buffer (encode) =   23.09 MB\nwhisper_init_state: compute buffer (cross)  =    4.66 MB\nwhisper_init_state: compute buffer (decode) =   96.37 MB\nread_audio_data: reading audio data from '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c03-played.wav' ...\nread_audio_data: trying to decode with miniaudio\n\nsystem_info: n_threads = 2 / 5 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | \n\nmain: processing '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c03-played.wav' (112320 samples, 7.0 sec), 2 threads, 1 processors, 5 beams + best of 5, lang = en, task = transcribe, timestamps = 1 ...\n\noutput_json: saving output to '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c03-played.json'\n\nwhisper_print_timings:     load time =   477.67 ms\nwhisper_print_timings:     fallbacks =   0 p /   0 h\nwhisper_print_timings:      mel time =    32.47 ms\nwhisper_print_timings:   sample time =   319.00 ms /    57 runs (     5.60 ms per run)\nwhisper_print_timings:   encode time =  8734.27 ms /     1 runs (  8734.27 ms per run)\nwhisper_print_timings:   decode time =    40.11 ms /     1 runs (    40.11 ms per run)\nwhisper_print_timings:   batchd time =  3630.34 ms /    52 runs (    69.81 ms per run)\nwhisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)\nwhisper_print_timings:    total time = 13433.22 ms\n"
+  },
+  {
+    "command": [
+      "ffmpeg",
+      "-nostdin",
+      "-v",
+      "error",
+      "-threads",
+      "1",
+      "-i",
+      "/workspace/wcag-audit-work/t028-description-choice/benchmarks/cases/1.2.5/public/assets/expanded-described.webm",
+      "-map",
+      "0:a:0",
+      "-ac",
+      "1",
+      "-ar",
+      "16000",
+      "-c:a",
+      "pcm_s16le",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-described.wav"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/workspace/wcag-audit-work/evidence/vision-media-preflight/build/bin/whisper-cli",
+      "-m",
+      "/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin",
+      "-f",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-described.wav",
+      "-l",
+      "en",
+      "-ng",
+      "-t",
+      "2",
+      "-oj",
+      "-of",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-described"
+    ],
+    "returncode": 0,
+    "stdout": "\n[00:00:00.000 --> 00:00:06.500]   press the blue button to save the document, and access code appears 7-2-9-1.\n",
+    "stderr": "whisper_init_from_file_with_params_no_state: loading model from '/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin'\nwhisper_init_with_params_no_state: use gpu    = 0\nwhisper_init_with_params_no_state: flash attn = 1\nwhisper_init_with_params_no_state: gpu_device = 0\nwhisper_init_with_params_no_state: dtw        = 0\nwhisper_init_with_params_no_state: devices    = 1\nwhisper_init_with_params_no_state: backends   = 1\nwhisper_model_load: loading model\nwhisper_model_load: n_vocab       = 51864\nwhisper_model_load: n_audio_ctx   = 1500\nwhisper_model_load: n_audio_state = 512\nwhisper_model_load: n_audio_head  = 8\nwhisper_model_load: n_audio_layer = 6\nwhisper_model_load: n_text_ctx    = 448\nwhisper_model_load: n_text_state  = 512\nwhisper_model_load: n_text_head   = 8\nwhisper_model_load: n_text_layer  = 6\nwhisper_model_load: n_mels        = 80\nwhisper_model_load: ftype         = 1\nwhisper_model_load: qntvr         = 0\nwhisper_model_load: type          = 2 (base)\nwhisper_model_load: adding 1607 extra tokens\nwhisper_model_load: n_langs       = 99\nwhisper_model_load:          CPU total size =   147.37 MB\nwhisper_model_load: model size    =  147.37 MB\nwhisper_backend_init_gpu: no GPU found\nwhisper_init_state: kv self size  =    6.29 MB\nwhisper_init_state: kv cross size =   18.87 MB\nwhisper_init_state: kv pad  size  =    3.15 MB\nwhisper_init_state: compute buffer (conv)   =   16.28 MB\nwhisper_init_state: compute buffer (encode) =   23.09 MB\nwhisper_init_state: compute buffer (cross)  =    4.66 MB\nwhisper_init_state: compute buffer (decode) =   96.37 MB\nread_audio_data: reading audio data from '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-described.wav' ...\nread_audio_data: trying to decode with miniaudio\n\nsystem_info: n_threads = 2 / 5 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | \n\nmain: processing '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-described.wav' (111600 samples, 7.0 sec), 2 threads, 1 processors, 5 beams + best of 5, lang = en, task = transcribe, timestamps = 1 ...\n\noutput_json: saving output to '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-described.json'\n\nwhisper_print_timings:     load time =   653.03 ms\nwhisper_print_timings:     fallbacks =   0 p /   0 h\nwhisper_print_timings:      mel time =   137.69 ms\nwhisper_print_timings:   sample time =   476.85 ms /   117 runs (     4.08 ms per run)\nwhisper_print_timings:   encode time = 12141.51 ms /     1 runs ( 12141.51 ms per run)\nwhisper_print_timings:   decode time =   235.44 ms /     1 runs (   235.44 ms per run)\nwhisper_print_timings:   batchd time =  8104.24 ms /   112 runs (    72.36 ms per run)\nwhisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)\nwhisper_print_timings:    total time = 22209.67 ms\n"
+  },
+  {
+    "command": [
+      "ffmpeg",
+      "-nostdin",
+      "-v",
+      "error",
+      "-threads",
+      "1",
+      "-i",
+      "/workspace/wcag-audit-work/t028-description-choice/benchmarks/cases/1.2.5/public/assets/expanded-described.webm",
+      "-map",
+      "0:v:0",
+      "-pix_fmt",
+      "rgba",
+      "-threads",
+      "1",
+      "-f",
+      "framehash",
+      "-hash",
+      "sha256",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/expanded-described.framehash"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "ffmpeg",
+      "-nostdin",
+      "-v",
+      "error",
+      "-threads",
+      "1",
+      "-i",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/c04/played-audio.webm",
+      "-map",
+      "0:a:0",
+      "-ac",
+      "1",
+      "-ar",
+      "16000",
+      "-c:a",
+      "pcm_s16le",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c04-played.wav"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/workspace/wcag-audit-work/evidence/vision-media-preflight/build/bin/whisper-cli",
+      "-m",
+      "/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin",
+      "-f",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c04-played.wav",
+      "-l",
+      "en",
+      "-ng",
+      "-t",
+      "2",
+      "-oj",
+      "-of",
+      "/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c04-played"
+    ],
+    "returncode": 0,
+    "stdout": "\n[00:00:00.000 --> 00:00:06.520]   Press the blue button to save the document, and access code appears 7-2-9-1.\n",
+    "stderr": "whisper_init_from_file_with_params_no_state: loading model from '/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin'\nwhisper_init_with_params_no_state: use gpu    = 0\nwhisper_init_with_params_no_state: flash attn = 1\nwhisper_init_with_params_no_state: gpu_device = 0\nwhisper_init_with_params_no_state: dtw        = 0\nwhisper_init_with_params_no_state: devices    = 1\nwhisper_init_with_params_no_state: backends   = 1\nwhisper_model_load: loading model\nwhisper_model_load: n_vocab       = 51864\nwhisper_model_load: n_audio_ctx   = 1500\nwhisper_model_load: n_audio_state = 512\nwhisper_model_load: n_audio_head  = 8\nwhisper_model_load: n_audio_layer = 6\nwhisper_model_load: n_text_ctx    = 448\nwhisper_model_load: n_text_state  = 512\nwhisper_model_load: n_text_head   = 8\nwhisper_model_load: n_text_layer  = 6\nwhisper_model_load: n_mels        = 80\nwhisper_model_load: ftype         = 1\nwhisper_model_load: qntvr         = 0\nwhisper_model_load: type          = 2 (base)\nwhisper_model_load: adding 1607 extra tokens\nwhisper_model_load: n_langs       = 99\nwhisper_model_load:          CPU total size =   147.37 MB\nwhisper_model_load: model size    =  147.37 MB\nwhisper_backend_init_gpu: no GPU found\nwhisper_init_state: kv self size  =    6.29 MB\nwhisper_init_state: kv cross size =   18.87 MB\nwhisper_init_state: kv pad  size  =    3.15 MB\nwhisper_init_state: compute buffer (conv)   =   16.28 MB\nwhisper_init_state: compute buffer (encode) =   23.09 MB\nwhisper_init_state: compute buffer (cross)  =    4.66 MB\nwhisper_init_state: compute buffer (decode) =   96.37 MB\nread_audio_data: reading audio data from '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c04-played.wav' ...\nread_audio_data: trying to decode with miniaudio\n\nsystem_info: n_threads = 2 / 5 | WHISPER : VITISAI = 0 | COREML = 0 | OPENVINO = 0 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | OPENMP = 1 | REPACK = 1 | \n\nmain: processing '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c04-played.wav' (112320 samples, 7.0 sec), 2 threads, 1 processors, 5 beams + best of 5, lang = en, task = transcribe, timestamps = 1 ...\n\noutput_json: saving output to '/workspace/wcag-audit-work/evidence/t028-description-choice/attempt-004/decode-v2/c04-played.json'\n\nwhisper_print_timings:     load time =   695.38 ms\nwhisper_print_timings:     fallbacks =   0 p /   0 h\nwhisper_print_timings:      mel time =    92.18 ms\nwhisper_print_timings:   sample time =   479.28 ms /   117 runs (     4.10 ms per run)\nwhisper_print_timings:   encode time = 10394.23 ms /     1 runs ( 10394.23 ms per run)\nwhisper_print_timings:   decode time =   239.60 ms /     1 runs (   239.60 ms per run)\nwhisper_print_timings:   batchd time =  5243.88 ms /   112 runs (    46.82 ms per run)\nwhisper_print_timings:   prompt time =     0.00 ms /     1 runs (     0.00 ms per run)\nwhisper_print_timings:    total time = 17701.49 ms\n"
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "base_revision": "5bb4a808e38baa1e252b77e02e479c15e50e2626",
+  "worktree_branch": "codex/t028-verify-played-description-choice",
+  "criterion": "WCAG 2.2 AA 1.2.5",
+  "aspect": "1.2.5-01",
+  "state": "after-select",
+  "target": "#subject",
+  "fixture_root": "benchmarks/cases/1.2.5/public",
+  "fixtures_sha256": {
+    "p03.html": "6ee329a76ae7a35f849f48c1aae785aacfcc6592a13761fca3d9e2e76ad857d1",
+    "p04.html": "62b78f04c0630ca90393a0c5604c84f3780964eb13c754006bba6d554e73e990",
+    "assets/expanded-source.webm": "3478f185d7eea1fdceb122b112249be99f6cf7fa3d443da6fbc32d706b44a911",
+    "assets/expanded-described.webm": "5a62e731013b2ccd07f3cfe38ca0b1f9b762e81bc40e26e8a4928fc57129cd6e"
+  },
+  "conditions": [
+    {"id": "unselected-control", "page": "p04.html", "select": false, "expected_delivery": "source", "expected_code_in_audio": false},
+    {"id": "c03", "page": "p03.html", "select": true, "expected_delivery": "source", "expected_code_in_audio": false},
+    {"id": "c04", "page": "p04.html", "select": true, "expected_delivery": "described", "expected_code_in_audio": true}
+  ],
+  "browser": {
+    "chromium": "156.0.8078.79",
+    "playwright": "1.62.0",
+    "headless": true,
+    "viewport_css_px": [1280, 900],
+    "device_scale_factor": 1,
+    "locale": "en-US",
+    "fresh_context_per_condition": true,
+    "allow_only": "the loopback fixture origin"
+  },
+  "route": [
+    "Use Tab from entry to discover the button 音声解説を使う in the selected conditions, then use Enter with that button focused.",
+    "Use Shift+Tab in selected conditions or Tab from entry in the unselected control to reach Chromium's native Play control. Each focus search is bounded by 12 tabs.",
+    "Press Space with Play focused. Observe natural playback from zero to ended at rate 1, without seeking or changing volume."
+  ],
+  "checks": [
+    "Capture keyboard and resulting activation events including browser isTrusted, focus and accessible names/states.",
+    "Read actual currentSrc and correlate browser media receipts with the loopback response identifier, coverage, and content hash.",
+    "Capture browser output audio from the playing media element and decode both that capture and the complete matching HTTP resource to PCM16 mono at 16 kHz.",
+    "Capture browser screenshots from the paused initial state, selected state, media time 0.5 s, integer seconds during playback, and the natural end.",
+    "Corroborate the required visual code 7291 from browser frames and compare the full captured speech on each case to the source control. Use Whisper with no prompt and check the decisive segment against the media with a separate reviewer.",
+    "Compare decoded video frames so a visual-content difference cannot explain an audio-only result. Keep inconclusive acquisition or speech separate from an absent description."
+  ],
+  "analysis_tools": {
+    "ffmpeg": "7.1.5",
+    "whisper_commit": "d1be6fde11ac6e0407606b4e42fe72d34add8037",
+    "whisper_model": "ggml-base.en.bin",
+    "whisper_model_sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002"
+  },
+  "limits": "Targeted follow-up of fixed controls. Playback choice result for the two listed case states and corroboration of one required fact. No criterion-wide or site-wide conclusion."
+}
