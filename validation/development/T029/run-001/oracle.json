@@ -1,0 +1,36 @@
+{
+  "fixed_before_machine_and_ai": true,
+  "criterion": "1.4.1",
+  "wcag_level": "AA",
+  "target": "日付を選ぶ前に空きあり・満席を見分けるための視覚的な手がかり",
+  "fixtures": {
+    "u47b": {
+      "expected": "failed",
+      "cue": "fill colors; legend labels alone require matching colors"
+    },
+    "m85c": {
+      "expected": "passed",
+      "cue": "visible status text in each equally operable date button"
+    }
+  },
+  "available_days": [
+    10,
+    12,
+    15
+  ],
+  "controls": {
+    "all_dates_are_actionable": true,
+    "calendar_set_is_shared": true,
+    "uncertain_if_no_initial_observation": true
+  },
+  "sha256": {
+    "calendar.js": "f8efec75cfc4b8d685ad9c36970614ca122dfcac409bc5d0cc58c7b814ab93ad",
+    "m85c/calendar.html": "097e4630ec96d7fa995ff9ec2d769a728d4620ec0b7437baf6cb49e5dbf64741",
+    "m85c/confirmation.html": "419188a9c04992fc16a343cad2ea782635bbc16cb1359020b0cfbb8ce4eb3f3a",
+    "m85c/index.html": "60ffe891c4d8d99cf71b4bf3782fdcbf2c37c6a5856b912f86f9c2cd5bb3d1e9",
+    "site.css": "8be46e33d457670331b87d4b2dfbe0648357bfec486fc6b8cd8e567d51389752",
+    "u47b/calendar.html": "661a6792579fa73eab2ed742cf8dd4a665048dc7dd24676c68164d64c5c9b2cf",
+    "u47b/confirmation.html": "419188a9c04992fc16a343cad2ea782635bbc16cb1359020b0cfbb8ce4eb3f3a",
+    "u47b/index.html": "60ffe891c4d8d99cf71b4bf3782fdcbf2c37c6a5856b912f86f9c2cd5bb3d1e9"
+  }
+}
