@@ -33,6 +33,12 @@ CASES = {
                               'other.setAttribute("role","dialog alertdialog");other.setAttribute("aria-modal","true");'
                               'other.setAttribute("aria-label","新しいダイアログ");other.textContent="別の操作";outer.append(other);',
                               ['#outer'], '#inner-opener'),
+    'new-display-contents-dialog': ('closeInner();const other=document.createElement("div");'
+                                    'other.setAttribute("role","dialog");other.setAttribute("aria-modal","true");'
+                                    'other.setAttribute("aria-label","新しいダイアログ");other.style.display="contents";'
+                                    'const contents=document.createElement("div");contents.style.position="fixed";'
+                                    'contents.textContent="別の操作";other.append(contents);outer.append(other);',
+                                    ['#outer'], '#inner-opener'),
     'outside-focus': ('closeInner();outside.focus();', ['#outer'], '#outside'),
     'siblings': ('closeInner();', ['#outer'], '#inner-opener'),
 }
@@ -95,7 +101,7 @@ async def check(browser, out, url, case, width):
         directory.mkdir(parents=True)
         core.save(directory/'input-events.json', observer.export())
         core.save(directory/'observed.json', dict(legacy=audit.record, nested=audit.nested_observation))
-        if case in {'new-shadow-dialog', 'new-role-token-dialog'}:
+        if case in {'new-shadow-dialog', 'new-role-token-dialog', 'new-display-contents-dialog'}:
             session = await context.new_cdp_session(page)
             tree = await session.send('Accessibility.getFullAXTree')
             await session.detach()

@@ -15,28 +15,35 @@ NESTED_PAIR = r'''snapshot => {
     const [parent, child] = snapshot.modals.map(unique);
     const focus = unique(snapshot.focus);
     const visible = window.__wcagDialogElementVisible;
-    const visibleDialogs = () => {
+    const possibleDialogs = () => {
         // Keep the scope in the document tree when shadow content may contain another dialog.
         if ([...document.querySelectorAll('*')].some(element => element.shadowRoot)) return null;
+        const mayBeDisplayed = element => {
+            // Dialog containers can expose displayed content without generating a box.
+            for (let node = element; node; node = node.parentElement) {
+                if (getComputedStyle(node).display === 'none') return false;
+            }
+            return true;
+        };
         return [...document.querySelectorAll(
             'dialog, [role~="dialog" i], [role~="alertdialog" i]'
-        )].filter(visible);
+        )].filter(mayBeDisplayed);
     };
-    const dialogs = visibleDialogs();
+    const dialogs = possibleDialogs();
     if (!dialogs || !parent || !child || parent === child || !parent.contains(child) ||
         dialogs.length !== 2 || !dialogs.includes(parent) || !dialogs.includes(child) ||
-        !focus || focus !== document.activeElement ||
+        !visible(parent) || !visible(child) || !focus || focus !== document.activeElement ||
         !child.contains(focus)) return null;
     window.__wcagExpectedInputTarget = focus;
-    return {parent, child, visibleDialogs};
+    return {parent, child, possibleDialogs};
 }'''
 NESTED_STATE = r'''pair => {
     if (!pair?.parent.isConnected || !pair.child.isConnected || !pair.parent.contains(pair.child) ||
         !window.__wcagDialogElementVisible(pair.parent)) return null;
     const childVisible = window.__wcagDialogElementVisible(pair.child);
-    const dialogs = pair.visibleDialogs();
+    const dialogs = pair.possibleDialogs();
     if (!dialogs || dialogs.length !== (childVisible ? 2 : 1) || !dialogs.includes(pair.parent) ||
-        (childVisible && !dialogs.includes(pair.child))) return null;
+        childVisible !== dialogs.includes(pair.child)) return null;
     const snapshot = window.__wcagDialogFocus();
     const focus = document.activeElement;
     const layer = pair.child.contains(focus) ? 'child' : pair.parent.contains(focus) ? 'parent' :
