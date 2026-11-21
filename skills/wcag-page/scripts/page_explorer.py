@@ -288,6 +288,31 @@ def keyboard_opening_key(edge):
     return edge['environment'], edge['fingerprint'], edge['route'][-1]['selector'], edge['focus_after']
 
 
+def reserve_nested_escape(queue, node, observation):
+    route = node['route'] + [{'type': 'click', 'selector': observation['focus']}]
+    for job in queue:
+        if job['environment'] == node['environment'] and job['route'] == route and job.get('newly_available'):
+            job.pop('newly_available')
+            job['nested_escape_deferred_click'] = True
+            node['nested_escape_slot'] = dict(observation, route=route)
+            return
+
+
+def promote_nested_escape(queue, parent, route):
+    slot = parent['nested_escape_slot']
+    env = parent['environment']
+    if slot.get('used') or not any(job['environment'] == env and job['route'] == slot['route']
+                                  and job.get('nested_escape_deferred_click') for job in queue):
+        return
+    escape = route + [{'type': 'press', 'selector': 'body', 'key': 'Escape'}]
+    for index, job in enumerate(queue):
+        if job['environment'] == env and job['route'] == escape and job.get('dialog_focus') == 'escape':
+            job['prioritized_nested_escape'] = True
+            queue.insert(1, queue.pop(index))
+            slot['used'] = True
+            return
+
+
 def queue_state_actions(value, node, data, env, queued, done, *, quick=False, parent=None, max_depth=30,
                         keyboard_continuation=False, repeated_state=False, combo_record=None,
                         content_keyboard_opening=False, keyboard_modal_opening=False):
@@ -468,7 +493,7 @@ def status(run):
 async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, initial_only=False,
                    start_exploration=False, quick_explore=False):
     import audit
-    from playwright.async_api import async_playwright
+    from playwright.async_api import Error as BrowserError, async_playwright
     run=Path(run);meta,_=audit.run_catalog(run,for_write=True);config=meta['config'];url=config['scope']['pages'][0]
     if config['scope'].get('mode')!='configured' or len(config['scope']['pages'])!=1:
         raise ValueError('探索はconfiguredの1ページで実行する')
@@ -633,6 +658,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 action_index = unreachable_step = None
                 combo_record = dict(key=route[-1]['key'], before=None, after=None) if job.get('combobox_check') else None
                 key_effect = {}
+                nested_parent_input = None
+                nested_child_opened = False
                 function_result = None
                 before_operation = None
                 impact = None
@@ -806,6 +833,20 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         data['observation_wait']=settling
                         data['state_labels']=label_observations
                         inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
+                        if (quick and data['modal'] and 1 <= len(route) <= 2 and not blocked and not native_events
+                                and all(action['type'] == 'click' for action in route)
+                                and all(wait['status'] == 'quiet' for wait in settling)):
+                            prior = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True))
+                            with suppress(BrowserError):
+                                if len(route) == 1 and prior is not None and not prior.get('modal'):
+                                    hint = await page.evaluate('() => window.__wcagNestedParentInput()')
+                                    if hint and hint['parent'] == data['modal'] and hint['focus'] == data['focus']['selector']:
+                                        nested_parent_input = hint
+                                elif dialog_observation and prior is not None and prior['route'] == route[:-1]:
+                                    slot = prior.get('nested_escape_slot')
+                                    if slot and not slot.get('used') and slot['child'] == data['modal']:
+                                        nested_child_opened = await dialog_observation.opened_expected_child(
+                                            slot['parent'], slot['child'])
                         capture_structure = visual_scope and (not route or observe_explored_structure)
                         prepared_structure = None
                         structure_deadline = None
@@ -1078,6 +1119,10 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                             keyboard_modal_opening=keyboard_modal_opening,
                                             combo_record=combo_record, content_keyboard_opening=(
                                                 edge.get('disclosure_toggle', {}).get('status') == 'opened'))
+                        if nested_parent_input:
+                            reserve_nested_escape(value['queue'], node, nested_parent_input)
+                        elif nested_child_opened:
+                            promote_nested_escape(value['queue'], parent, route)
                     captured_routes[json.dumps([env['id'], route], sort_keys=True)] = node
                 value['queue'].pop(0);value['remaining']=list(dict.fromkeys(value['remaining']))
                 value['manifest']=manifest

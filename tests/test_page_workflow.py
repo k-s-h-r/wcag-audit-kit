@@ -322,6 +322,34 @@ class WorkflowTest(unittest.TestCase):
             self.assertEqual({a['key'] for a in actions if a['type']=='key'},{'Enter','Space'})
             self.assertTrue(page_explorer.actions(dict(control,formAssociated=True))[1])
 
+    def test_nested_escape_uses_one_pending_click_from_its_own_parent(self):
+        parent_route = [{'type': 'click', 'selector': '#launch'}]
+        child_route = parent_route + [{'type': 'click', 'selector': '#open-child'}]
+        click_route = parent_route + [{'type': 'click', 'selector': '#field'}]
+        escape_route = child_route + [{'type': 'press', 'selector': 'body', 'key': 'Escape'}]
+        parent = {'environment': 'desktop', 'route': parent_route}
+        child = {'environment': 'desktop', 'route': child_route}
+        click = {'environment': 'desktop', 'route': click_route, 'newly_available': True}
+        peer_click = dict(click, environment='narrow')
+        escape = {'environment': 'desktop', 'route': escape_route, 'dialog_focus': 'escape'}
+        queue = [child, click, peer_click, escape]
+        page_explorer.reserve_nested_escape(queue, parent, dict(parent='#parent', child='#child', focus='#field'))
+        self.assertNotIn('newly_available', click)
+        self.assertTrue(peer_click['newly_available'])
+
+        node, pending = json.loads(json.dumps([parent, queue]))
+        page_explorer.promote_nested_escape(pending, node, child_route)
+        self.assertEqual([job['route'] for job in pending], [child_route, escape_route, click_route, click_route])
+        self.assertTrue(pending[1]['prioritized_nested_escape'])
+        self.assertTrue(node['nested_escape_slot']['used'])
+        again = copy.deepcopy(pending)
+        page_explorer.promote_nested_escape(pending, node, child_route)
+        self.assertEqual(pending, again)
+
+        without_click = [child, peer_click, dict(escape)]
+        page_explorer.promote_nested_escape(without_click, parent, child_route)
+        self.assertNotIn('prioritized_nested_escape', without_click[-1])
+
     def test_budgets_reject_invalid_values(self):
         for values in [(True,10,2),(0,10,2),(10,10001,2),(10,10,31)]:
             with self.assertRaises(ValueError):page_explorer.validate_budget(*values)

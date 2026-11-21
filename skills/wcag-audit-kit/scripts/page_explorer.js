@@ -48,10 +48,13 @@
     return result('timeout');
   };
   const events = new WeakMap(), original = EventTarget.prototype.addEventListener;
-  let globalKeyboardListener = false;
+  const pointerInput = /^(click|dblclick|auxclick|contextmenu|mouse|pointer|touch)/;
+  let globalKeyboardListener = false, globalPointerListener = false;
   EventTarget.prototype.addEventListener = function (type, ...args) {
-    if ((this === window || this === document) && /^key(down|up|press)$/.test(type) &&
-        args[0]?.name !== 'wcagAuditInputListener') globalKeyboardListener = true;
+    if ((this === window || this === document) && args[0]?.name !== 'wcagAuditInputListener') {
+      if (/^key(down|up|press)$/.test(type)) globalKeyboardListener = true;
+      if (pointerInput.test(type)) globalPointerListener = true;
+    }
     if (this instanceof Element) {
       const types = events.get(this) || new Set(); types.add(type); events.set(this, types);
     }
@@ -178,6 +181,29 @@
         !active.matches('iframe, frame'),
       document_start: performance.timeOrigin, url: location.href
     };
+  };
+  window.__wcagNestedParentInput = () => {
+    const modals = visibleModals();
+    const input = document.activeElement;
+    if (modals.length !== 1 || closedRoots || globalPointerListener || !document.hasFocus() ||
+        !(input instanceof HTMLInputElement) || input.type !== 'text' || input.value || input.form ||
+        input.disabled || input.readOnly || !visible(input) || input.matches('[role],[list],[aria-haspopup]') ||
+        document.querySelector('iframe,frame')) return null;
+    const [parent] = modals;
+    const all = [...document.querySelectorAll('*')];
+    const other = all.filter(node => node !== parent && node.matches('dialog,[role~="dialog" i],[role~="alertdialog" i]'));
+    if (other.length !== 1 || !parent.contains(input) || all.some(node => node.shadowRoot)) return null;
+    const [child] = other;
+    if (!parent.contains(child) || !child.matches('[hidden][aria-modal="true"]:is([role="dialog"],[role="alertdialog"])') ||
+        visible(child)) return null;
+
+    const pointerHandler = node => [...(events.get(node) || [])].some(type => pointerInput.test(type)) ||
+      ['click','dblclick','auxclick','contextmenu','mousedown','mouseup','mousemove','mouseover','mouseenter','mouseleave',
+       'pointerdown','pointerup','pointermove','pointerover','pointerenter','pointerleave',
+       'touchstart','touchend','touchmove'].some(type => typeof node['on' + type] === 'function');
+    if (pointerHandler(window) || pointerHandler(document)) return null;
+    for (let node = input; node; node = node.parentElement) if (pointerHandler(node)) return null;
+    return {parent:selector(parent), child:selector(child), focus:selector(input)};
   };
   window.__wcagCombobox = input => {
     const id = input.getAttribute('aria-controls')?.trim();

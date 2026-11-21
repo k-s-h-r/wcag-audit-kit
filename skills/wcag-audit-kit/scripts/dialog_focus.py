@@ -34,7 +34,7 @@ NESTED_PAIR = r'''snapshot => {
         dialogs.length !== 2 || !dialogs.includes(parent) || !dialogs.includes(child) ||
         !visible(parent) || !visible(child) || !focus || focus !== document.activeElement ||
         !child.contains(focus)) return null;
-    window.__wcagExpectedInputTarget = focus;
+    if (snapshot.mark_input !== false) window.__wcagExpectedInputTarget = focus;
     return {parent, child, possibleDialogs};
 }'''
 NESTED_STATE = r'''pair => {
@@ -217,6 +217,14 @@ class DialogFocus:
         return dict(parent=parent, child=child, status=status, before=before, after=current,
                     focus_layer=observed['layer'], key='Escape', event_index=event_index - 1,
                     input_evidence='input-events.json')
+
+    async def opened_expected_child(self, parent, child):
+        before, after = (self.record.get(name) for name in ('before_close', 'after_close'))
+        if (self.observer.dropped or not self.record.get('opener_event_index') or not self.record.get('close_event_index')
+                or not before or not after or not before['supported'] or not after['supported']
+                or not same_document(before, after) or before['modals'] != [parent] or after['modals'] != [parent, child]):
+            return False
+        return await self.page.evaluate(f'snapshot => !!({NESTED_PAIR})(snapshot)', dict(after, mark_input=False))
 
     def invalidate(self, reason):
         self.record.update(status='unconfirmed', reason=reason)
