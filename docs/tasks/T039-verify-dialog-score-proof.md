@@ -1,6 +1,6 @@
 # T039 離脱採点を保存済みの証拠に結び付ける
 
-状態は実装、再採点、独立レビューを完了。起点はT030の公開版 `9fcaa0d`。039・040の真正な採点を維持し、照合できない証拠は該当幅の採点から外した。T030と統合版の既存87行は、新しい採点器でそれぞれ完全に再現した。[試験結果](../../validation/development/T039/README.md) · [T030](T030-dialog-keyboard-trap.md) · [ADR 0123](../adr/0123-check-dialog-exit-score-evidence-hashes.md)
+状態は実装、再採点、独立レビューを完了し、ドラフトPRで提出。起点はT030の公開版 `9fcaa0d`。039・040の真正な採点を維持し、照合できない証拠は該当幅の採点から外した。T030と統合版の既存87行は、新しい採点器でそれぞれ完全に再現した。[PR #110](https://github.com/k-s-h-r/wcag-audit-kit/pull/110) · [試験結果](../../validation/development/T039/README.md) · [T030](T030-dialog-keyboard-trap.md) · [ADR 0123](../adr/0123-check-dialog-exit-score-evidence-hashes.md)
 
 ## 作業と成果物
 
