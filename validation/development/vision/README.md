@@ -10,7 +10,7 @@
 | 改善に使う点検 | 予約の増員と確認ボタン名を調べ、改善後に同じ出発点から確認へ進む操作を比較した。点検は保存済みの証拠とURLの2通りから依頼できた | [T023](../T023/README.md) · [T027](../T027/README.md) · [独立観察の記録](run-001/t027-independent.zip) |
 | AIによる図の確認と、根拠不足を埋める追加操作 | 機械の代替文の検査が通った2例で、別のAIが先に図を読み、キーで開いた表と照合した。問題例は5月の値が異なり、通常の報告に不適合を記録した | [T011](../T011/README.md) · [PR #95](https://github.com/k-s-h-r/wcag-audit-kit/pull/95) |
 | 入力エラーからの回復と実スクリーンリーダー | 実キーで両例の同じエラー画面に到達し、修正して確認へ進んだ。発生時の発話がOrca 48.1で異なることを確認し、4.1.3の証拠を帳票に添付した | [T026](../T026/README.md) · [PR #94](https://github.com/k-s-h-r/wcag-audit-kit/pull/94) |
-| 修正前後と影響ページを照合 | 同じリンクがある6ページで解消・新規・継続を各1件、証拠を確認できないページを3件表示した | [T025](../T025/README.md) · [PR #93](https://github.com/k-s-h-r/wcag-audit-kit/pull/93) |
+| 修正前後と影響ページを照合 | 同じリンクがある6ページで解消・新規・継続を各1件、証拠を確認できないページを3件表示した。通常の `page-audit` からも、同じ転送後のページでコントラストの改善を2幅で照合した | [T025](../T025/README.md) · [PR #93](https://github.com/k-s-h-r/wcag-audit-kit/pull/93) |
 
 ## 同じ版で再実行した検査
 
@@ -25,6 +25,7 @@ python3 tests/keyboard_function_browser.py --out /tmp/vision-key-functions
 python3 tests/accordion_keyboard_browser.py --out /tmp/vision-accordion
 python3 tests/operation_impact_browser.py --out /tmp/vision-operation-impact
 python3 validation/development/T025/verify.py --out /tmp/vision-compare
+python3 validation/development/T025/verify.py --page-audit --out /tmp/vision-page-compare
 ```
 
 同じ手続きの帳票の再生成は、T022とT026の再実行手順を用いる。図の試験は公開済みの機械runを展開すると、同じ初期画像・観察・判定を通常のCLIで照合できる。[T022の再実行](../T022/README.md#再実行) · [T026の再実行](../T026/README.md#再実行) · [T011の再実行](../T011/README.md#再実行)
