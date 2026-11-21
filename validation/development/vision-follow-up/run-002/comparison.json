@@ -1,0 +1,1221 @@
+{
+  "previous_commit": "89fc5dcc8a3b0b48f7c9e9175ff3cd68cda87840",
+  "commit": "0923d71b9ec8c08afd5a596bc96c6404787aa1d5",
+  "corpus_digest": "b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206",
+  "completed_pages": 76,
+  "rows": 87,
+  "unchanged_row_statuses": 87,
+  "unchanged_unmatched_findings": 14,
+  "problems": {
+    "detected": 12,
+    "observed_no_verdict": 16,
+    "state_or_route_unobserved": 11
+  },
+  "controls": {
+    "matched": 19,
+    "observed_no_verdict": 18,
+    "state_or_route_unobserved": 11
+  },
+  "nested_escape_and_following_routes": {
+    "045": {
+      "implementation_digest": "29671b0de28ece5384aa4fe884420f13d226bf4d2076d19d7bc50e999ab57c08",
+      "steps": 24,
+      "observations": {
+        "desktop": {
+          "step": 14,
+          "status": "child_open",
+          "focus_layer": "child",
+          "focus": "#inner-name",
+          "evidence": "evidence/a93930d4b771--explore-7cf708f4ef87--desktop/nested-dialog.json",
+          "input_evidence": "evidence/a93930d4b771--explore-7cf708f4ef87--desktop/input-events.json"
+        },
+        "narrow": {
+          "step": 16,
+          "status": "child_open",
+          "focus_layer": "child",
+          "focus": "#inner-name",
+          "evidence": "evidence/a93930d4b771--explore-90ba1103a173--narrow/nested-dialog.json",
+          "input_evidence": "evidence/a93930d4b771--explore-90ba1103a173--narrow/input-events.json"
+        }
+      },
+      "following_tab": [
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        },
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        },
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        }
+      ],
+      "pending_before": 19,
+      "pending_after": 17,
+      "added_to_pending": [
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "click"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "click"
+            }
+          ]
+        ]
+      ],
+      "removed_from_pending": [
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            }
+          ]
+        ],
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#inner-opener",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#inner-opener",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        ]
+      ],
+      "omitted_candidates": {
+        "input_variations": 36,
+        "unchanged_control": 24,
+        "frontier": 16
+      }
+    },
+    "046": {
+      "implementation_digest": "29671b0de28ece5384aa4fe884420f13d226bf4d2076d19d7bc50e999ab57c08",
+      "steps": 24,
+      "observations": {
+        "desktop": {
+          "step": 14,
+          "status": "child_closed",
+          "focus_layer": "parent",
+          "focus": "#inner-opener",
+          "evidence": "evidence/17d82d477f1e--explore-88a58a0e9668--desktop/nested-dialog.json",
+          "input_evidence": "evidence/17d82d477f1e--explore-88a58a0e9668--desktop/input-events.json"
+        },
+        "narrow": {
+          "step": 16,
+          "status": "child_closed",
+          "focus_layer": "parent",
+          "focus": "#inner-opener",
+          "evidence": "evidence/17d82d477f1e--explore-f61ee4f0d051--narrow/nested-dialog.json",
+          "input_evidence": "evidence/17d82d477f1e--explore-f61ee4f0d051--narrow/input-events.json"
+        }
+      },
+      "following_tab": [
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        },
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        },
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        }
+      ],
+      "pending_before": 19,
+      "pending_after": 17,
+      "added_to_pending": [
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "click"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "click"
+            }
+          ]
+        ]
+      ],
+      "removed_from_pending": [
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            }
+          ]
+        ],
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#inner-opener",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#inner-opener",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        ]
+      ],
+      "omitted_candidates": {
+        "input_variations": 34,
+        "unchanged_control": 24,
+        "frontier": 18
+      }
+    },
+    "062": {
+      "implementation_digest": "29671b0de28ece5384aa4fe884420f13d226bf4d2076d19d7bc50e999ab57c08",
+      "steps": 24,
+      "observations": {
+        "desktop": {
+          "step": 14,
+          "status": "child_closed",
+          "focus_layer": "outside",
+          "focus": "#outside",
+          "evidence": "evidence/0b0060026911--explore-a31dc67db2e3--desktop/nested-dialog.json",
+          "input_evidence": "evidence/0b0060026911--explore-a31dc67db2e3--desktop/input-events.json"
+        },
+        "narrow": {
+          "step": 16,
+          "status": "child_closed",
+          "focus_layer": "outside",
+          "focus": "#outside",
+          "evidence": "evidence/0b0060026911--explore-d74ef1ae0b24--narrow/nested-dialog.json",
+          "input_evidence": "evidence/0b0060026911--explore-d74ef1ae0b24--narrow/input-events.json"
+        }
+      },
+      "following_tab": [
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        },
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        },
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        }
+      ],
+      "pending_before": 19,
+      "pending_after": 17,
+      "added_to_pending": [
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "click"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "click"
+            }
+          ]
+        ]
+      ],
+      "removed_from_pending": [
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            }
+          ]
+        ],
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#inner-opener",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#inner-opener",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        ]
+      ],
+      "omitted_candidates": {
+        "input_variations": 34,
+        "unchanged_control": 24,
+        "frontier": 18
+      }
+    },
+    "063": {
+      "implementation_digest": "29671b0de28ece5384aa4fe884420f13d226bf4d2076d19d7bc50e999ab57c08",
+      "steps": 24,
+      "observations": {
+        "desktop": {
+          "step": 14,
+          "status": "child_closed",
+          "focus_layer": "parent",
+          "focus": "#inner-opener",
+          "evidence": "evidence/97064eabd1ee--explore-831715b40961--desktop/nested-dialog.json",
+          "input_evidence": "evidence/97064eabd1ee--explore-831715b40961--desktop/input-events.json"
+        },
+        "narrow": {
+          "step": 16,
+          "status": "child_closed",
+          "focus_layer": "parent",
+          "focus": "#inner-opener",
+          "evidence": "evidence/97064eabd1ee--explore-06db9dedcd71--narrow/nested-dialog.json",
+          "input_evidence": "evidence/97064eabd1ee--explore-06db9dedcd71--narrow/input-events.json"
+        }
+      },
+      "following_tab": [
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        },
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        },
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-close",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#outside"
+        }
+      ],
+      "pending_before": 19,
+      "pending_after": 17,
+      "added_to_pending": [
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "click"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "click"
+            }
+          ]
+        ]
+      ],
+      "removed_from_pending": [
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            },
+            {
+              "selector": "#outer-name",
+              "type": "fill",
+              "value": "Accessibility audit"
+            }
+          ]
+        ],
+        [
+          "desktop",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#inner-opener",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        ],
+        [
+          "narrow",
+          [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#inner-opener",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            }
+          ]
+        ]
+      ],
+      "omitted_candidates": {
+        "input_variations": 34,
+        "unchanged_control": 24,
+        "frontier": 18
+      }
+    },
+    "039": {
+      "implementation_digest": "29671b0de28ece5384aa4fe884420f13d226bf4d2076d19d7bc50e999ab57c08",
+      "steps": 24,
+      "observations": {},
+      "following_tab": [
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#open",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "unconfirmed",
+          "focus": "html:nth-child(1) > body:nth-child(2)"
+        },
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#open",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "unconfirmed",
+          "focus": "html:nth-child(1) > body:nth-child(2)"
+        },
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#open",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Escape"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "unconfirmed",
+          "focus": "html:nth-child(1) > body:nth-child(2)"
+        },
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#open",
+              "type": "click"
+            },
+            {
+              "selector": "#close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "unconfirmed",
+          "focus": "html:nth-child(1) > body:nth-child(2)"
+        }
+      ],
+      "pending_before": 12,
+      "pending_after": 12,
+      "added_to_pending": [],
+      "removed_from_pending": [],
+      "omitted_candidates": {
+        "input_variations": 18,
+        "unchanged_control": 16
+      }
+    },
+    "040": {
+      "implementation_digest": "29671b0de28ece5384aa4fe884420f13d226bf4d2076d19d7bc50e999ab57c08",
+      "steps": 24,
+      "observations": {},
+      "following_tab": [
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#open",
+              "type": "click"
+            },
+            {
+              "selector": "#close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "unconfirmed",
+          "focus": "html:nth-child(1) > body:nth-child(2)"
+        },
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#open",
+              "type": "click"
+            },
+            {
+              "selector": "#close",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "unconfirmed",
+          "focus": "html:nth-child(1) > body:nth-child(2)"
+        }
+      ],
+      "pending_before": 8,
+      "pending_after": 8,
+      "added_to_pending": [],
+      "removed_from_pending": [],
+      "omitted_candidates": {
+        "input_variations": 20,
+        "unchanged_control": 16
+      }
+    },
+    "064": {
+      "implementation_digest": "29671b0de28ece5384aa4fe884420f13d226bf4d2076d19d7bc50e999ab57c08",
+      "steps": 24,
+      "observations": {},
+      "following_tab": [
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#dismiss",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#earlier"
+        },
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#dismiss",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#earlier"
+        },
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#dismiss",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#earlier"
+        },
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#dismiss",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#earlier"
+        }
+      ],
+      "pending_before": 6,
+      "pending_after": 6,
+      "added_to_pending": [],
+      "removed_from_pending": [],
+      "omitted_candidates": {
+        "input_variations": 20
+      }
+    },
+    "065": {
+      "implementation_digest": "29671b0de28ece5384aa4fe884420f13d226bf4d2076d19d7bc50e999ab57c08",
+      "steps": 24,
+      "observations": {},
+      "following_tab": [
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#dismiss",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#next"
+        },
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#dismiss",
+              "type": "click"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#next"
+        },
+        {
+          "environment": "desktop",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#dismiss",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#next"
+        },
+        {
+          "environment": "narrow",
+          "route": [
+            {
+              "selector": "#launch",
+              "type": "click"
+            },
+            {
+              "selector": "#dismiss",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "status": "closed",
+          "focus": "#next"
+        }
+      ],
+      "pending_before": 6,
+      "pending_after": 6,
+      "added_to_pending": [],
+      "removed_from_pending": [],
+      "omitted_candidates": {
+        "input_variations": 20
+      }
+    }
+  },
+  "page_next": {
+    "039": [
+      {
+        "environment": "desktop",
+        "outcome": "not_run",
+        "operation_outcome": "passed",
+        "evidence": "evidence/f1a19aaa4ed5--explore-c47eaa97ec11--desktop/dialog-focus.json"
+      },
+      {
+        "environment": "narrow",
+        "outcome": "not_run",
+        "operation_outcome": "passed",
+        "evidence": "evidence/f1a19aaa4ed5--explore-18c6ce455fbb--narrow/dialog-focus.json"
+      }
+    ],
+    "040": [
+      {
+        "environment": "desktop",
+        "outcome": "not_run",
+        "operation_outcome": "failed",
+        "evidence": "evidence/36e905e7bf5b--explore-f6b964da0080--desktop/dialog-focus.json"
+      },
+      {
+        "environment": "narrow",
+        "outcome": "not_run",
+        "operation_outcome": "failed",
+        "evidence": "evidence/36e905e7bf5b--explore-1ecadf04ce4f--narrow/dialog-focus.json"
+      }
+    ]
+  },
+  "focus_navigation_stops": {
+    "073": [
+      {
+        "evidence": "evidence/b13eb3926374--explore-7487d3332fc8--desktop/keyboard-trace-stop.json",
+        "environment": "desktop",
+        "status": "blocked",
+        "source_url": "http://127.0.0.1:32857/s21/p03.html",
+        "target": {
+          "tag": "input",
+          "id": "subject"
+        },
+        "destination": "http://127.0.0.1:32857/s21/details.html",
+        "input_evidence": "input-events.json",
+        "keydown_event_index": 0,
+        "focus_event_index": 1,
+        "navigation_event_index": 2,
+        "keyup_event_index": 4,
+        "blocked_request_index": 0
+      },
+      {
+        "evidence": "evidence/b13eb3926374--explore-8c2b08cb6afb--narrow/keyboard-trace-stop.json",
+        "environment": "narrow",
+        "status": "blocked",
+        "source_url": "http://127.0.0.1:32857/s21/p03.html",
+        "target": {
+          "tag": "input",
+          "id": "subject"
+        },
+        "destination": "http://127.0.0.1:32857/s21/details.html",
+        "input_evidence": "input-events.json",
+        "keydown_event_index": 0,
+        "focus_event_index": 1,
+        "navigation_event_index": 2,
+        "keyup_event_index": 4,
+        "blocked_request_index": 0
+      }
+    ],
+    "074": []
+  }
+}

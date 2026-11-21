@@ -6,20 +6,20 @@
 
 ## 次の作業
 
-個々のPRを一緒に使える作業ブランチで検証し、VISIONの項目ごとに操作と帳票の根拠を照合する。主な結果と再実行方法は統合検証にまとめる。採用された版で同じ試験を行う際にも、この条件を使う。[VISIONの統合検証](../validation/development/vision/README.md)
+手続きの操作と帳票、追加した探索や再検査を個別に試し、同じ版にまとめた。#86〜#115の取り込みに使う版と再実行方法を統合検証に記録する。[VISIONの統合検証](../validation/development/vision/README.md) · [mainへの統合](../validation/development/vision-follow-up/README.md#mainへの統合)
 
 統合実証後は、URL起点で状態を観察できた行のうち判定がなかったものから確認する。T030では、2.1.2の12例のうちダイアログの正常例と問題例を両幅で区別した。複数のフォーカス先やフレームに残る離脱経路は、別の対照で続けて調べる。[T030の結果](tasks/T030-dialog-keyboard-trap.md)
 
 追加した操作、検査票、再検査、寸法・間隔の実装を同じ版に置き、76ページ・87行をもう一度測った。問題12/39行、対照19/48行が期待と一致した。操作の証拠をたどれる検査票と、移動の遮断、参照の再検査も同じ版で照合した。[追加分の統合検証](../validation/development/vision-follow-up/README.md)
 
-初回実証の着手順と元の測定は次のとおり。
+初回実証で先に確かめた範囲は次のとおり。
 
-1. **キーを送った後の実行結果を確かめる。** [T020](tasks/T020-url-only-machine-score.md)でURLから76ページ・87行を測った。問題39行中、検出8、状態・経路の未確認11、到達後に判定なし20だった。数量変更ではクリック後とEnter後の値が異なっても、報告はキーの送出までだった。[T024](tasks/T024-keyboard-function-result.md)で、通常の入口からこの差を照合する。
-2. **適合の結論を検査票に出せるか確かめる。** [T021](tasks/T021-scope-conformance-report.md)では、保存済みの判定と証拠を使い、対象とする範囲の適合・不適合・未確認を利用者に示す。T024と独立して始められる。
+1. **キー入力後の実行結果。** T020でURLから76ページ・87行を測った。問題39行中、検出8、状態・経路の未確認11、到達後に判定なし20だった。T024で、数量表示がクリックとEnterの後でどう変わったかを通常の入口から照合した。[T020](tasks/T020-url-only-machine-score.md) · [T024](tasks/T024-keyboard-function-result.md)
+2. **対象範囲の適合の結論。** T021で、保存済みの判定と証拠から、対象範囲の適合・不適合・未確認を帳票と最終回答に示す試験を行った。[T021](tasks/T021-scope-conformance-report.md)
 
 操作経路は[T018](tasks/T018-widget-operation-sequences.md)に記録する。アコーディオンの同じ見た目の対照は、URLからの簡易探索でEnterを、通常探索でSpaceも確認できた。通常探索の48ステップで残った操作と範囲の判定は追加観察へ引き継ぐ。操作後の差分再検査は[T019](tasks/T019-post-operation-rechecks.md)で全体再検査と照合する。
 
-次は[T022](tasks/T022-url-to-process-audit.md)で、URLを出発点に一つの手続きを見つけ、機械検査に残った判断をAIや必要な支援技術で確かめ、二つの成果物までつなぐ。この実証の操作記録を使い、[T023](tasks/T023-accessibility-review-pilot.md)でアクセシビリティ点検の結果を試す。着手の順序と並行できる範囲は[タスク一覧](tasks/README.md#次に着手する作業)に記す。
+T022でローカルの手続きをURLからたどり、操作を二つの成果物へつないだ。その記録からT023でアクセシビリティ点検を試し、T027で繰り返し依頼できる手順を確認した。各試験で確認した条件と残った観点は担当タスクに記録する。[T022](tasks/T022-url-to-process-audit.md) · [T023](tasks/T023-accessibility-review-pilot.md) · [T027](tasks/T027-accessibility-review-workflow.md)
 
 ## 目指す成果
 
