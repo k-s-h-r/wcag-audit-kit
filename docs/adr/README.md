@@ -97,3 +97,4 @@
 - [0091 開発計画から完成像を参照する](0091-use-the-vision-memo-as-the-development-reference.md)
 - [0092 二つのモードと受け取りたい結果を一か所にまとめる](0092-align-audit-modes-and-outputs-in-the-vision.md)
 - [0093 VISIONに沿って開発計画と次の作業を揃える](0093-align-development-with-the-vision.md)
+- [0094 通常の入口から機械検出対象の全行を測る](0094-measure-all-machine-targets-from-url.md)

@@ -1,0 +1,251 @@
+"""Match emitted verdicts to the frozen URL-only benchmark, without new browser actions."""
+from collections import Counter, defaultdict
+
+from benchmarks import core, url_only
+
+
+AXE_RULES = {
+    '1.1.1-01': 'image-alt',
+    '1.4.3-01': 'color-contrast',
+    '1.4.6-01': 'color-contrast-enhanced',
+    '2.4.2-01': 'document-title',
+    '3.1.1-01': 'html-has-lang',
+}
+GROUPS = {**url_only.RULE_GROUPS, 'inapplicable': 'inapplicable'}
+EXPECTED_ENVIRONMENTS = ('desktop', 'narrow')
+ACTIVATION_KEYS = url_only.ACTIVATION_KEYS
+
+
+def target_visible(state, target):
+    return any(item['selector'] == target or (target == 'html' and item['tag'] == 'html')
+               for item in state['state'])
+
+
+def activated(route, selector):
+    return any(action.get('selector') == selector
+               and (action['type'] == 'click'
+                    or (action['type'] == 'key' and action.get('key') in ACTIVATION_KEYS))
+               for action in route)
+
+
+def key_used(route, selector, keys):
+    return any(action['type'] == 'key' and action.get('selector') == selector
+               and action.get('key') in keys for action in route)
+
+
+def reached_state(edge, state, row):
+    """Require evidence of the state or route, independently of the expected verdict."""
+    route = edge['route']
+    target = row['target']
+    name = row['state']
+    if name == 'initial':
+        return not route and target_visible(state, target)
+    if name == 'after-load':
+        return activated(route, '#load') and target_visible(state, target)
+    if name == 'enabled':
+        return activated(route, '#enable') and any(
+            item['selector'] == target and item.get('disabled') is False for item in state['state'])
+    if name == 'after-open':
+        return activated(route, target) and target_visible(state, '#panel')
+    if name == 'after-select':
+        return activated(route, '#describe') and target_visible(state, target)
+    if name == 'opened':
+        return activated(route, '#open') and target_visible(state, target)
+    if name == 'inner-dialog':
+        return activated(route, '#inner-opener') and target_visible(state, target)
+    if name == 'combo-open':
+        return key_used(route, target, {'ArrowDown'}) and target_visible(state, '#options')
+    if name in {'third-level', 'third-level-open', 'keyboard-route'}:
+        if any(action['type'] not in {'key', 'press'} for action in route):
+            return False
+        if not all(key_used(route, selector, ACTIVATION_KEYS) for selector in ('#level1', '#level2')):
+            return False
+        if name == 'keyboard-route':
+            return key_used(route, '#leaf', {'Enter'})
+        return target_visible(state, target)
+    if name == 'shadow-open':
+        return key_used(route, target, ACTIVATION_KEYS)
+    if name == 'second-tab':
+        return key_used(route, '#tab-a', {'ArrowRight'}) and key_used(route, target, ACTIVATION_KEYS)
+    if name == 'after-focus':
+        return (all(action['type'] in {'key', 'press'} for action in route)
+                and bool(route) and edge.get('focus_after') == target)
+    # Media playback, timers, and focus inside a frame require their own evidence.
+    return False
+
+
+def matching_axe(row, checks, work, output, captures):
+    rule_id = AXE_RULES[row['checkpoint']]
+    for check in checks:
+        if check['checkpoint'] != f'axe / {rule_id}':
+            continue
+        if check['outcome'] in {'failed', 'cant_tell'} and check['target'] != str([row['target']]):
+            continue
+        path = work / check['evidence']
+        if path not in captures:
+            continue
+        for group, outcome in GROUPS.items():
+            if outcome != check['outcome']:
+                continue
+            for rule in core.load(path).get(group, []):
+                if rule['id'] == rule_id and any(
+                        node['target'] == [row['target']] for node in rule['nodes']):
+                    yield dict(outcome=outcome, evidence=path.relative_to(output).as_posix(),
+                               report_check=check['checkpoint'], observed=check['observed'])
+
+
+def matches_key_dispatch(edge, target):
+    route = edge['route']
+    return (len(route) == 1 and route[0]['type'] == 'key'
+            and route[0]['selector'] == target and route[0].get('key') in ACTIVATION_KEYS)
+
+
+def initial_transitions(work, edges):
+    for edge in edges:
+        if edge['route'] or edge.get('error'):
+            continue
+        directory = work / edge['evidence_dir']
+        path = directory / 'state.json'
+        if path.is_file() and (directory / 'axe.json').is_file():
+            yield edge, directory, core.load(path)
+
+
+def score_environment(row, checks, edges, transitions, work, output):
+    reached = [
+        (directory / 'state.json').relative_to(output).as_posix()
+        for edge, directory, state in transitions if reached_state(edge, state, row)
+    ]
+    verdicts = []
+    point = row['checkpoint']
+    key_evidence = {edge['evidence_dir'] + '/transition.json' for edge in edges
+                    if matches_key_dispatch(edge, row['target'])}
+    key_results = [
+        dict(outcome=check['outcome'], evidence=(work / check['evidence']).relative_to(output).as_posix(),
+             report_check=check['checkpoint'], observed=check['observed'])
+        for check in checks if check['checkpoint'].startswith('実入力 / ')
+        and check['target'] == row['target'] and check['evidence'] in key_evidence
+    ] if row['criterion'] == '2.1.1' else []
+    if point in AXE_RULES:
+        captures = {
+            work / edge['evidence_dir'] / 'axe.json'
+            for edge, _, state in transitions if reached_state(edge, state, row)
+        }
+        verdicts.extend(matching_axe(row, checks, work, output, captures))
+    elif point == '2.1.1-01':
+        verdicts.extend(key_results)
+    elif row['state'] in url_only.DIALOG_ACTIONS:
+        result = dict(reached=[], verdicts=[])
+        url_only.score_dialog(transitions, checks, work, output, row, result)
+        reached.extend(result['reached'])
+        verdicts.extend({**check, 'report_check': 'ダイアログを閉じた後のフォーカス'}
+                        for check in result['verdicts'])
+    return dict(reached=sorted(set(reached)), key_dispatch=key_results, verdicts=verdicts)
+
+
+def environment_outcome(verdicts):
+    definite = {item['outcome'] for item in verdicts} - {'cant_tell'}
+    return next(iter(definite)) if len(definite) == 1 else None
+
+
+def classify(expected, environments, completed):
+    if not completed:
+        return 'collection_error'
+    outcomes = [environment_outcome(env['verdicts']) for env in environments.values()]
+    if 'failed' in outcomes:
+        return 'detected' if expected == 'failed' else 'false_positive'
+    if outcomes and all(outcome in {'passed', 'inapplicable'} for outcome in outcomes):
+        if expected == 'failed':
+            return 'wrong_pass'
+        return 'matched' if set(outcomes) == {expected} else 'wrong_control_outcome'
+    if any(env['reached'] or env['verdicts'] for env in environments.values()):
+        return 'observed_no_verdict'
+    return 'state_or_route_unobserved'
+
+
+def score_page(output, page):
+    location = output / 'pages' / page['id']
+    receipt = location / 'collection.json'
+    report_path = location / 'page/data/report.json'
+    work = core.audit.run_layout.ledger(location / 'page')
+    graph_path = work / 'exploration.json'
+    completed = (receipt.is_file() and core.load(receipt)['phases'] == {'initial': 0, 'explore': 0}
+                 and report_path.is_file() and graph_path.is_file())
+    collection = dict(page_id=page['id'], completed=completed,
+                      collection=core.load(receipt) if receipt.is_file() else None)
+    findings = []
+    edges_by_env = defaultdict(list)
+    transitions_by_env = {}
+    checks_by_env = defaultdict(list)
+    if completed:
+        report = core.load(report_path)
+        graph = core.load(graph_path)
+        collection.update(
+            report=report_path.relative_to(output).as_posix(),
+            report_sha256=core.file_hash(report_path),
+            exploration=graph_path.relative_to(output).as_posix(),
+            limits=graph['limits'], steps=graph['steps'],
+            omitted_candidates=graph['omitted_candidates'], queued=len(graph['queue']),
+        )
+        for edge in graph['edges']:
+            edges_by_env[edge['environment']].append(edge)
+        for env in EXPECTED_ENVIRONMENTS:
+            transitions_by_env[env] = [
+                *initial_transitions(work, edges_by_env[env]),
+                *url_only.observed_transitions(work, graph, env),
+            ]
+        for check in report['machine_checks']:
+            checks_by_env[check['environment']].append(check)
+            if check['outcome'] == 'failed':
+                findings.append(dict(
+                    environment=check['environment'], criterion=check['criterion'],
+                    checkpoint=check['checkpoint'], target=check['target'], state=check['state_label'],
+                    evidence=(work / check['evidence']).relative_to(output).as_posix(),
+                    observed=check['observed'],
+                ))
+    rows = []
+    matched_findings = set()
+    for row in page['rows']:
+        environments = {
+            env: score_environment(row, checks_by_env[env], edges_by_env[env],
+                                   transitions_by_env.get(env, []), work, output)
+            for env in EXPECTED_ENVIRONMENTS
+        }
+        for env, observations in environments.items():
+            for check in observations['verdicts']:
+                if check['outcome'] == 'failed':
+                    target = (str([row['target']]) if check['report_check'].startswith('axe / ')
+                              else row['target'])
+                    matched_findings.add((env, row['criterion'], check['report_check'],
+                                          target, check['evidence']))
+        rows.append(dict(
+            page_id=page['id'], criterion=row['criterion'], case=row['case'], page=row['page'],
+            state=row['state'], target=row['target'], checkpoint=row['checkpoint'], expected=row['expected'],
+            status=classify(row['expected'], environments, completed), environments=environments,
+        ))
+    keys = ('environment', 'criterion', 'checkpoint', 'target', 'evidence')
+    extra = [dict(page_id=page['id'], **finding) for finding in findings
+             if tuple(finding[key] for key in keys) not in matched_findings]
+    return rows, extra, collection
+
+
+def score(output):
+    inventory = core.load(output / 'inventory.json')
+    rows, extra, receipts = [], [], []
+    for page in inventory['pages']:
+        page_rows, page_extra, collection = score_page(output, page)
+        rows.extend(page_rows)
+        extra.extend(page_extra)
+        receipts.append(collection)
+    totals = Counter(row['expected'] for row in rows)
+    if dict(totals) != inventory['totals']:
+        raise ValueError('採点行が事前に固定した分母と一致しない')
+    problems = Counter(row['status'] for row in rows if row['expected'] == 'failed')
+    controls = Counter(row['status'] for row in rows if row['expected'] != 'failed')
+    return dict(
+        commit=inventory['commit'], corpus_digest=inventory['corpus_digest'],
+        environment=inventory['environment'], initial_args=inventory['initial_args'],
+        explore_args=inventory['explore_args'], workers=inventory['workers'],
+        pages=len(receipts), completed_pages=sum(receipt['completed'] for receipt in receipts),
+        totals=dict(totals), problems=dict(problems), controls=dict(controls),
+        unmatched_findings=extra, receipts=receipts, rows=rows,
+    )

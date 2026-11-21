@@ -1,6 +1,8 @@
 # T020 URLだけで機械検出対象の全87行を測る
 
-状態：着手可。全87行の実測は未実施。前提は[T017](T017-url-only-exploration.md)の限定測定と、[T009](T009-machine-gap.md)で使った機械検出対象の問題集。関連は[T018](T018-widget-operation-sequences.md)と[T019](T019-post-operation-rechecks.md)。
+状態：76ページ・全87行の測定完了。問題39行中8行を検出し、対照48行中14行が一致した。[測定結果と根拠](../../validation/development/T020/README.md)
+
+前提は[T017](T017-url-only-exploration.md)の限定測定と、[T009](T009-machine-gap.md)で使った機械検出対象の問題集。関連は[T018](T018-widget-operation-sequences.md)と[T019](T019-post-operation-rechecks.md)。
 
 利用者がURLを渡したときに、`wcag-page` が既知の問題をどれだけ自力で発見し、根拠付きで報告できるかを測る。T017は8ページの測定で、[コンボボックス改善後の簡易探索](T018-widget-operation-sequences.md#コンボボックスの展開選択取消)は表示幅と操作別の照合24件中16件が期待と一致した。今回の成果物は、同じURL単独の条件を機械検出対象の全行に適用した基準値と、見逃しの内訳。基準値を取った後の検出器の改善は、原因ごとに後続作業へ渡す。 [計画した採点指標](../adr/0084-score-machine-findings-from-url-only.md)
 
@@ -29,8 +31,8 @@
 
 ## 担当範囲と引き継ぎ
 
-着手可能。実行担当は `codex/t020-url-only-machine-score` などの別ブランチ・worktreeを使い、対象にする実装コミットを固定する。担当は `benchmarks/url_only.py` 周辺の収集・採点、必要な試験、このタスクと検証記録。共通の採点器やCLIに変更が必要になった場合は担当範囲を調整する。
+`49a88a9` を起点に `codex/t020-url-only-machine-score` の別worktreeで測定した。新しい収集・採点器と、全行の採点・証拠の参照を保存した。PC幅とスマホ相当幅で、状態・経路または判定が確認できない行は内訳に残した。[ADR 0094](../adr/0094-measure-all-machine-targets-from-url.md)
 
 本番の探索・判定コード、既存の問題集・期待結果・原始証拠を編集する作業は後続に渡す。T018・T019の完了を待たずに着手できる。並行する場合は実装版、ポート、ブラウザープロファイル、出力先を分ける。
 
-測定後は、未到達の経路、条件が揃っても判定が出ない観点、誤検出を件数と再現証拠で示し、影響の大きい改善候補を渡す。手続きの追加検査で試す候補は[T022](T022-url-to-process-audit.md)へ渡す。中断した場合は、完了したURL、途中のrun、残件、再開条件をこのファイルに残す。
+次は数量変更を対照に、キーを送った後に機能を実行できたかの照合を[T024](T024-keyboard-function-result.md)で進める。URLから始める手続きの追加検査で試す候補は[T022](T022-url-to-process-audit.md)へ渡す。
