@@ -22,10 +22,12 @@
 - [86基準の実証索引](coverage.json)：現在の手順と一致する記録、旧版の記録、対象外のみ、通過例、不適合例、人への引き継ぎを区別する。
 - [証拠ファイルのハッシュ一覧](proof-manifest.json)：コピーした元の証拠とメタデータのSHA-256。
 
-中間倍率の実行先は証拠の相対パスを保ってコピーした。スキルのルートから次でレポートを再生成できる。未確認が残るので終了コードは2となる。
+中間倍率のレポートを再出力するときは、保存済みrunを別の場所にコピーする。リポジトリのルートから実行する例を示す。未確認が残るため `--strict` は終了コード2を返す。
 
 ```sh
-python3 scripts/audit.py report --run validation/native-zoom/run-004 --strict
+replay_dir=$(mktemp -d)
+cp -R validation/native-zoom/run-004 "$replay_dir/run-004"
+python3 skills/wcag-audit-kit/scripts/audit.py report --run "$replay_dir/run-004" --strict
 ```
 
 これらの試験データを依頼されたサイトの監査結果へ流用しない。新しい環境では、検証方法が動くかを比較用ページで確かめてから対象サイトを調べる。

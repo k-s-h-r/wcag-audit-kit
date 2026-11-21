@@ -1,6 +1,6 @@
 # T017 URLだけで始める1ページ検査の成績を測る
 
-状態：8ページの測定完了。前提：T007・T009の既存の問題集と実測。関連：[Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)・[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)。
+状態：8ページの測定完了。機械検出対象の全87行への拡張は[T020](T020-url-only-machine-score.md)へ渡す。前提：T007・T009の既存の問題集と実測。関連：[Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)・[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)。
 
 既存の問題集では機械検出対象87件が期待どおりだった。一部は操作条件を事前に指定して取得した結果を使っている。普段の `wcag-page` が、URLだけでどこまで操作を見つけて結果を出せるかを測る。基盤は [T009](T009-machine-gap.md) を引き継ぐ。
 
