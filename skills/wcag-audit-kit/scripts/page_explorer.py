@@ -22,6 +22,7 @@ import hover_checks
 import keyboard_checks
 import keyboard_frames
 import keyboard_function
+import keyboard_trap
 import combobox
 import operation_impact
 import state_labels
@@ -289,7 +290,7 @@ def keyboard_opening_key(edge):
 
 def queue_state_actions(value, node, data, env, queued, done, *, quick=False, parent=None, max_depth=30,
                         keyboard_continuation=False, repeated_state=False, combo_record=None,
-                        content_keyboard_opening=False):
+                        content_keyboard_opening=False, keyboard_modal_opening=False):
     route = node['route']
     capture_key = node['capture']
     env_id = env['id']
@@ -325,7 +326,10 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
         if combo_open or combo_panel is not None:
             job['combobox_check'] = True
             job['combobox_panel'] = combo_panel
-        value['queue'].append(job)
+        if keyboard_modal_opening and dialog_focus == 'escape':
+            value['queue'].insert(1, job)
+        else:
+            value['queue'].append(job)
         queued.add(ident)
         pending += 1
 
@@ -335,8 +339,9 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             action = {'type': 'key', 'selector': opener, 'key': key, 'focused_only': True}
             enqueue(action, keyboard_followup=True, combo_panel=combo_record['after']['panel_id'])
 
-    if data['modal'] and not repeated_state:
-        enqueue({'type': 'press', 'selector': 'body', 'key': 'Escape'}, dialog_focus='escape')
+    if data['modal'] and (not repeated_state or keyboard_modal_opening):
+        enqueue({'type': 'press', 'selector': 'body', 'key': 'Escape'}, dialog_focus='escape',
+                keyboard_followup=keyboard_modal_opening)
     if keyboard_continuation and content_keyboard_opening:
         enqueue({'type': 'press', 'selector': 'body', 'key': 'Tab'}, keyboard_followup=True)
     controls = data['controls']
@@ -479,7 +484,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
     observe_explored_structure = config.get('visual_structure_states') == 'explored'
     sources = [Path(path).read_text() for path in (
         __file__, combobox.__file__, keyboard_checks.__file__, keyboard_frames.__file__, keyboard_function.__file__,
-        hover_checks.__file__, dialog_focus.__file__,
+        hover_checks.__file__, dialog_focus.__file__, keyboard_trap.__file__,
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
         visual_structure.__file__, operation_impact.__file__, disclosure_close.__file__, ROOT/'vendor/axe.min.js')]
     implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
@@ -533,6 +538,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
             captured_routes.setdefault(json.dumps([edge['environment'], edge['route']], sort_keys=True), prior)
     keyboard_openings = {keyboard_opening_key(edge) for edge in value['edges'] if edge.get('continued_keyboard_opening')}
     operation_counts = Counter(edge['environment'] for edge in value['edges'] if edge['route'])
+    keyboard_modal_openings = {(edge['environment'], edge['fingerprint']) for edge in value['edges']
+                               if edge.get('continued_keyboard_modal')}
     done={json.dumps([e['environment'],e['route']],sort_keys=True) for e in value['edges']}
     queued={json.dumps([j['environment'],j['route']],sort_keys=True) for j in value['queue']}
     if value.get('deferred') and start_exploration:
@@ -825,7 +832,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         state_key = (env['id'], fingerprint(data))
                         if impact is not None and state_key in seen and not matched_labels:
                             impact['axe'] = {'mode': 'same_state', 'baseline': seen[state_key]['evidence_dir'] + '/axe.json'}
-                        if state_key not in seen or matched_labels:
+                        capture_state = state_key not in seen or matched_labels
+                        if capture_state:
                             if capture_structure:
                                 structure_observation = await visual_structure.observe(
                                     page, visual_scope, prepared_structure, deadline=structure_deadline)
@@ -859,7 +867,14 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             full_page = not route or data['scroll']['height'] <= env['viewport']['height'] * 20
                             await images.capture(page, dest/'page.png', kind='state' if route else 'initial',
                                                  label=action_label, full_page=full_page)
-                            if not initial_only:
+                        additional_keys = False
+                        if (dialog_observation and not blocked and not native_events
+                                and all(wait['status'] == 'quiet' for wait in settling)):
+                            additional_keys = await dialog_observation.observe_keyboard_trap()
+                        if capture_state and not initial_only:
+                            if additional_keys:
+                                value['remaining'].append(f'{dest.name}：ダイアログ離脱の追加操作を記録。元の状態からの補助スクロールとTabは別経路で確認する。')
+                            else:
                                 await observe_scroll_and_tab(page, dest, data, env, images, action_label,
                                     min(config.get('keyboard_steps', 30), 120), blocked, native_events, value['remaining'])
                 except KeyboardUnreachable as exc:
@@ -897,6 +912,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     if dialog_observation:
                         if interrupted_reason:
                             dialog_observation.invalidate(interrupted_reason)
+                            if receipt := dialog_observation.record.get('keyboard_trap'):
+                                receipt.update(outcome='cant_tell', reason=interrupted_reason)
                         elif any(wait['status'] != 'quiet' for wait in settling):
                             dialog_observation.invalidate('キー入力後の表示更新が観察範囲に収まらない。')
                         audit.save(dest/dialog_focus.EVIDENCE_FILE, dialog_observation.record)
@@ -1008,6 +1025,20 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     edge['fingerprint'] = state_key[1]
                     matched_labels=state_labels.verified(labels,route,data.get('state_labels',[]))
                     parent = captured_routes.get(json.dumps([env['id'], route[:-1]], sort_keys=True)) if route else None
+                    opened_modal = parent is not None and not parent.get('modal') and data['modal']
+                    if quick and opened_modal and route[-1]['type'] == 'click':
+                        opener = {'type': 'key', 'selector': route[-1]['selector'], 'key': 'Enter'}
+                        for pending_job in value['queue']:
+                            if pending_job['environment'] == env['id'] and pending_job['route'] == route[:-1] + [opener]:
+                                pending_job['keyboard_followup'] = True
+                                break
+                    keyboard_modal_opening = (opened_modal
+                                              and quiet_key_route and bool(key_effect)
+                                              and route[-1].get('key') in {'Enter', 'Space'}
+                                              and state_key not in keyboard_modal_openings)
+                    if keyboard_modal_opening:
+                        keyboard_modal_openings.add(state_key)
+                        edge['continued_keyboard_modal'] = True
                     keyboard_continuation = False
                     if parent is not None and opened_with_key and quiet_key_route:
                         opening = keyboard_opening_key(edge)
@@ -1019,7 +1050,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     if new_capture:
                         state='initial' if not route else 'explore-'+attempt
                         capture_key=f'{pid}--{state}--{env["id"]}'
-                        node=dict(job,fingerprint=state_key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'],state_labels=matched_labels)
+                        node=dict(job,fingerprint=state_key[1],capture=capture_key,evidence_dir=str(dest.relative_to(run)),controls=data['controls'],state_labels=matched_labels,modal=data['modal'])
                         seen[state_key]=node;value['nodes'].append(node)
                         capture = dict(key=capture_key,page_id=pid,url=url,state=state,environment=env['id'],
                             execution='completed',collection_state='finished',evidence_dir=str(dest.relative_to(run)),
@@ -1030,12 +1061,13 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         for feature in ['frames','canvases','closedRoots']:
                             if data[feature]:value['remaining'].append(f'{capture_key}：{feature}の内部を追加検査する。')
                     node = seen[state_key]
-                    if not initial_only and (new_capture or keyboard_continuation or
+                    if not initial_only and (new_capture or keyboard_continuation or keyboard_modal_opening or
                                              combo_record and combo_record.get('followups')):
                         route_node = node if new_capture else dict(node, route=route)
                         queue_state_actions(value, route_node, data, env, queued, done,
                                             quick=quick, parent=parent, max_depth=max_depth,
                                             keyboard_continuation=keyboard_continuation, repeated_state=not new_capture,
+                                            keyboard_modal_opening=keyboard_modal_opening,
                                             combo_record=combo_record, content_keyboard_opening=(
                                                 edge.get('disclosure_toggle', {}).get('status') == 'opened'))
                     captured_routes[json.dumps([env['id'], route], sort_keys=True)] = node

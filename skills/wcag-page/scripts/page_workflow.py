@@ -191,11 +191,14 @@ def machine_checks(run, manifest=None):
                 rows.append(row)
         if edge.get('dialog_focus'):
             from dialog_focus import EVIDENCE_FILE, report_row as dialog_row
+            from keyboard_trap import report_row as trap_row
 
             path = Path(edge['evidence_dir']) / EVIDENCE_FILE
             receipt = audit.load(run/path)
             if receipt['status'] != 'not_dismissed':
                 rows.append(dialog_row(receipt, edge['environment'], path.as_posix(), scene(route), f'操作経路 {index+1}'))
+            if trap := receipt.get('keyboard_trap'):
+                rows.append(trap_row(trap, edge['environment'], path.as_posix(), scene(route), f'操作経路 {index+1}'))
         if 'disclosure_close' in edge:
             from disclosure_close import report_row as disclosure_row
 

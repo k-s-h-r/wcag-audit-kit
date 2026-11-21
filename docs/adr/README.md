@@ -112,3 +112,4 @@
 - [0106 実際の再生とデコード音声で媒体の代替を比較する](0106-observe-selected-media-alternative-facts.md)
 - [0107 予約カレンダーで選択前の空き状況を確かめる](0107-audit-availability-without-color.md)
 - [0108 VISIONの検証を一緒に使える版で行う](0108-run-vision-acceptance-on-an-integrated-revision.md)
+- [0109 ダイアログからの離脱をキー入力とフォーカスで照合する](0109-observe-keyboard-exits-in-a-dialog.md)

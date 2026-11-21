@@ -1,5 +1,6 @@
 """Observe modal dismissal and the next Tab on an automatic exploration route."""
 from keyboard_checks import matching_keydown
+import keyboard_trap
 
 
 EVIDENCE_FILE = 'dialog-focus.json'
@@ -35,6 +36,8 @@ class DialogFocus:
         self.opener_handle = None
         self.opener_event_index = None
         self.modal = None
+        self.keyboard_only = phase == 'escape' and all(step['type'] in {'key', 'press'} for step in route)
+        self.trap_start = None
         self.record = dict(phase=phase, close_action=self.close_action, status='unconfirmed',
                            reason='閉じる操作まで到達していない。')
 
@@ -62,6 +65,12 @@ class DialogFocus:
                 if self.marked and not await self.modal.evaluate('(modal, button) => modal !== button && modal.contains(button)', self.marked):
                     await self.page.evaluate(CLEAR_TARGET)
                     self.marked = None
+            elif self.keyboard_only and self.opener and self.initial['supported'] and not self.initial['root_focus']:
+                start = await self.modal.evaluate(keyboard_trap.SNAPSHOT)
+                if start['within']:
+                    self.marked = await self.mark_target({'selector': self.initial['focus']})
+                    if self.marked:
+                        self.trap_start = start
 
     def event_index(self, matches):
         events = enumerate(self.observer.events[self.input_start:], self.input_start + 1)
@@ -127,6 +136,20 @@ class DialogFocus:
 
     def invalidate(self, reason):
         self.record.update(status='unconfirmed', reason=reason)
+
+    async def observe_keyboard_trap(self):
+        from playwright.async_api import Error as BrowserError
+
+        if self.trap_start is None:
+            return False
+        try:
+            receipt = await keyboard_trap.probe(self.page, self.modal, self.marked, self.observer, self.trap_start,
+                                                self.record, self.opener)
+        except BrowserError:
+            return True
+        if receipt:
+            self.record['keyboard_trap'] = receipt
+        return bool(receipt and receipt['steps'])
 
 
 def report_row(record, environment, evidence, route, capture):

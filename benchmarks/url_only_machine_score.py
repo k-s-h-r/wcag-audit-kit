@@ -174,6 +174,76 @@ def matching_function(row, checks, edges, work, output):
                    target=check['target'], report_check=check['checkpoint'], observed=check['observed'])
 
 
+def matching_trap(row, checks, transitions, work, output):
+    from dialog_focus import EVIDENCE_FILE
+    from keyboard_checks import matching_keydown
+    from keyboard_trap import CHECKPOINT, KEYS, left
+
+    by_evidence = {str((directory / EVIDENCE_FILE).relative_to(work)): edge
+                   for edge, directory, _ in transitions if edge.get('dialog_focus') == 'escape'}
+    opened = [edge['route'] for edge, _, state in transitions if reached_state(edge, state, row)]
+    last = {'type': 'press', 'selector': 'body', 'key': 'Escape'}
+    for check in checks:
+        edge = by_evidence.get(check['evidence'])
+        if (check['checkpoint'] != CHECKPOINT or check['target'] != row['target'] or not edge
+                or edge['route'][-1] != last or edge['route'][:-1] not in opened):
+            continue
+        path = work / check['evidence']
+        log_path = path.with_name('input-events.json')
+        if not path.is_file() or not log_path.is_file():
+            continue
+        receipt = core.load(path).get('keyboard_trap')
+        if not receipt or receipt['target'] != row['target'] or receipt['outcome'] != check['outcome']:
+            continue
+        before = receipt['before']
+        log = core.load(log_path)
+        opener = next((action for action in edge['route'][:-1]
+                       if action['type'] == 'key' and action['selector'] == receipt['opener']
+                       and action.get('key') in ACTIVATION_KEYS), None)
+        if not opener or any(action['type'] not in {'key', 'press'} for action in edge['route']):
+            continue
+        keys = [('Escape', receipt['escape_event_index']),
+                *((step['key'], step['event_index']) for step in receipt['steps'])]
+        keys.insert(0, (opener['key'], receipt['opener_event_index']))
+        indices = [index for _, index in keys]
+        if (log['truncated'] or any(type(index) is not int or not 0 <= index < len(log['events']) for index in indices)
+                or indices != sorted(set(indices)) or not before['within'] or before['modals'] != [row['target']]
+                or any(step['settling']['status'] != 'quiet' for step in receipt['steps'])):
+            continue
+        events = [log['events'][index] for index in indices]
+        if any(not event.get('expectedTargetMatched') or not matching_keydown(event, key)
+               or event['url'] != before['url'] or event['documentId'] != events[0]['documentId']
+               for (key, _), event in zip(keys, events)):
+            continue
+        outcome = receipt['outcome']
+        if outcome == 'passed':
+            after = receipt['steps'][-1]['after'] if receipt['steps'] else receipt['after_escape']
+            if not left(before, after):
+                continue
+        elif outcome == 'failed':
+            pointer = receipt.get('pointer', {})
+            index = pointer.get('event_index')
+            compared = [receipt['after_escape'], *(step['after'] for step in receipt['steps'])]
+            if (tuple(key for key, _ in keys[1:]) != ('Escape', *KEYS) or type(index) is not int
+                    or not receipt.get('escape_retained') or not all(step.get('retained') for step in receipt['steps'])
+                    or any(not state['simple'] or state['modals'] != before['modals']
+                           or state['focus'] != before['focus'] for state in compared)
+                    or receipt.get('before_pointer') != compared[-1] or not compared[-1]['blank']
+                    or pointer['settling']['status'] != 'quiet'
+                    or not indices[-1] < index < len(log['events']) or not left(before, pointer['after'])):
+                continue
+            event = log['events'][index]
+            if (not event.get('expectedTargetMatched') or not event['isTrusted'] or not event['is_main_frame']
+                    or event['type'] != 'click' or event['pointerType'] != 'mouse'
+                    or event['documentId'] != events[0]['documentId']):
+                continue
+        else:
+            continue
+        yield dict(outcome=outcome, evidence=path.relative_to(output).as_posix(),
+                   proof=[log_path.relative_to(output).as_posix()], target=check['target'],
+                   report_check=check['checkpoint'], observed=check['observed'])
+
+
 def score_environment(row, checks, edges, transitions, work, output):
     reached = [
         (directory / 'state.json').relative_to(output).as_posix()
@@ -199,6 +269,8 @@ def score_environment(row, checks, edges, transitions, work, output):
         verdicts.extend(key_results)
     elif point == '2.1.1-02' and row['state'] == 'initial' and reached:
         verdicts.extend(matching_function(row, checks, edges, work, output))
+    elif point == '2.1.2-02' and reached:
+        verdicts.extend(matching_trap(row, checks, transitions, work, output))
     elif row['state'] in url_only.DIALOG_ACTIONS:
         result = dict(reached=[], verdicts=[])
         url_only.score_dialog(transitions, checks, work, output, row, result)
