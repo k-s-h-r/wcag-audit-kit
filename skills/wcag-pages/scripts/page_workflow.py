@@ -14,7 +14,9 @@ def grouped_machine_issues(checks):
         state = check.get('state_label', check['capture']) + ' / ' + check['environment']
         group['states'].append(check['page_url'] + ' / ' + state if check.get('page_url') else state)
         group['capture_ids'].append(check['capture'])
-        if check['evidence'] not in group['proof']:group['proof'].append(check['evidence'])
+        for path in [check['evidence'], *check.get('proof', [])]:
+            if path not in group['proof']:
+                group['proof'].append(path)
     return [dict(g,count=len(g['states']),states='\n'.join(g['states']),evidence='\n'.join(g['proof']),
         outcome='問題あり（機械）' if g['outcome']=='failed' else '機械判定不能') for g in groups.values()]
 
@@ -218,6 +220,9 @@ def machine_checks(run, manifest=None):
             target=action.get('selector','') if targeted else '現在のフォーカス',
             observed=observed,evidence=evidence,source='',
             note='この入力経路の実行結果。キーボード操作の達成基準全体の判定ではない。'))
+    from keyboard_function import report_rows as function_rows
+
+    rows.extend(function_rows(graph, scene, url))
     return rows
 
 

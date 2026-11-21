@@ -21,6 +21,7 @@ import focus_occlusion
 import hover_checks
 import keyboard_checks
 import keyboard_frames
+import keyboard_function
 import combobox
 import operation_impact
 import state_labels
@@ -114,7 +115,7 @@ def is_telemetry(request, page_url):
             or (target.scheme, target.netloc) == (page.scheme, page.netloc) and target.path == '/cdn-cgi/rum')
 
 
-async def press_observed_key(page, target, action, observer, effect):
+async def press_observed_key(page, target, action, observer, effect, function_result):
     from playwright.async_api import Error as BrowserError
 
     handle = None
@@ -124,6 +125,8 @@ async def press_observed_key(page, target, action, observer, effect):
         if handle is not None:
             await handle.evaluate('(e) => { window.__wcagExpectedInputTarget = e; }')
             before = await handle.evaluate(KEY_STATE)
+            if function_result is not None:
+                function_result['before'] = await handle.evaluate('(e) => window.__wcagFunctionOutput("before", e)')
     first_event = len(observer.events)
     try:
         await page.keyboard.press(action['key'])
@@ -146,11 +149,17 @@ async def press_observed_key(page, target, action, observer, effect):
                 await handle.dispose()
 
 
-async def perform(page, action, *, observer=None, key_effect=None):
+async def perform(page, action, *, observer=None, key_effect=None, function_result=None):
     target=page.locator(action['selector'])
     if action['type']=='scroll':await page.evaluate('(p)=>scrollTo(p.x,p.y)',action)
     elif action['type']=='press':await page.keyboard.press(action['key'])
-    elif action['type']=='click':await target.click(timeout=1800)
+    elif action['type']=='click':
+        if function_result is not None:
+            function_result['before'] = await target.evaluate('''(e) => {
+                window.__wcagExpectedInputTarget = e;
+                return window.__wcagFunctionOutput("before", e);
+            }''', timeout=1800)
+        await target.click(timeout=1800)
     elif action['type']=='hover':await target.hover(timeout=1800)
     elif action['type']=='fill':
         await target.fill(action['value'],timeout=1800);await target.press('Tab')
@@ -165,7 +174,7 @@ async def perform(page, action, *, observer=None, key_effect=None):
             await page.keyboard.press('Tab')
         if not reached:raise KeyboardUnreachable(TAB_UNREACHABLE)
         if key_effect is not None:
-            return await press_observed_key(page, target, action, observer, key_effect)
+            return await press_observed_key(page, target, action, observer, key_effect, function_result)
         await page.keyboard.press(action['key'])
     else:raise ValueError('未対応の探索操作')
     return await page.evaluate('() => window.__wcagWaitForUpdates()')
@@ -316,6 +325,8 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
     if data['modal'] and not repeated_state:
         enqueue({'type': 'press', 'selector': 'body', 'key': 'Escape'}, dialog_focus='escape')
     controls = data['controls']
+    initial_output = quick and not route and keyboard_function.numeric_output(data)
+    companion_keys = []
     if quick or keyboard_continuation:
         controls = sorted(controls, key=lambda control: (
             control['selector'] in previous_controls, not disclosure_candidate(control)))
@@ -333,7 +344,15 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             value['remaining'].append(f'{env_id} / {selector}：{reason}')
         if quick:
             selected = list(quick_candidates(control, candidates, focused_tab))
-            omitted['input_variations'] += len(candidates) - len(selected)
+            companions = []
+            if initial_output and selector != focused_tab:
+                # The companion activation key can be the only route to the same result.
+                already_selected = {action['key'] for action in selected if action['type'] == 'key'}
+                if already_selected.intersection(keyboard_function.ACTIVATION_KEYS):
+                    companions = [action for action in candidates
+                                  if action.get('key') in keyboard_function.ACTIVATION_KEYS - already_selected]
+                    companion_keys.extend(companions)
+            omitted['input_variations'] += len(candidates) - len(selected) - len(companions)
             candidates = selected
         newly_available = quick and bool(route) and selector not in previous_controls
         for action in candidates:
@@ -347,6 +366,9 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
 
     if keyboard_continuation:
         enqueue({'type': 'press', 'selector': 'body', 'key': 'Tab'}, keyboard_followup=True)
+
+    for action in companion_keys:
+        enqueue(action)
 
     # A real scroll can reveal lazy content even if the initial screenshot was full-page.
     positions = {(0, env['viewport']['height']),
@@ -436,7 +458,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
     visual_scope = config.get('visual_structure_scope')
     observe_explored_structure = config.get('visual_structure_states') == 'explored'
     sources = [Path(path).read_text() for path in (
-        __file__, combobox.__file__, keyboard_checks.__file__, keyboard_frames.__file__,
+        __file__, combobox.__file__, keyboard_checks.__file__, keyboard_frames.__file__, keyboard_function.__file__,
         hover_checks.__file__, dialog_focus.__file__,
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
         visual_structure.__file__, operation_impact.__file__, disclosure_close.__file__, ROOT/'vendor/axe.min.js')]
@@ -584,6 +606,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 action_index = unreachable_step = None
                 combo_record = dict(key=route[-1]['key'], before=None, after=None) if job.get('combobox_check') else None
                 key_effect = {}
+                function_result = None
                 before_operation = None
                 impact = None
                 disclosure_at_tab = None
@@ -678,6 +701,11 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                     return [before, performance.timeOrigin];
                                 }""")
                                 operation_impact.compact(before_operation)
+                                if (len(route) == 1 and keyboard_function.activation(action)
+                                        and (result_output := keyboard_function.numeric_output(before_operation))):
+                                    function_result = dict(start=fingerprint(before_operation),
+                                                           initial_value=result_output['value'].strip(),
+                                                           first_event=len(observer.events))
                             closing = close_record is not None and action_index == len(route)
                             if closing:
                                 before = await disclosure_close.observe(page, job['disclosure_opener'], expect_input=True)
@@ -688,7 +716,10 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             observe_key = (action_index == len(route) and action['type'] == 'key'
                                            and (observe_combo or all(step['type'] in {'key', 'press'} for step in route)))
                             settling.append(await perform(page, action, observer=observer,
-                                                         key_effect=key_effect if observe_key else None))
+                                                         key_effect=key_effect if observe_key else None,
+                                                         function_result=function_result))
+                            if function_result is not None and function_result.get('before'):
+                                function_result['after'] = await page.evaluate('() => window.__wcagFunctionOutput("after")')
                             if closing:
                                 await page.evaluate('() => { window.__wcagExpectedInputTarget = null; }')
                                 close_record['after'] = await disclosure_close.observe(page, job['disclosure_opener'])
@@ -828,6 +859,10 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     edge = dict(job, error=error, blocked_requests=blocked, native_events=native_events)
                     if key_effect:
                         edge['key_effect'] = key_effect
+                    if function_result is not None:
+                        keyboard_function.finish(function_result, route[0], key_effect, observer, settling,
+                                                 interrupted_reason)
+                        edge['function_result'] = function_result
                     opened_with_key = not combo_record and keyboard_opening(key_effect)
                     quiet_key_route = (not error and not native_events
                                        and all(request.get('telemetry') is True for request in blocked)

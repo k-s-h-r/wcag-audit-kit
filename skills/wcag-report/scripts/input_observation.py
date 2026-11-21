@@ -8,7 +8,7 @@ INIT_SCRIPT=r"""(() => {
  window.__wcagExpectedInputTarget=null;
  const types=['pointerdown','pointerup','pointercancel','pointermove','mousedown','mouseup','click',
               'dragstart','dragover','drop','dragend','keydown','keyup'];
- for(const type of types) addEventListener(type,event=>{
+ for(const type of types) addEventListener(type,function wcagAuditInputListener(event){
   if(type==='pointermove'&&window.__wcagObservePointerMove!==true)return;
   const path=event.composedPath(),target=path.find(n=>n?.nodeType===1);
   const data={type:event.type,isTrusted:event.isTrusted,documentId,url:location.href,
@@ -16,6 +16,10 @@ INIT_SCRIPT=r"""(() => {
    pointerType:event.pointerType??null,button:event.button??null,buttons:event.buttons??null,
    x:event.clientX??null,y:event.clientY??null,
    expectedTargetMatched:window.__wcagExpectedInputTarget===null?null:path.includes(window.__wcagExpectedInputTarget)};
+  if(event.type==='click'&&event.isTrusted&&data.expectedTargetMatched&&event.pointerType==='mouse'){
+   const value=window.__wcagFunctionValueAtClick?.();
+   if(typeof value==='string') data.functionValueAtClick=value;
+  }
   if(event instanceof KeyboardEvent){
    data.key=event.key.length===1?'[character]':event.key;
    data.modifiers={control:event.ctrlKey,alt:event.altKey,shift:event.shiftKey,meta:event.metaKey};

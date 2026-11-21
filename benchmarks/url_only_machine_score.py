@@ -110,6 +110,70 @@ def initial_transitions(work, edges):
             yield edge, directory, core.load(path)
 
 
+def function_observation(path, allowed_paths, environment, probe, *, pointer):
+    from keyboard_function import matches_input
+
+    if path not in allowed_paths or not path.is_file():
+        return None
+    transition = core.load(path)
+    route = transition['route']
+    receipt = transition.get('function_result')
+    if (len(route) != 1 or transition['environment'] != environment
+            or not receipt or not receipt['confirmed']
+            or receipt['before']['target'] != probe['result']['selector']):
+        return None
+    action = route[0]
+    if pointer:
+        if action['type'] != 'click' or action['selector'] not in probe['pointer']:
+            return None
+    elif action['type'] != 'key' or not any(action['selector'] == entry['selector']
+                                           and action['key'] in entry['keys'] for entry in probe['keyboard']):
+        return None
+    log_path = path.with_name('input-events.json')
+    if not log_path.is_file():
+        return None
+    log = core.load(log_path)
+    index = receipt['event_index']
+    if (log['truncated'] or type(index) is not int or not 0 <= index < len(log['events'])
+            or not matches_input(log['events'][index], action, receipt['before'])):
+        return None
+    return action, receipt
+
+
+def matching_function(row, checks, edges, work, output):
+    from keyboard_function import CHECKPOINT
+
+    probe = row.get('function_probe')
+    if not probe or probe['target'] != row['target'] or probe['result']['kind'] != 'increase':
+        return
+    paths = {work / edge['evidence_dir'] / 'transition.json' for edge in edges}
+    for check in checks:
+        if check['checkpoint'] != CHECKPOINT:
+            continue
+        evidence = work / check['evidence']
+        pointer = function_observation(evidence, paths, check['environment'], probe, pointer=True)
+        if not pointer or pointer[0]['selector'] != check['target']:
+            continue
+        _, click = pointer
+        start, end = (int(click[phase]['value']) for phase in ('before', 'after'))
+        if end <= start:
+            continue
+        proof = [work / path for path in check.get('proof', [])]
+        keys = [function_observation(path, paths, check['environment'], probe, pointer=False) for path in proof]
+        if not all(keys) or any(receipt['start'] != click['start'] or int(receipt['before']['value']) != start
+                                for _, receipt in keys):
+            continue
+        outcome = check['outcome']
+        if outcome == 'passed' and not any(int(receipt['after']['value']) == end for _, receipt in keys):
+            continue
+        if outcome == 'failed' and {action['key'] for action, receipt in keys
+                                    if int(receipt['after']['value']) == start} != ACTIVATION_KEYS:
+            continue
+        yield dict(outcome=outcome, evidence=evidence.relative_to(output).as_posix(),
+                   proof=[path.relative_to(output).as_posix() for path in proof],
+                   target=check['target'], report_check=check['checkpoint'], observed=check['observed'])
+
+
 def score_environment(row, checks, edges, transitions, work, output):
     reached = [
         (directory / 'state.json').relative_to(output).as_posix()
@@ -133,6 +197,8 @@ def score_environment(row, checks, edges, transitions, work, output):
         verdicts.extend(matching_axe(row, checks, work, output, captures))
     elif point == '2.1.1-01':
         verdicts.extend(key_results)
+    elif point == '2.1.1-02' and row['state'] == 'initial' and reached:
+        verdicts.extend(matching_function(row, checks, edges, work, output))
     elif row['state'] in url_only.DIALOG_ACTIONS:
         result = dict(reached=[], verdicts=[])
         url_only.score_dialog(transitions, checks, work, output, row, result)
@@ -214,7 +280,7 @@ def score_page(output, page):
             for check in observations['verdicts']:
                 if check['outcome'] == 'failed':
                     target = (str([row['target']]) if check['report_check'].startswith('axe / ')
-                              else row['target'])
+                              else check.get('target', row['target']))
                     matched_findings.add((env, row['criterion'], check['report_check'],
                                           target, check['evidence']))
         rows.append(dict(
