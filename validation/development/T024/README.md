@@ -34,6 +34,8 @@ T020と同じ76ページ・87行を、旧版 `67aa42e8a9e01e9b4ec9485c6e4d45c920
 
 それぞれのコミットの作業ディレクトリで、収集と採点を実行する。下の `RUN` は新しい出力先、`SCORE.json` は新しい採点ファイルに置き換える。CLIへの入力は、ページごとのURLと共通設定だけ。レベルはAAA、モードは機械、撮影は初期表示のみで、簡易探索の上限は24ステップ、16状態、深さ3。
 
+GitHubから作業ディレクトリを作る場合、変更版は公開コミット `61d9e84` を使う。測定時のローカルコミット `8fe594a` と `benchmarks/`・`skills/` の内容が一致する。 [公開コミット](https://github.com/k-s-h-r/wcag-audit-kit/commit/61d9e84dca12b3afe33ed199a0411af43705016b)
+
 ```sh
 python3 benchmarks/url_only_machine.py --out RUN --workers 6
 python3 benchmarks/url_only_machine.py --out RUN --score SCORE.json
