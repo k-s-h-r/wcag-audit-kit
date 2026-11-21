@@ -26,3 +26,5 @@ python3 -m unittest discover -s tests -p 'test_*.py'
 ```
 
 [ADR 0100](../../../docs/adr/0100-follow-accordion-keyboard-return.md) · [T018](../../../docs/tasks/T018-widget-operation-sequences.md)
+
+統合版で同じ表示の対照を使い、簡易探索と通常探索のEnter・Spaceも比較した。[URLからの入力比較と原始証拠](url-operation/README.md)

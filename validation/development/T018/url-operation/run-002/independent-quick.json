@@ -1,0 +1,276 @@
+{
+  "quick": {
+    "one": {
+      "step_count": 24,
+      "pending": 0,
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "audit_complete": false,
+      "criterion": "unverified",
+      "viewports": {
+        "desktop": {
+          "initial": {
+            "visible": false,
+            "dom_expanded": "false",
+            "ax_expanded": false,
+            "focus": "html:nth-child(1) > body:nth-child(2)",
+            "receipts": [
+              "evidence/f2da7a352573--explore-ca0ee182ddf2--desktop/transition.json",
+              "evidence/f2da7a352573--explore-ca0ee182ddf2--desktop/state.json",
+              "evidence/f2da7a352573--explore-ca0ee182ddf2--desktop/accessibility-tree.json",
+              "evidence/f2da7a352573--explore-ca0ee182ddf2--desktop/input-events.json"
+            ],
+            "png_sha256": "5d932fd8b2cb8897d1d45292c757ac8bdb8739576bc3218daf854d0e3f295539"
+          },
+          "click": {
+            "visible": true,
+            "dom_expanded": "true",
+            "ax_expanded": true,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/f2da7a352573--explore-c6b279a59769--desktop/transition.json",
+              "evidence/f2da7a352573--explore-c6b279a59769--desktop/state.json",
+              "evidence/f2da7a352573--explore-c6b279a59769--desktop/accessibility-tree.json",
+              "evidence/f2da7a352573--explore-c6b279a59769--desktop/input-events.json"
+            ]
+          },
+          "Enter": {
+            "visible": true,
+            "dom_expanded": "true",
+            "ax_expanded": true,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/f2da7a352573--explore-8754392088ff--desktop/transition.json",
+              "evidence/f2da7a352573--explore-8754392088ff--desktop/state.json",
+              "evidence/f2da7a352573--explore-c6b279a59769--desktop/accessibility-tree.json",
+              "evidence/f2da7a352573--explore-8754392088ff--desktop/input-events.json"
+            ],
+            "keydown_event_index": 2,
+            "native_keyboard_click_indices": [
+              3
+            ],
+            "machine": "passed"
+          },
+          "tab": {
+            "visible": true,
+            "dom_expanded": "true",
+            "ax_expanded": true,
+            "focus": "#subject #inner",
+            "receipts": [
+              "evidence/f2da7a352573--explore-e55237b93f58--desktop/transition.json",
+              "evidence/f2da7a352573--explore-e55237b93f58--desktop/state.json",
+              "evidence/f2da7a352573--explore-c6b279a59769--desktop/accessibility-tree.json",
+              "evidence/f2da7a352573--explore-e55237b93f58--desktop/input-events.json"
+            ],
+            "tab_index": 5
+          },
+          "click_close": {
+            "visible": false,
+            "dom_expanded": "false",
+            "ax_expanded": false,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/f2da7a352573--explore-ca37b4c67039--desktop/transition.json",
+              "evidence/f2da7a352573--explore-ca37b4c67039--desktop/state.json",
+              "evidence/f2da7a352573--explore-ca0ee182ddf2--desktop/accessibility-tree.json",
+              "evidence/f2da7a352573--explore-ca37b4c67039--desktop/input-events.json"
+            ]
+          }
+        },
+        "narrow": {
+          "initial": {
+            "visible": false,
+            "dom_expanded": "false",
+            "ax_expanded": false,
+            "focus": "html:nth-child(1) > body:nth-child(2)",
+            "receipts": [
+              "evidence/f2da7a352573--explore-3e55972976fc--narrow/transition.json",
+              "evidence/f2da7a352573--explore-3e55972976fc--narrow/state.json",
+              "evidence/f2da7a352573--explore-3e55972976fc--narrow/accessibility-tree.json",
+              "evidence/f2da7a352573--explore-3e55972976fc--narrow/input-events.json"
+            ],
+            "png_sha256": "90ca66b750fe8eed278be5c81c027607b17158c860bb4f6800407941faa53493"
+          },
+          "click": {
+            "visible": true,
+            "dom_expanded": "true",
+            "ax_expanded": true,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/f2da7a352573--explore-0dbc67b68477--narrow/transition.json",
+              "evidence/f2da7a352573--explore-0dbc67b68477--narrow/state.json",
+              "evidence/f2da7a352573--explore-0dbc67b68477--narrow/accessibility-tree.json",
+              "evidence/f2da7a352573--explore-0dbc67b68477--narrow/input-events.json"
+            ]
+          },
+          "Enter": {
+            "visible": true,
+            "dom_expanded": "true",
+            "ax_expanded": true,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/f2da7a352573--explore-f5a0fafac34b--narrow/transition.json",
+              "evidence/f2da7a352573--explore-f5a0fafac34b--narrow/state.json",
+              "evidence/f2da7a352573--explore-0dbc67b68477--narrow/accessibility-tree.json",
+              "evidence/f2da7a352573--explore-f5a0fafac34b--narrow/input-events.json"
+            ],
+            "keydown_event_index": 2,
+            "native_keyboard_click_indices": [
+              3
+            ],
+            "machine": "passed"
+          },
+          "tab": {
+            "visible": true,
+            "dom_expanded": "true",
+            "ax_expanded": true,
+            "focus": "#subject #inner",
+            "receipts": [
+              "evidence/f2da7a352573--explore-b94adca8c767--narrow/transition.json",
+              "evidence/f2da7a352573--explore-b94adca8c767--narrow/state.json",
+              "evidence/f2da7a352573--explore-0dbc67b68477--narrow/accessibility-tree.json",
+              "evidence/f2da7a352573--explore-b94adca8c767--narrow/input-events.json"
+            ],
+            "tab_index": 5
+          },
+          "click_close": {
+            "visible": false,
+            "dom_expanded": "false",
+            "ax_expanded": false,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/f2da7a352573--explore-7e01f0d76f07--narrow/transition.json",
+              "evidence/f2da7a352573--explore-7e01f0d76f07--narrow/state.json",
+              "evidence/f2da7a352573--explore-3e55972976fc--narrow/accessibility-tree.json",
+              "evidence/f2da7a352573--explore-7e01f0d76f07--narrow/input-events.json"
+            ]
+          }
+        }
+      }
+    },
+    "two": {
+      "step_count": 20,
+      "pending": 0,
+      "limits": {
+        "max_states": 16,
+        "max_steps": 24,
+        "max_depth": 3
+      },
+      "audit_complete": false,
+      "criterion": "unverified",
+      "viewports": {
+        "desktop": {
+          "initial": {
+            "visible": false,
+            "dom_expanded": "false",
+            "ax_expanded": false,
+            "focus": "html:nth-child(1) > body:nth-child(2)",
+            "receipts": [
+              "evidence/42613dbcb5ee--explore-ad1935e454a1--desktop/transition.json",
+              "evidence/42613dbcb5ee--explore-ad1935e454a1--desktop/state.json",
+              "evidence/42613dbcb5ee--explore-ad1935e454a1--desktop/accessibility-tree.json",
+              "evidence/42613dbcb5ee--explore-ad1935e454a1--desktop/input-events.json"
+            ],
+            "png_sha256": "5d932fd8b2cb8897d1d45292c757ac8bdb8739576bc3218daf854d0e3f295539"
+          },
+          "click": {
+            "visible": true,
+            "dom_expanded": "true",
+            "ax_expanded": true,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/42613dbcb5ee--explore-71f9ddd9449c--desktop/transition.json",
+              "evidence/42613dbcb5ee--explore-71f9ddd9449c--desktop/state.json",
+              "evidence/42613dbcb5ee--explore-71f9ddd9449c--desktop/accessibility-tree.json",
+              "evidence/42613dbcb5ee--explore-71f9ddd9449c--desktop/input-events.json"
+            ]
+          },
+          "Enter": {
+            "visible": false,
+            "dom_expanded": "false",
+            "ax_expanded": false,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/42613dbcb5ee--explore-1025fbc560c2--desktop/transition.json",
+              "evidence/42613dbcb5ee--explore-1025fbc560c2--desktop/state.json",
+              "evidence/42613dbcb5ee--explore-ad1935e454a1--desktop/accessibility-tree.json",
+              "evidence/42613dbcb5ee--explore-1025fbc560c2--desktop/input-events.json"
+            ],
+            "keydown_event_index": 2,
+            "native_keyboard_click_indices": [],
+            "machine": "cant_tell"
+          },
+          "click_close": {
+            "visible": false,
+            "dom_expanded": "false",
+            "ax_expanded": false,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/42613dbcb5ee--explore-201e673b96d0--desktop/transition.json",
+              "evidence/42613dbcb5ee--explore-201e673b96d0--desktop/state.json",
+              "evidence/42613dbcb5ee--explore-ad1935e454a1--desktop/accessibility-tree.json",
+              "evidence/42613dbcb5ee--explore-201e673b96d0--desktop/input-events.json"
+            ]
+          }
+        },
+        "narrow": {
+          "initial": {
+            "visible": false,
+            "dom_expanded": "false",
+            "ax_expanded": false,
+            "focus": "html:nth-child(1) > body:nth-child(2)",
+            "receipts": [
+              "evidence/42613dbcb5ee--explore-e9e0d1965f0e--narrow/transition.json",
+              "evidence/42613dbcb5ee--explore-e9e0d1965f0e--narrow/state.json",
+              "evidence/42613dbcb5ee--explore-e9e0d1965f0e--narrow/accessibility-tree.json",
+              "evidence/42613dbcb5ee--explore-e9e0d1965f0e--narrow/input-events.json"
+            ],
+            "png_sha256": "90ca66b750fe8eed278be5c81c027607b17158c860bb4f6800407941faa53493"
+          },
+          "click": {
+            "visible": true,
+            "dom_expanded": "true",
+            "ax_expanded": true,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/42613dbcb5ee--explore-1508b21a7591--narrow/transition.json",
+              "evidence/42613dbcb5ee--explore-1508b21a7591--narrow/state.json",
+              "evidence/42613dbcb5ee--explore-1508b21a7591--narrow/accessibility-tree.json",
+              "evidence/42613dbcb5ee--explore-1508b21a7591--narrow/input-events.json"
+            ]
+          },
+          "Enter": {
+            "visible": false,
+            "dom_expanded": "false",
+            "ax_expanded": false,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/42613dbcb5ee--explore-b2a87f4b45ac--narrow/transition.json",
+              "evidence/42613dbcb5ee--explore-b2a87f4b45ac--narrow/state.json",
+              "evidence/42613dbcb5ee--explore-e9e0d1965f0e--narrow/accessibility-tree.json",
+              "evidence/42613dbcb5ee--explore-b2a87f4b45ac--narrow/input-events.json"
+            ],
+            "keydown_event_index": 2,
+            "native_keyboard_click_indices": [],
+            "machine": "cant_tell"
+          },
+          "click_close": {
+            "visible": false,
+            "dom_expanded": "false",
+            "ax_expanded": false,
+            "focus": "#subject #opener",
+            "receipts": [
+              "evidence/42613dbcb5ee--explore-fd4239e72cee--narrow/transition.json",
+              "evidence/42613dbcb5ee--explore-fd4239e72cee--narrow/state.json",
+              "evidence/42613dbcb5ee--explore-e9e0d1965f0e--narrow/accessibility-tree.json",
+              "evidence/42613dbcb5ee--explore-fd4239e72cee--narrow/input-events.json"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

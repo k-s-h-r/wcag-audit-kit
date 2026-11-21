@@ -1,0 +1,417 @@
+[
+  {
+    "file": "one.html",
+    "profile": "quick",
+    "steps": 24,
+    "pending": 0,
+    "omitted": {
+      "input_variations": 16,
+      "unchanged_control": 8,
+      "depth": 2
+    },
+    "audit_complete": false,
+    "viewports": {
+      "desktop": {
+        "initial": {
+          "status": "observed",
+          "visible": false,
+          "aria_expanded": "false",
+          "ax_expanded": false,
+          "focus": "html:nth-child(1) > body:nth-child(2)",
+          "proof": [
+            "evidence/dd6a8a798e9a--explore-d5a0c115037c--desktop/state.json",
+            "evidence/dd6a8a798e9a--explore-d5a0c115037c--desktop/accessibility-tree.json",
+            "evidence/dd6a8a798e9a--explore-d5a0c115037c--desktop/transition.json",
+            "evidence/dd6a8a798e9a--explore-d5a0c115037c--desktop/input-events.json",
+            "evidence/dd6a8a798e9a--explore-d5a0c115037c--desktop/page.png"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [],
+          "image_sha256": "5d932fd8b2cb8897d1d45292c757ac8bdb8739576bc3218daf854d0e3f295539"
+        },
+        "pointer": {
+          "status": "observed",
+          "visible": true,
+          "aria_expanded": "true",
+          "ax_expanded": true,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/dd6a8a798e9a--explore-a70f0927dcf5--desktop/state.json",
+            "evidence/dd6a8a798e9a--explore-a70f0927dcf5--desktop/accessibility-tree.json",
+            "evidence/dd6a8a798e9a--explore-a70f0927dcf5--desktop/transition.json",
+            "evidence/dd6a8a798e9a--explore-a70f0927dcf5--desktop/input-events.json"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [
+            4
+          ]
+        },
+        "pointer_close": {
+          "status": "observed",
+          "visible": false,
+          "aria_expanded": "false",
+          "ax_expanded": false,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/dd6a8a798e9a--explore-d00740adae7e--desktop/state.json",
+            "evidence/dd6a8a798e9a--explore-d5a0c115037c--desktop/accessibility-tree.json",
+            "evidence/dd6a8a798e9a--explore-d00740adae7e--desktop/transition.json",
+            "evidence/dd6a8a798e9a--explore-d00740adae7e--desktop/input-events.json"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [
+            4,
+            9
+          ]
+        },
+        "enter": {
+          "status": "observed",
+          "visible": true,
+          "aria_expanded": "true",
+          "ax_expanded": true,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/dd6a8a798e9a--explore-bea2f4edf0b8--desktop/state.json",
+            "evidence/dd6a8a798e9a--explore-a70f0927dcf5--desktop/accessibility-tree.json",
+            "evidence/dd6a8a798e9a--explore-bea2f4edf0b8--desktop/transition.json",
+            "evidence/dd6a8a798e9a--explore-bea2f4edf0b8--desktop/input-events.json"
+          ],
+          "machine": [
+            "passed"
+          ],
+          "key_event_indices": [
+            2
+          ],
+          "mouse_event_indices": []
+        },
+        "space": {
+          "status": "not_observed"
+        },
+        "tab": {
+          "status": "observed",
+          "visible": true,
+          "aria_expanded": "true",
+          "ax_expanded": true,
+          "focus": "#subject #inner",
+          "proof": [
+            "evidence/dd6a8a798e9a--explore-9dd835846037--desktop/state.json",
+            "evidence/dd6a8a798e9a--explore-a70f0927dcf5--desktop/accessibility-tree.json",
+            "evidence/dd6a8a798e9a--explore-9dd835846037--desktop/transition.json",
+            "evidence/dd6a8a798e9a--explore-9dd835846037--desktop/input-events.json"
+          ],
+          "machine": [],
+          "key_event_indices": [
+            2,
+            5
+          ],
+          "mouse_event_indices": []
+        },
+        "return": {
+          "status": "not_observed"
+        },
+        "close": {
+          "status": "not_observed"
+        }
+      },
+      "narrow": {
+        "initial": {
+          "status": "observed",
+          "visible": false,
+          "aria_expanded": "false",
+          "ax_expanded": false,
+          "focus": "html:nth-child(1) > body:nth-child(2)",
+          "proof": [
+            "evidence/dd6a8a798e9a--explore-b49d26dd690f--narrow/state.json",
+            "evidence/dd6a8a798e9a--explore-b49d26dd690f--narrow/accessibility-tree.json",
+            "evidence/dd6a8a798e9a--explore-b49d26dd690f--narrow/transition.json",
+            "evidence/dd6a8a798e9a--explore-b49d26dd690f--narrow/input-events.json",
+            "evidence/dd6a8a798e9a--explore-b49d26dd690f--narrow/page.png"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [],
+          "image_sha256": "90ca66b750fe8eed278be5c81c027607b17158c860bb4f6800407941faa53493"
+        },
+        "pointer": {
+          "status": "observed",
+          "visible": true,
+          "aria_expanded": "true",
+          "ax_expanded": true,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/dd6a8a798e9a--explore-05aac2106e58--narrow/state.json",
+            "evidence/dd6a8a798e9a--explore-05aac2106e58--narrow/accessibility-tree.json",
+            "evidence/dd6a8a798e9a--explore-05aac2106e58--narrow/transition.json",
+            "evidence/dd6a8a798e9a--explore-05aac2106e58--narrow/input-events.json"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [
+            4
+          ]
+        },
+        "pointer_close": {
+          "status": "observed",
+          "visible": false,
+          "aria_expanded": "false",
+          "ax_expanded": false,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/dd6a8a798e9a--explore-616239f11ed4--narrow/state.json",
+            "evidence/dd6a8a798e9a--explore-b49d26dd690f--narrow/accessibility-tree.json",
+            "evidence/dd6a8a798e9a--explore-616239f11ed4--narrow/transition.json",
+            "evidence/dd6a8a798e9a--explore-616239f11ed4--narrow/input-events.json"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [
+            4,
+            9
+          ]
+        },
+        "enter": {
+          "status": "observed",
+          "visible": true,
+          "aria_expanded": "true",
+          "ax_expanded": true,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/dd6a8a798e9a--explore-eb26c11c123e--narrow/state.json",
+            "evidence/dd6a8a798e9a--explore-05aac2106e58--narrow/accessibility-tree.json",
+            "evidence/dd6a8a798e9a--explore-eb26c11c123e--narrow/transition.json",
+            "evidence/dd6a8a798e9a--explore-eb26c11c123e--narrow/input-events.json"
+          ],
+          "machine": [
+            "passed"
+          ],
+          "key_event_indices": [
+            2
+          ],
+          "mouse_event_indices": []
+        },
+        "space": {
+          "status": "not_observed"
+        },
+        "tab": {
+          "status": "observed",
+          "visible": true,
+          "aria_expanded": "true",
+          "ax_expanded": true,
+          "focus": "#subject #inner",
+          "proof": [
+            "evidence/dd6a8a798e9a--explore-273f9a525f49--narrow/state.json",
+            "evidence/dd6a8a798e9a--explore-05aac2106e58--narrow/accessibility-tree.json",
+            "evidence/dd6a8a798e9a--explore-273f9a525f49--narrow/transition.json",
+            "evidence/dd6a8a798e9a--explore-273f9a525f49--narrow/input-events.json"
+          ],
+          "machine": [],
+          "key_event_indices": [
+            2,
+            5
+          ],
+          "mouse_event_indices": []
+        },
+        "return": {
+          "status": "not_observed"
+        },
+        "close": {
+          "status": "not_observed"
+        }
+      }
+    }
+  },
+  {
+    "file": "two.html",
+    "profile": "quick",
+    "steps": 20,
+    "pending": 0,
+    "omitted": {
+      "input_variations": 16,
+      "unchanged_control": 8
+    },
+    "audit_complete": false,
+    "viewports": {
+      "desktop": {
+        "initial": {
+          "status": "observed",
+          "visible": false,
+          "aria_expanded": "false",
+          "ax_expanded": false,
+          "focus": "html:nth-child(1) > body:nth-child(2)",
+          "proof": [
+            "evidence/79e9308ebac6--explore-4caff7776125--desktop/state.json",
+            "evidence/79e9308ebac6--explore-4caff7776125--desktop/accessibility-tree.json",
+            "evidence/79e9308ebac6--explore-4caff7776125--desktop/transition.json",
+            "evidence/79e9308ebac6--explore-4caff7776125--desktop/input-events.json",
+            "evidence/79e9308ebac6--explore-4caff7776125--desktop/page.png"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [],
+          "image_sha256": "5d932fd8b2cb8897d1d45292c757ac8bdb8739576bc3218daf854d0e3f295539"
+        },
+        "pointer": {
+          "status": "observed",
+          "visible": true,
+          "aria_expanded": "true",
+          "ax_expanded": true,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/79e9308ebac6--explore-e582c963d79a--desktop/state.json",
+            "evidence/79e9308ebac6--explore-e582c963d79a--desktop/accessibility-tree.json",
+            "evidence/79e9308ebac6--explore-e582c963d79a--desktop/transition.json",
+            "evidence/79e9308ebac6--explore-e582c963d79a--desktop/input-events.json"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [
+            4
+          ]
+        },
+        "pointer_close": {
+          "status": "observed",
+          "visible": false,
+          "aria_expanded": "false",
+          "ax_expanded": false,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/79e9308ebac6--explore-0cd302f35fed--desktop/state.json",
+            "evidence/79e9308ebac6--explore-4caff7776125--desktop/accessibility-tree.json",
+            "evidence/79e9308ebac6--explore-0cd302f35fed--desktop/transition.json",
+            "evidence/79e9308ebac6--explore-0cd302f35fed--desktop/input-events.json"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [
+            4,
+            9
+          ]
+        },
+        "enter": {
+          "status": "observed",
+          "visible": false,
+          "aria_expanded": "false",
+          "ax_expanded": false,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/79e9308ebac6--explore-81ef67235fde--desktop/state.json",
+            "evidence/79e9308ebac6--explore-4caff7776125--desktop/accessibility-tree.json",
+            "evidence/79e9308ebac6--explore-81ef67235fde--desktop/transition.json",
+            "evidence/79e9308ebac6--explore-81ef67235fde--desktop/input-events.json"
+          ],
+          "machine": [
+            "cant_tell"
+          ],
+          "key_event_indices": [
+            2
+          ],
+          "mouse_event_indices": []
+        },
+        "space": {
+          "status": "not_observed"
+        },
+        "tab": {
+          "status": "not_observed"
+        },
+        "return": {
+          "status": "not_observed"
+        },
+        "close": {
+          "status": "not_observed"
+        }
+      },
+      "narrow": {
+        "initial": {
+          "status": "observed",
+          "visible": false,
+          "aria_expanded": "false",
+          "ax_expanded": false,
+          "focus": "html:nth-child(1) > body:nth-child(2)",
+          "proof": [
+            "evidence/79e9308ebac6--explore-199df236b9d2--narrow/state.json",
+            "evidence/79e9308ebac6--explore-199df236b9d2--narrow/accessibility-tree.json",
+            "evidence/79e9308ebac6--explore-199df236b9d2--narrow/transition.json",
+            "evidence/79e9308ebac6--explore-199df236b9d2--narrow/input-events.json",
+            "evidence/79e9308ebac6--explore-199df236b9d2--narrow/page.png"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [],
+          "image_sha256": "90ca66b750fe8eed278be5c81c027607b17158c860bb4f6800407941faa53493"
+        },
+        "pointer": {
+          "status": "observed",
+          "visible": true,
+          "aria_expanded": "true",
+          "ax_expanded": true,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/79e9308ebac6--explore-5fc152704f83--narrow/state.json",
+            "evidence/79e9308ebac6--explore-5fc152704f83--narrow/accessibility-tree.json",
+            "evidence/79e9308ebac6--explore-5fc152704f83--narrow/transition.json",
+            "evidence/79e9308ebac6--explore-5fc152704f83--narrow/input-events.json"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [
+            4
+          ]
+        },
+        "pointer_close": {
+          "status": "observed",
+          "visible": false,
+          "aria_expanded": "false",
+          "ax_expanded": false,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/79e9308ebac6--explore-203414e03e87--narrow/state.json",
+            "evidence/79e9308ebac6--explore-199df236b9d2--narrow/accessibility-tree.json",
+            "evidence/79e9308ebac6--explore-203414e03e87--narrow/transition.json",
+            "evidence/79e9308ebac6--explore-203414e03e87--narrow/input-events.json"
+          ],
+          "machine": [],
+          "key_event_indices": [],
+          "mouse_event_indices": [
+            4,
+            9
+          ]
+        },
+        "enter": {
+          "status": "observed",
+          "visible": false,
+          "aria_expanded": "false",
+          "ax_expanded": false,
+          "focus": "#subject #opener",
+          "proof": [
+            "evidence/79e9308ebac6--explore-215e4a48c890--narrow/state.json",
+            "evidence/79e9308ebac6--explore-199df236b9d2--narrow/accessibility-tree.json",
+            "evidence/79e9308ebac6--explore-215e4a48c890--narrow/transition.json",
+            "evidence/79e9308ebac6--explore-215e4a48c890--narrow/input-events.json"
+          ],
+          "machine": [
+            "cant_tell"
+          ],
+          "key_event_indices": [
+            2
+          ],
+          "mouse_event_indices": []
+        },
+        "space": {
+          "status": "not_observed"
+        },
+        "tab": {
+          "status": "not_observed"
+        },
+        "return": {
+          "status": "not_observed"
+        },
+        "close": {
+          "status": "not_observed"
+        }
+      }
+    }
+  }
+]
