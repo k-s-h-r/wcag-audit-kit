@@ -24,6 +24,15 @@ CASES = {
     'new-nonmodal': ('closeInner();const other=document.createElement("div");'
                      'other.setAttribute("role","dialog");other.textContent="別の操作";outer.append(other);',
                      ['#outer'], '#inner-opener'),
+    'new-shadow-dialog': ('closeInner();const host=document.createElement("div");outer.append(host);'
+                          'const other=document.createElement("div");other.setAttribute("role","dialog");'
+                          'other.setAttribute("aria-modal","true");other.setAttribute("aria-label","新しいダイアログ");'
+                          'other.textContent="別の操作";host.attachShadow({mode:"open"}).append(other);',
+                          ['#outer'], '#inner-opener'),
+    'new-role-token-dialog': ('closeInner();const other=document.createElement("div");'
+                              'other.setAttribute("role","dialog alertdialog");other.setAttribute("aria-modal","true");'
+                              'other.setAttribute("aria-label","新しいダイアログ");other.textContent="別の操作";outer.append(other);',
+                              ['#outer'], '#inner-opener'),
     'outside-focus': ('closeInner();outside.focus();', ['#outer'], '#outside'),
     'siblings': ('closeInner();', ['#outer'], '#inner-opener'),
 }
@@ -86,6 +95,14 @@ async def check(browser, out, url, case, width):
         directory.mkdir(parents=True)
         core.save(directory/'input-events.json', observer.export())
         core.save(directory/'observed.json', dict(legacy=audit.record, nested=audit.nested_observation))
+        if case in {'new-shadow-dialog', 'new-role-token-dialog'}:
+            session = await context.new_cdp_session(page)
+            tree = await session.send('Accessibility.getFullAXTree')
+            await session.detach()
+            assert any(item.get('role', {}).get('value') == 'dialog'
+                       and item.get('name', {}).get('value') == '新しいダイアログ'
+                       and not item['ignored'] for item in tree['nodes'])
+            core.save(directory/'accessibility-tree.json', tree)
         print(case,width,after['modals'],after['focus'],bool(audit.nested_observation),flush=True)
     finally:
         await context.close()

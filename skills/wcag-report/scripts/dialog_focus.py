@@ -15,11 +15,15 @@ NESTED_PAIR = r'''snapshot => {
     const [parent, child] = snapshot.modals.map(unique);
     const focus = unique(snapshot.focus);
     const visible = window.__wcagDialogElementVisible;
-    const visibleDialogs = () => [...document.querySelectorAll(
-        'dialog, [role="dialog"], [role="alertdialog"]'
-    )].filter(visible);
+    const visibleDialogs = () => {
+        // Keep the scope in the document tree when shadow content may contain another dialog.
+        if ([...document.querySelectorAll('*')].some(element => element.shadowRoot)) return null;
+        return [...document.querySelectorAll(
+            'dialog, [role~="dialog" i], [role~="alertdialog" i]'
+        )].filter(visible);
+    };
     const dialogs = visibleDialogs();
-    if (!parent || !child || parent === child || !parent.contains(child) ||
+    if (!dialogs || !parent || !child || parent === child || !parent.contains(child) ||
         dialogs.length !== 2 || !dialogs.includes(parent) || !dialogs.includes(child) ||
         !focus || focus !== document.activeElement ||
         !child.contains(focus)) return null;
@@ -31,7 +35,7 @@ NESTED_STATE = r'''pair => {
         !window.__wcagDialogElementVisible(pair.parent)) return null;
     const childVisible = window.__wcagDialogElementVisible(pair.child);
     const dialogs = pair.visibleDialogs();
-    if (dialogs.length !== (childVisible ? 2 : 1) || !dialogs.includes(pair.parent) ||
+    if (!dialogs || dialogs.length !== (childVisible ? 2 : 1) || !dialogs.includes(pair.parent) ||
         (childVisible && !dialogs.includes(pair.child))) return null;
     const snapshot = window.__wcagDialogFocus();
     const focus = document.activeElement;
