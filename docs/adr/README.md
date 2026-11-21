@@ -108,3 +108,4 @@
 - [0102 修正前後で同じ対象の検査結果を照合する](0102-compare-recorded-audit-revisions.md)
 - [0103 入力エラーの実発話を手続きの検査票に結び付ける](0103-bind-native-error-speech-to-process-reports.md)
 - [0104 アクセシビリティ点検を既存スキルから依頼する](0104-accessibility-review-workflow.md)
+- [0105 画像から読んだ値を、操作後に現れる代替情報と照合する](0105-compare-chart-and-disclosed-values.md)
