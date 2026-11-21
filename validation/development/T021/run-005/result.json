@@ -1,0 +1,226 @@
+{
+  "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.12.14",
+  "implementation": {
+    "skills/wcag-audit-kit/scripts/conformance.py": "fb91ffef5ca595a6865de1771be70d47c6ada079ffebebdf2e63cbb668ffa43f",
+    "skills/wcag-audit-kit/scripts/audit.py": "6954c36533089a98a981c80533e3a90dac91f0f947cb33ec48d1f6277e36cfd8",
+    "skills/wcag-audit-kit/scripts/workbook.py": "4cb7cf94e6279598216a1449df8efbc7ca23c98af3dc057a93866c4d9f249a2a"
+  },
+  "start_commit": "67aa42e8a9e01e9b4ec9485c6e4d45c9209625b9",
+  "results": [
+    {
+      "id": "saved-good",
+      "source": "validation/full-fixture/good-run",
+      "strict_exit": 0,
+      "audit_complete": true,
+      "counts": {
+        "inapplicable": 90,
+        "passed": 75
+      },
+      "original_files_unchanged": 504,
+      "report_labels": {
+        "html": "WCAG 2.2 AA の結論　適合",
+        "json": "適合",
+        "excel": "WCAG 2.2 AA の結論　適合"
+      },
+      "scope": {
+        "status": "conforms",
+        "standard": "WCAG-2.2",
+        "level": "AA",
+        "urls": [
+          "http://127.0.0.1:4320/"
+        ],
+        "failed_cases": [],
+        "remaining": [],
+        "scope_review_record": "scope-review.json"
+      },
+      "report_files": {
+        "html": {
+          "path": "saved-good/report.html",
+          "sha256": "50d8c20910b4962618767d06294d5069cdbf284e5fbf5443c530e4678b2ada4e"
+        },
+        "json": {
+          "path": "saved-good/report.json",
+          "sha256": "2aa69ff8fc6d8967522c068f58a6fe93139319f3692c48b997d30531bd5ba8e3"
+        },
+        "excel": {
+          "path": "saved-good/report.xlsx",
+          "sha256": "5f26a5ec4d880a49c29f6d8a45e4e8854ebb672a868502c182b41869e8289c6e"
+        },
+        "issues": {
+          "path": "saved-good/issues.md",
+          "sha256": "672825742577f28fc92375e1afdaac3d5716369b96ac7ef3e462070e228ab47e"
+        }
+      }
+    },
+    {
+      "id": "saved-bad",
+      "source": "validation/full-fixture/bad-run",
+      "strict_exit": 2,
+      "audit_complete": false,
+      "counts": {
+        "not_run": 162,
+        "failed": 3
+      },
+      "original_files_unchanged": 93,
+      "report_labels": {
+        "html": "WCAG 2.2 AA の結論　不適合",
+        "json": "不適合",
+        "excel": "WCAG 2.2 AA の結論　不適合"
+      },
+      "scope": {
+        "status": "does_not_conform",
+        "standard": "WCAG-2.2",
+        "level": "AA",
+        "urls": [
+          "http://127.0.0.1:4322/"
+        ],
+        "failed_cases": [
+          {
+            "case_id": "c8bf6e1d450e--initial--desktop--4.1.2",
+            "criterion": "4.1.2",
+            "url": "http://127.0.0.1:4322/",
+            "state": "initial",
+            "environment": "desktop",
+            "record": "assessments/c8bf6e1d450e--initial--desktop--4.1.2--34ea8beef42d.json",
+            "evidence": [
+              "evidence/methods/source-scope/index.html",
+              "evidence/methods/source-scope/reader-controls.js",
+              "evidence/methods/source-scope/server.py.txt",
+              "evidence/methods/native-reader/screen-reader.json",
+              "evidence/methods/native-reader/orca-debug.log",
+              "evidence/methods/native-reader/request.json",
+              "evidence/methods/native-reader/step-3.png",
+              "evidence/methods/native-reader/step-4.png",
+              "evidence/methods/native-reader/step-6.png",
+              "evidence/c8bf6e1d450e--initial--desktop/dom.html",
+              "evidence/c8bf6e1d450e--initial--desktop/inventory.json",
+              "evidence/c8bf6e1d450e--initial--desktop/page.png",
+              "evidence/c8bf6e1d450e--initial--desktop/accessibility-tree.json",
+              "evidence/c8bf6e1d450e--initial--desktop/actions.json"
+            ]
+          },
+          {
+            "case_id": "c8bf6e1d450e--enabled--desktop--4.1.2",
+            "criterion": "4.1.2",
+            "url": "http://127.0.0.1:4322/",
+            "state": "enabled",
+            "environment": "desktop",
+            "record": "assessments/c8bf6e1d450e--enabled--desktop--4.1.2--93df0d6c37cd.json",
+            "evidence": [
+              "evidence/methods/source-scope/index.html",
+              "evidence/methods/source-scope/reader-controls.js",
+              "evidence/methods/source-scope/server.py.txt",
+              "evidence/methods/native-reader/screen-reader.json",
+              "evidence/methods/native-reader/orca-debug.log",
+              "evidence/methods/native-reader/request.json",
+              "evidence/methods/native-reader/step-3.png",
+              "evidence/methods/native-reader/step-4.png",
+              "evidence/methods/native-reader/step-6.png",
+              "evidence/c8bf6e1d450e--enabled--desktop/dom.html",
+              "evidence/c8bf6e1d450e--enabled--desktop/inventory.json",
+              "evidence/c8bf6e1d450e--enabled--desktop/page.png",
+              "evidence/c8bf6e1d450e--enabled--desktop/accessibility-tree.json",
+              "evidence/c8bf6e1d450e--enabled--desktop/actions.json"
+            ]
+          },
+          {
+            "case_id": "c8bf6e1d450e--disabled-again--desktop--4.1.2",
+            "criterion": "4.1.2",
+            "url": "http://127.0.0.1:4322/",
+            "state": "disabled-again",
+            "environment": "desktop",
+            "record": "assessments/c8bf6e1d450e--disabled-again--desktop--4.1.2--031d7339ccf9.json",
+            "evidence": [
+              "evidence/methods/source-scope/index.html",
+              "evidence/methods/source-scope/reader-controls.js",
+              "evidence/methods/source-scope/server.py.txt",
+              "evidence/methods/native-reader/screen-reader.json",
+              "evidence/methods/native-reader/orca-debug.log",
+              "evidence/methods/native-reader/request.json",
+              "evidence/methods/native-reader/step-3.png",
+              "evidence/methods/native-reader/step-4.png",
+              "evidence/methods/native-reader/step-6.png",
+              "evidence/c8bf6e1d450e--disabled-again--desktop/dom.html",
+              "evidence/c8bf6e1d450e--disabled-again--desktop/inventory.json",
+              "evidence/c8bf6e1d450e--disabled-again--desktop/page.png",
+              "evidence/c8bf6e1d450e--disabled-again--desktop/accessibility-tree.json",
+              "evidence/c8bf6e1d450e--disabled-again--desktop/actions.json"
+            ]
+          }
+        ],
+        "remaining": [
+          "適合要件の確認が必要です。検証する範囲、ページ全体、一連の手続き、アクセシビリティサポート、非干渉。",
+          "未実施・判断保留・確認が残る検査票が162件あります。"
+        ],
+        "scope_review_record": null
+      },
+      "report_files": {
+        "html": {
+          "path": "saved-bad/report.html",
+          "sha256": "6f7ede5718791d38fa2c265912413bbac372cc0d9bd9e7269bfcdb390d140167"
+        },
+        "json": {
+          "path": "saved-bad/report.json",
+          "sha256": "30b1358bab9f48a0b934d08a96f95bd11416d70215454f09acb310bf33cad104"
+        },
+        "excel": {
+          "path": "saved-bad/report.xlsx",
+          "sha256": "bbc3acf88048f58c3db4b478914154a346574399e31df11849807ed73cfe63d8"
+        },
+        "issues": {
+          "path": "saved-bad/issues.md",
+          "sha256": "6068b32e548839930ccf8e6d41198d4eca1009398624a078511284d3045c57f2"
+        }
+      }
+    },
+    {
+      "id": "synthetic-unconfirmed",
+      "source": null,
+      "strict_exit": 2,
+      "audit_complete": false,
+      "counts": {
+        "not_run": 31
+      },
+      "original_files_unchanged": 8,
+      "report_labels": {
+        "html": "WCAG 2.2 A の結論　未確認",
+        "json": "未確認",
+        "excel": "WCAG 2.2 A の結論　未確認"
+      },
+      "scope": {
+        "status": "unverified",
+        "standard": "WCAG-2.2",
+        "level": "A",
+        "urls": [
+          "http://127.0.0.1:49321/start"
+        ],
+        "failed_cases": [],
+        "remaining": [
+          "適合要件の確認が必要です。検証する範囲、一連の手続き。",
+          "確認画面までの手続きを追加確認する。",
+          "未実施・判断保留・確認が残る検査票が31件あります。"
+        ],
+        "scope_review_record": "scope-review.json"
+      },
+      "report_files": {
+        "html": {
+          "path": "synthetic-unconfirmed/reports/report.html",
+          "sha256": "265ac0fadb3141bce4224d3dca1b3f8821acfb71d9a302d5baa1b7c726ed463d"
+        },
+        "json": {
+          "path": "synthetic-unconfirmed/data/report.json",
+          "sha256": "0ac2a1726e3a305f1f992aad02eaf566054da220b370bd18ba4f877425b439bc"
+        },
+        "excel": {
+          "path": "synthetic-unconfirmed/reports/report.xlsx",
+          "sha256": "ff0b8f743d820c8add6184c4f1ad0e4052d629864c1945a8f20e9a8309135b42"
+        },
+        "issues": {
+          "path": "synthetic-unconfirmed/reports/details/issues.md",
+          "sha256": "b3abf6290748241afead13286176f11de60fbd698f1aabf636b0907c7fb975e3"
+        }
+      }
+    }
+  ]
+}

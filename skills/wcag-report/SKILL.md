@@ -14,7 +14,7 @@ metadata:
 
 1ページの報告には`python3 scripts/audit.py page-report --run <run> --page-exact <URL>`を使う。HTML・JSON・Excelの概要・件数・票をそのページへそろえる。機械ルールと実入力の結果を達成基準全体の判定と区別し、残る探索も表示する。
 
-利用者には帳票のパスと報告JSONが示す検証状態を伝える。`audit_complete`が`false`なら「帳票を作成しました。検証は未完了です」と伝え、`counts`と、出力にある場合は`exploration.remaining`から残作業を示す。機械ルールの指摘には対象箇所とルール名を添える。達成基準全体の判定は保存された判定から示す。
+利用者には、実在する帳票へのパスと、報告JSONの `scope_conformance` に記録されたWCAGの版・レベル・対象範囲・結論を伝える。不適合は `failed_cases` の検査票と証拠、残る確認は `remaining` から示す。`audit_complete` が `false` の場合は検証が未完了であることも伝える。古い帳票に `scope_conformance` がない場合は、保存済みrunから報告を再出力する。
 
 ## 実行ルート
 

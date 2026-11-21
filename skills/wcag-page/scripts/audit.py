@@ -555,6 +555,7 @@ def report(run, *, page_url=None):
 def render_reports(run, *, page_url=None):
     from page_workflow import page_result
     import checksheet
+    import conformance
 
     single_page = single_report_page(run)
     result = outcomes(run)
@@ -565,6 +566,9 @@ def render_reports(run, *, page_url=None):
     files = report_paths(run, page_url)
     files.html.parent.mkdir(parents=True, exist_ok=True)
     files.issues.parent.mkdir(parents=True, exist_ok=True)
+    meta, catalog = run_catalog(run)
+    manifest = load(run / 'capture-manifest.json')
+    result['scope_conformance'] = conformance.build(result, meta['config'], catalog, manifest)
     result['evidence_base'] = run_layout.href(files.json, run)
     save(files.json, result)
 
@@ -575,14 +579,12 @@ def render_reports(run, *, page_url=None):
     def link(path, label):
         return f'<a href="{escape(run_layout.href(files.html, path), quote=True)}">{escape(label)}</a>'
 
-    _, catalog = run_catalog(run)
-    manifest = load(run / 'capture-manifest.json')
     human_model = checksheet.build(result, catalog, manifest=manifest)
     scope = 'ページ' if page_url else '検査範囲'
     selected_keys = {case['capture'] for case in result['cases']}
     selected = [c for c in manifest['captures'] if not page_url or c['key'] in selected_keys]
     environment_names = {e['id']: f"{e['viewport']['width']}×{e['viewport']['height']} CSS px"
-                         for e in run_meta(run)['config']['environments']}
+                         for e in meta['config']['environments']}
     environments = '、'.join(dict.fromkeys(environment_names.get(c['environment'], c['environment']) for c in selected))
     mode = result.get('verification', {}).get('label') if result.get('verification') else None
     complete = '検証完了' if result['audit_complete'] else '検証未完了'
@@ -760,6 +762,7 @@ def render_reports(run, *, page_url=None):
 <main><header><h1>WCAG 2.2 {escape(result['level'])} {scope}の検証結果</h1>
 <p>{escape(result['url'])}</p></header>
 <div class="scope" role="region" aria-label="{scope_heading}">
+{conformance.render_html(result['scope_conformance'], proof_href)}
 <p><strong>{complete}</strong>{f' · {escape(mode)}' if mode else ''}</p>
 <p>{len(selected)} 件の表示状態・環境を収集。{escape(environments)}</p>
 {exploration_notice}</div>
@@ -793,6 +796,7 @@ def render_reports(run, *, page_url=None):
 """
     files.html.write_text(page)
     issues=['# 修正担当向けの不適合記録','', 'この記録は検証結果です。製品コードの変更は行っていません。','',
+            conformance.label(result['scope_conformance']),
             '予定範囲の検査完了: '+('はい' if result['audit_complete'] else 'いいえ'),
             '結果: '+summary,
             '全基準と範囲の未確認は[HTMLレポート](report.html)又は[JSON](report.json)を参照してください。','']

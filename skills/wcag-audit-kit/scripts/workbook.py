@@ -190,12 +190,15 @@ def human_sheets(book, model, *, evidence_href=None):
     from openpyxl.utils import get_column_letter
     from openpyxl.worksheet.hyperlink import Hyperlink
     import checksheet
+    import conformance
     failure_rows={f['id']:i for i,f in enumerate(model['failures'],7)}
     for name,columns,rows in [('チェックシート',checksheet.COLUMNS,model['rows']),
                               ('不適合箇所',checksheet.FAILURE_COLUMNS,model['failures'])]:
         ws=sheet(book,name,columns,rows,True);ws.insert_rows(1,5)
         prelude=[f'WCAG 2.2 {name}', '集計範囲：'+model['scope'], model['legend'],model['guidance'],
                  ' '.join(model['notices']) or '集計時点の保存済み判定を表示しています。']
+        if model.get('scope_conformance'):
+            prelude[1] += '\n' + conformance.label(model['scope_conformance'])
         if name=='不適合箇所' and not rows:prelude[4]+=' 記録された不適合箇所はありません。未確認の有無はチェックシートを参照。'
         for index,value in enumerate(prelude,1):
             validate_values([value])
@@ -285,9 +288,12 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
                   'baselines':{c['case_id']:baseline(c,plan) for c in cases}}
         book=Workbook();book.remove(book.active)
         import checksheet
-        model=checksheet.build(result,catalog,cases=cases,
-            filters=dict(task=task,owner=owner,page=page,page_exact=page_exact,criterion=criterion,pending=pending),
-            manifest=audit.load(run/'capture-manifest.json'))
+        import conformance
+        filters=dict(task=task,owner=owner,page=page,page_exact=page_exact,criterion=criterion,pending=pending)
+        manifest=audit.load(run/'capture-manifest.json')
+        conclusion=conformance.build(result,meta['config'],catalog,manifest,cases=cases,filters=filters)
+        model=checksheet.build(result,catalog,cases=cases,filters=filters,manifest=manifest)
+        model['scope_conformance']=conclusion
         from run_layout import href
         human_sheets(book, model, evidence_href=lambda path: href(out, run / path))
         if result.get('verification'):
@@ -307,7 +313,15 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
         structure_evidence = [row for row in result.get('visual_structure_evidence', []) if row['capture'] in captures]
         if structure_evidence:
             visual_structure_sheet(book, run, out, structure_evidence)
+        scope_remaining = lines(conclusion['remaining'])
+        try:
+            validate_values([scope_remaining])
+        except ValueError:
+            scope_remaining = (f'残る確認は{len(conclusion["remaining"])}項目です。'
+                               '保存済みrunからHTML・JSONを再出力すると全文を確認できます。')
         summary=[['出力モード',mode],['サイト',result['url']],['全検査票',len(result['cases'])],['このファイルの票数',len(cases)],
+                 ['WCAG適合の結論',conformance.label(conclusion)],['結論の対象URL数',len(conclusion['scope']['urls'])],
+                 ['結論に残る確認',scope_remaining],
                  ['検証完了',result['audit_complete']],['範囲確認',result['scope_confirmed']],
                  ['人の確認待ち',len(result['human_review_cases'])],['未訪問URL',len(result['unvisited'])]]
         summary += [[key,value] for key,value in result['counts'].items()]
@@ -327,6 +341,11 @@ def export(run, out, *, mode='report', task=None, owner=None, page=None, page_ex
                     ['行の編集','検査票の灰色の識別情報は変更しない。行の並べ替え可。対象の追加は検査票IDと対象番号を指定。'],
                     ['複雑な記録','人への引き継ぎと媒体の区間比較はJSON欄。既存のrecordコマンドも利用できる。']]
         sheet(book,'概要',[('label','項目'),('value','内容')],[dict(label=a,value=b) for a,b in summary],True)
+        uncollected = set(conclusion['uncollected_urls'])
+        scope_sheet = sheet(book, '結論の対象URL', [('url', 'URL'), ('collection', '収集状況')],
+                           [dict(url=url, collection='未収集' if url in uncollected else '記録あり')
+                            for url in conclusion['scope']['urls']], True)
+        scope_sheet.column_dimensions['A'].width = 64
         ws=sheet(book,'検査票',CASE_COLUMNS,case_table,mode=='report')
         from openpyxl.styles import PatternFill
         for row in ws.iter_rows(min_row=2,max_col=len(CONTEXT)):
