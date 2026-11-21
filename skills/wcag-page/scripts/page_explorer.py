@@ -114,7 +114,7 @@ def is_telemetry(request, page_url):
             or (target.scheme, target.netloc) == (page.scheme, page.netloc) and target.path == '/cdn-cgi/rum')
 
 
-async def press_observed_key(page, target, action, observer, effect):
+async def press_observed_key(page, target, action, observer, effect, toggle):
     from playwright.async_api import Error as BrowserError
 
     handle = None
@@ -124,10 +124,17 @@ async def press_observed_key(page, target, action, observer, effect):
         if handle is not None:
             await handle.evaluate('(e) => { window.__wcagExpectedInputTarget = e; }')
             before = await handle.evaluate(KEY_STATE)
+            if toggle is not None:
+                disclosure = await handle.evaluate('(e) => window.__wcagDisclosure(e, false)')
+                if disclosure and disclosure['content_toggle']:
+                    toggle.update(before=disclosure, after=None)
     first_event = len(observer.events)
     try:
         await page.keyboard.press(action['key'])
         wait = await page.evaluate('() => window.__wcagWaitForUpdates()')
+        if toggle:
+            with suppress(BrowserError):
+                toggle['after'] = await handle.evaluate('(e) => window.__wcagDisclosure(e, false)')
         if handle is not None and before and wait['status'] == 'quiet':
             with suppress(BrowserError):
                 after = await handle.evaluate(KEY_STATE)
@@ -146,7 +153,7 @@ async def press_observed_key(page, target, action, observer, effect):
                 await handle.dispose()
 
 
-async def perform(page, action, *, observer=None, key_effect=None):
+async def perform(page, action, *, observer=None, key_effect=None, toggle=None):
     target=page.locator(action['selector'])
     if action['type']=='scroll':await page.evaluate('(p)=>scrollTo(p.x,p.y)',action)
     elif action['type']=='press':await page.keyboard.press(action['key'])
@@ -165,7 +172,7 @@ async def perform(page, action, *, observer=None, key_effect=None):
             await page.keyboard.press('Tab')
         if not reached:raise KeyboardUnreachable(TAB_UNREACHABLE)
         if key_effect is not None:
-            return await press_observed_key(page, target, action, observer, key_effect)
+            return await press_observed_key(page, target, action, observer, key_effect, toggle)
         await page.keyboard.press(action['key'])
     else:raise ValueError('未対応の探索操作')
     return await page.evaluate('() => window.__wcagWaitForUpdates()')
@@ -267,7 +274,8 @@ def keyboard_opening_key(edge):
 
 
 def queue_state_actions(value, node, data, env, queued, done, *, quick=False, parent=None, max_depth=30,
-                        keyboard_continuation=False, repeated_state=False, combo_record=None):
+                        keyboard_continuation=False, repeated_state=False, combo_record=None,
+                        content_keyboard_opening=False):
     route = node['route']
     capture_key = node['capture']
     env_id = env['id']
@@ -315,6 +323,8 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
 
     if data['modal'] and not repeated_state:
         enqueue({'type': 'press', 'selector': 'body', 'key': 'Escape'}, dialog_focus='escape')
+    if keyboard_continuation and content_keyboard_opening:
+        enqueue({'type': 'press', 'selector': 'body', 'key': 'Tab'}, keyboard_followup=True)
     controls = data['controls']
     if quick or keyboard_continuation:
         controls = sorted(controls, key=lambda control: (
@@ -345,7 +355,7 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
             enqueue(action, dialog_focus=phase, newly_available=newly_available,
                     keyboard_followup=followup or combo_open, combo_open=combo_open)
 
-    if keyboard_continuation:
+    if keyboard_continuation and not content_keyboard_opening:
         enqueue({'type': 'press', 'selector': 'body', 'key': 'Tab'}, keyboard_followup=True)
 
     # A real scroll can reveal lazy content even if the initial screenshot was full-page.
@@ -362,17 +372,23 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
 
 
 def queue_disclosure_close(value, edge, observation, queued, done, *, quick, max_depth):
-    path = edge['route'] + [{'type': 'press', 'selector': 'body', 'key': 'Escape'}]
+    action = {'type': 'press', 'selector': 'body', 'key': 'Escape'}
+    metadata = dict(disclosure_opener=observation['opener'], disclosure_panel=observation['panel'])
+    queue_disclosure_step(value, edge, action, metadata, queued, done, quick=quick, max_depth=max_depth)
+
+
+def queue_disclosure_step(value, edge, action, metadata, queued, done, *, quick, max_depth, extra_steps=0):
+    path = edge['route'] + [action]
     env = edge['environment']
     ident = json.dumps([env, path], sort_keys=True)
     if ident in queued or ident in done:
         return
-    if len(path) > (max_depth if quick else 30):
+    if len(path) + extra_steps > (max_depth if quick else 30):
         if quick:
             omitted = value.setdefault('omitted_candidates', {})
             omitted['depth'] = omitted.get('depth', 0) + 1
         else:
-            value['remaining'].append(f'{env}：深さ30を超えるEscapeの追加検査が必要。')
+            value['remaining'].append(f"{env}：深さ30を超える {action['key']} の追加検査が必要。")
         return
     if quick:
         pending = sum(job['environment'] == env and bool(job['route']) and job['route'] != edge['route']
@@ -381,8 +397,7 @@ def queue_disclosure_close(value, edge, observation, queued, done, *, quick, max
             omitted = value.setdefault('omitted_candidates', {})
             omitted['frontier'] = omitted.get('frontier', 0) + 1
             return
-    value['queue'].append(dict(environment=env, route=path, keyboard_followup=True,
-                               disclosure_opener=observation['opener'], disclosure_panel=observation['panel']))
+    value['queue'].append(dict(environment=env, route=path, keyboard_followup=True, **metadata))
     queued.add(ident)
 
 
@@ -587,6 +602,10 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 before_operation = None
                 impact = None
                 disclosure_at_tab = None
+                toggle_record = {}
+                return_record = None
+                toggle_target = job.get('toggle_return')
+                toggle_close = job.get('toggle_close', False)
                 close_record = {'before': None, 'after': None} if job.get('disclosure_opener') else None
                 escape_input = False
                 async def dismiss_dialog(dialog):
@@ -687,8 +706,30 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 first_escape_event = len(observer.events)
                             observe_key = (action_index == len(route) and action['type'] == 'key'
                                            and (observe_combo or all(step['type'] in {'key', 'press'} for step in route)))
+                            returning = toggle_target and action_index == len(route) - int(toggle_close)
+                            if returning:
+                                before = await disclosure_close.observe(page, toggle_target['opener'], expect_input=True)
+                                return_record = {'before': before, 'after': None, 'event_index': None}
+                                first_return_event = len(observer.events)
+                            if toggle_close and action_index == len(route):
+                                before = await disclosure_close.observe(page, toggle_target['opener'])
+                                if (not disclosure_close.same_panel(return_record['after'], before)
+                                        or not disclosure_close.content_open(before)
+                                        or before['focus'] != toggle_target['opener']):
+                                    raise ValueError('閉じるキーの前に同じ開閉ボタンと領域を確認できない。')
+                            observe_toggle = observe_key and action['key'] in {'Enter', 'Space'}
                             settling.append(await perform(page, action, observer=observer,
-                                                         key_effect=key_effect if observe_key else None))
+                                                         key_effect=key_effect if observe_key else None,
+                                                         toggle=toggle_record if observe_toggle else None))
+                            if returning:
+                                await page.evaluate('() => { window.__wcagExpectedInputTarget = null; }')
+                                return_record['after'] = await disclosure_close.observe(page, toggle_target['opener'])
+                                return_record['event_index'] = next((index for index in range(first_return_event, len(observer.events))
+                                    if observer.events[index].get('expectedTargetMatched') is True
+                                    and keyboard_checks.matching_keydown(observer.events[index], 'Shift+Tab')), None)
+                                if toggle_close and (observer.dropped or not disclosure_close.returned_to_opener(
+                                        return_record, toggle_target)):
+                                    raise ValueError('Shift+Tabで同じ開閉ボタンへ戻れたことを確認できない。')
                             if closing:
                                 await page.evaluate('() => { window.__wcagExpectedInputTarget = null; }')
                                 close_record['after'] = await disclosure_close.observe(page, job['disclosure_opener'])
@@ -840,6 +881,12 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                     if close_record is not None:
                         disclosure_close.finish(close_record, quiet_key_route and escape_input)
                         edge['disclosure_close'] = close_record
+                    if toggle_record:
+                        edge['disclosure_toggle'] = disclosure_close.toggle_result(
+                            toggle_record['before'], toggle_record['after'], quiet_key_route and bool(key_effect)
+                            and not observer.dropped)
+                    if return_record is not None:
+                        edge['disclosure_return'] = return_record
                     if unreachable_step is not None:
                         edge['keyboard_unreachable_step'] = unreachable_step
                     if combo_record is not None:
@@ -888,9 +935,22 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         else:
                             value['queue'].append(followup)
                         queued.add(ident)
+                if (quiet_key_route and disclosure_close.content_open(disclosure_at_tab)
+                        and disclosure_at_tab['focus'] != disclosure_at_tab['opener']
+                        and route[-2]['key'] in {'Enter', 'Space'}):
+                    target = dict(opener=disclosure_at_tab['opener'], panel=disclosure_at_tab['panel'],
+                                  focus=disclosure_at_tab['focus'], key=route[-2]['key'])
+                    action = {'type': 'press', 'selector': 'body', 'key': 'Shift+Tab'}
+                    queue_disclosure_step(value, edge, action, {'toggle_return': target}, queued, done,
+                                          quick=quick, max_depth=max_depth, extra_steps=1)
                 if quiet_key_route and disclosure_close.ready(disclosure_at_tab):
                     queue_disclosure_close(value, edge, disclosure_at_tab, queued, done,
                                            quick=quick, max_depth=max_depth)
+                if (quiet_key_route and return_record is not None and not toggle_close and not observer.dropped
+                        and disclosure_close.returned_to_opener(return_record, toggle_target)):
+                    action = dict(type='key', selector=toggle_target['opener'], key=toggle_target['key'], focused_only=True)
+                    metadata = dict(toggle_return=toggle_target, toggle_close=True)
+                    queue_disclosure_step(value, edge, action, metadata, queued, done, quick=quick, max_depth=max_depth)
                 value['edges'].append(edge);value['steps']+=1
                 if route:
                     operation_counts[env['id']] += 1
@@ -929,7 +989,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         queue_state_actions(value, route_node, data, env, queued, done,
                                             quick=quick, parent=parent, max_depth=max_depth,
                                             keyboard_continuation=keyboard_continuation, repeated_state=not new_capture,
-                                            combo_record=combo_record)
+                                            combo_record=combo_record, content_keyboard_opening=(
+                                                edge.get('disclosure_toggle', {}).get('status') == 'opened'))
                     captured_routes[json.dumps([env['id'], route], sort_keys=True)] = node
                 value['queue'].pop(0);value['remaining']=list(dict.fromkeys(value['remaining']))
                 value['manifest']=manifest

@@ -1,0 +1,2029 @@
+{
+  "t018-baseline": {
+    "page-workflow": {
+      "steps": 48,
+      "states": 12,
+      "pending": 11,
+      "omitted_candidates": {
+        "input_variations": 48,
+        "frontier": 40,
+        "unchanged_control": 120
+      },
+      "records": [
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "desktop",
+          "phase": "pointer",
+          "archive": "t018-baseline/page-workflow/desktop/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "narrow",
+          "phase": "pointer",
+          "archive": "t018-baseline/page-workflow/narrow/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#accordion",
+          "error": null,
+          "key_effect": {
+            "event_index": 2,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "open",
+          "archive": "t018-baseline/page-workflow/desktop/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#accordion",
+          "error": null,
+          "key_effect": {
+            "event_index": 2,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "open",
+          "archive": "t018-baseline/page-workflow/narrow/open/"
+        }
+      ]
+    },
+    "p06": {
+      "steps": 20,
+      "states": 4,
+      "pending": 0,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "unchanged_control": 16
+      },
+      "records": [
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "desktop",
+          "phase": "pointer",
+          "archive": "t018-baseline/p06/desktop/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "narrow",
+          "phase": "pointer",
+          "archive": "t018-baseline/p06/narrow/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "error": null,
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "open",
+          "archive": "t018-baseline/p06/desktop/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "error": null,
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "open",
+          "archive": "t018-baseline/p06/narrow/open/"
+        }
+      ]
+    },
+    "p07": {
+      "steps": 22,
+      "states": 4,
+      "pending": 0,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "unchanged_control": 16
+      },
+      "records": [
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "desktop",
+          "phase": "pointer",
+          "archive": "t018-baseline/p07/desktop/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "narrow",
+          "phase": "pointer",
+          "archive": "t018-baseline/p07/narrow/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "open",
+          "archive": "t018-baseline/p07/desktop/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "open",
+          "archive": "t018-baseline/p07/narrow/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#after",
+          "error": null,
+          "environment": "desktop",
+          "phase": "tab",
+          "archive": "t018-baseline/p07/desktop/tab/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#after",
+          "error": null,
+          "environment": "narrow",
+          "phase": "tab",
+          "archive": "t018-baseline/p07/narrow/tab/"
+        }
+      ]
+    }
+  },
+  "t018-confirmed": {
+    "page-workflow": {
+      "steps": 48,
+      "states": 12,
+      "pending": 12,
+      "omitted_candidates": {
+        "input_variations": 48,
+        "frontier": 42,
+        "unchanged_control": 120
+      },
+      "records": [
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "desktop",
+          "phase": "pointer",
+          "archive": "t018-confirmed/page-workflow/desktop/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "narrow",
+          "phase": "pointer",
+          "archive": "t018-confirmed/page-workflow/narrow/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#accordion",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236108361.1,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#accordion",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "after": {
+              "document": 1795236108361.1,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#accordion",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "status": "opened"
+          },
+          "key_effect": {
+            "event_index": 2,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "open",
+          "archive": "t018-confirmed/page-workflow/desktop/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#accordion",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236112327.7,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#accordion",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "after": {
+              "document": 1795236112327.7,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#accordion",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "status": "opened"
+          },
+          "key_effect": {
+            "event_index": 2,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "open",
+          "archive": "t018-confirmed/page-workflow/narrow/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#nested",
+          "error": null,
+          "environment": "desktop",
+          "phase": "tab",
+          "archive": "t018-confirmed/page-workflow/desktop/tab/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#nested",
+          "error": null,
+          "environment": "narrow",
+          "phase": "tab",
+          "archive": "t018-confirmed/page-workflow/narrow/tab/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Shift+Tab"
+            },
+            {
+              "type": "key",
+              "selector": "#accordion",
+              "key": "Enter",
+              "focused_only": true
+            }
+          ],
+          "focus_after": "#accordion",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236131709.5,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#accordion",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236131709.5,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#accordion",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "status": "closed"
+          },
+          "disclosure_return": {
+            "before": {
+              "document": 1795236131709.5,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#nested",
+              "focus_within": true,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236131709.5,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#accordion",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "event_index": 8
+          },
+          "key_effect": {
+            "event_index": 11,
+            "before": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "return-and-close",
+          "archive": "t018-confirmed/page-workflow/desktop/return-and-close/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#accordion",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Shift+Tab"
+            },
+            {
+              "type": "key",
+              "selector": "#accordion",
+              "key": "Enter",
+              "focused_only": true
+            }
+          ],
+          "focus_after": "#accordion",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236137433.1,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#accordion",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236137433.1,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#accordion",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "status": "closed"
+          },
+          "disclosure_return": {
+            "before": {
+              "document": 1795236137433.1,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#nested",
+              "focus_within": true,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236137433.1,
+              "url": "http://127.0.0.1:37215/page-workflow.html",
+              "opener": "#accordion",
+              "panel": "#panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#accordion",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "event_index": 8
+          },
+          "key_effect": {
+            "event_index": 11,
+            "before": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "return-and-close",
+          "archive": "t018-confirmed/page-workflow/narrow/return-and-close/"
+        }
+      ]
+    },
+    "p06": {
+      "steps": 20,
+      "states": 4,
+      "pending": 0,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "unchanged_control": 16
+      },
+      "records": [
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "desktop",
+          "phase": "pointer",
+          "archive": "t018-confirmed/p06/desktop/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "narrow",
+          "phase": "pointer",
+          "archive": "t018-confirmed/p06/narrow/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236093831.2,
+              "url": "http://127.0.0.1:37215/p06.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "after": {
+              "document": 1795236093831.2,
+              "url": "http://127.0.0.1:37215/p06.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "status": "stayed_closed"
+          },
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "open",
+          "archive": "t018-confirmed/p06/desktop/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236096813.2,
+              "url": "http://127.0.0.1:37215/p06.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "after": {
+              "document": 1795236096813.2,
+              "url": "http://127.0.0.1:37215/p06.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "status": "stayed_closed"
+          },
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "open",
+          "archive": "t018-confirmed/p06/narrow/open/"
+        }
+      ]
+    },
+    "p07": {
+      "steps": 26,
+      "states": 4,
+      "pending": 0,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "unchanged_control": 16
+      },
+      "records": [
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "desktop",
+          "phase": "pointer",
+          "archive": "t018-confirmed/p07/desktop/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "narrow",
+          "phase": "pointer",
+          "archive": "t018-confirmed/p07/narrow/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236092344.7,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "after": {
+              "document": 1795236092344.7,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "status": "opened"
+          },
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "open",
+          "archive": "t018-confirmed/p07/desktop/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236095741.5,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "after": {
+              "document": 1795236095741.5,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "status": "opened"
+          },
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "open",
+          "archive": "t018-confirmed/p07/narrow/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#after",
+          "error": null,
+          "environment": "desktop",
+          "phase": "tab",
+          "archive": "t018-confirmed/p07/desktop/tab/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#after",
+          "error": null,
+          "environment": "narrow",
+          "phase": "tab",
+          "archive": "t018-confirmed/p07/narrow/tab/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Shift+Tab"
+            },
+            {
+              "type": "key",
+              "selector": "#subject #inner-action",
+              "key": "Enter",
+              "focused_only": true
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236113449.6,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236113449.6,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "status": "closed"
+          },
+          "disclosure_return": {
+            "before": {
+              "document": 1795236113449.6,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#after",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236113449.6,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "event_index": 10
+          },
+          "key_effect": {
+            "event_index": 13,
+            "before": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "return-and-close",
+          "archive": "t018-confirmed/p07/desktop/return-and-close/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Shift+Tab"
+            },
+            {
+              "type": "key",
+              "selector": "#subject #inner-action",
+              "key": "Enter",
+              "focused_only": true
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236117589.7,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236117589.7,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "status": "closed"
+          },
+          "disclosure_return": {
+            "before": {
+              "document": 1795236117589.7,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#after",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236117589.7,
+              "url": "http://127.0.0.1:37215/p07.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "event_index": 10
+          },
+          "key_effect": {
+            "event_index": 13,
+            "before": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "return-and-close",
+          "archive": "t018-confirmed/p07/narrow/return-and-close/"
+        }
+      ]
+    },
+    "transparent": {
+      "steps": 22,
+      "states": 4,
+      "pending": 0,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "unchanged_control": 16
+      },
+      "records": [
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "desktop",
+          "phase": "pointer",
+          "archive": "t018-confirmed/transparent/desktop/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "narrow",
+          "phase": "pointer",
+          "archive": "t018-confirmed/transparent/narrow/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236194545.6,
+              "url": "http://127.0.0.1:37215/transparent.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "after": {
+              "document": 1795236194545.6,
+              "url": "http://127.0.0.1:37215/transparent.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": null
+            },
+            "status": "cant_tell"
+          },
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "open",
+          "archive": "t018-confirmed/transparent/desktop/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236198242.5,
+              "url": "http://127.0.0.1:37215/transparent.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "after": {
+              "document": 1795236198242.5,
+              "url": "http://127.0.0.1:37215/transparent.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": null
+            },
+            "status": "cant_tell"
+          },
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "open",
+          "archive": "t018-confirmed/transparent/narrow/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#after",
+          "error": null,
+          "environment": "desktop",
+          "phase": "tab",
+          "archive": "t018-confirmed/transparent/desktop/tab/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#after",
+          "error": null,
+          "environment": "narrow",
+          "phase": "tab",
+          "archive": "t018-confirmed/transparent/narrow/tab/"
+        }
+      ]
+    },
+    "contents": {
+      "steps": 26,
+      "states": 4,
+      "pending": 0,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "unchanged_control": 16
+      },
+      "records": [
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "desktop",
+          "phase": "pointer",
+          "archive": "t018-confirmed/contents/desktop/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "narrow",
+          "phase": "pointer",
+          "archive": "t018-confirmed/contents/narrow/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236222453.8,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "after": {
+              "document": 1795236222453.8,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "status": "opened"
+          },
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "open",
+          "archive": "t018-confirmed/contents/desktop/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236225726.7,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": false
+            },
+            "after": {
+              "document": 1795236225726.7,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "status": "opened"
+          },
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "open",
+          "archive": "t018-confirmed/contents/narrow/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#after",
+          "error": null,
+          "environment": "desktop",
+          "phase": "tab",
+          "archive": "t018-confirmed/contents/desktop/tab/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#after",
+          "error": null,
+          "environment": "narrow",
+          "phase": "tab",
+          "archive": "t018-confirmed/contents/narrow/tab/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Shift+Tab"
+            },
+            {
+              "type": "key",
+              "selector": "#subject #inner-action",
+              "key": "Enter",
+              "focused_only": true
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236242738.4,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236242738.4,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": null
+            },
+            "status": "cant_tell"
+          },
+          "disclosure_return": {
+            "before": {
+              "document": 1795236242738.4,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#after",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236242738.4,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "event_index": 10
+          },
+          "key_effect": {
+            "event_index": 13,
+            "before": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "return-and-close",
+          "archive": "t018-confirmed/contents/desktop/return-and-close/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Shift+Tab"
+            },
+            {
+              "type": "key",
+              "selector": "#subject #inner-action",
+              "key": "Enter",
+              "focused_only": true
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "disclosure_toggle": {
+            "before": {
+              "document": 1795236246561.3,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236246561.3,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "false",
+              "visible": false,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": null
+            },
+            "status": "cant_tell"
+          },
+          "disclosure_return": {
+            "before": {
+              "document": 1795236246561.3,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#after",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "after": {
+              "document": 1795236246561.3,
+              "url": "http://127.0.0.1:37215/contents.html",
+              "opener": "#subject #inner-action",
+              "panel": "#subject #inner-panel",
+              "expanded": "true",
+              "visible": true,
+              "focus": "#subject #inner-action",
+              "focus_within": false,
+              "content_toggle": true,
+              "content_visible": true
+            },
+            "event_index": 10
+          },
+          "key_effect": {
+            "event_index": 13,
+            "before": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "return-and-close",
+          "archive": "t018-confirmed/contents/narrow/return-and-close/"
+        }
+      ]
+    },
+    "navigation": {
+      "steps": 22,
+      "states": 4,
+      "pending": 0,
+      "omitted_candidates": {
+        "input_variations": 16,
+        "unchanged_control": 16
+      },
+      "records": [
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "desktop",
+          "phase": "pointer",
+          "archive": "t018-confirmed/navigation/desktop/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "click"
+            }
+          ],
+          "error": null,
+          "environment": "narrow",
+          "phase": "pointer",
+          "archive": "t018-confirmed/navigation/narrow/pointer/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "desktop",
+          "phase": "open",
+          "archive": "t018-confirmed/navigation/desktop/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            }
+          ],
+          "focus_after": "#subject #inner-action",
+          "error": null,
+          "key_effect": {
+            "event_index": 4,
+            "before": {
+              "open": null,
+              "expanded": "false",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            },
+            "after": {
+              "open": null,
+              "expanded": "true",
+              "pressed": null,
+              "checked": null,
+              "selected": null,
+              "selectedIndex": null
+            }
+          },
+          "environment": "narrow",
+          "phase": "open",
+          "archive": "t018-confirmed/navigation/narrow/open/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#after",
+          "error": null,
+          "environment": "desktop",
+          "phase": "tab",
+          "archive": "t018-confirmed/navigation/desktop/tab/"
+        },
+        {
+          "route": [
+            {
+              "selector": "#subject #inner-action",
+              "type": "key",
+              "key": "Enter"
+            },
+            {
+              "type": "press",
+              "selector": "body",
+              "key": "Tab"
+            }
+          ],
+          "focus_after": "#after",
+          "error": null,
+          "environment": "narrow",
+          "phase": "tab",
+          "archive": "t018-confirmed/navigation/narrow/tab/"
+        }
+      ]
+    }
+  }
+}

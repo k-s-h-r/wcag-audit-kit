@@ -198,6 +198,10 @@ def machine_checks(run, manifest=None):
             from disclosure_close import report_row as disclosure_row
 
             rows.append(disclosure_row(edge['disclosure_close'], edge, scene(route), f'操作経路 {index+1}'))
+        if 'disclosure_toggle' in edge:
+            from disclosure_close import toggle_row
+
+            rows.append(toggle_row(edge['disclosure_toggle'], edge, scene(route), f'操作経路 {index+1}'))
         # A key reached after pointer or scripted setup is evidence for that
         # mixed route, not for reaching the same state using only keys.
         if not route or any(step.get('type') not in {'key','press'} for step in route):continue

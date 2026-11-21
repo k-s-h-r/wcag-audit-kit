@@ -89,6 +89,7 @@
     while (active?.shadowRoot?.activeElement) active = active.shadowRoot.activeElement;
     return active;
   };
+  const composedParent = e => e.assignedSlot || e.parentElement || e.getRootNode().host;
   window.__wcagDisclosure = (opener, bindFocus) => {
     const id = opener.getAttribute('aria-controls')?.trim();
     const root = opener.getRootNode();
@@ -98,10 +99,29 @@
     const panel = matches[0], focus = deepestActive(document);
     if (!focus || focus.matches('iframe,frame')) return null;
     if (bindFocus) window.__wcagExpectedInputTarget = focus;
+    let navigation = false;
+    for (let ancestor = opener; ancestor; ancestor = composedParent(ancestor)) {
+      if (ancestor.matches('nav, [role="navigation"]')) {
+        navigation = true;
+        break;
+      }
+    }
+    const contentToggle = opener.matches('button, [role="button"]') &&
+      !navigation && !opener.matches('[aria-haspopup]:not([aria-haspopup="false" i])') &&
+      panel.matches('p, div, section, article, aside, [role="region"]') &&
+      !panel.matches('[role]:not([role="region"])');
+    let contentVisible = null;
+    if (contentToggle) {
+      if (getComputedStyle(panel).display === 'none') contentVisible = false;
+      else if (visible(panel) && panel.checkVisibility?.({
+        opacityProperty: true, visibilityProperty: true, contentVisibilityAuto: true
+      }) !== false) contentVisible = true;
+    }
     return {
       document: performance.timeOrigin, url: location.href,
       opener: selector(opener), panel: selector(panel), expanded: opener.getAttribute('aria-expanded'),
-      visible: visible(panel), focus: selector(focus), focus_within: panel.contains(root.activeElement)
+      visible: visible(panel), focus: selector(focus), focus_within: panel.contains(root.activeElement),
+      content_toggle: contentToggle, content_visible: contentVisible
     };
   };
   const visibleModals = () => [...document.querySelectorAll(
@@ -237,9 +257,8 @@
       (e.hasAttribute('tabindex') && e.tabIndex >= 0) ||
       properties.some(p => typeof e[p] === 'function') ||
       [...(events.get(e) || [])].some(t => /click|pointer|mouse|key|change|input/.test(t))));
-    const parent = e => e.assignedSlot || e.parentElement || e.getRootNode().host;
     const inheritsControlCursor = e => {
-      for (let ancestor = parent(e); ancestor; ancestor = parent(ancestor)) {
+      for (let ancestor = composedParent(e); ancestor; ancestor = composedParent(ancestor)) {
         if (getComputedStyle(ancestor).cursor !== 'pointer') return false;
         if (semanticControl(ancestor)) return true;
       }
