@@ -4,7 +4,7 @@
 
 開発中の1ページだけでも、サイト全体でも使えます。入口を分け、必要な段階だけを読み込む構成です。
 
-目指すのは、URLから必要な操作を見つけ、依頼された範囲がWCAGに適合しているかを根拠付きで答えることです。日々の開発でつまずきを調べるアクセシビリティ点検も将来の使い方です。現在のCLIの `--mode` では、WCAG検証に使う手段を選びます。[VISION](docs/VISION.md) · [開発計画](docs/ROADMAP.md)
+目指すのは、URLから必要な操作を見つけ、依頼された範囲がWCAGに適合しているかを根拠付きで答えることです。日々の開発では、操作で困る場面を調べ、改善案と効果の確かめ方を返すアクセシビリティ点検も依頼できます。CLIの `--mode` では、検証に使う手段を選びます。[VISION](docs/VISION.md) · [開発計画](docs/ROADMAP.md)
 
 呼び出しから報告までの流れと、開発用の2スキルは[WCAGスキルの図解](docs/WCAG-SKILL-GUIDE.md)で確認できます。
 
@@ -15,13 +15,15 @@
 | [wcag-page](skills/wcag-page/SKILL.md) | この1ページの画面・操作・達成基準を確認する |
 | [wcag-pages](skills/wcag-pages/SKILL.md) | 対象URLを一覧から指定する、又は候補を抽出する |
 | [wcag-report](skills/wcag-report/SKILL.md) | 保存済みの結果をHTML・JSON・Excelへまとめる |
-| [wcag-audit-kit](skills/wcag-audit-kit/SKILL.md) | 依頼を振り分け、サイト全体をページ別タスクで進める |
+| [wcag-audit-kit](skills/wcag-audit-kit/SKILL.md) | サイト全体の検証を進める。操作のつまずきと改善案を調べる |
 
 AIが実行できる検査を進め、環境制約や専門判断で残る確認は、証拠と具体的な手順を添えて引き継ぎます。どの手段で、どこまで確かめたかを公開しています。[実証状況](skills/wcag-audit-kit/references/VERIFICATION-COVERAGE.md) · [検査票の読み方](skills/wcag-audit-kit/references/checksheet.md)
 
 依頼例：
 
 > このサイト全体をWCAG 2.2のAAで検証してください。何ができていて、何ができていないか、証拠と再現手順付きで報告してください。実装修正は行わないでください。
+
+アクセシビリティ点検は `wcag-audit-kit` を明示して依頼します。例えば「このURLから予約の確認画面まで、キーボードで進むとどこで困るか点検して、改善案と確かめ方を教えて」と指定できます。保存済みの記録を使う場合は、対象のrunや帳票、操作証拠を渡します。[点検の手順](skills/wcag-audit-kit/references/accessibility-review.md)
 
 ## スキルとして使う
 
@@ -30,7 +32,7 @@ AIが実行できる検査を進め、環境制約や専門判断で残る確認
 - 1ページの検証：`skills/wcag-page/`だけを配置します。
 - URLの選定：`skills/wcag-pages/`だけを配置します。
 - 保存済み結果の報告：`skills/wcag-report/`だけを配置します。
-- サイト全体の進行：4フォルダーすべてを配置します。`wcag-audit-kit`から他の3スキルを使います。
+- サイト全体の進行とアクセシビリティ点検：4フォルダーすべてを配置します。`wcag-audit-kit`から必要な手順を使います。
 
 各フォルダーには`SKILL.md`、実行時の補助コード、資料、テンプレート、依存関係の一覧が入っています。登録方法や呼び出しの表記はAI環境に従います。登録後は、その環境のスキル選択機能で`wcag-page`等を選び、「このURLをWCAG 2.2 AAで検証して、Excelで報告して」と依頼します。直接 `wcag-page` に新規検査を依頼すると、適合レベル・検査モード・標準の証拠画像のうち、指定されていない設定を実行前にまとめて聞きます。「おまかせ」なら未指定の項目にAA・機械のみ・初期表示だけを使います。 初期画面の機械検査結果を先に共有し、そのまま主要な操作の簡易探索を同じrunに追加します。
 
