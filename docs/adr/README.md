@@ -84,3 +84,4 @@
 - [0078 同じ画面に到達してもキーボード操作の続きを調べる](0078-continue-keyboard-paths-after-duplicate-states.md)
 - [0079 展開した領域をEscapeで閉じた後のフォーカスを記録する](0079-observe-focus-after-closing-disclosures.md)
 - [0081 WCAGスキルの処理の流れを図解する](0081-document-wcag-skill-workflows.md)
+- [0082 wcag-page の操作と証拠をHTMLで図解する](0082-explain-page-audit-in-html.md)
