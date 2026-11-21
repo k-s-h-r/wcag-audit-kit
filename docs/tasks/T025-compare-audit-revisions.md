@@ -1,6 +1,8 @@
 # T025 修正前後の検査票をページごとに比べる
 
-状態はローカル実装と検証を完了。前提は [T013](T013-site-selection.md) で確認したページごとの共通部品の検査。
+状態は実装とローカル検証を完了し、PRを作成済み。[PR #93](https://github.com/k-s-h-r/wcag-audit-kit/pull/93)
+
+前提は [T013](T013-site-selection.md) で確認したページごとの共通部品の検査。
 
 共通部品の表示はページのCSSや状態で変わる。修正前後に同じ観点を調べ、共通部品を載せた各ページで何が解消し、何が残ったかを確認できるようにする。[VISION](../VISION.md#直したあとにもう一度使いたい) · [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
 
