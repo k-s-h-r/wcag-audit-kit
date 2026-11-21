@@ -1,0 +1,31 @@
+{
+  "command": [
+    "ffmpeg",
+    "-nostdin",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-i",
+    "/workspace/wcag-audit-work/evidence/t028-media-run-002/description-visual.webm",
+    "-i",
+    "/workspace/wcag-audit-work/evidence/t028-media-run-002/public/clip.webm",
+    "-af",
+    "apad=whole_dur=8.0",
+    "-map",
+    "0:v:0",
+    "-t",
+    "8.0",
+    "-c:v",
+    "copy",
+    "-c:a",
+    "libopus",
+    "-b:a",
+    "96k",
+    "-map",
+    "1:a:0",
+    "/workspace/wcag-audit-work/evidence/t028-media-run-002/public/description-b.webm"
+  ],
+  "started_at": "2026-11-21T05:03:42.514950+00:00",
+  "finished_at": "2026-11-21T05:03:42.752946+00:00",
+  "exit_code": 0
+}

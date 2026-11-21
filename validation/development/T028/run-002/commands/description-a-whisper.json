@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/workspace/wcag-audit-work/evidence/vision-media-preflight/build/bin/whisper-cli",
+    "-m",
+    "/workspace/wcag-audit-work/evidence/vision-media-preflight/ggml-base.en.bin",
+    "-f",
+    "/workspace/wcag-audit-work/evidence/t028-media-run-001/audio/description-a.wav",
+    "-l",
+    "en",
+    "-t",
+    "4",
+    "-ojf",
+    "-otxt",
+    "-of",
+    "/workspace/wcag-audit-work/evidence/t028-media-run-001/audio/description-a"
+  ],
+  "started_at": "2026-11-21T05:00:59.472914+00:00",
+  "finished_at": "2026-11-21T05:01:33.509971+00:00",
+  "exit_code": 0
+}

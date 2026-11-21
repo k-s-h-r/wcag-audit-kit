@@ -1,0 +1,23 @@
+{
+  "command": [
+    "ffmpeg",
+    "-nostdin",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-i",
+    "/workspace/wcag-audit-work/evidence/t028-media-run-002/public/description-a.webm",
+    "-map",
+    "0:v:0",
+    "-pix_fmt",
+    "rgba",
+    "-f",
+    "hash",
+    "-hash",
+    "sha256",
+    "-"
+  ],
+  "started_at": "2026-11-21T05:03:43.481836+00:00",
+  "finished_at": "2026-11-21T05:03:44.579562+00:00",
+  "exit_code": 0
+}

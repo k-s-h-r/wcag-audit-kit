@@ -1,0 +1,226 @@
+{
+  "status": "collected",
+  "case_id": "t028-transcript-a",
+  "started_at": "2026-11-21T05:04:17.713283+00:00",
+  "request_sha256": "d74677882ff8f46c277745a4f0bfbb3a9ffd965dca80441a7f561ded21ecd833",
+  "actions": [
+    {
+      "action": {
+        "type": "click",
+        "selector": "#play"
+      },
+      "started_at": "2026-11-21T05:04:18.845861+00:00",
+      "observed_at": "2026-11-21T05:04:18.939790+00:00",
+      "player": {
+        "currentTime": 0.012971,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [
+          [
+            0,
+            0.012971
+          ]
+        ],
+        "quality": {
+          "creationTime": 413.5,
+          "totalVideoFrames": 4,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "disabled",
+            "cues": null,
+            "activeCues": null
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "caption-1.png",
+      "requested_media_time": 5.7,
+      "before_capture": {
+        "currentTime": 5.75174,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [
+          [
+            0,
+            5.75174
+          ]
+        ],
+        "quality": {
+          "creationTime": 6159.700000000186,
+          "totalVideoFrames": 177,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "disabled",
+            "cues": null,
+            "activeCues": null
+          }
+        ]
+      },
+      "after_capture": {
+        "currentTime": 5.80526,
+        "duration": 7.008,
+        "paused": false,
+        "ended": false,
+        "muted": false,
+        "volume": 1,
+        "playbackRate": 1,
+        "readyState": 4,
+        "currentSrc": "http://127.0.0.1:45447/clip.webm",
+        "error": null,
+        "played": [
+          [
+            0,
+            5.80526
+          ]
+        ],
+        "quality": {
+          "creationTime": 6213.200000000186,
+          "totalVideoFrames": 179,
+          "droppedVideoFrames": 0,
+          "corruptedVideoFrames": 0
+        },
+        "tracks": [
+          {
+            "kind": "captions",
+            "label": "English",
+            "language": "en",
+            "mode": "disabled",
+            "cues": null,
+            "activeCues": null
+          }
+        ]
+      },
+      "note": "画像取得中も再生は進む。要求時刻の厳密なフレームとは限らない。"
+    }
+  ],
+  "listening_performed": false,
+  "speech_meaning_reviewed": false,
+  "non_speech_meaning_reviewed": false,
+  "all_visual_frames_reviewed": false,
+  "flash_thresholds_reviewed": false,
+  "wcag_judgement": null,
+  "note": "再生・字幕の実表示の観察。endedや字幕トラックの存在から意味・全区間の合格を作らない。",
+  "scenario": {
+    "case_id": "t028-transcript-a",
+    "url": "http://127.0.0.1:45447/transcript-a.html",
+    "media": {
+      "selector": "#clip"
+    },
+    "prepare_actions": [],
+    "play_action": {
+      "type": "click",
+      "selector": "#play"
+    },
+    "screenshot_times": [
+      5.7
+    ],
+    "max_seconds": 15
+  },
+  "browser_version": "156.0.8078.79",
+  "before": {
+    "currentTime": 0,
+    "duration": 7.008,
+    "paused": true,
+    "ended": false,
+    "muted": false,
+    "volume": 1,
+    "playbackRate": 1,
+    "readyState": 4,
+    "currentSrc": "http://127.0.0.1:45447/clip.webm",
+    "error": null,
+    "played": [],
+    "quality": {
+      "creationTime": 190.6000000005588,
+      "totalVideoFrames": 4,
+      "droppedVideoFrames": 0,
+      "corruptedVideoFrames": 0
+    },
+    "tracks": [
+      {
+        "kind": "captions",
+        "label": "English",
+        "language": "en",
+        "mode": "disabled",
+        "cues": null,
+        "activeCues": null
+      }
+    ]
+  },
+  "after": {
+    "currentTime": 7.008,
+    "duration": 7.008,
+    "paused": true,
+    "ended": true,
+    "muted": false,
+    "volume": 1,
+    "playbackRate": 1,
+    "readyState": 4,
+    "currentSrc": "http://127.0.0.1:45447/clip.webm",
+    "error": null,
+    "played": [
+      [
+        0,
+        7.008
+      ]
+    ],
+    "quality": {
+      "creationTime": 7543.5,
+      "totalVideoFrames": 210,
+      "droppedVideoFrames": 0,
+      "corruptedVideoFrames": 0
+    },
+    "tracks": [
+      {
+        "kind": "captions",
+        "label": "English",
+        "language": "en",
+        "mode": "disabled",
+        "cues": null,
+        "activeCues": null
+      }
+    ]
+  },
+  "playback_ended": true,
+  "unreached_screenshot_times": [],
+  "finished_at": "2026-11-21T05:04:26.218637+00:00",
+  "event_trace": {
+    "events": 213,
+    "truncated": false,
+    "dropped": 0
+  },
+  "frame_callbacks": {
+    "count": 210,
+    "first_media_time": 0,
+    "last_media_time": 6.967,
+    "note": "コールバック数や再生終了だけで、AIが全フレームを視認・理解したことにはしない。"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "source_run": "/workspace/wcag-audit-work/evidence/t028-media-run-002",
+  "identical_a_b_framehash_including_pts_dts": true,
+  "engine_sha256": "7ea5a77e48a3564a6d047087404b9ceec858720d0715b1183fc875ca56bd1653",
+  "model_sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+  "clips": {
+    "source": {
+      "input_webm_sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+      "decoded_pcm_sha256": "9b3b4396d2be046105966901681c4beb22302bfafa7e60b98d8458118410a068",
+      "matches_run002_pcm": true,
+      "framehash": "source.framehash",
+      "frames": 210
+    },
+    "description-a": {
+      "input_webm_sha256": "d5a4a6040b16888f5d975591b78c0e48b418dadeb5b533b4e1b735a9692de8cd",
+      "decoded_pcm_sha256": "af699026c6a17526c6892ea4aeae4efc58e64e107b0bce558a22f98c140e8925",
+      "matches_run002_pcm": true,
+      "framehash": "description-a.framehash",
+      "frames": 240,
+      "tail_rms": 0.1686717459350165,
+      "peak": 21701,
+      "short_window_wave": "description-a-5.8-7.8.wav",
+      "short_window_asr": "description-a-5.8-7.8.json"
+    },
+    "description-b": {
+      "input_webm_sha256": "f780d9d334851788066668b8517e2f2fcfa9d043ec31e14bdfd34bfa160acd5c",
+      "decoded_pcm_sha256": "b7dd39744bf8bce2085cc60fea979c4d6ee9e1a3dba0dda29811119c302eca14",
+      "matches_run002_pcm": true,
+      "framehash": "description-b.framehash",
+      "frames": 240,
+      "tail_rms": 3.218845078999174e-06,
+      "peak": 1,
+      "short_window_wave": "description-b-5.8-7.8.wav",
+      "short_window_asr": "description-b-5.8-7.8.json"
+    }
+  },
+  "listening_performed": false,
+  "wcag_judgement": null
+}
