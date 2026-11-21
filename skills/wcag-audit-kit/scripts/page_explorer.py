@@ -14,6 +14,7 @@ from ledger_lock import run_lock
 from browser_capture import FOCUS, INVENTORY, ROOT, SOFTWARE_COMPOSITING, capture_image, normalize, page_id
 from input_observation import INIT_SCRIPT, InputObserver
 import border_contrast
+import disclosure_close
 import dialog_focus
 import focus_image_pair
 import focus_occlusion
@@ -359,6 +360,32 @@ def queue_state_actions(value, node, data, env, queued, done, *, quick=False, pa
         value['omitted_candidates'] = {key: count for key, count in omitted.items() if count}
 
 
+
+def queue_disclosure_close(value, edge, observation, queued, done, *, quick, max_depth):
+    path = edge['route'] + [{'type': 'press', 'selector': 'body', 'key': 'Escape'}]
+    env = edge['environment']
+    ident = json.dumps([env, path], sort_keys=True)
+    if ident in queued or ident in done:
+        return
+    if len(path) > (max_depth if quick else 30):
+        if quick:
+            omitted = value.setdefault('omitted_candidates', {})
+            omitted['depth'] = omitted.get('depth', 0) + 1
+        else:
+            value['remaining'].append(f'{env}：深さ30を超えるEscapeの追加検査が必要。')
+        return
+    if quick:
+        pending = sum(job['environment'] == env and bool(job['route']) and job['route'] != edge['route']
+                      for job in value['queue'])
+        if pending >= QUICK_PENDING_PER_ENVIRONMENT:
+            omitted = value.setdefault('omitted_candidates', {})
+            omitted['frontier'] = omitted.get('frontier', 0) + 1
+            return
+    value['queue'].append(dict(environment=env, route=path, keyboard_followup=True,
+                               disclosure_opener=observation['opener'], disclosure_panel=observation['panel']))
+    queued.add(ident)
+
+
 def status(run):
     import audit
     path=Path(run)/'exploration.json'
@@ -412,7 +439,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
         __file__, combobox.__file__, keyboard_checks.__file__, keyboard_frames.__file__,
         hover_checks.__file__, dialog_focus.__file__,
         focus_occlusion.__file__, focus_image_pair.__file__, border_contrast.__file__, text_paint.__file__,
-        visual_structure.__file__, operation_impact.__file__, ROOT/'vendor/axe.min.js')]
+        visual_structure.__file__, operation_impact.__file__, disclosure_close.__file__, ROOT/'vendor/axe.min.js')]
     implementation = sha256((SCRIPT + FOCUS + INVENTORY + INIT_SCRIPT + ''.join(sources)).encode()).hexdigest()
     initial_jobs = [{'environment': env['id'], 'route': []} for env in config['environments']]
     declared_jobs = {'keyboard_check': checks, 'hover_check': hover_paths,
@@ -559,6 +586,9 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                 key_effect = {}
                 before_operation = None
                 impact = None
+                disclosure_at_tab = None
+                close_record = {'before': None, 'after': None} if job.get('disclosure_opener') else None
+                escape_input = False
                 async def dismiss_dialog(dialog):
                     native_events.append({'type':dialog.type,'message':dialog.message,'action':'dismiss'})
                     await dialog.dismiss()
@@ -648,10 +678,23 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                     return [before, performance.timeOrigin];
                                 }""")
                                 operation_impact.compact(before_operation)
+                            closing = close_record is not None and action_index == len(route)
+                            if closing:
+                                before = await disclosure_close.observe(page, job['disclosure_opener'], expect_input=True)
+                                close_record['before'] = before
+                                if not disclosure_close.ready(before) or before['panel'] != job['disclosure_panel']:
+                                    raise ValueError('Escapeの前に同じ領域内のフォーカスを再現できない。')
+                                first_escape_event = len(observer.events)
                             observe_key = (action_index == len(route) and action['type'] == 'key'
                                            and (observe_combo or all(step['type'] in {'key', 'press'} for step in route)))
                             settling.append(await perform(page, action, observer=observer,
                                                          key_effect=key_effect if observe_key else None))
+                            if closing:
+                                await page.evaluate('() => { window.__wcagExpectedInputTarget = null; }')
+                                close_record['after'] = await disclosure_close.observe(page, job['disclosure_opener'])
+                                escape_input = any(event.get('expectedTargetMatched') is True
+                                                   and keyboard_checks.matching_keydown(event, 'Escape')
+                                                   for event in observer.events[first_escape_event:])
                             if dialog_observation:
                                 await dialog_observation.after(action_index, action)
                             if observe_combo:
@@ -673,6 +716,9 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         else:
                             data = await page.evaluate('() => window.__wcagExplore(true)')
                             operation_impact.compact(data)
+                        if (job.get('keyboard_followup') and len(route) >= 2 and route[-1]['type'] == 'press'
+                                and route[-1]['key'] == 'Tab' and route[-2]['type'] == 'key'):
+                            disclosure_at_tab = await disclosure_close.observe(page, route[-2]['selector'])
                         data['observation_wait']=settling
                         data['state_labels']=label_observations
                         inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
@@ -791,6 +837,9 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         or route[-1].get('key') in HORIZONTAL_TAB_ARROWS and not interrupted_reason
                     ):
                         edge['focus_after'] = data.get('deep_focus', data['focus']['selector'])
+                    if close_record is not None:
+                        disclosure_close.finish(close_record, quiet_key_route and escape_input)
+                        edge['disclosure_close'] = close_record
                     if unreachable_step is not None:
                         edge['keyboard_unreachable_step'] = unreachable_step
                     if combo_record is not None:
@@ -839,6 +888,9 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         else:
                             value['queue'].append(followup)
                         queued.add(ident)
+                if quiet_key_route and disclosure_close.ready(disclosure_at_tab):
+                    queue_disclosure_close(value, edge, disclosure_at_tab, queued, done,
+                                           quick=quick, max_depth=max_depth)
                 value['edges'].append(edge);value['steps']+=1
                 if route:
                     operation_counts[env['id']] += 1
