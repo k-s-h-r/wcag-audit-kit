@@ -1,6 +1,6 @@
 # T035 隣り合う小さなボタンの間隔を測る
 
-状態は実装、実測、独立レビューを完了。統合版 `5bb4a80` のURL起点の採点では、068の16×16 CSS pxのボタンと069の28×28 CSS pxのボタンの初期表示を両幅で取得した。寸法と間隔の機械結果が帳票に出ていなかった。変更後は068の2行を検出し、069の2行が正常対照に一致した。070の文中リンクは個別確認に残った。[検証結果](../../validation/development/T035/README.md) · [統合版の87行](../../validation/development/vision/run-001/machine-score.json)
+状態は実装、実測、独立レビューを完了し、ドラフトPRで提出。統合版 `5bb4a80` のURL起点の採点では、068の16×16 CSS pxのボタンと069の28×28 CSS pxのボタンの初期表示を両幅で取得した。寸法と間隔の機械結果が帳票に出ていなかった。変更後は068の2行を検出し、069の2行が正常対照に一致した。070の文中リンクは個別確認に残った。[PR #108](https://github.com/k-s-h-r/wcag-audit-kit/pull/108) · [検証結果](../../validation/development/T035/README.md) · [統合版の87行](../../validation/development/vision/run-001/machine-score.json)
 
 ## 作業と成果物
 
