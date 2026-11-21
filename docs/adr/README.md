@@ -93,3 +93,4 @@
 - [0089 検査の例と指摘をWCAGの達成基準につなぐ](0089-connect-vision-examples-to-wcag-criteria.md)
 - [0090 検査を頼む二つの目的を完成像に加える](0090-describe-two-audit-purposes-in-the-vision.md)
 - [0091 開発計画から完成像を参照する](0091-use-the-vision-memo-as-the-development-reference.md)
+- [0092 二つのモードと受け取りたい結果を一か所にまとめる](0092-align-audit-modes-and-outputs-in-the-vision.md)
