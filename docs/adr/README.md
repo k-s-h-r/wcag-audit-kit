@@ -104,3 +104,4 @@
 - [0099 操作のつまずきと改善を同じ経路で比べる](0099-pilot-process-accessibility-review.md)
 - [0100 本文の開閉ボタンへキーで戻って閉じる](0100-follow-accordion-keyboard-return.md)
 - [0101 ネイティブのモーダルを開いた状態は全体を再検査する](0101-recheck-whole-page-for-native-modal.md)
+- [0102 修正前後で同じ対象の検査結果を照合する](0102-compare-recorded-audit-revisions.md)

@@ -907,6 +907,11 @@ def main(argv=None):
     p.add_argument('--environment', required=True)
     p.add_argument('--page-exact', help='HTML参照に表示するバッチ内のURL')
     p.add_argument('--out', type=Path, help='ページ別の参照HTMLを新規出力する')
+    p = sub.add_parser('compare-reports', help='修正前後の検査票をページ・観測対象ごとに照合する')
+    p.add_argument('--before', required=True, type=Path, help='修正前の報告JSON')
+    p.add_argument('--after', required=True, type=Path, help='修正後の報告JSON')
+    p.add_argument('--criterion', choices=list(CRITERIA), help='表示する達成基準を選ぶ')
+    p.add_argument('--out', type=Path, help='元のrunとは別の新しい比較HTMLを出力する')
     from inspection import SCREENSHOT_LIMITS
     for name in ['page','page-audit']:
         p=sub.add_parser(name);p.add_argument('--url',required=True);p.add_argument('--out',required=True);p.add_argument('--config')
@@ -1001,6 +1006,12 @@ def main(argv=None):
                 from shared_contrast_report import export_page_html
                 path = export_page_html(args.batch, result, url=args.page_exact, out=args.out)
                 result = {'html': str(path)}
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 0
+        if args.command == 'compare-reports':
+            from revision_comparison import compare
+
+            result = compare(args.before, args.after, criterion=args.criterion, destination=args.out)
             print(json.dumps(result, ensure_ascii=False, indent=2))
             return 0
         if args.command in {'start','pages','page','page-audit'}:
