@@ -1,0 +1,109 @@
+{
+  "b7n": {
+    "adapter_error": null,
+    "adapter_status": "collected",
+    "announcement": false,
+    "artifact_directory": "b7n",
+    "calendar": "12月の空き状況\n12月19日 満席\n12月20日 空きあり",
+    "confirmation": "見学予約の確認\n\n12月20日。見学人数 2 名。\n\nここでは内容の確認まで行います。",
+    "correction_speech": [
+      "left shift",
+      "見学人数 entry 1 selected required.",
+      "invalid entry.",
+      "見学人数は2名以上を入力してください。",
+      "Focus mode"
+    ],
+    "environment": {
+      "audio_output": "ALSA null; speech transcript, no acoustic recording",
+      "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+      "browser": "Chromium",
+      "browser_version": "156.0.8078.79",
+      "debian_package": "48.1-1+deb13u2",
+      "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+      "installation_verified": true,
+      "kernel": "6.18.57",
+      "reader": "Orca",
+      "reader_version": "48.1",
+      "simulation": false,
+      "system": "Linux"
+    },
+    "error_role": "paragraph",
+    "error_screen_sha256": "3232114df079080046f02c427bf17ba3799945ebc9d950ef8b0b7747c08546fb",
+    "error_speech": [
+      "space"
+    ],
+    "error_visible": true,
+    "error_window": [
+      "2026-11-21T09:44:09.545458+00:00",
+      "2026-11-21T09:44:12.547857+00:00"
+    ],
+    "outcome": "failed",
+    "reason": "閉じたメニューから日付選択、エラー、入力修正、日付と人数の確認までを照合した。",
+    "review_speech": [
+      "予約内容を確認する button."
+    ],
+    "silence": true,
+    "speech_log_sha256": "8bd655eaa5060e0a5d670bd308b6f6a2ca4b8e66459fcb6a6ed92000859ff30b",
+    "valid": true,
+    "visited": [
+      "http://127.0.0.1:36029/b7n/",
+      "http://127.0.0.1:36029/b7n/dates.html",
+      "http://127.0.0.1:36029/b7n/guests.html?date=2026-12-20",
+      "http://127.0.0.1:36029/b7n/check.html?date=2026-12-20&people=2"
+    ]
+  },
+  "h2v": {
+    "adapter_error": null,
+    "adapter_status": "collected",
+    "announcement": true,
+    "artifact_directory": "h2v",
+    "calendar": "12月の空き状況\n12月19日 満席\n12月20日 空きあり",
+    "confirmation": "見学予約の確認\n\n12月20日。見学人数 2 名。\n\nここでは内容の確認まで行います。",
+    "correction_speech": [
+      "left shift",
+      "見学人数 entry 1 selected required.",
+      "invalid entry.",
+      "見学人数は2名以上を入力してください。",
+      "Focus mode"
+    ],
+    "environment": {
+      "audio_output": "ALSA null; speech transcript, no acoustic recording",
+      "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+      "browser": "Chromium",
+      "browser_version": "156.0.8078.79",
+      "debian_package": "48.1-1+deb13u2",
+      "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+      "installation_verified": true,
+      "kernel": "6.18.57",
+      "reader": "Orca",
+      "reader_version": "48.1",
+      "simulation": false,
+      "system": "Linux"
+    },
+    "error_role": "alert",
+    "error_screen_sha256": "3232114df079080046f02c427bf17ba3799945ebc9d950ef8b0b7747c08546fb",
+    "error_speech": [
+      "space",
+      "見学人数は2名以上を入力してください。"
+    ],
+    "error_visible": true,
+    "error_window": [
+      "2026-11-21T09:42:47.030439+00:00",
+      "2026-11-21T09:42:50.038891+00:00"
+    ],
+    "outcome": "passed",
+    "reason": "閉じたメニューから日付選択、エラー、入力修正、日付と人数の確認までを照合した。",
+    "review_speech": [
+      "予約内容を確認する button."
+    ],
+    "silence": false,
+    "speech_log_sha256": "fe2f4441293594eda3ad6efaf8a7ad1b36843dbffdbf0264c70a52185882fe3e",
+    "valid": true,
+    "visited": [
+      "http://127.0.0.1:36029/h2v/",
+      "http://127.0.0.1:36029/h2v/dates.html",
+      "http://127.0.0.1:36029/h2v/guests.html?date=2026-12-20",
+      "http://127.0.0.1:36029/h2v/check.html?date=2026-12-20&people=2"
+    ]
+  }
+}

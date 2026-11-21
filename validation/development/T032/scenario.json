@@ -1,0 +1,121 @@
+{
+  "actions": [
+    {
+      "type": "reader.nextHeading"
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "Return"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "Return"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "type": "reader.nextHeading"
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "Return"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "type": "reader.nextHeading"
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "1"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "KP_Enter"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "space"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "Shift_L",
+        "Tab"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "BackSpace"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "2"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "Tab"
+      ],
+      "type": "reader.press"
+    },
+    {
+      "keys": [
+        "space"
+      ],
+      "type": "reader.press"
+    }
+  ],
+  "locale": "ja-JP",
+  "observe": [
+    {
+      "selector": "main"
+    }
+  ],
+  "settle_ms": 3000,
+  "viewport": {
+    "height": 900,
+    "width": 1280
+  }
+}
