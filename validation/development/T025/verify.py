@@ -30,14 +30,18 @@ def serve():
             pass
 
         def do_GET(self):
-            passed = self.server.variant.get(urlsplit(self.path).path)
+            path = urlsplit(self.path).path
+            passed = self.server.variant.get(path)
             if passed is None:
                 self.send_error(404)
                 return
             color = '#161616' if passed else '#aaa'
+            locale_style = ('''<script>if (navigator.language === 'en-US') {
+                document.querySelector('#shared-help').style.color = '#161616';
+            }</script>''' if path == '/resolved' else '')
             content = ('<!doctype html><html lang="en"><meta charset="utf-8"><title>Contrast fixture</title>'
                        f'<style>body{{background:white}}#shared-help{{color:{color};font:16px sans-serif}}</style>'
-                       f'{NAV}</html>').encode()
+                       f'{NAV}{locale_style}</html>').encode()
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.send_header('Content-Length', str(len(content)))
@@ -54,7 +58,7 @@ def cli(*args, expected=0):
     return result
 
 
-def collect(directory, name, origin, variant, *, missing=()):
+def collect(directory, name, origin, variant, *, missing=(), locale=None):
     output = directory / name
     config = directory / f'{name}-config.json'
     write_json(config, {
@@ -62,6 +66,7 @@ def collect(directory, name, origin, variant, *, missing=()):
         'scope': {'mode': 'configured', 'pages': list(variant), 'max_pages': len(variant)},
         'environments': [{'id': 'desktop', 'viewport': {'width': 1280, 'height': 900}, 'zoom': 1}],
         'keyboard_steps': 0,
+        **({'locale': locale} if locale else {}),
     })
     cli('start', '--config', config, '--out', output)
     ledger = output / 'work'
@@ -131,6 +136,64 @@ class HtmlLinks(HTMLParser):
             self.files.add((self.directory / unquote(dict(attrs)['href'])).resolve())
 
 
+def compare_target(before, after):
+    result = json.loads(cli('compare-reports', '--before', before, '--after', after,
+                            '--criterion', CRITERION).stdout)
+    page = next(page for page in result['pages'] if urlsplit(page['url']).path == '/resolved')
+    return next(row for row in page['results'] if row.get('target') == TARGET)
+
+
+def verify_assessment_sources(out, before, after, report):
+    copied = out / 'after-record-copy'
+    shutil.copytree(after, copied)
+    historical = copied / 'data/earlier.json'
+    shutil.copyfile(copied / report, historical)
+    original = json.loads(historical.read_text())
+    cases = {urlsplit(case['page_url']).path: case for case in original['cases'] if case['criterion'] == CRITERION}
+    same_page, other_page = cases['/resolved'], cases['/continuing']
+    assessment = json.loads((out / 'after-resolved.json').read_text())
+    record_file = out / 'after-record-copy-input.json'
+
+    # The record command accepts this: case-level evidence is local, target evidence is foreign.
+    assessment['targets'][0]['evidence'] = [f'{other_page["evidence_dir"]}/axe.json']
+    write_json(record_file, assessment)
+    cli('record', '--run', copied, '--file', record_file)
+    cli('report', '--run', copied)
+    row = compare_target(before / report, copied / report)
+    assert row['status'] == 'unverified' and row['reason'] == 'evidence_unverified', row
+    assert compare_target(before / report, historical)['status'] == 'resolved'
+
+    # A target can use evidence explicitly attached to the same case, including relative aliases.
+    attached = cli('attach', '--run', copied, '--case', same_page['case_id'], '--file',
+                   after / 'work' / same_page['evidence_dir'] / 'axe.json').stdout.strip()
+    assessment['targets'][0]['evidence'] = ['./' + attached]
+    write_json(record_file, assessment)
+    cli('record', '--run', copied, '--file', record_file)
+    cli('report', '--run', copied)
+    row = compare_target(before / report, copied / report)
+    assert row['status'] == 'resolved', row
+    assert [item['href'] for item in row['after']['evidence']] == [(copied / 'work' / attached).as_uri()]
+
+    altered = copied / 'data/altered-assessment.json'
+    altered_case = next(case for case in original['cases'] if case['case_id'] == same_page['case_id'])
+    altered_case['assessment_data']['targets'][0]['outcome'] = 'failed'
+    write_json(altered, original)
+    check = cli('compare-reports', '--before', before / report, '--after', altered, expected=1)
+    assert '帳票の判定と元のrunの判定' in check.stderr
+    altered_case['assessment_data']['targets'][0]['outcome'] = 'passed'
+    altered_case['assessment'] = str(copied / 'work' / altered_case['assessment'])
+    write_json(altered, original)
+    check = cli('compare-reports', '--before', before / report, '--after', altered, expected=1)
+    assert '保存したrun内の判定ファイル' in check.stderr
+
+    catalog_path = copied / 'work/catalog.snapshot.json'
+    catalog = json.loads(catalog_path.read_text())
+    catalog['criteria'][0]['title'] = 'Changed in the copy'
+    write_json(catalog_path, catalog)
+    check = cli('compare-reports', '--before', before / report, '--after', historical, expected=1)
+    assert '検査定義のスナップショットが変更された' in check.stderr
+
+
 def verify(out):
     out = out.resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -139,8 +202,9 @@ def verify(out):
     try:
         server.variant = BEFORE
         before, old = collect(out, 'before', origin, BEFORE)
+        other_locale, locale_observation = collect(out, 'other-locale', origin, {'/resolved': True}, locale='en-US')
         server.variant = AFTER
-        after, new = collect(out, 'after', origin, AFTER, missing=('/pending',))
+        after, new = collect(out, 'after', origin, AFTER, missing=('/pending',), locale='ja-JP')
     finally:
         stop_server(server, worker)
 
@@ -189,6 +253,9 @@ def verify(out):
     altered_result = json.loads(cli('compare-reports', *altered_options).stdout)
     assert any(row.get('reason') == 'evidence_unverified' for page in altered_result['pages']
                if urlsplit(page['url']).path == '/resolved' for row in page['results'])
+    locale_row = compare_target(before / report, other_locale / report)
+    assert locale_row['status'] == 'unverified' and locale_row['reason'] == 'environment_changed', locale_row
+    verify_assessment_sources(out, before, after, report)
     assert (original_before, original_after) == (hashes(before), hashes(after))
 
     write_json(out / 'comparison.json', result)
@@ -201,6 +268,13 @@ def verify(out):
         'evidence_links_verified': len(proof), 'immutable_files': [len(original_before), len(original_after)],
         'reject_existing_output': True, 'reject_output_inside_input_run': True,
         'altered_evidence_is_unverified': True,
+        'locale': {'implicit_ja_JP_matches_explicit': True, 'en_US': locale_observation['/resolved'],
+                   'comparison': locale_row['status'], 'reason': locale_row['reason']},
+        'foreign_target_evidence_is_unverified': True,
+        'matching_case_attachment_is_accepted': True,
+        'historical_assessment_revision_is_accepted': True,
+        'altered_assessment_and_external_path_are_rejected': True,
+        'altered_catalog_is_rejected': True,
     })
 
 

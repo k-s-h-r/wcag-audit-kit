@@ -19,11 +19,11 @@ REASONS = {
     'missing_case': '同じURL・状態・環境・基準の検査票が片方にない',
     'missing_target': '同じ対象と期待結果の記録が片方にない',
     'missing_capture': '同じ画面を収集した記録を確認できない',
-    'environment_changed': '設定上の環境、ブラウザーの版、または遷移先が一致しない',
+    'environment_changed': '表示条件、ブラウザーの言語や版、または遷移先が一致しない',
     'state_changed': '状態を再現する設定が不明または一致しない',
     'auth_unverified': '保存された帳票から同じ認証状態か確認できない',
     'ambiguous_target': '同じ対象と期待結果の記録が重複している',
-    'evidence_unverified': '対象の証拠の所在とハッシュを確認できない',
+    'evidence_unverified': '同じ画面や検査票にひもづく対象の証拠とハッシュを確認できない',
     'judgment_unverified': '両方で通過または不適合を確定した記録が必要',
     'coverage_unverified': '検査票に未実施・判断保留・対象範囲の確認が残る',
     'unvisited': '帳票に未訪問として記録されている',
@@ -40,15 +40,16 @@ def _case_key(case):
 
 class Report:
     def __init__(self, path, criterion):
-        from audit import run_meta
+        from audit import run_catalog
 
         self.path = path.resolve()
         self.data = _read(self.path)
         if not isinstance(self.data, dict) or not isinstance(self.data.get('cases'), list):
             raise ValueError(f'検査票の報告JSONを指定する: {path}')
         self.run = (self.path.parent / unquote(self.data.get('evidence_base', '.'))).resolve()
-        meta = run_meta(self.run)
+        meta, catalog = run_catalog(self.run)
         self.config = meta['config']
+        self.locale = self.config.get('locale', 'ja-JP')
         self.level = self.data['level']
         self.catalog = self.data['catalog_digest']
         if self.catalog != meta['catalog_digest'] or self.level != self.config['level']:
@@ -57,6 +58,7 @@ class Report:
         self.states = {'initial': {}, **{item['id']: item for item in self.config.get('states', [])}}
         manifest = _read(self.run / 'capture-manifest.json')
         self.captures = {item['key']: item for item in manifest['captures']}
+        definitions = {item['id']: item['normative_sha256'] for item in catalog['criteria']}
         self.cases = {}
         for case in self.data['cases']:
             if criterion and case['criterion'] != criterion:
@@ -65,10 +67,15 @@ class Report:
             if key in self.cases:
                 raise ValueError(f'同じURL・状態・環境・基準の検査票が複数ある: {path}')
             assessment = case.get('assessment_data')
-            if assessment and (assessment['config_digest'] != meta['config_digest']
-                               or assessment['outcome'] != case['outcome']
-                               or assessment['case_id'] != case['case_id']):
-                raise ValueError(f'帳票の判定と元のrunの設定または検査票が一致しない: {path}')
+            if assessment is not None:
+                if (assessment['config_digest'] != meta['config_digest']
+                        or assessment['outcome'] != case['outcome']
+                        or assessment['case_id'] != case['case_id']
+                        or assessment['normative_sha256'] != definitions[case['criterion']]
+                        or assessment != self._stored_assessment(case)):
+                    raise ValueError(f'帳票の判定と元のrunの判定・設定・検査定義が一致しない: {case["case_id"]}')
+            elif case.get('assessment') or case['outcome'] != 'not_run':
+                raise ValueError(f'帳票に対応する判定データがない: {case["case_id"]}')
             self.cases[key] = case
         self.case_gaps = set()
         for ident in self.data.get('missing_cases', []):
@@ -82,6 +89,14 @@ class Report:
                           for item in self.data.get('unvisited', [])}
         self.checked_files = {}
 
+    def _stored_assessment(self, case):
+        # Reports keep the immutable revision they were rendered from, even after re-recording.
+        relative = Path(case.get('assessment') or '')
+        saved = (self.run / relative).resolve()
+        if relative.is_absolute() or '..' in relative.parts or not saved.is_relative_to(self.run / 'assessments'):
+            raise ValueError(f'保存したrun内の判定ファイルを指定する: {case["case_id"]}')
+        return _read(saved)
+
     def capture(self, case):
         item = self.captures.get(case['capture'], {})
         if (item.get('url'), item.get('state'), item.get('environment')) != _case_key(case)[:3]:
@@ -91,22 +106,30 @@ class Report:
             return {}
         return item
 
-    def evidence(self, target, assessment):
+    def evidence(self, case, target, assessment):
         from audit import evidence_item
 
         proof = {item['path']: item['sha256'] for item in assessment.get('verified_evidence', [])}
         paths = list(dict.fromkeys(target.get('evidence', [])))
+        own_directories = [self.run / 'evidence' / 'attached' / case['case_id']]
+        capture = self.capture(case)
+        if capture.get('evidence_dir'):
+            own_directories.append(self.run / capture['evidence_dir'])
         links = []
+        has_own_evidence = False
         for path in paths:
             if path not in self.checked_files:
                 try:
-                    self.checked_files[path] = evidence_item(self.run, path)['sha256']
+                    self.checked_files[path] = evidence_item(self.run, path)
                 except (ValueError, OSError):
                     self.checked_files[path] = None
-            if path not in proof or not proof[path] or self.checked_files[path] != proof[path]:
+            item = self.checked_files[path]
+            if not item or proof.get(item['path']) != item['sha256']:
                 continue
-            links.append({'href': (self.run / path).resolve().as_uri(), 'sha256': proof[path]})
-        return links, bool(paths) and len(links) == len(paths)
+            verified = self.run / item['path']
+            has_own_evidence = has_own_evidence or any(verified.is_relative_to(directory) for directory in own_directories)
+            links.append({'href': verified.as_uri(), 'sha256': item['sha256']})
+        return links, has_own_evidence and len(links) == len(paths)
 
     def coverage(self):
         return {key: self.data[key] for key in
@@ -129,6 +152,7 @@ def _context_issue(before, after, key, old_case, new_case):
     if not old_capture or not new_capture:
         return 'missing_capture'
     if (environment not in before.environments or before.environments[environment] != after.environments.get(environment)
+            or before.locale != after.locale
             or not old_capture.get('browser_version') or old_capture['browser_version'] != new_capture.get('browser_version')
             or not old_capture.get('final_url') or old_capture['final_url'] != new_capture.get('final_url')):
         return 'environment_changed'
@@ -142,11 +166,11 @@ def _targets(assessment):
     return values
 
 
-def _side(report, candidates, assessment):
+def _side(report, case, candidates, assessment):
     if len(candidates) != 1:
         return {'outcome': 'ambiguous' if candidates else 'missing', 'evidence': []}, False
     target = candidates[0]
-    links, complete = report.evidence(target, assessment)
+    links, complete = report.evidence(case, target, assessment)
     return {'outcome': target['outcome'], 'observed': target['observed'], 'evidence': links}, complete
 
 
@@ -167,14 +191,13 @@ def _case_changes(before, after, key):
     old = (old_case or {}).get('assessment_data') or {}
     new = (new_case or {}).get('assessment_data') or {}
     issue = _context_issue(before, after, key, old_case, new_case)
-    norm_matches = old.get('normative_sha256') and old['normative_sha256'] == new.get('normative_sha256')
     execution_complete = old.get('execution') == new.get('execution') == 'completed'
     final_outcomes = {'passed', 'failed'}
     judgments_recorded = {old.get('outcome'), new.get('outcome')}.issubset(final_outcomes)
     old_targets, new_targets = _targets(old), _targets(new)
     for target, expected in sorted(old_targets.keys() | new_targets.keys()):
-        left, left_evidence = _side(before, old_targets.get((target, expected), []), old)
-        right, right_evidence = _side(after, new_targets.get((target, expected), []), new)
+        left, left_evidence = _side(before, old_case, old_targets.get((target, expected), []), old)
+        right, right_evidence = _side(after, new_case, new_targets.get((target, expected), []), new)
         outcomes = left['outcome'], right['outcome']
         reason = issue
         if not reason:
@@ -182,7 +205,7 @@ def _case_changes(before, after, key):
                 reason = 'ambiguous_target'
             elif 'missing' in outcomes:
                 reason = 'missing_target'
-            elif not (norm_matches and execution_complete and judgments_recorded and set(outcomes) <= final_outcomes):
+            elif not (execution_complete and judgments_recorded and set(outcomes) <= final_outcomes):
                 reason = 'judgment_unverified'
             elif not (left_evidence and right_evidence):
                 reason = 'evidence_unverified'
