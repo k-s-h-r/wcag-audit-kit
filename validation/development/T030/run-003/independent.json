@@ -1,0 +1,352 @@
+[
+  {
+    "page": "039",
+    "environment": "desktop",
+    "state": "opened",
+    "result": "passed",
+    "route": [
+      {
+        "selector": "#open",
+        "type": "key",
+        "key": "Enter"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Escape"
+      }
+    ],
+    "actions": [
+      "Enter",
+      "Escape"
+    ],
+    "final_focus": "#open",
+    "proof": "pages/039/page/work/evidence/4f2b688341ab--explore-7b0fc03d7909--desktop/dialog-focus.json"
+  },
+  {
+    "page": "039",
+    "environment": "narrow",
+    "state": "opened",
+    "result": "passed",
+    "route": [
+      {
+        "selector": "#open",
+        "type": "key",
+        "key": "Enter"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Escape"
+      }
+    ],
+    "actions": [
+      "Enter",
+      "Escape"
+    ],
+    "final_focus": "#open",
+    "proof": "pages/039/page/work/evidence/4f2b688341ab--explore-93f57a2f0cb2--narrow/dialog-focus.json"
+  },
+  {
+    "page": "040",
+    "environment": "desktop",
+    "state": "opened",
+    "result": "failed",
+    "route": [
+      {
+        "selector": "#open",
+        "type": "key",
+        "key": "Enter"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Escape"
+      }
+    ],
+    "actions": [
+      "Enter",
+      "Escape",
+      "Escape",
+      "Tab",
+      "Tab",
+      "Shift+Tab",
+      "Shift+Tab",
+      "ArrowDown",
+      "ArrowUp",
+      "ArrowLeft",
+      "ArrowRight",
+      "Enter",
+      "Space",
+      "Backspace",
+      "click"
+    ],
+    "final_focus": "#open",
+    "proof": "pages/040/page/work/evidence/1c231d101aaa--explore-3e7d8e7640d7--desktop/dialog-focus.json"
+  },
+  {
+    "page": "040",
+    "environment": "narrow",
+    "state": "opened",
+    "result": "failed",
+    "route": [
+      {
+        "selector": "#open",
+        "type": "key",
+        "key": "Enter"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Escape"
+      }
+    ],
+    "actions": [
+      "Enter",
+      "Escape",
+      "Escape",
+      "Tab",
+      "Tab",
+      "Shift+Tab",
+      "Shift+Tab",
+      "ArrowDown",
+      "ArrowUp",
+      "ArrowLeft",
+      "ArrowRight",
+      "Enter",
+      "Space",
+      "Backspace",
+      "click"
+    ],
+    "final_focus": "#open",
+    "proof": "pages/040/page/work/evidence/1c231d101aaa--explore-843bee912e1a--narrow/dialog-focus.json"
+  },
+  {
+    "page": "064",
+    "environment": "desktop",
+    "state": "button-close-click",
+    "result": "failed",
+    "route": [
+      {
+        "selector": "#launch",
+        "type": "click"
+      },
+      {
+        "selector": "#dismiss",
+        "type": "click"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Tab"
+      }
+    ],
+    "actions": [
+      "click",
+      "click",
+      "Tab"
+    ],
+    "final_focus": "#earlier",
+    "proof": "pages/064/page/work/evidence/f9cab587fb94--explore-912229a677a9--desktop/dialog-focus.json"
+  },
+  {
+    "page": "064",
+    "environment": "narrow",
+    "state": "button-close-click",
+    "result": "failed",
+    "route": [
+      {
+        "selector": "#launch",
+        "type": "click"
+      },
+      {
+        "selector": "#dismiss",
+        "type": "click"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Tab"
+      }
+    ],
+    "actions": [
+      "click",
+      "click",
+      "Tab"
+    ],
+    "final_focus": "#earlier",
+    "proof": "pages/064/page/work/evidence/f9cab587fb94--explore-832eceb439e7--narrow/dialog-focus.json"
+  },
+  {
+    "page": "064",
+    "environment": "desktop",
+    "state": "button-close-enter",
+    "result": "failed",
+    "route": [
+      {
+        "selector": "#launch",
+        "type": "click"
+      },
+      {
+        "selector": "#dismiss",
+        "type": "key",
+        "key": "Enter"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Tab"
+      }
+    ],
+    "actions": [
+      "click",
+      "Enter",
+      "Tab"
+    ],
+    "final_focus": "#earlier",
+    "proof": "pages/064/page/work/evidence/f9cab587fb94--explore-c2b92a4a4dc2--desktop/dialog-focus.json"
+  },
+  {
+    "page": "064",
+    "environment": "narrow",
+    "state": "button-close-enter",
+    "result": "failed",
+    "route": [
+      {
+        "selector": "#launch",
+        "type": "click"
+      },
+      {
+        "selector": "#dismiss",
+        "type": "key",
+        "key": "Enter"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Tab"
+      }
+    ],
+    "actions": [
+      "click",
+      "Enter",
+      "Tab"
+    ],
+    "final_focus": "#earlier",
+    "proof": "pages/064/page/work/evidence/f9cab587fb94--explore-bdb47aa10b71--narrow/dialog-focus.json"
+  },
+  {
+    "page": "065",
+    "environment": "desktop",
+    "state": "button-close-click",
+    "result": "passed",
+    "route": [
+      {
+        "selector": "#launch",
+        "type": "click"
+      },
+      {
+        "selector": "#dismiss",
+        "type": "click"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Tab"
+      }
+    ],
+    "actions": [
+      "click",
+      "click",
+      "Tab"
+    ],
+    "final_focus": "#next",
+    "proof": "pages/065/page/work/evidence/85473ec0b045--explore-df41e5a4a7ba--desktop/dialog-focus.json"
+  },
+  {
+    "page": "065",
+    "environment": "narrow",
+    "state": "button-close-click",
+    "result": "passed",
+    "route": [
+      {
+        "selector": "#launch",
+        "type": "click"
+      },
+      {
+        "selector": "#dismiss",
+        "type": "click"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Tab"
+      }
+    ],
+    "actions": [
+      "click",
+      "click",
+      "Tab"
+    ],
+    "final_focus": "#next",
+    "proof": "pages/065/page/work/evidence/85473ec0b045--explore-50d15294e208--narrow/dialog-focus.json"
+  },
+  {
+    "page": "065",
+    "environment": "desktop",
+    "state": "button-close-enter",
+    "result": "passed",
+    "route": [
+      {
+        "selector": "#launch",
+        "type": "click"
+      },
+      {
+        "selector": "#dismiss",
+        "type": "key",
+        "key": "Enter"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Tab"
+      }
+    ],
+    "actions": [
+      "click",
+      "Enter",
+      "Tab"
+    ],
+    "final_focus": "#next",
+    "proof": "pages/065/page/work/evidence/85473ec0b045--explore-d03899f86f33--desktop/dialog-focus.json"
+  },
+  {
+    "page": "065",
+    "environment": "narrow",
+    "state": "button-close-enter",
+    "result": "passed",
+    "route": [
+      {
+        "selector": "#launch",
+        "type": "click"
+      },
+      {
+        "selector": "#dismiss",
+        "type": "key",
+        "key": "Enter"
+      },
+      {
+        "type": "press",
+        "selector": "body",
+        "key": "Tab"
+      }
+    ],
+    "actions": [
+      "click",
+      "Enter",
+      "Tab"
+    ],
+    "final_focus": "#next",
+    "proof": "pages/065/page/work/evidence/85473ec0b045--explore-d6f163ddedd4--narrow/dialog-focus.json"
+  }
+]

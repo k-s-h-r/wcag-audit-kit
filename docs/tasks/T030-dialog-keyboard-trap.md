@@ -6,7 +6,7 @@
 
 通常の `page-audit` に、キーボードだけでダイアログを開いた経路からの離脱を記録する。観察したキーで離脱できた対照と、試したキーでは同じ入力欄に留まりマウスでは離脱できた対照を、両画面幅で比較する。[ADR 0109](../adr/0109-observe-keyboard-exits-in-a-dialog.md)
 
-全76ページの途中測定で、閉じるボタンをEnterで押す従来の経路が探索上限に達した。入力欄が最初にフォーカスされる対象に探索順の変更を絞り、4ページの操作と帳票を再測定する。[途中測定の差分](../../validation/development/T030/run-002/comparison.json) · [ADR 0115](../adr/0115-limit-modal-exit-priority-to-input-dialogs.md)
+全76ページの途中測定で、閉じるボタンをEnterで押す従来の経路が探索上限に達した。入力欄が最初にフォーカスされる対象に探索順の変更を絞った。修正版の76ページ・87行では、問題の検出と正常例の一致が各1行増え、従来確認できた経路を維持した。[途中測定の差分](../../validation/development/T030/run-002/comparison.json) · [修正版の差分](../../validation/development/T030/run-003/comparison.json) · [ADR 0115](../adr/0115-limit-modal-exit-priority-to-input-dialogs.md)
 
 ## 完了条件と確認
 

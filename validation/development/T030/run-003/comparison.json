@@ -1,0 +1,67 @@
+{
+  "base_commit": "bf883dcbfa187bf821e72d8ff0855dcb4b23191c",
+  "implementation_commit": "88cdc05c74f5e5a361d6a78b26b8cae54e33f4ee",
+  "corpus_digest": "b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206",
+  "completed_pages": 76,
+  "rows_compared": 87,
+  "collection_errors": 0,
+  "row_changes_against_base": [
+    {
+      "page_id": "039",
+      "criterion": "2.1.2",
+      "case": "c01",
+      "page": "p01.html",
+      "state": "opened",
+      "target": "#panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "passed",
+      "before": "observed_no_verdict",
+      "after": "matched"
+    },
+    {
+      "page_id": "040",
+      "criterion": "2.1.2",
+      "case": "c02",
+      "page": "p02.html",
+      "state": "opened",
+      "target": "#panel",
+      "checkpoint": "2.1.2-02",
+      "expected": "failed",
+      "before": "observed_no_verdict",
+      "after": "detected"
+    }
+  ],
+  "restored_rows_against_run_002": [
+    {
+      "page_id": "064",
+      "criterion": "2.4.3",
+      "case": "c09",
+      "page": "p09.html",
+      "state": "button-close-enter",
+      "target": "#launch",
+      "checkpoint": "2.4.3-02",
+      "expected": "failed",
+      "before": "state_or_route_unobserved",
+      "after": "detected"
+    },
+    {
+      "page_id": "065",
+      "criterion": "2.4.3",
+      "case": "c10",
+      "page": "p10.html",
+      "state": "button-close-enter",
+      "target": "#launch",
+      "checkpoint": "2.4.3-02",
+      "expected": "passed",
+      "before": "state_or_route_unobserved",
+      "after": "matched"
+    }
+  ],
+  "unchanged_unmatched_findings": 14,
+  "proof_archive": {
+    "path": "dialog-evidence.zip",
+    "files": 633,
+    "sha256": "7ec77aaf87371adbfdffb2b42f9678108d6b4e954c0f7a62621e83f473d31e61"
+  },
+  "raw_collection": "/workspace/wcag-audit-work/evidence/t030/full-regression-narrowed"
+}
