@@ -28,6 +28,6 @@ CSSで現れる領域、外部ラベル、離れたポップアップ、ネイ�
 
 ## aria-controls 参照先の再検査
 
-公開統合版 `5bb4a80` では、非表示の参照先を追加・除去しても、簡易探索は操作後を初期と同じ状態と判定した。参照が解決できる元とIDを探索状態に含めると、追加と除去は両画面幅で操作後を別に検査した。追加後はaxeで通過、除去後は違反となり、全文書検査と一致した。同じ参照先を別領域へ移した対照では、初期の結果を再利用した。[ADR 0118](../adr/0118-distinguish-resolved-aria-controls-references.md) · [通常CLIの測定と原始証拠](../../validation/development/T019/reference-recheck/README.md)
+公開統合版 `5bb4a80` では、非表示の参照先を追加・除去しても、簡易探索は操作後を初期と同じ状態と判定した。参照が解決できる元とIDを探索状態に含めると、追加と除去は両画面幅で操作後を別に検査した。追加後はaxeで通過、除去後は違反となり、全文書検査と一致した。同じ参照先を別領域へ移した対照では、初期の結果を再利用した。[PR #107](https://github.com/k-s-h-r/wcag-audit-kit/pull/107) · [ADR 0118](../adr/0118-distinguish-resolved-aria-controls-references.md) · [通常CLIの測定と原始証拠](../../validation/development/T019/reference-recheck/README.md)
 
 再検査量は、値の妥当性を各幅9対象、従来の結果の再利用をARIA属性名9対象・`tabindex` 8対象で確認した。値の妥当性は全文書の結果を使う。今回の試験は `aria-controls` の参照先の有無と移動が対象で、別の参照属性や複数の同じIDが文書内にある場合は個別に確かめる。
