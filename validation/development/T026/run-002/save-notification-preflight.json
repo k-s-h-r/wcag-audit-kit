@@ -1,0 +1,150 @@
+{
+  "status": "reproduced",
+  "observations": {
+    "p04.html": {
+      "announcement_observed": true,
+      "fixture_sha256": "6f97d0ad39741668ad38e7fe0c9dd225bae15dcbd3a9cc65650c7459f26d4646",
+      "adapter_status": "collected",
+      "error": null,
+      "environment": {
+        "system": "Linux",
+        "kernel": "6.18.57",
+        "reader": "Orca",
+        "reader_version": "48.1",
+        "debian_package": "48.1-1+deb13u2",
+        "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+        "audio_output": "ALSA null; speech transcript, no acoustic recording",
+        "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+        "installation_verified": true,
+        "simulation": false,
+        "browser": "Chromium",
+        "browser_version": "156.0.8078.79"
+      },
+      "visible_text": [
+        "待機中",
+        "待機中",
+        "待機中",
+        "待機中",
+        "保存しました"
+      ],
+      "speech": [
+        [],
+        [
+          "escape"
+        ],
+        [
+          "保存する button."
+        ],
+        [
+          "保存する button."
+        ],
+        [
+          "space",
+          "保存しました"
+        ]
+      ],
+      "focus": [
+        {
+          "tag": "body",
+          "id": "",
+          "documentHasFocus": true
+        },
+        {
+          "tag": "body",
+          "id": "",
+          "documentHasFocus": true
+        },
+        {
+          "tag": "button",
+          "id": "save",
+          "documentHasFocus": true
+        },
+        {
+          "tag": "button",
+          "id": "save",
+          "documentHasFocus": true
+        },
+        {
+          "tag": "button",
+          "id": "save",
+          "documentHasFocus": true
+        }
+      ],
+      "valid": true
+    },
+    "p03.html": {
+      "announcement_observed": false,
+      "fixture_sha256": "7b62705f915e8c5847df9eba8788c9850ecc9a3a74325fb39d78e8640e44768d",
+      "adapter_status": "collected",
+      "error": null,
+      "environment": {
+        "system": "Linux",
+        "kernel": "6.18.57",
+        "reader": "Orca",
+        "reader_version": "48.1",
+        "debian_package": "48.1-1+deb13u2",
+        "backend": "native Debian Orca / AT-SPI; independent of Guidepup",
+        "audio_output": "ALSA null; speech transcript, no acoustic recording",
+        "debug_capture": "private PTY, unmodified Orca; UTC timestamps",
+        "installation_verified": true,
+        "simulation": false,
+        "browser": "Chromium",
+        "browser_version": "156.0.8078.79"
+      },
+      "visible_text": [
+        "待機中",
+        "待機中",
+        "待機中",
+        "待機中",
+        "保存しました"
+      ],
+      "speech": [
+        [
+          "Finished loading 利用案内.",
+          "Page has 1 landmark, 1 heading."
+        ],
+        [
+          "escape"
+        ],
+        [
+          "保存する button."
+        ],
+        [
+          "保存する button."
+        ],
+        [
+          "space"
+        ]
+      ],
+      "focus": [
+        {
+          "tag": "body",
+          "id": "",
+          "documentHasFocus": true
+        },
+        {
+          "tag": "body",
+          "id": "",
+          "documentHasFocus": true
+        },
+        {
+          "tag": "button",
+          "id": "save",
+          "documentHasFocus": true
+        },
+        {
+          "tag": "button",
+          "id": "save",
+          "documentHasFocus": true
+        },
+        {
+          "tag": "button",
+          "id": "save",
+          "documentHasFocus": true
+        }
+      ],
+      "valid": true
+    }
+  },
+  "wcag_judgement": null
+}
