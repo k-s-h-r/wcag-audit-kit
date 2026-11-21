@@ -1,6 +1,6 @@
 # T031 操作中の別オリジンへの通信を実測する
 
-状態は、統合版 `5bb4a80` から分岐した作業ブランチでローカル対照の計測を完了。前提は[T019](T019-post-operation-rechecks.md)と[統合版の検証](../../validation/development/vision/README.md)。[Issue #82](https://github.com/k-s-h-r/wcag-audit-kit/issues/82)
+状態は、統合版 `5bb4a80` から分岐した作業ブランチでローカル対照の計測を完了。[PR #99](https://github.com/k-s-h-r/wcag-audit-kit/pull/99)で提出。前提は[T019](T019-post-operation-rechecks.md)と[統合版の検証](../../validation/development/vision/README.md)。[Issue #82](https://github.com/k-s-h-r/wcag-audit-kit/issues/82)
 
 [VISION](../VISION.md)の手続きを本番相当の環境へ広げるには、許可した範囲から外への通信と、通信制限で確認できなくなった動作を把握する必要がある。通常の自動探索が書き込みメソッド、WebSocket、別文書への移動をどう扱うかを出発点に、別オリジンへの読取通信が受信側に届くかを測る。
 
