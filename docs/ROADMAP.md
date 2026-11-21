@@ -61,3 +61,5 @@ AI環境から[4スキル](SKILL-DESIGN.md)を呼び出す。補助CLIは操作�
 ## 新しいセッションへ引き継ぐとき
 
 [AGENTS.md](../AGENTS.md)、[VISION](VISION.md)、[担当タスク](tasks/README.md)を読み、次の一手を選ぶ。「進めて」では[wcag-dev](../.agents/skills/wcag-dev/SKILL.md)で1作業単位をPRまで進める。各PRでは担当タスクへ実行内容、完了根拠、未確認事項、次の一手を記録する。中断時は途中のrunと再開条件を残す。
+
+複数の作業を続けて任せる場合は、完了条件を指定して始める。URLからの操作発見、適合の結論、アクセシビリティ点検をどの証拠で実証するかをまとめている。[長期開発の手順](DEVELOPMENT-GOAL.md)

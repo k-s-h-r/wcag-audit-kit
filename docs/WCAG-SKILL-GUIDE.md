@@ -172,6 +172,8 @@ flowchart TD
 
 「進めて」と依頼すると、同じ目的の未完了作業を優先します。後続タスクの整理が必要なら `wcag-dev-tasks` の手順を読み、記録を整えます。PRのマージには別の指示が必要です。 [wcag-dev の実行手順](../.agents/skills/wcag-dev/SKILL.md)
 
+複数の作業を任せる場合は、Codexで長期ゴールを明示します。完了条件に達するまで、着手できる次の作業へ進みます。[長期開発の手順](DEVELOPMENT-GOAL.md)
+
 ## wcag-dev-tasks は追加・分割・統合するタスクと、その開始条件を決める
 
 ```mermaid
