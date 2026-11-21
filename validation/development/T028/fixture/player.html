@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saving a document</title>
+<style>
+  body { margin: 2rem; font: 20px/1.45 sans-serif; }
+  video { display: block; width: 640px; max-width: 100%; }
+  button { margin: .5rem .5rem .5rem 0; padding: .5rem; font: inherit; }
+  :focus-visible { outline: 4px solid #005bba; outline-offset: 4px; }
+</style>
+<main>
+  <h1>Saving a document</h1>
+  <video id="clip" preload="auto">
+    <source src="$video" type="video/webm">
+    <track kind="captions" src="good.vtt" srclang="en" label="English">
+  </video>
+  <button id="play" type="button">Play video</button>
+  <button id="captions" type="button" aria-pressed="false">Captions</button>
+  <span id="caption-state">Off</span>
+  $transcript
+</main>
+<script src="player.js"></script>
+</html>
