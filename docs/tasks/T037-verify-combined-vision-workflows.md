@@ -1,6 +1,6 @@
 # T037 追加した検査と検査票の根拠を同じ版で照合する
 
-状態は、試験用の組み合わせで代表例の通常CLIと独立レビューを完了し、76ページ・87行を再測定済み。問題12/39行の検出と対照19/48行の一致を確認した。[VISION](../VISION.md)の操作、証拠をたどる検査票、操作後の再検査を、同じ配布用スキルで確認した。[統合版の結果](../../validation/development/vision-follow-up/README.md)
+状態は、試験用の組み合わせで代表例の通常CLIと独立レビューを完了し、76ページ・87行を再測定してドラフトPRで提出。問題12/39行の検出と対照19/48行の一致を確認した。[VISION](../VISION.md)の操作、証拠をたどる検査票、操作後の再検査を、同じ配布用スキルで確認した。[PR #111](https://github.com/k-s-h-r/wcag-audit-kit/pull/111) · [統合版の結果](../../validation/development/vision-follow-up/README.md)
 
 ## 作業と成果物
 
