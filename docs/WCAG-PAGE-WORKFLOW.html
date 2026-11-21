@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>wcag-page の動作を追う</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;display=swap">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172b36;
+      --muted: #435b66;
+      --accent: #075b56;
+      --accent-soft: #e4f2ec;
+      --note: #7d4917;
+      --note-soft: #fbf0df;
+      --line: #c8d5d2;
+      --paper: #fcfdfb;
+      --panel: #f3f7f3;
+      --code: #173c47;
+      font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.75;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--paper); }
+    a { color: var(--accent); text-underline-offset: .18em; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 3px solid #a25110; outline-offset: 4px; }
+    code, kbd { font: .94em ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
+    code { color: var(--code); }
+    kbd { padding: .06em .32em; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; background: white; white-space: nowrap; }
+    p { margin: .65rem 0; }
+    h1, h2 { margin: 0; line-height: 1.38; text-wrap: pretty; }
+    h1 { font-size: clamp(2rem, 5.5vw, 4.1rem); letter-spacing: -.055em; }
+    h2 { font-size: clamp(1.35rem, 3vw, 2.1rem); letter-spacing: -.035em; }
+    ul, ol { padding-inline-start: 1.4rem; }
+    li + li { margin-top: .32rem; }
+
+    .skip {
+      position: absolute; inset: .75rem auto auto .75rem; z-index: 3;
+      transform: translateY(-180%);
+      color: var(--ink); background: white; padding: .5rem .85rem;
+    }
+    .skip:focus { transform: translateY(0); }
+    .hero { color: #f5faf6; background: #173b40; }
+    .hero-inner {
+      max-width: 76rem; padding: clamp(2.2rem, 5vw, 4.5rem) clamp(1rem, 4vw, 3.25rem); margin: auto;
+      border-bottom: 5px solid #97c7a7;
+    }
+    .hero p { max-width: 54rem; margin: 1.05rem 0 0; font-size: clamp(1rem, 1.8vw, 1.2rem); }
+    .hero .edition { margin-top: 1.25rem; font-size: .86rem; color: #dae9e0; }
+    .hero a, .hero code { color: #e3f5e9; }
+    .edition a { margin-inline-start: .25em; }
+
+    .layout {
+      display: grid; grid-template-columns: 12.5rem minmax(0, 1fr);
+      gap: clamp(1.5rem, 4vw, 3.25rem); max-width: 76rem; margin: auto;
+      padding: 2.2rem clamp(1rem, 4vw, 3.25rem) 4rem;
+    }
+    .toc { align-self: start; position: sticky; top: 1.2rem; border-left: 2px solid var(--line); padding-left: 1.1rem; }
+    .toc h2 { font-size: .87rem; margin-bottom: .45rem; letter-spacing: .06em; }
+    .toc ul { list-style: none; margin: 0; padding: 0; }
+    .toc a { display: inline-block; padding: .23rem 0; font-size: .91rem; color: var(--muted); }
+    main { min-width: 0; }
+    section { scroll-margin-top: 1.1rem; padding-bottom: 2.25rem; }
+    section + section { padding-top: 2.25rem; border-top: 1px solid var(--line); }
+    .refs { color: var(--muted); font-size: .84rem; margin-top: .9rem; }
+    .refs a + a { margin-left: .6em; }
+
+    figure { margin: 1.15rem 0 .75rem; overflow-wrap: anywhere; }
+    .diagram { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); padding: clamp(.75rem, 2.2vw, 1.25rem); }
+    figcaption { margin-top: .8rem; color: var(--muted); font-size: .93rem; }
+    .flow {
+      display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
+      list-style: none; padding: 0; margin: 0; gap: 1.75rem; align-items: stretch;
+    }
+    .flow li, .node { position: relative; margin: 0; min-width: 0; }
+    .node, .flow li {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: .62rem .72rem; min-height: 4rem; border: 1px solid var(--line);
+      border-radius: 7px; background: white; font-weight: 700; line-height: 1.45; font-size: .95rem;
+    }
+    .node small, .flow small { margin-top: .25rem; color: var(--muted); font-size: .81rem; font-weight: 500; }
+    .node.saved, .flow .saved { background: var(--accent-soft); border-color: #75a99a; }
+    .flow li + li::before, .flow li + li::after { content: ""; position: absolute; top: 50%; }
+    .flow li + li::before { left: -1.6rem; width: 1.28rem; border-top: 2px solid #53746f; }
+    .flow li + li::after { left: -.66rem; width: .49rem; height: .49rem; border-top: 2px solid #53746f; border-right: 2px solid #53746f; transform: translateY(-42%) rotate(45deg); }
+    .flow li.response::before { border-top-style: dashed; }
+    .diagram-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: .65rem; align-items: start; margin: .55rem 0; }
+    .branch-title { margin: .6rem 0 .4rem; color: var(--muted); font-size: .88rem; }
+    .branches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; }
+    .branches > div { border-top: 2px solid #6b8f86; padding-top: .45rem; }
+    .diagram .branches { position: relative; margin-top: 1.65rem; }
+    .diagram .branches::before { content: ""; position: absolute; left: 50%; top: -1.65rem; height: 1.65rem; border-left: 2px solid #6b8f86; }
+    .diagram .branch-source { max-width: 22rem; margin: 0 auto; text-align: center; }
+    .branch .node { height: 100%; }
+    .branch kbd { align-self: start; }
+    .compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+    .compare > div { padding: .65rem .7rem; border-radius: 8px; border: 1px solid var(--line); background: white; }
+    .compare strong { display: block; color: var(--accent); font-size: .96rem; }
+    .compare p { margin: .4rem 0 0; font-size: .89rem; }
+    .compare code { overflow-wrap: anywhere; }
+
+    details { margin: 1rem 0; border: 1px solid var(--line); border-radius: 8px; background: white; }
+    summary { cursor: pointer; padding: .74rem .9rem; font-weight: 700; color: var(--accent); }
+    .detail { padding: 0 .9rem .85rem; }
+    .detail > :first-child { margin-top: 0; }
+    .table-wrap { margin: .9rem 0; max-width: 100%; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: white; font-size: .92rem; }
+    caption { text-align: left; font-weight: 700; margin-bottom: .35rem; }
+    th, td { text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); padding: .58rem .65rem; }
+    thead th { background: var(--accent-soft); }
+    tbody th { color: var(--ink); font-weight: 700; min-width: 6rem; }
+    pre {
+      background: #173b40; color: #f5faf6; padding: .85rem 1rem; border-radius: 7px;
+      white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.55; margin: .75rem 0;
+    }
+    pre code { color: inherit; }
+    .note { border-left: 3px solid #a77339; background: var(--note-soft); padding: .65rem .85rem; margin: .95rem 0; font-size: .94rem; }
+    footer { color: var(--muted); font-size: .88rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+
+    @media (max-width: 970px) {
+      .layout { grid-template-columns: minmax(0, 1fr); gap: 1.7rem; }
+      .toc { position: static; }
+      .toc ul { display: flex; flex-wrap: wrap; column-gap: 1rem; }
+      .toc li + li { margin-top: 0; }
+    }
+    @media (max-width: 610px) {
+      .layout { padding-top: 1.35rem; }
+      .flow { grid-auto-flow: row; grid-auto-columns: unset; grid-template-columns: minmax(0, 1fr); gap: 1.45rem; }
+      .flow li + li::before, .flow li + li::after { top: auto; left: 50%; }
+      .flow li + li::before { bottom: 100%; height: 1.25rem; width: 0; border-top: 0; border-left: 2px solid #53746f; }
+      .flow li + li::after { bottom: calc(100% + .09rem); transform: translateX(-.18rem) rotate(135deg); }
+      .flow li.response::before { border-left-style: dashed; }
+      .compare, .diagram-row { grid-template-columns: minmax(0, 1fr); }
+      .diagram .branches { grid-template-columns: minmax(0, 1fr); padding-left: 1.35rem; margin-top: .6rem; }
+      .diagram .branches::before { left: .35rem; top: -.6rem; height: auto; bottom: 2rem; }
+      .branches > div { position: relative; padding: 0; border: 0; }
+      .branches > div::before {
+        content: ""; position: absolute; top: 50%; left: -1rem; width: 1rem; border-top: 2px solid #6b8f86;
+      }
+      .branches .node { height: auto; }
+      .table-wrap table { min-width: 20rem; }
+      .table-wrap table:has(thead th:nth-child(3)) { min-width: 31rem; }
+    }
+    @media print {
+      .layout { display: block; padding: 1rem; }
+      .toc, .skip { display: none; }
+      .hero { background: white; color: var(--ink); }
+      .hero-inner { padding: 1rem; }
+      .hero a, .hero code, .hero .edition { color: var(--ink); }
+      figure { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>wcag-page の動作を追う</h1>
+      <p>初期画面を検査した後、実際にキーやポインターを使って画面を変えます。調べるのは、現れた要素のアクセシビリティと、そこへ到達した操作経路です。メニューを閉じた後のフォーカスや、コンボボックスの候補表示が帳票にどう残るかを追います。</p>
+      <p class="edition">参照した実装 <a href="https://github.com/k-s-h-r/wcag-audit-kit/tree/dc43bfe152f3ed530201906e3de8725008f806c3/skills/wcag-page"><code>main / dc43bfe</code></a> · 2026年11月21日</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">目次</h2>
+      <ul>
+        <li><a href="#baseline">開始と初期画面</a></li>
+        <li><a href="#exploration">操作候補と探索</a></li>
+        <li><a href="#menu">メニューとダイアログ</a></li>
+        <li><a href="#combobox">コンボボックス</a></li>
+        <li><a href="#recheck">操作後の差分再検査</a></li>
+        <li><a href="#targeted">指定して行う計測</a></li>
+        <li><a href="#review">追加検査と意味判断</a></li>
+        <li><a href="#report">証拠と帳票</a></li>
+      </ul>
+    </nav>
+
+    <main id="main">
+      <section id="baseline" aria-labelledby="baseline-title">
+        <h2 id="baseline-title">操作する前に、PC幅とスマホ相当幅で機械検査する</h2>
+        <figure class="diagram">
+          <ol class="flow" aria-label="直接の新規依頼から初期結果を返すまで">
+            <li>条件を確定<small>レベル・モード・撮影範囲</small></li>
+            <li>初期表示<small>desktop / narrow</small></li>
+            <li>機械検査<small>DOM・axe・ツリー</small></li>
+            <li class="saved response">初期結果を共有<small>指摘箇所・HTML</small></li>
+          </ol>
+          <figcaption>直接の新規依頼では不足条件だけを一度に聞き、回答後にURLへアクセスします。初期結果を共有した後は、通常は同じ検証記録（run）で簡易探索に1回進みます。</figcaption>
+        </figure>
+        <details>
+          <summary>設定、撮影範囲、実際のコマンド</summary>
+          <div class="detail">
+            <p>「おまかせ」の項目には、それぞれAA・機械のみ・初期表示だけを使います。既存runの再開や親の監査から担当を引き継ぐときは、確定済みの条件を使います。設定なしの単独検査は1280×900と320×900の等倍で行います。</p>
+            <div class="table-wrap" role="region" aria-label="証拠画像の選択肢" tabindex="0">
+              <table>
+                <caption>標準の撮影範囲</caption>
+                <thead><tr><th scope="col">設定</th><th scope="col">保存する画面</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row"><code>off</code></th><td>撮影なし</td></tr>
+                  <tr><th scope="row"><code>initial</code></th><td>操作・スクロール前のページ全体を表示幅ごとに1枚</td></tr>
+                  <tr><th scope="row"><code>states</code></th><td>初期表示に加え、到達した状態の画面やスクロールの画像</td></tr>
+                  <tr><th scope="row"><code>all</code></th><td>状態ごとの画像に加え、自動探索で追加した操作の前後にその時点の表示範囲</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>初期検査はDOMから見える状態と要素一覧、Chromiumのアクセシビリティツリー、axeの実行結果を保存します。Tabの実入力と診断用スクロールは探索を始めた後に行います。コマンドは配置した <code>wcag-page</code> のフォルダーから実行します。</p>
+            <pre><code>python3 scripts/audit.py page-audit --url &lt;URL&gt; --out &lt;新しいrun&gt; \
+  --level AA --mode machine --screenshots initial --initial-only
+
+python3 scripts/audit.py page-audit --url &lt;URL&gt; --out &lt;同じrun&gt; \
+  --resume --quick-explore</code></pre>
+            <p>初期画面だけという依頼なら1つ目で終了します。詳細な自動探索を指定されたときは2つ目の <code>--quick-explore</code> を <code>--explore</code> に替えます。撮影とAIの画像判断は独立した設定です。</p>
+          </div>
+        </details>
+        <p class="refs"><a href="../skills/wcag-page/SKILL.md">スキルの開始手順</a> <a href="adr/0067-capture-full-page-baselines.md">初期画像</a> <a href="https://github.com/k-s-h-r/wcag-audit-kit/pull/68">初期結果と簡易探索のPR #68</a></p>
+      </section>
+
+      <section id="exploration" aria-labelledby="exploration-title">
+        <h2 id="exploration-title">候補を見つけ、初期画面から操作を再生して次の候補を増やす</h2>
+        <figure class="diagram">
+          <ol class="flow" aria-label="探索キューと操作の繰り返し">
+            <li>候補を抽出<small>要素の役割・入力の手がかり</small></li>
+            <li>経路を待ち行列へ<small>幅・セレクター・入力列</small></li>
+            <li>初期画面から再生<small>クリック・キー・スクロール</small></li>
+            <li class="saved response">画面と入力を記録<small>新しい候補を待ち行列へ</small></li>
+          </ol>
+          <figcaption>ブラウザーの新しいコンテキストで経路を再生します。開いたパネルの中など、新しく現れた候補から次の操作を組み立てます。</figcaption>
+        </figure>
+        <details>
+          <summary>どの要素に、どの入力を試すか</summary>
+          <div class="detail">
+            <div class="table-wrap" role="region" aria-label="操作を選ぶ根拠" tabindex="0">
+              <table>
+                <thead><tr><th scope="col">手がかり</th><th scope="col">試す操作・記録</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">ボタンや開閉部品</th><td>ネイティブ要素、ARIAの役割・展開情報、登録イベントなどから抽出。クリックやTabでの到達、Enterなどを試します。簡易探索は開閉部品を優先し、チェックボックスなどにはSpaceを選びます。</td></tr>
+                  <tr><th scope="row">ポインター操作</th><td>カーソルや登録イベントも候補の手がかりです。同じカーソルを継承するだけの子は、親の操作部品にまとめます。簡易探索のホバーはポップアップ属性や対応イベントがある候補に絞ります。</td></tr>
+                  <tr><th scope="row">横並びタブ</th><td>左右キーで移ったフォーカスも状態の識別に使います。表示がまだ切り替わっていない手動選択のタブでも、移動先からEnter・Spaceを試せます。</td></tr>
+                  <tr><th scope="row">入力欄と遅延表示</th><td>対象に応じて試験文字列の入力・クリア、画面下や横へのスクロールを候補にします。初期画像が全ページでも、実スクロールで初めて表示される要素があります。</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>キー候補は実Tabで対象に到達してから送ります。例えばEnterで開く経路では、実キーが狙った要素に届いた記録と、展開前後の状態を照合します。</p>
+            <p>簡易探索は操作した部品、変化した部品、新たに使える部品を優先します。画面上の位置だけが変わった候補の組み合わせは減らします。iframe、canvas、閉じたShadow DOMの内部は追加検査へ残ります。</p>
+            <p class="refs"><a href="../skills/wcag-page/scripts/page_explorer.py">候補の選択と経路の再生</a> <a href="adr/0060-explore-horizontal-tab-keyboard-states.md">横並びタブ</a> <a href="adr/0069-run-a-short-operation-sweep-automatically.md">簡易探索の優先順位</a></p>
+          </div>
+        </details>
+        <details>
+          <summary>探索の上限と、経路を確認できなかった理由</summary>
+          <div class="detail">
+            <div class="table-wrap" role="region" aria-label="自動探索の既定上限" tabindex="0">
+              <table>
+                <thead><tr><th scope="col">走らせ方</th><th scope="col">累計ステップ</th><th scope="col">状態</th><th scope="col">経路の深さ</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">簡易探索</th><td>24</td><td>16</td><td>3</td></tr>
+                  <tr><th scope="row">通常探索</th><td>512</td><td>64</td><td>8</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>簡易探索では表示環境ごとの通常の保留経路を最大12件に絞ります。絞り込み、待ち行列の残り、実行エラーは記録します。上限の調整は <code>--max-steps</code>、<code>--max-states</code>、<code>--max-depth</code> で行います。</p>
+            <p>ページ移動を伴うリンクは単独検査の巡回には使いません。フォーム送信や永続変更のおそれがある操作は自動候補から外します。通信制限や別ウィンドウで経路が中断した場合は、停止理由を記録します。</p>
+            <p>既知のGoogle Analyticsや同一オリジンのCloudflare RUMへの計測送信だけが遮断された場合は、対象に届いた実キーを照合します。同じ文書・要素で状態変化まで確かめられたときに、その操作の結果を記録します。機能の通信や観測できない効果が残れば保留です。</p>
+            <p class="refs"><a href="adr/0070-separate-telemetry-blocks-from-keyboard-results.md">計測通信と実キーの証拠</a> <a href="tasks/T017-url-only-exploration.md">URLだけで始めた8ページの実測</a></p>
+          </div>
+        </details>
+      </section>
+
+      <section id="menu" aria-labelledby="menu-title">
+        <h2 id="menu-title">同じ画面でもキー経路をたどり、閉じた後のフォーカスまで追う</h2>
+        <figure class="diagram">
+          <div class="diagram-row">
+            <div class="branch-title">クリックで先に到達した状態</div>
+            <ol class="flow" aria-label="ポインター経路">
+              <li>クリックで開く</li><li class="saved response">開いた画面を保存</li>
+            </ol>
+          </div>
+          <div class="branch-title">キーだけで到達した経路</div>
+          <ol class="flow" aria-label="3階層メニューを開いて閉じる実キーの経路">
+            <li><span><kbd>Enter</kbd> 1回目</span><small>第2階層を表示</small></li>
+            <li><span><kbd>Enter</kbd> 2回目</span><small>第3階層を表示</small></li>
+            <li><span><kbd>Tab</kbd></span><small>第3階層のリンクへ</small></li>
+            <li class="saved"><span><kbd>Escape</kbd></span><small>表示・移動先を記録</small></li>
+          </ol>
+          <figcaption>同じ画面のaxe結果を参照しながら、Enterで開けたという入力の証拠を残し、その経路から別の開閉部品とTabを試します。</figcaption>
+        </figure>
+        <details>
+          <summary>3階層メニューのEscapeで判定が分かれる条件</summary>
+          <div class="detail">
+            <p>Tab後のフォーカスが <code>aria-controls</code> で指された一意の領域内に入ると、Escapeを後続候補に加えます。再生時に同じ領域内にいることを確かめ、フォーカスを動かさずに送ります。</p>
+            <div class="table-wrap" role="region" aria-label="Escape後の表示とフォーカス" tabindex="0">
+              <table>
+                <thead><tr><th scope="col">Escape後の表示</th><th scope="col">フォーカス</th><th scope="col">この経路の記録</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">閉じた</th><td>開閉ボタン <code>#level2</code></td><td>閉じてボタンへ戻ったことを確認</td></tr>
+                  <tr><th scope="row">開いたまま</th><td>領域内のリンク <code>#leaf</code></td><td>観察を記録。別の閉じ方は判断保留</td></tr>
+                  <tr><th scope="row">閉じた</th><td>本文の別要素 <code>#after</code></td><td>移動先を記録。移動の適切さは判断保留</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>表はPR #78で使った対照例です。Enter、Enter、Tab、Escapeの4操作には深さ4が必要です。試験では最大32ステップに調整して両方の表示幅で確認しました。</p>
+          </div>
+        </details>
+        <details>
+          <summary>ダイアログは閉じた直後と、次のTabを別に観測する</summary>
+          <div class="detail">
+            <figure class="diagram">
+              <ol class="flow" aria-label="ダイアログのフォーカス観察">
+                <li>開いた状態<small>開く前のフォーカス・開いた部品</small></li>
+                <li>閉じる入力<small>Escape、または内部ボタン</small></li>
+                <li class="saved response">閉じた直後<small>フォーカス位置</small></li>
+                <li class="saved response">次のTab<small>再生して移動先を確認</small></li>
+              </ol>
+              <figcaption>モーダル内のボタンを操作して、表示が消えたかを確認します。通常探索ではクリック・Enter・Spaceを別々の経路として扱います。</figcaption>
+            </figure>
+            <p>閉じた直後にフォーカスが文書へ戻り、次のTabが開き元より前に戻ったと確認できた場合は、その経路の問題を記録します。別の要素へフォーカスが移った場合は、手続き上適切かを判断保留にします。</p>
+          </div>
+        </details>
+        <p class="refs"><a href="https://github.com/k-s-h-r/wcag-audit-kit/pull/77">同じ画面からキー経路を継続するPR #77</a> <a href="https://github.com/k-s-h-r/wcag-audit-kit/pull/78">Escape後を観察するPR #78</a> <a href="adr/0072-observe-focus-after-dialog-button.md">ダイアログを閉じた後のTab</a> <a href="tasks/T018-widget-operation-sequences.md">両幅での実測</a></p>
+      </section>
+
+      <section id="combobox" aria-labelledby="combobox-title">
+        <h2 id="combobox-title">コンボボックスは、候補が見えるかと展開属性を照合する</h2>
+        <figure class="diagram">
+          <div class="node branch-source saved"><span><kbd>ArrowDown</kbd> で展開</span><small>同じ入力欄にフォーカス・候補一覧が表示</small></div>
+          <div class="branches" aria-label="候補表示を再現して試す3経路">
+            <div class="branch"><div class="node"><span><kbd>Enter</kbd></span><small>選択後の入力値</small></div></div>
+            <div class="branch"><div class="node"><span><kbd>ArrowDown</kbd> → <kbd>Enter</kbd></span><small>候補位置・次の候補を選んだ値</small></div></div>
+            <div class="branch"><div class="node"><span><kbd>Escape</kbd></span><small>取消後の値・候補の表示</small></div></div>
+          </div>
+          <figcaption>入力欄に実Tabで到達してからArrowDownを送ります。後続のキーは、同じ候補一覧とフォーカスを再現できたときに試します。</figcaption>
+        </figure>
+        <p>実キーの後、<code>aria-controls</code> で結び付いた候補一覧が新たに見え、フォーカスが入力欄に残った場合に、4.1.2の展開の観点を検査します。<code>aria-expanded="true"</code> なら通過、<code>false</code> または未指定なら不一致です。透明な候補は表示として扱いません。</p>
+        <details>
+          <summary>選択と取消で記録する値</summary>
+          <div class="detail">
+            <div class="table-wrap" role="region" aria-label="コンボボックスの観察項目" tabindex="0">
+              <table>
+                <thead><tr><th scope="col">操作</th><th scope="col">入力前後の観察</th><th scope="col">判断の範囲</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">候補を開く</th><td>候補一覧の表示、<code>aria-expanded</code>、フォーカス</td><td>表示と展開属性の一致を機械検査</td></tr>
+                  <tr><th scope="row">候補を進める</th><td><code>aria-activedescendant</code> の参照先、入力欄へのフォーカス</td><td>候補位置を記録</td></tr>
+                  <tr><th scope="row">選ぶ・取り消す</th><td>入力値が変わったか、候補が閉じたか、フォーカスが残ったか</td><td>部品の目的に沿った結果かは個別に確認</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+        <p class="refs"><a href="https://github.com/k-s-h-r/wcag-audit-kit/pull/79">入力欄のコンボボックスを扱うPR #79</a> <a href="adr/0080-follow-editable-combobox-keys.md">実キーと観測の条件</a> <a href="../tests/keyboard_combobox_browser.py">正常・属性不一致・透明の比較試験</a></p>
+      </section>
+
+      <section id="recheck" aria-labelledby="recheck-title">
+        <h2 id="recheck-title">操作前後を比較し、条件のそろう2つのaxeルールで結果を再利用する</h2>
+        <figure class="diagram">
+          <ol class="flow" aria-label="簡易探索の差分再検査">
+            <li>前後を比較<small>出現・消失・属性・参照・フォーカス</small></li>
+            <li>影響範囲<small>操作対象と関連する要素を含む</small></li>
+            <li>新しい状態を検査<small>2ルールは変化のない要素を除外</small></li>
+            <li class="saved response">結果を保存<small>axe.json・operation-impact.json</small></li>
+          </ol>
+          <figcaption>初期画面は全文書を検査します。簡易探索の操作後は、前後に変化がないと確かめられた要素の結果を一部再利用します。</figcaption>
+        </figure>
+        <div class="compare" aria-label="再利用できる条件と全文書に戻る条件">
+          <div>
+            <strong>結果を再利用する場面</strong>
+            <p>同じIDを持つ表示中の要素について、直前の経路の保存値・今回の操作前・操作後が一致した場合。対象は <code>aria-valid-attr</code> と正の <code>tabindex</code> の2ルールです。</p>
+          </div>
+          <div>
+            <strong>全文書で検査する場面</strong>
+            <p>ほかのaxeルールは全文書を検査します。2ルールも、比較元が無いときやiframe・Shadow DOMがあるときは全文書で検査します。DOM更新の記録が上限に達した場合も同様です。</p>
+          </div>
+        </div>
+        <details>
+          <summary>開閉した領域と、離れたラベルの例</summary>
+          <div class="detail">
+            <p>アコーディオンを開いて現れたボタンは再検査します。非表示の参照元が変わってボタン名が失われる場合は、参照されるラベルの変化も記録し、名前のルールは全文書で確認します。祖先が <code>aria-hidden</code> または <code>inert</code> の要素も毎回検査する側に残します。</p>
+            <p>同じ環境で検査済みの画面状態に戻る場合は、その状態の結果を参照します。新たな状態での2ルールの再利用とは別に、どの入力で到達したかを操作ログに残します。</p>
+          </div>
+        </details>
+        <p class="refs"><a href="https://github.com/k-s-h-r/wcag-audit-kit/pull/75">差分再検査のPR #75</a> <a href="adr/0076-scope-rechecks-to-operation-impact.md">適用条件と対照試験</a> <a href="../skills/wcag-page/scripts/operation_impact.py">差分と再利用の実装</a></p>
+      </section>
+
+      <section id="targeted" aria-labelledby="targeted-title">
+        <h2 id="targeted-title">対象や期待値を指定すると、通常の探索に計測を加えられる</h2>
+        <figure class="diagram">
+          <ol class="flow" aria-label="設定で指定する機械検査">
+            <li>対象と条件<small>セレクター・入力列・期待値</small></li>
+            <li>経路を実行<small>実キー・ポインター・画素</small></li>
+            <li class="saved response">観測を保存<small>一致・不一致・判断保留</small></li>
+          </ol>
+          <figcaption>検査する部品や確認したい経路が分かっている場合は、設定で指定すると観察内容を絞れます。</figcaption>
+        </figure>
+        <details open>
+          <summary>設定できる検査と、計測する範囲</summary>
+          <div class="detail">
+            <div class="table-wrap" role="region" aria-label="設定で追加できる検査" tabindex="0">
+              <table>
+                <thead><tr><th scope="col">設定・観点</th><th scope="col">観測する内容</th><th scope="col">判定を出す条件や制約</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row"><code>keyboard_checks</code></th><td>Tab、Enterなどの各手順で、フォーカス先・表示・属性・値を明示した期待値と比較</td><td>開いたShadow DOMを指定できます。宣言した同一オリジンの子iframeでは入力元と観測先を指定できます。</td></tr>
+                  <tr><th scope="row">フォーカス<br>1.4.11・2.4.7・2.4.11</th><td>実キーの前後画像、実線のフォーカス枠と隣接色、フォーカス先が完全に覆われているか</td><td>確認する観点を経路に指定します。画角の変化や透明な重なりなどで比較不能なら保留。2.4.7は画像を証拠として残します。</td></tr>
+                  <tr><th scope="row"><code>hover_checks</code><br>1.4.13</th><td>追加表示まで実ポインターを動かし、移動中の表示、Escapeでの解除、指定時は100〜3000msの継続を観測</td><td>トリガーと追加表示を指定します。別の解除手段や例外の判断は観察の後に残ります。</td></tr>
+                  <tr><th scope="row"><code>text_contrast_checks</code><br>1.4.3</th><td>指定した1行の文字と実際に描画された背景色を画素から取り、比と閾値を比較</td><td>変更・復元後の画像を照合します。折り返しや複雑な重なりなどは保留します。</td></tr>
+                  <tr><th scope="row"><code>border_checks</code><br>1.4.11</th><td>指定した単色の直線枠と隣接色を撮影し、3:1と比較</td><td><code>screenshots=all</code> と撮影枠が必要です。識別に必要な枠かは対象の指定時に確認します。</td></tr>
+                  <tr><th scope="row"><code>visual_structure_scope</code><br>1.3.1</th><td>指定領域の見出し・リスト・表の候補と、Chromiumが認識した役割を対応付ける</td><td>配置から得た候補を証拠として示します。操作後も調べる場合は <code>visual_structure_states: explored</code> を指定します。</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>事前設定の表示状態は <code>page</code> で収集します。独自の操作シナリオや実拡大などは <code>probe</code> で追加確認します。</p>
+          </div>
+        </details>
+        <p class="refs"><a href="../skills/wcag-page/references/page-audit.md">計測の設定例</a> <a href="adr/0061-measure-rendered-text-in-single-page-audits.md">描画された文字の計測</a> <a href="adr/0062-compare-visual-structure-with-browser-roles.md">配置とブラウザーの役割</a></p>
+      </section>
+
+      <section id="review" aria-labelledby="review-title">
+        <h2 id="review-title">機械で決まらない観点は、検査票と証拠を読んで追加確認する</h2>
+        <figure class="diagram">
+          <ol class="flow" aria-label="機械検査から検査票の追加確認へ">
+            <li><code>page-next</code><small>未探索・未判定の検査票</small></li>
+            <li>選んだモードの手段<small>計測・内容比較・実際の読み上げ</small></li>
+            <li><code>record</code><small>対象・手順・観察・証拠</small></li>
+            <li class="saved response"><code>page-report</code><small>判定と残る確認を反映</small></li>
+          </ol>
+          <figcaption>機械検査と追加確認の結果を同じrunに集めます。画像や実行環境が足りない観点は、必要な操作や証拠を残して引き継ぎます。</figcaption>
+        </figure>
+        <details>
+          <summary>モードによって使う手段と、残る検査票</summary>
+          <div class="detail">
+            <div class="table-wrap" role="region" aria-label="検証モードと使う手段" tabindex="0">
+              <table>
+                <thead><tr><th scope="col">モード</th><th scope="col">機械検査</th><th scope="col">AIの内容判断</th><th scope="col">実スクリーンリーダー</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row"><code>machine</code></th><td>使用</td><td>省略</td><td>省略</td></tr>
+                  <tr><th scope="row"><code>ai</code></th><td>使用</td><td>使用</td><td>省略</td></tr>
+                  <tr><th scope="row"><code>screen-reader</code></th><td>使用</td><td>省略</td><td>使用</td></tr>
+                  <tr><th scope="row"><code>full</code></th><td>使用</td><td>使用</td><td>使用</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <ul>
+              <li>機械ルールは画像の代替テキストの有無や取得した属性を確認します。内容判断を使う場合は、保存画像から読んだ情報と、代替文や操作後に現れる本文の情報を比較します。読み取りにくい箇所は原寸の切り出しと元画像を証拠に残します。</li>
+              <li>実際の読み上げは、対応環境とページ用のシナリオを用意し、アダプターで実スクリーンリーダーを操作して発話を取得します。<code>page-audit</code> 自体が行うのは機械検査です。</li>
+              <li>探索の残項目を追加の証拠で解決した場合は <code>resolve-exploration</code> でその探索の版に記録できます。待ち行列にある未実行の経路は再開して調べます。モード・適合レベル・撮影設定を変える検査は別runに保存します。</li>
+            </ul>
+          </div>
+        </details>
+        <p class="refs"><a href="../skills/wcag-page/references/verification-modes.md">検証モードの仕様</a> <a href="../skills/wcag-page/references/screen-reader.md">発話を確かめる環境と手順</a> <a href="../skills/wcag-page/references/recording.md">証拠と判定の記録</a></p>
+      </section>
+
+      <section id="report" aria-labelledby="report-title">
+        <h2 id="report-title">帳票では、機械ルールの結果と達成基準全体の判定を別々に読む</h2>
+        <figure class="diagram">
+          <ol class="flow" aria-label="原始証拠から帳票までの参照関係">
+            <li>観測した証拠<small>画面・実キー・axe</small></li>
+            <li>機械検査の行<small>対象・状態・期待・観察</small></li>
+            <li class="saved response">ページ別の帳票<small>修正箇所・基準の判定・残作業</small></li>
+          </ol>
+          <figcaption>例えば画像の機械ルールを通過しても、画像の意味が伝わるかは検査票に残ります。キー入力の結果は、実行した経路の観察として記録します。</figcaption>
+        </figure>
+        <div class="table-wrap" role="region" aria-label="run内で見るファイル" tabindex="0">
+          <table>
+            <caption>新規の単独ページrunで開くファイル</caption>
+            <thead><tr><th scope="col">見たいもの</th><th scope="col">見る場所</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">修正箇所・見つかった問題</th><td><code>reports/report.html</code> の「自動検出した問題」。環境・状態・対象から証拠を開きます。</td></tr>
+              <tr><th scope="row">基準別の検査票と残り</th><td><code>reports/report.xlsx</code>、または <code>data/report.json</code> の <code>cases</code>・<code>counts</code>・<code>exploration.remaining</code>。</td></tr>
+              <tr><th scope="row">キーが届いたことと、何が変わったか</th><td><code>work/evidence/</code> 以下の <code>input-events.json</code>、<code>transition.json</code>。コンボボックスとメニューの前後の観察もここに残ります。</td></tr>
+              <tr><th scope="row">検査した画面や結果の出所</th><td>同じ証拠フォルダーに状態と要素一覧、アクセシビリティツリー、画像が入ります。機械ルールは <code>axe.json</code>、再利用の参照元は <code>operation-impact.json</code> で追えます。</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>axeの違反・通過・要確認・対象なしはルールごとに集計し、達成基準は検査票に記録した判定から集計します。探索の履歴と保留経路は <code>work/exploration.json</code> にあります。</p>
+        <p class="note"><code>audit_complete: false</code> は検証に未確認が残ることを示します。帳票が開けたら、残る検査票、未探索の経路、各モードで省いた観点を合わせて読みます。</p>
+        <p class="refs"><a href="adr/0065-publish-readable-audit-results.md">帳票と証拠の配置</a> <a href="../skills/wcag-page/references/checksheet.md">チェックシートの読み方</a> <a href="../skills/wcag-page/scripts/page_workflow.py">機械検査と検証状態の集計</a></p>
+      </section>
+
+      <footer>
+        <a href="WCAG-SKILL-GUIDE.md">6つのWCAGスキルの全体像</a> · <a href="../skills/wcag-page/SKILL.md">wcag-page の実行手順</a> · <a href="../benchmarks/PATTERN-GALLERY.html">ベンチマークの試験ページ</a>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
