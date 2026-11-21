@@ -1,0 +1,107 @@
+{
+  "authentic": {
+    "073/desktop": 14,
+    "073/narrow": 14,
+    "074/desktop": 14,
+    "074/narrow": 14
+  },
+  "rejected_width_or_input_copies": [
+    {
+      "case": "073",
+      "environment": "desktop",
+      "changed": "different-width-picture",
+      "reason": "after.png: 画像の寸法と検査票の画面幅が一致しない"
+    },
+    {
+      "case": "073",
+      "environment": "desktop",
+      "changed": "input-only",
+      "reason": "追試の証拠と採取時の原本SHA-256が一致しない"
+    },
+    {
+      "case": "073",
+      "environment": "desktop",
+      "changed": "http-only",
+      "reason": "追試の証拠と採取時の原本SHA-256が一致しない"
+    },
+    {
+      "case": "073",
+      "environment": "desktop",
+      "changed": "whole-receipt",
+      "reason": "追試を行った状態・画面幅と検査票が一致しない"
+    },
+    {
+      "case": "073",
+      "environment": "narrow",
+      "changed": "different-width-picture",
+      "reason": "after.png: 画像の寸法と検査票の画面幅が一致しない"
+    },
+    {
+      "case": "073",
+      "environment": "narrow",
+      "changed": "input-only",
+      "reason": "追試の証拠と採取時の原本SHA-256が一致しない"
+    },
+    {
+      "case": "073",
+      "environment": "narrow",
+      "changed": "http-only",
+      "reason": "追試の証拠と採取時の原本SHA-256が一致しない"
+    },
+    {
+      "case": "073",
+      "environment": "narrow",
+      "changed": "whole-receipt",
+      "reason": "追試を行った状態・画面幅と検査票が一致しない"
+    },
+    {
+      "case": "074",
+      "environment": "desktop",
+      "changed": "different-width-picture",
+      "reason": "after.png: 画像の寸法と検査票の画面幅が一致しない"
+    },
+    {
+      "case": "074",
+      "environment": "desktop",
+      "changed": "input-only",
+      "reason": "追試の証拠と採取時の原本SHA-256が一致しない"
+    },
+    {
+      "case": "074",
+      "environment": "desktop",
+      "changed": "http-only",
+      "reason": "追試の証拠と採取時の原本SHA-256が一致しない"
+    },
+    {
+      "case": "074",
+      "environment": "desktop",
+      "changed": "whole-receipt",
+      "reason": "追試を行った状態・画面幅と検査票が一致しない"
+    },
+    {
+      "case": "074",
+      "environment": "narrow",
+      "changed": "different-width-picture",
+      "reason": "after.png: 画像の寸法と検査票の画面幅が一致しない"
+    },
+    {
+      "case": "074",
+      "environment": "narrow",
+      "changed": "input-only",
+      "reason": "追試の証拠と採取時の原本SHA-256が一致しない"
+    },
+    {
+      "case": "074",
+      "environment": "narrow",
+      "changed": "http-only",
+      "reason": "追試の証拠と採取時の原本SHA-256が一致しない"
+    },
+    {
+      "case": "074",
+      "environment": "narrow",
+      "changed": "whole-receipt",
+      "reason": "追試を行った状態・画面幅と検査票が一致しない"
+    }
+  ],
+  "all_case_preflight_before_writes": true
+}

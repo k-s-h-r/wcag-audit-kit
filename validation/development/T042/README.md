@@ -23,7 +23,7 @@
 
 ## 同じ帳票へ追試を登録する
 
-`attach --case` で同じ検査票IDに実入力と追試結果を添付し、`record` で判断と残る確認を記録した。073の `resolve-exploration` には、`page-next` から得た探索版のハッシュと移動先表示の不足の原文を使った。2幅を一件ずつ登録し、どちらも同じ探索版で累積した。最後に `page-report` と `page-next` を再実行した。
+追試の採取時に、検査票ID・開始URL・画面幅・探索版と、前後の画面や操作を含む原本14点のSHA-256を条件ごとに保存した。全条件の原本と画像寸法を照合してから、`attach --case` で同じ検査票IDに実入力と追試結果を添付し、`record` で判断と残る確認を記録した。073の `resolve-exploration` には、`page-next` から得た探索版のハッシュと移動先表示の不足の原文を使った。2幅を一件ずつ登録し、どちらも同じ探索版で累積した。最後に `page-report` と `page-next` を再実行した。
 
 | 問題集 | 両幅の3.2.1検査票 | WCAG 2.2 AAAの対象範囲 | 探索の残件 |
 | --- | --- | --- | --- |
@@ -36,7 +36,9 @@ HTMLとJSONで同じ検査票IDと観察証拠を参照できる。Excelでは07
 
 別のレビュアーが4条件の原始入力、前後の文書、サーバー記録、通常CLIの前後の帳票を照合した。追試前の画像は、通常CLIの初期画像と4条件すべてでバイト単位で一致。新たに添付した40点の証拠は原本と一致した。073は両幅ともExcelの不適合箇所から追試の `observation.json` を開ける。[独立照合](run-001/independent-review.json) · [Excelリンクの照合](run-001/independent-excel.json)
 
-作業時の `run-002` を公開用 `run-001` に収録した。ZIPでは各ページの `before/` に通常探索後の帳票と引き継ぎ、`manual/` に追試、各 `after/` に記録した所見と解消の入力、各 `page/` に作業台帳と最終帳票がある。原本262点を `sha256.json` で照合できる。ZIPのSHA-256は `dcf44ea0bd14ea8a449754acab05a3c697fd25179e3f26fc070142c37a363b67`。[実行と帳票の原本](run-001/proof.zip)
+独立レビューで、初回の再現手順には別の画面幅の原本を混ぜたコピーを添付できる不備が見つかった。原本と検査票の照合を加え、`run-002` の通常探索後の台帳と帳票を別の `run-003-receipts` に復元して4追試と帳票作成を繰り返した。原本がそろった4条件は登録でき、別の画面幅の画像・入力記録・HTTP記録・採取記録に差し替えた独立対照16件は拒否された。最後の条件だけを差し替えた試行でも、全条件の添付を始める前に止まった。[独立対照の照合](run-001/independent-receipts.json)
+
+公開用 `run-001` のZIPでは、各ページの `before/` に通常探索後の帳票と引き継ぎ、`manual/` に追試と原本の採取記録、各 `after/` に所見と解消の入力、各 `page/` に台帳と最終帳票がある。収録した原本267点は `sha256.json` で照合できる。ZIPのSHA-256は `9c7f0f12c93b8a27eb74e9c91bd9da9b2ae176b2b72187e42976bd877d5ad8e6`。[実行と帳票の原本](run-001/proof.zip)
 
 ## 再実行
 
@@ -48,3 +50,5 @@ python3 validation/development/T042/collect.py --out "$t042_run"
 python3 validation/development/T042/followup.py --run "$t042_run"
 python3 validation/development/T042/submit.py --run "$t042_run"
 ```
+
+取り違えの対照を再現する場合は、追試を採取した後、登録前の出力を別の場所に複製する。そのコピーの `manual/073/desktop/input-events.json` に `manual/073/narrow/input-events.json` を上書きしてから `submit.py` を実行すると、採取時のSHA-256と一致せず、添付の前に終了する。

@@ -11,6 +11,7 @@ from urllib.parse import urlsplit
 from playwright.async_api import async_playwright
 
 from collect import PLAN, REPO, digest, load, now, save, serve, verify_fixtures
+from receipts import original_hashes, require_image_dimensions, source_identity
 
 sys.path.insert(0, str(REPO / 'skills/wcag-audit-kit/scripts'))
 from input_observation import INIT_SCRIPT, InputObserver
@@ -172,6 +173,7 @@ async def followup(run):
     output = run / 'manual'
     output.mkdir(exist_ok=False)
     outcomes = {}
+    receipts = {}
     with serve(fixtures, port=parsed.port) as (origin, received):
         async with async_playwright() as driver:
             browser = await driver.chromium.launch(executable_path=shutil.which('chromium'))
@@ -190,11 +192,11 @@ async def followup(run):
                             raise ValueError('保存された検査票と追試の画面幅が異なる')
                         destination = f"{origin}/{plan['destination']}"
                         related = original_trace(report_area, item['item'], row['url'], destination)
-                        save(area / 'source-case.json',
-                             {'case_id': packet['case']['case_id'], 'state': packet['case']['state'],
-                              'environment': env, 'page_url': row['url'], 'graph_digest': row['graph_digest'],
-                              'viewport': viewport, 'original_trace': related, 'browser': browser.version,
-                              'playwright': version('playwright')})
+                        source = {'case_id': packet['case']['case_id'], 'state': packet['case']['state'],
+                                  'environment': env, 'page_url': row['url'], 'graph_digest': row['graph_digest'],
+                                  'viewport': viewport, 'original_trace': related, 'browser': browser.version,
+                                  'playwright': version('playwright')}
+                        save(area / 'source-case.json', source)
                         result = await visit(browser, area, row['url'], destination, viewport,
                                              plan['manual_input'], received)
                         summary = analyze(result, load(area / 'browser-requests.json'),
@@ -202,11 +204,15 @@ async def followup(run):
                                           load(area / 'http-receipts.json'), plan, origin, case)
                         save(area / 'observation.json', {**summary, 'before': result['before'], 'after': result['after'],
                                                           'started_at': result['started_at'], 'stopped_at': result['stopped_at']})
+                        require_image_dimensions(area, viewport)
+                        receipts[source['case_id']] = {'source': source_identity(source),
+                                                       'files_sha256': original_hashes(area)}
                         outcomes[f'{case}/{env}'] = summary
                         print(case, env, 'follow-up observed', flush=True)
             finally:
                 await browser.close()
     save(output / 'summary.json', outcomes)
+    save(output / 'receipts.json', receipts)
 
 
 if __name__ == '__main__':

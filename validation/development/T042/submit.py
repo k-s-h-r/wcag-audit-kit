@@ -5,37 +5,42 @@ from pathlib import Path
 from zipfile import ZipFile
 
 from collect import HERE, PLAN, cli, digest, load, save
-
-
-EVIDENCE = ('observation.json', 'source-case.json', 'input-events.json', 'browser-requests.json',
-            'main-frame-documents.json', 'http-receipts.json', 'before.html', 'after.html',
-            'before.png', 'after.png')
+from receipts import EVIDENCE, original_hashes, require_image_dimensions, source_identity
 
 
 def case_rows(report, criterion):
     return {case['case_id']: case for case in report['cases'] if case['criterion'] == criterion}
 
 
-def attach(run, case_id, source, output):
+def attach(run, case_id, source, output, expected_sha):
+    if digest(source) != expected_sha:
+        raise ValueError(f'{source.name}: 添付直前に原本が変更された')
     cli('attach', '--run', run, '--case', case_id, '--file', source, destination=output)
     path = output.read_text().strip()
     if (not path.startswith(f'evidence/attached/{case_id}/')
-            or digest(run / 'work' / path) != digest(source)):
+            or digest(run / 'work' / path) != expected_sha):
         raise ValueError('添付が元の検査票又は原本と一致しない')
     return path
 
 
-def validate_manual(area, packet, handoff, env, judgment):
+def validate_manual(area, packet, handoff, env, judgment, receipt, viewport):
     record = load(area / 'source-case.json')
     case = packet['case']
     expected = {'case_id': handoff['environments'][env]['case_id'], 'state': 'initial',
-                'environment': env, 'page_url': handoff['url'], 'graph_digest': handoff['graph_digest']}
-    if (any(record[key] != value for key, value in expected.items())
+                'environment': env, 'page_url': handoff['url'], 'graph_digest': handoff['graph_digest'],
+                'viewport': viewport}
+    if (source_identity(record) != expected or receipt['source'] != expected
             or any(case[key] != record[key] for key in ('case_id', 'environment', 'page_url', 'state'))
             or (record['original_trace'] is not None) != (handoff['environments'][env]['item'] is not None)):
         raise ValueError('追試を行った状態・画面幅と検査票が一致しない')
+    require_image_dimensions(area, viewport)
+    if original_hashes(area) != receipt['files_sha256']:
+        raise ValueError('追試の証拠と採取時の原本SHA-256が一致しない')
     observed = load(area / 'observation.json')
-    if observed['new_document'] != judgment['new_document'] or observed['keydown_count'] != 1:
+    dimensions = [viewport['width'], viewport['height']]
+    if (observed['new_document'] != judgment['new_document'] or observed['keydown_count'] != 1
+            or any(observed[name]['viewport'] != dimensions for name in ('before', 'after'))
+            or observed['before']['url'] != expected['page_url']):
         raise ValueError('追試の到達と記録する所見が一致しない')
     return record
 
@@ -119,6 +124,16 @@ def submit(output):
     plan = load(output / 'plan.json')
     handoff = load(output / 'handoff.json')
     judgments = load(HERE / 'observed-judgments.json')
+    receipts = load(output / 'manual/receipts.json')
+    validated = {}
+    for case, selected in handoff.items():
+        for env, item in selected['environments'].items():
+            ledger_id = item['case_id']
+            packet = load(output / case / 'before' / f'case-{env}.json')
+            manual = output / 'manual' / case / env
+            record = validate_manual(manual, packet, selected, env, judgments[case],
+                                     receipts[ledger_id], plan['environments'][env])
+            validated[ledger_id] = (packet, record)
     processed = {}
     for case, selected in handoff.items():
         area = output / case
@@ -131,12 +146,13 @@ def submit(output):
         attachments, resolution_count = {}, 0
         for env, item in selected['environments'].items():
             ledger_id = item['case_id']
-            packet = load(before / f'case-{env}.json')
+            packet, reviewed = validated[ledger_id]
             manual = output / 'manual' / case / env
-            reviewed = validate_manual(manual, packet, selected, env, decision)
+            hashes = receipts[ledger_id]['files_sha256']
             path = after / env
             path.mkdir()
-            paths = [attach(run, ledger_id, manual / name, path / f'attach-{name}.log') for name in EVIDENCE]
+            paths = [attach(run, ledger_id, manual / name, path / f'attach-{name}.log', hashes[name])
+                     for name in EVIDENCE]
             if reviewed['original_trace']:
                 stop = reviewed['original_trace']
                 if digest(run / 'work' / stop['path']) != stop['sha256']:
