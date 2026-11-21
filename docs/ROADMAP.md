@@ -13,7 +13,7 @@
 1. **キーを送った後の実行結果を確かめる。** [T020](tasks/T020-url-only-machine-score.md)でURLから76ページ・87行を測った。問題39行中、検出8、状態・経路の未確認11、到達後に判定なし20だった。数量変更ではクリック後とEnter後の値が異なっても、報告はキーの送出までだった。[T024](tasks/T024-keyboard-function-result.md)で、通常の入口からこの差を照合する。
 2. **適合の結論を検査票に出せるか確かめる。** [T021](tasks/T021-scope-conformance-report.md)では、保存済みの判定と証拠を使い、対象とする範囲の適合・不適合・未確認を利用者に示す。T024と独立して始められる。
 
-操作経路の残りは[T018](tasks/T018-widget-operation-sequences.md)、操作後の差分再検査は[T019](tasks/T019-post-operation-rechecks.md)に置く。T018のメニューとコンボボックスは検証済み。残るアコーディオンはURLから対照例をたどれるかを先に確認する。T019は全体再検査との一致を確認し、必要な検査を保ったまま再検査量を減らす。
+操作経路は[T018](tasks/T018-widget-operation-sequences.md)に記録する。アコーディオンの同じ見た目の対照は、URLからの簡易探索でEnterを、通常探索でSpaceも確認できた。通常探索の48ステップで残った操作と範囲の判定は追加観察へ引き継ぐ。操作後の差分再検査は[T019](tasks/T019-post-operation-rechecks.md)で全体再検査と照合する。
 
 次は[T022](tasks/T022-url-to-process-audit.md)で、URLを出発点に一つの手続きを見つけ、機械検査に残った判断をAIや必要な支援技術で確かめ、二つの成果物までつなぐ。この実証の操作記録を使い、[T023](tasks/T023-accessibility-review-pilot.md)でアクセシビリティ点検の結果を試す。着手の順序と並行できる範囲は[タスク一覧](tasks/README.md#次に着手する作業)に記す。
 
