@@ -86,16 +86,19 @@ def collect_evidence(output, name, expected):
     work = run / 'page/work'
     graph = read(work / 'exploration.json')
     report = read(run / 'page/data/report.json')
+    assert next(criterion['status'] for criterion in report['criteria'] if criterion['id'] == '3.2.1') == 'unverified'
     assert not any(check['criterion'] == '3.2.1' and check['outcome'] in {'passed', 'failed', 'inapplicable'}
                    for check in report['machine_checks']), name
     if name in {'071', '072'}:
         expected_outcome = 'failed' if name == '071' else 'passed'
-        assert {row['outcome'] for row in report['machine_checks']
-                if row['checkpoint'] == 'axe / html-has-lang'} == {expected_outcome}, name
+        for env in WIDTHS:
+            assert {row['outcome'] for row in report['machine_checks']
+                    if row['checkpoint'] == 'axe / html-has-lang' and row['environment'] == env} == {expected_outcome}, name
     summary = {}
     for env in WIDTHS:
         edges = [edge for edge in graph['edges'] if edge['environment'] == env]
         trace_stops, all_blocks, matched, nav_attempts = [], [], [], []
+        enter_blocked = False
         for edge in edges:
             directory = work / edge['evidence_dir']
             path = directory / 'keyboard-trace-stop.json'
@@ -104,6 +107,10 @@ def collect_evidence(output, name, expected):
             if input_path.is_file():
                 log = read(input_path)
                 nav_attempts.extend(row for row in log['events'] if row['type'] == 'navigate')
+                if name == 'activation' and edge['route'] and edge['route'][-1].get('key') == 'Enter':
+                    enter_blocked |= (any(row['url'].endswith('/activation-target.html') for row in edge['blocked_requests'])
+                                      and any(row['type'] == 'keydown' and row.get('key') == 'Enter' and row['isTrusted']
+                                              for row in log['events']))
             if not path.is_file():
                 continue
             stop = read(path)
@@ -148,11 +155,13 @@ def collect_evidence(output, name, expected):
                            and row['method'] == 'POST' for row in relevant), relevant
             else:
                 assert all(row.get('is_main_frame') is True for row in relevant), relevant
-            if name.endswith('-frame'):
+            if name == 'iframe' or name.endswith('-frame'):
                 assert any(read(output / path)['child_frame_observed'] for path in trace_stops), name
         if expected == 'after' and name == 'hash':
             assert any(row['sameDocument'] and row['hashChange'] and row['destination'].endswith('#more')
                        for row in nav_attempts), env
+        if expected == 'after' and name == 'activation':
+            assert enter_blocked, env
         if expected == 'after' and name == 'cancel-keyup':
             phases = [row['focusDispatchPhase'] for row in nav_attempts
                       if row['destination'].endswith('/cancel-keyup-target.html')]

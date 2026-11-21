@@ -258,7 +258,8 @@ async def observe_scroll_and_tab(page, dest, data, env, images, label, limit, bl
         if attempt := trace_stop.get('focus_navigation'):
             target = attempt['target']
             focus_target = '#' + target['id'] if target['id'] else target['tag']
-            point += (f'Tabで{focus_target}にフォーカスした際、メインフレームで別文書への移動が要求された。'
+            point += (f'Tabの観察中に{focus_target}へフォーカスが移った。'
+                      'フォーカスイベントの配信中にメインフレームで別文書への移動が要求された。'
                       '通信を遮断したため移動先の表示は未確認。')
         remaining.append(f'{point}以降は未確認（証拠: {evidence}）。')
 
