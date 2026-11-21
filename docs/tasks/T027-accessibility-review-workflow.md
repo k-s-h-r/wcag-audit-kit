@@ -16,4 +16,10 @@ T023では、操作上のつまずき、変更する箇所、効果の測り方�
 
 ## 担当範囲と引き継ぎ
 
-起点はT023の `ca89597`。別worktreeの `codex/t027-accessibility-review-workflow` で、`wcag-audit-kit` の手順、共通資料と配布用コピー、利用案内を更新する。試験の記録は `validation/development/T027/` に置く。T025のCLIや過去のrunを変更する作業は担当外。応答を読む担当には、操作観察に使うローカルサイトと保存済みの観察を分けて渡す。
+起点はT023の `ca89597`。公開された[PR #89](https://github.com/k-s-h-r/wcag-audit-kit/pull/89)と同じツリーを使った。別worktreeの `codex/t027-accessibility-review-workflow` で、`wcag-audit-kit` の手順、共通資料と配布用コピー、利用案内を更新する。試験の記録は `validation/development/T027/` に置く。応答を読む担当には、操作観察に使うローカルサイトと保存済みの観察を分けて渡す。
+
+## 実行結果
+
+T022の問題例の起点URLから、既存のブラウザー操作でキーでは増員できないことと、クリック後に確認画面まで進めることを再現した。フォーカス、画面とアクセシビリティツリーを新しい場所に保存し、参照した元の証拠と判定のハッシュを照合した。明示呼び出しからの応答は、保存済みの証拠とURLを渡す二つの依頼で別に確認する。 [実行記録と試し方](../../validation/development/T027/README.md)
+
+`python3 scripts/sync_skills.py --check` と `python3 -m unittest discover -s tests -p 'test_*.py'` を実行し、配布用資料の同期と324件の単体テストが通過した。CLIコードと過去のrunの差分はない。
