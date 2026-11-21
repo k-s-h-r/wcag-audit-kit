@@ -1,5 +1,7 @@
 # T042 帳票に残った移動先を追試し、同じ検査票に証拠を結ぶ
 
+状態は追試、帳票への反映、独立レビューを終え、ドラフトPRで提出。[PR #115](https://github.com/k-s-h-r/wcag-audit-kit/pull/115)
+
 対象は問題集の073・074と3.2.1。T009の指定経路による採点と、T034の文書移動要求の記録を前提に、[VISION](../VISION.md#機械とaiに任せたいこと)にある、証拠が足りない画面に戻って検査を続ける流れを試す。起点は公開PR #111の `405134e`、作業ブランチは `codex/t042-confirm-focus-navigation`。[ADR 0126](../adr/0126-revisit-blocked-focus-navigation.md)
 
 ## 完了条件
