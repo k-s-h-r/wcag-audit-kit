@@ -1,6 +1,6 @@
 # T019 操作後の差分再検査を広げる
 
-状態は、ネイティブのモーダルで結果がずれる問題を修正し、限定した対照で全体再検査と照合済み。前提：[T017](T017-url-only-exploration.md)の比較結果と、[PR #75](https://github.com/k-s-h-r/wcag-audit-kit/pull/75)の採用。関連：[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)。
+状態は、ネイティブのモーダルで結果がずれる問題を修正し、限定した対照で全体再検査と照合済み。[PR #92](https://github.com/k-s-h-r/wcag-audit-kit/pull/92)で提出。前提は[T017](T017-url-only-exploration.md)の比較結果と[PR #75](https://github.com/k-s-h-r/wcag-audit-kit/pull/75)の採用。[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)
 
 初期画面は全体を検査し、操作の後は変化した場所と、影響を受ける要素を中心に再検査する。PR #75はARIA属性名と正の `tabindex` の検査で、変化のない要素の結果を再利用する。
 
