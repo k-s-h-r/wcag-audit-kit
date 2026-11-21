@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Replay a hidden ARIA reference change through quick and whole-page page-audit."""
 import argparse
-from collections import Counter
 from functools import partial
 from hashlib import sha256
 from http.server import ThreadingHTTPServer
@@ -21,6 +20,7 @@ WIDTHS = ('desktop', 'narrow')
 ROUTE = [{'type': 'click', 'selector': '#act'}]
 CASES = {'add': (0, 1), 'remove': (1, 0), 'move': (1, 1)}
 EXPECTED = {0: 'violations', 1: 'passes'}
+CATEGORIES = ('passes', 'violations', 'incomplete', 'inapplicable')
 
 
 def create_fixture(path, before, after):
@@ -84,6 +84,11 @@ def corresponding_outcome(results):
     return matches[0]
 
 
+def rule_counts(results):
+    return {kind: sum(len(rule['nodes']) for rule in results[kind] if rule['id'] == RULE)
+            for kind in CATEGORIES}
+
+
 def compare(out, inputs, quick, whole, expected):
     quick_work, quick_graph, quick_requests = quick
     full_work, full_graph, full_requests = whole
@@ -109,7 +114,8 @@ def compare(out, inputs, quick, whole, expected):
         assert [item[0] for item in cases_outcomes] == [EXPECTED[before_count], EXPECTED[after_count]], cases_outcomes
         assert cases_outcomes[0][1]['html'] == cases_outcomes[1][1]['html']
         scope = audit.load(quick_dir / 'operation-impact.json')['axe']
-        if (quick_dir / 'axe.json').is_file():
+        recorded = (quick_dir / 'axe.json').is_file()
+        if recorded:
             results = audit.load(quick_dir / 'axe.json')
         else:
             assert scope['mode'] == 'same_state'
@@ -117,14 +123,13 @@ def compare(out, inputs, quick, whole, expected):
         match = signatures(results) == signatures(full_results)
         must_recheck = before_count != after_count and expected == 'fixed'
         assert match == (must_recheck or before_count == after_count), (env, match, scope)
-        assert (quick_dir / 'axe.json').is_file() == must_recheck, (env, scope)
+        assert recorded == must_recheck, (env, scope)
         assert RULE not in scope.get('reused', {}), scope
-        full_counts = Counter({kind: sum(len(rule['nodes']) for rule in full_results[kind] if rule['id'] == RULE)
-                               for kind in ('passes', 'violations', 'incomplete', 'inapplicable')})
+        full_counts = rule_counts(full_results)
         comparisons[env] = dict(same_axe_categories_and_targets=match, before=cases_outcomes[0][0],
             quick_after=corresponding_outcome(results)[0], whole_after=cases_outcomes[1][0], reference_counts=counts,
             value_rule_recorded_targets=sum(full_counts.values()), whole_value_rule=full_counts, mode=scope['mode'],
-            value_rule_quick_rechecked=sum(full_counts.values()) if must_recheck else 0,
+            value_rule_quick_rechecked=sum(rule_counts(results).values()) if recorded else 0,
             reuse={rule: len(nodes) for rule, nodes in scope.get('reused', {}).items()},
             rechecked={rule: len(nodes) for rule, nodes in scope.get('rechecked', {}).items()},
             quick_fingerprints=[page_explorer.fingerprint(data) for data in (before, after)],
