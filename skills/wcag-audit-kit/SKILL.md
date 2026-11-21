@@ -22,6 +22,7 @@ metadata:
 | この一覧のページを確認して | machineはpage-batch、他のモードはwcag-pageを指定ページごとに使う | リンク巡回 |
 | 検査するページを探して | [wcag-pages](../wcag-pages/SKILL.md) | WCAGの判定 |
 | 結果をExcelにまとめて | [wcag-report](../wcag-report/SKILL.md) | 再訪問・再検査 |
+| 修正前後の検査票を見比べて | [保存済み検査票の比較](references/commands.md#修正前後の検査票を比べる) | 再訪問・再検査 |
 | 作業用Excelの判定を取り込んで | 本スキルで[記録の更新](references/collaboration.md)を行い、wcag-reportで報告する | 再訪問・再検査 |
 | サイト全体を確認して | 下記の全体進行 | 既存の確定URL一覧があれば抽出 |
 

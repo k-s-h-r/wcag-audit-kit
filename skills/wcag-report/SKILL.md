@@ -33,6 +33,8 @@ python3 scripts/audit.py excel export --run <run> --mode report --out <新しい
 
 報告依頼だけならブラウザーや実SRを起動しない。証拠の消失・改変、設定・基準版・caseの不一致を検出したら、結果を作り直して隠さず、問題を報告する。
 
+修正前後を比べる依頼では、別々のrunで作った報告JSONを [compare-reports](references/commands.md#修正前後の検査票を比べる) に渡す。ページごとの解消・新規・継続と、比較に必要な確認が残る箇所を伝える。
+
 モードを指定したrunでは、HTML・Excelの「モード別の確認範囲」とJSONのverificationも報告する。○・△・×は検査手段の対応で、適合・不適合ではない。選択モード、使わない観点、実SRの未実施・部分実施を保持し、モード名だけで実行済みとしない。
 
 ## 利用者へ伝える
