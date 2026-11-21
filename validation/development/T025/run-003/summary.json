@@ -1,0 +1,29 @@
+{
+  "browser": "156.0.8078.79",
+  "viewport": [
+    1280,
+    900
+  ],
+  "criterion": "1.4.3",
+  "target": "#shared-help",
+  "requested_path": "/page-audit",
+  "observed_path": "/page-audit-rendered?view=contrast",
+  "operation_path": "/page-audit-rendered?view=operation",
+  "agrees_with_start_browser_and_url": true,
+  "before": {
+    "ratio": 2.32,
+    "assessment_recorded": true
+  },
+  "after": {
+    "ratio": 18.09,
+    "assessment_recorded": true
+  },
+  "comparison": "resolved",
+  "comparison_evidence_links": 4,
+  "scope_review_recorded": true,
+  "without_observed_metadata": "unverified",
+  "immutable_files": [
+    52,
+    52
+  ]
+}
