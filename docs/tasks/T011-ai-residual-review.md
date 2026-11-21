@@ -72,4 +72,4 @@ Codex CLI 0.167.0-alpha.4、Ollama 0.40.16、Qwen3-VL 4B Instructを使用した
 
 新しい2例を別のCodexエージェントが公開画面から調べた。先にグラフを画像から読み、次にTabとEnterで詳細を開いて表を照合した。図の5月は61回で、問題例の表には79回と表示された。正常例の3か月の値は一致し、開閉部品に添えたひし形は両例で装飾と判断した。初期収集のaxe `image-alt` は両例で通過していた。
 
-収集の原本を保持し、図の値を読む記録、実キーの操作、開いた画面、アクセシビリティツリーを通常の帳票に添付した。問題例は1.1.1の不適合になった。正常例は確認した図と装飾が通過し、達成基準全体の判定には未確認が残った。観察はChromiumの1280×900 CSS pxで実施した。[再実行と証拠](../../validation/development/T011/README.md) · [ADR 0105](../adr/0105-compare-chart-and-disclosed-values.md)
+収集の原本を保持し、図の値を読む記録、実キーの操作、開いた画面、アクセシビリティツリーを通常の帳票に添付した。問題例は1.1.1の不適合になった。正常例は確認した図と装飾が通過し、達成基準全体の判定には未確認が残った。観察はChromiumの1280×900 CSS pxで実施した。[再実行と証拠](../../validation/development/T011/README.md) · [ADR 0105](../adr/0105-compare-chart-and-disclosed-values.md) · [PR #95](https://github.com/k-s-h-r/wcag-audit-kit/pull/95)
