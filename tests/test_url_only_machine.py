@@ -72,3 +72,53 @@ class URLOnlyMachineTest(unittest.TestCase):
             row['target'] = '#other'
             other = scoring.score_environment(row, [check], edges, transitions, work, work)
             self.assertEqual(other['verdicts'], [])
+
+    def test_dialog_exit_requires_registered_unchanged_evidence(self):
+        from keyboard_trap import CHECKPOINT
+
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory)
+            evidence = work / 'escape'
+            evidence.mkdir()
+            url = 'http://127.0.0.1:8000/'
+            enter = {'type': 'key', 'selector': '#open', 'key': 'Enter'}
+            escape = {'type': 'press', 'selector': 'body', 'key': 'Escape'}
+            opening = {'route': [enter], 'evidence_dir': 'opening'}
+            exit_edge = {'route': [enter, escape], 'evidence_dir': 'escape', 'dialog_focus': 'escape'}
+            before = {'url': url, 'document_start': 17, 'within': True, 'modals': ['#panel']}
+            after = dict(before, within=False, modals=[], supported=True, root_focus=False, shown=False)
+            receipt = dict(target='#panel', outcome='passed', before=before, after_escape=after,
+                           opener='#open', opener_event_index=0, escape_event_index=1, steps=[])
+            events = [dict(type='keydown', key=key, isTrusted=True, is_main_frame=True, expectedTargetMatched=True,
+                           url=url, documentId='doc', modifiers=dict(shift=False, control=False, alt=False, meta=False))
+                      for key in ('Enter', 'Escape')]
+            core.save(evidence / 'dialog-focus.json', {'keyboard_trap': receipt})
+            core.save(evidence / 'input-events.json', dict(truncated=False, events=events))
+            core.save(evidence / 'transition.json', exit_edge)
+            paths = [path.relative_to(work).as_posix() for path in evidence.iterdir()]
+            proof_hashes = {path: core.file_hash(work / path) for path in paths}
+            transitions = [(opening, work / 'opening', {'state': [{'selector': '#panel'}]}),
+                           (exit_edge, evidence, {'state': []})]
+            row = dict(criterion='2.1.2', checkpoint='2.1.2-02', target='#panel', state='opened')
+            check = dict(checkpoint=CHECKPOINT, target='#panel', outcome='passed', observed='Escape',
+                         evidence='escape/dialog-focus.json')
+
+            def verdicts(proof):
+                return scoring.score_environment(row, [check], [opening, exit_edge],
+                                                 transitions, work, work, proof)['verdicts']
+
+            self.assertEqual([verdict['outcome'] for verdict in verdicts(proof_hashes)], ['passed'])
+            self.assertEqual(verdicts({}), [])
+            for name in paths:
+                with self.subTest(file=name):
+                    original = (work / name).read_bytes()
+                    (work / name).write_bytes(original + b' ')
+                    self.assertEqual(verdicts(proof_hashes), [])
+                    (work / name).write_bytes(original)
+                    self.assertEqual(verdicts({path: digest for path, digest in proof_hashes.items() if path != name}), [])
+
+            events[0]['isTrusted'] = False
+            log = evidence / 'input-events.json'
+            core.save(log, dict(truncated=False, events=events))
+            proof_hashes[log.relative_to(work).as_posix()] = core.file_hash(log)
+            self.assertEqual(verdicts(proof_hashes), [])

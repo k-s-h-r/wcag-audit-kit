@@ -174,7 +174,7 @@ def matching_function(row, checks, edges, work, output):
                    target=check['target'], report_check=check['checkpoint'], observed=check['observed'])
 
 
-def matching_trap(row, checks, transitions, work, output):
+def matching_trap(row, checks, transitions, work, output, proof_hashes):
     from dialog_focus import EVIDENCE_FILE
     from keyboard_checks import matching_keydown
     from keyboard_trap import CHECKPOINT, KEYS, left
@@ -190,7 +190,9 @@ def matching_trap(row, checks, transitions, work, output):
             continue
         path = work / check['evidence']
         log_path = path.with_name('input-events.json')
-        if not path.is_file() or not log_path.is_file():
+        transition_path = path.with_name('transition.json')
+        if any(not evidence.is_file() or proof_hashes.get(evidence.relative_to(work).as_posix()) != core.file_hash(evidence)
+               for evidence in (path, log_path, transition_path)):
             continue
         receipt = core.load(path).get('keyboard_trap')
         if not receipt or receipt['target'] != row['target'] or receipt['outcome'] != check['outcome']:
@@ -244,7 +246,7 @@ def matching_trap(row, checks, transitions, work, output):
                    report_check=check['checkpoint'], observed=check['observed'])
 
 
-def score_environment(row, checks, edges, transitions, work, output):
+def score_environment(row, checks, edges, transitions, work, output, proof_hashes=None):
     reached = [
         (directory / 'state.json').relative_to(output).as_posix()
         for edge, directory, state in transitions if reached_state(edge, state, row)
@@ -269,8 +271,8 @@ def score_environment(row, checks, edges, transitions, work, output):
         verdicts.extend(key_results)
     elif point == '2.1.1-02' and row['state'] == 'initial' and reached:
         verdicts.extend(matching_function(row, checks, edges, work, output))
-    elif point == '2.1.2-02' and reached:
-        verdicts.extend(matching_trap(row, checks, transitions, work, output))
+    elif point == '2.1.2-02' and reached and proof_hashes:
+        verdicts.extend(matching_trap(row, checks, transitions, work, output, proof_hashes))
     elif row['state'] in url_only.DIALOG_ACTIONS:
         result = dict(reached=[], verdicts=[])
         url_only.score_dialog(transitions, checks, work, output, row, result)
@@ -314,9 +316,11 @@ def score_page(output, page):
     edges_by_env = defaultdict(list)
     transitions_by_env = {}
     checks_by_env = defaultdict(list)
+    proof_hashes = {}
     if completed:
         report = core.load(report_path)
         graph = core.load(graph_path)
+        proof_hashes = {item['path']: item['sha256'] for item in graph.get('proof', [])}
         collection.update(
             report=report_path.relative_to(output).as_posix(),
             report_sha256=core.file_hash(report_path),
@@ -345,7 +349,7 @@ def score_page(output, page):
     for row in page['rows']:
         environments = {
             env: score_environment(row, checks_by_env[env], edges_by_env[env],
-                                   transitions_by_env.get(env, []), work, output)
+                                   transitions_by_env.get(env, []), work, output, proof_hashes)
             for env in EXPECTED_ENVIRONMENTS
         }
         for env, observations in environments.items():
