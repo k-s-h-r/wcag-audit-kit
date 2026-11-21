@@ -45,6 +45,10 @@ def fingerprint(value):
     state={'nodes':value['state'],'controls':controls,'url':value.get('url'),'title':value.get('title')}
     if references := value.get('operation_reference_inputs'):
         state['reference_inputs'] = references
+    if native_modals := value.get('native_modals'):
+        state['native_modals'] = native_modals
+        if len(native_modals) > 1:
+            state['native_modal_observation'] = value.get('native_modal_observation')
     if shape := value.get('visual_structure_shape'):
         state['visual_structure_shape'] = shape
     if focused_tab := value.get('focused_horizontal_tab'):
@@ -814,6 +818,9 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 shape = visual_structure.candidate_shape(prepared_structure)
                                 if shape:
                                     data['visual_structure_shape'] = shape
+                        if len(data.get('native_modals', [])) > 1:
+                            # DOM order does not identify the topmost native modal.
+                            data['native_modal_observation'] = attempt
                         audit.save(dest/'state.json',data)
                         state_key = (env['id'], fingerprint(data))
                         if impact is not None and state_key in seen and not matched_labels:

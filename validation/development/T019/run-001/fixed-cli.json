@@ -1,0 +1,231 @@
+{
+  "limits": {
+    "max_steps": 24,
+    "max_states": 16,
+    "max_depth": 1
+  },
+  "cases": [
+    {
+      "case": "css",
+      "quick": {
+        "states": 4,
+        "steps": 12,
+        "completed_routes": 8,
+        "document_requests": 12,
+        "seconds": 91.477
+      },
+      "whole": {
+        "states": 4,
+        "steps": 18,
+        "completed_routes": 16,
+        "document_requests": 18,
+        "seconds": 49.682
+      },
+      "comparisons": [
+        {
+          "environment": "desktop",
+          "mode": "mixed",
+          "reason": null,
+          "rechecked": {
+            "aria-valid-attr": 2,
+            "tabindex": 1
+          },
+          "reused": {
+            "aria-valid-attr": 9,
+            "tabindex": 9
+          },
+          "whole_counts": {
+            "aria-valid-attr": 11,
+            "tabindex": 10
+          },
+          "quick": "css-quick/work/evidence/203393e44bfd--explore-907c67f4bd40--desktop",
+          "whole": "css-whole/work/evidence/203393e44bfd--explore-9913f5dbf283--desktop"
+        },
+        {
+          "environment": "narrow",
+          "mode": "mixed",
+          "reason": null,
+          "rechecked": {
+            "aria-valid-attr": 2,
+            "tabindex": 1
+          },
+          "reused": {
+            "aria-valid-attr": 9,
+            "tabindex": 9
+          },
+          "whole_counts": {
+            "aria-valid-attr": 11,
+            "tabindex": 10
+          },
+          "quick": "css-quick/work/evidence/203393e44bfd--explore-d076747d340c--narrow",
+          "whole": "css-whole/work/evidence/203393e44bfd--explore-53e8ac594f5f--narrow"
+        }
+      ]
+    },
+    {
+      "case": "external-label",
+      "quick": {
+        "states": 4,
+        "steps": 20,
+        "completed_routes": 16,
+        "document_requests": 20,
+        "seconds": 34.47
+      },
+      "whole": {
+        "states": 4,
+        "steps": 24,
+        "completed_routes": 22,
+        "document_requests": 24,
+        "seconds": 27.389
+      },
+      "comparisons": [
+        {
+          "environment": "desktop",
+          "mode": "mixed",
+          "reason": null,
+          "rechecked": {
+            "aria-valid-attr": 2,
+            "tabindex": 0
+          },
+          "reused": {
+            "aria-valid-attr": 9,
+            "tabindex": 9
+          },
+          "whole_counts": {
+            "aria-valid-attr": 11,
+            "tabindex": 9
+          },
+          "quick": "external-label-quick/work/evidence/739474f385d9--explore-9a07c9926bf6--desktop",
+          "whole": "external-label-whole/work/evidence/739474f385d9--explore-e3b48340ff48--desktop"
+        },
+        {
+          "environment": "narrow",
+          "mode": "mixed",
+          "reason": null,
+          "rechecked": {
+            "aria-valid-attr": 2,
+            "tabindex": 0
+          },
+          "reused": {
+            "aria-valid-attr": 9,
+            "tabindex": 9
+          },
+          "whole_counts": {
+            "aria-valid-attr": 11,
+            "tabindex": 9
+          },
+          "quick": "external-label-quick/work/evidence/739474f385d9--explore-5c1efca586dd--narrow",
+          "whole": "external-label-whole/work/evidence/739474f385d9--explore-0aef17237764--narrow"
+        }
+      ]
+    },
+    {
+      "case": "remote-popup",
+      "quick": {
+        "states": 4,
+        "steps": 16,
+        "completed_routes": 12,
+        "document_requests": 16,
+        "seconds": 20.268
+      },
+      "whole": {
+        "states": 4,
+        "steps": 22,
+        "completed_routes": 20,
+        "document_requests": 22,
+        "seconds": 20.674
+      },
+      "comparisons": [
+        {
+          "environment": "desktop",
+          "mode": "mixed",
+          "reason": null,
+          "rechecked": {
+            "aria-valid-attr": 3,
+            "tabindex": 1
+          },
+          "reused": {
+            "aria-valid-attr": 9,
+            "tabindex": 9
+          },
+          "whole_counts": {
+            "aria-valid-attr": 12,
+            "tabindex": 10
+          },
+          "quick": "remote-popup-quick/work/evidence/4c4312b92596--explore-c5fbc1533050--desktop",
+          "whole": "remote-popup-whole/work/evidence/4c4312b92596--explore-df450247020f--desktop"
+        },
+        {
+          "environment": "narrow",
+          "mode": "mixed",
+          "reason": null,
+          "rechecked": {
+            "aria-valid-attr": 3,
+            "tabindex": 1
+          },
+          "reused": {
+            "aria-valid-attr": 9,
+            "tabindex": 9
+          },
+          "whole_counts": {
+            "aria-valid-attr": 12,
+            "tabindex": 10
+          },
+          "quick": "remote-popup-quick/work/evidence/4c4312b92596--explore-e870fb8587cb--narrow",
+          "whole": "remote-popup-whole/work/evidence/4c4312b92596--explore-46a751c9519f--narrow"
+        }
+      ]
+    },
+    {
+      "case": "native-modal",
+      "quick": {
+        "states": 4,
+        "steps": 14,
+        "completed_routes": 10,
+        "document_requests": 14,
+        "seconds": 12.565
+      },
+      "whole": {
+        "states": 4,
+        "steps": 18,
+        "completed_routes": 16,
+        "document_requests": 18,
+        "seconds": 15.029
+      },
+      "comparisons": [
+        {
+          "environment": "desktop",
+          "mode": "whole_page",
+          "reason": "native_modal",
+          "rechecked": {
+            "aria-valid-attr": 1,
+            "tabindex": 1
+          },
+          "reused": {},
+          "whole_counts": {
+            "aria-valid-attr": 1,
+            "tabindex": 1
+          },
+          "quick": "native-modal-quick/work/evidence/d926e69fc9c4--explore-089e326352ab--desktop",
+          "whole": "native-modal-whole/work/evidence/d926e69fc9c4--explore-8ebc772237ba--desktop"
+        },
+        {
+          "environment": "narrow",
+          "mode": "whole_page",
+          "reason": "native_modal",
+          "rechecked": {
+            "aria-valid-attr": 1,
+            "tabindex": 1
+          },
+          "reused": {},
+          "whole_counts": {
+            "aria-valid-attr": 1,
+            "tabindex": 1
+          },
+          "quick": "native-modal-quick/work/evidence/d926e69fc9c4--explore-1dd9a159c183--narrow",
+          "whole": "native-modal-whole/work/evidence/d926e69fc9c4--explore-e1a797eb7618--narrow"
+        }
+      ]
+    }
+  ]
+}

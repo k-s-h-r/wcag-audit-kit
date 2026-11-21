@@ -5,18 +5,33 @@ RESULT_TYPES = ('violations', 'incomplete', 'passes', 'inapplicable')
 AXE_VERSION = '4.11.0'
 LOCAL_SELECTORS = {'aria-valid-attr': '*', 'tabindex': '[tabindex]'}
 MAX_REUSED_PER_RULE = 256
+MODAL_STATE_CHANGED = 'axe検査の前後でネイティブのモーダルの状態が変わった。画面と同じ状態で再検査する。'
 
 RUN_AXE = """
-async ({version, selectors, resultTypes}) => {
-  if (Object.keys(selectors).length && axe.version === version) {
+async ({version, selectors, resultTypes, modalState}) => {
+  const sameModalState = () => {
+    if (modalState === null) return true;
+    const current = window.__wcagExplore('native-modal-state');
+    return current.generation === modalState.generation &&
+      JSON.stringify(current.selectors) === JSON.stringify(modalState.selectors);
+  };
+  if (!sameModalState()) return {modalChanged:true};
+  const hasSelectors = Object.keys(selectors).length > 0;
+  // A native modal makes the rest of the document inert without changing its HTML.
+  const nativeModal = hasSelectors && document.querySelector('dialog:modal') !== null;
+  const scan = async narrowed => {
+    const results = await axe.run(document, {resultTypes});
+    return sameModalState() ? {narrowed, nativeModal, results} : {modalChanged:true};
+  };
+  if (hasSelectors && !nativeModal && axe.version === version) {
     try {
       axe.configure({rules: Object.entries(selectors).map(([id, selector]) => ({id, selector}))});
-      return {narrowed: true, results: await axe.run(document, {resultTypes})};
+      return await scan(true);
     } catch {
       axe.reset();
     }
   }
-  return {narrowed: false, results: await axe.run(document, {resultTypes})};
+  return await scan(false);
 }
 """
 
@@ -111,23 +126,38 @@ def merge(results, reused, order):
             current['impact'] = max((node['impact'] for node in current['nodes']), key=rank.__getitem__)
 
 
+async def _scan(page, args):
+    audited = await page.evaluate(RUN_AXE, args)
+    if audited.get('modalChanged'):
+        raise ValueError(MODAL_STATE_CHANGED)
+    return audited
+
+
 async def run_axe(page, data, reused):
     selectors = {}
     for rule_id, entries in reused.items():
         excluded = [node['target'][0] for entry in entries.values() for node in entry['nodes']]
         selectors[rule_id] = LOCAL_SELECTORS[rule_id] + ':not(' + ','.join(excluded) + ')'
-    args = dict(version=AXE_VERSION, selectors=selectors, resultTypes=RESULT_TYPES)
-    audited = await page.evaluate(RUN_AXE, args)
+    modal_state = (dict(selectors=data.get('native_modals', []), generation=data['dialog_generation'])
+                   if data['operation_scope_supported'] else None)
+    args = dict(version=AXE_VERSION, selectors=selectors, resultTypes=RESULT_TYPES, modalState=modal_state)
+    audited = await _scan(page, args)
+    whole_scope = {'mode': 'whole_page'}
     if not audited['narrowed']:
-        return audited['results'], {'mode': 'whole_page'}
-    current = await page.evaluate("() => ({...window.__wcagExplore('inputs'), url: location.href})")
+        if audited.get('nativeModal'):
+            whole_scope['reason'] = 'native_modal'
+        return audited['results'], whole_scope
+    current = await page.evaluate("""() => ({...window.__wcagExplore('inputs'), url: location.href,
+      modalState: window.__wcagExplore('native-modal-state')})""")
     compact(current)
+    if modal_state is not None and current['modalState'] != modal_state:
+        raise ValueError(MODAL_STATE_CHANGED)
     # An ongoing callback or stylesheet update can invalidate the comparison during axe.
     if (current['url'] != data['url'] or not current['operation_scope_supported'] or
             current['operation_inputs'] != data['operation_inputs']):
         await page.evaluate('() => axe.reset()')
-        full = await page.evaluate(RUN_AXE, dict(args, selectors={}))
-        return full['results'], {'mode': 'whole_page'}
+        full = await _scan(page, dict(args, selectors={}))
+        return full['results'], whole_scope
     order = {item['selector']: index for index, item in enumerate(data['state'])}
     results = audited['results']
     observed = target_lists(results, reused)

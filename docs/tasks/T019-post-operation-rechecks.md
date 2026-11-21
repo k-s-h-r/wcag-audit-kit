@@ -1,6 +1,6 @@
 # T019 操作後の差分再検査を広げる
 
-状態：前提のPR #75が採用され、次の実装に着手できる。前提：[T017](T017-url-only-exploration.md)の比較結果と、[PR #75](https://github.com/k-s-h-r/wcag-audit-kit/pull/75)の採用。関連：[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)。
+状態は、ネイティブのモーダルで結果がずれる問題を修正し、限定した対照で全体再検査と照合済み。前提：[T017](T017-url-only-exploration.md)の比較結果と、[PR #75](https://github.com/k-s-h-r/wcag-audit-kit/pull/75)の採用。関連：[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69)。
 
 初期画面は全体を検査し、操作の後は変化した場所と、影響を受ける要素を中心に再検査する。PR #75はARIA属性名と正の `tabindex` の検査で、変化のない要素の結果を再利用する。
 
@@ -17,3 +17,11 @@ CSSで表れる領域、外部ラベル、離れた場所に表示されるポ�
 ## 担当範囲と引き継ぎ
 
 操作前後の観察と再検査の方針を担当する。T018と `page_explorer` の変更が重なる場合は、共通部分を同時編集しない。原始証拠と比較結果は新規runへ保存する。
+
+## 実行結果
+
+mainの `67aa42e` を起点に、`codex/t019-operation-recheck-comparison` の別worktreeとChromiumで比較した。ネイティブのモーダルを開くと、背後の要素の指摘・通過を差分再検査が再利用していた。モーダルが開いた状態では全文書の再検査に切り替え、通常のダイアログと別の探索状態として扱う。二つ以上開いている状態は観察ごとに検査する。 [ADR 0101](../adr/0101-recheck-whole-page-for-native-modal.md)
+
+CSSで現れる領域、外部ラベル、離れたポップアップ、ネイティブのモーダルを1280px・320pxで照合した。同じ操作の違反・判断保留・通過・対象外と、各判定の対象が全文書の再検査と一致した。 [測定条件・結果・残る確認](../../validation/development/T019/README.md)
+
+次の候補は `aria-valid-attr-value`。予備試験では、`aria-controls` を持つボタンのHTMLを保ったまま、別領域に非表示の参照先を追加すると、ボタンの判定が不適合から通過に変わった。結果の再利用を広げる前に、参照先の追加・除去が参照元の再検査につながるか、全体再検査と照合する。

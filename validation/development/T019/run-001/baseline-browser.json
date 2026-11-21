@@ -1,0 +1,380 @@
+{
+  "implementation": "67aa42e",
+  "browser": "156.0.8078.79",
+  "scope": "one click per identical page and width",
+  "fixture": {
+    "native-modal.html": "b199ce2ca2f217af6dbbab9da2ed39c7b4a7ecccceb17b0a732f22adb53dd755",
+    "css.html": "e2d93702fdd56c74e41ac5da4bbf5a8925481bf095756a5f3b6e4c8da0d8e5ed",
+    "external-label.html": "52a58f6939072479796d355c3c6be625e00ce839e465fe8724259e53b1852e6b",
+    "remote-popup.html": "694f67dcc7252d188f3bf85b7c76bb4100f1236f81acbef425b4afcb0fd37c9c"
+  },
+  "requests": {
+    "/css.html": 2,
+    "/favicon.ico": 1,
+    "/external-label.html": 2,
+    "/remote-popup.html": 2,
+    "/native-modal.html": 2
+  },
+  "pairs": [
+    {
+      "case": "css",
+      "width": 1280,
+      "scope": "mixed",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "reused": {
+        "aria-valid-attr": 9,
+        "tabindex": 9
+      },
+      "rechecked": {
+        "aria-valid-attr": 2,
+        "tabindex": 1
+      },
+      "all_scanned": {
+        "aria-valid-attr": 11,
+        "tabindex": 10
+      },
+      "violations": {
+        "aria-valid-attr": [
+          "[\"#new-button\"]",
+          "[\"#stable-error\"]"
+        ],
+        "tabindex": [
+          "[\"#new-button\"]",
+          "[\"#stable-error\"]"
+        ]
+      },
+      "appeared": [
+        "#new-button",
+        "#panel"
+      ],
+      "changed": [
+        "#act",
+        "html:nth-child(1)"
+      ],
+      "related": [],
+      "mixed_seconds": 0.082,
+      "whole_seconds": 0.069
+    },
+    {
+      "case": "css",
+      "width": 320,
+      "scope": "mixed",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "reused": {
+        "aria-valid-attr": 9,
+        "tabindex": 9
+      },
+      "rechecked": {
+        "aria-valid-attr": 2,
+        "tabindex": 1
+      },
+      "all_scanned": {
+        "aria-valid-attr": 11,
+        "tabindex": 10
+      },
+      "violations": {
+        "aria-valid-attr": [
+          "[\"#new-button\"]",
+          "[\"#stable-error\"]"
+        ],
+        "tabindex": [
+          "[\"#new-button\"]",
+          "[\"#stable-error\"]"
+        ]
+      },
+      "appeared": [
+        "#new-button",
+        "#panel"
+      ],
+      "changed": [
+        "#act",
+        "html:nth-child(1)"
+      ],
+      "related": [],
+      "mixed_seconds": 0.111,
+      "whole_seconds": 0.115
+    },
+    {
+      "case": "external-label",
+      "width": 1280,
+      "scope": "mixed",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "reused": {
+        "aria-valid-attr": 9,
+        "tabindex": 9
+      },
+      "rechecked": {
+        "aria-valid-attr": 2,
+        "tabindex": 0
+      },
+      "all_scanned": {
+        "aria-valid-attr": 11,
+        "tabindex": 9
+      },
+      "violations": {
+        "aria-valid-attr": [
+          "[\"#stable-error\"]"
+        ],
+        "button-name": [
+          "[\"#labelled\"]"
+        ],
+        "tabindex": [
+          "[\"#stable-error\"]"
+        ]
+      },
+      "appeared": [],
+      "changed": [
+        "#act",
+        "#label"
+      ],
+      "related": [
+        "#labelled"
+      ],
+      "mixed_seconds": 0.088,
+      "whole_seconds": 0.075
+    },
+    {
+      "case": "external-label",
+      "width": 320,
+      "scope": "mixed",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "reused": {
+        "aria-valid-attr": 9,
+        "tabindex": 9
+      },
+      "rechecked": {
+        "aria-valid-attr": 2,
+        "tabindex": 0
+      },
+      "all_scanned": {
+        "aria-valid-attr": 11,
+        "tabindex": 9
+      },
+      "violations": {
+        "aria-valid-attr": [
+          "[\"#stable-error\"]"
+        ],
+        "button-name": [
+          "[\"#labelled\"]"
+        ],
+        "tabindex": [
+          "[\"#stable-error\"]"
+        ]
+      },
+      "appeared": [],
+      "changed": [
+        "#act",
+        "#label"
+      ],
+      "related": [
+        "#labelled"
+      ],
+      "mixed_seconds": 0.096,
+      "whole_seconds": 0.127
+    },
+    {
+      "case": "remote-popup",
+      "width": 1280,
+      "scope": "mixed",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "reused": {
+        "aria-valid-attr": 9,
+        "tabindex": 9
+      },
+      "rechecked": {
+        "aria-valid-attr": 3,
+        "tabindex": 1
+      },
+      "all_scanned": {
+        "aria-valid-attr": 12,
+        "tabindex": 10
+      },
+      "violations": {
+        "aria-valid-attr": [
+          "[\"#popup-entry\"]",
+          "[\"#portal\"]",
+          "[\"#stable-error\"]"
+        ],
+        "tabindex": [
+          "[\"#popup-entry\"]",
+          "[\"#stable-error\"]"
+        ]
+      },
+      "appeared": [
+        "#far-end",
+        "#popup-entry",
+        "#portal"
+      ],
+      "changed": [
+        "#act",
+        "html:nth-child(1)"
+      ],
+      "related": [],
+      "mixed_seconds": 0.066,
+      "whole_seconds": 0.08
+    },
+    {
+      "case": "remote-popup",
+      "width": 320,
+      "scope": "mixed",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "reused": {
+        "aria-valid-attr": 9,
+        "tabindex": 9
+      },
+      "rechecked": {
+        "aria-valid-attr": 3,
+        "tabindex": 1
+      },
+      "all_scanned": {
+        "aria-valid-attr": 12,
+        "tabindex": 10
+      },
+      "violations": {
+        "aria-valid-attr": [
+          "[\"#popup-entry\"]",
+          "[\"#portal\"]",
+          "[\"#stable-error\"]"
+        ],
+        "tabindex": [
+          "[\"#popup-entry\"]",
+          "[\"#stable-error\"]"
+        ]
+      },
+      "appeared": [
+        "#far-end",
+        "#popup-entry",
+        "#portal"
+      ],
+      "changed": [
+        "#act",
+        "html:nth-child(1)"
+      ],
+      "related": [],
+      "mixed_seconds": 0.069,
+      "whole_seconds": 0.062
+    },
+    {
+      "case": "native-modal",
+      "width": 1280,
+      "scope": "mixed",
+      "difference": {
+        "violations": [
+          "aria-valid-attr",
+          "tabindex"
+        ],
+        "incomplete": [],
+        "passes": [
+          "aria-valid-attr",
+          "tabindex"
+        ],
+        "inapplicable": []
+      },
+      "reused": {
+        "aria-valid-attr": 9,
+        "tabindex": 9
+      },
+      "rechecked": {
+        "aria-valid-attr": 1,
+        "tabindex": 1
+      },
+      "all_scanned": {
+        "aria-valid-attr": 1,
+        "tabindex": 1
+      },
+      "violations": {
+        "aria-valid-attr": [
+          "[\"#popup-entry\"]"
+        ],
+        "tabindex": [
+          "[\"#popup-entry\"]"
+        ]
+      },
+      "appeared": [
+        "#modal",
+        "#modal > h2:nth-child(1)",
+        "#popup-entry"
+      ],
+      "changed": [],
+      "related": [],
+      "mixed_seconds": 0.028,
+      "whole_seconds": 0.029
+    },
+    {
+      "case": "native-modal",
+      "width": 320,
+      "scope": "mixed",
+      "difference": {
+        "violations": [
+          "aria-valid-attr",
+          "tabindex"
+        ],
+        "incomplete": [],
+        "passes": [
+          "aria-valid-attr",
+          "tabindex"
+        ],
+        "inapplicable": []
+      },
+      "reused": {
+        "aria-valid-attr": 9,
+        "tabindex": 9
+      },
+      "rechecked": {
+        "aria-valid-attr": 1,
+        "tabindex": 1
+      },
+      "all_scanned": {
+        "aria-valid-attr": 1,
+        "tabindex": 1
+      },
+      "violations": {
+        "aria-valid-attr": [
+          "[\"#popup-entry\"]"
+        ],
+        "tabindex": [
+          "[\"#popup-entry\"]"
+        ]
+      },
+      "appeared": [
+        "#modal",
+        "#modal > h2:nth-child(1)",
+        "#popup-entry"
+      ],
+      "changed": [],
+      "related": [],
+      "mixed_seconds": 0.047,
+      "whole_seconds": 0.042
+    }
+  ]
+}

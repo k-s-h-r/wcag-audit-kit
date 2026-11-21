@@ -6,8 +6,12 @@
   const nativeClearInterval = window.clearInterval, timers = new Map();
   let lastChange = performance.now(), untrackedCallbacks = 0;
   let operationMutations = null;
+  let dialogGeneration = 0;
   new MutationObserver(records => {
     lastChange = performance.now();
+    for (const {attributeName, target} of records) {
+      if (attributeName === 'open' && target instanceof HTMLDialogElement) dialogGeneration++;
+    }
     if (!operationMutations) return;
     for (const {target} of records) {
       if (operationMutations.size >= 1000) break;
@@ -246,6 +250,8 @@
       operation_scope_supported: reusable};
   };
   window.__wcagExplore = (operationEvidence = false) => {
+    if (operationEvidence === 'native-modal-state')
+      return {selectors:[...document.querySelectorAll('dialog:modal')].map(selector), generation:dialogGeneration};
     const all = [], roots = [document];
     for (let i = 0; i < roots.length; i++) for (const e of roots[i].querySelectorAll('*')) {
       all.push(e); if (e.shadowRoot) roots.push(e.shadowRoot);
@@ -282,6 +288,7 @@
     const recordedFocus = focusedTab ? focused : document.activeElement;
     const modal = all.filter(e => (e.matches('dialog[open]') || e.getAttribute('aria-modal') === 'true') && visible(e)).at(-1);
     const activeModals = visibleModals();
+    const nativeModals = all.filter(e => e.localName === 'dialog' && e.matches(':modal')).map(selector);
     const singleModal = activeModals.length === 1 ? activeModals[0] : null;
     const properties=['onclick','onmousedown','onpointerdown','onpointerup','onpointerenter','onmouseover','onkeydown','onchange','oninput'];
     const eligible = all.filter(e => visible(e) && (!modal || e === modal || modal.contains(e)) &&
@@ -319,6 +326,8 @@
           rect:{x:r.x + scrollX,y:r.y + scrollY,width:r.width,height:r.height}};
       });
     return {...operation,url:location.href,title:document.title,controls,state,modal:modal ? selector(modal) : null,
+      ...(nativeModals.length ? {native_modals:nativeModals} : {}),
+      dialog_generation:dialogGeneration,
       frames:all.filter(e => e.matches('iframe,frame')).map(selector), closedRoots,
       canvases:all.filter(e => e.localName === 'canvas' && visible(e)).map(selector),
       scroll:{width:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight},
