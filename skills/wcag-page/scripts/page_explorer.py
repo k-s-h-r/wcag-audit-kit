@@ -802,12 +802,6 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         data['observation_wait']=settling
                         data['state_labels']=label_observations
                         inv=await page.evaluate(INVENTORY);audit.save(dest/'inventory.json',inv)
-                        if (not route and not blocked and not native_events and data['url'] == inv['url']
-                                and urldefrag(normalize(page.url))[0] in allowed_navigation
-                                and all(wait['status'] == 'quiet' for wait in settling)):
-                            with suppress(BrowserError):
-                                if spacing := await target_spacing.observe(page, data, env['id']):
-                                    audit.save(dest/target_spacing.EVIDENCE_FILE, spacing)
                         capture_structure = visual_scope and (not route or observe_explored_structure)
                         prepared_structure = None
                         structure_deadline = None
@@ -840,7 +834,17 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                     page, visual_scope, prepared_structure, deadline=structure_deadline)
                             # Capture the audited state before diagnostic scrolling changes the DOM.
                             cdp=await context.new_cdp_session(page)
-                            audit.save(dest/'accessibility-tree.json',await cdp.send('Accessibility.getFullAXTree'));await cdp.detach()
+                            try:
+                                audit.save(dest/'accessibility-tree.json', await cdp.send('Accessibility.getFullAXTree'))
+                                if (not route and not blocked and not native_events and data['url'] == inv['url']
+                                        and urldefrag(normalize(page.url))[0] in allowed_navigation
+                                        and all(wait['status'] == 'quiet' for wait in settling)):
+                                    with suppress(BrowserError):
+                                        spacing = await target_spacing.observe(page, cdp, data, env['id'])
+                                        if spacing:
+                                            audit.save(dest/target_spacing.EVIDENCE_FILE, spacing)
+                            finally:
+                                await cdp.detach()
                             await page.evaluate((ROOT/'vendor/axe.min.js').read_text())
                             baseline = None
                             reused = {}

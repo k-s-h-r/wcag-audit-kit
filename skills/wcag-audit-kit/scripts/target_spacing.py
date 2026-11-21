@@ -9,7 +9,7 @@ CHECKPOINT = 'ポインター対象の寸法と間隔'
 CRITERION = '2.5.8'
 COORDINATES = ('x', 'y', 'width', 'height')
 
-TARGET_RECTS = r"""(selectors, recordPoints = false) => {
+TARGET_RECTS = r"""(selectors, exactPair = false) => {
     const viewport = document.documentElement;
     const candidates = 'a[href],button,select,textarea,input:not([type="hidden"]),summary,'
         + '[role="button"],[role="link"],[role="checkbox"],[role="radio"],[role="switch"],'
@@ -19,7 +19,8 @@ TARGET_RECTS = r"""(selectors, recordPoints = false) => {
     const nodes = Array.from(document.querySelectorAll(candidates));
     for (const matches of selected)
         if (matches.length === 1 && !nodes.includes(matches[0])) nodes.push(matches[0]);
-    if (nodes.length > 100 || document.querySelector('script,iframe,frame,object,embed,canvas,video,audio')
+    if (nodes.length > 100 || (exactPair && nodes.length !== 2)
+            || document.querySelector('script,iframe,frame,object,embed,canvas,video,audio')
             || Array.from(document.getElementsByTagName('*')).some(node => node.shadowRoot))
         return {reason: '静的な主文書の操作対象を列挙できない。'};
 
@@ -74,7 +75,7 @@ TARGET_RECTS = r"""(selectors, recordPoints = false) => {
         items.push({id, x:box.left, y:box.top, width:box.width, height:box.height,
             inline_text: inlineText(node, box, style),
             explicit_size: node.matches('button') && !!node.style.width && !!node.style.height,
-            ...(recordPoints ? {hit_points: points} : {})});
+            ...(exactPair ? {hit_points: points} : {})});
     }
     return {items, unresolved};
 }"""
@@ -85,9 +86,10 @@ INITIAL_PAIR = r"""selectors => {
     const elements = Array.from(document.querySelectorAll('*'));
     if (buttons.length !== 2 || buttons[0].parentElement !== buttons[1].parentElement
             || buttons.some(node => node.form || node.hasAttribute('role')) || document.getAnimations().length
-            || document.querySelector('meta[http-equiv="refresh" i],label,svg,math,[contenteditable],[tabindex],'
-                + '[usemap],[popover],[popovertarget],[commandfor]')
-            || elements.length > 300 || elements.some(node => node.getAttributeNames().some(name => name.startsWith('on'))))
+            || document.querySelector('meta[http-equiv="refresh" i],label,details,[contenteditable],[tabindex],'
+                + '[usemap],[popover],[popovertarget],[commandfor],[is]') || elements.length > 300
+            || elements.some(node => node.namespaceURI !== 'http://www.w3.org/1999/xhtml'
+                || node.localName.includes('-') || node.getAttributeNames().some(name => name.startsWith('on'))))
         return null;
 
     const ancestors = new Set(buttons);
@@ -185,14 +187,28 @@ def verified_pair(record, state):
     return None
 
 
-async def observe(page, state, environment):
+def has_author_shadow(node):
+    pending = [node]
+    while pending:
+        current = pending.pop()
+        if any(root.get('shadowRootType') != 'user-agent' for root in current.get('shadowRoots', [])):
+            return True
+        pending.extend(current.get('children', []))
+    return False
+
+
+async def observe(page, cdp, state, environment):
     targets = initial_rectangles(state)
     if len(targets) != 2:
         return None
     record = await page.evaluate(INITIAL_PAIR, list(targets))
-    if verified_pair(record, state):
-        return dict(record, environment=environment)
-    return None
+    if not verified_pair(record, state):
+        return None
+    # Declarative closed shadow roots can hide controls from a document query.
+    document = await cdp.send('DOM.getDocument', {'depth': -1, 'pierce': True})
+    if has_author_shadow(document['root']):
+        return None
+    return dict(record, environment=environment)
 
 
 def report_rows(record, state, capture, evidence, state_path):
