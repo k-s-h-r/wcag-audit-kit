@@ -1,0 +1,31 @@
+{
+  "criterion": "4.1.3",
+  "level": "WCAG 2.2 AA",
+  "labels": {
+    "entry_link": "見学の予約を始める",
+    "input": "見学人数",
+    "review_button": "予約内容を確認する",
+    "error": "見学人数は2名以上を入力してください。",
+    "confirmation": "12月6日。見学人数 2 名。"
+  },
+  "steps": {
+    "entry_link": 2,
+    "form_entry": 3,
+    "invalid_input": 6,
+    "review_control": 8,
+    "error": 9,
+    "return_to_input": 10,
+    "corrected_input": 12,
+    "confirmation": 14
+  },
+  "cases": {
+    "aa": {"error_role": "alert", "expected_outcome": "passed"},
+    "bb": {"error_role": null, "expected_outcome": "failed"}
+  },
+  "grading": {
+    "prerequisites": "両例で同じ実Orca・Chromium、同一操作と実キー、3秒以上の観察窓、確認ボタン名の発話、ボタンにフォーカスを維持したまま同じ入力エラーの表示、修正後の確認到達を確認する。",
+    "passed": "エラー表示の操作と同じ観察窓で全文の発話を取得し、表示と実ログの原文を照合できる。",
+    "failed": "同じ環境の正常例で発話を取得し、問題例では同じ表示とフォーカスの維持を確認できるが、エラーの内容が発話されず、通知のロールやライブプロパティも指定されていない。",
+    "cant_tell": "正常対照、到達、表示、フォーカス、操作窓、または原始ログを照合できない。"
+  }
+}
