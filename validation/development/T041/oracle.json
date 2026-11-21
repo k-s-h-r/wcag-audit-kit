@@ -1,0 +1,55 @@
+{
+  "actions_excluded_from_input_count": [
+    "reader.nextHeading"
+  ],
+  "cases": {
+    "c4p": {
+      "control": "next-availability",
+      "date_status_utterances": [
+        "12月19日、空きあり。"
+      ],
+      "displayed": [
+        "12月14日、空きなし。",
+        "12月14日、空きなし。",
+        "12月19日、空きあり。"
+      ],
+      "focuses": [
+        "next-day",
+        "next-available",
+        "next-available"
+      ]
+    },
+    "m8d": {
+      "control": "day-by-day",
+      "date_status_utterances": [
+        "12月15日、空きなし。",
+        "12月16日、空きなし。",
+        "12月17日、空きなし。",
+        "12月18日、空きなし。",
+        "12月19日、空きあり。"
+      ],
+      "displayed": [
+        "12月14日、空きなし。",
+        "12月15日、空きなし。",
+        "12月16日、空きなし。",
+        "12月17日、空きなし。",
+        "12月18日、空きなし。",
+        "12月19日、空きあり。"
+      ],
+      "focuses": [
+        "next-day",
+        "next-day",
+        "next-day",
+        "next-day",
+        "next-day",
+        "next-day"
+      ]
+    }
+  },
+  "end": "12月19日、空きあり。",
+  "heading": "版画室の見学カレンダー",
+  "scope": "One synthetic calendar, December 2026; no selection, confirmation, submission or WCAG verdict.",
+  "speech_metric": "Count date+availability messages in each action window after setup, independently of key/button speech. Record every Orca phrase with its window.",
+  "start": "12月14日、空きなし。",
+  "stop": "First display of end + corresponding semantic message in native transcript window."
+}

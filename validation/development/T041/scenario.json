@@ -1,0 +1,31 @@
+{
+  "cases": {
+    "c4p": [
+      "Tab",
+      "Tab",
+      "space"
+    ],
+    "m8d": [
+      "Tab",
+      "space",
+      "space",
+      "space",
+      "space",
+      "space"
+    ]
+  },
+  "locale": "ja-JP",
+  "observe": [
+    {
+      "selector": "#availability"
+    }
+  ],
+  "reader_setup": {
+    "type": "reader.nextHeading"
+  },
+  "settle_ms": 3000,
+  "viewport": {
+    "height": 900,
+    "width": 1280
+  }
+}
