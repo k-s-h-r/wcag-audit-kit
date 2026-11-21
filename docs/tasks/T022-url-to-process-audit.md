@@ -1,6 +1,6 @@
 # T022 URLを起点に一つの手続きを見つけて報告する
 
-状態：T021とT024の変更を含む依存ブランチでローカル実証を実施。前提は[T020の基準値](T020-url-only-machine-score.md)、[T021の報告](T021-scope-conformance-report.md)、[T011〜T014の限定実証](README.md#タスク一覧と開始条件)。
+状態：T021とT024の変更を含む依存ブランチでローカル実証を実施。[PR #88](https://github.com/k-s-h-r/wcag-audit-kit/pull/88)で提出。前提は[T020の基準値](T020-url-only-machine-score.md)、[T021の報告](T021-scope-conformance-report.md)、[T011〜T014の限定実証](README.md#タスク一覧と開始条件)。
 
 [T014](T014-site-acceptance.md)では選定サイトの機械検査、意味比較、実Orcaを組み合わせた。次は[照合した20観点](T014-site-acceptance.md#別サイトの受入試験)の実績を土台に、検査担当がURLから手続きの入口と状態を見つけ、必要な証拠をそろえて二つの成果物へつなげられるかを測る。 [VISIONの利用場面](../VISION.md#人が使うように最初から最後まで試したい)
 
