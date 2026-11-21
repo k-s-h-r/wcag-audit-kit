@@ -311,6 +311,121 @@ def page_result(run, url, original=None):
     return result
 
 
+def trap_case_checks(run, graph, checks, cases):
+    """Bind the measured exit to the captured state before Escape."""
+    import audit
+    from dialog_focus import EVIDENCE_FILE
+    from keyboard_checks import matching_keydown
+    from keyboard_trap import CHECKPOINT
+    from page_explorer import fingerprint
+
+    trap_rows = {row['evidence']: row for row in checks if row['checkpoint'] == CHECKPOINT}
+    if not trap_rows:
+        return {}
+    captures = audit.load(run / 'capture-manifest.json')['captures']
+    proof = {Path(item['path']).as_posix(): item for item in graph.get('proof', [])}
+
+    def verified(path):
+        try:
+            if path in proof and audit.evidence_item(run, path) == proof[path]:
+                value = audit.load(run / path)
+                if isinstance(value, dict):
+                    return value
+        except (OSError, ValueError):
+            pass
+        return {}
+
+    def verified_transition(item):
+        path = (Path(item['evidence_dir']) / 'transition.json').as_posix()
+        record = verified(path)
+        waits = record.get('settling')
+        if (all(record.get(key) == item.get(key) for key in ('environment', 'route', 'dialog_focus'))
+                and 'error' in record and record['error'] is None
+                and record.get('blocked_requests') == [] and record.get('native_events') == []
+                and isinstance(waits, list) and len(waits) == len(item['route']) + 1
+                and all(isinstance(wait, dict) and wait.get('status') == 'quiet' for wait in waits)):
+            return path
+        return None
+
+    def verified_state(item, before, before_fingerprint):
+        path = (Path(item['evidence_dir']) / 'state.json').as_posix()
+        state = verified(path)
+        try:
+            if (state['url'] == before['url'] and [state['modal']] == before['modals']
+                    and (state.get('deep_focus') or state['focus']['selector']) == before['focus']
+                    and fingerprint(state) == before_fingerprint):
+                return path
+        except (AttributeError, KeyError, TypeError):
+            pass
+        return None
+
+    by_case = {}
+    edges = graph.get('edges', [])
+    for edge in edges:
+        evidence = (Path(edge['evidence_dir']) / EVIDENCE_FILE).as_posix() if edge.get('evidence_dir') else None
+        row = trap_rows.get(evidence)
+        route = edge['route']
+        if not (row and edge.get('dialog_focus') == 'escape'
+                and len(route) == 2 and route[0]['type'] == 'key' and route[0].get('key') in {'Enter', 'Space'}
+                and route[1] == {'type': 'press', 'selector': 'body', 'key': 'Escape'}
+                and row['environment'] == edge['environment']):
+            continue
+        receipt = verified(evidence).get('keyboard_trap')
+        # Older reports have the operation result but lack a state from the actual replay.
+        if not receipt or not (before_fingerprint := receipt.get('before_fingerprint')):
+            continue
+        before = receipt['before']
+        if not (before['supported'] and before['within'] and before['shown']
+                and before['modals'] == [row['target']] and receipt['opener'] == route[0]['selector']):
+            continue
+        events_path = (Path(evidence).parent / 'input-events.json').as_posix()
+        log = verified(events_path)
+        events = log.get('events', [])
+        indices = (receipt.get('opener_event_index'), receipt.get('escape_event_index'))
+        if (log.get('truncated') is not False or not isinstance(events, list)
+                or not all(type(i) is int and 0 <= i < len(events) for i in indices) or indices[0] >= indices[1]):
+            continue
+        opener, escape = (events[i] for i in indices)
+        try:
+            if not (opener['documentId'] and opener['documentId'] == escape['documentId'] and
+                    all(event['expectedTargetMatched'] is True and event['url'] == before['url']
+                        and matching_keydown(event, key) for event, key in ((opener, route[0]['key']), (escape, 'Escape')))):
+                continue
+        except (KeyError, TypeError):
+            continue
+        environment = edge['environment']
+        openings = [item for item in edges if item['environment'] == environment and item['route'] == route[:1]]
+        if len(openings) != 1 or openings[0].get('fingerprint') != before_fingerprint:
+            continue
+        opening = openings[0]
+        nodes = [node for node in graph['nodes'] if node['environment'] == environment
+                 and node['fingerprint'] == before_fingerprint]
+        if len(nodes) != 1:
+            continue
+        node = nodes[0]
+        observed_paths = [verified_transition(edge), verified_transition(opening), verified_transition(node),
+                          verified_state(opening, before, before_fingerprint), verified_state(node, before, before_fingerprint)]
+        if not all(observed_paths):
+            continue
+        matches = [capture for capture in captures if capture['key'] == node['capture']]
+        if len(matches) != 1:
+            continue
+        capture = matches[0]
+        if not (capture['execution'] == 'completed' and capture['state'] != 'initial'
+                and capture.get('final_url') == before['url'] and capture['environment'] == environment
+                and capture['evidence_dir'] == node['evidence_dir']):
+            continue
+        for case in cases:
+            if (case['criterion'] == row['criterion'] and case['capture'] == capture['key']
+                    and case['capture_execution'] == 'completed' and case['page_id'] == capture['page_id']
+                    and case['page_url'] == capture['url'] and case['environment'] == capture['environment']
+                    and case['state'] == capture['state'] and case['evidence_dir'] == capture['evidence_dir']):
+                by_case.setdefault(case['case_id'], []).append(dict(
+                    row, case_capture=capture['key'], page_url=capture['url'], operation_route=route,
+                    proof=list(dict.fromkeys([events_path, *observed_paths]))))
+    return by_case
+
+
 def next_work(run, url, limit=5):
     import audit
     from page_explorer import status
@@ -319,11 +434,13 @@ def next_work(run, url, limit=5):
              (c['assessment_data'] or {}).get('remaining') or (c['assessment_data'] or {}).get('coverage_complete') is not True]
     by_id={c['id']:c for c in catalog['criteria']}
     checks=machine_checks(run)
+    operation_checks = trap_case_checks(run, graph, checks, pending)
     mode=result.get('verification')
-    packets=[];unavailable=[]
+    packets=[];operation_packets=[];unavailable=[]
     for c in pending:
+        operations = operation_checks.get(c['case_id'], [])
         packet=dict(c,definition=by_id[c['criterion']],
-                    machine_results=[m for m in checks if m['criterion']==c['criterion'] and m['capture']==c['capture']])
+                    machine_results=[m for m in checks if m['criterion']==c['criterion'] and m['capture']==c['capture']] + operations)
         if c['criterion'] == '2.4.7':
             packet['focus_evidence'] = [item for item in result['focus_evidence'] if item['environment'] == c['environment']]
         if c['criterion'] == '1.3.1' and 'visual_structure_evidence' in result:
@@ -336,7 +453,8 @@ def next_work(run, url, limit=5):
             packet['skipped_checkpoints']=[dict(id=r['id'],check=r['check'],reason=r['note']) for r in points if r['selected_support']=='no']
             if not packet['verification_checkpoints']:
                 unavailable.append({'case_id':c['case_id'],'criterion':c['criterion'],'checkpoints':packet['skipped_checkpoints']});continue
-        packets.append(packet)
+        (operation_packets if operations else packets).append(packet)
+    packets = operation_packets + packets
     mode_notice={k:v for k,v in mode.items() if k!='checkpoints'} if mode else None
     deferred = graph.get('deferred', False)
     if deferred:

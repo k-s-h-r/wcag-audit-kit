@@ -726,11 +726,11 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 ):
                                     raise ValueError('キー入力の前に同じコンボボックスの候補を再現できない。')
                             if quick and action_index == len(route):
-                                before_operation, document_start = await page.evaluate("""() => {
-                                    const before = window.__wcagExplore('before');
+                                before_operation, document_start = await page.evaluate("""mode => {
+                                    const before = window.__wcagExplore(mode);
                                     window.__wcagBeginOperation();
                                     return [before, performance.timeOrigin];
-                                }""")
+                                }""", True if phase == 'escape' else 'before')
                                 operation_impact.compact(before_operation)
                                 if (len(route) == 1 and keyboard_function.activation(action)
                                         and (result_output := keyboard_function.numeric_output(before_operation))):
@@ -916,6 +916,12 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 receipt.update(outcome='cant_tell', reason=interrupted_reason)
                         elif any(wait['status'] != 'quiet' for wait in settling):
                             dialog_observation.invalidate('キー入力後の表示更新が観察範囲に収まらない。')
+                        elif before_operation and (receipt := dialog_observation.record.get('keyboard_trap')):
+                            before = receipt['before']
+                            focus = before_operation.get('deep_focus') or before_operation['focus']['selector']
+                            if (before['url'] == before_operation['url'] and before['modals'] == [before_operation['modal']]
+                                    and before['focus'] == focus and before['document_start'] == document_start):
+                                receipt['before_fingerprint'] = fingerprint(before_operation)
                         audit.save(dest/dialog_focus.EVIDENCE_FILE, dialog_observation.record)
                     if structure_observation is not None or (visual_scope and not (declared or route)):
                         if interrupted_reason:
