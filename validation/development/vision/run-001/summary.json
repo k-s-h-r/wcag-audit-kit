@@ -1,0 +1,115 @@
+{
+  "environment": {
+    "os": "Debian",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "156.0.8078.79"
+  },
+  "checks": {
+    "unit_tests_passed": 324,
+    "synchronized": true,
+    "numeric_controls": {
+      "examples": 3,
+      "viewports": 2
+    },
+    "accordion": {
+      "examples": 6,
+      "viewports": 2
+    },
+    "whole_page_agreement": {
+      "operations": 4,
+      "viewports": 2
+    }
+  },
+  "archive_scope": {
+    "good": {
+      "status": "conforms",
+      "audit_complete": true,
+      "failed_cases": [],
+      "report_sha256": "2aa69ff8fc6d8967522c068f58a6fe93139319f3692c48b997d30531bd5ba8e3"
+    },
+    "bad": {
+      "status": "does_not_conform",
+      "audit_complete": false,
+      "failed_cases": [
+        "c8bf6e1d450e--initial--desktop--4.1.2",
+        "c8bf6e1d450e--enabled--desktop--4.1.2",
+        "c8bf6e1d450e--disabled-again--desktop--4.1.2"
+      ],
+      "report_sha256": "30b1358bab9f48a0b934d08a96f95bd11416d70215454f09acb310bf33cad104"
+    }
+  },
+  "reservation_scope": {
+    "control": {
+      "status": "unverified",
+      "audit_complete": false,
+      "failed_cases": [],
+      "report_sha256": "999f1fd676c513fef0a51bcace73eb22df150090872b58c4963b2004316fd312"
+    },
+    "comparison": {
+      "status": "does_not_conform",
+      "audit_complete": false,
+      "failed_cases": [
+        "d9b5c09545c8--initial--desktop--2.1.1",
+        "d9b5c09545c8--initial--desktop--2.5.3"
+      ],
+      "report_sha256": "84d858a6540ff403520ae622fc423cf37230709bc6bd8a144ad12c6f7385f6b6"
+    }
+  },
+  "orca_scope": {
+    "control": {
+      "status": "unverified",
+      "audit_complete": false,
+      "failed_cases": [],
+      "report_sha256": "7d08c19eb2bd13ecae5859cd55a120e93f1eb5cf647a7b5ab9dcdaf5d5afe345"
+    },
+    "comparison": {
+      "status": "does_not_conform",
+      "audit_complete": false,
+      "failed_cases": [
+        "c670fbaa3c0f--input-error--desktop--4.1.3"
+      ],
+      "report_sha256": "eb96387876930334f11353c96cdcc214298d3b2791ffc934adff55ed10bfde08"
+    }
+  },
+  "charts": [
+    {
+      "site": "k4",
+      "case": "47e64431f638--initial--desktop--1.1.1",
+      "selected_outcome": "failed",
+      "report_outcome": "failed",
+      "original_files_unchanged": 97,
+      "report_sha256": "e274ae99b4abe3b00c5455b39f1e459ec34f805acf714670419a1b89919a5498"
+    },
+    {
+      "site": "m7",
+      "case": "8df94520bfb0--initial--desktop--1.1.1",
+      "selected_outcome": "passed",
+      "report_outcome": "cant_tell",
+      "original_files_unchanged": 97,
+      "report_sha256": "d6b1a610065ae8a06f3db8af3667ef1b22ea4ad614e057e8e7e71bad4db6a7fe"
+    }
+  ],
+  "six_page_comparison": {
+    "pages": {
+      "/resolved": "resolved",
+      "/continuing": "continuing",
+      "/new": "new",
+      "/pending": "unverified",
+      "/excluded": "unverified",
+      "/uncollected": "unverified"
+    },
+    "evidence_links_verified": 18,
+    "published_trial": "../../T025/run-002/summary.json"
+  },
+  "review_browser_replay": {
+    "snapshots": 11,
+    "confirmation": "http://127.0.0.1:43822/rb/confirmation.html?people=2",
+    "result_sha256": "12daeade5227eef2fb5115bdfc4474c51e58e485721b85f5bc68314a22624b83"
+  },
+  "independent_review": {
+    "joint_keyboard_and_accordion_viewports": 2,
+    "modal_outcome": "Whole-page results retained",
+    "scope_issue_evidence_links_verified": 32
+  }
+}

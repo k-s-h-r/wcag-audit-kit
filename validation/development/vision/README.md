@@ -16,6 +16,8 @@
 
 Debian、Python 3.12.14、Playwright 1.62.0、Chromium 156.0.8078.79を使用した。実Orcaの試験は、操作・発話の原本を読み、帳票を統合版で再生成した。
 
+単体テスト324件と配布スキルの同期確認が通った。ブラウザーで数量変更3例と開閉6例を2幅で再測定し、操作後の再検査は4種類×2幅で全体検査と一致した。別エージェントも、同じEnterの操作に開閉と数量変化の両方の根拠が付くことを確かめた。手続きの帳票4件では、HTML・JSON・Excelと不適合一覧から32件の証拠を確認した。[統合runの結果とハッシュ](run-001/summary.json)
+
 ```sh
 python3 scripts/sync_skills.py --check
 python3 -m unittest discover -s tests -p 'test_*.py'
