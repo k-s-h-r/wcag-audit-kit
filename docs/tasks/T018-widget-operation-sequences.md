@@ -1,6 +1,6 @@
 # T018 部品の開閉とキーボード操作を一つの経路で検査する
 
-状態は、3階層メニュー、コンボボックス、アコーディオンの指定したキー経路を実測済み。前提は[T017](T017-url-only-exploration.md)。[Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69) · [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
+状態は、3階層メニュー、コンボボックス、アコーディオンの指定したキー経路を実測済み。前提は[T017](T017-url-only-exploration.md)。[PR #90](https://github.com/k-s-h-r/wcag-audit-kit/pull/90) · [Issue #69](https://github.com/k-s-h-r/wcag-audit-kit/issues/69) · [Issue #4](https://github.com/k-s-h-r/wcag-audit-kit/issues/4)
 
 自動探索は、個々のクリックやキー入力に加え、先行操作で開いた部品の次の操作まで調べる必要がある。URLだけで届かなかった経路をT017の結果から選ぶ。
 
