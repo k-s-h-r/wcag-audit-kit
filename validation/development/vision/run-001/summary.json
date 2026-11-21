@@ -173,5 +173,43 @@
     },
     "criterion_assessment": null,
     "evidence_sha256": "703c4b569c12e6353c8cb5bb2ac319643142f0ba07197ff4908a13cfb9a82fc1"
+  },
+  "url_only_benchmark": {
+    "execution_commit": "bf883dcbfa187bf821e72d8ff0855dcb4b23191c",
+    "pages": 76,
+    "rows": 87,
+    "problems": {
+      "detected": 9,
+      "observed_no_verdict": 19,
+      "state_or_route_unobserved": 11
+    },
+    "controls": {
+      "matched": 16,
+      "observed_no_verdict": 21,
+      "state_or_route_unobserved": 11
+    },
+    "matching_rows_with_t024": 87,
+    "changes_from_t020": [
+      {
+        "page": "030",
+        "checkpoint": "2.1.1-02",
+        "baseline": "observed_no_verdict",
+        "integrated": "matched"
+      },
+      {
+        "page": "031",
+        "checkpoint": "2.1.1-02",
+        "baseline": "observed_no_verdict",
+        "integrated": "detected"
+      },
+      {
+        "page": "032",
+        "checkpoint": "2.1.1-02",
+        "baseline": "observed_no_verdict",
+        "integrated": "matched"
+      }
+    ],
+    "same_outside_scoring_findings": 14,
+    "score_sha256": "d9b1cae909aa9c916b3a77e9f47d0eef34af375fe12d3a67283d027ee89a9221"
   }
 }

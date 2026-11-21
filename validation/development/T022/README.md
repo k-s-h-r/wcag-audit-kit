@@ -41,3 +41,5 @@ python3 validation/development/T022/report.py --cli skills/wcag-audit-kit/script
 全操作の原始証拠と両例のHTML・JSON・Excelを `t022-evidence-001.tar.gz` に保管した。保存先は `/workspace/wcag-audit-work/evidence/`。SHA-256は `b2e22d92a1e9c09911a7ad0f2b68a0a03a42c72721e5952d7617d40732a8355f`。
 
 T023へ問題例の経路を渡す。増員と確認ボタン名を改善し、キーボードだけで確認まで進めるかを測る。[T023](../../../docs/tasks/T023-accessibility-review-pilot.md)
+
+初回は検査担当への依頼で参照範囲を絞った。統合版では、採点情報を共有ファイルに置かず、新しい対照2例を起点URLから調べた。[採点情報を分けた追試](../vision/run-002/README.md)
