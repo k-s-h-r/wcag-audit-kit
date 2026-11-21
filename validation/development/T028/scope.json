@@ -1,0 +1,37 @@
+{
+  "site": "local, English synthetic seven-second saving demonstration and two paired variants",
+  "target_level": "WCAG 2.2 AA",
+  "source_video_sha256": "a2d8388d457ff8ae737d9898ce3aea4c2f84531d20cffec4d1711cf4274a31c5",
+  "whisper": {
+    "commit": "d1be6fde11ac6e0407606b4e42fe72d34add8037",
+    "model": "base.en",
+    "sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002"
+  },
+  "captions": {
+    "criterion": "1.2.2",
+    "samples": [1.2, 2.5, 5.7],
+    "source_speech": "Press the blue button to save the document.",
+    "different_speech": "Press the red button to delete the document.",
+    "cases": {"good": "matches", "wrong-text": "different-words", "late": "absent-at-samples"},
+    "limits": "Selecting samples does not determine exact speech or caption boundaries, speaker attribution, non-speech equivalence, or criterion conformance."
+  },
+  "transcript": {
+    "criterion_context": "1.2.3 media-alternative option",
+    "sample": 5.7,
+    "visual_fact": "The screen says Saved.",
+    "cases": {"transcript-a": "includes-visual-fact", "transcript-b": "omits-visual-fact"},
+    "limits": "Compare this fact only. This does not evaluate all required information or the audio-description alternative under 1.2.3."
+  },
+  "description": {
+    "criterion_context": "1.2.5",
+    "samples": [5.7, 6.6],
+    "speech_starts": 5.8,
+    "audio_window": [5.8, 7.8],
+    "duration": 8.0,
+    "visual_fact": "The screen says Saved.",
+    "spoken_description": "The document has been saved.",
+    "comparison_max_rms": 0.001,
+    "cases": {"description-a": "includes-description", "description-b": "omits-description"},
+    "limits": "Compare the decoded audio with the one visible state. Fail to classify the comparison when the positive speech or equal decoded video is unverified. No whole-criterion result."
+  }
+}
