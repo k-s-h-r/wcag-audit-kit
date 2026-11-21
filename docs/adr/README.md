@@ -113,3 +113,4 @@
 - [0107 予約カレンダーで選択前の空き状況を確かめる](0107-audit-availability-without-color.md)
 - [0108 VISIONの検証を一緒に使える版で行う](0108-run-vision-acceptance-on-an-integrated-revision.md)
 - [0110 操作に伴う別オリジンへの通信を受信側で照合する](0110-measure-cross-origin-requests-during-operation.md)
+- [0117 HTTPSの操作通信を接続先ごとに測る](0117-observe-https-operation-through-connect-proxy.md)

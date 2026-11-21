@@ -1,0 +1,672 @@
+{
+  "settings": {
+    "url": "https://127.0.0.1:32799/",
+    "other_origin": "https://127.0.0.1:36003",
+    "proxy": "http://127.0.0.1:42691",
+    "browser_arguments": [
+      "/usr/bin/chromium",
+      "--ignore-certificate-errors-spki-list=9c100jmxPuTbsbMp08DF0gsjXTz/rf76WKZyctKtrFg=",
+      "--disable-background-networking",
+      "--proxy-server=http://127.0.0.1:42691",
+      "--proxy-bypass-list=<-loopback>"
+    ]
+  },
+  "commands": {
+    "initial": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/workspace/wcag-audit-work/t031-https/skills/wcag-audit-kit/scripts/audit.py",
+      "page-audit",
+      "--url",
+      "https://127.0.0.1:32799/",
+      "--out",
+      "/workspace/wcag-audit-work/evidence/t031-https/run-001/guarded/audit",
+      "--mode",
+      "machine",
+      "--screenshots",
+      "initial",
+      "--initial-only"
+    ],
+    "explore": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/workspace/wcag-audit-work/t031-https/skills/wcag-audit-kit/scripts/audit.py",
+      "page-audit",
+      "--url",
+      "https://127.0.0.1:32799/",
+      "--out",
+      "/workspace/wcag-audit-work/evidence/t031-https/run-001/guarded/audit",
+      "--resume",
+      "--quick-explore",
+      "--max-steps",
+      "10"
+    ]
+  },
+  "operations": {
+    "desktop": {
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "route": [
+        {
+          "selector": "#open",
+          "type": "key",
+          "key": "Enter"
+        }
+      ],
+      "event": {
+        "type": "keydown",
+        "isTrusted": true,
+        "documentId": "1795255876881.4-g1kselzv7vh",
+        "url": "https://127.0.0.1:32799/",
+        "timestamp": 654.5999999977648,
+        "target": {
+          "tag": "button",
+          "id": "open"
+        },
+        "pointerType": null,
+        "button": null,
+        "buttons": null,
+        "x": null,
+        "y": null,
+        "expectedTargetMatched": true,
+        "key": "Enter",
+        "modifiers": {
+          "control": false,
+          "alt": false,
+          "shift": false,
+          "meta": false
+        },
+        "is_main_frame": true,
+        "received_at": "2026-11-21T10:11:17.546760+00:00"
+      },
+      "blocked_requests": [
+        {
+          "method": "POST",
+          "url": "https://127.0.0.1:36003/action-post",
+          "telemetry": false
+        }
+      ],
+      "observed_text": "見学予定\n  候補を開く\n\n候補を表示しました\n\n日時を取得できません",
+      "evidence": "evidence/cd8926b6627b--explore-8f7ac2afbbaf--desktop"
+    },
+    "narrow": {
+      "viewport": {
+        "width": 320,
+        "height": 900
+      },
+      "route": [
+        {
+          "selector": "#open",
+          "type": "key",
+          "key": "Enter"
+        }
+      ],
+      "event": {
+        "type": "keydown",
+        "isTrusted": true,
+        "documentId": "1795255879442.8-10yq8hc0yhn",
+        "url": "https://127.0.0.1:32799/",
+        "timestamp": 1096,
+        "target": {
+          "tag": "button",
+          "id": "open"
+        },
+        "pointerType": null,
+        "button": null,
+        "buttons": null,
+        "x": null,
+        "y": null,
+        "expectedTargetMatched": true,
+        "key": "Enter",
+        "modifiers": {
+          "control": false,
+          "alt": false,
+          "shift": false,
+          "meta": false
+        },
+        "is_main_frame": true,
+        "received_at": "2026-11-21T10:11:20.551322+00:00"
+      },
+      "blocked_requests": [
+        {
+          "method": "POST",
+          "url": "https://127.0.0.1:36003/action-post",
+          "telemetry": false
+        }
+      ],
+      "observed_text": "見学予定\n  候補を開く\n\n候補を表示しました\n\n日時を取得できません",
+      "evidence": "evidence/cd8926b6627b--explore-f34a28455f3c--narrow"
+    }
+  },
+  "primary": [
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/initial-same.svg",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/action-same",
+      "upgrade": null
+    },
+    {
+      "method": "GET",
+      "path": "/redirect",
+      "upgrade": null
+    }
+  ],
+  "other": [],
+  "proxy": [
+    {
+      "method": "GET",
+      "url": "http://clients2.google.com/time/1/current?cup2key=ML-DSA-44-10:-Z__LiaqKw72vv5-cOZZ4760p9sqtYWSVbRI1ik6JCs&cup2hreq=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "update.googleapis.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "POST",
+      "url": "http://update.googleapis.com/service/update2/json?cup2key=ML-DSA-44-16:v8kOd4FoF_liIKwNgG8q9NVTK8DrnHmcewArp-li9m8&cup2hreq=d7e9db40f719de7098fe725f55379e64b1e45b539a4f2f337004a01c89daa020",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "update.googleapis.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "GET",
+      "url": "http://clients2.google.com/time/1/current?cup2key=ML-DSA-44-10:UnPsNu5WJ9Bkng_5fRe5LrkxRIQafItmO6dKmrV8_V0&cup2hreq=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "forwarded": false
+    },
+    {
+      "method": "POST",
+      "url": "http://update.googleapis.com/service/update2/json?cup2key=ML-DSA-44-16:y8YA2QXWhIxy8oXeEETlpWN4_-cEukZfz-wxcQKZWNo&cup2hreq=617ffd80ad7404287170c92f241205c0ee79be66c4186186053f410cbd231f66",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "accounts.google.com:443",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:32799",
+      "forwarded": true
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    },
+    {
+      "method": "CONNECT",
+      "url": "127.0.0.1:36003",
+      "forwarded": false
+    }
+  ],
+  "scope_status": "unverified"
+}
