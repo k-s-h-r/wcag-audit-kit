@@ -1,6 +1,8 @@
 # T028 字幕・書き起こし・音声解説を実際の再生と比べる
 
-状態　選んだ7件の実測と照合を完了。前提は[媒体の実表示と音声認識の校正](../../validation/media/README.md)。`codex/t028-observe-media-alternatives` をmainの `67aa42e` から分岐した。
+状態　選んだ7件の実測と照合を完了。[PR #96](https://github.com/k-s-h-r/wcag-audit-kit/pull/96)
+
+前提は[媒体の実表示と音声認識の校正](../../validation/media/README.md)。`codex/t028-observe-media-alternatives` をmainの `67aa42e` から分岐した。
 
 既存の媒体試験では字幕の表示と音声認識をそれぞれ確認した。VISIONで挙げた字幕、書き起こし、音声解説について、実際に再生した媒体の選んだ事実と代替の内容を比較する。[VISION](../VISION.md#機械とaiに任せたいこと)
 
