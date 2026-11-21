@@ -19,6 +19,8 @@
 
 別エージェントが簡易探索を別のブラウザーrunで再現した。通常探索は、収集済みの原始ファイルと報告を別の採点器で照合し、両幅でSpaceが対象に届いた入力と前後の状態を確認した。[独立した簡易探索](run-002/independent-quick.json) · [その原始証拠](run-002/independent-quick.zip) · [通常探索の独立照合](run-002/independent-full.json)
 
+通常探索も別ポートのChromiumで両例48ステップを再実行した。両幅で実Spaceに対する表示と展開状態が一致し、Shift+Tabによる復帰はPC幅で確認した。閉じる最後のEnterは両幅とも未観察だった。採点器と99点の取得記録をまとめたZIPのSHA-256は `9f565cf8f0f6e1ceec2176f99572ac0b1591044fd843652c3e0f3fe0d3ea613f`。[独立した通常探索の結果](run-003/independent-full.json) · [原始証拠](run-003/independent-full-receipts.zip)
+
 ## 再実行
 
 ChromiumとPlaywrightが利用できる環境で、別々の出力先を指定する。収集は公開対照のURLと共通設定だけを使う。採点は収集後に実行し、マウスのクリック、信頼されたキーダウン、前後の表示と展開状態を照合する。Spaceは探索経路の指定と、同じ試行で開閉ボタンに届いた修飾なしの文字キーを照合する。
