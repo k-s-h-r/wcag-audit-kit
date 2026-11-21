@@ -5,6 +5,35 @@ from pathlib import Path
 import uuid
 
 
+def route_scene(route, labels):
+    if not route:
+        return '初期表示'
+    names = {'click': 'クリック', 'hover': 'ホバー', 'key': 'キー', 'press': 'キー',
+             'fill': '入力', 'scroll': 'スクロール'}
+    return ' → '.join(names[a['type']] + ' ' + labels.get(a.get('selector'), a.get('selector', '')) +
+                      (' / ' + a['key'] if a.get('key') else '') for a in route)
+
+
+def dialog_observations(run, graph, url):
+    import audit
+
+    edges = [edge for edge in graph.get('edges', []) if edge.get('nested_dialog_evidence')]
+    if not edges:
+        return []
+    rows = []
+    labels = {c['selector']: c['label'] for n in graph.get('nodes', []) for c in n.get('controls', [])}
+    for edge in edges:
+        evidence = edge['nested_dialog_evidence']
+        observation = audit.load(run / evidence)
+        rows.append(dict(page_url=url, environment=edge['environment'], route=edge['route'],
+                         state_label=route_scene(edge['route'], labels), parent=observation['parent'],
+                         child=observation['child'], status=observation['status'],
+                         focus=observation['after']['focus'], focus_layer=observation['focus_layer'],
+                         key=observation['key'], event_index=observation['event_index'], evidence=evidence,
+                         input_evidence=Path(evidence).with_name(observation['input_evidence']).as_posix()))
+    return rows
+
+
 def grouped_machine_issues(checks):
     groups={}
     for check in checks:
@@ -76,10 +105,7 @@ def machine_checks(run, manifest=None):
     graph=status(run);_,catalog=audit.run_catalog(run)
     labels={c['selector']:c['label'] for n in graph.get('nodes',[]) for c in n.get('controls',[])}
     def scene(route):
-        if not route:return '初期表示'
-        names={'click':'クリック','hover':'ホバー','key':'キー','press':'キー','fill':'入力','scroll':'スクロール'}
-        return ' → '.join(names[a['type']]+' '+labels.get(a.get('selector'),a.get('selector',''))+
-                          (' / '+a['key'] if a.get('key') else '') for a in route)
+        return route_scene(route, labels)
     tags={'wcag'+c['id'].replace('.',''):c['id'] for c in catalog['criteria']}
     nodes = {node['capture']: node for node in graph.get('nodes', [])}
     if manifest is None:
@@ -289,6 +315,9 @@ def page_result(run, url, original=None):
         result[key]=[r for r in result[key] if normalize(r['url'] if isinstance(r,dict) else r)==normalize(url)]
     page_captures=[c for c in audit.load(run/'capture-manifest.json')['captures'] if c['page_id'] in pids]
     captures={c['key'] for c in page_captures}
+    if 'dialog_observations' in result.get('exploration', {}):
+        result['exploration']['dialog_observations'] = [
+            row for row in result['exploration']['dialog_observations'] if normalize(row['page_url']) == normalize(url)]
     if 'visual_structure_evidence' in result:
         result['visual_structure_evidence'] = [item for item in result['visual_structure_evidence']
                                                if item['capture'] in captures]

@@ -171,4 +171,20 @@ def report_rows(result):
                     'steps':'\n'.join(control.get('steps',[])),
                     'remaining':'\n'.join(control.get('remaining',[])+capture.get('remaining',[])),
                     'screen_reader':page['screen_reader']['status'],'source_review':page['path']})
+    from browser_capture import page_id as source_page_id
+
+    layers = {'child': '子の内部', 'parent': '親の内部', 'document': '文書', 'outside': 'ダイアログの外'}
+    for observation in result.get('exploration', {}).get('dialog_observations', []):
+        url = observation['page_url']
+        layer = layers[observation['focus_layer']]
+        status = '子だけ閉じた' if observation['status'] == 'child_closed' else '子が表示されたまま'
+        observed = (f"親 {observation['parent']} は表示されたまま。"
+                    f"Escape後のフォーカス先は {observation['focus']}（{layer}）。")
+        rows.append(dict(page_id=source_page_id(url), url=url, environment=observation['environment'],
+                         capture=f"{observation['state_label']} / {observation['environment']}",
+                         visual='', label=observation['child'], location=observation['parent'], status=status,
+                         observed=observed, steps=observation['key'],
+                         remaining='達成基準の適否とフォーカス先の適切さは追加確認。',
+                         screen_reader='', source_review=observation['evidence'],
+                         operation_evidence=observation['evidence'], input_evidence=observation['input_evidence']))
     return rows

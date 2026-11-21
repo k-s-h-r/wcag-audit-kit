@@ -909,6 +909,7 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                             for field in ('ratio', 'threshold', 'threshold_met'):
                                 text_record.pop(field, None)
                         audit.save(dest/'text-contrast.json', text_record)
+                    nested_evidence = None
                     if dialog_observation:
                         if interrupted_reason:
                             dialog_observation.invalidate(interrupted_reason)
@@ -916,6 +917,10 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                                 receipt.update(outcome='cant_tell', reason=interrupted_reason)
                         elif any(wait['status'] != 'quiet' for wait in settling):
                             dialog_observation.invalidate('キー入力後の表示更新が観察範囲に収まらない。')
+                        elif observation := dialog_observation.nested_observation:
+                            path = dest / dialog_focus.NESTED_EVIDENCE_FILE
+                            audit.save(path, observation)
+                            nested_evidence = path.relative_to(run).as_posix()
                         audit.save(dest/dialog_focus.EVIDENCE_FILE, dialog_observation.record)
                     if structure_observation is not None or (visual_scope and not (declared or route)):
                         if interrupted_reason:
@@ -923,6 +928,8 @@ async def _explore(run, *, max_states=None, max_steps=None, max_depth=None, init
                         if structure_observation is not None:
                             audit.save(dest/visual_structure.EVIDENCE_FILE, structure_observation)
                     edge = dict(job, error=error, blocked_requests=blocked, native_events=native_events)
+                    if nested_evidence:
+                        edge['nested_dialog_evidence'] = nested_evidence
                     if key_effect:
                         edge['key_effect'] = key_effect
                     if function_result is not None:
