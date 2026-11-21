@@ -1,5 +1,7 @@
 # T041 最初の空きを探す負担と「次の空き」の効果を点検する
 
+状態は実Orcaと独立操作の照合を完了し、ドラフトPRで提出。[PR #113](https://github.com/k-s-h-r/wcag-audit-kit/pull/113)
+
 [VISION](../VISION.md#アクセシビリティ点検モード)の例を、ローカルの予約カレンダーで確かめる。前提は[T027](T027-accessibility-review-workflow.md)の点検手順と[T026](T026-process-error-speech.md)で使った実Orcaの採取方法。T023・T027で調べた人数変更と、T029で調べた色の手がかりとは対象操作が異なる。
 
 ## 担当範囲と完了条件
