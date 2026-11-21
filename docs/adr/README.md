@@ -90,3 +90,4 @@
 - [0086 やりたいことメモを短く保つ](0086-keep-the-audit-vision-memo-short.md)
 - [0087 AIに見てほしいことと受け取りたい結果をメモに残す](0087-include-ai-and-reporting-in-the-vision-memo.md)
 - [0088 WCAG適合の結論と二つの成果物をメモの中心に置く](0088-center-the-vision-on-conformance.md)
+- [0089 検査の例と指摘をWCAGの達成基準につなぐ](0089-connect-vision-examples-to-wcag-criteria.md)
