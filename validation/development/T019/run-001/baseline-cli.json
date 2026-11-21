@@ -1,0 +1,517 @@
+{
+  "limits": {
+    "max_steps": 24,
+    "max_states": 16,
+    "max_depth": 1
+  },
+  "pairs": [
+    {
+      "case": "css",
+      "environment": "desktop",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "axe": {
+        "mode": "mixed",
+        "rechecked": {
+          "aria-valid-attr": [
+            [
+              "#new-button"
+            ],
+            [
+              "#act"
+            ]
+          ],
+          "tabindex": [
+            [
+              "#new-button"
+            ]
+          ]
+        },
+        "reused": {
+          "aria-valid-attr": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ],
+          "tabindex": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ]
+        },
+        "baseline": "evidence/bf624235602a--explore-dc06a9794fbd--desktop/axe.json"
+      },
+      "quick": "css-quick/work/evidence/bf624235602a--explore-bb7845d7d80e--desktop",
+      "whole": "css-whole/work/evidence/bf624235602a--explore-c669d1b10be1--desktop"
+    },
+    {
+      "case": "css",
+      "environment": "narrow",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "axe": {
+        "mode": "mixed",
+        "rechecked": {
+          "aria-valid-attr": [
+            [
+              "#new-button"
+            ],
+            [
+              "#act"
+            ]
+          ],
+          "tabindex": [
+            [
+              "#new-button"
+            ]
+          ]
+        },
+        "reused": {
+          "aria-valid-attr": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ],
+          "tabindex": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ]
+        },
+        "baseline": "evidence/bf624235602a--explore-f2f803cd6af7--narrow/axe.json"
+      },
+      "quick": "css-quick/work/evidence/bf624235602a--explore-9d520d1e42e2--narrow",
+      "whole": "css-whole/work/evidence/bf624235602a--explore-140d924e72da--narrow"
+    },
+    {
+      "case": "css",
+      "strategy": "quick",
+      "steps": 12,
+      "states": 4,
+      "document_requests": 12,
+      "seconds": 26.545
+    },
+    {
+      "case": "css",
+      "strategy": "whole",
+      "steps": 18,
+      "states": 4,
+      "document_requests": 18,
+      "seconds": 26.119
+    },
+    {
+      "case": "external-label",
+      "environment": "desktop",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "axe": {
+        "mode": "mixed",
+        "rechecked": {
+          "aria-valid-attr": [
+            [
+              "#act"
+            ],
+            [
+              "#labelled"
+            ]
+          ],
+          "tabindex": []
+        },
+        "reused": {
+          "aria-valid-attr": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ],
+          "tabindex": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ]
+        },
+        "baseline": "evidence/33b703c1f163--explore-30bde1dcb7ec--desktop/axe.json"
+      },
+      "quick": "external-label-quick/work/evidence/33b703c1f163--explore-dcfbc2be94a0--desktop",
+      "whole": "external-label-whole/work/evidence/33b703c1f163--explore-79fc1f597359--desktop"
+    },
+    {
+      "case": "external-label",
+      "environment": "narrow",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "axe": {
+        "mode": "mixed",
+        "rechecked": {
+          "aria-valid-attr": [
+            [
+              "#act"
+            ],
+            [
+              "#labelled"
+            ]
+          ],
+          "tabindex": []
+        },
+        "reused": {
+          "aria-valid-attr": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ],
+          "tabindex": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ]
+        },
+        "baseline": "evidence/33b703c1f163--explore-418cc657489d--narrow/axe.json"
+      },
+      "quick": "external-label-quick/work/evidence/33b703c1f163--explore-449763ff0016--narrow",
+      "whole": "external-label-whole/work/evidence/33b703c1f163--explore-20536a766a5a--narrow"
+    },
+    {
+      "case": "external-label",
+      "strategy": "quick",
+      "steps": 20,
+      "states": 4,
+      "document_requests": 20,
+      "seconds": 27.164
+    },
+    {
+      "case": "external-label",
+      "strategy": "whole",
+      "steps": 24,
+      "states": 4,
+      "document_requests": 24,
+      "seconds": 27.008
+    },
+    {
+      "case": "remote-popup",
+      "environment": "desktop",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "axe": {
+        "mode": "mixed",
+        "rechecked": {
+          "aria-valid-attr": [
+            [
+              "#portal"
+            ],
+            [
+              "#popup-entry"
+            ],
+            [
+              "#act"
+            ]
+          ],
+          "tabindex": [
+            [
+              "#popup-entry"
+            ]
+          ]
+        },
+        "reused": {
+          "aria-valid-attr": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ],
+          "tabindex": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ]
+        },
+        "baseline": "evidence/8b80fe99656c--explore-921a9bfe82a9--desktop/axe.json"
+      },
+      "quick": "remote-popup-quick/work/evidence/8b80fe99656c--explore-164c92cc3f47--desktop",
+      "whole": "remote-popup-whole/work/evidence/8b80fe99656c--explore-8e2017207f06--desktop"
+    },
+    {
+      "case": "remote-popup",
+      "environment": "narrow",
+      "difference": {
+        "violations": [],
+        "incomplete": [],
+        "passes": [],
+        "inapplicable": []
+      },
+      "axe": {
+        "mode": "mixed",
+        "rechecked": {
+          "aria-valid-attr": [
+            [
+              "#portal"
+            ],
+            [
+              "#popup-entry"
+            ],
+            [
+              "#act"
+            ]
+          ],
+          "tabindex": [
+            [
+              "#popup-entry"
+            ]
+          ]
+        },
+        "reused": {
+          "aria-valid-attr": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ],
+          "tabindex": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ]
+        },
+        "baseline": "evidence/8b80fe99656c--explore-3c5da9a9d7f7--narrow/axe.json"
+      },
+      "quick": "remote-popup-quick/work/evidence/8b80fe99656c--explore-4a4f730c769d--narrow",
+      "whole": "remote-popup-whole/work/evidence/8b80fe99656c--explore-cbb1f73e65f3--narrow"
+    },
+    {
+      "case": "remote-popup",
+      "strategy": "quick",
+      "steps": 16,
+      "states": 4,
+      "document_requests": 16,
+      "seconds": 22.583
+    },
+    {
+      "case": "remote-popup",
+      "strategy": "whole",
+      "steps": 22,
+      "states": 4,
+      "document_requests": 22,
+      "seconds": 31.897
+    },
+    {
+      "case": "native-modal",
+      "environment": "desktop",
+      "difference": {
+        "violations": [
+          "aria-valid-attr",
+          "tabindex"
+        ],
+        "incomplete": [],
+        "passes": [
+          "aria-valid-attr",
+          "tabindex"
+        ],
+        "inapplicable": []
+      },
+      "axe": {
+        "mode": "mixed",
+        "rechecked": {
+          "aria-valid-attr": [
+            [
+              "#popup-entry"
+            ]
+          ],
+          "tabindex": [
+            [
+              "#popup-entry"
+            ]
+          ]
+        },
+        "reused": {
+          "aria-valid-attr": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ],
+          "tabindex": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ]
+        },
+        "baseline": "evidence/0e7833e91a60--explore-e3f84bc85e17--desktop/axe.json"
+      },
+      "quick": "native-modal-quick/work/evidence/0e7833e91a60--explore-fd24ac1c63d7--desktop",
+      "whole": "native-modal-whole/work/evidence/0e7833e91a60--explore-3ebbee36aa16--desktop"
+    },
+    {
+      "case": "native-modal",
+      "environment": "narrow",
+      "difference": {
+        "violations": [
+          "aria-valid-attr",
+          "tabindex"
+        ],
+        "incomplete": [],
+        "passes": [
+          "aria-valid-attr",
+          "tabindex"
+        ],
+        "inapplicable": []
+      },
+      "axe": {
+        "mode": "mixed",
+        "rechecked": {
+          "aria-valid-attr": [
+            [
+              "#popup-entry"
+            ]
+          ],
+          "tabindex": [
+            [
+              "#popup-entry"
+            ]
+          ]
+        },
+        "reused": {
+          "aria-valid-attr": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ],
+          "tabindex": [
+            "#stable-0",
+            "#stable-1",
+            "#stable-2",
+            "#stable-3",
+            "#stable-4",
+            "#stable-5",
+            "#stable-6",
+            "#stable-7",
+            "#stable-error"
+          ]
+        },
+        "baseline": "evidence/0e7833e91a60--explore-3b21948c4ad2--narrow/axe.json"
+      },
+      "quick": "native-modal-quick/work/evidence/0e7833e91a60--explore-d168c48269f9--narrow",
+      "whole": "native-modal-whole/work/evidence/0e7833e91a60--explore-1c4a3ca86747--narrow"
+    },
+    {
+      "case": "native-modal",
+      "strategy": "quick",
+      "steps": 14,
+      "states": 4,
+      "document_requests": 14,
+      "seconds": 43.065
+    },
+    {
+      "case": "native-modal",
+      "strategy": "whole",
+      "steps": 18,
+      "states": 4,
+      "document_requests": 18,
+      "seconds": 76.963
+    }
+  ]
+}
