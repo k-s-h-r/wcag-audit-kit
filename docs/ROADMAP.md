@@ -64,6 +64,8 @@ AI環境から[4スキル](SKILL-DESIGN.md)を呼び出す。補助CLIは操作�
 
 操作の比較はローカルの対照から始める。本番での操作は対象サイトの権限、操作による副作用、通信条件を確かめて計画する。操作時の外部通信の隔離は[Issue #82](https://github.com/k-s-h-r/wcag-audit-kit/issues/82)で検討する。
 
+T031のローカルHTTP対照では、通常の探索で別オリジンに操作後のGETが届いた。試験用プロキシで別オリジンを拒否すると受信側への到達は0件となり、日時の取得結果も変わった。本番相当のHTTPSと、プロセスのネットワーク分離は引き続き検証する。[T031の実測](../validation/development/T031/README.md)
+
 ## 新しいセッションへ引き継ぐとき
 
 [AGENTS.md](../AGENTS.md)、[VISION](VISION.md)、[担当タスク](tasks/README.md)を読み、次の一手を選ぶ。「進めて」では[wcag-dev](../.agents/skills/wcag-dev/SKILL.md)で1作業単位をPRまで進める。各PRでは担当タスクへ実行内容、完了根拠、未確認事項、次の一手を記録する。中断時は途中のrunと再開条件を残す。
