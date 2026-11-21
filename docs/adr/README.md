@@ -114,3 +114,4 @@
 - [0108 VISIONの検証を一緒に使える版で行う](0108-run-vision-acceptance-on-an-integrated-revision.md)
 - [0109 ダイアログからの離脱をキー入力とフォーカスで照合する](0109-observe-keyboard-exits-in-a-dialog.md)
 - [0121 追加した検査を同じ配布版で確認する](0121-verify-follow-up-workflows-together.md)
+- [0126 移動先の表示が残ったフォーカス操作を追試する](0126-revisit-blocked-focus-navigation.md)

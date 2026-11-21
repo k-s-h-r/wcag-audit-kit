@@ -1,0 +1,61 @@
+{
+  "base_commit": "405134e14ea4b5557cf3b708489febb60fec7d84",
+  "cases": {
+    "073": "p03.html",
+    "074": "p04.html"
+  },
+  "checkpoints": [
+    "3.2.1-01",
+    "3.2.1-02"
+  ],
+  "criterion": "3.2.1",
+  "destination": "details.html",
+  "environments": {
+    "desktop": {
+      "height": 900,
+      "width": 1280
+    },
+    "narrow": {
+      "height": 900,
+      "width": 320
+    }
+  },
+  "expected": {
+    "073": "same-origin destination GET and new document after focus; failure demonstrated for the observed target",
+    "074": "same document with target focused and no destination request after one Tab; remaining targets unassessed"
+  },
+  "explore_args": [
+    "--resume",
+    "--quick-explore",
+    "--max-steps",
+    "4"
+  ],
+  "fixture_sha256": {
+    "details.html": "644f928c426dbde658c35f3742980af6d438870e6ed3753937753ee5ae98150b",
+    "p03.html": "ed73381cc0d59692b677a9cc8cd690061fd9d1823d9bfb5874d8ef677da28b2a",
+    "p04.html": "86f44d9adb57e5003a09f6fcf3ed037011fda0716255afd2b04bb51566c0fa49"
+  },
+  "frozen_at_utc": "2026-11-21T11:18:33+00:00",
+  "initial_args": [
+    "--level",
+    "AAA",
+    "--mode",
+    "ai",
+    "--profile",
+    "quick",
+    "--screenshots",
+    "initial",
+    "--initial-only"
+  ],
+  "manual_input": {
+    "browser": "headless Chromium",
+    "count": 1,
+    "key": "Tab",
+    "observation_ms": 1000,
+    "target": "#subject"
+  },
+  "manual_navigation": "Only GET documents from the same loopback origin: initial page before input; known destination after input.",
+  "resolution_scope": "Only the notes that name the blocked destination and width for the focus observation; keep other exploration and coverage gaps.",
+  "source_directory": "benchmarks/cases/3.2.1/public",
+  "state": "initial"
+}
