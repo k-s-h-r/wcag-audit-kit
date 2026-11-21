@@ -109,3 +109,4 @@
 - [0103 入力エラーの実発話を手続きの検査票に結び付ける](0103-bind-native-error-speech-to-process-reports.md)
 - [0104 アクセシビリティ点検を既存スキルから依頼する](0104-accessibility-review-workflow.md)
 - [0105 画像から読んだ値を、操作後に現れる代替情報と照合する](0105-compare-chart-and-disclosed-values.md)
+- [0108 VISIONの検証を一緒に使える版で行う](0108-run-vision-acceptance-on-an-integrated-revision.md)
