@@ -1,12 +1,12 @@
 # WCAG検証の開発計画
 
-更新日：2026-11-21。
+更新日：2026-11-22。
 
 [やりたいことメモ](VISION.md)を開発の出発点にする。URLからページや一連の手続きを見つけ、決めた範囲がWCAGに適合しているかを根拠付きで答える。そのために次に確かめることと、現在までの実証をここに記す。着手条件と引き継ぎは[タスク一覧](tasks/README.md)を参照する。
 
-## 次の作業
+## 初回実証の結果と残る確認
 
-手続きの操作と帳票、追加した探索や再検査を個別に試し、同じ版にまとめた。#86〜#115の取り込みに使う版と再実行方法を統合検証に記録する。[VISIONの統合検証](../validation/development/vision/README.md) · [mainへの統合](../validation/development/vision-follow-up/README.md#mainへの統合)
+`main` の `a65836a` で初回実証の4条件を確認した。別の手続きや支援環境に対象を広げるときは、操作で残った確認と試験条件を引き継ぐ。[初回実証の完了確認](../validation/development/vision/README.md#初回実証の完了確認) · [mainへの統合](../validation/development/vision-follow-up/README.md#mainへの統合)
 
 統合実証後は、URL起点で状態を観察できた行のうち判定がなかったものから確認する。T030では、2.1.2の12例のうちダイアログの正常例と問題例を両幅で区別した。複数のフォーカス先やフレームに残る離脱経路は、別の対照で続けて調べる。[T030の結果](tasks/T030-dialog-keyboard-trap.md)
 

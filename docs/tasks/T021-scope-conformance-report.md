@@ -1,6 +1,6 @@
 # T021 対象範囲の適合・不適合・未確認を検査票で示す
 
-状態は帳票実装・回帰試験・別のCodex文脈での最終回答を確認済み。[PR #86](https://github.com/k-s-h-r/wcag-audit-kit/pull/86)で提出。前提は[T008の帳票](T008-machine-report.md)と[T004の呼び出し・最終回答の記録](T004-codex-invocation.md)。関連は[T022](T022-url-to-process-audit.md)。
+帳票実装は `main` に採用済み。回帰試験と別のCodex文脈での最終回答を照合し、採用版で3件の帳票を再出力した。前提はT008の帳票とT004の呼び出し・最終回答の記録。手続きへの適用はT022で扱った。[PR #86](https://github.com/k-s-h-r/wcag-audit-kit/pull/86) · [T008](T008-machine-report.md) · [T004](T004-codex-invocation.md) · [T022](T022-url-to-process-audit.md) · [採用版での確認](../../validation/development/vision/README.md#初回実証の完了確認)
 
 [VISION](../VISION.md)の二つの成果物を、対象範囲の結論から使えるようにする。現行の報告は達成基準ごとの判定、未確認、`audit_complete` を持つ。検査が完了しても不適合はあり得るため、利用者に伝える結論を保存済みの判定・範囲・証拠から出せるか検証する。
 
