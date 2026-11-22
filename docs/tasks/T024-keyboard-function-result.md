@@ -1,6 +1,6 @@
 # T024 キー入力と機能の結果を照合する
 
-状態：実装・独立レビュー・前後の計測を完了。採用は[PR #87](https://github.com/k-s-h-r/wcag-audit-kit/pull/87)で確認する。前提：[T020のURL起点の実測](T020-url-only-machine-score.md)。関連：[T018](T018-widget-operation-sequences.md)・[T022](T022-url-to-process-audit.md)。
+数量変更の観察は `main` に採用済み。採用版の76ページ・87行をT020の基準値と照合し、3つの数量変更の結果を確認した。関連する操作経路はT018とT022に記録する。[PR #87](https://github.com/k-s-h-r/wcag-audit-kit/pull/87) · [T020](T020-url-only-machine-score.md) · [T018](T018-widget-operation-sequences.md) · [T022](T022-url-to-process-audit.md) · [採用版での確認](../../validation/development/vision/README.md#初回実証の完了確認)
 
 数量変更の問題例でクリック後は数量が増え、Enter後は増えなかった。現行の報告ではEnterの送出を記録できたところまでだった。ブラウザーに残った操作前後の証拠を使い、機能まで使えるかを確認する最初の対照とする。
 

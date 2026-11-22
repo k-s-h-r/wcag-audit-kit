@@ -128,3 +128,4 @@
 - [0125 予約カレンダーで次の空きまでの操作と発話を比べる](0125-measure-next-availability-in-a-calendar-review.md)
 - [0126 移動先の表示が残ったフォーカス操作を追試する](0126-revisit-blocked-focus-navigation.md)
 - [0128 検証した組み合わせでVISIONのPRを取り込む](0128-merge-the-vision-pull-requests-together.md)
+- [0129 採用した版でVISIONの初回実証を確認する](0129-confirm-the-first-vision-demonstration-on-main.md)

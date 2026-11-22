@@ -1,6 +1,6 @@
 # T023 つまずく場面と改善案を返す点検を試す
 
-状態は点検レポートとローカル試作の検証を完了し、[PR #89](https://github.com/k-s-h-r/wcag-audit-kit/pull/89)で提出。前提は[T022](T022-url-to-process-audit.md)で実際にたどった一経路の操作・観察記録。
+点検レポートとローカル試作は `main` に採用済み。T022でたどった一経路を使い、採用版でも同じキー入力で改善前後を再確認した。[PR #89](https://github.com/k-s-h-r/wcag-audit-kit/pull/89) · [T022](T022-url-to-process-audit.md) · [採用版での確認](../../validation/development/vision/README.md#初回実証の完了確認)
 
 [VISION](../VISION.md#アクセシビリティ点検モード)にある、開発や運営で使える点検を小さく試す。達成基準の判定を示すWCAG検査票と併用し、操作の負担を減らす案をチームが検討できるようにする。
 

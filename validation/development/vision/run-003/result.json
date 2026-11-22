@@ -1,0 +1,186 @@
+{
+  "implementation": "a65836a71ea498f15f5641bb31884eb633a14f7a",
+  "runtime_tree": "4f62c671dde2a50f957399d5280c16fa973e881c",
+  "scored_source": "43284c74afac2035895c99424330aafcfd810b31",
+  "environment": {
+    "system": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.12.14",
+    "chromium": "156.0.8078.79"
+  },
+  "unit_tests": 330,
+  "skills_synchronized": true,
+  "quantity": {
+    "corpus_digest": "b4dfb2dd019dc75e8ce34439daf3cd0e05af532da4ed62ca0b197be9d6da1206",
+    "pages": 76,
+    "rows": 87,
+    "previous_detections": 8,
+    "current_detections": 12,
+    "previous_controls": 14,
+    "current_controls": 19,
+    "regressions": 0,
+    "unexpected_scored_outcomes": 0,
+    "unmatched_findings": 14,
+    "changed_rows": [
+      {
+        "page": "030",
+        "checkpoint": "2.1.1-02",
+        "target": "#control",
+        "before": "observed_no_verdict",
+        "after": "matched"
+      },
+      {
+        "page": "031",
+        "checkpoint": "2.1.1-02",
+        "target": "#control",
+        "before": "observed_no_verdict",
+        "after": "detected"
+      },
+      {
+        "page": "032",
+        "checkpoint": "2.1.1-02",
+        "target": "#feature",
+        "before": "observed_no_verdict",
+        "after": "matched"
+      },
+      {
+        "page": "039",
+        "checkpoint": "2.1.2-02",
+        "target": "#panel",
+        "before": "observed_no_verdict",
+        "after": "matched"
+      },
+      {
+        "page": "040",
+        "checkpoint": "2.1.2-02",
+        "target": "#panel",
+        "before": "observed_no_verdict",
+        "after": "detected"
+      },
+      {
+        "page": "068",
+        "checkpoint": "2.5.8-02",
+        "target": "#target-a",
+        "before": "observed_no_verdict",
+        "after": "detected"
+      },
+      {
+        "page": "068",
+        "checkpoint": "2.5.8-02",
+        "target": "#target-b",
+        "before": "observed_no_verdict",
+        "after": "detected"
+      },
+      {
+        "page": "069",
+        "checkpoint": "2.5.8-02",
+        "target": "#target-a",
+        "before": "observed_no_verdict",
+        "after": "matched"
+      },
+      {
+        "page": "069",
+        "checkpoint": "2.5.8-02",
+        "target": "#target-b",
+        "before": "observed_no_verdict",
+        "after": "matched"
+      }
+    ],
+    "score_sha256": "d7d854d043ee499b1169a424b2b9c06d019c91aff27bf61caec6fbbb3cf4c071",
+    "baseline_sha256": "75240d9aec20986ac1ddbfd2f401564daf59c88b899dbad5ea5bb31e5ac7bc14"
+  },
+  "scope": {
+    "replayed": [
+      {
+        "case": "saved-good",
+        "status": "conforms",
+        "label": "適合",
+        "level": "AA",
+        "strict_exit": 0,
+        "counts": {
+          "inapplicable": 90,
+          "passed": 75
+        },
+        "proof_files_unchanged": 504,
+        "failed_cases": 0,
+        "remaining": 0
+      },
+      {
+        "case": "saved-bad",
+        "status": "does_not_conform",
+        "label": "不適合",
+        "level": "AA",
+        "strict_exit": 2,
+        "counts": {
+          "not_run": 162,
+          "failed": 3
+        },
+        "proof_files_unchanged": 93,
+        "failed_cases": 3,
+        "remaining": 2
+      },
+      {
+        "case": "synthetic-unconfirmed",
+        "status": "unverified",
+        "label": "未確認",
+        "level": "A",
+        "strict_exit": 2,
+        "counts": {
+          "not_run": 31
+        },
+        "proof_files_unchanged": 9,
+        "failed_cases": 0,
+        "remaining": 3
+      }
+    ],
+    "separate_host_answer_sha256": "1f0af9812122d315c16051c9ec140a9edc5e2eb4f11a5e09ec3a0d69073dd54a"
+  },
+  "process": {
+    "machine_matched": 1,
+    "observed_matched": 6,
+    "expected": 6,
+    "archived_observations_sha256": "03c77f80fb10116847948fd08160ac0a4565c329d4d8c2d7dd44cdde49c6ca66",
+    "regenerated": [
+      {
+        "entry": "http://127.0.0.1:43922/n2k/",
+        "covered_pages": [
+          "http://127.0.0.1:43922/n2k/",
+          "http://127.0.0.1:43922/n2k/schedule",
+          "http://127.0.0.1:43922/n2k/preview?attendees=2"
+        ],
+        "conclusion": "does_not_conform",
+        "failed_criteria": [
+          "2.1.1",
+          "2.5.3"
+        ],
+        "evidence_links": 15
+      },
+      {
+        "entry": "http://127.0.0.1:43922/j6w/",
+        "covered_pages": [
+          "http://127.0.0.1:43922/j6w/",
+          "http://127.0.0.1:43922/j6w/select",
+          "http://127.0.0.1:43922/j6w/verify?attendees=2"
+        ],
+        "conclusion": "unverified",
+        "failed_criteria": [],
+        "evidence_links": 13
+      }
+    ]
+  },
+  "review": {
+    "keystrokes": [
+      "Tab",
+      "Enter",
+      "Tab",
+      "Enter",
+      "Tab",
+      "Enter"
+    ],
+    "before_reached_confirmation": false,
+    "after_reached_confirmation": true,
+    "before_name": "詳細を見る",
+    "after_name": "予約内容を確認する",
+    "original_observations_sha256": "0023d3b95cb5fb4b41e58770cbadd519b3bb8d06f4af5e863d95ccbf815d2fa5",
+    "replay_sha256": "70b13318d2fa927833d91e8bfd24e3c87dd15b36f859bc6a7a85a5e07f6cb8af"
+  }
+}
