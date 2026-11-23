@@ -100,8 +100,31 @@ class CorpusTest(unittest.TestCase):
         self.assertTrue({core.RUNTIME/p for p in resource_files()}<=set(paths))
         self.assertTrue({ROOT/'skills'/name/'SKILL.md' for name in SKILLS}<=set(paths))
         self.assertTrue({ROOT/'skills'/name/'agents/openai.yaml' for name in SKILLS}<=set(paths))
+        self.assertTrue({ROOT/'benchmarks'/path for path in (
+            'run.py', 'url_only_machine.py', 'suite/core.py', 'suite/layout_versions.json',
+            'url_runs/scoring.py', 'measurements/residual_evidence.py',
+        )} <= set(paths))
         self.assertNotIn(ROOT/'SKILL.md',paths)
         self.assertNotIn(ROOT/'vendor/axe.min.js',paths)
+
+    def test_layout_compatibility_requires_exact_implementation_and_scorer_fingerprints(self):
+        from benchmarks.suite import layout, runner
+
+        sources = {'benchmarks/measurements/residual_evidence.py': 'verified source hash'}
+        table = {
+            'implementation': {'before': ['old implementation'], 'after': core.digest(sources)},
+            'suite_scorer': {'before': ['old scorer'], 'after': 'relocated scorer'},
+        }
+        sources['benchmarks/suite/layout_versions.json'] = 'table hash'
+        with patch.object(Path, 'read_text', return_value=json.dumps(table)), \
+                patch.object(runner, 'implementation_hashes', side_effect=lambda: sources.copy()):
+            self.assertTrue(runner.implementation_matches(core.digest(sources)))
+            self.assertTrue(runner.implementation_matches('old implementation'))
+            self.assertFalse(runner.implementation_matches('unrelated implementation'))
+            sources['benchmarks/measurements/residual_evidence.py'] = 'changed source hash'
+            self.assertFalse(runner.implementation_matches('old implementation'))
+            self.assertEqual(layout.scorer_digest('suite_scorer', 'relocated scorer'), 'old scorer')
+            self.assertEqual(layout.scorer_digest('suite_scorer', 'changed scorer'), 'changed scorer')
 
     def test_benchmark_cli_imports_runtime_in_a_fresh_process(self):
         import subprocess
@@ -133,7 +156,7 @@ class CorpusTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'absent.html'):core.corpus(target)
 
     def test_acquisition_contracts_cannot_contain_verdicts_or_silent_empty_lists(self):
-        from benchmarks import case_contracts
+        from benchmarks.suite import case_contracts
         case=dict(pages=['p01.html'],states=[{'id':'initial'}],checkpoints=['1.1.1-02'])
         item=dict(page='p01.html',state='initial',checkpoint='1.1.1-02',kind='inventory',targets=[],rationale='画像がない対照例。')
         case['evidence_expectations']=[item]
@@ -410,7 +433,7 @@ class ScoringTest(unittest.TestCase):
         self.assertTrue(all(not Path(row['evidence'][0]).is_absolute() for row in result.values()))
 
     def test_acquisition_expectations_cannot_become_a_conformance_pass(self):
-        from benchmarks import reporting
+        from benchmarks.suite import reporting
         contract=dict(checkpoint='1.1.1-02',page='p01.html',state='initial',kind='inventory',targets=['#one'],rationale='背景画像を見落とさず取得する。')
         run,meta,job,p=self.make_run(contract=contract)
         self.submit(run,meta,job,[self.observation(job,p),self.observation(job,p,target='#two',outcome='passed')])
@@ -461,7 +484,7 @@ class ScoringTest(unittest.TestCase):
         return run,meta,job,progress,folder/'inventory.json'
 
     def test_acquisition_matches_complete_initial_inventory_without_adding_a_verdict(self):
-        from benchmarks import reporting
+        from benchmarks.suite import reporting
         from openpyxl import load_workbook
         run,meta,job,progress,_ = self.make_inventory_run()
         result = core.score(run)
@@ -668,7 +691,7 @@ class ScoringTest(unittest.TestCase):
     def make_text_paint_run(self, *, mode='ai', enabled=True, weight=400, change=None):
         from PIL import Image
         from measure import contrast
-        from benchmarks import text_paint_evidence as method, text_paint_probe as probe
+        from benchmarks.measurements import text_paint_evidence as method, text_paint_probe as probe
 
         run, meta, job, progress = self.make_run(mode=mode, point=method.CHECKPOINT)
         page = job['pages'][0]
@@ -848,7 +871,7 @@ class ScoringTest(unittest.TestCase):
         return self.make_inventory_run(point='2.5.8-02', contract=contract, alter=geometry)
 
     def test_geometry_records_actual_dimensions_without_a_size_verdict(self):
-        from benchmarks import reporting
+        from benchmarks.suite import reporting
         from openpyxl import load_workbook
 
         for size in (16, 28):

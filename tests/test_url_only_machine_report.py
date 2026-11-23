@@ -6,7 +6,8 @@ from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
-from benchmarks import core, url_only_machine, url_only_machine_report as reporting, url_only_machine_score
+from benchmarks.suite import core
+from benchmarks.url_runs import machine as url_only_machine, report as reporting, scoring as url_only_machine_score
 
 
 def archive(path):

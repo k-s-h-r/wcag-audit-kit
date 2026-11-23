@@ -131,3 +131,4 @@
 - [0129 採用した版でVISIONの初回実証を確認する](0129-confirm-the-first-vision-demonstration-on-main.md)
 - [0130 URL起点のベンチマークで行ごとの改善と回帰を表示する](0130-report-url-only-benchmark-regressions.md)
 - [0131 URL起点のベンチマークで採点範囲と検出率を示す](0131-explain-url-only-benchmark-results.md)
+- [0132 ベンチマークの実装を用途ごとに配置する](0132-organize-benchmark-workflows.md)

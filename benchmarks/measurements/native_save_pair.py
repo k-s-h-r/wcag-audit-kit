@@ -6,7 +6,8 @@ from unicodedata import normalize
 from urllib.parse import urlsplit
 import uuid
 
-from . import core, runner, status_capture
+from ..suite import core, runner
+from . import status_capture
 
 CHECKPOINT = '4.1.3-02'
 RECORD_PAGES = {'p01.html', 'p02.html'}
@@ -136,7 +137,7 @@ def public_inputs(run, *, record_pair=False):
     metadata = core.load(run/'run.json')
     tasks = core.load(run/'worker/tasks.json')
     if (any(metadata[key] != tasks[key] for key in ('run_id', 'corpus_digest'))
-            or metadata['implementation_digest'] != runner.implementation_digest()):
+            or not runner.implementation_matches(metadata['implementation_digest'])):
         raise ValueError('現在の実装で作った新しい問題集runを指定する')
     modes = {mode for mode in metadata['modes'] if core.modes.MODES[mode]['screen_reader']}
     groups = {mode: [] for mode in modes}

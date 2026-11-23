@@ -95,7 +95,7 @@ def match_inline_size(plan, data, contract):
 
 
 def match(run, job, progress, contract, frozen, row):
-    from . import core
+    from ..suite import core
 
     page,state = row['page'],row['state']
     plans = residual_evidence.plans(job['criterion'],job['checkpoints'],job['states'])

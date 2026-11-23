@@ -1,7 +1,7 @@
 """Guard the bounds of the machine-only media observations."""
 import unittest
 
-from benchmarks import residual_media
+from benchmarks.measurements import residual_media
 
 
 class ResidualMediaTests(unittest.TestCase):

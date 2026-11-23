@@ -1,6 +1,6 @@
 import unittest
 
-from benchmarks import residual_structure
+from benchmarks.measurements import residual_structure
 
 
 class ResidualStructureTest(unittest.TestCase):

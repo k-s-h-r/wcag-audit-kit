@@ -5,7 +5,8 @@ from os.path import relpath
 from pathlib import Path
 from urllib.parse import quote
 
-from benchmarks import core, url_only, url_only_machine_score
+from ..suite import core, layout
+from . import exploration, scoring
 
 
 CORRECT = {'detected', 'matched'}
@@ -37,11 +38,12 @@ METRICS = {
 
 def scorer_digest():
     runtime = core.RUNTIME / 'scripts'
-    paths = [Path(module.__file__) for module in (url_only_machine_score, url_only)]
+    paths = [Path(module.__file__) for module in (scoring, exploration)]
     paths += [runtime / f'{name}.py' for name in (
         'combobox', 'dialog_focus', 'keyboard_checks', 'keyboard_function', 'keyboard_trap', 'target_spacing',
     )]
-    return core.digest({path.name: core.file_hash(path) for path in paths})
+    fingerprint = core.digest({path.name: core.file_hash(path) for path in paths})
+    return layout.scorer_digest('url_scorer', fingerprint)
 
 
 def summary(score):
@@ -187,7 +189,7 @@ def scope_table(criterion, scope, rows, checkpoints):
         points = scored.get(page)
         included = []
         for point, count in sorted((points or {}).items()):
-            rule = url_only_machine_score.AXE_RULES.get(point)
+            rule = scoring.AXE_RULES.get(point)
             description = f'axe / {rule}' if rule else checkpoints.get(point, '')
             included.append(f'{escape(point)}（{count}件） {escape(description)}')
         omitted = '<br>'.join(f'{escape(point)} {SCOPE_REASON[group]}' for point, group in sorted(exceptions))

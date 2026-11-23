@@ -28,7 +28,7 @@ def binding(meta, job, page, selector, source_digest):
 
 
 def collect(run, meta, job, page, attempt):
-    from . import core
+    from ..suite import core
 
     if not enabled(meta, job):
         return
@@ -61,7 +61,7 @@ def enabled(meta, job):
 
 def remeasure(run, output, measurement, frozen):
     """Recalculate the result from the fixed seven frames rather than trusting their reported verdict."""
-    from . import core
+    from ..suite import core
     from .text_paint_probe import CAPTURE_STAGES, Held, RESULT_SCOPE, RGB, VIEWPORT, analyze_frames
     from PIL import Image
 
@@ -114,7 +114,7 @@ def remeasure(run, output, measurement, frozen):
 
 
 def predictions(run, meta, job, progress, frozen):
-    from . import core
+    from ..suite import core
 
     if not enabled(meta, job):
         return {}
