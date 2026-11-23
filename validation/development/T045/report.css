@@ -1,0 +1,55 @@
+:root {
+  color-scheme: light;
+  color: #162d38;
+  background: #f8fafb;
+  font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.65;
+}
+* { box-sizing: border-box; }
+body { margin: 0; overflow-wrap: anywhere; }
+main { max-width: 70rem; margin: auto; padding: 2rem clamp(1rem, 4vw, 3rem) 4rem; }
+header { border-block-end: 2px solid #15665e; padding-block-end: 1.25rem; }
+nav { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-block-end: 1.5rem; }
+h1 { font-size: clamp(1.65rem, 4vw, 2.6rem); line-height: 1.25; margin: .35rem 0 .75rem; }
+h2 { font-size: 1.4rem; margin-block: 2rem .5rem; }
+h3 { font-size: 1.12rem; margin-block: 1.5rem .5rem; }
+p, ul { margin-block: .5rem; }
+ul { padding-inline-start: 1.35em; }
+a { color: #075b80; text-underline-offset: .14em; }
+:focus-visible { outline: 3px solid #075b80; outline-offset: 3px; }
+.draft { color: #3c575f; margin: 0; }
+.subject { font-size: 1.1rem; margin-block-end: 1rem; }
+.status { font-weight: 700; }
+.failed { color: #9c2736; }
+.unverified { color: #744815; }
+.passed { color: #15665e; }
+dl { display: grid; grid-template-columns: fit-content(35%) minmax(0, 1fr); gap: .25rem 1.25rem; margin: 0; }
+dt { font-weight: 700; }
+dd { margin: 0; }
+table { width: 100%; table-layout: fixed; border-collapse: collapse; background: #fff; }
+caption { text-align: start; margin-block-end: .35rem; font-weight: 700; }
+th, td { text-align: start; vertical-align: top; padding: .6rem; border: 1px solid #b9cbd0; }
+thead { background: #e8f1f2; }
+th:first-child { width: 34%; }
+th:nth-child(2) { width: 21%; }
+.remarks { white-space: pre-line; }
+.proof { margin-block-start: .35rem; }
+@media (max-width: 38rem) {
+  th, td { padding: .35rem; }
+  dl { column-gap: .65rem; }
+}
+@page {
+  size: A4 landscape;
+  margin: 14mm;
+  @bottom-right { content: counter(page) " / " counter(pages); }
+}
+@media print {
+  :root, table { background: white; color: #142731; line-height: 1.45; }
+  main { padding: 0; max-width: none; }
+  .screen-only { display: none; }
+  h1 { font-size: 26pt; }
+  h2, h3, caption { break-after: avoid; }
+  .remaining { break-inside: avoid; }
+  tr { break-inside: avoid; }
+  th, td { padding: .3rem .45rem; }
+}
