@@ -55,6 +55,26 @@ python3 benchmarks/url_only.py --out /project/bench-url-only-001
 
 上のコマンドはT017の8ページの比較です。76ページ・全87行の測定には `benchmarks/url_only_machine.py` を使います。公開ページを収集した後、同じプログラムの `--score` で収集時に報告された結果を採点します。[T020の測定結果と再実行手順](../validation/development/T020/README.md)
 
+### 一括で採点し前回と比較する
+
+`--report` を付けると、76ページの収集、87行の採点、HTMLの出力を一つのコマンドで実行します。修正前に `before` を採り、修正後には同じ条件で新しい `after` へ出力します。
+
+```sh
+python3 benchmarks/url_only_machine.py --out /project/before --workers 6 --report
+
+python3 benchmarks/url_only_machine.py --out /project/after --workers 6 --report \
+  --baseline /project/before/score.json
+```
+
+`score.html` で、期待と一致した行と判定が出た行の分子・分母、問題の検出・対照の一致、未確認の内訳を確認できます。前回との差には、正解を失った行などの回帰と、初めて正解になった行が並びます。合計が同じでも、行が入れ替われば差が出ます。終了コード1は回帰あり、2は比較条件の不一致などで実行できなかったことを示します。既存の未確認は一覧に残ります。
+
+既存runからレポートを作るときは、`--score` に新しいJSONのパスを指定します。同じ場所に拡張子 `.html` のレポートを出力します。以前の採点JSONも基準にできます。比較の条件と、以前の記録で確認できる情報はADRを参照してください。[比較の条件](../docs/adr/0130-report-url-only-benchmark-regressions.md)
+
+```sh
+python3 benchmarks/url_only_machine.py --out /project/after --report \
+  --score /project/after-compared.json --baseline /project/before/score.json
+```
+
 ## ページと正解を分ける
 
 ```text
