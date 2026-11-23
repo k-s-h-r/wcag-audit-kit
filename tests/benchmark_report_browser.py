@@ -27,7 +27,7 @@ def main(report,out):
         assert book['基準とモードの実測範囲'].max_row==87
         grade_header,*grade_rows=list(book['採点結果'].values)
         grades=Counter(row[grade_header.index('採点')] for row in grade_rows)
-        from benchmarks.reporting import LABEL, VERIFICATION_LABEL
+        from benchmarks.suite.reporting import LABEL, VERIFICATION_LABEL
         assert dict(grades)=={LABEL[k]:v for k,v in value['counts'].items()}
         for expected,observed in zip(value['rows'],grade_rows):
             assert observed[grade_header.index('必要な検査手段')]==VERIFICATION_LABEL[expected['verification_group']]

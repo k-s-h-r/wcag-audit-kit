@@ -3,7 +3,7 @@
 import copy
 import unittest
 
-from benchmarks import residual_keyboard as keyboard
+from benchmarks.measurements import residual_keyboard as keyboard
 
 
 class ResidualKeyboardTest(unittest.TestCase):

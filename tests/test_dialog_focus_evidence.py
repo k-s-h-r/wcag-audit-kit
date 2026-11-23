@@ -3,7 +3,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from benchmarks import core, dialog_focus_evidence as focus
+from benchmarks.suite import core
+from benchmarks.measurements import dialog_focus_evidence as focus
 
 
 class DialogFocusEvidenceTest(unittest.TestCase):

@@ -6,7 +6,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from benchmarks import native_save_pair as pair
+from benchmarks.measurements import native_save_pair as pair
 from orca_log import speech_in_window
 
 

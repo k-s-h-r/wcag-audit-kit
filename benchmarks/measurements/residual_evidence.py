@@ -150,7 +150,7 @@ def binding(job, page, state, config_digest):
 
 
 def fixture_set(frozen, criterion):
-    from . import core
+    from ..suite import core
 
     prefix = f'worker/public/{criterion}/'
     files = {name.removeprefix('worker/public'): digest for name,digest in frozen.items() if name.startswith(prefix)}
@@ -158,7 +158,7 @@ def fixture_set(frozen, criterion):
 
 
 def collect(run, job, page, location):
-    from . import core
+    from ..suite import core
 
     declared = plans(job['criterion'], job['checkpoints'], job['states'])
     if not declared:
@@ -176,7 +176,7 @@ def collect(run, job, page, location):
 
 
 def read_measurement(run, job, page, state, attempt, digest, frozen):
-    from . import core
+    from ..suite import core
 
     path = attempt.parent / f'{FILE_PREFIX}{state}.json'
     measurement = core.read_frozen(run,path,frozen) or {}
@@ -186,7 +186,7 @@ def read_measurement(run, job, page, state, attempt, digest, frozen):
 
 
 def predictions(run, job, progress, frozen):
-    from . import core
+    from ..suite import core
 
     criterion = job['criterion']
     declared = plans(criterion, job['checkpoints'], job.get('states', []))

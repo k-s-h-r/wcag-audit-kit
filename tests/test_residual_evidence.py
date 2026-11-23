@@ -5,8 +5,9 @@ from urllib.parse import urlsplit
 import unittest
 from unittest.mock import patch
 
-from benchmarks import core, residual_evidence
-from benchmarks.residual_focus_context import evaluate
+from benchmarks.suite import core
+from benchmarks.measurements import residual_evidence
+from benchmarks.measurements.residual_focus_context import evaluate
 
 
 class ResidualEvidenceTest(unittest.TestCase):

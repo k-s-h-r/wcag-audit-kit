@@ -1,7 +1,8 @@
 import copy
 import unittest
 
-from benchmarks import core, residual_acquisition as acquisition
+from benchmarks.suite import core
+from benchmarks.measurements import residual_acquisition as acquisition
 
 
 URL = 'http://127.0.0.1:8000/2.4.3/p05.html'

@@ -98,7 +98,7 @@ def observed_row(record, transition, inputs, plan, route, url):
 
 
 def predictions(run, job, progress, frozen):
-    from . import core
+    from ..suite import core
 
     declared = plans(job['criterion'], job['checkpoints'], job.get('states', []))
     if not declared:

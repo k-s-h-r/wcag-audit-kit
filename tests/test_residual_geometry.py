@@ -5,7 +5,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'skills/wcag-audit-kit/scripts'))
 
-from benchmarks import residual_geometry as geometry
+from benchmarks.measurements import residual_geometry as geometry
 
 
 class ResidualGeometryTest(unittest.TestCase):
