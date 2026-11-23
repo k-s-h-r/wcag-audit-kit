@@ -3,6 +3,7 @@
 import argparse
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import ExitStack
 from importlib.metadata import version
 import json
 from pathlib import Path
@@ -102,23 +103,66 @@ def collect(output, workers):
         http.server_close()
 
 
-if __name__ == '__main__':
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--workers', type=int, default=4)
     parser.add_argument('--score', type=Path, metavar='RESULT_JSON',
                         help='score a collected run and save the result at a new path')
-    args = parser.parse_args()
-    if args.score:
+    parser.add_argument('--report', action='store_true', help='write the score and an HTML report')
+    parser.add_argument('--baseline', type=Path, metavar='SCORE_JSON', help='compare with an earlier score in the report')
+    args = parser.parse_args(argv)
+    if args.baseline and not args.report:
+        parser.error('--baseline requires --report')
+    if not args.score and args.workers < 1:
+        parser.error('--workers must be positive')
+
+    output = args.out.resolve()
+    score_path = (args.score or output / 'score.json').resolve()
+    html_path = score_path.with_suffix('.html')
+    try:
+        baseline = core.load(args.baseline) if args.baseline else None
+        if args.baseline and not isinstance(baseline, dict):
+            raise ValueError('基準にURL起点の採点JSONを指定してください')
+        if args.report and (score_path == html_path or score_path.exists() or html_path.exists()):
+            raise ValueError('採点JSONとHTMLの新しい出力先を指定してください')
+        if not args.score:
+            collect(output, args.workers)
+        if not (args.score or args.report):
+            return 0
+
         from benchmarks.url_only_machine_score import score
 
-        result = score(args.out.resolve())
-        with args.score.open('x') as stream:
-            json.dump(result, stream, ensure_ascii=False, indent=2)
-            print(file=stream)
-        print(json.dumps({key: result[key] for key in ('completed_pages', 'problems', 'controls')},
-                         ensure_ascii=False, indent=2))
-    else:
-        if args.workers < 1:
-            parser.error('--workers must be positive')
-        collect(args.out.resolve(), args.workers)
+        result = score(output)
+        console = {key: result[key] for key in ('completed_pages', 'problems', 'controls')}
+        report = None
+        if args.report:
+            from benchmarks import url_only_machine_report as reporting
+
+            result['scorer_digest'] = reporting.scorer_digest()
+            result['summary'] = reporting.summary(result)
+            console['summary'] = result['summary']
+            if baseline is not None:
+                result['comparison'] = reporting.compare(baseline, result)
+                console['comparison'] = {key: len(result['comparison'][key]) for key in
+                                         ('regressions', 'improvements', 'other_changes')}
+            report = reporting.render(result, output, html_path, score_path.name)
+            console['files'] = dict(json=str(score_path), html=str(html_path))
+        with ExitStack() as rollback:
+            with score_path.open('x', encoding='utf-8') as stream:
+                rollback.callback(score_path.unlink, missing_ok=True)
+                json.dump(result, stream, ensure_ascii=False, indent=2)
+                print(file=stream)
+            if report is not None:
+                with html_path.open('x', encoding='utf-8') as stream:
+                    rollback.callback(html_path.unlink, missing_ok=True)
+                    stream.write(report)
+            rollback.pop_all()
+        print(json.dumps(console, ensure_ascii=False, indent=2))
+        return int(bool(result.get('comparison', {}).get('regressions')))
+    except (ValueError, OSError, KeyError, TypeError) as error:
+        parser.error(str(error))
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())
